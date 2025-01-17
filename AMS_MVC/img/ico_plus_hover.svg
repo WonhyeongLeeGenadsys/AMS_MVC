@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" viewBox="0 0 20 20">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #0051a2;
+      }
+    </style>
+  </defs>
+  <!-- Generator: Adobe Illustrator 28.7.1, SVG Export Plug-In . SVG Version: 1.2.0 Build 142)  -->
+  <g>
+    <g id="Layer_1">
+      <path class="cls-1" d="M10,1.5c4.69,0,8.5,3.81,8.5,8.5s-3.81,8.5-8.5,8.5S1.5,14.69,1.5,10,5.31,1.5,10,1.5M10,0C4.48,0,0,4.48,0,10s4.48,10,10,10,10-4.48,10-10S15.52,0,10,0h0Z"/>
+      <rect class="cls-1" x="9" y="4.02" width="2" height="12"/>
+      <rect class="cls-1" x="8.82" y="4" width="2" height="12" transform="translate(19.82 .18) rotate(90)"/>
+    </g>
+  </g>
+</svg>

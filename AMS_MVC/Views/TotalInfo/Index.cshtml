@@ -1,0 +1,1046 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_TotalInfoMenu")
+}
+
+@section MainContent {
+    <h1>
+        종합정보
+        <a href="javascript:openPop('/Location/Index','900','600')" class="btn blue map tooltip" data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>
+    </h1>
+    <!--전체 박스-->
+    <div class="box_wrap">
+        <!--건전도-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>건전도</h2>
+            <!--//타이틀-->
+            <ul class="chart">
+                <li>
+                    <!--그래프-->
+                    @*AC-VCB 도넛 차트*@
+                    <div id="pie01" class="chart_box"></div>
+                    <!--//그래프-->
+                    <!--그래프 타이틀-->
+                    <div class="title">
+                        AC-VCB
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            // 서버에서 데이터를 가져오는 함수
+                            function fetchVCBData() {
+                                return $.ajax({
+                                    type: "POST",
+                                    url: "TotalInfo/GetRiskmatrixData",
+                                    data: JSON.stringify({ prefix: "V" }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json"
+                                });
+                            }
+
+                            // dxPieChart 생성 함수
+                            function initializePieChart(data) {
+                                $('#pie01').dxPieChart({
+                                    type: 'doughnut',
+                                    palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                                    dataSource: data,
+                                    legend: {
+                                        visible: false
+                                    },
+                                    onPointClick(arg) {
+                                        arg.target.select();
+                                    },
+                                    series: [{
+                                        argumentField: 'state',
+                                        valueField: 'value',
+                                        label: {
+                                            visible: true,
+                                            format: 'fixedPoint', //고점 소수점 형식으로 표시
+                                            precision: 0, // 소수점 이하 0자리
+                                            connector: {
+                                                visible: true,
+                                            },
+                                        },
+                                    }],
+                                    size: {
+                                        width: 270,
+                                        height: 270
+                                    },
+                                    innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
+                                });
+                            }
+
+                            // 데이터를 가져와 차트에 적용
+                            fetchVCBData()
+                                .done(function (response) {
+                                    if (response && response.d) {
+                                        const serverData = JSON.parse(response.d);
+
+                                        // POF 데이터를 처리하여 동일한 POF 값은 합산
+                                        const pofSummary = summarizePOFData(serverData);
+
+                                        initializePieChart(pofSummary);
+                                    } else {
+                                        alert("VCB 데이터를 가져오는 데 실패했습니다.");
+                                    }
+                                })
+                                .fail(function (xhr, status, error) {
+                                    console.error("Ajax Error:", error);
+                                    alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
+                                });
+
+                            // POF 데이터를 합산하여 요약하는 함수
+                            function summarizePOFData(data) {
+                                const summary = {};
+
+                                data.forEach(item => {
+                                    const state = getStateByPof(item.Pof);
+                                    if (summary[state]) {
+                                        summary[state] += 1; // 동일 상태 값 증가
+                                    } else {
+                                        summary[state] = 1; // 새로운 상태 초기화
+                                    }
+                                });
+
+                                // 요약된 데이터를 차트 형식에 맞게 변환
+                                return Object.keys(summary).map(state => ({
+                                    state: state,
+                                    value: summary[state]
+                                }));
+                            }
+
+                            // POF 값에 따라 상태를 반환하는 함수
+                            function getStateByPof(pof) {
+                                switch (parseInt(pof)) {
+                                    case 1: return 'Very Good';
+                                    case 2: return 'Good';
+                                    case 3: return 'Fair';
+                                    case 4: return 'Poor';
+                                    case 5: return 'Very Poor';
+                                    default: return 'Unknown';
+                                }
+                            }
+                        });
+                    </script>
+                </li>
+                <li>
+                    @*AC-Interface TR*@
+                    <div id="pie02" class="chart_box"></div>
+                    <!--그래프 타이틀-->
+                    <div class="title">
+                        AC-Interface TR
+                    </div>
+                    <script>
+                        $(document).ready(function () {
+                            // 서버에서 데이터를 가져오는 함수
+                            function fetchITRData() {
+                                return $.ajax({
+                                    type: "POST",
+                                    url: "TotalInfo/GetRiskmatrixData",
+                                    data: JSON.stringify({ prefix: "I" }),
+                                    contentType: "application/json; charset=utf-8",
+                                    dataType: "json"
+                                });
+                            }
+
+                            // dxPieChart 생성 함수
+                            function initializePieChart(data) {
+                                $('#pie02').dxPieChart({
+                                    type: 'doughnut',
+                                    palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                                    dataSource: data,
+                                    legend: {
+                                        visible: false
+                                    },
+                                    onPointClick(arg) {
+                                        arg.target.select();
+                                    },
+                                    series: [{
+                                        argumentField: 'state',
+                                        valueField: 'value',
+                                        label: {
+                                            visible: true,
+                                            format: 'fixedPoint', //고점 소수점 형식으로 표시
+                                            precision: 0, // 소수점 이하 0자리
+                                            connector: {
+                                                visible: true,
+                                            },
+                                        },
+                                    }],
+                                    size: {
+                                        width: 270,
+                                        height: 270
+                                    },
+                                    innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
+                                });
+                            }
+
+                            // 데이터를 가져와 차트에 적용
+                            fetchITRData()
+                                .done(function (response) {
+                                    if (response && response.d) {
+                                        const serverData = JSON.parse(response.d);
+
+                                        // POF 데이터를 처리하여 동일한 POF 값은 합산
+                                        const pofSummary = summarizePOFData(serverData);
+
+                                        initializePieChart(pofSummary);
+                                    } else {
+                                        alert("ITR 데이터를 가져오는 데 실패했습니다.");
+                                    }
+                                })
+                                .fail(function (xhr, status, error) {
+                                    console.error("Ajax Error:", error);
+                                    alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
+                                });
+
+                            // POF 데이터를 합산하여 요약하는 함수
+                            function summarizePOFData(data) {
+                                const summary = {};
+
+                                data.forEach(item => {
+                                    const state = getStateByPof(item.Pof);
+                                    if (summary[state]) {
+                                        summary[state] += 1; // 동일 상태 값 증가
+                                    } else {
+                                        summary[state] = 1; // 새로운 상태 초기화
+                                    }
+                                });
+
+                                // 요약된 데이터를 차트 형식에 맞게 변환
+                                return Object.keys(summary).map(state => ({
+                                    state: state,
+                                    value: summary[state]
+                                }));
+                            }
+
+                            // POF 값에 따라 상태를 반환하는 함수
+                            function getStateByPof(pof) {
+                                switch (parseInt(pof)) {
+                                    case 1: return 'Very Good';
+                                    case 2: return 'Good';
+                                    case 3: return 'Fair';
+                                    case 4: return 'Poor';
+                                    case 5: return 'Very Poor';
+                                    default: return 'Unknown';
+                                }
+                            }
+                        });
+                    </script>
+                </li>
+                <li>
+                    <div id="pie03" class="chart_box"></div>
+                    <!--그래프 타이틀-->
+                    <div class="title">
+                        DC-Sub Module
+                    </div>
+                    <script>
+                        $(() => {
+                            $('#pie03').dxPieChart({
+                                type: 'doughnut',
+                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                                dataSource: customers03,
+                                legend: {
+                                    visible: false
+                                },
+                                onPointClick(arg) {
+                                    arg.target.select();
+                                },
+                                series: [{
+                                    argumentField: 'state',
+                                    valueField: 'value',
+                                    label: {
+                                        visible: true,
+                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
+                                        precision: 0, // 소수점 이하 0자리
+                                        connector: {
+                                            visible: true,
+                                        },
+                                    },
+                                }],
+                                size: {
+                                    width: 270,
+                                    height: 270
+                                },
+                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
+                            });
+                        });
+                        const customers03 = [{
+                            state: 'Very Good',
+                            value: 1,
+                        }, {
+                            state: 'Good',
+                            value: 2,
+                        }, {
+                            state: 'Fair',
+                            value: 3,
+                        }, {
+                            state: 'Poor',
+                            value: 4,
+                        }, {
+                            state: 'Very Poor',
+                            value: 5,
+                        },];
+                    </script>
+                </li>
+                <li>
+                    <div id="pie04" class="chart_box"></div>
+                    <!--그래프 타이틀-->
+                    <div class="title">
+                        DC-DCCB
+                    </div>
+                    <script>
+                        $(() => {
+                            $('#pie04').dxPieChart({
+                                type: 'doughnut',
+                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                                dataSource: customers04,
+                                legend: {
+                                    visible: false
+                                },
+                                onPointClick(arg) {
+                                    arg.target.select();
+                                },
+                                series: [{
+                                    argumentField: 'state',
+                                    valueField: 'value',
+                                    label: {
+                                        visible: true,
+                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
+                                        precision: 0, // 소수점 이하 0자리
+                                        connector: {
+                                            visible: true,
+                                        },
+                                    },
+                                }],
+                                size: {
+                                    width: 270,
+                                    height: 270
+                                },
+                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
+                            });
+                        });
+                        const customers04 = [{
+                            state: 'Very Good',
+                            value: 1000,
+                        }, {
+                            state: 'Good',
+                            value: 2000,
+                        }, {
+                            state: 'Fair',
+                            value: 3000,
+                        }, {
+                            state: 'Poor',
+                            value: 4000,
+                        }, {
+                            state: 'Very Poor',
+                            value: 5000,
+                        },];
+                    </script>
+                </li>
+                <li>
+                    <div id="pie05" class="chart_box"></div>
+                    <!--그래프 타이틀-->
+                    <div class="title">
+                        DC-DC Cable
+                    </div>
+                    <script>
+                        $(() => {
+                            $('#pie05').dxPieChart({
+                                type: 'doughnut',
+                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                                dataSource: customers05,
+                                legend: {
+                                    visible: false
+                                },
+                                onPointClick(arg) {
+                                    arg.target.select();
+                                },
+                                series: [{
+                                    argumentField: 'state',
+                                    valueField: 'value',
+                                    label: {
+                                        visible: true,
+                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
+                                        precision: 0, // 소수점 이하 0자리
+                                        connector: {
+                                            visible: true,
+                                        },
+                                    },
+                                }],
+                                size: {
+                                    width: 270,
+                                    height: 270
+                                },
+                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
+                            });
+                        });
+                        const customers05 = [{
+                            state: 'Very Good',
+                            value: 80000,
+                        }, {
+                            state: 'Good',
+                            value: 20000,
+                        }, {
+                            state: 'Fair',
+                            value: 10000,
+                        }, {
+                            state: 'Poor',
+                            value: 10000,
+                        }, {
+                            state: 'Very Poor',
+                            value: 20000,
+                        },];
+                    </script>
+                </li>
+
+            </ul>
+            <ul class="valuee">
+                <li><span class="verygood"></span><strong>Very Good</strong></li>
+                <li><span class="good"></span><strong>Good</strong></li>
+                <li><span class="fair"></span><strong>Fair</strong></li>
+                <li><span class="poor"></span><strong>Poor</strong></li>
+                <li><span class="verypoor"></span><strong>Very Poor</strong></li>
+            </ul>
+        </div>
+        <!--//건전도-->
+        <!--risk matrix-->
+        <div class="con_box flex1">
+            <!--타이틀-->
+            <h2>
+                Risk Matrix
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--메트릭스-->
+            <div class="matrix">
+                <!--메트릭스좌측-->
+                <div class="matrix_left">
+                    <h3 class="left tit">PoF</h3>
+                    <ul class="left txt">
+                        <li>Very Poor</li>
+                        <li>Poor</li>
+                        <li>Fair</li>
+                        <li>Good</li>
+                        <li>Very Good</li>
+                    </ul>
+                </div>
+                <!--//메트릭스좌측-->
+                <!--그래프-->
+                <ul class="value">
+                    <!-- Very Poor 행 -->
+                    <li data-position="4,0" class="good">0</li>
+                    <li data-position="4,1" class="fair">0</li>
+                    <li data-position="4,2" class="fair">0</li>
+                    <li data-position="4,3" class="poor">0</li>
+                    <li data-position="4,4" class="verypoor">0</li>
+                    <!-- Poor 행 -->
+                    <li data-position="3,0" class="good">0</li>
+                    <li data-position="3,1" class="fair">0</li>
+                    <li data-position="3,2" class="fair">0</li>
+                    <li data-position="3,3" class="poor">0</li>
+                    <li data-position="3,4" class="verypoor">0</li>
+                    <!-- Fair 행 -->
+                    <li data-position="2,0" class="good">0</li>
+                    <li data-position="2,1" class="fair">0</li>
+                    <li data-position="2,2" class="fair">0</li>
+                    <li data-position="2,3" class="poor">0</li>
+                    <li data-position="2,4" class="verypoor">0</li>
+                    <!-- Good 행 -->
+                    <li data-position="1,0" class="verygood">0</li>
+                    <li data-position="1,1" class="good">0</li>
+                    <li data-position="1,2" class="good">0</li>
+                    <li data-position="1,3" class="fair">0</li>
+                    <li data-position="1,4" class="verypoor">0</li>
+                    <!-- Very Good 행 -->
+                    <li data-position="0,0" class="verygood">0</li>
+                    <li data-position="0,1" class="good">0</li>
+                    <li data-position="0,2" class="good">0</li>
+                    <li data-position="0,3" class="fair">0</li>
+                    <li data-position="0,4" class="poor">0</li>
+                </ul>
+                <!--//그래프-->
+                <!--메트릭스푸터-->
+                <div class="matrix_bottom">
+                    <ul class="bottom txt">
+                        <li>Very good</li>
+                        <li>good</li>
+                        <li>Fair</li>
+                        <li>Poor</li>
+                        <li>Very Poor</li>
+                    </ul>
+                    <h3 class="bottom_t tit">CoF</h3>
+                </div>
+                <!--//메트릭스푸터-->
+            </div>
+            <script>
+                $(document).ready(function () {
+                    // 서버에서 데이터를 가져오는 함수
+                    function fetchRiskMatrixData() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "TotalInfo/GetRiskMatrixPofCof",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+                    // 데이터를 가져와 HTML에 반영
+                    fetchRiskMatrixData()
+                        .done(function (response) {
+                            const matrixData = response.d;
+
+                            // 각 li 태그 업데이트
+                            $('.value li').each(function () {
+                                const position = $(this).data('position'); // e.g., "0,0"
+                                const value = matrixData[position] || 0;   // 해당 위치 값
+                                $(this).text(value);                      // li 텍스트 업데이트
+                            });
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Risk Matrix 데이터를 가져오는 중 오류:", error);
+                        });
+                });
+            </script>
+        </div>
+        <!--//risk matrix-->
+        <!--우선순위-->
+        <div class="con_box flex2">
+            <!--타이틀-->
+            <h2>
+                우선순위
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--그리드-->
+            <div id="gridContainer" class="grid_wrap" style="height: 250px;"></div>
+            <!--//그리드-->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // 서버에서 우선순위 데이터를 가져오는 함수
+                    function fetchPriorityInfo() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "TotalInfo/GetPriorityInfo",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    // 데이터를 가져와 DataGrid에 적용
+                    fetchPriorityInfo()
+                        .done(function (response) {
+                            const priorityData = JSON.parse(response.d);
+                            initializePriorityGrid(priorityData);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                        });
+
+                    // DataGrid 초기화 함수
+                    function initializePriorityGrid(data) {
+                        $('#gridContainer').dxDataGrid({
+                            dataSource: data,
+                            columnFixing: {
+                                enabled: true,
+                            },
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Sort', caption: '구분', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
+                                { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
+                                { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
+                                { dataField: 'CoF', caption: 'CoF', alignment: 'center' },
+                                { dataField: 'PoF', caption: 'PoF', alignment: 'center' },
+                            ],
+                            showBorders: true,
+                            sorting: {
+                                mode: 'multiple',
+                            },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--//우선순위-->
+        <!--점검-->
+        <div class="con_box flex2 schedule">
+            <!--타이틀-->
+            <h2>
+                점검
+                <p class="schedule_value">
+                    <span class="confirmed">보통점검</span>
+                    <span class="risk">정밀점검</span>
+                    @*<span class="created">To be Created</span>*@
+                </p>
+                <p class="month_select">
+                    <a href="javacript:void(0);" class="arrow prev">이전달</a>
+                    <span>2024 - 11</span>
+                    <a href="javacript:void(0);" class="arrow next">다음달</a>
+                </p>
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--컨텐츠-->
+            <div class="schedule_table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2"></th>
+                            <th>1</th>
+                            <th>2</th>
+                            <th>3</th>
+                            <th>4</th>
+                            <th>5</th>
+                            <th>6</th>
+                            <th>7</th>
+                            <th>8</th>
+                            <th>9</th>
+                            <th>10</th>
+                            <th>11</th>
+                            <th>12</th>
+                            <th>13</th>
+                            <th>14</th>
+                            <th>15</th>
+                            <th>16</th>
+                            <th>17</th>
+                            <th>18</th>
+                            <th>19</th>
+                            <th>20</th>
+                            <th>21</th>
+                            <th>22</th>
+                            <th>23</th>
+                            <th>24</th>
+                            <th>25</th>
+                            <th>26</th>
+                            <th>27</th>
+                            <th>28</th>
+                            <th>29</th>
+                            <th>30</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <th>
+                                VCB
+                            </th>
+                            <td>0001</td>
+                            <td>
+                                <span class="bar confirmed" style="width: 100px"></span>
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                VCB
+                            </th>
+                            <td>0002</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar confirmed" style="width: 100px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                VCB
+                            </th>
+                            <td>0003</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar confirmed" style="width: 200px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                VCB
+                            </th>
+                            <td>0004</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar confirmed" style="width: 200px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                VCB
+                            </th>
+                            <td>0005</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar confirmed" style="width: 200px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Interface TR
+                            </th>
+                            <td>0001</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar risk" style="width: 200px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>
+                                Interface TR
+                            </th>
+                            <td>0002</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><span class="bar risk" style="width: 200px"></span></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <!--//컨텐츠-->
+        </div>
+        <!--//점검-->
+        <!--유지보수-->
+        <div class="con_box flex1">
+            <!--타이틀-->
+            <h2>
+                유지보수
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--챠트-->
+            <div id="chart"></div>
+            <!--//챠트-->
+            <script>
+                $(document).ready(function () {
+                    // 서버에서 데이터를 가져오는 함수
+                    function fetchMaintenanceData() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "TotalInfo/GetMonthlyMaintenanceData",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    // 데이터를 가져와 차트를 초기화
+                    fetchMaintenanceData()
+                        .done(function (response) {
+                            const rawData = typeof response.d === "string" ? JSON.parse(response.d) : response.d;
+                            console.log("Parsed data:", rawData);
+
+                            const data = processChartData(rawData);
+
+                            renderMonthlyMaintenanceChart(data);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                        });
+
+                    // 데이터를 월별로 정리하는 함수
+                    function processChartData(rawData) {
+                        const groupedData = {};
+
+                        rawData.forEach(item => {
+                            const month = item.Month;
+                            if (!groupedData[month]) {
+                                groupedData[month] = { Month: month, VCB: 0, InterfaceTR: 0 };
+                            }
+                            if (item.Type === "VCB") {
+                                groupedData[month].VCB += item.Count;
+                            } else if (item.Type === "Interface TR") {
+                                groupedData[month].InterfaceTR += item.Count;
+                            }
+                        });
+                        // 객체를 배열로 변환
+                        return Object.values(groupedData);
+                    }
+
+                    // 차트를 렌더링하는 함수
+                    function renderMonthlyMaintenanceChart(data) {
+                        $("#chart").dxChart({
+                            dataSource: data,
+                            commonSeriesSettings: {
+                                argumentField: "Month",
+                                type: "bar"
+                            },
+                            legend: {
+                                visible: true,
+                                position: "bottom"
+                            },
+                            tooltip: {
+                                enabled: true,
+                                customizeTooltip: function (arg) {
+                                    return {
+                                        text: `${arg.seriesName} - ${arg.argumentText}월: ${arg.valueText}건`
+                                    };
+                                }
+                            },
+                            series: [
+                                {
+                                    name: "VCB",
+                                    valueField: "VCB",
+                                    color: "#0051A2" // 파란색
+                                },
+                                {
+                                    name: "Interface TR",
+                                    valueField: "InterfaceTR",
+                                    color: "#800080" // 보라색
+                                }
+                            ]
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--//유지보수-->
+        <!--고장-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>
+                고장
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--그리드-->
+            <div id="gridContainer02" class="grid_wrap" style="height: 400px;"></div>
+            <!--//그리드-->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    function fetchGojangData() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "TotalInfo/GetGojangList",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    fetchGojangData()
+                        .done(function (response) {
+                            const data = JSON.parse(response.d);
+                            initializeGojangGrid(data);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("고장 데이터를 가져오는 중 오류:", error);
+                        });
+
+                    function initializeGojangGrid(data) {
+                        $('#gridContainer02').dxDataGrid({
+                            dataSource: data,
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                //{ dataField: 'Code', caption: '코드', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                { dataField: 'Registrar', caption: '등록자', alignment: 'center' },
+                                { dataField: 'Date', caption: '고장일', alignment: 'center', dataType: 'date' }
+                            ],
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--고장-->
+    </div>
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
+}

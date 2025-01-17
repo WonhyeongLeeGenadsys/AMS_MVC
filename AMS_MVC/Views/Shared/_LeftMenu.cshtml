@@ -1,0 +1,27 @@
+﻿
+<div class="left_menu">
+    @if (ViewBag.MenuType == "TotalInfo")
+    {
+        @Html.Partial("_TotalInfoMenu")
+    }
+    else if (ViewBag.MenuType == "DeviceInfo")
+    {
+        @Html.Partial("_DeviceInfoMenu")
+    }
+    else if (ViewBag.MenuType == "Check")
+    {
+        @Html.Partial("_CheckMenu")
+    }
+    else if (ViewBag.MenuType == "Regist")
+    {
+        @Html.Partial("_AppMenu")
+    }
+    else if (ViewBag.MenuType == "Settings")
+    {
+        @Html.Partial("_OptionMenu")
+    }
+    else
+    {
+        <p>메뉴가 없습니다.</p>
+    }
+</div>

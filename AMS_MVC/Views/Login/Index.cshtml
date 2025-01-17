@@ -1,0 +1,107 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
+    <meta name="format-detection" content="telephone=no">
+    <meta name="keywords" content="Electric">
+    <meta name="description" content="Electric">
+    <meta name="apple-mobile-web-app-title" content="Electric" />
+    <meta name="robots" content="index,nofollow" />
+    <title>::Electric::</title>
+    <!--js-->
+    <script type="text/javascript" src="/js/electric.js"></script>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <!--css-->
+    <link href="/fonts/font.css" rel="stylesheet" type="text/css" />
+    <link href="/css/electric.css" rel="stylesheet" type="text/css" />
+    <script>
+        $(document).ready(function () {
+            var savedId = getCookie("savedUserId");
+            if (savedId) {
+                $('#userId').val(savedId);
+                $('#id_save').prop('checked', true);
+            }
+        });
+
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "") + expires + "; path=/";
+        }
+
+        function getCookie(name) {
+            var nameEQ = name + "=";
+            var ca = document.cookie.split(';');
+            for (var i = 0; i < ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') c = c.substring(1);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length);
+            }
+            return null;
+        }
+
+        function login() {
+            var id = $('#userId').val();
+            var pw = $('#password').val();
+            var saveId = $('#id_save').prop('checked');
+
+            if (saveId) {
+                setCookie("savedUserId", id, 7);
+            } else {
+                setCookie("savedUserId", "", -1);
+            }
+
+            $.ajax({
+                type: "POST",
+                url: '/Login/ValidateLogin',
+                data: { userId: id, password: pw },
+                success: function (response) {
+                    if (response.result === "success") {
+                        window.location.href = "/TotalInfo/Index";
+                    } else {
+                        alert("로그인 실패. 다시 시도해주세요.");
+                    }
+                },
+                error: function () {
+                    alert("서버 오류 발생.");
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <article class="login_wrap">
+        <section class="login_box">
+            <h1>SIGN UP</h1>
+            <dl class="login">
+                <dt>ID</dt>
+                <dd><input type="text" id="userId" name="userId" placeholder="아이디를 입력해주세요" /></dd>
+                <dt>PASSWORD</dt>
+                <dd><input type="password" id="password" name="password" placeholder="비밀번호를 입력해주세요" /></dd>
+            </dl>
+            <div class="id_save">
+                <label class="ty_chk" for="id_save">
+                    <input type="checkbox" id="id_save" />
+                    <span>아이디 저장</span>
+                </label>
+                <p>아이디/비밀번호는 관리자에게 문의하세요</p>
+            </div>
+            <div class="btn_wrap">
+                <a href="javascript:void(0);" onclick="login()">SIGN UP</a>
+            </div>
+        </section>
+    </article>
+</body>
+</html>

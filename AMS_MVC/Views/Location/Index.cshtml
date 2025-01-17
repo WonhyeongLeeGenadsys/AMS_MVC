@@ -1,0 +1,64 @@
+﻿@{
+    Layout = null; // 팝업 페이지이므로 레이아웃을 사용하지 않음
+}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>위치정보 - Electric</title>
+    <script src="/js/jquery-3.6.0.min.js"></script>
+    <script src="/plugin/dx.all.js"></script>
+    <link href="/plugin/dx.light.css" rel="stylesheet" />
+    <link href="/css/electric.css" rel="stylesheet" />
+</head>
+<body class="popup">
+    <article class="popup_wrap">
+        <!-- 타이틀 -->
+        <h1>위치정보</h1>
+        <!-- 지도 -->
+        <div id="map"></div>
+    </article>
+
+    <script>
+        $(document).ready(function () {
+            const markerUrl = 'https://js.devexpress.com/Demos/WidgetsGallery/JSDemos/images/maps/map-marker.png';
+            const markersData = [
+                {
+                    location: [34.97189965086878, 126.68238447592805], // 나주 본사
+                    tooltip: { text: '제나드시스템' },
+                },
+            ];
+
+            // DX Map 생성
+            const mapWidget = $('#map').dxMap({
+                provider: 'bing',
+                zoom: 13,
+                height: 480,
+                width: '100%',
+                controls: true,
+                markerIconSrc: markerUrl,
+                markers: markersData,
+            }).dxMap('instance');
+
+            // 툴팁 버튼 활성화
+            $('#show-tooltips').dxButton({
+                text: 'Show all tooltips',
+                onClick() {
+                    const newMarkers = markersData.map((item) => ({
+                        ...item,
+                        tooltip: { ...item.tooltip, isShown: true },
+                    }));
+
+                    mapWidget.option('markers', newMarkers);
+                },
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+﻿<article class="header">
+    <a href="javascript:void(0)" class="btn_menu">메뉴 숨기기</a>
+    <ul class="gnb_group">
+        <!-- 종합정보 -->
+        <li>
+            <a href="@Url.Action("Index", "TotalInfo")" class="btn_gnb" id="gnb_01">종합정보</a>
+            <ul class="lnb_group">
+                <li><a href="javascript:void(0)">건전도 검색</a></li>
+                <li><a href="javascript:void(0)">연결&알람 검색</a></li>
+                <li><a href="javascript:void(0)">점검&고장&유지보수 검색</a></li>
+            </ul>
+        </li>
+
+        <!-- 정보 -->
+        <li>
+            <a href="@Url.Action("Index", "DeviceInfo")" class="btn_gnb" id="gnb_02">정보</a>
+            <ul class="lnb_group">
+                <li><a href="@Url.Action("VCBDeviceInfo", "DeviceInfo")">VCB</a></li>
+                <li><a href="@Url.Action("ITRDeviceInfo", "DeviceInfo")">Interface TR</a></li>
+                <li><a href="@Url.Action("SMDeviceInfo", "DeviceInfo")">Sub Module</a></li>
+                <li><a href="@Url.Action("DCCBDeviceInfo", "DeviceInfo")">DCCB</a></li>
+                <li><a href="@Url.Action("DCCableDeviceInfo", "DeviceInfo")">DC Cable</a></li>
+            </ul>
+        </li>
+
+        <!-- 등록 -->
+        <li>
+            <a href="@Url.Action("Index", "Regist")" class="btn_gnb" id="gnb_03">등록</a>
+            <ul class="lnb_group">
+                <li><a href="@Url.Action("VCBList", "Regist")">VCB</a></li>
+                <li><a href="@Url.Action("ITRList", "Regist")">Interface TR</a></li>
+                <li><a href="javascript:void(0)">Arm Reactor</a></li>
+                <li><a href="javascript:void(0)">Wall Bushing</a></li>
+                <li><a href="javascript:void(0)">PT,CT</a></li>
+                <li><a href="javascript:void(0)">LA</a></li>
+                <li><a href="javascript:void(0)">DS</a></li>
+            </ul>
+        </li>
+
+        <!-- 점검 -->
+        <li>
+            <a href="javascript:void(0)" class="btn_gnb" id="gnb_04">점검</a>
+            <ul class="lnb_group">
+                <li><a href="javascript:void(0)">VCB</a></li>
+                <li><a href="javascript:void(0)">Interface TR</a></li>
+                <li><a href="javascript:void(0)">Arm Reactor</a></li>
+                <li><a href="javascript:void(0)">Wall Bushing</a></li>
+                <li><a href="javascript:void(0)">PT,CT</a></li>
+                <li><a href="javascript:void(0)">LA</a></li>
+                <li><a href="javascript:void(0)">DS</a></li>
+            </ul>
+        </li>
+
+        <!-- 고장 -->
+        <li>
+            <a href="javascript:void(0)" class="btn_gnb" id="gnb_05">고장</a>
+            <ul class="lnb_group">
+                <li><a href="javascript:void(0)">VCB</a></li>
+                <li><a href="javascript:void(0)">Interface TR</a></li>
+                <li><a href="javascript:void(0)">Arm Reactor</a></li>
+                <li><a href="javascript:void(0)">Wall Bushing</a></li>
+                <li><a href="javascript:void(0)">PT,CT</a></li>
+                <li><a href="javascript:void(0)">LA</a></li>
+                <li><a href="javascript:void(0)">DS</a></li>
+            </ul>
+        </li>
+
+        <!-- 유지보수 -->
+        <li>
+            <a href="javascript:void(0)" class="btn_gnb" id="gnb_06">유지보수</a>
+            <ul class="lnb_group">
+                <li><a href="javascript:void(0)">VCB</a></li>
+                <li><a href="javascript:void(0)">Interface TR</a></li>
+                <li><a href="javascript:void(0)">Arm Reactor</a></li>
+                <li><a href="javascript:void(0)">Wall Bushing</a></li>
+                <li><a href="javascript:void(0)">PT,CT</a></li>
+                <li><a href="javascript:void(0)">LA</a></li>
+                <li><a href="javascript:void(0)">DS</a></li>
+            </ul>
+        </li>
+    </ul>
+
+    <!-- 사용자 정보 -->
+    <ul class="info_group">
+        <li class="depar">기술정보팀</li>
+        <li class="name">
+            <span>@ViewBag.UserName</span>
+        </li>
+        <li class="setting">
+            <a href="javascript:void(0)" class="btn_gnb">세팅</a>
+            <ul class="lnb_group setting_sub">
+                <li><a href="@Url.Action("Substation", "Settings")">변전소 정보</a></li>
+                <li><a href="@Url.Action("Member", "Settings")">계정정보</a></li>
+                <li><a href="@Url.Action("CompanyList", "Regist")">업체 등록</a></li>
+                <li><a href="@Url.Action("Logout", "Account")">로그아웃</a></li>
+            </ul>
+        </li>
+    </ul>
+</article>

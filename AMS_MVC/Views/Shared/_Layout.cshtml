@@ -1,0 +1,36 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
+    <title>@ViewData["Title"] - Electric</title>
+    <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="/js/electric.js" defer></script>
+    <script type="text/javascript" src="/js/lwh.js" defer></script>
+    <link href="/plugin/dx.light.css" rel="stylesheet" type="text/css" />
+    <script src="/plugin/dx.all.js"></script>
+    <link href="/css/electric.css" rel="stylesheet" type="text/css" />
+    <link href="/fonts/font.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+    <header>
+        <!-- TopMenu를 Partial View로 변환하여 삽입 -->
+        @Html.Partial("_TopMenu")
+    </header>
+    <article class="electric_body">
+        <section class="electric_content">
+            <div class="menu_group">
+                <!-- Left Menu Content -->
+                @RenderSection("LeftMenu", required: false)
+            </div>
+            <div class="content_group">
+                <!-- Main Content -->
+                @RenderSection("MainContent", required: false)
+            </div>
+        </section>
+    </article>
+</body>
+</html>
