@@ -1,5 +1,5 @@
 ﻿
-<div class="left_menu">
+<div>
     @if (ViewBag.MenuType == "TotalInfo")
     {
         @Html.Partial("_TotalInfoMenu")
@@ -14,7 +14,7 @@
     }
     else if (ViewBag.MenuType == "Regist")
     {
-        @Html.Partial("_AppMenu")
+        @Html.Partial("_RegistMenu")
     }
     else if (ViewBag.MenuType == "Settings")
     {

@@ -13,11 +13,14 @@ namespace AMS_MVC
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            // 로그인 라우트
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Login", action = "Index", id = UrlParameter.Optional }
             );
+
+
         }
     }
 }

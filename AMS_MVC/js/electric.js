@@ -2,68 +2,61 @@
 
 // 페이지 로드 및 메뉴 활성화
 $(document).ready(function () {
-    // 현재 페이지의 경로에서 파일 이름 추출
-    const currentPath = location.pathname; // ex) "/Regist/VCB/VCBBasicInfoDetail"
-    const lastPageName = currentPath.split('/').pop().split('.')[0]; // ex) "VCBList"
-    const topmenuActivePath = currentPath.split('/')[1]; // "Regist"
-    const leftMenuActivePath = currentPath.split('/')[2]; // "VCB, VCBChk"
+    const menuType = $('body').data('menutype');
 
+    if (!menuType) {
+        return;
+    }
 
-    // 상단 메뉴 활성화
-    switch (topmenuActivePath) {
-        case 'TotalInfo': //종합정보
+    switch (menuType) {
+        case 'TotalInfo': // 종합정보
             $('#gnb_01').addClass('on');
             break;
-
-        case 'DeviceInfo': //정보
+        case 'DeviceInfo': // 장치 정보
             $('#gnb_02').addClass('on');
             break;
-
-        case 'Regist': //등록
+        case 'Regist': // 등록
             $('#gnb_03').addClass('on');
             break;
-
-        case 'Check': //점검
+        case 'Check': // 점검
             $('#gnb_04').addClass('on');
             break;
-
-        case 'Gojang': //고장
+        case 'Gojang': // 고장
             $('#gnb_05').addClass('on');
             break;
-
-        case 'Maintenance': //유지보수
+        case 'Maintenance': // 유지보수
             $('#gnb_06').addClass('on');
             break;
-
-        // 세팅에 있는 정보 추후 수정예정
-        case 'substation':
-        case 'member':
-        case 'member_app':
-            // 추가 작업이 필요하면 여기에 작성
-            break;
-
         default:
-            // 기본 설정 추가 가능
             break;
     }
 
     // 레프트 메뉴 활성화 함수 호출
     activateMenuItem();
 
-    // 현재 페이지와 매칭되는 레프트 메뉴 항목에 'on' 클래스 추가
+    // 레프트 메뉴 활성화 함수 (VCB, ITR 등을 포함하여 비교)
     function activateMenuItem() {
+        // 현재 페이지의 파일명 추출 (ex: "VCBList" || "ITRBasicList")
+        const currentPage = location.pathname.split('/').pop().split('.')[0];
+
         $('.menu_group a').each(function () {
-            // 현재 링크의 href 속성에서 파일 이름 추출
-            const hrefPath = $(this).attr("href").split('/').pop().split('.')[0]; // ex) "VCBList"
-            if (lastPageName === hrefPath) {
-                $(this).addClass('on'); // 일치하는 메뉴 항목에 'on' 클래스 추가
+            // 각 링크의 파일명 추출
+            const href = $(this).attr("href");
+            const linkPage = href.split('/').pop().split('.')[0];
+
+            // 정확히 일치하면 'on' 클래스 추가
+            if (currentPage === linkPage) {
+                $(this).addClass('on');
             }
-            else if (leftMenuActivePath.includes('VCB')) {
-                $('.menu_group a').eq(0).addClass('on');
+            // "VCB"가 포함시
+            else if (currentPage.includes("VCB") && linkPage.includes("VCB")) {
+                $(this).addClass('on');
             }
-            else if (leftMenuActivePath.includes('ITR')) {
-                $('.menu_group a').eq(1).addClass('on');
+            // "ITR"가 포함시
+            else if (currentPage.includes("ITR") && linkPage.includes("ITR")) {
+                $(this).addClass('on');
             }
+            // 향후 장치 추가되면 "DCCB, DC Cable 등등 추가하기!
         });
     }
 });

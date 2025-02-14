@@ -1,0 +1,96 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    // 쿼리스트링에서 VCB_Code 값을 가져옵니다.
+    var vcbCode = Request.QueryString["VCB_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_RegistMenu")
+}
+
+@section MainContent {
+    <h1>VCB 보통점검이력</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <!-- Razor의 Url.Action을 사용하여 MVC URL을 생성 -->
+                <a href="@Url.Action("VCBChkAdd", "VCBChk", new { VCB_Code = vcbCode })" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+        <!--//테이블리스트-->
+        <script>
+            var initData;
+
+            $(document).ready(function () {
+                pageLoad();
+            });
+
+            // DataGrid 초기화 (페이지 로드 시 실행)
+            $("#gridContainer").dxDataGrid({
+                columnFixing: { enabled: true },
+                columns: [
+                    { dataField: "RowNumber", caption: "순번", width: 80 },
+                    { dataField: 'CHK_Gongsa_Name', caption: '공사명', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Weather', caption: '날씨', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Temp', caption: '기온(°C)', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Hum', caption: '습도(%)', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Company', caption: '업체명', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Worker', caption: '점검자', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Manager', caption: '감독자', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Urgent_No', caption: '급전번호', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Type', caption: '형식', alignment: 'center', width: 'auto' },
+                    { dataField: 'CHK_Start_Date', caption: '점검시작일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' },
+                    { dataField: 'CHK_End_Date', caption: '점검 종료일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' }
+                ],
+                showBorders: false,
+                searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                filterRow: { visible: true, applyFilter: 'auto' },
+                headerFilter: { visible: true },
+                loadPanel: { enabled: true },
+                scrolling: { columnRenderingMode: 'virtual' },
+                onRowClick: function (e) {
+                    // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 상세 페이지로 이동
+                    const tblIdx = e.data.Tbl_Idx;
+                    const vcbCode = e.data.VCB_Code;
+                    window.location.href = `/Check/VCBChk/VCBChkDetail?VCB_Code=${encodeURIComponent(vcbCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
+                }
+            });
+
+            function pageLoad() {
+                // Razor를 통해 쿼리스트링의 VCB_Code 값을 JavaScript 변수에 할당
+                var vcbCode = "@vcbCode";
+
+                $.ajax({
+                    type: "POST",
+                    // MVC의 URL 생성: VCBChkList 컨트롤러의 PageLoad 액션
+                    url: '@Url.Action("PageLoad", "VCBChkList")',
+                    data: JSON.stringify({ vcbCode: vcbCode }),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (response) {
+                        initData = response; // 이미 JSON 객체로 파싱된 상태라고 가정
+
+                        if (!initData || initData.length === 0) {
+                            console.warn("서버에서 반환된 데이터가 비어있습니다.");
+                        }
+                        // 작성일(Tbl_GetDate) 기준 내림차순 정렬
+                        initData = initData.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+
+                        // 순번 매기기
+                        initData = initData.map((item, index) => {
+                            item.RowNumber = initData.length - index;
+                            return item;
+                        });
+
+                        $("#gridContainer").dxDataGrid("instance").option("dataSource", initData);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("데이터 로드 중 오류", error);
+                    }
+                });
+            }
+        </script>
+    </div>
+}

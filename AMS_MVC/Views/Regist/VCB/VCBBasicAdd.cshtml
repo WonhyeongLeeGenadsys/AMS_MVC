@@ -1,0 +1,136 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_RegistMenu")
+}
+
+@section MainContent {
+    <h1>VCB 기본정보 추가</h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <!-- 버튼 -->
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0)" class="btn blue app" onclick="createVCBBasicInfo()">적용</a>
+                </p>
+            </div>
+            <!-- 입력 폼 -->
+            <form id="vcbForm" method="post" enctype="multipart/form-data">
+                <div class="table_app" id="vcbBasicInfo">
+                    <table>
+                        <tr>
+                            <th>제품 이름</th>
+                            <td>
+                                <input type="text" id="name" name="name" required>
+                            </td>
+                            <th>시리얼 번호</th>
+                            <td>
+                                <input type="text" id="serial_no" name="serial_no" required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>설치일</th>
+                            <td>
+                                <input type="date" id="install_date" name="install_date" required>
+                            </td>
+                            <th>가동일</th>
+                            <td>
+                                <input type="date" id="operating_date" name="operating_date"required>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>구입비용</th>
+                            <td>
+                                <input type="text" id="price" name="price">
+                                <span>원</span>
+                            </td>
+                            <th>설치장소</th>
+                            <td>
+                                <select id="install_place" name="install_place">
+                                    <option>장소이름</option>
+                                </select>
+                            </td>
+                            <th>정격전압</th>
+                            <td>
+                                <input type="text" id="rated_v" name="rated_v">
+                                <span>kV</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>정격전류</th>
+                            <td>
+                                <input type="text" id="rated_a" name="rated_a">
+                                <span>A</span>
+                            </td>
+                            <th>제작사</th>
+                            <td>
+                                @* ValueField, TextField *@
+                                @Html.DropDownList("make_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                            </td>
+                            <th>제작번호</th>
+                            <td>
+                                <input type="text" id="make_no" name="make_no">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>제품사진</th>
+                            <td colspan="5">
+                                <p class="file_upload">
+                                    <!-- 여기서 name 속성을 "photo"로 지정 -->
+                                    <input type="file" name="photo" id="fileUpload" style="display: none" onchange="fileChange(event)" />
+                                    <textarea id="fileNm" class="file_wrap" readonly="readonly"></textarea>
+                                    <label for="fileUpload" class="btn table blue">파일선택</label>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>전단 사용</th>
+                            <td>
+                                <input type="radio" name="is_diagnostics" value="true"> 예
+                                <input type="radio" name="is_diagnostics" value="false" checked> 아니오
+                            </td>
+                            <th>건전도 사용</th>
+                            <td>
+                                <input type="radio" name="is_health" value="true"> 예
+                                <input type="radio" name="is_health" value="false" checked> 아니오
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function createVCBBasicInfo() {
+            submitVCBForm();
+        }
+
+        function submitVCBForm() {
+            var form = document.getElementById("vcbForm");
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: "/VCBBasic/VCBBasicAdd",
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        /*alert("VCB 기본정보가 등록되었습니다.: " + response.message);*/                        
+                        window.location.href = '@Url.Action("VCBBasicList", "VCBBasic")';
+                    } else {
+                        alert(response.message);
+                    }
+                },
+                error: function (xhr) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("오류가 발생했습니다: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

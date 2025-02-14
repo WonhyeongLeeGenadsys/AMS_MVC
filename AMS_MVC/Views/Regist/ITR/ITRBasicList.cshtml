@@ -1,0 +1,106 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_RegistMenu")
+}
+
+@section MainContent {
+    <h1>
+    Interface TR 기본정보 목록
+    </h1>
+    <div class="con_box">
+        <!--테이블리스트-->
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("ITRBasicAdd", "ITRBasic")" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+
+        <script>
+        $(document).ready(function () {
+            loadITRData();
+        });
+
+         function loadITRData() {
+            $.ajax({
+                type: "POST",
+                url: "/ITRBasic/GetITRListData",
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response.success === false) {
+                        console.error("ITR 데이터 로드 실패: " + response.message);
+                        return;
+                    }
+
+                    let data = response.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+
+                    // 순번 매기기
+                    data = data.map((item, index) => {
+                        item.RowNumber = data.length - index;
+                        return item;
+                    });
+
+                    $("#gridContainer").dxDataGrid({
+                        dataSource: data,
+                        columnFixing: {
+                            enabled: true,
+                        },
+                        columns: [
+                            {
+                                dataField: "RowNumber",
+                                caption: "순번",
+                                width: 80
+                            },
+                            { dataField: 'Name', caption: '제품이름', alignment: 'center', width: 'auto' },
+                            { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center', width: 'auto' },
+                            { dataField: 'Install_Date', caption: '설치일', alignment: 'center', width: 100, dataType: 'date', format: 'yy.MM.dd' },
+                            { dataField: 'Operating_Date', caption: '가동일', alignment: 'center', width: 100, dataType: 'date', format: 'yy.MM.dd' },
+                            //{ dataField: 'Price', caption: '구입비용(원)', alignment: 'center', width: 100 },
+                            { dataField: 'Install_Place', caption: '설치장소', alignment: 'center', width: 'auto' },
+                            //{ dataField: 'use', caption: '사용(년)', alignment: 'center', width: 100 },
+                            //{ dataField: 'Rated_V', caption: '정격전압(kV)', alignment: 'center', width: 120 },
+                            //{ dataField: 'Rated_A', caption: '정격전류(A)', alignment: 'center', width: 100 },
+                            //{ dataField: 'Make_Company', caption: '제작사', alignment: 'center', width: 100 },
+                            //{ dataField: 'Make_No', caption: '제작번호', alignment: 'center', width: 120 },
+                            { dataField: 'Is_Diagnostics', caption: '진단사용', alignment: 'center', width: 'auto' },
+                            { dataField: 'Is_Health', caption: '건전도 사용', alignment: 'center', width: 'auto' },
+                            { dataField: 'Tbl_GetDate', caption: '작성일자', alignment: 'center', width: 'auto', dataType: 'date', format: 'yy.MM.dd' },
+                            {
+                                dataField: 'manage',
+                                caption: '관리',
+                                alignment: 'center',
+                                width: 250,
+                                cellTemplate: function (container, options) {
+                                    container.append(
+                                        `<a href="javascript:openPop(\'/Regist/Pop/RInterfaceTR/InterfaceTR_01\',\'1100\',\'650\');" class="btn table blue">보통점검</a>\
+							 <a href="javascript:openPop(\'/Regist/Pop/RInterfaceTR/InterfaceTR_02\',\'1100\',\'650\');" class="btn table red">고장이력</a>\
+							 <a href="javascript:openPop(\'/Regist/Pop/RInterfaceTR/InterfaceTR_03\',\'1100\',\'650\');" class="btn table gray">정밀점검</a>\
+                             <a href="/Maintenance/ITRMaintenanceHistory/ITRMRList.aspx?ITR_Code=${encodeURIComponent(options.data.ITR_Code)}&Tbl_Idx=${encodeURIComponent(options.data.Tbl_Idx)}" class="btn table gray">유지보수이력</a>`
+                                    );
+                                }
+                            }
+                        ],
+                        showBorders: true,
+                        searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                        filterRow: { visible: true, applyFilter: "auto" },
+                        headerFilter: { visible: true },
+                        loadPanel: { enabled: true },
+                        scrolling: { columnRenderingMode: "virtual" },
+                        onRowClick: function (e) {
+                            const tblIdx = e.data.Tbl_Idx;
+                            window.location.href = "/Regist/VCB/VCBBasicInfoDetail?Tbl_Idx=" + encodeURIComponent(tblIdx);
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("데이터 로드 중 오류", error)
+                }
+            });
+        }
+        </script>
+    </div>
+}
+

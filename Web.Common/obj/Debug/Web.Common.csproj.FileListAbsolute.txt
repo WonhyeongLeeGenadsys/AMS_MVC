@@ -4,3 +4,9 @@ C:\Users\user\source\repos\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.Assemb
 C:\Users\user\source\repos\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CoreCompileInputs.cache
 C:\Users\user\source\repos\AMS_MVC\Web.Common\obj\Debug\Web.Common.dll
 C:\Users\user\source\repos\AMS_MVC\Web.Common\obj\Debug\Web.Common.pdb
+D:\project\AMS_MVC\Web.Common\bin\Debug\Web.Common.dll
+D:\project\AMS_MVC\Web.Common\bin\Debug\Web.Common.pdb
+D:\project\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.AssemblyReference.cache
+D:\project\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CoreCompileInputs.cache
+D:\project\AMS_MVC\Web.Common\obj\Debug\Web.Common.dll
+D:\project\AMS_MVC\Web.Common\obj\Debug\Web.Common.pdb

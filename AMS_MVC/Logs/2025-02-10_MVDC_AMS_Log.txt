@@ -1,0 +1,164 @@
+|2025-02-10 10:27:28  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 10:27:28  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 10:27:28  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 10:27:28  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 10:27:31  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 10:27:31  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 10:27:31  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 10:27:31  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 10:27:33  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 10:27:33  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 10:27:33  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 10:27:33  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 10:27:35  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:08:06  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:08:06  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:08:06  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:08:06  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:08:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:10:58  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:10:58  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:10:58  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:10:58  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:10:59  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:11:42  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:11:42  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:11:42  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:11:42  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:11:44  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:11:44  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:11:44  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:11:44  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:11:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:11:54  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 오류: 테이블 'AMS.dbo.VCB_BASICINFO', 열 'VCB_CODE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다. 스택트레이스:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   위치: Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) 파일 /_/Dapper/SqlMapper.cs:줄 2965
+   위치: Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) 파일 /_/Dapper/SqlMapper.cs:줄 656
+   위치: Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 527
+   위치: AMS_MVC.Repositories.VCBBasicInfoRepository.CreateVCBBasicInfoRepo(VCBBasicInfo newVCBBasicInfo) 파일 D:\project\AMS_MVC\AMS_MVC\Repositories\VCBBasicInfoRepository.cs:줄 81   |
+|2025-02-10 16:12:02  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:12:02  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:12:02  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:12:02  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:17:16  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:17:16  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:17:16  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:17:16  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:17:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:17:24  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 1   |
+|2025-02-10 16:17:26  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:17:26  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:17:26  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:17:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:17:29  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:17:29  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:17:29  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:17:29  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:18:06  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:18:06  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:18:06  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:18:06  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:18:07  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:18:11  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 오류: 테이블 'AMS.dbo.VCB_BASICINFO', 열 'SERIAL_NO'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다. 스택트레이스:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   위치: Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) 파일 /_/Dapper/SqlMapper.cs:줄 2965
+   위치: Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) 파일 /_/Dapper/SqlMapper.cs:줄 656
+   위치: Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 527
+   위치: AMS_MVC.Repositories.VCBBasicInfoRepository.CreateVCBBasicInfoRepo(VCBBasicInfo newVCBBasicInfo) 파일 D:\project\AMS_MVC\AMS_MVC\Repositories\VCBBasicInfoRepository.cs:줄 81   |
+|2025-02-10 16:18:17  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 1   |
+|2025-02-10 16:18:19  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:18:19  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:18:19  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:18:19  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:18:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:18:45  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 2   |
+|2025-02-10 16:18:46  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:18:46  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:18:46  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:18:46  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:34:49  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:34:49  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:34:49  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:34:49  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:34:51  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:34:54  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 3   |
+|2025-02-10 16:34:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:34:55  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:34:55  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:34:55  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:49:08  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:49:08  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:49:08  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:49:08  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:49:10  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:49:14  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 4   |
+|2025-02-10 16:49:15  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:49:15  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:49:15  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:49:15  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:51:34  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:51:34  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:51:34  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:51:34  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:51:35  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:51:39  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 1   |
+|2025-02-10 16:51:40  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:51:40  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:51:40  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:51:40  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 16:51:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 16:52:02  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 2   |
+|2025-02-10 16:52:03  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 16:52:03  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 16:52:03  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 16:52:03  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 17:09:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 17:09:09  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 17:09:09  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 17:09:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 17:09:09  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 17:09:13  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 3   |
+|2025-02-10 17:09:14  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 17:09:14  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 17:09:14  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 17:09:14  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 19:20:51  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 19:20:51  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 19:20:51  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 19:20:51  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 19:20:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 19:20:56  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 4   |
+|2025-02-10 19:20:57  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 19:20:57  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 19:20:57  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 19:20:57  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 19:21:00  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 19:21:00  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 19:21:00  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 19:21:00  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 19:22:19  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 19:22:19  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 19:22:19  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 19:22:19  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-10 19:22:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-10 19:22:25  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 5   |
+|2025-02-10 19:22:26  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-10 19:22:26  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-10 19:22:26  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-10 19:22:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |

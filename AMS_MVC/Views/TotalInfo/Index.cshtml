@@ -34,7 +34,7 @@
                             function fetchVCBData() {
                                 return $.ajax({
                                     type: "POST",
-                                    url: "TotalInfo/GetRiskmatrixData",
+                                    url: "/TotalInfo/GetRiskmatrixData",
                                     data: JSON.stringify({ prefix: "V" }),
                                     contentType: "application/json; charset=utf-8",
                                     dataType: "json"
@@ -76,9 +76,9 @@
                             // 데이터를 가져와 차트에 적용
                             fetchVCBData()
                                 .done(function (response) {
-                                    if (response && response.d) {
-                                        const serverData = JSON.parse(response.d);
-
+                                    if (response) {
+                                        const serverData = response;
+                                        console.log(serverData);
                                         // POF 데이터를 처리하여 동일한 POF 값은 합산
                                         const pofSummary = summarizePOFData(serverData);
 
@@ -139,7 +139,7 @@
                             function fetchITRData() {
                                 return $.ajax({
                                     type: "POST",
-                                    url: "TotalInfo/GetRiskmatrixData",
+                                    url: "/TotalInfo/GetRiskmatrixData",
                                     data: JSON.stringify({ prefix: "I" }),
                                     contentType: "application/json; charset=utf-8",
                                     dataType: "json"
@@ -181,8 +181,9 @@
                             // 데이터를 가져와 차트에 적용
                             fetchITRData()
                                 .done(function (response) {
-                                    if (response && response.d) {
-                                        const serverData = JSON.parse(response.d);
+                                    if (response) {
+                                        const serverData = response;
+                                        console.log(serverData);
 
                                         // POF 데이터를 처리하여 동일한 POF 값은 합산
                                         const pofSummary = summarizePOFData(serverData);
@@ -482,7 +483,7 @@
                     function fetchRiskMatrixData() {
                         return $.ajax({
                             type: "POST",
-                            url: "TotalInfo/GetRiskMatrixPofCof",
+                            url: "/TotalInfo/GetRiskMatrixPofCof",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
                         });
@@ -490,8 +491,8 @@
                     // 데이터를 가져와 HTML에 반영
                     fetchRiskMatrixData()
                         .done(function (response) {
-                            const matrixData = response.d;
-
+                            const matrixData = response;
+                            console.log("매트릭스 데이터:",matrixData);
                             // 각 li 태그 업데이트
                             $('.value li').each(function () {
                                 const position = $(this).data('position'); // e.g., "0,0"
@@ -523,7 +524,7 @@
                     function fetchPriorityInfo() {
                         return $.ajax({
                             type: "POST",
-                            url: "TotalInfo/GetPriorityInfo",
+                            url: "/TotalInfo/GetPriorityInfo",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
                         });
@@ -532,7 +533,8 @@
                     // 데이터를 가져와 DataGrid에 적용
                     fetchPriorityInfo()
                         .done(function (response) {
-                            const priorityData = JSON.parse(response.d);
+                            const priorityData = response;
+                            console.log("우선순위 데이터:", priorityData);
                             initializePriorityGrid(priorityData);
                         })
                         .fail(function (xhr, status, error) {
@@ -574,11 +576,11 @@
             <!--타이틀-->
             <h2>
                 점검
-                <p class="schedule_value">
+                 <p class="schedule_value">
                     <span class="confirmed">보통점검</span>
                     <span class="risk">정밀점검</span>
                     @*<span class="created">To be Created</span>*@
-                </p>
+               </p>
                 <p class="month_select">
                     <a href="javacript:void(0);" class="arrow prev">이전달</a>
                     <span>2024 - 11</span>
@@ -903,7 +905,7 @@
                     function fetchMaintenanceData() {
                         return $.ajax({
                             type: "POST",
-                            url: "TotalInfo/GetMonthlyMaintenanceData",
+                            url: "/TotalInfo/GetMonthlyMaintenanceData",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
                         });
@@ -912,8 +914,8 @@
                     // 데이터를 가져와 차트를 초기화
                     fetchMaintenanceData()
                         .done(function (response) {
-                            const rawData = typeof response.d === "string" ? JSON.parse(response.d) : response.d;
-                            console.log("Parsed data:", rawData);
+                            const rawData = response;
+                            console.log("유지보수 데이터:", rawData);
 
                             const data = processChartData(rawData);
 
@@ -997,7 +999,7 @@
                     function fetchGojangData() {
                         return $.ajax({
                             type: "POST",
-                            url: "TotalInfo/GetGojangList",
+                            url: "/TotalInfo/GetGojangList",
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
                         });
@@ -1005,7 +1007,8 @@
 
                     fetchGojangData()
                         .done(function (response) {
-                            const data = JSON.parse(response.d);
+                            const data = response;
+                            console.log("고장 데이터:", data);
                             initializeGojangGrid(data);
                         })
                         .fail(function (xhr, status, error) {
@@ -1017,7 +1020,7 @@
                             dataSource: data,
                             columns: [
                                 { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
-                                //{ dataField: 'Code', caption: '코드', alignment: 'center' },
+                                { dataField: 'Code', caption: '코드', alignment: 'center' },
                                 { dataField: 'Name', caption: '설비명', alignment: 'center' },
                                 { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
                                 { dataField: 'Weather', caption: '날씨', alignment: 'center' },

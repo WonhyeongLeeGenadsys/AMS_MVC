@@ -49,6 +49,9 @@
     <Reference Include="Dapper, Version=2.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dapper.2.1.35\lib\net461\Dapper.dll</HintPath>
     </Reference>
+    <Reference Include="DevExpress.Data.v24.2, Version=24.2.3.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL">
+      <HintPath>..\packages\DevExpress.Data.24.2.3\lib\net462\DevExpress.Data.v24.2.dll</HintPath>
+    </Reference>
     <Reference Include="DevExtreme.AspNet.Data, Version=5.0.0.0, Culture=neutral, PublicKeyToken=982f5dab1439d0f7, processorArchitecture=MSIL">
       <HintPath>..\packages\DevExtreme.AspNet.Data.5.0.0\lib\net462\DevExtreme.AspNet.Data.dll</HintPath>
     </Reference>
@@ -58,16 +61,25 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.5.1\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNetCore.Http.Features, Version=5.0.17.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNetCore.Http.Features.5.0.17\lib\net461\Microsoft.AspNetCore.Http.Features.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Extensions.Primitives, Version=5.0.0.1, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Extensions.Primitives.5.0.1\lib\net461\Microsoft.Extensions.Primitives.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Buffers.4.5.1\lib\net461\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Pipelines, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.IO.Pipelines.5.0.2\lib\net461\System.IO.Pipelines.dll</HintPath>
+    </Reference>
     <Reference Include="System.Memory, Version=4.0.1.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Memory.4.5.5\lib\net461\System.Memory.dll</HintPath>
     </Reference>
@@ -161,19 +173,46 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\AppMenuController.cs" />
+    <Compile Include="Controllers\Check\VCBChkController.cs" />
+    <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.cs" />
+    <Compile Include="Controllers\RegistMenuController.cs" />
     <Compile Include="Controllers\CheckMenuController.cs" />
     <Compile Include="Controllers\DeviceInfoController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OptionMenuController.cs" />
+    <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.List.cs" />
+    <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.Add.cs" />
+    <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.cs" />
+    <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.List.cs" />
     <Compile Include="Controllers\TotalInfoController.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
+    <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.Add.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Code.cs" />
+    <Compile Include="Models\Company.cs" />
+    <Compile Include="Models\ITRBasicInfo.cs" />
+    <Compile Include="Models\ITRFailureHistory.cs" />
+    <Compile Include="Models\ITRMaintenanceHistory.cs" />
+    <Compile Include="Models\PriorityInfo.cs" />
+    <Compile Include="Models\Riskmatrix.cs" />
     <Compile Include="Models\UserAccount.cs" />
+    <Compile Include="Models\VCBBasicInfo.cs" />
+    <Compile Include="Models\VCBChk.cs" />
+    <Compile Include="Models\VCBFailureHistory.cs" />
+    <Compile Include="Models\VCBMaintenanceHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CompanyRepository.cs" />
+    <Compile Include="Repositories\GojangRepository.cs" />
+    <Compile Include="Repositories\ITRBasicInfoRepository.cs" />
+    <Compile Include="Repositories\MaintenanceRepository.cs" />
+    <Compile Include="Repositories\PriorityInfoRepository.cs" />
+    <Compile Include="Repositories\RiskmatrixRepository.cs" />
+    <Compile Include="Repositories\UserAccountRepository.cs" />
+    <Compile Include="Repositories\VCBBasicInfoRepository.cs" />
+    <Compile Include="Repositories\VCBChkRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -296,9 +335,23 @@
     <Content Include="Views\Shared\_DeviceInfoMenu.cshtml" />
     <Content Include="Views\Location\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
+    <Content Include="Views\Regist\VCB\VCBBasicList.cshtml" />
+    <Content Include="Views\Shared\_RegistMenu.cshtml" />
+    <Content Include="Views\Regist\ITR\ITRBasicList.cshtml" />
+    <Content Include="Views\Regist\VCB\VCBBasicAdd.cshtml" />
+    <Content Include="Views\Regist\ITR\ITRBasicAdd.cshtml" />
+    <Content Include="Views\TotalInfo\Battery.cshtml" />
+    <Content Include="Views\TotalInfo\Check.cshtml" />
+    <Content Include="Views\TotalInfo\Connection.cshtml" />
+    <Content Include="Views\Check\VCB\VCBChkList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Failure\" />
+    <Folder Include="Controllers\Maintenance\" />
+    <Folder Include="Uploads\" />
+    <Folder Include="Views\Check\ITR\" />
+    <Folder Include="Views\VCBChk\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

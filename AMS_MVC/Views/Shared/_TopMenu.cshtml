@@ -25,10 +25,13 @@
 
         <!-- 등록 -->
         <li>
-            <a href="@Url.Action("Index", "Regist")" class="btn_gnb" id="gnb_03">등록</a>
+            <a href="@Url.Action("VCBBasicList", "VCBBasic")" class="btn_gnb" id="gnb_03">등록</a>
+            @*<a href="@Url.Action("VCBBasicList", "VCBBasic", new { menu = "Regist" })" class="btn_gnb" id="gnb_03">등록</a>*@
+            @*<a href="@Url.RouteUrl("Default", new { menu = "Regist", controller = "VCBBasic", action = "VCBBasicList" })" class="btn_gnb" id="gnb_03">등록</a>*@
+
             <ul class="lnb_group">
-                <li><a href="@Url.Action("VCBList", "Regist")">VCB</a></li>
-                <li><a href="@Url.Action("ITRList", "Regist")">Interface TR</a></li>
+                <li><a href="@Url.Action("VCBBasicList", "VCBBasic")">VCB</a></li>
+                <li><a href="@Url.Action("ITRBasicList", "ITRBasic")">Interface TR</a></li>
                 <li><a href="javascript:void(0)">Arm Reactor</a></li>
                 <li><a href="javascript:void(0)">Wall Bushing</a></li>
                 <li><a href="javascript:void(0)">PT,CT</a></li>

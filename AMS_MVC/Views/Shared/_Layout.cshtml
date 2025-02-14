@@ -9,13 +9,13 @@
     <title>@ViewData["Title"] - Electric</title>
     <script type="text/javascript" src="/js/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" src="/js/electric.js" defer></script>
-    <script type="text/javascript" src="/js/lwh.js" defer></script>
     <link href="/plugin/dx.light.css" rel="stylesheet" type="text/css" />
     <script src="/plugin/dx.all.js"></script>
     <link href="/css/electric.css" rel="stylesheet" type="text/css" />
     <link href="/fonts/font.css" rel="stylesheet" type="text/css" />
 </head>
-<body>
+
+<body data-menutype="@ViewBag.MenuType">
     <header>
         <!-- TopMenu를 Partial View로 변환하여 삽입 -->
         @Html.Partial("_TopMenu")

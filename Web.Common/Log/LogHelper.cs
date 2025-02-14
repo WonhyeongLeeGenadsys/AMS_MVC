@@ -10,7 +10,7 @@ namespace Web.Common.Log
     public static class LogHelper
     {
         private static string logDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Logs");
-        private static string logFileName = $"{DateTime.Now:yyyy-MM-dd}_MVDC_Log.txt";
+        private static string logFileName = $"{DateTime.Now:yyyy-MM-dd}_MVDC_AMS_Log.txt";
         private static string logFilePath = Path.Combine(logDirectory, logFileName);
         private const long MaxLogFileSize = 1 * 1024 * 1024; // 1MB
 
@@ -59,7 +59,7 @@ namespace Web.Common.Log
                 do
                 {
                     fileCount++;
-                    newLogFileName = $"{DateTime.Now:yyyy-MM-dd}_MVDC_Log({fileCount}).txt";
+                    newLogFileName = $"{DateTime.Now:yyyy-MM-dd}_MVDC_AMS_Log({fileCount}).txt";
                     newLogFilePath = Path.Combine(logDirectory, newLogFileName);
                 } while (System.IO.File.Exists(newLogFilePath));
 

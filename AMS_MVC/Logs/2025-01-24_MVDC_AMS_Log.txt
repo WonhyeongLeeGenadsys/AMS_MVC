@@ -1,0 +1,29 @@
+|2025-01-24 10:08:53  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 10:08:53  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 10:08:53  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 10:08:53  |   VCBController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 10:09:59  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 10:09:59  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 10:09:59  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 10:09:59  |   VCBController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 10:32:49  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 10:32:49  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 10:32:49  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 10:32:49  |   VCBController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 10:32:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 10:32:55  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 10:32:55  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 10:32:55  |   VCBController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 10:35:39  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 10:35:39  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 10:35:39  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 10:35:39  |   VCBController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 11:22:30  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 11:22:30  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 11:22:30  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 11:22:30  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 11:22:53  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-01-24 11:22:53  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-01-24 11:22:53  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-01-24 11:22:53  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-01-24 11:22:55  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |

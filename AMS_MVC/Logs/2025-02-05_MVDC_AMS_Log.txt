@@ -1,0 +1,222 @@
+|2025-02-05 15:25:17  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:25:17  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:25:17  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:25:17  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:25:23  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:25:23  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:25:23  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:25:23  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:04  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:04  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:04  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:04  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:06  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:06  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:06  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:06  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:07  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:07  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:07  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:07  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:08  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:08  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:08  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:08  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:08  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:08  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:08  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:08  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:09  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:09  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:12  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:12  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:12  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:12  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:17  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:17  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:17  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:17  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:21  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:21  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:21  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:21  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:23  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:23  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:23  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:23  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:32:26  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:32:26  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:32:26  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:32:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:36  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:36  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:36  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:36  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:39  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:39  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:39  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:39  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:41  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:41  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:41  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:41  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:41  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:41  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:41  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:41  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:50  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:50  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:50  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:50  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:55  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:55  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:55  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:33:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:33:55  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:33:55  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:33:55  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:34:01  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:34:01  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:34:01  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:34:01  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:39:47  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:39:47  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:39:47  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:39:47  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:39:52  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:39:52  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:39:52  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:39:52  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:39:52  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:39:52  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:39:52  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:39:52  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:39:54  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:39:54  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:39:54  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:39:54  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:39:54  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:39:54  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:39:54  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:39:54  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:03  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:03  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:03  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:03  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:07  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:07  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:07  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:07  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:10  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:10  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:10  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:10  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:12  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:12  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:12  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:12  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:12  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:12  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:12  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:12  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:13  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:13  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:13  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:13  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:14  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:14  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:14  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:14  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:40:58  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:40:58  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:40:58  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:40:58  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:41:00  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:41:00  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:41:00  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:41:00  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:41:34  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:41:34  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:41:34  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:41:34  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:42:08  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:42:08  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:42:08  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:42:08  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:42:45  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:42:45  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:42:45  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:42:45  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:42:51  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:42:51  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:42:51  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:42:51  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:43:01  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:43:01  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:43:01  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:43:01  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:43:41  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:43:41  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:43:41  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:43:41  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:52:44  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 15:52:44  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 15:52:44  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 15:52:44  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 15:52:46  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 16:01:49  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 16:01:49  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 16:01:49  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 16:01:49  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 16:01:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 16:03:14  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 16:03:14  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 16:03:14  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 16:03:14  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 16:03:15  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 16:05:42  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 16:05:43  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 16:05:43  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 16:05:43  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 16:05:44  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 16:06:17  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 16:06:17  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 16:06:17  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 16:06:17  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 16:06:18  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 16:17:02  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 16:17:02  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 16:17:02  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 16:17:02  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 16:17:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 17:20:00  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 17:20:00  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 17:20:00  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 17:20:00  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 17:20:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 17:45:01  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 17:45:01  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 17:45:01  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 17:45:01  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 17:45:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 17:51:17  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 17:51:17  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 17:51:17  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 17:51:17  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 17:51:18  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 17:51:18  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 17:51:18  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 17:51:18  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 19:18:00  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 19:18:00  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 19:18:00  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 19:18:00  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 19:18:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-02-05 19:23:19  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-02-05 19:23:19  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-02-05 19:23:19  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-02-05 19:23:19  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-02-05 19:23:21  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
