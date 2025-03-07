@@ -7,15 +7,26 @@ using System.Web;
 
 namespace AMS_MVC.Database
 {
-    public class DBHelper
+    public class DBHelper:IDisposable
     {
         private SqlConnection mConn;
         public SqlConnection Conn { get { return mConn; } }
         public DBHelper()
         {
             string connStr = ConfigurationManager.ConnectionStrings["MYDBConnectionString"].ConnectionString;
+            //string connStr = ConfigurationManager.ConnectionStrings["MiniSetting"].ConnectionString;
+
             mConn = new SqlConnection(connStr);
             mConn.Open();
+        }
+        public void Dispose()
+        {
+            if (mConn != null)
+            {
+                mConn.Close(); // 연결 닫기
+                mConn.Dispose();
+                mConn = null;
+            }
         }
     }
 }

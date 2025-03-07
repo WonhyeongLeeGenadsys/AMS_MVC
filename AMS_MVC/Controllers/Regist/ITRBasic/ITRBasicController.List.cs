@@ -25,7 +25,31 @@ namespace AMS_MVC.Controllers
                 if (itrBasicRepository.GetAllITRBasicInfoRepo(out var itrBasicInfos).IsSuccess)
                 {
                     LogHelper.WriteLog("ITRBasicController.List", "ITR 데이터 로드 성공");
-                    return Json(itrBasicInfos);
+
+                    var formattedData = itrBasicInfos.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.ITR_Code,
+                        item.Name,
+                        item.Serial_No,
+                        Install_Date = item.Install_Date?.ToString("yy.MM.dd"),
+                        Operating_Date = item.Operating_Date?.ToString("yy.MM.dd"),
+                        Tbl_GetDate = item.Tbl_GetDate.ToString("yy.MM.dd"),
+                        item.Install_Place,
+                        item.Price,
+                        item.Capacity,
+                        item.Rated_A,
+                        item.Rated_V,
+                        item.Constant,
+                        item.Make_Company,
+                        item.Make_No,
+                        item.Photo,
+                        item.Writer,
+                        item.Is_Diagnostics,
+                        item.Is_Health
+                    }).ToList();
+
+                    return Json(new { success = true, data = formattedData });
                 }
                 else
                 {

@@ -9,15 +9,11 @@ namespace AMS_MVC.Repositories
 {
     public class GojangRepository
     {
-        private readonly DBHelper mDb;
-
-        public GojangRepository()
-        {
-            mDb = new DBHelper();
-        }
         public List<dynamic> GetGojangVCB()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
     SELECT
         ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
         V.VCB_CODE AS Code,
@@ -36,12 +32,15 @@ namespace AMS_MVC.Repositories
     FROM VCB_FAILURE_HISTORY F
     LEFT JOIN VCB_BASICINFO V ON F.VCB_CODE = V.VCB_CODE";
 
-            return mDb.Conn.Query(query).AsList();
+                return dbHelper.Conn.Query(query).AsList();
+            }
         }
 
         public List<dynamic> GetGojangITR()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
     SELECT
         ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
         I.ITR_CODE AS Code,
@@ -59,12 +58,15 @@ namespace AMS_MVC.Repositories
         F.FAIL_DATE AS Date
     FROM INTERFACETR_FAILURE_HISTORY F LEFT JOIN INTERFACETR_BASICINFO I ON F.ITR_CODE = I.ITR_CODE";
 
-            return mDb.Conn.Query(query).AsList();
+                return dbHelper.Conn.Query(query).AsList();
+            }
         }
 
         public List<dynamic> GetGojangAll()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
 WITH CombinedData AS (
     SELECT
         V.VCB_CODE AS Code,
@@ -117,8 +119,8 @@ SELECT
     Date
 FROM CombinedData;";
 
-            return mDb.Conn.Query(query).AsList();
-
+                return dbHelper.Conn.Query(query).AsList();
+            }
         }
     }
 }

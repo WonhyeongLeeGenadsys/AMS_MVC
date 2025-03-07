@@ -1,0 +1,404 @@
+|2025-03-06 09:20:26  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-06 09:20:26  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-03-06 09:20:26  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-06 09:20:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-06 09:20:29  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:29  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:30  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:30  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:31  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:31  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:33  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:33  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:34  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:34  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:35  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:35  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:36  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:36  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:37  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:37  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:37  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:37  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:39  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:39  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:40  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:40  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:41  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:41  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:20:41  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:20:41  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:20:41  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:20:41  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:21  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:21  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:22  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:22  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:22  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:22  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:23  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:23  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:24  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:24  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:24  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:24  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:25  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:25  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:25  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:25  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:26  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:26  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:27  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:27  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:28  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:28  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:29  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:54:29  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:54:29  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:29  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:54:30  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:54:30  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:07  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:07  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:09  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:09  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:15  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:15  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:16  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:16  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:17  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:17  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:18  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:18  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:18  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:18  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:19  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:19  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:19  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:19  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:20  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:20  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:20  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:20  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:21  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:21  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:21  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:21  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:22  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:23  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:23  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:24  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:24  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:25  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:25  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:26  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:26  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:26  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 09:55:26  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:27  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:27  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:27  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:27  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:29  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:29  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:36  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:36  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:37  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:37  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:39  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:39  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:40  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:40  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:40  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:40  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:41  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:41  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:41  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:41  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:41  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:41  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:42  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:42  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 09:55:42  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 09:55:42  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 09:55:42  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 09:55:42  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:34  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:34  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:36  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:36  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:39  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:39  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:40  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:40  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:41  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:41  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:42  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 10:03:42  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:42  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:42  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:43  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 10:03:43  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:44  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:44  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:44  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 10:03:44  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:45  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:45  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 10:03:46  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:47  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:47  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:48  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:48  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:48  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:48  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:49  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:49  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:49  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:49  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:03:50  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:03:50  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:03:50  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:03:50  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:05  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:05  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:06  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:06  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:07  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:07  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:08  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:08  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:08  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:08  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:09  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:09  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:09  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:09  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:09  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:09  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:10  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:10  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:10  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:10  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:04:11  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:04:11  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:04:11  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:04:11  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:08:58  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:08:58  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:00  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:00  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:09:02  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:09:02  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:02  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:02  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:09:02  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:09:02  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:03  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:03  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:09:03  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:09:03  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:04  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:04  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:09:04  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:09:04  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:05  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:05  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 10:09:26  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 10:09:26  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 10:09:28  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 10:09:28  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:33  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:33  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 12:53:35  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 12:53:35  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 12:53:37  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 12:53:37  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 12:53:39  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 12:53:39  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:39  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:39  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 12:53:40  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 12:53:40  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:40  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:40  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 12:53:41  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 12:53:41  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:42  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 12:53:42  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:43  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 12:53:43  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 12:53:44  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 12:53:44  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 13:07:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 13:07:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 13:07:37  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 13:07:37  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 13:07:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 13:07:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 13:07:40  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 13:07:40  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:46  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:46  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:47  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:47  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:48  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:48  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:49  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:49  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:50  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:50  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:50  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:50  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:51  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:51  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:51  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:51  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:51  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:51  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:52  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:52  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:49:52  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:52  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:53  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:49:53  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:54  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:54  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:55  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:49:55  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:55  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:55  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:56  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:49:56  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:57  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:57  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:58  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:49:58  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:58  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:49:58  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:49:59  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:49:59  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:50:46  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:50:46  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:50:47  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:50:47  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:50:48  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:50:48  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:50:50  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:50:50  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:52:05  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:52:05  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:52:07  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:52:07  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:52:09  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:52:09  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:52:10  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:52:10  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:52:34  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:52:34  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:52:36  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:52:36  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:53:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:53:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:54:07  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:54:07  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:54:09  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:54:09  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:54:10  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:54:10  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:54:11  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:54:11  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:54:12  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:54:12  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:54:14  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:54:14  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:54:14  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:54:14  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:54:15  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:54:15  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:06  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:06  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:08  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:08  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:10  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:10  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:10  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:10  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:11  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:11  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:12  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:12  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:13  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:13  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:14  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:14  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:14  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:14  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:16  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:17  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:17  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:18  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:18  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:19  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:19  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:20  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:20  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:20  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:20  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:21  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:55:21  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:21  |   TotalITRChkController.List  |   GetTotalITRChk2ListData 실행   |
+|2025-03-06 15:55:21  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:55:23  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:23  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:55:24  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:55:24  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:11  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:56:11  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:28  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:56:28  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:30  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:56:30  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:52  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:56:52  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:53  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:56:53  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:56:54  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:56:54  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 15:56:57  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-03-06 15:56:57  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-03-06 15:57:01  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 15:57:01  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 16:20:27  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 16:20:27  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 16:20:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 16:20:38  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-03-06 19:02:03  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-06 19:02:03  |   vcbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.VCBBasicInfo]   |
+|2025-03-06 19:02:03  |   DB(VCB_BASICINFO  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-06 19:02:03  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-06 19:02:08  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-06 19:02:08  |   VCBChkController.List  |   조회된 데이터: 3건   |

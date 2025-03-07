@@ -1,0 +1,6 @@
+D:\project\AMS_MVC\Web.Common\bin\Release\Web.Common.dll
+D:\project\AMS_MVC\Web.Common\bin\Release\Web.Common.pdb
+D:\project\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.AssemblyReference.cache
+D:\project\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CoreCompileInputs.cache
+D:\project\AMS_MVC\Web.Common\obj\Release\Web.Common.dll
+D:\project\AMS_MVC\Web.Common\obj\Release\Web.Common.pdb

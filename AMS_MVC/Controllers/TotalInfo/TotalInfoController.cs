@@ -9,7 +9,7 @@ using Web.Common.Log;
 
 namespace AMS_MVC.Controllers
 {
-    public class TotalInfoController : Controller
+    public partial class TotalInfoController : Controller
     {
         // GET: TotalInfo/Index
         public ActionResult Index()
@@ -55,13 +55,34 @@ namespace AMS_MVC.Controllers
             {
                 var priorityRepo = new PriorityInfoRepository();
                 var priorityData = priorityRepo.GetPriorityInfo();
-                return Json(priorityData);
+
+                var formattedData = priorityData.Select(item => new
+                {
+                    item.Priority,
+                    item.Sort,
+                    item.Code,
+                    item.Serial_No,
+                    item.Name,
+                    Install_Date = item.Install_Date.ToString("yy.MM.dd"), 
+                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"), 
+                    item.UsagePeriod,
+                    item.Price,
+                    item.Rated_V,
+                    item.Rated_A,
+                    item.Make_Company,
+                    item.Writer,
+                    item.CoF,
+                    item.PoF
+                }).ToList();
+
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
                 return Json(new { error = ex.Message });
             }
         }
+
 
         [HttpPost]
         public JsonResult GetMonthlyMaintenanceData()

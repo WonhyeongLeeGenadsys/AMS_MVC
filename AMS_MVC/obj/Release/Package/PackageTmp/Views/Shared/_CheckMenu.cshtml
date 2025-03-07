@@ -1,0 +1,53 @@
+﻿@* Views/Shared/_CheckMenu.cshtml *@
+@{
+    // 서버에서 설정한 ActiveMenu와 ActiveSubMenu 사용
+    var activeMenu = ViewBag.ActiveMenu as string ?? "VCB";
+    var activeSub = ViewBag.ActiveSubMenu as string ?? "VCBRegular";
+}
+
+<h1>점검</h1>
+<ul class="check-menu">
+    <!-- VCB 메뉴 -->
+    
+    <li class="has-sub @(activeMenu == "VCB" ? "active" : "")" data-menu="VCB">
+        <a href="@Url.Action("VCBChkTotalList", "VCBChk")" class="@(activeMenu == "VCB" ? "active" : "")">VCB</a>
+        <ul class="two_depth">
+            <li class="@(activeSub == "VCBRegular" ? "active" : "")">
+                <a href="@Url.Action("VCBChkTotalList", "VCBChk")" class="@(activeSub == "VCBRegular" ? "active" : "")">보통점검</a>
+            </li>
+            <li class="@(activeSub == "VCBPrevention" ? "active" : "")">
+                <a href="@Url.Action("VCBChkTotalList", "VCBChk", new { type = "prevention" })" class="@(activeSub == "VCBPrevention" ? "active" : "")">예방진단</a>
+            </li>
+        </ul>
+    </li>
+    <!-- Interface TR 메뉴 -->
+    <li class="has-sub @(activeMenu == "InterfaceTR" ? "active" : "")" data-menu="InterfaceTR">
+        <a href="@Url.Action("ITRChk1TotalList", "ITRChk1")" class="@(activeMenu == "InterfaceTR" ? "active" : "")">Interface TR</a>
+        <ul class="two_depth">
+            <li class="@(activeSub == "ITRRegular" ? "active" : "")">
+                <a href="@Url.Action("ITRChk1TotalList", "ITRChk1")" class="@(activeSub == "ITRRegular" ? "active" : "")">보통점검</a>
+            </li>
+            <li class="@(activeSub == "ITRPrecision" ? "active" : "")">
+                <a href="@Url.Action("ITRChk2TotalList", "ITRChk2")" class="@(activeSub == "ITRPrecision" ? "active" : "")">정밀점검</a>
+            </li>
+            <li class="@(activeSub == "ITRPrevention" ? "active" : "")">
+                <a href="@Url.Action("Prevention", "ITRChk")" class="@(activeSub == "ITRPrevention" ? "active" : "")">예방진단</a>
+            </li>
+        </ul>
+    </li>
+    <!-- 단일 메뉴: Arm Reactor -->
+    <!--<li>
+        <a href="@Url.Action("Index", "ArmReactor")">Arm Reactor</a>
+    </li>-->
+</ul>
+
+<script>
+    $(document).ready(function () {
+        // active 상위 메뉴에 서브메뉴가 지정되지 않았으면 첫 번째 항목을 active로 처리
+        $('.check-menu li.has-sub.active').each(function () {
+            if ($(this).find('.two_depth li.active').length === 0) {
+                $(this).find('.two_depth li:first-child').addClass('active');
+            }
+        });
+    });
+</script>

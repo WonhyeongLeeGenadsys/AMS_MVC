@@ -9,16 +9,11 @@ namespace AMS_MVC.Repositories
 {
     public class MaintenanceRepository
     {
-        private readonly DBHelper mDb;
-
-        public MaintenanceRepository()
-        {
-            mDb = new DBHelper();
-        }
-
         public List<dynamic> GetMonthlyMaintenanceVCBCounts()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
                 SELECT 
                     FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
                     COUNT(*) AS Count,
@@ -26,12 +21,15 @@ namespace AMS_MVC.Repositories
                 FROM VCB_MAINTENANCE_HISTORY
                 WHERE MR_DATE IS NOT NULL
                 GROUP BY FORMAT(MR_DATE, 'yyyy-MM');";
-            return mDb.Conn.Query(query).ToList();
+                return dbHelper.Conn.Query(query).ToList();
+            }
         }
 
         public List<dynamic> GetMonthlyMaintenanceITRCounts()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
                 SELECT 
                     FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
                     COUNT(*) AS Count,
@@ -39,12 +37,15 @@ namespace AMS_MVC.Repositories
                 FROM INTERFACETR_MAINTENANCE_HISTORY
                 WHERE MR_DATE IS NOT NULL
                 GROUP BY FORMAT(MR_DATE, 'yyyy-MM');";
-            return mDb.Conn.Query(query).ToList();
+                return dbHelper.Conn.Query(query).ToList();
+            }
         }
 
         public List<dynamic> GetMonthlyMaintenanceCounts()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
                 SELECT 
                     FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
                     COUNT(*) AS Count,
@@ -64,7 +65,8 @@ namespace AMS_MVC.Repositories
                 GROUP BY FORMAT(MR_DATE, 'yyyy-MM')
                 
                 ORDER BY Month, Type;";
-            return mDb.Conn.Query(query).ToList();
+                return dbHelper.Conn.Query(query).ToList();
+            }
         }
     }
 }

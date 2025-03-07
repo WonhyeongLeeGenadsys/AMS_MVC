@@ -12,22 +12,14 @@ namespace AMS_MVC.Repositories
 {
     public class UserAccountRepository
     {
-        //private SqlConnection conn;
-        private readonly DBHelper mDb;
-
-        /// <summary>
-        /// 생성자에서 DB 연결
-        /// </summary>
-        public UserAccountRepository()
-        {
-            mDb = new DBHelper();
-        }
-
         public UserAccount GetUserById(string userId)
         {
-            var query = "SELECT * FROM USER_ACCOUNT WHERE ID = @Id";
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT * FROM USER_ACCOUNT WHERE ID = @Id";
 
-            return mDb.Conn.QueryFirstOrDefault<UserAccount>(query, new { Id = userId });
+                return dbHelper.Conn.QueryFirstOrDefault<UserAccount>(query, new { Id = userId });
+            }
         }
 
         /// <summary>
@@ -42,11 +34,14 @@ namespace AMS_MVC.Repositories
 
             try
             {
-                var query = "SELECT * FROM USER_ACCOUNT";
-                users = mDb.Conn.Query<UserAccount>(query).AsList();
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "SELECT * FROM USER_ACCOUNT";
+                    users = dbHelper.Conn.Query<UserAccount>(query).AsList();
 
-                res.Message = "GetAllUsers 동작 성공";
-                LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    res.Message = "GetAllUsers 동작 성공";
+                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -69,20 +64,23 @@ namespace AMS_MVC.Repositories
             Result res = new Result(true);
             try
             {
-                var query = "INSERT INTO USER_ACCOUNT (ID, PW, USER_NAME, PERMISSION, BUSEO, PHONE_NO) " +
-                            "VALUES (@Id, @Pw, @User_Name, @Permission, @Buseo, @Phone_No)";
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "INSERT INTO USER_ACCOUNT (ID, PW, USER_NAME, PERMISSION, BUSEO, PHONE_NO) " +
+            "VALUES (@Id, @Pw, @User_Name, @Permission, @Buseo, @Phone_No)";
 
-                int affectedRows = mDb.Conn.Execute(query, newUser);
-                if (affectedRows > 0)
-                {
-                    res.Message = "CreateUser 성공: User ID: " + newUser.Id;
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
-                }
-                else
-                {
-                    res.IsSuccess = false;
-                    res.Message = "CreateUser 실패: 데이터 삽입에 실패했습니다.";
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    int affectedRows = dbHelper.Conn.Execute(query, newUser);
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "CreateUser 성공: User ID: " + newUser.Id;
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
+                    else
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "CreateUser 실패: 데이터 삽입에 실패했습니다.";
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
                 }
             }
             catch (Exception ex)
@@ -100,20 +98,23 @@ namespace AMS_MVC.Repositories
             Result res = new Result(true);
             try
             {
-                var query = "UPDATE USER_ACCOUNT SET PW = @Pw, USER_NAME = @User_Name, PERMISSION = @Permission, BUSEO = @Buseo, PHONE_NO = @PhoneNo " +
-                            "WHERE ID = @Id";
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "UPDATE USER_ACCOUNT SET PW = @Pw, USER_NAME = @User_Name, PERMISSION = @Permission, BUSEO = @Buseo, PHONE_NO = @PhoneNo " +
+            "WHERE ID = @Id";
 
-                int affectedRows = mDb.Conn.Execute(query, user);
-                if (affectedRows > 0)
-                {
-                    res.Message = "UpdateUser 성공: User ID: " + user.Id;
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
-                }
-                else
-                {
-                    res.IsSuccess = false;
-                    res.Message = "UpdateUser 실패: 데이터 수정에 실패했습니다.";
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    int affectedRows = dbHelper.Conn.Execute(query, user);
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "UpdateUser 성공: User ID: " + user.Id;
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
+                    else
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "UpdateUser 실패: 데이터 수정에 실패했습니다.";
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
                 }
             }
             catch (Exception ex)
@@ -131,19 +132,22 @@ namespace AMS_MVC.Repositories
             Result res = new Result(true);
             try
             {
-                var query = "DELETE FROM USER_ACCOUNT WHERE ID = @Id";
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "DELETE FROM USER_ACCOUNT WHERE ID = @Id";
 
-                int affectedRows = mDb.Conn.Execute(query, new { Id = userId });
-                if (affectedRows > 0)
-                {
-                    res.Message = "DeleteUser 성공: User ID: " + userId;
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
-                }
-                else
-                {
-                    res.IsSuccess = false;
-                    res.Message = "DeleteUser 실패: 해당 ID를 찾을 수 없습니다.";
-                    LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    int affectedRows = dbHelper.Conn.Execute(query, new { Id = userId });
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "DeleteUser 성공: User ID: " + userId;
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
+                    else
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteUser 실패: 해당 ID를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(USER_ACCOUNT)", res.Message);
+                    }
                 }
             }
             catch (Exception ex)

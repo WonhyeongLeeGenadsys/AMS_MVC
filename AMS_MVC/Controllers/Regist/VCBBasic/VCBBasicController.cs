@@ -12,7 +12,7 @@ namespace AMS_MVC.Controllers
 {
     public partial class VCBBasicController : Controller
     {
-        private readonly VCBBasicInfoRepository vcbBasicRepository;
+        private readonly VCBBasicInfoRepository vcbBasicRepository;        
         private readonly CompanyRepository companyRepository;
               
         public VCBBasicController()

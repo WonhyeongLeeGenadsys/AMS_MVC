@@ -12,21 +12,21 @@ namespace AMS_MVC.Repositories
 {
     public class CompanyRepository
     {
-        private readonly DBHelper mDb;
-        public CompanyRepository()
-        {
-            mDb = new DBHelper();
-        }
-
         public string GetLatestComCode()
         {
-            var query = "SELECT MAX(COM_CODE) FROM COMPANY";
-            return mDb.Conn.QuerySingleOrDefault<string>(query);
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT MAX(COM_CODE) FROM COMPANY";
+                return dbHelper.Conn.QuerySingleOrDefault<string>(query);
+            }
         }
         public Company GetCompanyInfoByComCodeRepo(string comCode)
         {
-            var query = "SELECT * FROM COMPANY WHERE COM_CODE = @Com_Code";
-            return mDb.Conn.QueryFirstOrDefault<Company>(query, new { Com_Code = comCode });
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT * FROM COMPANY WHERE COM_CODE = @Com_Code";
+                return dbHelper.Conn.QueryFirstOrDefault<Company>(query, new { Com_Code = comCode });
+            }
         }
         private static string GenerateNextComCode(string latestCode)
         {
@@ -49,11 +49,14 @@ namespace AMS_MVC.Repositories
             Result result = new Result(true);
             try
             {
-                string query = "SELECT * FROM COMPANY";
-                companies = mDb.Conn.Query<Company>(query).AsList();
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    string query = "SELECT * FROM COMPANY";
+                    companies = dbHelper.Conn.Query<Company>(query).AsList();
 
-                result.Message = "업체 목록을 성공적으로 가져왔습니다.";
-                LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                    result.Message = "업체 목록을 성공적으로 가져왔습니다.";
+                    LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -74,24 +77,27 @@ namespace AMS_MVC.Repositories
             Result result = new Result(true);
             try
             {
-                string latestCode = GetLatestComCode();
-                company.Com_Code = GenerateNextComCode(latestCode);
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    string latestCode = GetLatestComCode();
+                    company.Com_Code = GenerateNextComCode(latestCode);
 
-                string query = @"
+                    string query = @"
             INSERT INTO COMPANY (COM_CODE, COM_NAME, COM_ADDRESS, COM_PHONE, COM_BUSEO, COM_EMAIL) 
             VALUES (@Com_Code, @Com_Name, @Com_Address, @Com_Phone, @Com_Buseo, @Com_Email)";
 
-                int affectedRows = mDb.Conn.Execute(query, company);
-                if (affectedRows > 0)
-                {
-                    result.Message = "업체가 성공적으로 생성되었습니다.";
-                    LogHelper.WriteLog("DB(COMPANY) CreateCompany", result.Message);
-                }
-                else
-                {
-                    result.IsSuccess = false;
-                    result.Message = "업체 생성 실패: 데이터 삽입에 실패했습니다.";
-                    LogHelper.WriteLog("DB(COMPANY) CreateCompany", result.Message);
+                    int affectedRows = dbHelper.Conn.Execute(query, company);
+                    if (affectedRows > 0)
+                    {
+                        result.Message = "업체가 성공적으로 생성되었습니다.";
+                        LogHelper.WriteLog("DB(COMPANY) CreateCompany", result.Message);
+                    }
+                    else
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "업체 생성 실패: 데이터 삽입에 실패했습니다.";
+                        LogHelper.WriteLog("DB(COMPANY) CreateCompany", result.Message);
+                    }
                 }
             }
             catch (Exception ex)
@@ -114,7 +120,9 @@ namespace AMS_MVC.Repositories
 
             try
             {
-                string query = @"
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    string query = @"
                     UPDATE COMPANY 
                     SET COM_NAME = @Com_Name, 
                         COM_ADDRESS = @Com_Address, 
@@ -122,9 +130,10 @@ namespace AMS_MVC.Repositories
                         COM_BUSEO = @Com_Buseo, 
                         COM_EMAIL = @Com_Email
                     WHERE COM_CODE = @Com_Code";
-                mDb.Conn.Execute(query, company);
-                result.Message = "업체 정보가 성공적으로 수정되었습니다.";
-                LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                    dbHelper.Conn.Execute(query, company);
+                    result.Message = "업체 정보가 성공적으로 수정되었습니다.";
+                    LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                }
             }
             catch (Exception ex)
             {
@@ -146,18 +155,21 @@ namespace AMS_MVC.Repositories
             Result result = new Result(true);
             try
             {
-                string query = "DELETE FROM COMPANY WHERE COM_CODE = @Com_Code";
-                int affectedRows = mDb.Conn.Execute(query, new { Com_Code = comCode });
-                if (affectedRows > 0)
+                using(DBHelper dbHelper = new DBHelper())
                 {
-                    result.Message = "업체가 성공적으로 삭제되었습니다.";
-                    LogHelper.WriteLog("DB(COMPANY)", result.Message);
-                }
-                else
-                {
-                    result.IsSuccess = false;
-                    result.Message = "업체 삭제 실패: 해당 회사 코드를 찾을 수 없습니다.";
-                    LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                    string query = "DELETE FROM COMPANY WHERE COM_CODE = @Com_Code";
+                    int affectedRows = dbHelper.Conn.Execute(query, new { Com_Code = comCode });
+                    if (affectedRows > 0)
+                    {
+                        result.Message = "업체가 성공적으로 삭제되었습니다.";
+                        LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                    }
+                    else
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "업체 삭제 실패: 해당 회사 코드를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(COMPANY)", result.Message);
+                    }
                 }
             }
             catch (Exception ex)

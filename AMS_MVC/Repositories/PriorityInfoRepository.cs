@@ -10,16 +10,11 @@ namespace AMS_MVC.Repositories
 {
     public class PriorityInfoRepository
     {
-        private readonly DBHelper mDb;
-
-        public PriorityInfoRepository()
-        {
-            mDb = new DBHelper();
-        }
-
         public List<dynamic> GetPriorityVCB()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
         SELECT
             ROW_NUMBER() OVER (
                 ORDER BY 
@@ -44,11 +39,14 @@ namespace AMS_MVC.Repositories
         FROM VCB_BASICINFO v 
         LEFT JOIN RISKMATRIX r ON v.VCB_CODE = r.CODE";
 
-            return mDb.Conn.Query(query).AsList();
+                return dbHelper.Conn.Query(query).AsList();
+            }
         }
         public List<dynamic> GetPriorityITR()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
         SELECT
             ROW_NUMBER() OVER (
                 ORDER BY 
@@ -72,11 +70,14 @@ namespace AMS_MVC.Repositories
                     CAST(r.COF AS INT) * CAST(r.POF AS INT) AS RiskScore 
                 FROM INTERFACETR_BASICINFO i LEFT JOIN RISKMATRIX r ON i.ITR_CODE = r.CODE";
 
-            return mDb.Conn.Query(query).AsList();
+                return dbHelper.Conn.Query(query).AsList();
+            }
         }
         public List<PriorityInfo> GetPriorityInfo()
         {
-            const string query = @"
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
             WITH CombinedData AS (
                 SELECT 
                     'AC' AS Sort, 
@@ -132,7 +133,8 @@ namespace AMS_MVC.Repositories
                 PoF
             FROM CombinedData;";
 
-            return mDb.Conn.Query<PriorityInfo>(query).AsList();
+                return dbHelper.Conn.Query<PriorityInfo>(query).AsList();
+            }
         }
     }
 }

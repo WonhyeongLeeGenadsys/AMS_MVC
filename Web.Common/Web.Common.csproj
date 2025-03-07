@@ -46,6 +46,7 @@
     <Compile Include="Database\DbHelper.cs" />
     <Compile Include="Log\LogHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utlity\DateHelper.cs" />
     <Compile Include="Utlity\FileUploader.cs" />
     <Compile Include="Utlity\Result.cs" />
     <Compile Include="Utlity\UserHelper.cs" />
