@@ -1,0 +1,411 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_DeviceInfoMenu")
+}
+
+@section MainContent {
+    <h1>VCB - 00000001</h1>
+    <!--전체 박스-->
+    <div class="box_wrap">
+        <!--시설정보-->
+        <div class="con_box flex3">
+            <div class="product">
+                <p class="img">
+                    <img src="../img/img_product.png" />
+                </p>
+                <dl class="product_info">
+                    <dt>시리얼번호</dt>
+                    <dd>0000001</dd>
+                    <dt>설치일</dt>
+                    <dd>2024-05-05</dd>
+                    <dt>가동일</dt>
+                    <dd>2024-05-05</dd>
+                    <dt>사용기간</dt>
+                    <dd>00년</dd>
+                    <dt>구입비용</dt>
+                    <dd>000,000,000원</dd>
+                    <dt>설치장소</dt>
+                    <dd>옥외</dd>
+                    <dt>정격전압</dt>
+                    <dd>24kV</dd>
+                    <dt>정격전류</dt>
+                    <dd>640A</dd>
+                    <dt>제작사</dt>
+                    <dd>㈜자산관리</dd>
+                    <dt>제작번호</dt>
+                    <dd>00-0000-00</dd>
+                    <dt>진단사용</dt>
+                    <dd>아니오</dd>
+                    <dt>건전도 사용</dt>
+                    <dd>예</dd>
+                </dl>
+            </div>
+        </div>
+        <!--//시설정보-->
+        <!--건전도-->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>건전도</p>
+            </h2>
+            <!--//타이틀-->
+            <!--차트-->
+            <div id="gauge" style="height:250px;"></div>
+            <!--//차트-->
+            <script type="text/javascript">
+                $(function () {
+                    const gauge = $('#gauge').dxCircularGauge({
+                        scale: {
+                            startValue: 10,
+                            endValue: 40,
+                            tickInterval: 5,
+                            label: {
+                                customizeText: function (arg) {
+                                    return arg.valueText + " °C";
+                                }
+                            }
+                        },
+                        rangeContainer: {
+                            ranges: [
+                                { startValue: 10, endValue: 20, color: '#7A92CE' },
+                                { startValue: 20, endValue: 30, color: '#FEA00D' },
+                                { startValue: 30, endValue: 40, color: '#48C29C' }
+                            ]
+                        },
+                        tooltip: { enabled: true },
+                        value: 35,
+                        subvalues: [20, 38]
+                    }).dxCircularGauge("instance");
+                });
+            </script>
+        </div>
+        <!--//건전도-->
+        <!--risk matrix-->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>Risk Matrix</p>
+            </h2>
+            <!--//타이틀-->
+            <!--메트릭스-->
+            <div class="matrix">
+                <!--메트릭스좌측-->
+                <div class="matrix_left">
+                    <h3 class="left tit">PoF</h3>
+                    <ul class="left txt">
+                        <li>Very Poor</li>
+                        <li>Poor</li>
+                        <li>Fair</li>
+                        <li>Good</li>
+                        <li>Very Good</li>
+                    </ul>
+                </div>
+                <!--//메트릭스좌측-->
+                <!--그래프-->
+                <ul class="value">
+                    <li class="verypoor">58</li>
+                    <li class="verypoor">58</li>
+                    <li class="poor">58</li>
+                    <li class="fair">58</li>
+                    <li class="good">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verypoor">58</li>
+                    <li class="verypoor">58</li>
+                    <li class="poor">58</li>
+                    <li class="fair">58</li>
+                    <li class="good">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verypoor">58</li>
+                    <li class="verypoor">58</li>
+                    <li class="poor">58</li>
+                    <li class="fair">58</li>
+                    <li class="good">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                    <li class="verygood">58</li>
+                </ul>
+                <!--//그래프-->
+                <!--메트릭스푸터-->
+                <div class="matrix_bottom">
+                    <ul class="bottom txt">
+                        <li>Very good</li>
+                        <li>good</li>
+                        <li>Fair</li>
+                        <li>Poor</li>
+                        <li>Very Poor</li>
+                    </ul>
+                    <h3 class="bottom_t tit">CoF</h3>
+                </div>
+                <!--//메트릭스푸터-->
+            </div>
+        </div>
+        <!--//risk matrix-->
+        <!--전략-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>
+                <p>보통점검</p>
+            </h2>
+            <!--//타이틀-->
+            <ul class="sub_flex">
+                <li>
+                    <h4 class="tit_h4">일반육안 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>개폐 조작시험</td>
+                                    <td>정상</td>
+                                </tr>
+                                <tr>
+                                    <td>투입 Spring Charget 표시기</td>
+                                    <td>정상</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">동작 타이밍 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>무부하 투입시간</td>
+                                    <td>65ms 초과</td>
+                                </tr>
+                                <tr>
+                                    <td>무부하 개극시간</td>
+                                    <td>40ms 초과</td>
+                                </tr>
+                                <tr>
+                                    <td>3상 개극시 개극차</td>
+                                    <td>6ms 초과</td>
+                                </tr>
+                                <tr>
+                                    <td>Chattering 시간</td>
+                                    <td>6ms 초과</td>
+                                </tr>
+                                <tr>
+                                    <td>O-C-O</td>
+                                    <td>동작책무 초과</td>
+                                </tr>
+                                <tr>
+                                    <td>축세조작 시간</td>
+                                    <td>3~5s 이내</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">보조시스템 기능 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Coil전류</td>
+                                    <td>투입:1A이하/트립:1A이상</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">Vacumm Interrupt 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>접점마모량</td>
+                                    <td>12mm 이상</td>
+                                </tr>
+                                <tr>
+                                    <td>진공도 측정</td>
+                                    <td>0.3A이하</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">정기 육안 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>개폐 조작시험</td>
+                                    <td>정상</td>
+                                </tr>
+                                <tr>
+                                    <td>투입 Spring Charget 표시기</td>
+                                    <td>정상</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">기계적 및 전기적 작동 이력</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>VCB 기계적 동작횟수</td>
+                                    <td>9,000회~10,000회 미만</td>
+                                </tr>
+                                <tr>
+                                    <td>단락 고장 차단 횟수</td>
+                                    <td>0회~100회 미만</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">접촉저항 점검</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>접촉저항</td>
+                                    <td>50uΩ 이상</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">기계적 및 전기적 작동 이력</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>정격 차단 전류에 대한 부하전류 비율</td>
+                                    <td>O 0.8% ~100% 미만</td>
+                                </tr>
+                                <tr>
+                                    <td>정격 차단 전류에 대한 단락전류 비율</td>
+                                    <td>0.8% ~100% 미만</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">VCB 통계수명</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%" />
+                                <col style="width:50%" />
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>사용기간수</td>
+                                    <td>B3+10[Year]~%B3[Year](3)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+            <!--//전략-->
+        </div>
+    </div>
+    <!--//컨텐츠가 들어옵니다-->
+}

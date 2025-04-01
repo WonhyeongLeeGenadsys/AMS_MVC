@@ -9,16 +9,22 @@ namespace AMS_MVC.Repositories
 {
     public class GojangRepository
     {
-        public List<dynamic> GetGojangVCB()
+        // [1] 특정 테이블(= 특정 장치)만 조회
+        public List<dynamic> GetGojangData(
+            string failureHistoryTable,
+            string basicInfoTable,
+            string codeField,
+            string basicInfoAlias,
+            string entityName)
         {
-            using(DBHelper dbHelper = new DBHelper())
+            using (DBHelper dbHelper = new DBHelper())
             {
-                const string query = @"
+                string query = $@"
     SELECT
         ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
-        V.VCB_CODE AS Code,
-        'VCB' AS Name,
-        V.SERIAL_NO AS Serial_No,
+        {basicInfoAlias}.{codeField} AS Code,
+        '{entityName}' AS Name,
+        {basicInfoAlias}.SERIAL_NO AS Serial_No,
         F.FAIL_WEATHER AS Weather,
         F.FAIL_TEMP AS Temp,
         F.FAIL_HUM AS Hum,
@@ -27,100 +33,81 @@ namespace AMS_MVC.Repositories
         F.FAIL_PART AS Part,
         F.FAIL_PERIOD AS Period,
         F.FAIL_FINDER AS Finder,
-        F.FAIL_REGISTRAR AS Registrar,
-        F.FAIL_DATE AS Date
-    FROM VCB_FAILURE_HISTORY F
-    LEFT JOIN VCB_BASICINFO V ON F.VCB_CODE = V.VCB_CODE";
+        F.FAIL_REPAIR_DATE AS Date
+    FROM {failureHistoryTable} F
+    LEFT JOIN {basicInfoTable} {basicInfoAlias} 
+           ON F.{codeField} = {basicInfoAlias}.{codeField}";
 
                 return dbHelper.Conn.Query(query).AsList();
             }
         }
 
-        public List<dynamic> GetGojangITR()
-        {
-            using(DBHelper dbHelper = new DBHelper())
-            {
-                const string query = @"
-    SELECT
-        ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
-        I.ITR_CODE AS Code,
-        'Interface TR' AS Name,
-        I.SERIAL_NO AS Serial_No,
-        F.FAIL_WEATHER AS Weather,
-        F.FAIL_TEMP AS Temp,
-        F.FAIL_HUM AS Hum,
-        F.FAIL_REASON AS Reason,
-        F.FAIL_STATUS AS Status,
-        F.FAIL_PART AS Part,
-        F.FAIL_PERIOD AS Period,
-        F.FAIL_FINDER AS Finder, 
-        F.FAIL_REGISTRAR AS Registrar,
-        F.FAIL_DATE AS Date
-    FROM INTERFACETR_FAILURE_HISTORY F LEFT JOIN INTERFACETR_BASICINFO I ON F.ITR_CODE = I.ITR_CODE";
-
-                return dbHelper.Conn.Query(query).AsList();
-            }
-        }
 
         public List<dynamic> GetGojangAll()
         {
-            using(DBHelper dbHelper = new DBHelper())
+            // 1) 각 항목(테이블) 설정
+            var configs = new[]
             {
-                const string query = @"
-WITH CombinedData AS (
-    SELECT
-        V.VCB_CODE AS Code,
-        'VCB' AS Name,
-        V.SERIAL_NO AS Serial_No,
-        F.FAIL_WEATHER AS Weather,
-        F.FAIL_TEMP AS Temp,
-        F.FAIL_HUM AS Hum,
-        F.FAIL_REASON AS Reason,
-        F.FAIL_STATUS AS Status,
-        F.FAIL_PART AS Part,
-        F.FAIL_PERIOD AS Period,
-        F.FAIL_FINDER AS Finder,
-        F.FAIL_REGISTRAR AS Registrar,
-        F.FAIL_DATE AS Date
-    FROM VCB_FAILURE_HISTORY F  LEFT JOIN VCB_BASICINFO V ON F.VCB_CODE = V.VCB_CODE
+                new { FailureTable = "VCB_FAILURE_HISTORY",      BasicTable = "VCB_BASICINFO",      CodeField = "VCB_CODE",      Alias = "VCB",      EntityName = "VCB" },
+                new { FailureTable = "INTERFACETR_FAILURE_HISTORY", BasicTable = "INTERFACETR_BASICINFO", CodeField = "ITR_CODE",      Alias = "ITR",     EntityName = "ITR" },
+                new { FailureTable = "DCCB_FAILURE_HISTORY",     BasicTable = "DCCB_BASICINFO",     CodeField = "DCCB_CODE",     Alias = "DCCB",    EntityName = "DCCB" },
+                new { FailureTable = "DCCABLE_FAILURE_HISTORY",   BasicTable = "DCCABLE_BASICINFO",   CodeField = "DCCABLE_CODE", Alias = "DCCABLE", EntityName = "DCCABLE" },
+                new { FailureTable = "SUBMODULE_FAILURE_HISTORY", BasicTable = "SUBMODULE_BASICINFO", CodeField = "SUBMODULE_CODE", Alias = "SUBMODULE", EntityName = "SUBMODULE" }
+            };
 
-    UNION ALL
+            var unionQueries = new List<string>();
 
-    SELECT
-        I.ITR_CODE AS Code,
-        'Interface TR' AS Name,
-        I.SERIAL_NO AS Serial_No,
-        F.FAIL_WEATHER AS Weather,
-        F.FAIL_TEMP AS Temp,
-        F.FAIL_HUM AS Hum,
-        F.FAIL_REASON AS Reason,
-        F.FAIL_STATUS AS Status,
-        F.FAIL_PART AS Part,
-        F.FAIL_PERIOD AS Period,
-        F.FAIL_FINDER AS Finder, 
-        F.FAIL_REGISTRAR AS Registrar,
-        F.FAIL_DATE AS Date
-    FROM INTERFACETR_FAILURE_HISTORY F LEFT JOIN INTERFACETR_BASICINFO I ON F.ITR_CODE = I.ITR_CODE
-)
-SELECT
-    ROW_NUMBER() OVER (ORDER BY DATEDIFF(DAY, Date, GETDATE()) DESC) AS Priority,
-    Code,
-    Name,
-    Serial_No,
-    Weather,
-    Temp,
-    Hum,
-    Reason,
-    Status,
-    Part,
-    Period,
-    Finder,
-    Registrar,
-    Date
-FROM CombinedData;";
+            foreach (var cfg in configs)
+            {
+                string part = $@"
+                    SELECT
+                        CAST(F.FAIL_PERIOD AS INT) AS FailPeriod,  -- 통합 정렬용 (INT 변환)
+                        {cfg.Alias}.{cfg.CodeField} AS Code,
+                        '{cfg.EntityName}' AS Name,
+                        {cfg.Alias}.SERIAL_NO AS Serial_No,
+                        F.FAIL_WEATHER AS Weather,
+                        F.FAIL_TEMP AS Temp,
+                        F.FAIL_HUM AS Hum,
+                        F.FAIL_REASON AS Reason,
+                        F.FAIL_STATUS AS Status,
+                        F.FAIL_PART AS Part,
+                        F.FAIL_PERIOD AS Period,     -- 원본 문자열
+                        F.FAIL_FINDER AS Finder,
+                        F.FAIL_REPAIR_DATE AS [Date]
+                    FROM {cfg.FailureTable} F
+                    LEFT JOIN {cfg.BasicTable} {cfg.Alias} 
+                           ON F.{cfg.CodeField} = {cfg.Alias}.{cfg.CodeField}
+                ";
+                unionQueries.Add(part);
+            }
 
-                return dbHelper.Conn.Query(query).AsList();
+            string fullQuery = $@"
+                WITH CombinedData AS
+                (
+                    {string.Join(" UNION ALL ", unionQueries)}
+                )
+                SELECT
+                    ROW_NUMBER() OVER (ORDER BY FailPeriod DESC) AS Priority,
+                    Code,
+                    Name,
+                    Serial_No,
+                    Weather,
+                    Temp,
+                    Hum,
+                    Reason,
+                    Status,
+                    Part,
+                    Period,
+                    Finder,
+                    [Date]
+                FROM CombinedData
+                ORDER BY FailPeriod DESC;  -- 혹은 Priority ASC
+            ";
+
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                return dbHelper.Conn.Query(fullQuery).AsList();
             }
         }
     }
-}
+}    

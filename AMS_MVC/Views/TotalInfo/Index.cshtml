@@ -21,383 +21,27 @@
             <ul class="chart">
                 <li>
                     <!--그래프-->
-                    @*AC-VCB 도넛 차트*@
                     <div id="pie01" class="chart_box"></div>
                     <!--//그래프-->
                     <!--그래프 타이틀-->
-                    <div class="title">
-                        AC-VCB
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            // 서버에서 데이터를 가져오는 함수
-                            function fetchVCBData() {
-                                return $.ajax({
-                                    type: "POST",
-                                    url: "/TotalInfo/GetRiskmatrixData",
-                                    data: JSON.stringify({ prefix: "V" }),
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json"
-                                });
-                            }
-
-                            // dxPieChart 생성 함수
-                            function initializePieChart(data) {
-                                $('#pie01').dxPieChart({
-                                    type: 'doughnut',
-                                    palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                                    dataSource: data,
-                                    legend: {
-                                        visible: false
-                                    },
-                                    onPointClick(arg) {
-                                        arg.target.select();
-                                    },
-                                    series: [{
-                                        argumentField: 'state',
-                                        valueField: 'value',
-                                        label: {
-                                            visible: true,
-                                            format: 'fixedPoint', //고점 소수점 형식으로 표시
-                                            precision: 0, // 소수점 이하 0자리
-                                            connector: {
-                                                visible: true,
-                                            },
-                                        },
-                                    }],
-                                    size: {
-                                        width: 270,
-                                        height: 270
-                                    },
-                                    innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
-                                });
-                            }
-
-                            // 데이터를 가져와 차트에 적용
-                            fetchVCBData()
-                                .done(function (response) {
-                                    if (response) {
-                                        const serverData = response;
-                                        console.log(serverData);
-                                        // POF 데이터를 처리하여 동일한 POF 값은 합산
-                                        const pofSummary = summarizePOFData(serverData);
-
-                                        initializePieChart(pofSummary);
-                                    } else {
-                                        alert("VCB 데이터를 가져오는 데 실패했습니다.");
-                                    }
-                                })
-                                .fail(function (xhr, status, error) {
-                                    console.error("Ajax Error:", error);
-                                    alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                                });
-
-                            // POF 데이터를 합산하여 요약하는 함수
-                            function summarizePOFData(data) {
-                                const summary = {};
-
-                                data.forEach(item => {
-                                    const state = getStateByPof(item.Pof);
-                                    if (summary[state]) {
-                                        summary[state] += 1; // 동일 상태 값 증가
-                                    } else {
-                                        summary[state] = 1; // 새로운 상태 초기화
-                                    }
-                                });
-
-                                // 요약된 데이터를 차트 형식에 맞게 변환
-                                return Object.keys(summary).map(state => ({
-                                    state: state,
-                                    value: summary[state]
-                                }));
-                            }
-
-                            // POF 값에 따라 상태를 반환하는 함수
-                            function getStateByPof(pof) {
-                                switch (parseInt(pof)) {
-                                    case 1: return 'Very Good';
-                                    case 2: return 'Good';
-                                    case 3: return 'Fair';
-                                    case 4: return 'Poor';
-                                    case 5: return 'Very Poor';
-                                    default: return 'Unknown';
-                                }
-                            }
-                        });
-                    </script>
+                    <div class="title">AC-VCB</div>
                 </li>
                 <li>
-                    @*AC-Interface TR*@
                     <div id="pie02" class="chart_box"></div>
-                    <!--그래프 타이틀-->
-                    <div class="title">
-                        AC-Interface TR
-                    </div>
-                    <script>
-                        $(document).ready(function () {
-                            // 서버에서 데이터를 가져오는 함수
-                            function fetchITRData() {
-                                return $.ajax({
-                                    type: "POST",
-                                    url: "/TotalInfo/GetRiskmatrixData",
-                                    data: JSON.stringify({ prefix: "I" }),
-                                    contentType: "application/json; charset=utf-8",
-                                    dataType: "json"
-                                });
-                            }
-
-                            // dxPieChart 생성 함수
-                            function initializePieChart(data) {
-                                $('#pie02').dxPieChart({
-                                    type: 'doughnut',
-                                    palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                                    dataSource: data,
-                                    legend: {
-                                        visible: false
-                                    },
-                                    onPointClick(arg) {
-                                        arg.target.select();
-                                    },
-                                    series: [{
-                                        argumentField: 'state',
-                                        valueField: 'value',
-                                        label: {
-                                            visible: true,
-                                            format: 'fixedPoint', //고점 소수점 형식으로 표시
-                                            precision: 0, // 소수점 이하 0자리
-                                            connector: {
-                                                visible: true,
-                                            },
-                                        },
-                                    }],
-                                    size: {
-                                        width: 270,
-                                        height: 270
-                                    },
-                                    innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
-                                });
-                            }
-
-                            // 데이터를 가져와 차트에 적용
-                            fetchITRData()
-                                .done(function (response) {
-                                    if (response) {
-                                        const serverData = response;
-                                        console.log(serverData);
-
-                                        // POF 데이터를 처리하여 동일한 POF 값은 합산
-                                        const pofSummary = summarizePOFData(serverData);
-
-                                        initializePieChart(pofSummary);
-                                    } else {
-                                        alert("ITR 데이터를 가져오는 데 실패했습니다.");
-                                    }
-                                })
-                                .fail(function (xhr, status, error) {
-                                    console.error("Ajax Error:", error);
-                                    alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                                });
-
-                            // POF 데이터를 합산하여 요약하는 함수
-                            function summarizePOFData(data) {
-                                const summary = {};
-
-                                data.forEach(item => {
-                                    const state = getStateByPof(item.Pof);
-                                    if (summary[state]) {
-                                        summary[state] += 1; // 동일 상태 값 증가
-                                    } else {
-                                        summary[state] = 1; // 새로운 상태 초기화
-                                    }
-                                });
-
-                                // 요약된 데이터를 차트 형식에 맞게 변환
-                                return Object.keys(summary).map(state => ({
-                                    state: state,
-                                    value: summary[state]
-                                }));
-                            }
-
-                            // POF 값에 따라 상태를 반환하는 함수
-                            function getStateByPof(pof) {
-                                switch (parseInt(pof)) {
-                                    case 1: return 'Very Good';
-                                    case 2: return 'Good';
-                                    case 3: return 'Fair';
-                                    case 4: return 'Poor';
-                                    case 5: return 'Very Poor';
-                                    default: return 'Unknown';
-                                }
-                            }
-                        });
-                    </script>
+                    <div class="title">AC-Interface TR</div>
                 </li>
                 <li>
                     <div id="pie03" class="chart_box"></div>
-                    <!--그래프 타이틀-->
-                    <div class="title">
-                        DC-Sub Module
-                    </div>
-                    <script>
-                        $(() => {
-                            $('#pie03').dxPieChart({
-                                type: 'doughnut',
-                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                                dataSource: customers03,
-                                legend: {
-                                    visible: false
-                                },
-                                onPointClick(arg) {
-                                    arg.target.select();
-                                },
-                                series: [{
-                                    argumentField: 'state',
-                                    valueField: 'value',
-                                    label: {
-                                        visible: true,
-                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
-                                        precision: 0, // 소수점 이하 0자리
-                                        connector: {
-                                            visible: true,
-                                        },
-                                    },
-                                }],
-                                size: {
-                                    width: 270,
-                                    height: 270
-                                },
-                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
-                            });
-                        });
-                        const customers03 = [{
-                            state: 'Very Good',
-                            value: 1,
-                        }, {
-                            state: 'Good',
-                            value: 2,
-                        }, {
-                            state: 'Fair',
-                            value: 3,
-                        }, {
-                            state: 'Poor',
-                            value: 4,
-                        }, {
-                            state: 'Very Poor',
-                            value: 5,
-                        },];
-                    </script>
+                    <div class="title">AC-Sub Module</div>
                 </li>
                 <li>
                     <div id="pie04" class="chart_box"></div>
-                    <!--그래프 타이틀-->
-                    <div class="title">
-                        DC-DCCB
-                    </div>
-                    <script>
-                        $(() => {
-                            $('#pie04').dxPieChart({
-                                type: 'doughnut',
-                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                                dataSource: customers04,
-                                legend: {
-                                    visible: false
-                                },
-                                onPointClick(arg) {
-                                    arg.target.select();
-                                },
-                                series: [{
-                                    argumentField: 'state',
-                                    valueField: 'value',
-                                    label: {
-                                        visible: true,
-                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
-                                        precision: 0, // 소수점 이하 0자리
-                                        connector: {
-                                            visible: true,
-                                        },
-                                    },
-                                }],
-                                size: {
-                                    width: 270,
-                                    height: 270
-                                },
-                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
-                            });
-                        });
-                        const customers04 = [{
-                            state: 'Very Good',
-                            value: 1000,
-                        }, {
-                            state: 'Good',
-                            value: 2000,
-                        }, {
-                            state: 'Fair',
-                            value: 3000,
-                        }, {
-                            state: 'Poor',
-                            value: 4000,
-                        }, {
-                            state: 'Very Poor',
-                            value: 5000,
-                        },];
-                    </script>
+                    <div class="title">AC-DCCB</div>
                 </li>
                 <li>
                     <div id="pie05" class="chart_box"></div>
-                    <!--그래프 타이틀-->
-                    <div class="title">
-                        DC-DC Cable
-                    </div>
-                    <script>
-                        $(() => {
-                            $('#pie05').dxPieChart({
-                                type: 'doughnut',
-                                palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                                dataSource: customers05,
-                                legend: {
-                                    visible: false
-                                },
-                                onPointClick(arg) {
-                                    arg.target.select();
-                                },
-                                series: [{
-                                    argumentField: 'state',
-                                    valueField: 'value',
-                                    label: {
-                                        visible: true,
-                                        format: 'fixedPoint', //고점 소수점 형식으로 표시
-                                        precision: 0, // 소수점 이하 0자리
-                                        connector: {
-                                            visible: true,
-                                        },
-                                    },
-                                }],
-                                size: {
-                                    width: 270,
-                                    height: 270
-                                },
-                                innerRadius: 0.5, // 도넛의 두께 설정 (0 ~ 1) 숫자가 낮을수록 두꺼워짐
-                            });
-                        });
-                        const customers05 = [{
-                            state: 'Very Good',
-                            value: 80000,
-                        }, {
-                            state: 'Good',
-                            value: 20000,
-                        }, {
-                            state: 'Fair',
-                            value: 10000,
-                        }, {
-                            state: 'Poor',
-                            value: 10000,
-                        }, {
-                            state: 'Very Poor',
-                            value: 20000,
-                        },];
-                    </script>
+                    <div class="title">AC-DC Cable</div>
                 </li>
-
             </ul>
             <ul class="valuee">
                 <li><span class="verygood"></span><strong>Very Good</strong></li>
@@ -407,6 +51,93 @@
                 <li><span class="verypoor"></span><strong>Very Poor</strong></li>
             </ul>
         </div>
+
+        <script>
+            $(document).ready(function () {
+
+                // 공통: HI 데이터를 요약하는 함수
+                function summarizeHIData(data) {
+                    var result = [];
+                    Object.keys(data).forEach(function (key) {
+                        result.push({
+                            state: getStateByHI(key),
+                            value: parseInt(data[key], 10)
+                        });
+                    });
+                    return result;
+                }
+
+                // 공통: HI 값에 따른 상태 문자열 반환 함수
+                function getStateByHI(hi) {
+                    var value = parseInt(hi, 10);
+                    switch (value) {
+                        case 1: return 'Very Good';
+                        case 2: return 'Good';
+                        case 3: return 'Fair';
+                        case 4: return 'Poor';
+                        case 5: return 'Very Poor';
+                        default: return 'Unknown';
+                    }
+                }
+
+                // 공통: dxPieChart를 생성하는 함수
+                function initializePieChart(elementId, data) {
+                    $(elementId).dxPieChart({
+                        type: 'doughnut',
+                        palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+                        dataSource: data,
+                        legend: { visible: false },
+                        onPointClick(arg) {
+                            arg.target.select();
+                        },
+                        series: [{
+                            argumentField: 'state',
+                            valueField: 'value',
+                            label: {
+                                visible: true,
+                                format: 'fixedPoint',
+                                precision: 0,
+                                connector: { visible: true }
+                            }
+                        }],
+                        size: { width: 270, height: 270 },
+                        innerRadius: 0.5
+                    });
+                }
+
+                // 공통: 특정 prefix에 대해 데이터를 가져와 HI 데이터를 처리하고 차트를 생성하는 함수
+                function setupChart(elementId, prefix) {
+                    $.ajax({
+                        type: "POST",
+                        url: "/VCBDevice/GetRiskmatrixData",  // HI 집계 데이터를 반환하는 액션
+                        data: JSON.stringify({ prefix: prefix }),
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    })
+                        .done(function (response) {
+                            if (response) {
+                                const hiSummary = summarizeHIData(response);
+                                initializePieChart(elementId, hiSummary);
+                            } else {
+                                alert(prefix + " 데이터를 가져오는 데 실패했습니다.");
+                            }
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
+                        });
+                }
+
+                setupChart('#pie01', 'VCB');       // AC-VCB
+                setupChart('#pie02', 'ITR');       // AC-Interface TR
+                setupChart('#pie03', 'SUBMODULE'); // AC-Sub Module
+                setupChart('#pie04', 'DCCB');      // AC-DCCB
+                setupChart('#pie05', 'DCCABLE');   // AC-DC Cable
+
+            });
+        </script>
+
+
         <!--//건전도-->
         <!--risk matrix-->
         <div class="con_box flex1">
@@ -559,6 +290,8 @@
                                 { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
                                 { dataField: 'CoF', caption: 'CoF', alignment: 'center' },
                                 { dataField: 'PoF', caption: 'PoF', alignment: 'center' },
+                                { dataField: 'HI', caption: 'HI', alignment: 'center' },
+
                             ],
                             showBorders: true,
                             sorting: {
@@ -571,7 +304,6 @@
             </script>
         </div>
         <!--//우선순위-->
-
         <!-- 점검 -->
         <div class="con_box flex2 schedule">
             <!-- 타이틀 -->
@@ -652,14 +384,14 @@
                                 let barWidth = (endDay - startDay + 1) * 31 + "px";
 
                                 tbodyHtml += `<tr>
-                                        <th>${type}</th>
-                                        <td>${item.Code}</td>`;
+                                                                                        <th>${type}</th>
+                                                                                        <td>${item.Code}</td>`;
 
                                 for (let i = 1; i <= daysInMonth; i++) {
                                     if (i === startDay) {
                                         tbodyHtml += `<td colspan="${endDay - startDay + 1}" style="position: relative;">
-                                                <span class="bar" style="${barStyle} width: ${barWidth}; height: 20px; display: block;"></span>
-                                            </td>`;
+                                                                                                <span class="bar" style="${barStyle} width: ${barWidth}; height: 20px; display: block;"></span>
+                                                                                            </td>`;
                                         i = endDay;
                                     } else {
                                         tbodyHtml += `<td></td>`;
@@ -698,7 +430,6 @@
             </script>
         </div>
         <!-- //점검 -->
-
         <!--유지보수-->
         <div class="con_box flex1">
             <!--타이틀-->
@@ -711,8 +442,17 @@
             <div id="chart"></div>
             <!--//챠트-->
             <script>
+                function transformMaintenanceData(rawArray) {
+                    return rawArray.map(function (row) {
+                        const obj = {};
+                        row.forEach(function (pair) {
+                            obj[pair.Key] = pair.Value;
+                        });
+                        return obj;
+                    });
+                }
+
                 $(document).ready(function () {
-                    // 서버에서 데이터를 가져오는 함수
                     function fetchMaintenanceData() {
                         return $.ajax({
                             type: "POST",
@@ -722,14 +462,13 @@
                         });
                     }
 
-                    // 데이터를 가져와 차트를 초기화
                     fetchMaintenanceData()
                         .done(function (response) {
-                            const rawData = response;
-                            console.log("유지보수 데이터:", rawData);
-
-                            const data = processChartData(rawData);
-
+                            console.log("유지보수 rawData:", response);
+                            // 응답 변환
+                            const normalData = transformMaintenanceData(response);
+                            console.log("유지보수 normalData:", normalData);
+                            const data = processChartData(normalData);
                             renderMonthlyMaintenanceChart(data);
                         })
                         .fail(function (xhr, status, error) {
@@ -737,26 +476,39 @@
                             alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
                         });
 
-                    // 데이터를 월별로 정리하는 함수
                     function processChartData(rawData) {
                         const groupedData = {};
 
                         rawData.forEach(item => {
-                            const month = item.Month;
+                            const month = item.Month; // 예: "2024-05"
                             if (!groupedData[month]) {
-                                groupedData[month] = { Month: month, VCB: 0, InterfaceTR: 0 };
+                                groupedData[month] = {
+                                    Month: month,
+                                    VCB: 0,
+                                    InterfaceTR: 0,
+                                    SubModule: 0,
+                                    DCCB: 0,
+                                    DCCable: 0
+                                };
                             }
                             if (item.Type === "VCB") {
                                 groupedData[month].VCB += item.Count;
                             } else if (item.Type === "Interface TR") {
                                 groupedData[month].InterfaceTR += item.Count;
+                            } else if (item.Type === "Sub Module") {
+                                groupedData[month].SubModule += item.Count;
+                            } else if (item.Type === "DCCB") {
+                                groupedData[month].DCCB += item.Count;
+                            } else if (item.Type === "DC Cable") {
+                                groupedData[month].DCCable += item.Count;
                             }
                         });
-                        // 객체를 배열로 변환
-                        return Object.values(groupedData);
+                        const result = Object.values(groupedData);
+                        // 월 기준 정렬 (옵션)
+                        result.sort((a, b) => a.Month.localeCompare(b.Month));
+                        return result;
                     }
 
-                    // 차트를 렌더링하는 함수
                     function renderMonthlyMaintenanceChart(data) {
                         $("#chart").dxChart({
                             dataSource: data,
@@ -772,7 +524,7 @@
                                 enabled: true,
                                 customizeTooltip: function (arg) {
                                     return {
-                                        text: `${arg.seriesName} - ${arg.argumentText}월: ${arg.valueText}건`
+                                        text: `${arg.seriesName} - ${arg.argumentText}: ${arg.valueText}건`
                                     };
                                 }
                             },
@@ -780,12 +532,27 @@
                                 {
                                     name: "VCB",
                                     valueField: "VCB",
-                                    color: "#0051A2" // 파란색
+                                    color: "#0051A2"
                                 },
                                 {
                                     name: "Interface TR",
                                     valueField: "InterfaceTR",
-                                    color: "#800080" // 보라색
+                                    color: "#800080"
+                                },
+                                {
+                                    name: "Sub Module",
+                                    valueField: "SubModule",
+                                    color: "#A52A2A"
+                                },
+                                {
+                                    name: "DCCB",
+                                    valueField: "DCCB",
+                                    color: "#808080"
+                                },
+                                {
+                                    name: "DC Cable",
+                                    valueField: "DCCable",
+                                    color: "#000000"
                                 }
                             ]
                         });
@@ -806,55 +573,82 @@
             <div id="gridContainer02" class="grid_wrap" style="height: 400px;"></div>
             <!--//그리드-->
             <script type="text/javascript">
-                $(document).ready(function () {
-                    function fetchGojangData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/TotalInfo/GetGojangList",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
+                // .NET Date 형식("/Date(숫자)/")를 JavaScript Date 객체로 변환하는 함수
+                function parseDotNetDate(dotNetString) {
+                    var match = /Date\((\d+)\)/.exec(dotNetString);
+                    if (match) {
+                        var timestamp = parseInt(match[1], 10);
+                        return new Date(timestamp);
                     }
+                    return null;
+                }
 
-                    fetchGojangData()
+                // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            // Date 필드 처리: "Date" 키에 해당하는 값은 파싱하여 Date 객체로 변환
+                            if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                                obj[pair.Key] = parseDotNetDate(pair.Value);
+                            } else {
+                                obj[pair.Key] = pair.Value;
+                            }
+                        });
+                        return obj;
+                    });
+                }
+
+                // 예: 고장 데이터를 가져와서 dxDataGrid에 적용하는 예제
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/TotalInfo/GetGojangList",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    })
                         .done(function (response) {
-                            const data = response;
-                            console.log("고장 데이터:", data);
-                            initializeGojangGrid(data);
+                            // response는 [ [ {Key, Value}, ... ], [ {Key, Value}, ... ], ... ]
+                            var transformed = transformData(response);
+                            console.log("변환된 데이터:", transformed);
+
+                            // dxDataGrid에 변환된 데이터를 dataSource로 적용
+                            $("#gridContainer02").dxDataGrid({
+                                dataSource: transformed,
+                                columns: [
+                                    { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                    { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                    { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                    { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                    { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                    { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                    { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                    { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                    { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                    { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                    { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                    { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                    {
+                                        dataField: 'Date',
+                                        caption: '고장일',
+                                        alignment: 'center',
+                                        dataType: 'date'  // Date 객체로 전달된 경우 날짜 형식으로 렌더링
+                                    }
+                                ],
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' }
+                            });
                         })
                         .fail(function (xhr, status, error) {
-                            console.error("고장 데이터를 가져오는 중 오류:", error);
+                            console.error("데이터 로드 중 오류:", error);
                         });
-
-                    function initializeGojangGrid(data) {
-                        $('#gridContainer02').dxDataGrid({
-                            dataSource: data,
-                            columns: [
-                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
-                                { dataField: 'Code', caption: '코드', alignment: 'center' },
-                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
-                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
-                                { dataField: 'Weather', caption: '날씨', alignment: 'center' },
-                                { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
-                                { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
-                                { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
-                                { dataField: 'Status', caption: '상태', alignment: 'center' },
-                                { dataField: 'Part', caption: '부품', alignment: 'center' },
-                                { dataField: 'Period', caption: '기간', alignment: 'center' },
-                                { dataField: 'Finder', caption: '발견자', alignment: 'center' },
-                                { dataField: 'Registrar', caption: '등록자', alignment: 'center' },
-                                { dataField: 'Date', caption: '고장일', alignment: 'center', dataType: 'date' }
-                            ],
-                            showBorders: true,
-                            sorting: { mode: 'multiple' },
-                            scrolling: { columnRenderingMode: 'virtual' }
-                        });
-                    }
                 });
             </script>
+
         </div>
         <!--고장-->
     </div>
-<!--//전체 박스-->
-<!--//컨텐츠가 들어옵니다-->
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
 }

@@ -26,7 +26,7 @@ namespace AMS_MVC.Repositories
                 WHERE ITR_CODE = @ITR_Code";
 
                     itrMRList = dbHelper.Conn.Query<ITRMaintenanceHistory>(query, new { ITR_Code = itrCode }).AsList();
-                    res.Message = $"GetITRMRByVCBCode 성공: ITR_CODE = {itrCode}";
+                    res.Message = $"GetITRMRByITRCode 성공: ITR_CODE = {itrCode}";
                 }
 
             }
@@ -38,7 +38,7 @@ namespace AMS_MVC.Repositories
             }
             return res;
         }
-        // 전체 VCB 유지보수 데이터 조회
+        // 전체 ITR 유지보수 데이터 조회
         public Result GetTotalITRMaintenance(out List<ITRMaintenanceHistory> itrMRList)
         {
             Result res = new Result(true);
@@ -83,7 +83,7 @@ namespace AMS_MVC.Repositories
                     }
                     else
                     {
-                        res.Message = $"GetVCBMRDetailByVCBCode 성공: ITR_CODE = {itrCode}, MR_BOSU_NAME = {maintenanceName}";
+                        res.Message = $"GetITRMRDetailByITRCode 성공: ITR_CODE = {itrCode}, MR_BOSU_NAME = {maintenanceName}";
                     }
                 }
             }
@@ -95,7 +95,7 @@ namespace AMS_MVC.Repositories
 
             return res;
         }
-        public Result CreateITRMRRepo(ITRMaintenanceHistory vcbMR)
+        public Result CreateITRMRRepo(ITRMaintenanceHistory itrMR)
         {
             Result res = new Result(true);
 
@@ -108,7 +108,7 @@ namespace AMS_MVC.Repositories
         ITR_CODE, MR_BOSU_NAME, MR_WEATHER, MR_TEMP, MR_HUM, MR_CONTENT, MR_STATUS, MR_PART, MR_COMPANY, MR_WORKER, MR_MANAGER, MR_DATE, MR_WRITER 
         ) VALUES (@ITR_Code, @MR_Bosu_Name, @MR_Weather, @MR_Temp, @MR_Hum, @MR_Content, @MR_Status, @MR_Part, @MR_Company, @MR_Worker, @MR_Mananger, @MR_Date, @MR_Writer)";
 
-                    int affectedRows = dbHelper.Conn.Execute(query, vcbMR);
+                    int affectedRows = dbHelper.Conn.Execute(query, itrMR);
                     if (affectedRows > 0)
                     {
                         res.Message = "ITR 유지보수 데이터 추가 성공";
@@ -131,7 +131,7 @@ namespace AMS_MVC.Repositories
         }
 
 
-        // VCB 유지보수 데이터 업데이트
+        // ITR 유지보수 데이터 업데이트
         public Result UpdateITRMRRepo(ITRMaintenanceHistory itrMR)
         {
             Result res = new Result(true);
@@ -140,7 +140,7 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-                UPDATE INTERFACETR_MAINTENANCE_HISTORY
+                UPDATE ITR_MAINTENANCE_HISTORY
                 SET 
                     MR_BOSU_NAME = @MR_Bosu_Name,
                     MR_WEATHER = @MR_Weather,
@@ -152,14 +152,13 @@ namespace AMS_MVC.Repositories
                     MR_WORKER = @MR_Worker,
                     MR_MANAGER = @MR_Manager,
                     MR_DATE = @MR_Date,
-                    MR_WRITER = @MR_Writer,
-                WHERE ITR_CODE = @ITR_Code AND MR_Bosu_NAME = @MR_Bosu_Name";
+                    MR_WRITER = @MR_Writer
+                WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrMR);
                     res.Message = affectedRows > 0 ? "ITR 유지보수 데이터 업데이트 성공" : "ITR 유지보수 데이터 업데이트 실패";
                 }
             }
-
             catch (Exception ex)
             {
                 res.IsSuccess = false;
@@ -168,7 +167,7 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
-        // VCB 유지보수 데이터 삭제
+        // ITR 유지보수 데이터 삭제
         public Result DeleteITRMRRepo(string itrCode, string bosuName)
         {
             Result res = new Result(true);

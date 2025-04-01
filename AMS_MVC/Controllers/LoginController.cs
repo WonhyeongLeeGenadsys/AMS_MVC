@@ -27,9 +27,9 @@ namespace AMS_MVC.Controllers
             {
                 Session["UserId"] = user.Id;
                 Session["User_Name"] = user.User_Name;
+                Session["User_Buseo"] = user.Buseo;
                 return Json(new { result = "success" }); // 로그인 성공
             }
-
             return Json(new { result = "fail" });
         }
     }

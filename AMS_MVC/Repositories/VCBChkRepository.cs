@@ -37,6 +37,33 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        public VCBChk GetVCBChkByCode(string vcbCode)
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT * FROM VCB_CHK WHERE VCB_CODE = @VCB_Code";
+
+                return dbHelper.Conn.QueryFirstOrDefault<VCBChk>(query, new { VCB_Code = vcbCode });
+            }
+        }
+
+        public List<dynamic> GetMonthlyAllVCBChkCounts()
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                string query = @"
+                    SELECT 
+                        FORMAT(CHK_Start_Date, 'yyyy-MM') AS Month, 
+                        COUNT(*) AS Count,
+                        'VCB' AS Type
+                    FROM VCB_CHK
+                    WHERE CHK_Start_Date IS NOT NULL
+                    GROUP BY FORMAT(CHK_Start_Date, 'yyyy-MM')
+                    ORDER BY Month;";
+                return dbHelper.Conn.Query(query).ToList();
+            }
+        }
+
         // 전체 VCB 보통점검 데이터 조회
         public Result GetTotalVCBChk(out List<VCBChk> vcbChkList)
         {
@@ -62,7 +89,7 @@ namespace AMS_MVC.Repositories
         }
 
         // 특정 공사명으로 VCB 보통점검 데이터 조회
-        public Result GetVCBChkDetailByVCBCode(string vcbCode, string tblIdx, out List<VCBChk> vcbChkList)
+        public Result GetVCBChkDetailByVCBCode(string vcbCode, out List<VCBChk> vcbChkList)
         {
             Result res = new Result(true);
             vcbChkList = new List<VCBChk>();
@@ -74,9 +101,9 @@ namespace AMS_MVC.Repositories
                     const string query = @"
                 SELECT * 
                 FROM VCB_CHK 
-                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                WHERE VCB_CODE = @VCB_Code";
 
-                    vcbChkList = dbHelper.Conn.Query<VCBChk>(query, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx }).AsList();
+                    vcbChkList = dbHelper.Conn.Query<VCBChk>(query, new { VCB_Code = vcbCode}).AsList();
                     if (vcbChkList.Count == 0)
                     {
                         res.IsSuccess = false;
@@ -84,7 +111,7 @@ namespace AMS_MVC.Repositories
                     }
                     else
                     {
-                        res.Message = $"GetVCBChkDetailByVCBCode 성공: VCB_CODE = {vcbCode}, TBL_IDX = {tblIdx}";
+                        res.Message = $"GetVCBChkDetailByVCBCode 성공: VCB_CODE = {vcbCode}";
                     }
                 }
             }
@@ -185,7 +212,7 @@ namespace AMS_MVC.Repositories
                     CHK_CUTOFF_COUNT = @CHK_Cutoff_Count,
                     CHK_A_RATE = @CHK_A_Rate,
                     CHK_SHORT_A_RATE = @CHK_Short_A_Rate
-                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                WHERE VCB_CODE = @VCB_Code";
 
                     int affectedRows = dbHelper.Conn.Execute(query, vcbChk);
                     res.Message = affectedRows > 0 ? "VCB 보통점검 데이터 업데이트 성공" : "VCB 보통점검 데이터 업데이트 실패";
@@ -201,7 +228,7 @@ namespace AMS_MVC.Repositories
         }
 
         // VCB 보통점검 데이터 삭제
-        public Result DeleteVCBChkInfoRepo(string vcbCode, string tblIdx)
+        public Result DeleteVCBChkInfoRepo(string vcbCode)
         {
             Result res = new Result(true);
 
@@ -209,9 +236,9 @@ namespace AMS_MVC.Repositories
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM VCB_CHK WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                    const string query = "DELETE FROM VCB_CHK WHERE VCB_CODE = @VCB_Code";
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx });
+                    int affectedRows = dbHelper.Conn.Execute(query, new { VCB_Code = vcbCode });
                     res.Message = affectedRows > 0 ? "VCB 보통점검 데이터 삭제 성공" : "VCB 보통점검 데이터 삭제 실패";
                 }
             }

@@ -81,8 +81,8 @@ namespace AMS_MVC.Controllers
             // 기타 데이터 처리 (VCB_CODE 생성 등)
             VCBBasicInfoRepository repo = new VCBBasicInfoRepository();
             string latestCode = repo.GetLatestVCBCode();
-            model.VCB_Code = GenerateNextVCBCode(latestCode, "V");
-            model.Writer = "TestUser";
+            model.VCB_Code = GenerateNextVCBCode(latestCode, "VCB");
+            model.Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
             var result = repo.CreateVCBBasicInfoRepo(model);
 
             return Json(new { success = result.IsSuccess, message = result.Message });

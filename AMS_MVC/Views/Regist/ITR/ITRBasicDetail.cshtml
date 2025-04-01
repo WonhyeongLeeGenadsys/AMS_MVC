@@ -13,18 +13,18 @@
 }
 
 @section MainContent {
-    <h1>ITR 기본정보</h1>
+    <h1>InterfaceTR 기본정보</h1>
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
                 <p>
                     @*<a href="@Url.Action("Index", "VCBBasic")" class="btn gray cancel">돌아가기</a>*@
-                    <a href="#" class="btn red del" onclick="deleteVCBBasicInfo(); return false;">삭제</a>
-                    <a href="@Url.Action("Edit", "ITRBasic", new { Tbl_Idx = Model.Tbl_Idx })" class="btn blue edit">수정</a>
+                    <a href="#" class="btn red del" onclick="deleteITRBasicInfo(); return false;">삭제</a>
+                    <a href="@Url.Action("ITRBasicUpdate", "ITRBasic", new { tblidx = Model.Tbl_Idx })" class="btn blue edit">수정</a>
                 </p>
             </div>
 
-            <div class="table_app" id="vcbBasicInfo">
+            <div class="table_app" id="itrBasicInfo">
                 <table>
                     <tr>
                         <th>제품 이름</th>

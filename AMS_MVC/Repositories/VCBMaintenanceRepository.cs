@@ -39,6 +39,7 @@ namespace AMS_MVC.Repositories
             }
             return res;
         }
+
         // 전체 VCB 유지보수 데이터 조회
         public Result GetTotalVCBMaintenance(out List<VCBMaintenanceHistory> vcbMRList)
         {
@@ -63,7 +64,7 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
-        public Result GetVCBMRDetailByVCBCode(string vcbCode, string maintenanceName, out List<VCBMaintenanceHistory> vcbMRList)
+        public Result GetVCBMRDetailByVCBCode(string vcbCode, string tblIdx, out List<VCBMaintenanceHistory> vcbMRList)
         {
             Result res = new Result(true);
             vcbMRList = new List<VCBMaintenanceHistory>();
@@ -75,9 +76,9 @@ namespace AMS_MVC.Repositories
                     const string query = @"
                 SELECT * 
                 FROM VCB_MAINTENANCE_HISTORY 
-                WHERE VCB_CODE = @VCB_Code AND MR_BOSU_NAME = @MR_Bosu_Name";
+                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
 
-                    vcbMRList = dbHelper.Conn.Query<VCBMaintenanceHistory>(query, new { VCB_Code = vcbCode, MR_Bosu_Name = maintenanceName }).AsList();
+                    vcbMRList = dbHelper.Conn.Query<VCBMaintenanceHistory>(query, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx }).AsList();
                     if (vcbMRList.Count == 0)
                     {
                         res.IsSuccess = false;
@@ -85,7 +86,7 @@ namespace AMS_MVC.Repositories
                     }
                     else
                     {
-                        res.Message = $"GetVCBMRDetailByVCBCode 성공: VCB_CODE = {vcbCode}, MR_BOSU_NAME = {maintenanceName}";
+                        res.Message = $"GetVCBMRDetailByVCBCode 성공: VCB_CODE = {vcbCode}, TBL_IDX = {tblIdx}";
                     }
                 }
             }
@@ -106,9 +107,13 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-        INSERT INTO VCB_MAINTENANCE_HISTORY (
-        VCB_CODE, MR_BOSU_NAME, MR_WEATHER, MR_TEMP, MR_HUM, MR_CONTENT, MR_STATUS, MR_PART, MR_COMPANY, MR_WORKER, MR_MANAGER, MR_DATE, MR_WRITER 
-        ) VALUES (@VCB_Code, @MR_Bosu_Name, @MR_Weather, @MR_Temp, @MR_Hum, @MR_Content, @MR_Status, @MR_Part, @MR_Company, @MR_Worker, @MR_Mananger, @MR_Date, @MR_Writer)";
+                INSERT INTO VCB_MAINTENANCE_HISTORY (
+                    VCB_CODE, MR_BOSU_NAME, MR_WEATHER, MR_TEMP, MR_HUM, MR_CONTENT, MR_STATUS, MR_PART, 
+                    MR_WORKER, MR_MANAGER, MR_DATE, MR_WRITER 
+                ) VALUES (
+                    @VCB_Code, @MR_Bosu_Name, @MR_Weather, @MR_Temp, @MR_Hum, @MR_Content, @MR_Status, @MR_Part, 
+                    @MR_Worker, @MR_Manager, @MR_Date, @MR_Writer
+                )";
 
                     int affectedRows = dbHelper.Conn.Execute(query, vcbMR);
                     if (affectedRows > 0)
@@ -154,14 +159,13 @@ namespace AMS_MVC.Repositories
                     MR_WORKER = @MR_Worker,
                     MR_MANAGER = @MR_Manager,
                     MR_DATE = @MR_Date,
-                    MR_WRITER = @MR_Writer,
-                WHERE VCB_CODE = @VCB_Code AND MR_Bosu_NAME = @MR_Bosu_Name";
+                    MR_WRITER = @MR_Writer
+                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, vcbMR);
                     res.Message = affectedRows > 0 ? "VCB 유지보수 데이터 업데이트 성공" : "VCB 유지보수 데이터 업데이트 실패";
                 }
             }
-
             catch (Exception ex)
             {
                 res.IsSuccess = false;
@@ -171,16 +175,16 @@ namespace AMS_MVC.Repositories
         }
 
         // VCB 유지보수 데이터 삭제
-        public Result DeleteVCBMRRepo(string vcbCode, string bosuName)
+        public Result DeleteVCBMRRepo(string vcbCode, string tblIdx)
         {
             Result res = new Result(true);
             try
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM VCB_MAINTENANCE_HISTORY WHERE VCB_CODE = @VCB_Code AND MR_BOSU_NAME = @MR_Bosu_Name";
+                    const string query = "DELETE FROM VCB_MAINTENANCE_HISTORY WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { VCB_Code = vcbCode, MR_Bosu_Name = bosuName });
+                    int affectedRows = dbHelper.Conn.Execute(query, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx });
                     res.Message = affectedRows > 0 ? "VCB 유지보수 데이터 삭제 성공" : "VCB 유지보수 데이터 삭제 실패";
                 }
             }

@@ -24,7 +24,7 @@ namespace AMS_MVC.Controllers
                 return HttpNotFound("VCB 기본정보를 찾을 수 없습니다.");
             }
 
-            return View("~/Views/Regist/VCB/VCBBasicDetail.cshtml", vcbInfo); // Model을 View로 전달
+            return View("~/Views/Regist/VCB/VCBBasicDetail.cshtml", vcbInfo); 
         }
 
         // VCB 기본정보 조회 (Ajax 요청)

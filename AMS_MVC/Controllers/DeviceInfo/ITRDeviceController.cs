@@ -29,7 +29,7 @@ namespace AMS_MVC.Controllers
         {
             try
             {
-                var riskData = _riskmatrixRepo.GetMatrixByCodePrefix(prefix);
+                var riskData = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -54,7 +54,7 @@ namespace AMS_MVC.Controllers
         {
             try
             {
-                var priorityData = _priorityRepo.GetPriorityITR();
+                var priorityData = _priorityRepo.GetPriority("INTERFACETR_BASICINFO", "ITR_CODE", "Interface TR", "I");
                 return Json(priorityData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -70,7 +70,7 @@ namespace AMS_MVC.Controllers
         {
             try
             {
-                var data = _maintenanceRepo.GetMonthlyMaintenanceITRCounts();
+                var data = _maintenanceRepo.GetMonthlyMaintenanceCounts("INTERFACETR_MAINTENANCE_HISTORY", "Interface TR");
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -86,7 +86,7 @@ namespace AMS_MVC.Controllers
         {
             try
             {
-                var gojangData = _gojangRepo.GetGojangITR();
+                var gojangData = _gojangRepo.GetGojangData("INTERFACETR_FAILURE_HISTORY", "INTERFACETR_BASICINFO", "ITR_CODE", "I", "Interface TR");
                 return Json(gojangData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

@@ -9,63 +9,53 @@ namespace AMS_MVC.Repositories
 {
     public class MaintenanceRepository
     {
-        public List<dynamic> GetMonthlyMaintenanceVCBCounts()
+        public List<dynamic> GetMonthlyMaintenanceCounts(string maintenanceTable, string type)
         {
-            using(DBHelper dbHelper = new DBHelper())
+            using (DBHelper dbHelper = new DBHelper())
             {
-                const string query = @"
-                SELECT 
-                    FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
-                    COUNT(*) AS Count,
-                    'VCB' AS Type
-                FROM VCB_MAINTENANCE_HISTORY
-                WHERE MR_DATE IS NOT NULL
-                GROUP BY FORMAT(MR_DATE, 'yyyy-MM');";
+                string query = $@"
+            SELECT 
+                FORMAT(MR_DATE, 'yyyy-MM') AS [Month], 
+                COUNT(*) AS [Count],
+                '{type}' AS [Type]
+            FROM {maintenanceTable}
+            WHERE MR_DATE IS NOT NULL
+            GROUP BY FORMAT(MR_DATE, 'yyyy-MM');";
                 return dbHelper.Conn.Query(query).ToList();
             }
         }
 
-        public List<dynamic> GetMonthlyMaintenanceITRCounts()
-        {
-            using(DBHelper dbHelper = new DBHelper())
-            {
-                const string query = @"
-                SELECT 
-                    FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
-                    COUNT(*) AS Count,
-                    'Interface TR' AS Type
-                FROM INTERFACETR_MAINTENANCE_HISTORY
-                WHERE MR_DATE IS NOT NULL
-                GROUP BY FORMAT(MR_DATE, 'yyyy-MM');";
-                return dbHelper.Conn.Query(query).ToList();
-            }
-        }
 
         public List<dynamic> GetMonthlyMaintenanceCounts()
         {
-            using(DBHelper dbHelper = new DBHelper())
+            var configs = new[]
             {
-                const string query = @"
-                SELECT 
-                    FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
-                    COUNT(*) AS Count,
-                    'VCB' AS Type
-                FROM VCB_MAINTENANCE_HISTORY
-                WHERE MR_DATE IS NOT NULL
-                GROUP BY FORMAT(MR_DATE, 'yyyy-MM')
-                
-                UNION ALL
-                
-                SELECT 
-                    FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
-                    COUNT(*) AS Count,
-                    'Interface TR' AS Type
-                FROM INTERFACETR_MAINTENANCE_HISTORY
-                WHERE MR_DATE IS NOT NULL
-                GROUP BY FORMAT(MR_DATE, 'yyyy-MM')
-                
-                ORDER BY Month, Type;";
-                return dbHelper.Conn.Query(query).ToList();
+        new { Table = "VCB_MAINTENANCE_HISTORY",       Type = "VCB" },
+        new { Table = "INTERFACETR_MAINTENANCE_HISTORY", Type = "Interface TR" },
+        new { Table = "DCCB_MAINTENANCE_HISTORY",      Type = "DCCB" },
+        new { Table = "DCCABLE_MAINTENANCE_HISTORY",   Type = "DC Cable" },
+        new { Table = "SUBMODULE_MAINTENANCE_HISTORY", Type = "Sub Module" }
+    };
+
+            var unionQueries = configs.Select(cfg => $@"
+        SELECT 
+            FORMAT(MR_DATE, 'yyyy-MM') AS Month, 
+            COUNT(*) AS Count,
+            '{cfg.Type}' AS Type
+        FROM {cfg.Table}
+        WHERE MR_DATE IS NOT NULL
+        GROUP BY FORMAT(MR_DATE, 'yyyy-MM')
+    ").ToList();
+
+            string fullQuery = $@"
+        SELECT * FROM (
+            {string.Join(" UNION ALL ", unionQueries)}
+        ) T
+        ORDER BY Month, Type;";
+
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                return dbHelper.Conn.Query(fullQuery).ToList();
             }
         }
     }

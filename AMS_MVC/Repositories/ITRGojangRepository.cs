@@ -106,8 +106,8 @@ namespace AMS_MVC.Repositories
                 {
                     const string query = @"
         INSERT INTO INTERFACETR_FAILURE_HISTORY (
-        ITR_CODE, FAIL_GOJANG_NAME, FAIL_WEATHER, FAIL_TEMP, FAIL_HUM, FAIL_CAUSE, FAIL_REASON, FAIL_STATUS, FAIL_PART, FAIL_PERIOD, FAIL_FINDER, FAIL_REPAIRER, FAIL_SUPERVISOR, FAIL_DATE, FAIL_WRITER 
-        ) VALUES (@ITR_Code, @Fail_Gojang_Name, @Fail_Weather, @Fail_Temp, @Fail_Hum, @Fail_Cause, @Fail_Reason, @Fail_Status, @Fail_Part, @Fail_Period, @Fail_Finder, @Fail_Repairer, @Fail_Supervisor, @Fail_Date, @Fail_Writer)";
+        ITR_CODE, FAIL_GOJANG_NAME, FAIL_WEATHER, FAIL_TEMP, FAIL_HUM, FAIL_CAUSE, FAIL_REASON, FAIL_STATUS, FAIL_PART, FAIL_PERIOD, FAIL_FINDER, FAIL_REPAIRER, FAIL_SUPERVISOR, FAIL_REPAIR_DATE, FAIL_WRITER 
+        ) VALUES (@ITR_Code, @Fail_Gojang_Name, @Fail_Weather, @Fail_Temp, @Fail_Hum, @Fail_Cause, @Fail_Reason, @Fail_Status, @Fail_Part, @Fail_Period, @Fail_Finder, @Fail_Repairer, @Fail_Supervisor, @Fail_Repair_Date, @Fail_Writer)";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrGojangList);
                     if (affectedRows > 0)
@@ -154,10 +154,9 @@ namespace AMS_MVC.Repositories
                     FAIL_FINDER = @Fail_Finder,
                     FAIL_REPAIRER = @Fail_Repairer,
                     FAIL_SUPERVISOR = @Fail_Supervisor,
-                    FAIL_REGISTRAR = @Fail_Registrar,
-                    FAIL_DATE = @Fail_Date,
+                    FAIL_REPAIR_DATE = @Fail_Repair_Date,
                     FAIL_CAUSE = @Fail_Cause,
-                    FAIL_WRITER = @Fail_Writer,
+                    FAIL_WRITER = @Fail_Writer
                 WHERE ITR_CODE = @ITR_Code AND FAIL_GOJANG_NAME = @Fail_Gojang_Name";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrGojangList);

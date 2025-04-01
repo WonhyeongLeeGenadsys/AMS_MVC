@@ -1,5 +1,168 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    // URL에서 VCB_Code를 읽어옵니다.
+    var vcbCode = Request.QueryString["VCB_Code"];
 }
 
+@section LeftMenu {
+    @Html.Partial("_GojangMenu")
+}
 
+@section MainContent {
+    <!--타이틀-->
+    <h1>VCB 고장 정보 추가</h1>
+    <!--//타이틀-->
+    <!--컨텐츠-->
+    <div class="con_box">
+        <div class="content_warp">
+            <!--버튼-->
+            <div class="btn_area top right">
+                <p>
+                    @*<a href="#" class="btn red del">삭제</a>*@
+                    <a href="#" class="btn blue app" onclick="createVCBGojang()">적용</a>
+                </p>
+            </div>
+            <form id="vcbGojangForm" method="post" enctype="multipart/form-data">
+                @* URL에 VCB_Code가 전달된 경우 hidden 필드로 사용, 그렇지 않으면 드롭다운 출력 *@
+                @if (!string.IsNullOrEmpty(vcbCode))
+                {
+                    <input type="hidden" name="VCB_Code" value="@vcbCode" />
+                }
+                else
+                {
+                    <div style="margin-bottom: 15px;">
+                        @Html.DropDownList("VCB_Code", (SelectList)ViewBag.VCBs, "VCB를 선택하세요.", new { @class = "form-control", @id = "VCB_Code" })
+                    </div>
+                }
+
+                <div class="table_app" id="vcbGojang">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                        </colgroup>
+                        <tr>
+                            <th>고장명</th>
+                            <td colspan="5">
+                                <input type="text" id="fail_gojang_name" name="fail_gojang_name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="fail_weather" name="fail_weather" />
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="fail_temp" name="fail_temp" /> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="fail_hum" name="fail_hum" /> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>원인</th>
+                            <td colspan="5">
+                                <input type="text" id="fail_cause" name="fail_cause" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>발견동기</th>
+                            <td>
+                                <input type="text" id="fail_reason" name="fail_reason" />
+                            </td>
+                            <th>상태</th>
+                            <td>
+                                <input type="text" id="fail_status" name="fail_status" />
+                            </td>
+                            <th>부품</th>
+                            <td>
+                                <input type="text" id="fail_part" name="fail_part" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>기간</th>
+                            <td>
+                                <input type="text" id="fail_period" name="fail_period" />
+                            </td>
+                            <th>발견자</th>
+                            <td>
+                                <input type="text" id="fail_finder" name="fail_finder" />
+                            </td>
+                            <th>보수자</th>
+                            <td>
+                                <input type="text" id="fail_repairer" name="fail_repairer" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="fail_supervisor" name="fail_supervisor" />
+                            </td>
+                            <th>보수일</th>
+                            <td>
+                                <input type="date" id="fail_repair_date" name="fail_repair_date" />
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+            </form>
+        </div>
+    </div>
+    <!--//컨텐츠가 들어옵니다-->
+    <script type="text/javascript">
+        function createVCBGojang() {
+            submitVCBGojangForm();
+        }
+
+        function submitVCBGojangForm() {
+            var form = document.getElementById("vcbGojangForm");
+            var formData = new FormData(form);
+
+            // 1) VCB_Code가 hidden인 경우(이미 URL에 있었음) => 바로 진행
+            // 2) VCB_Code가 드롭다운인 경우 => 선택 체크
+            var vcbCodeDropdown = document.getElementById("VCB_Code");
+            if (vcbCodeDropdown) {
+                // 사용자가 "VCB를 선택하세요."(기본값) 또는 빈 값("")을 선택한 경우 확인
+                if (!vcbCodeDropdown.value) {
+                    alert("VCB를 선택하세요.");
+                    return;
+                }
+            }
+
+            // FormData 내용을 콘솔에 출력 (디버깅용)
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                url: '@Url.Action("VCBGojangAdd", "VCBGojang")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log("서버 응답:", response);
+                    if (response.IsSuccess) {
+                        alert("VCB 고장 정보가 저장되었습니다.");
+                        window.location.href = '@Url.Action("VCBGojangTotalList", "VCBGojang")';
+                    } else {
+                        alert("VCB 고장 정보를 추가하지 못했습니다.: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("VCB 고장 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

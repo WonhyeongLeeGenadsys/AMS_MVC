@@ -9,7 +9,7 @@ namespace AMS_MVC.Models
     {
         public int Priority { get; set; } //우선순위
         public string Sort { get; set; }          // 구분 (AC/DC)
-        public string Code { get; set; }          // VCB_CODE 또는 ITR_CODE
+        public string Code { get; set; }          // VCB_CODE 또는 ITR_CODE & ...
         public string Serial_No { get; set; }      // 시리얼 번호
         public string Name { get; set; }          // 이름
         public DateTime Install_Date { get; set; } // 설치일
@@ -20,7 +20,8 @@ namespace AMS_MVC.Models
         public float Rated_A { get; set; } // 정격 전류
         public string Make_Company { get; set; }  // 제작사
         public string Writer { get; set; }  // 작성자
-        public string CoF { get; set; }
-        public string PoF { get; set; }
+        public string CoF { get; set; } // CoF
+        public string PoF { get; set; } // PoF
+        public string HI { get; set; } // HI
     }
 }

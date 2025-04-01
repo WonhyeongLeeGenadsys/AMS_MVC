@@ -54,7 +54,7 @@ namespace AMS_MVC.Controllers
                 if (!Directory.Exists(uploadsFolder))
                 {
                     Directory.CreateDirectory(uploadsFolder);
-                }
+                } 
 
                 string originalFileName = Path.GetFileName(photo.FileName);
                 string fileName = originalFileName;
@@ -70,8 +70,8 @@ namespace AMS_MVC.Controllers
                 photo.SaveAs(filePath);
                 model.Photo = $"/Uploads/{fileName}";
             }
-            // 만약 사진을 새로 업로드하지 않았다면 기존 사진 경로를 유지합니다.
-            // 필요에 따라 기존 정보를 다시 조회하여 model.Photo에 할당할 수 있습니다.
+            // 만약 사진을 새로 업로드하지 않았다면 기존 사진 경로를 유지
+            // 필요에 따라 기존 정보를 다시 조회하여 model.Photo에 할당
 
             // repository를 이용한 업데이트 처리
             var result = vcbBasicRepository.UpdateVCBBasicInfoRepo(model);

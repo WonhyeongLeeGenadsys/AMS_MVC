@@ -397,8 +397,11 @@ h4.tit_h4{font-size:16px; font-weight: 900; color:var(--tit-color)}
 
 .box_wrap h2{position:relative; margin-bottom:20px; font-size:20px; font-weight: 800; border:1px solid red;}
 .box_wrap .btn_more{position: absolute; top:0; right:0; width:22px; height:22px; background: url(../img/btn_more.png) no-repeat 100% 100%; font-size:0;}
-.box_wrap .chart{display:flex; }
-.box_wrap .chart li{flex:1; padding:0 10px; text-align: center;}
+	.box_wrap .chart {
+		display: flex;
+		flex-wrap: wrap
+	}
+	.box_wrap .chart li{flex:1; padding:0 10px; text-align: center;}
 .chart_box {width: 270px; height: 270px;}
 .box_wrap .chart li .title{display:inline-block;  height:26px; margin-top:10px; padding:2px 15px 4px; background-color: #D2DFFF; border-radius: 10px; line-height: 22px;
 	font-size:13px !important; font-weight: 900 !important; font-family: 'Pretendard' !important; fill:#2C4585 !important;   text-align: center;}
@@ -448,14 +451,32 @@ font-size:14px; color:#fff; font-weight:900;}
 	font-size:20px; font-weight: 800; }
 
 .schedule_value span{margin-right:15px; font-size:12px; font-weight: 900; color:var(--gray03-color)}
-.schedule_value span::before{content:''; display: inline-block; width:10px; height:10px; vertical-align: middle; margin-right:5px;}
-	.schedule_value span.confirmed::before {
-		background: #0051A2;
-	}
-	.schedule_value span.risk::before {
-		background: #800080;
-	}
-.schedule_value span.created::before{background: #F05153;}
+/* 우측 상단 텍스트 색상 */
+.schedule_value .verygoodDevice {
+	color: #5B9F56; /* HI=1 색상 */
+	font-weight: bold; /* (선택) 굵게 표시 */
+}
+
+.schedule_value .goodDevice {
+	color: #B4DEB1; /* HI=2 색상 */
+	font-weight: bold; /* (선택) 굵게 표시 */
+}
+
+.schedule_value .fairDevice {
+	color: #EBCD1D; /* HI=3 색상 */
+	font-weight: bold;
+}
+
+.schedule_value .badDevice {
+	color: #F18425; /* HI=4 색상 */
+	font-weight: bold;
+}
+
+.schedule_value .verybadDevice {
+	color: #F05153; /* HI=5 색상 */
+	font-weight: bold;
+}
+
 .schedule .month_select{display:flex; margin-left:10%; margin-right:30px;}
 .schedule .month_select .arrow{display:flex; justify-content: center; align-items: center; width:70px; height:26px; margin:0 10px; background:var(--gray03-color); 
 	border-radius: 20px; font-size:13px; font-weight: 900; color:#fff}
@@ -489,14 +510,43 @@ font-size:14px; color:#fff; font-weight:900;}
 .box_wrap .con_box .box_system .result{display:flex; margin-top:5px;}
 .box_wrap .con_box .box_system .result span{width:16px; height:16px; margin-right:5px; border-radius: 20px; background: #E0E0E0;}
 .box_wrap .con_box .box_system .result .result_txt{width:40px; height:16px; border-radius: 10px; font-size:12px; font-weight: 900; color:#fff; background: #E0E0E0;text-align:center;}
-	.box_wrap .con_box .box_system .result.confirmed span.on {
-		background-color: #0051A2;
+
+	/* HI=1 => verygoodDevice */
+	.box_wrap .con_box .box_system .result.verygoodDevice span.on {
+		background-color: #5B9F56;
 	}
-.box_wrap .con_box .box_system .result.confirmed .result_txt{background-color: #48C29C;}
-.box_wrap .con_box .box_system .result.risk span.on{background-color: #F18425;}
-.box_wrap .con_box .box_system .result.risk .result_txt{background-color: #F18425;}
-.box_wrap .con_box .box_system .result.created span.on{background-color: #F05153;}
-.box_wrap .con_box .box_system .result.created .result_txt{background-color: #F05153;}
+	/* HI=2 => goodDevice */
+	.box_wrap .con_box .box_system .result.goodDevice span.on {
+		background-color: #B4DEB1;
+	}
+	/* HI=3 => fairDevice */
+	.box_wrap .con_box .box_system .result.fairDevice span.on {
+		background-color: #EBCD1D;
+	}
+	/* HI=4 => badDevice */
+	.box_wrap .con_box .box_system .result.badDevice span.on {
+		background-color: #F18425;
+	}
+	/* HI=5 => verybadDevice */
+	.box_wrap .con_box .box_system .result.verybadDevice span.on {
+		background-color: #F05153;
+	}
+
+	.box_wrap .con_box .box_system .result.verygoodDevice .result_txt {
+		background-color: #5B9F56;
+	}
+	.box_wrap .con_box .box_system .result.goodDevice .result_txt {
+		background-color: #B4DEB1;
+	}
+	.box_wrap .con_box .box_system .result.fairDevice .result_txt {
+		background-color: #EBCD1D;
+	}
+	.box_wrap .con_box .box_system .result.badDevice .result_txt {
+		background-color: #F18425;
+	}
+	.box_wrap .con_box .box_system .result.verybadDevice .result_txt {
+		background-color: #F05153;
+	}
 
 .product{display:flex; margin-top:30px;}
 .product .img{width:50%; padding-right:15px;}
@@ -586,3 +636,4 @@ font-size:14px; color:#fff; font-weight:900;}
 	color: #000;
 	font-weight: bold;
 }
+

@@ -1,5 +1,263 @@
-﻿@{
+﻿@model AMS_MVC.Models.ITRChk2
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
 
+@section MainContent {
+    <!--타이틀-->
+    <h1>정밀점검 <a href="#" class="btn_guide">가이드</a></h1>
+    <!--//타이틀-->
+    <!--컨텐츠-->
+    <div class="con_box">
+        <!--컨텐츠 inn-->
+        <div class="content_warp">
+            <!--버튼-->
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn red del">삭제</a>
+                    <a href="#" class="btn blue app">적용</a>
+                </p>
+            </div>
+            <!--//버튼-->
+            <!-- MVC Form 시작 (예: POST로 전송) -->
+            @using (Html.BeginForm("ITRChk2Add", "ITRChk2", FormMethod.Post, new { enctype = "multipart/form-data" }))
+            {
+                <!--입력테이블-->
+                <div class="table_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                        </colgroup>
+                        <tr>
+                            <th>고장명</th>
+                            <td colspan="5">
+                                <!-- CHK2_Gongsa_Name가 '공사명'으로 되어 있지만, 여기서는 '고장명' 레이블로 표시 -->
+                                @Html.TextBoxFor(m => m.CHK2_Gongsa_Name, new { @class = "w100" })
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Weather)
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Temp) <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Hum) <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Company)
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Worker)
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Manager)
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_Start_Date, new { type = "date" })
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                @Html.TextBoxFor(m => m.CHK2_End_Date, new { type = "date" })
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+
+                <!--리스트형 입력테이블 (Oil Quality)-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%" />
+                            <col style="width:10%" />
+                            <col style="width:10%" />
+                            <col />
+                            <col style="width:10%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 전산가 -->
+                            <tr>
+                                <td rowspan="3">Oil Quality</td>
+                                <td>전산가</td>
+                                <td>Mg(KOH/g)</td>
+                                <td class="left">
+                                    <label class="ty_rdo" for="select01_01">
+                                        @Html.RadioButtonFor(m => m.CHK2_Computerized_Price, "1", new { id = "select01_01", @checked = "checked" })
+                                        <span>0.1이하(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select01_02">
+                                        @Html.RadioButtonFor(m => m.CHK2_Computerized_Price, "0.5", new { id = "select01_02" })
+                                        <span>0.111~0.3(0.5)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select01_03">
+                                        @Html.RadioButtonFor(m => m.CHK2_Computerized_Price, "0", new { id = "select01_03" })
+                                        <span>0.31이상(0)</span>
+                                    </label>
+                                </td>
+                                <td>1</td>
+                            </tr>
+                            <!-- 수분함량 -->
+                            <tr>
+                                <td>수분함량</td>
+                                <td>Ppm</td>
+                                <td class="left">
+                                    <label class="ty_rdo" for="select02_01">
+                                        @Html.RadioButtonFor(m => m.CHK2_Water_Content, "1", new { id = "select02_01", @checked = "checked" })
+                                        <span>40미만(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select02_02">
+                                        @Html.RadioButtonFor(m => m.CHK2_Water_Content, "0.5", new { id = "select02_02" })
+                                        <span>40~50(0.5)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select02_03">
+                                        @Html.RadioButtonFor(m => m.CHK2_Water_Content, "0", new { id = "select02_03" })
+                                        <span>50초과(0)</span>
+                                    </label>
+                                </td>
+                                <td>2</td>
+                            </tr>
+                            <!-- Furfural -->
+                            <tr>
+                                <td>Furfural</td>
+                                <td>Ppm</td>
+                                <td class="left">
+                                    <label class="ty_rdo" for="select03_01">
+                                        @Html.RadioButtonFor(m => m.CHK2_Furfural, "1", new { id = "select03_01", @checked = "checked" })
+                                        <span>0.1미만(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select03_02">
+                                        @Html.RadioButtonFor(m => m.CHK2_Furfural, "0.5", new { id = "select03_02" })
+                                        <span>0.1~0.5미만(0.5)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="select03_03">
+                                        @Html.RadioButtonFor(m => m.CHK2_Furfural, "0", new { id = "select03_03" })
+                                        <span>0.5~1초과(0)</span>
+                                    </label>
+                                </td>
+                                <td>2</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--//리스트형 입력테이블 (Oil Quality)-->
+
+                <!--리스트형 입력테이블 (Measure)-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%" />
+                            <col style="width:10%" />
+                            <col style="width:8%" />
+                            <col style="width:8%" />
+                            <col />
+                            <col style="width:6%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>세부항목</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 여자전류 시험 -->
+                            <tr>
+                                <td rowspan="3">Measure</td>
+                                <td>여자전류 시험</td>
+                                <td>
+                                    H1-h0<br />
+                                    H2-h0<br />
+                                    H3-h0
+                                </td>
+                                <td>mA</td>
+                                <td>
+                                    <div class="flex">
+                                        <span>100mA 이상 1-(검출횟수/2)</span>
+                                        @Html.TextBoxFor(m => m.CHK2_Excitation_Current)
+                                    </div>
+                                </td>
+                                <td>1</td>
+                            </tr>
+                            <!-- 단락전류 시험 -->
+                            <tr>
+                                <td>단락전류 시험</td>
+                                <td></td>
+                                <td>A or %</td>
+                                <td>
+                                    <div class="flex">
+                                        <span>20%초과 1-(검출횟수/2)</span>
+                                        @Html.TextBoxFor(m => m.CHK2_Short_Current)
+                                    </div>
+                                </td>
+                                <td>1.5</td>
+                            </tr>
+                            <!-- 전압비 시험 -->
+                            <tr>
+                                <td>전압비 시험</td>
+                                <td></td>
+                                <td>%</td>
+                                <td>
+                                    <div class="flex">
+                                        <span>±5%이상 1-(검출횟수/2)</span>
+                                        @Html.TextBoxFor(m => m.CHK2_Voltage_Ratio)
+                                    </div>
+                                </td>
+                                <td>3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!--//리스트형 입력테이블 (Measure)-->
+
+                <!--버튼 (하단)-->
+                <div class="btn_area bottom right">
+                    <p>
+                        <a href="#" class="btn red del">삭제</a>
+                        <button type="submit" class="btn blue app">적용</button>
+                    </p>
+                </div>
+                <!--//버튼 (하단)-->
+            }
+            <!-- MVC Form 끝 -->
+
+        </div>
+    </div>
+    <!--//컨텐츠-->
+}

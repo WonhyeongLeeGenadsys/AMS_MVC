@@ -35,7 +35,7 @@ namespace AMS_MVC.Controllers.Check
             Result result = new Result(true);
             try
             {
-                model.CHK2_Writer = "TestUser";
+                model.CHK2_Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
                 result = itrChk2Repository.CreateITRChk2InfoRepo(model);
 
                 if (!result.IsSuccess)

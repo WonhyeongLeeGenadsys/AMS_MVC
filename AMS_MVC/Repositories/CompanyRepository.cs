@@ -53,7 +53,7 @@ namespace AMS_MVC.Repositories
                 {
                     string query = "SELECT * FROM COMPANY";
                     companies = dbHelper.Conn.Query<Company>(query).AsList();
-
+                               
                     result.Message = "업체 목록을 성공적으로 가져왔습니다.";
                     LogHelper.WriteLog("DB(COMPANY)", result.Message);
                 }

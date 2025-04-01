@@ -11,5 +11,6 @@ namespace AMS_MVC.Models
         public string Code { get; set; }
         public string Cof { get; set; }
         public string Pof { get; set; }
+        public string HI { get; set; }
     }
 }

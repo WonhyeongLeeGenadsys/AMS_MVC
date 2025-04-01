@@ -1,0 +1,360 @@
+|2025-03-26 08:58:50  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 08:58:50  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 08:58:54  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 10:22:50  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 10:22:50  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 10:22:50  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 10:54:51  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 10:54:51  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 10:54:51  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 10:54:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 10:54:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 10:54:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 10:54:53  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 10:54:53  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 11:20:20  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 11:20:21  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 11:20:21  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 11:20:27  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 11:20:27  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 13:16:05  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 13:16:31  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 13:16:34  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 13:16:34  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 13:26:33  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 13:26:33  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 13:26:34  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 13:26:35  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 13:26:35  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 13:26:36  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-03-26 13:26:36  |   DCCABLEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 13:26:37  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-03-26 13:26:37  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-03-26 13:26:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 13:26:42  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-03-26 13:26:42  |   DCCABLEGojangController.List  |   조회된 데이터: 1건   |
+|2025-03-26 13:26:48  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-03-26 13:26:48  |   DCCABLEGojangController.List  |   조회된 데이터: 1건   |
+|2025-03-26 13:54:13  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 13:54:14  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 13:54:14  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 13:54:19  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 13:54:19  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:03:42  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:06:45  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:06:45  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:06:54  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:06:54  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:06:58  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:07:05  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:07:05  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:07:14  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:07:14  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:07:17  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:07:23  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:07:23  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:07:26  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:07:33  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:07:33  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:07:39  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:07:51  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:07:51  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:08:05  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:08:05  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:08:05  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:08:10  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-26 14:08:10  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 14:08:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 14:08:10  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-26 14:08:14  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-26 14:08:14  |   VCBChkController.List  |   조회된 데이터: 2건   |
+|2025-03-26 14:08:14  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:08:14  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:08:18  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-03-26 14:08:18  |   VCBChkController.List  |   조회된 데이터: 2건   |
+|2025-03-26 14:08:19  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:08:19  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:08:22  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:08:22  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:10:54  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:10:54  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:10:54  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:18:59  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:18:59  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:18:59  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:20:18  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 14:20:18  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 14:20:18  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:20:19  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:20:19  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:21:06  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:21:06  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:21:07  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:22:00  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:22:00  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:22:00  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:33:37  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:33:37  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 14:33:37  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 14:33:42  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 14:33:42  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 15:39:46  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 15:40:15  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 15:53:50  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 16:20:27  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 16:21:13  |   TotalInfoController  |   GetGojangList Error: varchar 값 '기간3'을(를) 데이터 형식 int(으)로 변환하지 못했습니다.   |
+|2025-03-26 16:38:12  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 16:38:12  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 16:38:19  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 16:38:19  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 16:38:32  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 16:38:32  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 16:48:22  |   TotalInfoController  |   GetGojangList Error: null 참조에 대해 런타임 바인딩을 수행할 수 없습니다.   |
+|2025-03-26 16:49:25  |   TotalInfoController  |   GetGojangList Error: null 참조에 대해 런타임 바인딩을 수행할 수 없습니다.   |
+|2025-03-26 16:53:55  |   TotalInfoController  |   GetGojangList Error: null 참조에 대해 런타임 바인딩을 수행할 수 없습니다.   |
+|2025-03-26 18:17:14  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:17:14  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 18:17:15  |   TotalDCCBMaintenanceController.List  |   GetTotalDCCBMaintenanceListData 실행   |
+|2025-03-26 18:17:15  |   DCCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:17:16  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:17:16  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:17:16  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:17:23  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:17:34  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:17:41  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:18:25  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:25  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 18:18:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:18:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:18:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:18:31  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:31  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-03-26 18:18:33  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:18:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:18:33  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:18:38  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:38  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:18:46  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:46  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:18:50  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:50  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:18:52  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:52  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:18:56  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:56  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:18:57  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:18:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:18:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:18:58  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:18:58  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:20:39  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:20:39  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:20:49  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:20:49  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:20:54  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:20:54  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:20:56  |   TotalDCCBMaintenanceController.List  |   GetTotalDCCBMaintenanceListData 실행   |
+|2025-03-26 18:20:56  |   DCCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:20:57  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:20:57  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:20:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:20:58  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:20:58  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:20:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:21:02  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:21:04  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:23:50  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:23:50  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:23:52  |   TotalDCCBMaintenanceController.List  |   GetTotalDCCBMaintenanceListData 실행   |
+|2025-03-26 18:23:52  |   DCCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:23:53  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:23:53  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:23:53  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:23:58  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:24:09  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:24:59  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-03-26 18:24:59  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:24:59  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:24:59  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-03-26 18:25:12  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:25:12  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:25:13  |   TotalDCCBMaintenanceController.List  |   GetTotalDCCBMaintenanceListData 실행   |
+|2025-03-26 18:25:13  |   DCCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:25:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:25:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:25:14  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:25:21  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:25:28  |   TotalDCCABLEMaintenanceController.List  |   GetTotalDCCABLEMaintenanceListData 실행   |
+|2025-03-26 18:25:28  |   DCCABLEMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:25:29  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-03-26 18:25:29  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:25:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:25:34  |   CreateDCCABLEMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:25:36  |   TotalITRMaintenanceController.List  |   GetTotalITRMaintenanceListData 실행   |
+|2025-03-26 18:25:36  |   ITRMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:25:37  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-03-26 18:25:37  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-03-26 18:25:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:25:42  |   CreateITRMRRepo  |   오류 발생: 스칼라 변수 "@MR_Mananger"을(를) 선언해야 합니다.   |
+|2025-03-26 18:25:45  |   TotalSUBMODULEMaintenanceController.List  |   GetTotalSUBMODULEMaintenanceListData 실행   |
+|2025-03-26 18:25:45  |   SUBMODULEMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:27:07  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:27:07  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:27:09  |   TotalDCCBMaintenanceController.List  |   GetTotalDCCBMaintenanceListData 실행   |
+|2025-03-26 18:27:09  |   DCCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:27:09  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-03-26 18:27:09  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:27:09  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:27:12  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:27:14  |   CreateDCCBMRRepo  |   오류 발생: 스칼라 변수 "@MR_Company"을(를) 선언해야 합니다.   |
+|2025-03-26 18:27:33  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:27:33  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:27:34  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-03-26 18:27:34  |   DCCABLEGojangController.List  |   조회된 데이터: 1건   |
+|2025-03-26 18:27:34  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-03-26 18:27:34  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:27:34  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:27:42  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-03-26 18:27:42  |   DCCABLEGojangController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:27:44  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-03-26 18:27:44  |   ITRGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:27:45  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:27:45  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:27:45  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:27:45  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:27:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:27:51  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:27:57  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:28:06  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:28:06  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:28:08  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-03-26 18:28:08  |   ITRGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:28:08  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-03-26 18:28:08  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-03-26 18:28:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:28:14  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-03-26 18:28:14  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-03-26 18:28:15  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:28:15  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:28:17  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:28:17  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:28:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:28:20  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:28:24  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:30:20  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:30:20  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:30:22  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:30:22  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:30:22  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:30:22  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:30:22  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:30:27  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-26 18:30:27  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:30:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:30:27  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-26 18:30:29  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-03-26 18:30:29  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:30:29  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:30:29  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-03-26 18:31:10  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:31:10  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:31:10  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:31:10  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:31:11  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:31:11  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:31:11  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:31:15  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:31:17  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:31:49  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-26 18:31:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:31:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:31:49  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-26 18:31:51  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-03-26 18:31:51  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:31:51  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:31:51  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-03-26 18:31:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:32:05  |   DB(SUBMODULE_BASICINFO)  |   CreateSUBMODULEBasicInfoRepo 오류: 테이블 'AMS.dbo.SUBMODULE_BASICINFO', 열 'SERIAL_NO'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다. 스택트레이스:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.InternalExecuteNonQuery(TaskCompletionSource`1 completion, String methodName, Boolean sendToPipe, Int32 timeout, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteNonQuery()
+   위치: Dapper.SqlMapper.ExecuteCommand(IDbConnection cnn, CommandDefinition& command, Action`2 paramReader) 파일 /_/Dapper/SqlMapper.cs:줄 2965
+   위치: Dapper.SqlMapper.ExecuteImpl(IDbConnection cnn, CommandDefinition& command) 파일 /_/Dapper/SqlMapper.cs:줄 656
+   위치: Dapper.SqlMapper.Execute(IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 527
+   위치: AMS_MVC.Repositories.SUBMODULEBasicInfoRepository.CreateSUBMODULEBasicInfoRepo(SUBMODULEBasicInfo newSUBMODULEBasicInfo) 파일 D:\project\AMS_MVC\AMS_MVC\Repositories\SUBMODULEBasicInfoRepository.cs:줄 99   |
+|2025-03-26 18:32:13  |   DB(SUBMODULE_BASICINFO)  |   CreateSUBMODULEBasicInfoRepo 성공: SUBMODULE Serial_No: 22313   |
+|2025-03-26 18:32:14  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-03-26 18:32:14  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:32:14  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:14  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-03-26 18:32:18  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-03-26 18:32:18  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:32:18  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:18  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-03-26 18:32:20  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-03-26 18:32:20  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:32:20  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:20  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-03-26 18:32:22  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-26 18:32:22  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-03-26 18:32:22  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:22  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-26 18:32:23  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:32:23  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:32:24  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:32:24  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:32:24  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-03-26 18:32:24  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-03-26 18:32:28  |   TotalSUBMODULEMaintenanceController.List  |   GetTotalSUBMODULEMaintenanceListData 실행   |
+|2025-03-26 18:32:28  |   SUBMODULEMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:32:29  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:32:29  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:32:30  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:32:30  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:32:31  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:32:31  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:32:33  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:32:33  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:32:33  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:32:36  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:34:37  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:34:37  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:34:38  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:34:38  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:34:39  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:34:39  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:34:39  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:34:44  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:36:57  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:36:57  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:36:59  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:36:59  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:37:00  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:37:00  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:37:00  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:37:04  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-03-26 18:40:51  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-03-26 18:40:51  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-03-26 18:40:52  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-03-26 18:40:52  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-03-26 18:40:53  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-03-26 18:40:53  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-03-26 18:40:53  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-26 18:40:59  |   CreateSUBMODULEFHRepo  |   오류 발생: 테이블 'AMS.dbo.SUBMODULE_FAILURE_HISTORY', 열 'FAIL_TBL_GETDATE'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |

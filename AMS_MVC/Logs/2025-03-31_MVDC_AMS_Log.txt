@@ -1,0 +1,16 @@
+|2025-03-31 14:51:50  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-31 14:51:50  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-03-31 14:51:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-31 14:51:50  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-31 14:51:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-31 14:52:01  |   DB(VCB_BASICINFO)  |   UpdateVCBBasicInfoRepo 성공. VCB_CODE: VCB003   |
+|2025-03-31 14:52:28  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-31 14:52:28  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-03-31 14:52:28  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-31 14:52:28  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-03-31 14:52:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-03-31 14:52:49  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 0331   |
+|2025-03-31 14:52:50  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-03-31 14:52:50  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-03-31 14:52:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-03-31 14:52:50  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |

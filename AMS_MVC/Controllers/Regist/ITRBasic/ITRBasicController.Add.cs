@@ -81,8 +81,8 @@ namespace AMS_MVC.Controllers
             // 기타 데이터 처리 (ITR_CODE 생성 등)
             ITRBasicInfoRepository repo = new ITRBasicInfoRepository();
             string latestCode = repo.GetLatestITRCode();
-            model.ITR_Code = GenerateNextITRCode(latestCode, "I");
-            model.Writer = "TestUser";
+            model.ITR_Code = GenerateNextITRCode(latestCode, "ITR");
+            model.Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
             var result = repo.CreateITRBasicInfoRepo(model);
 
             return Json(new { success = result.IsSuccess, message = result.Message });

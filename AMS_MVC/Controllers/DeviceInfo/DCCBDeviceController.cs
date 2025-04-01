@@ -1,0 +1,97 @@
+﻿using AMS_MVC.Models;
+using AMS_MVC.Repositories;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
+namespace AMS_MVC.Controllers
+{
+    public class DCCBDeviceController : Controller
+    {
+        private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+        private readonly PriorityInfoRepository _priorityRepo = new PriorityInfoRepository();
+        private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
+        private readonly GojangRepository _gojangRepo = new GojangRepository();
+
+        // DCCBDeviceInfo 페이지
+        public ActionResult Index()
+        {
+            ViewBag.MenuType = "DeviceInfo";
+            return View("~/Views/Device/DCCB/DCCBDevice.cshtml");
+        }
+
+        /// <summary>
+        /// Riskmatrix 데이터 가져오기
+        /// </summary>
+        public JsonResult GetRiskmatrixData(string prefix)
+        {
+            try
+            {
+                var riskData = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
+                return Json(riskData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Riskmatrix PoF, CoF 데이터 가져오기
+        /// </summary>
+        public JsonResult GetRiskMatrixPofCof(string prefix)
+        {
+            var PofCof = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
+            return Json(PofCof);
+        }
+
+        /// <summary>
+        /// 우선순위 데이터 가져오기
+        /// </summary>
+        public JsonResult GetPriorityDCCB()
+        {
+            try
+            {
+                var priorityData = _priorityRepo.GetPriority("DCCB_BASICINFO", "DCCB_CODE", "DCCB", "DCCB");
+                return Json(priorityData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 유지보수 한 달 간격 데이터 가져오기
+        /// </summary>
+        public JsonResult GetMonthlyMaintenanceData()
+        {
+            try
+            {
+                var data = _maintenanceRepo.GetMonthlyMaintenanceCounts("DCCB_MAINTENANCE_HISTORY", "DCCB");
+                return Json(data);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// DCCB 단독 - 고장 테이블 정보 가져오기
+        /// </summary>
+        public JsonResult GetGojangDCCBList()
+        {
+            try
+            {
+                var gojangData = _gojangRepo.GetGojangData("DCCB_FAILURE_HISTORY", "DCCB_BASICINFO", "DCCB_CODE", "DCCB", "DCCB");
+                return Json(gojangData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+    }
+}

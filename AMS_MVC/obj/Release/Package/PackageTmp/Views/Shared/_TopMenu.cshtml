@@ -5,9 +5,9 @@
         <li>
             <a href="@Url.Action("Index", "TotalInfo")" class="btn_gnb" id="gnb_01">종합정보</a>
             <ul class="lnb_group">
-                <li><a href="javascript:void(0)">건전도 검색</a></li>
-                <li><a href="javascript:void(0)">연결&알람 검색</a></li>
-                <li><a href="javascript:void(0)">점검&고장&유지보수 검색</a></li>
+                <li><a href="@Url.Action("Battery", "TotalInfo")">건전도 검색</a></li>
+                <li><a href="@Url.Action("Connection", "TotalInfo")">연결&알람 검색</a></li>
+                <li><a href="@Url.Action("Check", "TotalInfo")">점검&고장&유지보수 검색</a></li>
             </ul>
         </li>
 
@@ -17,9 +17,9 @@
             <ul class="lnb_group">
                 <li><a href="@Url.Action("Index", "VCBDevice")">VCB</a></li>
                 <li><a href="@Url.Action("Index", "ITRDevice")">Interface TR</a></li>
-                <li><a href="@Url.Action("Index", "Device")">Sub Module</a></li>
-                <li><a href="@Url.Action("Index", "Device")">DCCB</a></li>
-                <li><a href="@Url.Action("Index", "Device")">DC Cable</a></li>
+                <li><a href="@Url.Action("Index", "SUBMODULEDevice")">Sub Module</a></li>
+                <li><a href="@Url.Action("Index", "DCCBDevice")">DCCB</a></li>
+                <li><a href="@Url.Action("Index", "DCCABLEDevice")">DC Cable</a></li>
             </ul>
         </li>
 
@@ -32,11 +32,9 @@
             <ul class="lnb_group">
                 <li><a href="@Url.Action("VCBBasicList", "VCBBasic")">VCB</a></li>
                 <li><a href="@Url.Action("ITRBasicList", "ITRBasic")">Interface TR</a></li>
-                <li><a href="javascript:void(0)">Arm Reactor</a></li>
-                <li><a href="javascript:void(0)">Wall Bushing</a></li>
-                <li><a href="javascript:void(0)">PT,CT</a></li>
-                <li><a href="javascript:void(0)">LA</a></li>
-                <li><a href="javascript:void(0)">DS</a></li>
+                <li><a href="@Url.Action("SUBMODULEBasicList", "SUBMODULEBasic")">Sub Module</a></li>
+                <li><a href="@Url.Action("DCCBBasicList", "DCCBBasic")">DCCB</a></li>
+                <li><a href="@Url.Action("DCCABLEBasicList", "DCCABLEBasic")">DC Cable</a></li>
             </ul>
         </li>
 
@@ -46,11 +44,9 @@
             <ul class="lnb_group">
                 <li><a href="@Url.Action("VCBChkTotalList", "VCBChk")">VCB</a></li>
                 <li><a href="@Url.Action("ITRChk1TotalList", "ITRChk1")">Interface TR</a></li>
-                <li><a href="javascript:void(0)">Arm Reactor</a></li>
-                <li><a href="javascript:void(0)">Wall Bushing</a></li>
-                <li><a href="javascript:void(0)">PT,CT</a></li>
-                <li><a href="javascript:void(0)">LA</a></li>
-                <li><a href="javascript:void(0)">DS</a></li>
+                <li><a href="@Url.Action("SUBMODULEChkTotalList", "SUBMODULEChk")">Sub Module</a></li>
+                <li><a href="@Url.Action("DCCBChkTotalList", "DCCBChk")">DCCB</a></li>
+                <li><a href="@Url.Action("DCCABLEChkTotalList", "DCCABLEChk")">DC Cable</a></li>
             </ul>
         </li>
 
@@ -60,11 +56,9 @@
             <ul class="lnb_group">
                 <li><a href="@Url.Action("VCBGojangTotalList", "VCBGojang")">VCB</a></li>
                 <li><a href="@Url.Action("ITRGojangTotalList", "ITRGojang")">Interface TR</a></li>
-                <li><a href="javascript:void(0)">Arm Reactor</a></li>
-                <li><a href="javascript:void(0)">Wall Bushing</a></li>
-                <li><a href="javascript:void(0)">PT,CT</a></li>
-                <li><a href="javascript:void(0)">LA</a></li>
-                <li><a href="javascript:void(0)">DS</a></li>
+                <li><a href="@Url.Action("SUBMODULEGojangTotalList", "SUBMODULEGojang")">Sub Module</a></li>
+                <li><a href="@Url.Action("DCCBGojangTotalList", "DCCBGojang")">DCCB</a></li>
+                <li><a href="@Url.Action("DCCABLEGojangTotalList", "DCCABLEGojang")">DC Cable</a></li>
             </ul>
         </li>
 
@@ -74,27 +68,26 @@
             <ul class="lnb_group">
                 <li><a href="@Url.Action("VCBMaintenanceTotalList", "VCBMaintenance")">VCB</a></li>
                 <li><a href="@Url.Action("ITRMaintenanceTotalList", "ITRMaintenance")">Interface TR</a></li>
-                <li><a href="javascript:void(0)">Arm Reactor</a></li>
-                <li><a href="javascript:void(0)">Wall Bushing</a></li>
-                <li><a href="javascript:void(0)">PT,CT</a></li>
-                <li><a href="javascript:void(0)">LA</a></li>
-                <li><a href="javascript:void(0)">DS</a></li>
+                <li><a href="@Url.Action("SUBMODULEMaintenanceTotalList", "SUBMODULEMaintenance")">Sub Module</a></li>
+                <li><a href="@Url.Action("DCCBMaintenanceTotalList", "DCCBMaintenance")">DCCB</a></li>
+                <li><a href="@Url.Action("DCCABLEMaintenanceTotalList", "DCCABLEMaintenance")">DC Cable</a></li>
             </ul>
         </li>
     </ul>
 
     <!-- 사용자 정보 -->
     <ul class="info_group">
-        <li class="depar">기술정보팀</li>
+        <li class="depar">@(Session["User_Buseo"] ?? "")</li>
         <li class="name">
-            <span>@ViewBag.UserName</span>
+            <span>@(Session["User_Name"] ?? "Guest")</span>
         </li>
         <li class="setting">
-            <a href="javascript:void(0)" class="btn_gnb">세팅</a>
+            <a href="@Url.Action("SubstationInfo", "Setting")" class="btn_gnb">설정</a>
             <ul class="lnb_group setting_sub">
-                <li><a href="@Url.Action("Substation", "Settings")">변전소 정보</a></li>
-                <li><a href="@Url.Action("Member", "Settings")">계정정보</a></li>
-                <li><a href="@Url.Action("CompanyList", "Regist")">업체 등록</a></li>
+                <li><a href="@Url.Action("SubstationInfo", "Setting")">변전소 정보</a></li>
+                <li><a href="@Url.Action("MemberInfo", "Setting")">계정정보</a></li>
+                @*<li><a href="@Url.Action("CompanyList", "CompanyRegist")">업체 등록</a></li>*@
+                @* Company CRUD 나중에 추가할 예정 *@
                 <li><a href="@Url.Action("Logout", "Account")">로그아웃</a></li>
             </ul>
         </li>

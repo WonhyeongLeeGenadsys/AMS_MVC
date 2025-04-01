@@ -35,7 +35,7 @@ namespace AMS_MVC.Controllers.Check
             Result result = new Result(true);
             try
             {
-                model.CHK_Writer = "TestUser";
+                model.CHK_Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
                 result = vcbChkRepository.CreateVCBChkInfoRepo(model);
 
                 if (!result.IsSuccess)

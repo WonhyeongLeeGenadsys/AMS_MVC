@@ -22,7 +22,7 @@ namespace AMS_MVC.Models
         public string Fail_Repairer { get; set; }
         public string Fail_Supervisor { get; set; }
         public string Fail_Registrar { get; set; }
-        public DateTime? Fail_Date { get; set; }
+        public DateTime? Fail_Repair_Date { get; set; }
         public string Fail_Writer { get; set; }
         public DateTime? Fail_Tbl_GetDate { get; set; }
     }

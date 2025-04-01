@@ -1,0 +1,216 @@
+﻿using AMS_MVC.Database;
+using AMS_MVC.Models;
+using AMS_MVC.Utlity;
+using Dapper;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using Web.Common.Log;
+
+namespace AMS_MVC.Repositories
+{
+    public class DCCABLEBasicInfoRepository
+    {
+        // 가장 큰 DCCABLE_CODE 값을 반환
+        public string GetLatestDCCABLECode()
+        {           
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT MAX(DCCABLE_CODE) FROM DCCABLE_BASICINFO WHERE DCCABLE_CODE LIKE 'DC%'";
+
+                return dbHelper.Conn.QuerySingleOrDefault<string>(query);
+            }
+        }
+
+        public DCCABLEBasicInfo GetDCCABLEBasicInfoByTblIdxRepo(string tblIdx)
+        {
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT * FROM DCCABLE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+
+                return dbHelper.Conn.QueryFirstOrDefault<DCCABLEBasicInfo>(query, new { Tbl_Idx = tblIdx });
+            }
+        }
+
+        public DCCABLEBasicInfo GetDCCABLEBasicInfoByCode(string dccableCode)
+        {
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                var query = "SELECT * FROM DCCABLE_BASICINFO WHERE DCCABLE_CODE = @DCCABLE_Code";
+
+                return dbHelper.Conn.QueryFirstOrDefault<DCCABLEBasicInfo>(query, new { DCCABLE_Code = dccableCode });
+            }
+        }
+
+        /// <summary>
+        /// DCCABLE 기본정보 전체 불러오기
+        /// </summary>
+        /// <param name="dccableBasicInfo"></param>
+        /// <returns></returns>
+        public Result GetAllDCCABLEBasicInfoRepo(out List<DCCABLEBasicInfo> dccableBasicInfo)
+        {
+            Result res = new Result(true);
+            dccableBasicInfo = new List<DCCABLEBasicInfo>();
+
+            try
+            {
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "SELECT TBL_IDX, DCCABLE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, WRITER, TBL_GETDATE FROM DCCABLE_BASICINFO";
+                    dccableBasicInfo = dbHelper.Conn.Query<DCCABLEBasicInfo>(query).AsList();
+
+                    LogHelper.WriteLog("dccableBasicInfo Data", $"{dccableBasicInfo}");
+                    res.Message = "GetAllDCCABLEBasicInfoRepo 동작 성공";
+                    LogHelper.WriteLog("DB(DCCABLE_BASICINFO", res.Message);
+                }
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "GetAllDCCABLEBasicInfoRepo 실패: " + ex.StackTrace + ex.Message;
+
+                LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+            }
+            return res;
+        }
+
+        public Result CreateDCCABLEBasicInfoRepo(DCCABLEBasicInfo newDCCABLEBasicInfo)
+        {
+            Result res = new Result(true);
+            using(DBHelper dbHelper = new DBHelper())
+            {
+                using (var conn = dbHelper.Conn)
+                {
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            // DCCABLE_BASICINFO 테이블에 데이터 삽입
+                            var queryBasicInfo = @"
+                INSERT INTO DCCABLE_BASICINFO (DCCABLE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
+                INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
+                IS_HEALTH, WRITER) 
+                VALUES (@DCCABLE_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
+                @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
+                @Is_Health, @Writer)";
+
+                            int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newDCCABLEBasicInfo, transaction);
+
+                            if (affectedRowsBasicInfo > 0)
+                            {
+                                // RISKMATRIX 테이블에 데이터 삽입
+                                var queryRiskMatrix = @"
+                    INSERT INTO RISKMATRIX (CODE, COF, POF) 
+                    VALUES (@DCCABLE_Code, @DefaultCof, @DefaultPof)";
+
+                                // 초기 COF와 POF 값은 기본값으로 설정 (변경해야됨)
+                                var riskMatrixData = new
+                                {
+                                    DCCABLE_Code = newDCCABLEBasicInfo.DCCABLE_Code,
+                                    DefaultCof = "0",
+                                    DefaultPof = "0"
+                                };
+
+                                int affectedRowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);
+
+                                if (affectedRowsRiskMatrix > 0)
+                                {
+                                    // 트랜잭션 커밋
+                                    transaction.Commit();
+                                    res.Message = "CreateDCCABLEBasicInfoRepo 성공: DCCABLE Serial_No: " + newDCCABLEBasicInfo.Serial_No;
+                                    LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+                                }
+                                else
+                                {
+                                    throw new Exception("RISKMATRIX 테이블에 데이터 삽입 실패");
+                                }
+                            }
+                            else
+                            {
+                                throw new Exception("DCCABLE_BASICINFO 테이블에 데이터 삽입 실패");
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            // 트랜잭션 롤백
+                            transaction.Rollback();
+                            res.IsSuccess = false;
+                            res.Message = "CreateDCCABLEBBasicInfoRepo 실패: " + ex.Message;
+                            LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", "CreateDCCABLEBasicInfoRepo 오류: " + ex.Message + " 스택트레이스: " + ex.StackTrace);
+                        }
+                    }
+                }
+            }
+            return res;
+        }
+
+        public Result UpdateDCCABLEBasicInfoRepo(DCCABLEBasicInfo dccableBasicInfo)
+        {
+            Result res = new Result(true);
+            try
+            {
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "UPDATE DCCABLE_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, WRITER=@Writer " +
+            "WHERE SERIAL_NO = @Serial_No";
+
+                    int affectedRows = dbHelper.Conn.Execute(query, dccableBasicInfo);
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "UpdateDCCABLEBasicInfoRepo 성공 SERIAL_NO: " + dccableBasicInfo.Serial_No;
+                        LogHelper.WriteLog("DB(DCCABLE_BasicInfo)", res.Message);
+                    }
+                    else
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "UpdateDCCABLEBasicInfoRepo 실패: 데이터 수정에 실패했습니다.";
+                        LogHelper.WriteLog("DB(DCCABLE_BasicInfo)", res.Message);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "UpdateDCCABLEBasicInfoRepo 실패: " + ex.StackTrace + ex.Message;
+                LogHelper.WriteLog("DB(DCCABLE_BasicInfo)", res.Message);
+            }
+            return res;
+        }
+
+        public Result DeleteDCCABLEBasicInfoRepo(string tblIdx)
+        {
+            Result res = new Result(true);
+            try
+            {
+                using(DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "DELETE FROM DCCABLE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+
+                    int affectedRows = dbHelper.Conn.Execute(query, new { Tbl_Idx = tblIdx });
+
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "DeleteDCCABLEBasicInfoRepo 성공: DCCABLEBasicInfo Tbl_Idx: " + tblIdx;
+                        LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+                    }
+                    else
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteDCCABLEBasicInfoRepo 실패: 해당 Tbl_Idx를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "DeleteDCCABLECBBasicInfoRepo 실패: " + ex.Message + "\n" + ex.StackTrace;
+                LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+            }
+            return res;
+        }
+    }
+}

@@ -60,8 +60,8 @@
                                 { dataField: 'CHK_Manager', caption: '감독자', alignment: 'center', width: 'auto' },
                                 { dataField: 'CHK_Urgent_No', caption: '급전번호', alignment: 'center', width: 'auto' },
                                 { dataField: 'CHK_Type', caption: '형식', alignment: 'center', width: 'auto' },
-                                { dataField: 'CHK_Start_Date', caption: '점검시작일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' },
-                                { dataField: 'CHK_End_Date', caption: '점검 종료일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' }
+                                { dataField: 'CHK_Start_Date', caption: '점검시작일', alignment: 'center', width: 120},
+                                { dataField: 'CHK_End_Date', caption: '점검 종료일', alignment: 'center', width: 120}
                             ],
                             showBorders: false,
                             searchPanel: { visible: true, width: 240, placeholder: "검색" },
@@ -70,11 +70,12 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBChkDetail 페이지로 이동
-                                const tblIdx = e.data.Tbl_Idx;
-                                const vcbCode = e.data.VCB_Code;
-                                window.location.href = `/Check/VCBChk/VCBChkDetail?VCB_Code=${encodeURIComponent(vcbCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
-                            }
+                                const vcbCode = e.data.VCB_Code;  // VCB 코드만 필요함 (Tbl_Idx 필요 없음)                                
+                                var baseUrl = window.location.origin;
+                                var detailUrl = '@Url.Action("VCBChkDetail", "VCBChk")';
+
+                                 window.location.href = baseUrl + detailUrl + "?vcbCode=" + encodeURIComponent(vcbCode);
+                                }
                         });
                     },
                         error: function (xhr, status, error) {

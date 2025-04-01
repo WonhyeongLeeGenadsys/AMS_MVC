@@ -65,7 +65,6 @@ $(document).ready(function () {
             else if (currentPage.includes("SubModule") && linkPage.includes("SubModule")) {
                 $(this).addClass('on');
             }
-            // 향후 장치 추가되면 "DCCB, DCCable 등등 추가하기!
         });
     }
 });

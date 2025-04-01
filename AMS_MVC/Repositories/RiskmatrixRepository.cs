@@ -10,33 +10,24 @@ namespace AMS_MVC.Repositories
 {
     public class RiskmatrixRepository
     {
-        public Dictionary<string, int> GetRiskMatrixPofCof(string codePrefix = null)
+        private Dictionary<string, int> GetRiskMatrixInternal(string query, object parameters)
         {
-            using(DBHelper dbHelper = new DBHelper())
+            using (DBHelper dbHelper = new DBHelper())
             {
-                const string query = @"
-        SELECT CoF, PoF
-        FROM RISKMATRIX
-        WHERE(@CodePrefix IS NULL OR CODE LIKE @CodePattern)";
-
-                //매개변수 설정
-                var parameters = new { CodePrefix = codePrefix, CodePattern = $"{codePrefix}%" };
-
-                //데이터 조회
                 var data = dbHelper.Conn.Query(query, parameters).ToList();
 
-                // 5x5 Matrix 초기화
+                // 5x5 Matrix 초기화 (인덱스 0~4)
                 var matrix = new int[5, 5];
 
-                //데이터 매핑하기
+                // 기존: CoF, PoF 값을 0-based 인덱스로 변환 후 집계
                 foreach (var item in data)
                 {
-                    int cof = Clamp(int.Parse(item.CoF) - 1, 0, 4); // 0-based index로 변환
+                    int cof = Clamp(int.Parse(item.CoF) - 1, 0, 4);
                     int pof = Clamp(int.Parse(item.PoF) - 1, 0, 4);
                     matrix[pof, cof]++;
                 }
 
-                // Dictionary 형태로 반환하기
+                // 결과를 Dictionary<string, int>로 변환 (키: "pofIndex,cofIndex")
                 var result = new Dictionary<string, int>();
                 for (int i = 0; i < 5; i++)
                 {
@@ -48,6 +39,7 @@ namespace AMS_MVC.Repositories
                 return result;
             }
         }
+
         private int Clamp(int value, int min, int max)
         {
             if (value < min) return min;
@@ -56,20 +48,77 @@ namespace AMS_MVC.Repositories
         }
 
         /// <summary>
-        /// CODE테이블의 앞글자(EX: V or I) 검증해서 데이터 불러오기
+        /// VCB 코드로 Riskmatrix 데이터를 조회 (단일 VCB에 해당하는 데이터)
         /// </summary>
-        /// <param name="codePrefix"></param>
-        /// <returns></returns>
-        public List<Riskmatrix> GetMatrixByCodePrefix(string codePrefix)
+        public Dictionary<string, int> GetRiskMatrixPofCofByVCBCode(string vcbCode)
         {
-            using(DBHelper dbHelper = new DBHelper())
+            const string query = @"
+                SELECT CoF, PoF
+                FROM RISKMATRIX
+                WHERE CODE = @VCBCode";
+            var parameters = new { VCBCode = vcbCode };
+            return GetRiskMatrixInternal(query, parameters);
+        }
+
+        /// <summary>
+        /// codePrefix (예: "VCB")로 Riskmatrix 데이터를 조회 (여러 건 누적)
+        /// </summary>
+        public Dictionary<string, int> GetRiskMatrixPofCof(string codePrefix = null)
+        {
+            const string query = @"
+                SELECT CoF, PoF
+                FROM RISKMATRIX
+                WHERE (@CodePrefix IS NULL OR CODE LIKE @CodePattern)";
+            var parameters = new
+            {
+                CodePrefix = codePrefix,
+                CodePattern = codePrefix != null ? $"{codePrefix}%" : null
+            };
+            return GetRiskMatrixInternal(query, parameters);
+        }
+
+        /// <summary>
+        /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
+        /// </summary>
+        public Riskmatrix GetRiskMatrixByVCBCode(string vcbCode)
+        {
+            using (DBHelper dbHelper = new DBHelper())
             {
                 const string query = @"
-            SELECT *
-            FROM RISKMATRIX
-            WHERE CODE LIKE @CodePrefix";
+                    SELECT *
+                    FROM RISKMATRIX
+                    WHERE CODE = @VCBCode";
+                return dbHelper.Conn.QueryFirstOrDefault<Riskmatrix>(query, new { VCBCode = vcbCode });
+            }
+        }
 
-                return dbHelper.Conn.Query<Riskmatrix>(query, new { CodePrefix = codePrefix + "%" }).AsList();
+        /// <summary>
+        /// HI 값을 기준으로 집계한 데이터를 반환
+        /// HI 값별 건수를 Dictionary<string, int> 형태로 반환
+        /// </summary>
+        public Dictionary<string, int> GetAggregatedHI(string codePrefix = null)
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
+            SELECT HI, COUNT(*) AS Count
+            FROM RISKMATRIX
+            WHERE (@CodePrefix IS NULL OR CODE LIKE @CodePattern)
+            GROUP BY HI";
+                var parameters = new
+                {
+                    CodePrefix = codePrefix,
+                    CodePattern = codePrefix != null ? $"{codePrefix}%" : null
+                };
+                var data = dbHelper.Conn.Query(query, parameters).ToList();
+
+                var result = new Dictionary<string, int>();
+                foreach (var item in data)
+                {
+                    int count = int.Parse(item.Count.ToString());
+                    result[item.HI.ToString()] = count;
+                }
+                return result;
             }
         }
     }

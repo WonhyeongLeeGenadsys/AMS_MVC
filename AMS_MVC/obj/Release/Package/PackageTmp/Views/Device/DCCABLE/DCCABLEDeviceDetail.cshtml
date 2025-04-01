@@ -1,0 +1,325 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_DeviceInfoMenu")
+}
+
+@section MainContent {
+
+
+    <h1>DC Cable - 00000001</h1>
+    <!--전체 박스-->
+    <div class="box_wrap">
+        <!--시설정보-->
+        <div class="con_box flex3">
+            <div class="product">
+                <p class="img">
+                    <img src="../img/img_product.png">
+                </p>
+                <dl class="product_info">
+                    <dt>시리얼번호</dt>
+                    <dd>0000001</dd>
+                    <dt>설치일</dt>
+                    <dd>2024-05-05</dd>
+                    <dt>가동일</dt>
+                    <dd>2024-05-05</dd>
+                    <dt>사용기간</dt>
+                    <dd>00년</dd>
+                    <dt>구입비용</dt>
+                    <dd>000,000,000원</dd>
+                    <dt>설치장소</dt>
+                    <dd>옥외</dd>
+                    <dt>용량</dt>
+                    <dd>99MVA</dd>
+                    <dt>전압</dt>
+                    <dd>99kV</dd>
+                    <dt>상수</dt>
+                    <dd>3상</dd>
+                    <dt>제작사</dt>
+                    <dd>㈜자산관리</dd>
+                    <dt>제작번호</dt>
+                    <dd>00-0000-00</dd>
+                    <dt>진단사용</dt>
+                    <dd>아니오</dd>
+                    <dt>건전도 사용</dt>
+                    <dd>예</dd>
+                </dl>
+            </div>
+        </div>
+        <!--//시설정보-->
+        <!--건전도-->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>건전도</p>
+            </h2>
+            <!--//타이틀-->
+            <!--차트-->
+            <div id="gauge" style="height:250px;"></div>
+            <!--//차트-->
+            <script>
+                $(() => {
+                    const gauge = $('#gauge').dxCircularGauge({
+                        scale: {
+                            startValue: 10,
+                            endValue: 40,
+                            tickInterval: 5,
+                            label: {
+                                customizeText(arg) {
+                                    return `${arg.valueText} °C`;
+                                },
+                            },
+                        },
+                        rangeContainer: {
+                            ranges: [
+                                { startValue: 10, endValue: 20, color: '#7A92CE' },
+                                { startValue: 20, endValue: 30, color: '#FEA00D' },
+                                { startValue: 30, endValue: 40, color: '#48C29C' },
+                            ],
+                        },
+                        tooltip: { enabled: true },
+
+                        value: 35,
+                        subvalues: [20, 38],
+                    }).dxCircularGauge('instance');
+
+                });
+            </script>
+        </div>
+        <!--//건전도-->
+        <!--risk matrix-->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>Risk Matrix</p>
+            </h2>
+            <!--//타이틀-->
+            <!--차트-->
+            <div id="chart_line" style="height:280px;"></div>
+            <!--//차트-->
+            <script>
+                $(() => {
+                    const chart = $('#chart_line').dxChart({
+                        dataSource: population,
+                        palette: ['#FEA00D'],
+
+                        series: [{
+                            argumentField: 'country',
+                            width: 1
+                        }],
+
+                        argumentAxis: {
+                            label: {
+                                wordWrap: 'none',
+                            },
+                        },
+                        legend: {
+                            visible: false,
+                        },
+
+                    }).dxChart('instance');
+
+
+                });
+                const population = [
+                    { country: 'China', val: 1382500000 },
+                    { country: 'India', val: 1314300000 },
+                    { country: 'United States', val: 324789000 },
+                    { country: 'Indonesia', val: 261600000 },
+                    { country: 'Brazil', val: 207332000 },
+                    { country: 'Pakistan', val: 196865000 },
+                    { country: 'Nigeria', val: 188500000 },
+                ];
+
+            </script>
+        </div>
+        <!--//risk matrix-->
+        <!--전략-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>
+                <p>보통점검</p>
+            </h2>
+            <!--//타이틀-->
+            <ul class="sub_flex">
+                <li>
+                    <h4 class="tit_h4">DGA – 유증가스 분석</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>H2</td>
+                                    <td>401~500</td>
+                                </tr>
+                                <tr>
+                                    <td>C2h2</td>
+                                    <td>61~120</td>
+                                </tr>
+                                <tr>
+                                    <td>C2h4</td>
+                                    <td>201~500</td>
+                                </tr>
+                                <tr>
+                                    <td>Ch4</td>
+                                    <td>151~200</td>
+                                </tr>
+                                <tr>
+                                    <td>C2h6</td>
+                                    <td>201~350</td>
+                                </tr>
+
+                                <tr>
+                                    <td>Co</td>
+                                    <td>801~1200</td>
+                                </tr>
+                                <tr>
+                                    <td>co2</td>
+                                    <td>5001~7000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">Measure</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>절연열화 측정</td>
+                                    <td>1-(검출횟수/2)</td>
+                                </tr>
+                                <tr>
+                                    <td>SFRA</td>
+                                    <td>
+                                        0.2dB이상 1-(검출횟수/2)
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>절연 저항 시험</td>
+                                    <td>1000MΩ 미만 불량</td>
+                                </tr>
+                                <tr>
+                                    <td>절연지 잔여수명</td>
+                                    <td>81~90</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">Oil Quality</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>절연유 내압시험</td>
+                                    <td>30~40</td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">Oil Quality</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>전산가</td>
+                                    <td>0.111~0.3</td>
+                                </tr>
+                                <tr>
+                                    <td>수분함량</td>
+                                    <td>O 40~50</td>
+                                </tr>
+                                <tr>
+                                    <td>Furfural</td>
+                                    <td>0.1~0.5미만</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+                <li>
+                    <h4 class="tit_h4">Measure</h4>
+                    <div class="table_list_app small">
+                        <table>
+                            <colgroup>
+                                <col style="width:50%">
+                                <col style="width:50%">
+                            </colgroup>
+                            <thead>
+                                <tr>
+                                    <th>파라미터</th>
+                                    <th>판정</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>절연열화 측정</td>
+                                    <td>100mA 이상 1-(검출횟수/2)</td>
+                                </tr>
+                                <tr>
+                                    <td>SFRA</td>
+                                    <td>20%초과 1-(검출횟수/2)</td>
+                                </tr>
+                                <tr>
+                                    <td>절연 저항 시험</td>
+                                    <td>±5%이상 1-(검출횟수/2)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!--//전략-->
+    </div>
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
+    <!--//컨텐츠가 들어옵니다-->
+}
