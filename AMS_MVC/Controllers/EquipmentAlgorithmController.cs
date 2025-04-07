@@ -128,6 +128,7 @@ namespace AMS_MVC.Controllers
                 int length = algo.TimeValues.Length;
                 var reliabilitySeries = new List<object>();
                 var hazardSeries = new List<object>();
+                var pdfSeries = new List<object>(); // 확률 밀도 함수 데이터를 담을 리스트
 
                 for (int i = 0; i < length; i++)
                 {
@@ -141,6 +142,11 @@ namespace AMS_MVC.Controllers
                         time = algo.TimeValues[i],
                         value = algo.HazardNormalized[i]
                     });
+                    pdfSeries.Add(new
+                    {
+                        time = algo.TimeValues[i],
+                        value = algo.PdfNormalized[i]
+                    });
                 }
 
                 resultList.Add(new
@@ -148,7 +154,8 @@ namespace AMS_MVC.Controllers
                     EquipmentName = eq.EquipmentName,
                     B3Life = algo.B3Life,
                     ReliabilitySeries = reliabilitySeries,
-                    HazardSeries = hazardSeries
+                    HazardSeries = hazardSeries,
+                    PdfNormalized = pdfSeries  // 추가된 확률 밀도 함수 데이터
                 });
             }
 
