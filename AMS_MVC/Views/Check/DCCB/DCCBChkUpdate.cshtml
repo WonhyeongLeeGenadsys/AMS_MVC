@@ -11,7 +11,6 @@
 
 @section MainContent {
     <h1>
-        @*DCCB 보통점검 수정: @ViewBag.SerialNo*@
         DCCB 보통점검 수정 
     </h1>
     <div class="con_box">
@@ -21,8 +20,11 @@
                     <a href="#" class="btn blue app" onclick="updateDCCBChk()">적용</a>
                 </p>
             </div>
-            <form id="dccbChkForm" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="DCCB_Code" value="@dccbCode" />
+
+            <form id="dccbChkUpdateForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Tbl_Idx" value="@Model.Tbl_Idx" />
+                <input type="hidden" name="DCCB_Code" value="@Model.DCCB_Code" />
+
                 <div class="table_app" id="dccbChk">
                     <table>
                         <colgroup>
@@ -425,7 +427,7 @@
                                     <div class="flex">
                                         <input type="text" />
                                         @*<input type="text" />
-                                            <input type="text" />*@
+                                <input type="text" />*@
                                     </div>
                                 </td>
                                 <td>30</td>
@@ -438,13 +440,8 @@
     </div>
 
     <script>
-        // DCCB 점검 정보 수집 함수 수정하기
         function updateDCCBChk() {
-            submitDCCBChkForm();
-        }
-
-        function submitDCCBChkForm() {
-            var form = document.getElementById("dccbChkForm");
+            var form = document.getElementById("dccbChkUpdateForm");
             var formData = new FormData(form);
 
             // FormData 내용을 콘솔에 출력

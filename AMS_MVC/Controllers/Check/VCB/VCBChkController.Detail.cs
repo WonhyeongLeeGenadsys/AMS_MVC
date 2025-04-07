@@ -12,7 +12,7 @@ namespace AMS_MVC.Controllers.Check
     {
         // Ajax 요청: VCB 보통점검 가져오기
         [HttpGet]
-        public ActionResult VCBChkDetail(string vcbCode)
+        public ActionResult VCBChkDetail(string vcbCode, string tblIdx)
         {
             if (string.IsNullOrEmpty(vcbCode))
             {
@@ -20,14 +20,21 @@ namespace AMS_MVC.Controllers.Check
             }
 
             List<VCBChk> vcbChkList = new List<VCBChk>();
-            var result = vcbChkRepository.GetVCBChkDetailByVCBCode(vcbCode, out vcbChkList);
+            var result = vcbChkRepository.GetVCBChkDetailByVCBCode(vcbCode, tblIdx, out vcbChkList);
 
             if (!result.IsSuccess || vcbChkList == null || vcbChkList.Count == 0)
             {
                 return HttpNotFound("VCB 보통점검 정보를 찾을 수 없습니다.");
             }
 
-            return View("~/Views/Check/VCB/VCBChkDetail.cshtml", vcbChkList);
+            // tblIdx와 일치하는 상세 레코드를 선택합니다.
+            var detailRecord = vcbChkList.FirstOrDefault(r => r.Tbl_Idx.ToString() == tblIdx);
+            if (detailRecord == null)
+            {
+                return HttpNotFound("해당 보통점검 정보를 찾을 수 없습니다.");
+            }
+
+            return View("~/Views/Check/VCB/VCBChkDetail.cshtml", detailRecord);
         }
 
         // VCB 보통점검 조회 (Ajax 요청)
@@ -50,14 +57,14 @@ namespace AMS_MVC.Controllers.Check
 
         // VCB 보통점검 삭제 (Ajax 요청)
         [HttpPost]
-        public JsonResult DeleteVCBChk(string vcbCode)
+        public JsonResult DeleteVCBChk(string vcbCode, string tblIdx)
         {
             if (string.IsNullOrEmpty(vcbCode))
             {
                 return Json(new { success = false, message = "올바른 Tbl_Idx가 전달되지 않았습니다." });
             }
 
-            var result = vcbChkRepository.DeleteVCBChkInfoRepo(vcbCode);
+            var result = vcbChkRepository.DeleteVCBChkInfoRepo(vcbCode, tblIdx);
             if (result.IsSuccess)
             {
                 return Json(new { success = true, message = "VCB 보통점검 정보가 삭제되었습니다." });

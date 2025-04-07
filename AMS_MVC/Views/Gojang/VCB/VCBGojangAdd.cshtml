@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    // URL에서 VCB_Code를 읽어옵니다.
     var vcbCode = Request.QueryString["VCB_Code"];
 }
 
@@ -18,7 +17,6 @@
             <!--버튼-->
             <div class="btn_area top right">
                 <p>
-                    @*<a href="#" class="btn red del">삭제</a>*@
                     <a href="#" class="btn blue app" onclick="createVCBGojang()">적용</a>
                 </p>
             </div>

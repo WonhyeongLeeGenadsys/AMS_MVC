@@ -76,6 +76,40 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //SUBMODULE Device페이지에서 '설비들' 표시하기 위해 사용 Basic 모델과 RiskMatrix HI 불러옴
+        public Result GetAllSUBMODULEBasicInfoWithRiskMatrixRepo(out List<dynamic> submoduleInfoWithRisk)
+        {
+            Result res = new Result(true);
+            submoduleInfoWithRisk = new List<dynamic>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    var query = @"
+                SELECT 
+                    b.TBL_IDX, 
+                    b.SUBMODULE_Code, 
+                    b.Serial_No, 
+                    b.Install_Date, 
+                    b.Operating_Date, 
+                    r.HI
+                FROM SUBMODULE_BASICINFO b
+                LEFT JOIN RISKMATRIX r ON b.SUBMODULE_Code = r.CODE
+                ORDER BY b.TBL_IDX";
+
+                    submoduleInfoWithRisk = dbHelper.Conn.Query(query).AsList();
+                }
+                res.Message = "SUBMODULE 기본정보와 RISKMATRIX 정보 조회 성공";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
         public Result CreateSUBMODULEBasicInfoRepo(SUBMODULEBasicInfo newSUBMODULEBasicInfo)
         {
             Result res = new Result(true);

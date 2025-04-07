@@ -75,8 +75,25 @@ namespace AMS_MVC.Controllers.Maintenance.ITR
                 var repoResult = itrMaintenanceRepository.GetTotalITRMaintenance(out itrMaintenance);
                 if (repoResult.IsSuccess)
                 {
+                    var formattedData = itrMaintenance.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.ITR_Code,
+                        item.MR_Bosu_Name,
+                        item.MR_Weather,
+                        item.MR_Temp,
+                        item.MR_Hum,
+                        item.MR_Content,
+                        item.MR_Status,
+                        item.MR_Part,
+                        item.MR_Worker,
+                        MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
+                        item.MR_Writer,
+
+                    }).ToList();
+
                     LogHelper.WriteLog("ITRMaintenanceController.List", $"조회된 데이터: {itrMaintenance.Count}건");
-                    return Json(itrMaintenance);
+                    return Json(formattedData);
                 }
                 else
                 {

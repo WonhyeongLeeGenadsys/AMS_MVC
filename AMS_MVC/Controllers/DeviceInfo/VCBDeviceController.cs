@@ -16,24 +16,21 @@ namespace AMS_MVC.Controllers
         private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
         private readonly GojangRepository _gojangRepo = new GojangRepository();
         private readonly VCBChkRepository _vcbChkRepo = new VCBChkRepository();
-
-        // VCBBasicInfoRepository 사용
         private readonly VCBBasicInfoRepository _vcbBasicInfoRepo = new VCBBasicInfoRepository();
 
-        // VCBDeviceInfo 페이지
         public ActionResult Index()
         {
             ViewBag.MenuType = "DeviceInfo";
             return View("~/Views/Device/VCB/VCBDevice.cshtml");
         }
 
-        // VCBDeviceController (또는 VCBDeviceDetailController)에 추가
+        // VCBDeviceController에 추가
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
         {
             try
             {
-                // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환함
+                // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
                 var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
@@ -42,9 +39,6 @@ namespace AMS_MVC.Controllers
                 return Json(new { error = ex.Message });
             }
         }
-
-
-
 
         /// <summary>
         /// Riskmatrix PoF, CoF 데이터 가져오기
@@ -70,7 +64,6 @@ namespace AMS_MVC.Controllers
                     "VCB"            // 별칭
                 );
 
-                // Install_Date와 Operating_Date를 "yy.MM.dd" 형식의 문자열로 변환합니다.
                 var formattedData = priorityData.Select(item => new
                 {
                     item.Priority,
@@ -172,7 +165,7 @@ namespace AMS_MVC.Controllers
                     Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
                     Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
                     UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
-                    HI = b.HI  // RiskMatrix 테이블에서 가져온 HI 값
+                    HI = b.HI  
                 }).ToList();
 
                 return Json(formatted, JsonRequestBehavior.AllowGet);

@@ -69,6 +69,40 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //ITR Device페이지에서 '설비들' 표시하기 위해 사용 Basic 모델과 RiskMatrix HI 불러옴
+        public Result GetAllITRBasicInfoWithRiskMatrixRepo(out List<dynamic> itrInfoWithRisk)
+        {
+            Result res = new Result(true);
+            itrInfoWithRisk = new List<dynamic>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    var query = @"
+                SELECT 
+                    b.TBL_IDX, 
+                    b.ITR_Code, 
+                    b.Serial_No, 
+                    b.Install_Date, 
+                    b.Operating_Date, 
+                    r.HI
+                FROM ITR_BASICINFO b
+                LEFT JOIN RISKMATRIX r ON b.ITR_Code = r.CODE
+                ORDER BY b.TBL_IDX";
+
+                    itrInfoWithRisk = dbHelper.Conn.Query(query).AsList();
+                }
+                res.Message = "ITR 기본정보와 RISKMATRIX 정보 조회 성공";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = ex.Message;
+            }
+            return res;
+        }
+
         public Result CreateITRBasicInfoRepo(ITRBasicInfo newITRBasicInfo)
         {
             Result res = new Result(true);

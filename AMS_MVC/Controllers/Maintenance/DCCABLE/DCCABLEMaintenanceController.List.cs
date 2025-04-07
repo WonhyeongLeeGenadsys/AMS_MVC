@@ -76,8 +76,25 @@ namespace AMS_MVC.Controllers.Maintenance.DCCABLE
                 var repoResult = dccableMaintenanceRepository.GetTotalDCCABLEMaintenance(out dccableMaintenance);
                 if (repoResult.IsSuccess)
                 {
+                    var formattedData = dccableMaintenance.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.DCCABLE_Code,
+                        item.MR_Bosu_Name,
+                        item.MR_Weather,
+                        item.MR_Temp,
+                        item.MR_Hum,
+                        item.MR_Content,
+                        item.MR_Status,
+                        item.MR_Part,
+                        item.MR_Worker,
+                        MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
+                        item.MR_Writer,
+
+                    }).ToList();
+
                     LogHelper.WriteLog("DCCABLEMaintenanceController.List", $"조회된 데이터: {dccableMaintenance.Count}건");
-                    return Json(dccableMaintenance);
+                    return Json(formattedData);
                 }
                 else
                 {

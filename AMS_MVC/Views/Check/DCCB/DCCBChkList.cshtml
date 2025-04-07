@@ -70,13 +70,16 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                const dccbCode = e.data.DCCB_Code;  // DCCB 코드만 필요함 (Tbl_Idx 필요 없음)
-
-                                var baseUrl = window.location.origin; // 현재 사이트의 기본 URL
+                                // 각 행의 Tbl_Idx와 DCCB_Code 값을 사용하여 DCCBChkDetail 페이지로 이동
+                                const tblIdx = e.data.Tbl_Idx;
+                                const dccbCode = e.data.DCCB_Code;
+                                console.log(tblIdx);
+                                console.log(dccbCode);
+                                var baseUrl = window.location.origin;
                                 var detailUrl = '@Url.Action("DCCBChkDetail", "DCCBChk")';
 
-                                 window.location.href = baseUrl + detailUrl + "?dccbCode=" + encodeURIComponent(dccbCode);
-                                }
+                                window.location.href = baseUrl + detailUrl + "?dccbCode=" + encodeURIComponent(dccbCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
                         });
                     },
                         error: function (xhr, status, error) {

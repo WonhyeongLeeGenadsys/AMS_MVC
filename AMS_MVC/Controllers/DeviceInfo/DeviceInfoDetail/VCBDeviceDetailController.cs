@@ -1,5 +1,6 @@
 ﻿using AMS_MVC.Models;
 using AMS_MVC.Repositories;
+using System.Collections.Generic;
 using System.Web.Mvc;
 
 namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
@@ -16,21 +17,27 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
                 return HttpNotFound("VCB 코드가 제공되지 않았습니다.");
             }
 
-            // 1) RiskMatrixRepository에서 집계 메서드 호출
+            // RiskMatrix 데이터 처리 (기존 코드)
             var riskMatrixRepo = new RiskmatrixRepository();
 
-            var hiDict = riskMatrixRepo.GetRiskMatrixByVCBCode(vcbCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByVCBCode(vcbCode);
+            var hiDict = riskMatrixRepo.GetRiskMatrixByCode(vcbCode);
+            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(vcbCode);
 
             ViewBag.HIDict = hiDict;
             ViewBag.RiskMatrixDict = matrixDict;
 
-            // 2) 개별 VCB 기본정보 불러오기
+            // VCB 기본정보 조회
             var model = vcbBasicInfoRepo.GetVCBBasicInfoByCode(vcbCode);
             if (model == null)
             {
                 return HttpNotFound("해당 VCB 정보를 찾을 수 없습니다.");
             }
+
+            // 보통점검 데이터 조회
+            var vcbChkRepo = new VCBChkRepository();
+            List<VCBChk> chkList;
+            var result = vcbChkRepo.GetVCBChkByVCBCode(vcbCode, out chkList);
+            ViewBag.VCBChkList = chkList;
 
             return View("~/Views/Device/VCB/VCBDeviceDetail.cshtml", model);
         }

@@ -1,0 +1,2 @@
+|2025-04-01 19:21:22  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-01 19:21:22  |   VCBChkController.List  |   조회된 데이터: 2건   |

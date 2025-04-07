@@ -75,8 +75,29 @@ namespace AMS_MVC.Controllers
                 var repoResult = vcbGojangRepository.GetTotalVCBGojang(out vcbGojang);
                 if (repoResult.IsSuccess)
                 {
+                    var formattedData = vcbGojang.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.VCB_Code,
+                        item.Fail_Gojang_Name,
+                        item.Fail_Weather,
+                        item.Fail_Temp,
+                        item.Fail_Hum,
+                        item.Fail_Cause,
+                        item.Fail_Reason,
+                        item.Fail_Status,
+                        item.Fail_Part,
+                        item.Fail_Period,
+                        item.Fail_Finder,
+                        item.Fail_Repairer,
+                        item.Fail_Supervisor,
+                        Fail_Repair_Date = item.Fail_Repair_Date?.ToString("yy.MM.dd"),
+                        item.Fail_Writer,
+
+                    }).ToList();
+
                     LogHelper.WriteLog("VCBGojangController.List", $"조회된 데이터: {vcbGojang.Count}건");
-                    return Json(vcbGojang);
+                    return Json(formattedData);
                 }
                 else
                 {

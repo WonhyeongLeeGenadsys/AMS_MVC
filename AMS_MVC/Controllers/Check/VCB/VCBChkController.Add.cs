@@ -13,7 +13,14 @@ namespace AMS_MVC.Controllers.Check
     {
         public ActionResult VCBChkAdd(string VCB_Code)
         {
+            // 선택한 VCB의 기본정보 조회
             var basicInfo = vcbBasicInfoRepository.GetVCBBasicInfoByCode(VCB_Code);
+
+            // 모든 VCB 기본정보를 드롭다운에 바인딩
+            List<VCBBasicInfo> vcbs;
+            var res = vcbBasicInfoRepository.GetAllVCBBasicInfoRepo(out vcbs);
+            ViewBag.VCBs = new SelectList(vcbs, "VCB_Code", "SERIAL_NO");
+
             ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
             ViewBag.VCB_Code = VCB_Code;
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Web.Common.Utlity
 {
-    public static class DateHelper  // ✅ static 클래스로 변경
+    public static class DateHelper  
     {
         public static string FormatDate(DateTime? date)  
         {

@@ -96,6 +96,23 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        public List<dynamic> GetMonthlyAllITRChk1Counts()
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                string query = @"
+                    SELECT 
+                        FORMAT(CHK1_Start_Date, 'yyyy-MM') AS Month, 
+                        COUNT(*) AS Count,
+                        'ITR1' AS Type
+                    FROM INTERFACETR_CHK1
+                    WHERE CHK1_Start_Date IS NOT NULL
+                    GROUP BY FORMAT(CHK1_Start_Date, 'yyyy-MM')
+                    ORDER BY Month;";
+                return dbHelper.Conn.Query(query).ToList();
+            }
+        }
+
         // ITR 보통점검 데이터 추가
         public Result CreateITRChk1InfoRepo(ITRChk1 itrChk1)
         {

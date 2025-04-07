@@ -7,7 +7,7 @@
 }
 
 @section MainContent {
-    <h1>VCB 고장이력</h1>
+    <h1>전체 VCB 고장이력</h1>
 
     <div class="con_box">
         <div class="content_warp">
@@ -63,7 +63,6 @@
                                 { dataField: 'Fail_Registrar', caption: '등록자', alignment: 'center', width: 'auto' },
                                 { dataField: 'Fail_Repair_Date', caption: '고장일', alignment: 'center', width: 'auto' },
                                 { dataField: 'Fail_Writer', caption: '작성자', alignment: 'center', width: 'auto' }
-
                             ],
                             showBorders: false,
                             searchPanel: { visible: true, width: 240, placeholder: "검색" },
@@ -72,7 +71,7 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBChkDetail 페이지로 이동
+                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBGojangDetail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const vcbCode = e.data.VCB_Code;
 

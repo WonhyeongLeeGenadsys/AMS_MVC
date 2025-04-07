@@ -75,8 +75,29 @@ namespace AMS_MVC.Controllers
                 var repoResult = itrGojangRepository.GetTotalITRGojang(out itrGojang);
                 if (repoResult.IsSuccess)
                 {
+                    var formattedData = itrGojang.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.ITR_Code,
+                        item.Fail_Gojang_Name,
+                        item.Fail_Weather,
+                        item.Fail_Temp,
+                        item.Fail_Hum,
+                        item.Fail_Cause,
+                        item.Fail_Reason,
+                        item.Fail_Status,
+                        item.Fail_Part,
+                        item.Fail_Period,
+                        item.Fail_Finder,
+                        item.Fail_Repairer,
+                        item.Fail_Supervisor,
+                        Fail_Repair_Date = item.Fail_Repair_Date?.ToString("yy.MM.dd"),
+                        item.Fail_Writer,
+
+                    }).ToList();
+
                     LogHelper.WriteLog("ITRGojangController.List", $"조회된 데이터: {itrGojang.Count}건");
-                    return Json(itrGojang);
+                    return Json(formattedData);
                 }
                 else
                 {

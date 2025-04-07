@@ -70,13 +70,16 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                const dccableCode = e.data.DCCABLE_Code;  // DCCABLE 코드만 필요함 (Tbl_Idx 필요 없음)
-
-                                var baseUrl = window.location.origin; // 현재 사이트의 기본 URL
+                                // 각 행의 Tbl_Idx와 DCCABLE_Code 값을 사용하여 DCCABLEChkDetail 페이지로 이동
+                                const tblIdx = e.data.Tbl_Idx;
+                                const dccableCode = e.data.DCCABLE_Code;
+                                console.log(tblIdx);
+                                console.log(dccableCode);
+                                var baseUrl = window.location.origin;
                                 var detailUrl = '@Url.Action("DCCABLEChkDetail", "DCCABLEChk")';
 
-                                 window.location.href = baseUrl + detailUrl + "?dccableCode=" + encodeURIComponent(dccableCode);
-                                }
+                                window.location.href = baseUrl + detailUrl + "?dccableCode=" + encodeURIComponent(dccableCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
                         });
                     },
                         error: function (xhr, status, error) {

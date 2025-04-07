@@ -95,6 +95,23 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        public List<dynamic> GetMonthlyAllITRChk2Counts()
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                string query = @"
+                    SELECT 
+                        FORMAT(CHK2_Start_Date, 'yyyy-MM') AS Month, 
+                        COUNT(*) AS Count,
+                        'ITR2' AS Type
+                    FROM INTERFACETR_CHK2
+                    WHERE CHK2_Start_Date IS NOT NULL
+                    GROUP BY FORMAT(CHK2_Start_Date, 'yyyy-MM')
+                    ORDER BY Month;";
+                return dbHelper.Conn.Query(query).ToList();
+            }
+        }
+
         // ITR 정밀점검 데이터 추가
         public Result CreateITRChk2InfoRepo(ITRChk2 itrChk2)
         {
@@ -112,8 +129,7 @@ namespace AMS_MVC.Repositories
                 ) VALUES (
                     @ITR_Code, @CHK2_Gongsa_Name, @CHK2_Weather, @CHK2_Temp, @CHK2_Hum, @CHK2_Company, 
                     @CHK2_Worker, @CHK2_Manager, @CHK2_Urgent_No, @CHK2_Type, @CHK2_Start_Date, 
-                    @CHK2_End_Date, @CHK2_Computerized_Price, @CHK2_Water_Content, @CHK2_Furfural, @CHK2_Excitation_Current, @CHK2_Short_Current, @CHK2_Voltage_Ratio, @CHK2_Writer
-)";
+                    @CHK2_End_Date, @CHK2_Computerized_Price, @CHK2_Water_Content, @CHK2_Furfural, @CHK2_Excitation_Current, @CHK2_Short_Current, @CHK2_Voltage_Ratio, @CHK2_Writer)";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk2);
                     res.Message = affectedRows > 0 ? "ITR 정밀점검 데이터 추가 성공" : "ITR 정밀점검 데이터 추가 실패";

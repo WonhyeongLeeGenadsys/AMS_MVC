@@ -2,6 +2,8 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    var dccbCode = Request.QueryString["dccbCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
 }
 
 @section LeftMenu {
@@ -15,8 +17,8 @@
         <div class="content_warp">
             <div class="btn_area top right">
                 <p>
-                    <a href="#" class="btn red del" onclick="deleteDCCBChk(); return false;">삭제</a>
-                    <a href="@Url.Action("DCCBChkUpdate", "DCCBChk", new { dccbCode = Model.DCCB_Code })" class="btn blue edit">수정</a>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@dccbCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("DCCBChkUpdate", "DCCBChk", new { dccbCode = dccbCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
 
@@ -289,28 +291,29 @@
         </div>
     </div>
 }
-<script>
-    function deleteDCCBChk() {
-        var tblIdx = "@Model.Tbl_Idx";
-
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("DeleteDCCBChk", "DCCBChk")",
-            data: JSON.stringify({ tblIdx: tblIdx }),
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            success: function (response) {
-                if (response.success) {
-                    alert("DCCB 기본정보가 삭제되었습니다.");
-                    window.location.href = "@Url.Action("DCCBChkTotalList", "DCCBChk")";
-                } else {
-                    alert(response.message);
-                }
-            },
-            error: function (xhr, status, error) {
-                console.error("삭제 오류:", error);
-                alert("삭제 중 오류가 발생했습니다.");
+<script type="text/javascript">
+        function deleteGojang(dccbCode, tblIdx) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DCCBChkDelete", "DCCBChk")',
+                    data: JSON.stringify({ dccbCode: dccbCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("DCCB 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("DCCBChkTotalList", "DCCBChk")';
+                        } else {
+                            alert("DCCB 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
             }
-        });
-    }
+        }
 </script>
+
+

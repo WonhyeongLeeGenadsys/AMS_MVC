@@ -11,11 +11,20 @@ namespace AMS_MVC.Controllers.Check
 {
     public partial class VCBChkController : Controller
     {
-        public ActionResult VCBChkUpdate(string vcbCode)
+        public ActionResult VCBChkUpdate(string vcbCode, string tblIdx)
         {
-            var model = vcbChkRepository.GetVCBChkByCode(vcbCode);
-            //ViewBag.SerialNo = model != null ? model.Serial_No : "";
-            ViewBag.VCB_Code = model.VCB_Code;
+            // 필수 파라미터 검증
+            if (string.IsNullOrEmpty(vcbCode) || string.IsNullOrEmpty(tblIdx))
+            {
+                return RedirectToAction("VCBChkTotalList");
+            }
+
+            var result = vcbChkRepository.GetVCBChkDetailByVCBCode(vcbCode, tblIdx, out var vcbChkList);
+
+            if (!result.IsSuccess || vcbChkList == null || !vcbChkList.Any())
+            {
+                return HttpNotFound("VCB 보통점검 정보를 찾을 수 없습니다.");
+            }
 
             var companies = new List<Company>();
             if (companyRepository.GetAllCompanies(out companies).IsSuccess && companies != null)
@@ -26,7 +35,14 @@ namespace AMS_MVC.Controllers.Check
             {
                 ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";
             }
-            return View("~/Views/Check/VCB/VCBChkUpdate.cshtml", model); ;
+
+            var detailRecord = vcbChkList.FirstOrDefault(r => r.Tbl_Idx.ToString() == tblIdx);
+            if (detailRecord == null)
+            {
+                return HttpNotFound("해당 보통점검 정보를 찾을 수 없습니다.");
+            }
+
+            return View("~/Views/Check/VCB/VCBChkUpdate.cshtml", detailRecord); ;
         }
 
         [HttpPost]

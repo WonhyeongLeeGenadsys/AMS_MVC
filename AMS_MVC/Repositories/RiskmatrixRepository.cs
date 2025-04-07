@@ -50,13 +50,13 @@ namespace AMS_MVC.Repositories
         /// <summary>
         /// VCB 코드로 Riskmatrix 데이터를 조회 (단일 VCB에 해당하는 데이터)
         /// </summary>
-        public Dictionary<string, int> GetRiskMatrixPofCofByVCBCode(string vcbCode)
+        public Dictionary<string, int> GetRiskMatrixPofCofByCode(string code)
         {
             const string query = @"
                 SELECT CoF, PoF
                 FROM RISKMATRIX
-                WHERE CODE = @VCBCode";
-            var parameters = new { VCBCode = vcbCode };
+                WHERE CODE = @Code";
+            var parameters = new { Code = code };
             return GetRiskMatrixInternal(query, parameters);
         }
 
@@ -80,15 +80,15 @@ namespace AMS_MVC.Repositories
         /// <summary>
         /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
         /// </summary>
-        public Riskmatrix GetRiskMatrixByVCBCode(string vcbCode)
+        public Riskmatrix GetRiskMatrixByCode(string code)
         {
             using (DBHelper dbHelper = new DBHelper())
             {
                 const string query = @"
                     SELECT *
                     FROM RISKMATRIX
-                    WHERE CODE = @VCBCode";
-                return dbHelper.Conn.QueryFirstOrDefault<Riskmatrix>(query, new { VCBCode = vcbCode });
+                    WHERE CODE = @Code";
+                return dbHelper.Conn.QueryFirstOrDefault<Riskmatrix>(query, new { Code = code });
             }
         }
 

@@ -76,8 +76,25 @@ namespace AMS_MVC.Controllers.Maintenance.VCB
                 var repoResult = vcbMaintenanceRepository.GetTotalVCBMaintenance(out vcbMaintenance);
                 if (repoResult.IsSuccess)
                 {
+                    var formattedData = vcbMaintenance.Select(item => new
+                    {
+                        item.Tbl_Idx,
+                        item.VCB_Code,
+                        item.MR_Bosu_Name,
+                        item.MR_Weather,
+                        item.MR_Temp,
+                        item.MR_Hum,
+                        item.MR_Content,
+                        item.MR_Status,
+                        item.MR_Part,
+                        item.MR_Worker,
+                        MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
+                        item.MR_Writer,
+
+                    }).ToList();
+
                     LogHelper.WriteLog("VCBMaintenanceController.List", $"조회된 데이터: {vcbMaintenance.Count}건");
-                    return Json(vcbMaintenance);
+                    return Json(formattedData);
                 }
                 else
                 {
