@@ -326,7 +326,6 @@
                     <thead>
                         <tr>
                             <th colspan="2"></th>
-                            <!-- 1일부터 30일까지 자동 생성 -->
                             <script>
                                 for (let i = 1; i <= 31; i++) {
                                     document.write(`<th>${i}</th>`);
@@ -380,18 +379,18 @@
                             items.forEach(item => {
                                 let startDay = parseInt(item.Start.split('-')[2]);
                                 let endDay = parseInt(item.End ? item.End.split('-')[2] : startDay);
-                                let barStyle = item.Status === "confirmed" ? "background-color:blue;" : "background-color:purple;";
+                                let barStyle = item.Status === "confirmed" ? "background-color:#0051A2;" : "background-color:#800080;";
                                 let barWidth = (endDay - startDay + 1) * 31 + "px";
 
                                 tbodyHtml += `<tr>
-                                                                                        <th>${type}</th>
-                                                                                        <td>${item.Code}</td>`;
+                                                                                                    <th>${type}</th>
+                                                                                                    <td>${item.Code}</td>`;
 
                                 for (let i = 1; i <= daysInMonth; i++) {
                                     if (i === startDay) {
                                         tbodyHtml += `<td colspan="${endDay - startDay + 1}" style="position: relative;">
-                                                                                                <span class="bar" style="${barStyle} width: ${barWidth}; height: 20px; display: block;"></span>
-                                                                                            </td>`;
+                                                                                                            <span class="bar" style="${barStyle} width: ${barWidth}; height: 20px; display: block;"></span>
+                                                                                                        </td>`;
                                         i = endDay;
                                     } else {
                                         tbodyHtml += `<td></td>`;
