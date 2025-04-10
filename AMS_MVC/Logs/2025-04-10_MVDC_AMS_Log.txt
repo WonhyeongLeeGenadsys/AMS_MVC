@@ -1,0 +1,32 @@
+|2025-04-10 09:34:59  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-10 09:34:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:34:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:34:59  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-10 09:35:00  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-10 09:35:00  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-10 09:35:02  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-10 09:35:02  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-10 09:35:03  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-04-10 09:35:03  |   VCBMaintenanceController.List  |   조회된 데이터: 2건   |
+|2025-04-10 09:37:35  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-04-10 09:37:35  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-04-10 09:37:35  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:37:35  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-04-10 09:49:00  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:49:00  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:54:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:54:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:55:51  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:55:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:56:49  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:56:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 09:59:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 09:59:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:02:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:02:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:03:22  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:03:22  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:04:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:04:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:04:20  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:04:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

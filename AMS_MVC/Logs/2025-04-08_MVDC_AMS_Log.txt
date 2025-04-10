@@ -1,2 +1,4 @@
 |2025-04-08 09:32:42  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
 |2025-04-08 09:32:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-08 10:28:26  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-08 10:28:26  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

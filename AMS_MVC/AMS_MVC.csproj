@@ -551,14 +551,8 @@
     <Content Include="Views\Gojang\ITR\ITRGojangUpdate.cshtml" />
     <Content Include="Views\Gojang\DCCB\DCCBGojangUpdate.cshtml" />
     <Content Include="Views\Gojang\DCCABLE\DCCABLEGojangUpdate.cshtml" />
-    <Content Include="Views\Device\SUBMODULE\SUBMODULEDevice.cshtml" />
-    <Content Include="Views\Device\SUBMODULE\SUBMODULEDeviceDetail.cshtml" />
     <Content Include="Views\Device\ITR\ITRDevice.cshtml" />
-    <Content Include="Views\Device\DCCB\DCCBDevice.cshtml" />
-    <Content Include="Views\Device\DCCABLE\DCCABLEDevice.cshtml" />
     <Content Include="Views\Device\ITR\ITRDeviceDetail.cshtml" />
-    <Content Include="Views\Device\DCCB\DCCBDeviceDetail.cshtml" />
-    <Content Include="Views\Device\DCCABLE\DCCABLEDeviceDetail.cshtml" />
     <Content Include="Views\Check\Total\DCCABLEChkTotalList.cshtml" />
     <Content Include="Views\Check\Total\DCCBChkTotalList.cshtml" />
     <Content Include="Views\Check\Total\SUBMODULEChkTotalList.cshtml" />
@@ -574,6 +568,12 @@
     <Content Include="Views\Check\SUBMODULE\SUBMODULEChkDetail.cshtml" />
     <Content Include="Views\Check\SUBMODULE\SUBMODULEChkList.cshtml" />
     <Content Include="Views\Check\SUBMODULE\SUBMODULEChkUpdate.cshtml" />
+    <Content Include="Views\Device\SUBMODULE\SUBMODULEDevice.cshtml" />
+    <Content Include="Views\Device\DCCB\DCCBDevice.cshtml" />
+    <Content Include="Views\Device\DCCABLE\DCCABLEDevice.cshtml" />
+    <Content Include="Views\Device\SUBMODULE\SUBMODULEDeviceDetail.cshtml" />
+    <Content Include="Views\Device\DCCB\DCCBDeviceDetail.cshtml" />
+    <Content Include="Views\Device\DCCABLE\DCCABLEDeviceDetail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

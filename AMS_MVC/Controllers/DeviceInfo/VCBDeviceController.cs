@@ -16,15 +16,18 @@ namespace AMS_MVC.Controllers
         private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
         private readonly GojangRepository _gojangRepo = new GojangRepository();
         private readonly VCBChkRepository _vcbChkRepo = new VCBChkRepository();
+
+        // VCBBasicInfoRepository 사용
         private readonly VCBBasicInfoRepository _vcbBasicInfoRepo = new VCBBasicInfoRepository();
 
+        // VCBDeviceInfo 페이지
         public ActionResult Index()
         {
             ViewBag.MenuType = "DeviceInfo";
             return View("~/Views/Device/VCB/VCBDevice.cshtml");
         }
 
-        // VCBDeviceController에 추가
+        // VCBDeviceController (또는 VCBDeviceDetailController)에 추가
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
         {
