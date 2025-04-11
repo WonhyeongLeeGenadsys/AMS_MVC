@@ -30,3 +30,43 @@
 |2025-04-10 10:04:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-04-10 10:04:20  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
 |2025-04-10 10:04:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:18:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:18:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:24:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:24:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:25:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:25:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:27:32  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:27:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 10:53:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 10:53:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 11:00:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 11:00:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 11:16:43  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 11:16:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 14:30:43  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 14:30:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 14:32:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 14:32:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 14:57:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 14:57:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 14:57:47  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 14:57:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:10:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:10:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:14:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:14:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:14:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:14:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:37:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:37:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:42:38  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:42:38  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 15:44:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 15:44:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 16:54:04  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 16:54:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 16:56:11  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 16:56:11  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-10 17:24:24  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-10 17:24:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

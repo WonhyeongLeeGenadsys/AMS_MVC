@@ -1,23 +1,24 @@
-﻿using AMS_MVC.Repositories;
-
+﻿using AMS_MVC.Database;
+using AMS_MVC.Models;
+using AMS_MVC.Repositories;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace AMSMVC.Controllers
+namespace AMS_MVC.Controllers
 {
     public class DCCABLEDeviceController : Controller
     {
-        private readonly RiskmatrixRepository riskmatrixRepo = new RiskmatrixRepository();
-        private readonly PriorityInfoRepository priorityRepo = new PriorityInfoRepository();
-        private readonly MaintenanceRepository maintenanceRepo = new MaintenanceRepository();
-        private readonly GojangRepository gojangRepo = new GojangRepository();
-        private readonly DCCABLEChkRepository dccableChkRepo = new DCCABLEChkRepository();
+        private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+        private readonly PriorityInfoRepository _priorityRepo = new PriorityInfoRepository();
+        private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
+        private readonly GojangRepository _gojangRepo = new GojangRepository();
+        private readonly DCCABLEChkRepository _dccableChkRepo = new DCCABLEChkRepository();
 
         // DCCABLEBasicInfoRepository 사용
-        private readonly DCCABLEBasicInfoRepository dccableBasicInfoRepo = new DCCABLEBasicInfoRepository();
+        private readonly DCCABLEBasicInfoRepository _dccableBasicInfoRepo = new DCCABLEBasicInfoRepository();
 
         // DCCABLEDeviceInfo 페이지
         public ActionResult Index()
@@ -32,8 +33,8 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                // riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환함
-                var riskData = riskmatrixRepo.GetAggregatedHI(prefix);
+                // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
+                var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -42,15 +43,12 @@ namespace AMSMVC.Controllers
             }
         }
 
-
-
-
         /// <summary>
         /// Riskmatrix PoF, CoF 데이터 가져오기
         /// </summary>
         public JsonResult GetRiskMatrixPofCof(string prefix)
         {
-            var PofCof = riskmatrixRepo.GetRiskMatrixPofCof(prefix);
+            var PofCof = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
             return Json(PofCof);
         }
 
@@ -62,28 +60,27 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                var priorityData = priorityRepo.GetPriority(
-                    "DCCABLEBASICINFO", // DCCABLE 기본정보 테이블
-                    "DCCABLECODE",      // DCCABLE 코드 필드
+                var priorityData = _priorityRepo.GetPriority(
+                    "DCCABLE_BASICINFO", // DCCABLE 기본정보 테이블
+                    "DCCABLE_CODE",      // DCCABLE 코드 필드
                     "DCCABLE",           // 표시용 장치 이름
                     "DCCABLE"            // 별칭
                 );
 
-                // InstallDate와 OperatingDate를 "yy.MM.dd" 형식의 문자열로 변환합니다.
                 var formattedData = priorityData.Select(item => new
                 {
                     item.Priority,
                     item.Sort,
                     item.Code,
-                    item.SerialNo,
+                    item.Serial_No,
                     item.Name,
-                    InstallDate = item.InstallDate.ToString("yy.MM.dd"),
-                    OperatingDate = item.OperatingDate.ToString("yy.MM.dd"),
+                    Install_Date = item.Install_Date.ToString("yy.MM.dd"),
+                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"),
                     item.UsagePeriod,
                     item.Price,
-                    item.RatedV,
-                    item.RatedA,
-                    item.MakeCompany,
+                    item.Rated_V,
+                    item.Rated_A,
+                    item.Make_Company,
                     item.Writer,
                     item.CoF,
                     item.PoF,
@@ -105,7 +102,7 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                var data = dccableChkRepo.GetMonthlyAllDCCABLEChkCounts();
+                var data = _dccableChkRepo.GetMonthlyAllDCCABLEChkCounts();
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (System.Exception ex)
@@ -121,7 +118,7 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                var data = maintenanceRepo.GetMonthlyMaintenanceCounts("DCCABLEMAINTENANCEHISTORY", "DCCABLE");
+                var data = _maintenanceRepo.GetMonthlyMaintenanceCounts("DCCABLE_MAINTENANCE_HISTORY", "DCCABLE");
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -139,10 +136,10 @@ namespace AMSMVC.Controllers
             try
             {
                 // DCCABLE만 조회
-                var gojangData = gojangRepo.GetGojangData(
-                    "DCCABLEFAILUREHISTORY", // 고장 이력 테이블
-                    "DCCABLEBASICINFO",       // 기본 정보 테이블
-                    "DCCABLECODE",            // 매칭할 컬럼명
+                var gojangData = _gojangRepo.GetGojangData(
+                    "DCCABLE_FAILURE_HISTORY", // 고장 이력 테이블
+                    "DCCABLE_BASICINFO",       // 기본 정보 테이블
+                    "DCCABLE_CODE",            // 매칭할 컬럼명
                     "DCCABLE",                 // 별칭
                     "DCCABLE"                  // EntityName (Grid에 표시용)
                 );
@@ -162,16 +159,16 @@ namespace AMSMVC.Controllers
             try
             {
                 List<dynamic> infoWithRisk;
-                var result = dccableBasicInfoRepo.GetAllDCCABLEBasicInfoWithRiskMatrixRepo(out infoWithRisk);
+                var result = _dccableBasicInfoRepo.GetAllDCCABLEBasicInfoWithRiskMatrixRepo(out infoWithRisk);
 
                 var formatted = infoWithRisk.Select(b => new
                 {
-                    DCCABLECode = b.DCCABLECode,
-                    SerialNo = b.SerialNo,
-                    InstallDate = b.InstallDate != null ? ((DateTime)b.InstallDate).ToString("yyyy-MM-dd") : "",
-                    OperatingDate = b.OperatingDate != null ? ((DateTime)b.OperatingDate).ToString("yyyy-MM-dd") : "",
-                    UsagePeriod = b.OperatingDate != null ? (DateTime.Now.Year - ((DateTime)b.OperatingDate).Year).ToString() + "년" : "",
-                    HI = b.HI  // RiskMatrix 테이블에서 가져온 HI 값
+                    DCCABLE_Code = b.DCCABLE_Code,
+                    Serial_No = b.Serial_No,
+                    Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
+                    Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
+                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
+                    HI = b.HI
                 }).ToList();
 
                 return Json(formatted, JsonRequestBehavior.AllowGet);

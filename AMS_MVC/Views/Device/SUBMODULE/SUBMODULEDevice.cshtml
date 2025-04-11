@@ -211,74 +211,76 @@
         </div>
 
         <script>
-$(document).ready(function() {
-    $.ajax({
-        url: '@Url.Action("GetB3HistogramSUBMODULE", "EquipmentAlgorithm")',
-        type: 'GET',
-        data: { equipmentType: "SUBMODULE" },
-        dataType: 'json',
-        success: function (res) {
-            if (res.error) {
-                console.warn("오류:", res.error);
-                return;
-            }
-            console.log("B3 Histogram 데이터:", res);
+    $(document).ready(function () {
+        var equipmentType = "SUBMODULE"; 
 
-            var b3 = res.B3;
-            var binSize = res.BinSize;
-            var timeMax = res.TimeMax;
-            var histogram = res.Histogram;
+        $.ajax({
+            url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: equipmentType },
+            dataType: 'json',
+            success: function (res) {
+                if (res.error) {
+                    console.warn("오류:", res.error);
+                    return;
+                }
+                console.log("B3 Histogram 데이터:", res);
 
-            $("#chart_bar").dxChart({
-                dataSource: histogram,
-                commonSeriesSettings: {
-                    type: 'bar',
-                    argumentField: 'binStart',
-                    valueField: 'count'
-                },
-                series: [{ name: "장비 수" }],
-                legend: { visible: false },
-                // 제목에 B3 값을 포함하여 표시
-                title: "(B3 수명 = " + b3 + ")",
-                tooltip: {
-                    enabled: true,
-                    customizeTooltip: function(arg) {
-                        var start = arg.point.data.binStart;
-                        var end = start + binSize;
-                        return {
-                            text: "구간: " + start + "~" + end + "년, 장비수: " + arg.value
-                        };
-                    }
-                },
-                argumentAxis: {
-                    visualRange: [0, timeMax],
-                    tickInterval: binSize,
-                    title: "사용 기간 (년)",
-                    label: {
-                        customizeText: function () {
-                            return this.value + "년";
+                var b3 = res.B3;
+                var binSize = res.BinSize;
+                var timeMax = res.TimeMax;
+                var histogram = res.Histogram;
+
+                $("#chart_bar").dxChart({
+                    dataSource: histogram,
+                    commonSeriesSettings: {
+                        type: 'bar',
+                        argumentField: 'binStart',
+                        valueField: 'count'
+                    },
+                    series: [{ name: "장비 수" }],
+                    legend: { visible: false },
+                    title: "(B3 수명 = " + b3 + ")",
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            var start = arg.point.data.binStart;
+                            var end = start + binSize;
+                            return {
+                                text: "구간: " + start + "~" + end + "년, 장비수: " + arg.value
+                            };
                         }
-                    }
-                },
-                valueAxis: {
-                    title: "장비 대수"
-                },
-                annotations: [
-                    {
-                        type: "line",
-                        axis: "argumentAxis",
-                        value: b3,
-                        text: "B3 = " + b3
-                    }
-                ]
-            });
-        },
-        error: function (xhr, status, error) {
-            console.error("B3 히스토그램 로드 실패:", error);
-        }
+                    },
+                    argumentAxis: {
+                        visualRange: [0, timeMax],
+                        tickInterval: binSize,
+                        title: "사용 기간 (년)",
+                        label: {
+                            customizeText: function () {
+                                return this.value + "년";
+                            }
+                        }
+                    },
+                    valueAxis: {
+                        title: "장비 대수"
+                    },
+                    annotations: [
+                        {
+                            type: "line",
+                            axis: "argumentAxis",
+                            value: b3,
+                            text: "B3 = " + b3
+                        }
+                    ]
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("B3 히스토그램 로드 실패:", error);
+            }
+        });
     });
-});
         </script>
+
 
 
         <!-- 고장률 차트 (Hazard) -->
@@ -316,7 +318,8 @@ $(document).ready(function () {
                         dataSource: hazardData,
                         // 모든 시리즈에 공통 적용될 기본값
                         commonSeriesSettings: {
-                            type: 'line'
+                            type: 'line',
+                            point: { visible: false }
                         },
                         // 실제 시리즈 설정 (argumentField, valueField 지정)
                         series: [{
@@ -379,7 +382,8 @@ $(document).ready(function () {
                             $("#chart_line02").dxChart({
                                 dataSource: reliabilityData,
                                 commonSeriesSettings: {
-                                    type: 'line'
+                                    type: 'line',
+                                    point: { visible: false }
                                 },
                                 series: [{
                                     name: "신뢰도",
@@ -490,7 +494,7 @@ $(document).ready(function () {
                     console.error("확률 밀도 함수 데이터 로드 실패:", error);
                 }
             });
-        }, 100); 
+        }, 100);
     });
         </script>
 
@@ -763,12 +767,13 @@ $(document).ready(function () {
                             var startDay = parseInt(item.Start.split('-')[2]);
                             var endDay = item.End ? parseInt(item.End.split('-')[2]) : startDay;
                             // 상태에 따라 바의 색상 지정
+
                             var barStyle = "";
                             if (item.Status === "confirmed") {
-                                barStyle = "background-color:blue;";
+                                barStyle = "background-color:#0051A2;";
 
                             } else if (item.Status === "risk") {
-                                barStyle = "background-color:purple;";
+                                barStyle = "background-color:#800080;";
 
                             } else if (item.Status === "created") {
                                 barStyle = "background-color:gray;";
@@ -910,7 +915,6 @@ $(document).ready(function () {
                             const transformedData = transformData(response);
                             console.log("변환된 데이터:", transformedData);
                             if (!Array.isArray(transformedData) || transformedData.length === 0) {
-                                alert("유지보수 데이터가 없습니다.");
                                 return;
                             }
                             const chartData = processChartData(transformedData);

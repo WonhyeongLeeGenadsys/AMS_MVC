@@ -215,30 +215,76 @@
             <div id="chart_bar" style="height: 280px;"></div>
             <!--//차트-->
             <script>
-                $(() => {
-                    $('#chart_bar').dxChart({
-                        dataSource: customer_bar,
-                        palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
+    $(document).ready(function () {
+        var equipmentType = "ITR"; 
 
-                        commonSeriesSettings: {
-                            type: 'bar',
-                            valueField: 'number',
-                            argumentField: 'age',
-                            ignoreEmptyPoints: true,
-                        },
-                        seriesTemplate: {
-                            nameField: 'age',
-                        },
-                    });
+        $.ajax({
+            url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: equipmentType },
+            dataType: 'json',
+            success: function (res) {
+                if (res.error) {
+                    console.warn("오류:", res.error);
+                    return;
+                }
+                console.log("B3 Histogram 데이터:", res);
+
+                var b3 = res.B3;
+                var binSize = res.BinSize;
+                var timeMax = res.TimeMax;
+                var histogram = res.Histogram;
+
+                $("#chart_bar").dxChart({
+                    dataSource: histogram,
+                    commonSeriesSettings: {
+                        type: 'bar',
+                        argumentField: 'binStart',
+                        valueField: 'count'
+                    },
+                    series: [{ name: "장비 수" }],
+                    legend: { visible: false },
+                    title: "(B3 수명 = " + b3 + ")",
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            var start = arg.point.data.binStart;
+                            var end = start + binSize;
+                            return {
+                                text: "구간: " + start + "~" + end + "년, 장비수: " + arg.value
+                            };
+                        }
+                    },
+                    argumentAxis: {
+                        visualRange: [0, timeMax],
+                        tickInterval: binSize,
+                        title: "사용 기간 (년)",
+                        label: {
+                            customizeText: function () {
+                                return this.value + "년";
+                            }
+                        }
+                    },
+                    valueAxis: {
+                        title: "장비 대수"
+                    },
+                    annotations: [
+                        {
+                            type: "line",
+                            axis: "argumentAxis",
+                            value: b3,
+                            text: "B3 = " + b3
+                        }
+                    ]
                 });
-                const customer_bar = [{ age: '13-17', number: 6869661 },
-                { age: '18-24', number: 40277957 },
-                { age: '25-34', number: 53481235 },
-                { age: '35-44', number: 40890002 },
-                { age: '45-54', number: 31916371 },
-                { age: '55-64', number: 13725406 },
-                { age: '65+', number: 16732183 },];
+            },
+            error: function (xhr, status, error) {
+                console.error("B3 히스토그램 로드 실패:", error);
+            }
+        });
+    });
             </script>
+
         </div>
         <!--//B3수명-->
         <!--고장율-->
@@ -610,10 +656,10 @@
                             // 상태에 따라 바의 색상 지정
                             var barStyle = "";
                             if (item.Status === "confirmed") {
-                                barStyle = "background-color:blue;";
+                                barStyle = "background-color:#0051A2;";
 
                             } else if (item.Status === "risk") {
-                                barStyle = "background-color:purple;";
+                                barStyle = "background-color:#800080;";
 
                             } else if (item.Status === "created") {
                                 barStyle = "background-color:gray;";
@@ -755,7 +801,6 @@
                             const transformedData = transformData(response);
                             console.log("변환된 데이터:", transformedData);
                             if (!Array.isArray(transformedData) || transformedData.length === 0) {
-                                alert("유지보수 데이터가 없습니다.");
                                 return;
                             }
                             const chartData = processChartData(transformedData);

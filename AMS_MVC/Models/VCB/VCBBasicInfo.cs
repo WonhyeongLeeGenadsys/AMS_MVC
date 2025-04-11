@@ -9,6 +9,7 @@ using Web.Common.Log;
 
 namespace AMS_MVC.Models
 {
+
     public class VCBBasicInfo
     {
         public int Tbl_Idx { get; set; }

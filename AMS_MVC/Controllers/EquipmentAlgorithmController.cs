@@ -11,25 +11,36 @@ namespace AMS_MVC.Controllers
     public class EquipmentAlgorithmController : Controller
     {
         private EquipmentWeibullRepository _weibullRepo = new EquipmentWeibullRepository();
-        private VCBBasicInfoRepository _vcbBasicRepo = new VCBBasicInfoRepository();
+        // 각 장비별 기본정보 Repository
+        private VCBBasicInfoRepository _vcbRepo = new VCBBasicInfoRepository();
+        private DCCBBasicInfoRepository _dccbRepo = new DCCBBasicInfoRepository();
+        private DCCABLEBasicInfoRepository _dccableRepo = new DCCABLEBasicInfoRepository();
+        private ITRBasicInfoRepository _itrRepo = new ITRBasicInfoRepository();
+        private SUBMODULEBasicInfoRepository _submoduleRepo = new SUBMODULEBasicInfoRepository();
 
+        /// <summary>
+        /// 장비 유형(equipmentType)에 따른 B3 히스토그램 데이터를 반환합니다.
+        /// </summary>
         [HttpGet]
-        public ActionResult GetB3HistogramVCB()
+        public ActionResult GetB3HistogramEquipment(string equipmentType = "VCB")
         {
-            // 1) EquipmentWeibull 테이블에서 VCB 데이터 가져오기
+            // 1) EquipmentWeibull 테이블에서 해당 장비 유형 데이터 가져오기
             var eqList = _weibullRepo.GetAll();
-            var vcbList = eqList.Where(eq => eq.EquipmentName.ToUpper().Contains("VCB")).ToList();
-            if (vcbList.Count == 0)
+            var filteredWeibullList = eqList
+                .Where(eq => eq.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
+                .ToList();
+
+            if (filteredWeibullList.Count == 0)
             {
-                return Json(new { error = "해당 장비가 없습니다." }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
             }
 
-            // 2) 첫 번째 VCB의 shape/scale 혹은 FailureRate를 사용하여 B3 계산
-            var first = vcbList.FirstOrDefault(eq => eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
-                        ?? vcbList.FirstOrDefault(eq => eq.FailureRate.HasValue);
+            // 2) 첫 번째 항목의 shape/scale 혹은 FailureRate를 사용하여 B3 수명 계산
+            var first = filteredWeibullList.FirstOrDefault(eq => eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
+                        ?? filteredWeibullList.FirstOrDefault(eq => eq.FailureRate.HasValue);
             if (first == null)
             {
-                return Json(new { error = "Weibull이나 고장률 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "Weibull 또는 고장률 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
             }
 
             double b3 = 0;
@@ -45,29 +56,78 @@ namespace AMS_MVC.Controllers
                 b3 = algo.B3Life;
             }
 
-            // 3) VCBBasicInfo 테이블에서 VCB 기본정보 가져오기 (가동일 등)
-            List<VCBBasicInfo> vcbBasicList;
-            var resBasic = _vcbBasicRepo.GetAllVCBBasicInfoRepo(out vcbBasicList);
-            if (!resBasic.IsSuccess || vcbBasicList == null || vcbBasicList.Count == 0)
+            // 3) 각 장비 유형에 따른 기본정보 데이터를 가져오기
+            List<dynamic> basicList = null;
+            string type = equipmentType.ToUpper();
+            if (type == "VCB")
             {
-                return Json(new { error = "VCB_BASICINFO에 VCB가 없습니다." }, JsonRequestBehavior.AllowGet);
+                List<VCBBasicInfo> list;
+                var res = _vcbRepo.GetAllVCBBasicInfoRepo(out list);
+                if (!res.IsSuccess || list == null || !list.Any())
+                {
+                    return Json(new { error = "VCB 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                }
+                basicList = list.Cast<dynamic>().ToList();
+            }
+            else if (type == "DCCB")
+            {
+                List<DCCBBasicInfo> list;
+                var res = _dccbRepo.GetAllDCCBBasicInfoRepo(out list);
+                if (!res.IsSuccess || list == null || !list.Any())
+                {
+                    return Json(new { error = "DCCB 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                }
+                basicList = list.Cast<dynamic>().ToList();
+            }
+            else if (type == "DCCABLE")
+            {
+                List<DCCABLEBasicInfo> list;
+                var res = _dccableRepo.GetAllDCCABLEBasicInfoRepo(out list);
+                if (!res.IsSuccess || list == null || !list.Any())
+                {
+                    return Json(new { error = "DCCABLE 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                }
+                basicList = list.Cast<dynamic>().ToList();
+            }
+            else if (type == "ITR")
+            {
+                List<ITRBasicInfo> list;
+                var res = _itrRepo.GetAllITRBasicInfoRepo(out list);
+                if (!res.IsSuccess || list == null || !list.Any())
+                {
+                    return Json(new { error = "ITR 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                }
+                basicList = list.Cast<dynamic>().ToList();
+            }
+            else if (type == "SUBMODULE")
+            {
+                List<SUBMODULEBasicInfo> list;
+                var res = _submoduleRepo.GetAllSUBMODULEBasicInfoRepo(out list);
+                if (!res.IsSuccess || list == null || !list.Any())
+                {
+                    return Json(new { error = "SUBMODULE 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
+                }
+                basicList = list.Cast<dynamic>().ToList();
+            }
+            else
+            {
+                return Json(new { error = "알 수 없는 장비 유형입니다." }, JsonRequestBehavior.AllowGet);
             }
 
-            // 4) 각 VCB의 사용 기간(년) 계산 (Operating_Date 기반)
+            // 4) 각 장비의 가동일(Operating_Date)을 기준으로 사용기간(년) 계산
             var usageYears = new List<double>();
-            foreach (var vcb in vcbBasicList)
+            foreach (var item in basicList)
             {
                 double used = 0;
-                if (vcb.Operating_Date.HasValue)
+                if (item.Operating_Date != null)
                 {
-                    used = DateTime.Now.Year - vcb.Operating_Date.Value.Year;
+                    used = DateTime.Now.Year - ((DateTime)item.Operating_Date).Year;
                 }
                 usageYears.Add(used);
             }
 
-            // 5) 0부터 TimeMax까지, binSize=10 단위 bin 생성
-            //    TimeMax는 알고리즘에서 생성한 시간 축의 최대값(예: filteredT.Max())를 사용합니다.
-            double timeMax = algo.TimeValues.Max();  // 전체 TimeValues의 최대값
+            // 5) 히스토그램에 사용할 bin 생성 (시간 범위는 LaAlgorithm의 TimeValues 최대값 사용)
+            double timeMax = algo.TimeValues.Max();
             int binSize = 10;
             var bins = new List<dynamic>();
             for (int start = 0; start < (int)timeMax; start += binSize)
@@ -75,16 +135,17 @@ namespace AMS_MVC.Controllers
                 bins.Add(new { binStart = start, count = 0 });
             }
 
-            // 6) 각 VCB의 사용 기간을 해당 bin에 할당
+            // 6) 사용기간 데이터를 각 bin에 배분
             foreach (double usedYear in usageYears)
             {
                 int index = (int)(usedYear / binSize);
-                if (index >= bins.Count) index = bins.Count - 1;
+                if (index >= bins.Count)
+                    index = bins.Count - 1;
                 var oldItem = bins[index];
                 bins[index] = new { binStart = oldItem.binStart, count = (int)oldItem.count + 1 };
             }
 
-            // 7) 반환 데이터에 TimeMax 추가
+            // 7) 결과 데이터 구성 후 반환
             var result = new
             {
                 B3 = b3,
@@ -99,13 +160,13 @@ namespace AMS_MVC.Controllers
         [HttpGet]
         public ActionResult GetAlgorithmData(string equipmentType = "VCB")
         {
-            // EquipmentWeibull 테이블에서 해당 equipmentType(예: "VCB") 데이터 가져오기
+            // EquipmentWeibull 테이블에서 해당 장비 유형 데이터 가져오기
             var eqList = _weibullRepo.GetAll()
                                      .Where(eq => eq.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
                                      .ToList();
             if (eqList.Count == 0)
             {
-                return Json(new { error = "해당 장비가 없습니다." }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
             }
 
             var resultList = new List<object>();
@@ -128,7 +189,7 @@ namespace AMS_MVC.Controllers
                 int length = algo.TimeValues.Length;
                 var reliabilitySeries = new List<object>();
                 var hazardSeries = new List<object>();
-                var pdfSeries = new List<object>(); // 확률 밀도 함수 데이터를 담을 리스트
+                var pdfSeries = new List<object>();
 
                 for (int i = 0; i < length; i++)
                 {
@@ -155,7 +216,7 @@ namespace AMS_MVC.Controllers
                     B3Life = algo.B3Life,
                     ReliabilitySeries = reliabilitySeries,
                     HazardSeries = hazardSeries,
-                    PdfNormalized = pdfSeries  // 추가된 확률 밀도 함수 데이터
+                    PdfNormalized = pdfSeries
                 });
             }
 

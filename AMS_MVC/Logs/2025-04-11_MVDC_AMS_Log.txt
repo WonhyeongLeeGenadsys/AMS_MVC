@@ -1,0 +1,22 @@
+|2025-04-11 10:58:22  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 10:58:22  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-11 10:58:29  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 10:58:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-11 10:59:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 10:59:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-11 10:59:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 10:59:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 11:01:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-04-11 11:01:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:37  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-04-11 11:01:37  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:43  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-04-11 11:01:43  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:48  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-04-11 11:01:48  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:50  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-04-11 11:01:50  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-04-11 11:01:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-11 11:01:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
