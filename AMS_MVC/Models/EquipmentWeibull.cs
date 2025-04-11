@@ -13,8 +13,8 @@ namespace AMS_MVC.Models
         [Key]
         public int Id { get; set; }
 
-        public string Category { get; set; }       // 예: "DC", "AC", ...
-        public string EquipmentName { get; set; }  // 예: "DC Cable", "DCCB", "VCB" 등
+        public string Category { get; set; }       // "DC", "AC"
+        public string EquipmentName { get; set; }  // DC Cable", "DCCB", "VCB" 등
         public double? ShapeParam { get; set; }    // 형상모수
         public double? ScaleParam { get; set; }    // 척도모수
         public double? FailureRate { get; set; }   // 고장률
