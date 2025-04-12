@@ -11,6 +11,8 @@ namespace AMS_MVC.Controllers
 {
     public partial class TotalInfoController : Controller
     {
+        private RiskmatrixRepository _riskRepo = new RiskmatrixRepository();
+
         // GET: TotalInfo/Index
         public ActionResult Index()
         {
@@ -119,9 +121,25 @@ namespace AMS_MVC.Controllers
                 return Json(new { error = "데이터를 가져오는 중 오류 발생", details = ex.Message });
             }
         }
-        public ActionResult Battery()
+
+        [HttpGet]
+        public ActionResult SearchByDateRange(string dateType, DateTime startDate, DateTime endDate)
         {
-            return View();
+            if (string.IsNullOrEmpty(dateType))
+            {
+                return Json(new { error = "dateType이 비어있습니다." }, JsonRequestBehavior.AllowGet);
+            }
+
+            try
+            {
+                // Repository 호출
+                var data = _riskRepo.GetDevicesByDateRange(dateType, startDate, endDate);
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = "검색 중 오류 발생", details = ex.Message }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public ActionResult Check()
@@ -133,5 +151,6 @@ namespace AMS_MVC.Controllers
         {
             return View();
         }
+
     }
 }

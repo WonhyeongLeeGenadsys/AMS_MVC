@@ -121,5 +121,64 @@ namespace AMS_MVC.Repositories
                 return result;
             }
         }
+
+        public IEnumerable<dynamic> GetDevicesByDateRange(string dateType, DateTime start, DateTime end)
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {            
+                string columnName = "";
+                switch (dateType.ToLower())
+                {
+                    case "install":
+                        columnName = "Install_Date";
+                        break;
+                    case "press":
+                        columnName = "Pressurized_Date";
+                        break;
+                    case "oper":
+                    default:
+                        columnName = "Operating_Date";
+                        break;
+                }
+
+                var query = $@"
+                    SELECT 'VCB' as EquipmentType, b.*, r.HI
+                    FROM RISKMATRIX r
+                    INNER JOIN VCB_BASICINFO b ON r.CODE = b.VCB_CODE
+                    WHERE {columnName} BETWEEN @StartDate AND @EndDate
+
+                    UNION ALL
+                    SELECT 'DCCB' as EquipmentType, b.*, r.HI
+                    FROM RISKMATRIX r
+                    INNER JOIN DCCB_BASICINFO b ON r.CODE = b.DCCB_CODE
+                    WHERE {columnName} BETWEEN @StartDate AND @EndDate
+
+                    UNION ALL
+                    SELECT 'DCCABLE' as EquipmentType, b.*, r.HI
+                    FROM RISKMATRIX r
+                    INNER JOIN DCCABLE_BASICINFO b ON r.CODE = b.DCCABLE_CODE
+                    WHERE {columnName} BETWEEN @StartDate AND @EndDate
+
+                    UNION ALL
+                    SELECT 'ITR' as EquipmentType, b.*, r.HI
+                    FROM RISKMATRIX r
+                    INNER JOIN ITR_BASICINFO b ON r.CODE = b.ITR_CODE
+                    WHERE {columnName} BETWEEN @StartDate AND @EndDate
+
+                    UNION ALL
+                    SELECT 'SUBMODULE' as EquipmentType, b.*, r.HI
+                    FROM RISKMATRIX r
+                    INNER JOIN SUBMODULE_BASICINFO b ON r.CODE = b.SUBMODULE_CODE
+                    WHERE {columnName} BETWEEN @StartDate AND @EndDate
+                ";
+
+                var result = dbHelper.Conn.Query(query, new
+                {
+                    StartDate = start,
+                    EndDate = end
+                });
+                return result;
+            }
+        }
     }
 }

@@ -272,6 +272,7 @@
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.List.cs" />
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.Detail.cs" />
     <Compile Include="Controllers\Setting\SettingController.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.Battery.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Check.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
@@ -282,7 +283,6 @@
     <Compile Include="Models\Code.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DCCABLE\DCCABLEFailureHistory.cs" />
-    <Compile Include="Models\EquipmentGroupInfo.cs" />
     <Compile Include="Models\EquipmentWeibull.cs" />
     <Compile Include="Models\LaModule.cs" />
     <Compile Include="Models\SUBMODULE\SUBMODULEFailureHistory.cs" />
@@ -310,6 +310,7 @@
     <Compile Include="Models\VCB\VCBMaintenanceHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
+    <Compile Include="Repositories\EquipmentSearchRepository.cs" />
     <Compile Include="Repositories\EquipmentWeibullRepository.cs" />
     <Compile Include="Repositories\GojangRepository.cs" />
     <Compile Include="Repositories\ITR\ITRBasicInfoRepository.cs" />
