@@ -25,7 +25,7 @@
                     function fetchDCCABLEData() {
                         return $.ajax({
                             type: "POST",
-                            url: "/DCCABLEDevice/GetRiskmatrixData",  // 위에서 추가한 액션 호출
+                            url: "/DCCABLEDevice/GetRiskmatrixData",  
                             data: JSON.stringify({ prefix: "DCCABLE" }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
@@ -646,7 +646,6 @@ $(document).ready(function () {
                     fetchPriorityInfo()
                         .done(function (response) {
                             console.log("우선순위 데이터:", response);
-                            // 이미 컨트롤러에서 날짜형식 등으로 변환되어 반환되므로 바로 사용
                             initializePriorityGrid(response);
                         })
                         .fail(function (xhr, status, error) {
@@ -763,10 +762,8 @@ $(document).ready(function () {
                     for (var type in groupedData) {
                         var items = groupedData[type];
                         items.forEach(function (item) {
-                            // 점검 시작일과 종료일의 "일" 숫자를 추출 (예: "2024-07-10" -> 10)
                             var startDay = parseInt(item.Start.split('-')[2]);
                             var endDay = item.End ? parseInt(item.End.split('-')[2]) : startDay;
-                            // 상태에 따라 바의 색상 지정
                             var barStyle = "";
                             if (item.Status === "confirmed") {
                                 barStyle = "background-color:#0051A2;";

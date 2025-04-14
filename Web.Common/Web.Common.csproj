@@ -51,5 +51,6 @@
     <Compile Include="Utlity\LaModule.cs" />
     <Compile Include="Utlity\Result.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

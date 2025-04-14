@@ -25,7 +25,7 @@
                     function fetchVCBData() {
                         return $.ajax({
                             type: "POST",
-                            url: "/VCBDevice/GetRiskmatrixData",  // 위에서 추가한 액션 호출
+                            url: "/VCBDevice/GetRiskmatrixData",  
                             data: JSON.stringify({ prefix: "VCB" }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
@@ -212,8 +212,7 @@
 
         <script>
     $(document).ready(function () {
-        // 예: 여기서 equipmentType 변수를 동적으로 결정 (예: "VCB", "DCCB", "DCCABLE", "ITR", "SUBMODULE")
-        var equipmentType = "VCB"; // 또는 사용자가 선택한 값을 할당
+        var equipmentType = "VCB"; 
 
         $.ajax({
             url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
@@ -489,6 +488,7 @@ $.ajax({
             </h2>
             <!--//타이틀-->
         </div>
+
         <!--//전략-->
         <!--설비들-->
         <div class="con_box flex4 system">

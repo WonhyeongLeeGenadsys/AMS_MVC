@@ -338,6 +338,7 @@
     <Compile Include="Repositories\SUBMODULE\SUBMODULEMaintenanceRepository.cs" />
     <Compile Include="Repositories\DCCABLE\DCCABLEMaintenanceRepository.cs" />
     <Compile Include="Repositories\VCB\VCBMaintenanceRepository.cs" />
+    <Compile Include="Services\VCBChkScoreCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -599,6 +600,9 @@
       <Project>{f7976e28-56a6-410f-a084-b1d979f9d7ee}</Project>
       <Name>Web.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

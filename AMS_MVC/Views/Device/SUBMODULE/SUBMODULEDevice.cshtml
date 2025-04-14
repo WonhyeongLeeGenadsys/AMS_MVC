@@ -25,7 +25,7 @@
                     function fetchSUBMODULEData() {
                         return $.ajax({
                             type: "POST",
-                            url: "/SUBMODULEDevice/GetRiskmatrixData",  // 위에서 추가한 액션 호출
+                            url: "/SUBMODULEDevice/GetRiskmatrixData",  
                             data: JSON.stringify({ prefix: "SUBMODULE" }),
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
@@ -467,7 +467,6 @@ $(document).ready(function () {
                             tooltip: { enabled: true },
                             argumentAxis: {
                                 title: "시간 (년)",
-                                // 원래: visualRange: { startValue: 0, endValue: maxTime }
                                 visualRange: { startValue: 0, endValue: chartMax }
                             },
                             valueAxis: {
@@ -538,7 +537,7 @@ $(document).ready(function () {
 
                             data.forEach(function (item) {
                                 // HI 값 (1~5)
-                                var hi = parseInt(item.HI) || 0; // 혹시 null이면 0 처리
+                                var hi = parseInt(item.HI) || 0; 
 
                                 // HI에 따른 CSS 클래스 + 텍스트 결정
                                 var cssClass = "";
