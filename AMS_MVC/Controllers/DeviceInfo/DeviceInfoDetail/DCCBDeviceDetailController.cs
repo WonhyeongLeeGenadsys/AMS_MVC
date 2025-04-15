@@ -12,6 +12,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
         // URL 예: /DCCBDeviceDetail/DCCBDeviceDetail?dccbCode=DCCB0000001
         public ActionResult DCCBDeviceDetail(string dccbCode)
         {
+            ViewBag.MenuType = "DeviceInfo";
             if (string.IsNullOrEmpty(dccbCode))
             {
                 return HttpNotFound("DCCB 코드가 제공되지 않았습니다.");

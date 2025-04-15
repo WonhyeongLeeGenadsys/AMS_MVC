@@ -47,23 +47,31 @@ namespace AMS_MVC.Controllers.Check
                 // 작성자 설정
                 model.CHK_Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
 
-                // DB 저장 시 SqlDateTime 범위(1753-01-01 ~ 9999-12-31)에 벗어나지 않도록 날짜 값이 없는 경우 현재 날짜로 설정
+                //// DB 저장 시 SqlDateTime 범위(1753-01-01 ~ 9999-12-31)에 벗어나지 않도록 날짜 값이 없는 경우 현재 날짜로 설정
                 if (model.CHK_Tbl_GetDate < new DateTime(1753, 1, 1))
                 {
                     model.CHK_Tbl_GetDate = DateTime.Now;
                 }
 
-                // ★ 알고리즘 연동 부분 ★
-                // 폼에 바인딩된 각 진단 항목(라디오 버튼 등) 값들을 이용해 folding function(건전도 점수)를 계산
                 VCBChkScoreCalculator scoreCalculator = new VCBChkScoreCalculator();
                 model.FoldingFunction = scoreCalculator.CalculateFoldingFunction(model);
 
-                // 계산된 모델 값을 DB에 저장
                 result = vcbChkRepository.CreateVCBChkRepo(model);
 
                 if (!result.IsSuccess)
                 {
                     result.Message = "VCB 보통점검 정보를 추가하지 못했습니다.";
+                }
+                else
+                {
+                    // HI(건전도)를 Riskmatrix에 업데이트: model.VCB_Code에 대해 FoldingFunction 값을 HI에 넣는다.
+                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+                    if (!updateResult.IsSuccess)
+                    {
+                        // HI 업데이트 실패 시 메시지 추가
+                        result.IsSuccess = false;
+                        result.Message += " / HI 업데이트 실패: " + updateResult.Message;
+                    }
                 }
             }
             catch (Exception ex)

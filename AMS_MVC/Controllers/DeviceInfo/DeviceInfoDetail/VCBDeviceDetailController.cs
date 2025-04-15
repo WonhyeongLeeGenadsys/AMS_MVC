@@ -12,6 +12,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
         // URL 예: /VCBDeviceDetail/VCBDeviceDetail?vcbCode=VCB0000001
         public ActionResult VCBDeviceDetail(string vcbCode)
         {
+            ViewBag.MenuType = "DeviceInfo";
+
             if (string.IsNullOrEmpty(vcbCode))
             {
                 return HttpNotFound("VCB 코드가 제공되지 않았습니다.");

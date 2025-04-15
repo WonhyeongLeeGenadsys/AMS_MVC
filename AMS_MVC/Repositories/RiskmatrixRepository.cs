@@ -1,5 +1,6 @@
 ﻿using AMS_MVC.Database;
 using AMS_MVC.Models;
+using AMS_MVC.Utlity;
 using Dapper;
 using System;
 using System.Collections.Generic;
@@ -179,6 +180,37 @@ namespace AMS_MVC.Repositories
                 });
                 return result;
             }
+        }
+
+        /// <summary>
+        /// 특정 VCB 코드에 대해 Riskmatrix 테이블의 HI 값을 업데이트.
+        /// </summary>
+        public Result UpdateRiskMatrixHI(string code, int newHI)
+        {
+            Result res = new Result(true);
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    var query = "UPDATE RISKMATRIX SET HI = @HI WHERE CODE = @Code";
+                    int affectedRows = dbHelper.Conn.Execute(query, new { HI = newHI, Code = code });
+                    if (affectedRows <= 0)
+                    {
+                        res.IsSuccess = false;
+                        res.Message = $"Riskmatrix HI 갱신 실패: {code}";
+                    }
+                    else
+                    {
+                        res.Message = $"Riskmatrix HI가 {code}에 대해 갱신되었습니다 (HI = {newHI}).";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "Riskmatrix HI 업데이트 오류: " + ex.Message;
+            }
+            return res;
         }
     }
 }

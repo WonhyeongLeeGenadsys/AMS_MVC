@@ -12,10 +12,11 @@ namespace AMS_MVC.Controllers.Check
         private readonly CompanyRepository companyRepository;
         private readonly VCBChkRepository vcbChkRepository;
         private readonly VCBBasicInfoRepository vcbBasicInfoRepository;
+        private RiskmatrixRepository riskMatrixRepository = new RiskmatrixRepository();
 
         public VCBChkController()
         {
-            ViewBag.MenuType = "Check"; // TopMenu 등록 Event 활성화 Check
+            ViewBag.MenuType = "Check";
             ViewBag.ActiveMenu = "VCB";
             ViewBag.ActiveSubMenu = "VCBRegular"; // 보통점검
             companyRepository = new CompanyRepository();

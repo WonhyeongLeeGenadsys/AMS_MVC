@@ -216,7 +216,7 @@
             <!--//차트-->
             <script>
     $(document).ready(function () {
-        var equipmentType = "ITR"; 
+        var equipmentType = "ITR";
 
         $.ajax({
             url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
@@ -287,109 +287,6 @@
 
         </div>
         <!--//B3수명-->
-        <!--고장율-->
-        <div class="con_box flex4">
-            <!--타이틀-->
-            <h2>
-                고장률
-            </h2>
-            <!--//타이틀-->
-            <!--차트-->
-            <div id="chart_line" style="height: 280px;"></div>
-            <!--//차트-->
-            <script>
-                $(() => {
-                    const chart = $('#chart_line').dxChart({
-                        dataSource: population,
-                        palette: ['#FEA00D'],
-
-                        series: [{
-                            argumentField: 'country',
-                            width: 1
-                        }],
-
-                        argumentAxis: {
-                            label: {
-                                wordWrap: 'none',
-                            },
-                        },
-                        legend: {
-                            visible: false,
-                        },
-
-                    }).dxChart('instance');
-
-
-                });
-                const population = [
-                    { country: 'China', val: 1382500000 },
-                    { country: 'India', val: 1314300000 },
-                    { country: 'United States', val: 324789000 },
-                    { country: 'Indonesia', val: 261600000 },
-                    { country: 'Brazil', val: 207332000 },
-                    { country: 'Pakistan', val: 196865000 },
-                    { country: 'Nigeria', val: 188500000 },
-                ];
-
-            </script>
-        </div>
-        <!--//고장율-->
-        <!--신뢰도-->
-        <div class="con_box flex4">
-            <!--타이틀-->
-            <h2>
-                신뢰도
-            </h2>
-            <!--//타이틀-->
-            <!--차트-->
-            <div id="chart_line02" style="height: 280px;"></div>
-            <!--//차트-->
-            <script>
-                $(() => {
-                    const chart = $('#chart_line02').dxChart({
-                        dataSource: population02,
-                        palette: ['#FEA00D'],
-
-                        series: [{
-                            argumentField: 'country',
-                            width: 1
-                        }],
-
-                        argumentAxis: {
-                            label: {
-                                wordWrap: 'none',
-                            },
-                        },
-                        legend: {
-                            visible: false,
-                        },
-
-                    }).dxChart('instance');
-
-
-                });
-                const population02 = [
-                    { country: 'China', val: 1382500000 },
-                    { country: 'India', val: 1314300000 },
-                    { country: 'United States', val: 324789000 },
-                    { country: 'Indonesia', val: 261600000 },
-                    { country: 'Brazil', val: 207332000 },
-                    { country: 'Pakistan', val: 196865000 },
-                    { country: 'Nigeria', val: 188500000 },
-                ];
-
-            </script>
-        </div>
-        <!--//신뢰도-->
-        <!--전략-->
-        <div class="con_box">
-            <!--타이틀-->
-            <h2>
-                <p>전략</p>
-            </h2>
-            <!--//타이틀-->
-        </div>
-        <!--//전략-->
         <!--신뢰도-->
         <div class="con_box flex4 system">
             <!-- 타이틀 -->
@@ -565,9 +462,110 @@
                 });
             </script>
         </div>
-
-
         <!--//우선순위-->
+        <!--고장율-->
+        <!--<div class="con_box flex4">-->
+            <!--타이틀-->
+            <!--<h2>
+                고장률
+            </h2>-->
+            <!--//타이틀-->
+            <!--차트-->
+            <!--<div id="chart_line" style="height: 280px;"></div>-->
+            <!--//차트-->
+            <!--<script>
+                $(() => {
+                    const chart = $('#chart_line').dxChart({
+                        dataSource: population,
+                        palette: ['#FEA00D'],
+
+                        series: [{
+                            argumentField: 'country',
+                            width: 1
+                        }],
+
+                        argumentAxis: {
+                            label: {
+                                wordWrap: 'none',
+                            },
+                        },
+                        legend: {
+                            visible: false,
+                        },
+
+                    }).dxChart('instance');
+
+
+                });
+                const population = [
+                    { country: 'China', val: 1382500000 },
+                    { country: 'India', val: 1314300000 },
+                    { country: 'United States', val: 324789000 },
+                    { country: 'Indonesia', val: 261600000 },
+                    { country: 'Brazil', val: 207332000 },
+                    { country: 'Pakistan', val: 196865000 },
+                    { country: 'Nigeria', val: 188500000 },
+                ];
+
+            </script>
+        </div>-->
+        <!--//고장율-->
+        <!--신뢰도-->
+        <div class="con_box flex4">
+            <!--타이틀-->
+            <h2>
+                신뢰도
+            </h2>
+            <!--//타이틀-->
+            <!--차트-->
+            <div id="chart_line02" style="height: 280px;"></div>
+            <!--//차트-->
+            <script>
+                $(() => {
+                    const chart = $('#chart_line02').dxChart({
+                        dataSource: population02,
+                        palette: ['#FEA00D'],
+
+                        series: [{
+                            argumentField: 'country',
+                            width: 1
+                        }],
+
+                        argumentAxis: {
+                            label: {
+                                wordWrap: 'none',
+                            },
+                        },
+                        legend: {
+                            visible: false,
+                        },
+
+                    }).dxChart('instance');
+
+
+                });
+                const population02 = [
+                    { country: 'China', val: 1382500000 },
+                    { country: 'India', val: 1314300000 },
+                    { country: 'United States', val: 324789000 },
+                    { country: 'Indonesia', val: 261600000 },
+                    { country: 'Brazil', val: 207332000 },
+                    { country: 'Pakistan', val: 196865000 },
+                    { country: 'Nigeria', val: 188500000 },
+                ];
+
+            </script>
+        </div>
+        <!--//신뢰도-->
+        <!--전략-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>
+                <p>전략</p>
+            </h2>
+            <!--//타이틀-->
+        </div>
+        <!--//전략-->
         <!--점검-->
         <div class="con_box flex2 schedule">
             <!-- 타이틀 영역 -->

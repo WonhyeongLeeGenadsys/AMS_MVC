@@ -12,6 +12,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
         // URL 예: /ITRDeviceDetail/ITRDeviceDetail?itrCode=ITR0000001
         public ActionResult ITRDeviceDetail(string itrCode)
         {
+            ViewBag.MenuType = "DeviceInfo";
             if (string.IsNullOrEmpty(itrCode))
             {
                 return HttpNotFound("ITR 코드가 제공되지 않았습니다.");
