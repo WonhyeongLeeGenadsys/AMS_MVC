@@ -1,0 +1,288 @@
+|2025-04-15 09:24:39  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:24:39  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:24:40  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 09:24:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 09:24:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 09:24:58  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:24:58  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:27:03  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:27:03  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:27:04  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 09:27:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 09:27:04  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 09:29:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:29:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:29:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 09:29:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 09:29:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 09:31:02  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:31:02  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:31:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 09:31:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 09:31:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 09:56:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 09:56:16  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 09:56:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 09:56:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 09:56:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 10:40:32  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 10:40:32  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 10:40:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 10:40:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 10:40:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 10:40:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 10:40:33  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 10:41:01  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 10:41:01  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 10:41:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 10:41:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 10:41:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 10:41:40  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 10:41:40  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 10:41:42  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 10:41:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 10:41:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:06:00  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:06:00  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:06:02  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:06:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:06:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:06:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:06:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:06:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:06:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:06:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:06:51  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:06:51  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:06:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:06:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:06:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:07:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:07:16  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:07:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:07:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:07:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:08:12  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:08:12  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:08:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:08:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:08:13  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:40:01  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:40:01  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:40:02  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:40:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:40:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:43:05  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:43:05  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:43:06  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:43:06  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:43:06  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:43:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:43:36  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:43:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:43:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:43:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:46:34  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:46:34  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:46:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:46:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:46:35  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:52:03  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:52:03  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:52:05  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:52:05  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:52:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:54:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:54:16  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:54:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:54:16  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:54:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:54:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:54:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 13:55:17  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 13:55:17  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 13:55:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 13:55:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 13:55:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:26:28  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:26:28  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 14:26:29  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:26:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:26:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:26:56  |   DB(VCB_CHK)  |   저장 오류: SqlDateTime 오버플로가 발생했습니다. 1753년 1월 1일 오전 12:00:00에서 9999년 12월 31일 오후 11:59:59 사이에 있어야 합니다.   |
+|2025-04-15 14:27:09  |   DB(VCB_CHK)  |   저장 오류: SqlDateTime 오버플로가 발생했습니다. 1753년 1월 1일 오전 12:00:00에서 9999년 12월 31일 오후 11:59:59 사이에 있어야 합니다.   |
+|2025-04-15 14:27:58  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:27:58  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 14:27:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:27:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:27:59  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:28:12  |   DB(VCB_CHK)  |   저장 오류: SqlDateTime 오버플로가 발생했습니다. 1753년 1월 1일 오전 12:00:00에서 9999년 12월 31일 오후 11:59:59 사이에 있어야 합니다.   |
+|2025-04-15 14:32:25  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:32:25  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 14:32:26  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:32:26  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:32:26  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:32:37  |   DB(VCB_CHK)  |   저장 오류: 열 이름 'ContactWearPercent'이(가) 잘못되었습니다.
+열 이름 'VacuumLeakCurrent'이(가) 잘못되었습니다.
+열 이름 'ContactResistance'이(가) 잘못되었습니다.
+열 이름 'InsulationResistance'이(가) 잘못되었습니다.
+열 이름 'HotSpot'이(가) 잘못되었습니다.
+열 이름 'PdPatternValue'이(가) 잘못되었습니다.
+열 이름 'MotorCurrent'이(가) 잘못되었습니다.
+열 이름 'AccumShortCircuitCurrent'이(가) 잘못되었습니다.
+열 이름 'ShortCircuitCount'이(가) 잘못되었습니다.
+열 이름 'OperationCount'이(가) 잘못되었습니다.
+열 이름 'OpenCloseTime'이(가) 잘못되었습니다.
+열 이름 'VisualCheck'이(가) 잘못되었습니다.
+열 이름 'FoldingFunction'이(가) 잘못되었습니다.   |
+|2025-04-15 14:35:01  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:35:01  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 14:35:02  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:35:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:35:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:35:15  |   DB(VCB_CHK)  |   저장 오류: 열 이름 'Contact_Wear'이(가) 잘못되었습니다.
+열 이름 'Vacuum_Leak'이(가) 잘못되었습니다.
+열 이름 'Contact_Res'이(가) 잘못되었습니다.
+열 이름 'Insulation_Res'이(가) 잘못되었습니다.
+열 이름 'Hot_Spot'이(가) 잘못되었습니다.
+열 이름 'PD_Pattern'이(가) 잘못되었습니다.
+열 이름 'Motor_Current'이(가) 잘못되었습니다.
+열 이름 'Accum_ShortCircuit'이(가) 잘못되었습니다.
+열 이름 'ShortCircuit_Count'이(가) 잘못되었습니다.
+열 이름 'Operation_Count'이(가) 잘못되었습니다.
+열 이름 'OpenClose_Time'이(가) 잘못되었습니다.
+열 이름 'Visual_Check'이(가) 잘못되었습니다.
+열 이름 'Folding_Function'이(가) 잘못되었습니다.   |
+|2025-04-15 14:41:17  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:41:17  |   VCBChkController.List  |   조회된 데이터: 3건   |
+|2025-04-15 14:41:18  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:41:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:41:18  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:41:30  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 14:41:30  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 14:42:14  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:42:14  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:42:19  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:42:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:42:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:42:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:48:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:48:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:48:48  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:48:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:48:52  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:48:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:48:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:48:52  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:48:54  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:48:58  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:48:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:48:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:48:58  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:50:02  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:50:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:50:21  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:50:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:51:10  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:51:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:51:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:51:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:55:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:55:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:55:19  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:55:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:56:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:56:10  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:56:19  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:56:19  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:19  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:56:24  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:31  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:56:31  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:31  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:31  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:56:32  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2025-04-15 14:56:32  |   vcbCode 조회 :   |   VCB001   |
+|2025-04-15 14:56:32  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 14:56:34  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:34  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 14:56:39  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2025-04-15 14:56:39  |   vcbCode 조회 :   |   VCB001   |
+|2025-04-15 14:56:39  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 14:56:39  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-15 14:56:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:56:39  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-15 14:56:42  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:56:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 14:57:10  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 14:57:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:06:22  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 15:06:22  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 15:06:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 15:06:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:06:23  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 15:17:30  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 15:17:30  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 15:17:31  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 15:17:31  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:17:31  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 15:47:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 15:47:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:47:54  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 15:47:54  |   VCBChkController.List  |   조회된 데이터: 4건   |
+|2025-04-15 15:47:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 15:47:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:47:54  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 15:48:06  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 15:48:06  |   VCBChkController.List  |   조회된 데이터: 5건   |
+|2025-04-15 15:48:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 15:48:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 15:48:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 15:48:16  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 15:48:16  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:19  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:19  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:21  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:21  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:23  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:23  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:25  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:25  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:26  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-04-15 16:22:26  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-04-15 16:22:28  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:28  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-15 16:22:30  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 16:22:30  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 16:22:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 16:22:41  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:22:41  |   VCBChkController.List  |   조회된 데이터: 7건   |
+|2025-04-15 16:23:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 16:23:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 16:23:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 16:23:19  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:23:19  |   VCBChkController.List  |   조회된 데이터: 8건   |
+|2025-04-15 16:23:43  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 16:23:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 16:23:43  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 16:23:53  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:23:53  |   VCBChkController.List  |   조회된 데이터: 9건   |
+|2025-04-15 16:24:00  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 16:24:00  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 16:24:00  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 16:24:14  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 16:24:14  |   VCBChkController.List  |   조회된 데이터: 10건   |
+|2025-04-15 17:37:52  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 17:37:52  |   VCBChkController.List  |   조회된 데이터: 10건   |
+|2025-04-15 17:37:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-15 17:37:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-15 17:37:53  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-15 17:38:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-15 17:38:38  |   VCBChkController.List  |   조회된 데이터: 11건   |

@@ -45,18 +45,18 @@ namespace AMS_MVC.Models
         public string CHK_Writer { get; set; } // 작성자 
 
         // 실제 알고리즘 사용 변수
-        public double ContactWearPercent { get; set; }
-        public double VacuumLeakCurrent { get; set; }
-        public double ContactResistance { get; set; }
-        public double InsulationResistance { get; set; }
-        public double HotSpot { get; set; }
-        public double PdPatternValue { get; set; }
-        public double MotorCurrent { get; set; }
-        public double AccumShortCircuitCurrent { get; set; }
-        public double ShortCircuitCount { get; set; }
-        public double OperationCount { get; set; }
-        public double OpenCloseTime { get; set; }
-        public double VisualCheck { get; set; }
+        public float ContactWearPercent { get; set; }
+        public float VacuumLeakCurrent { get; set; }
+        public float ContactResistance { get; set; }
+        public float InsulationResistance { get; set; }
+        public float HotSpot { get; set; }
+        public float PdPatternValue { get; set; }
+        public float MotorCurrent { get; set; }
+        public float AccumShortCircuitCurrent { get; set; }
+        public float ShortCircuitCount { get; set; }
+        public float OperationCount { get; set; }
+        public float OpenCloseTime { get; set; }
+        public float VisualCheck { get; set; }
         public int FoldingFunction { get; set; }
         //
         public DateTime CHK_Tbl_GetDate { get; set; }

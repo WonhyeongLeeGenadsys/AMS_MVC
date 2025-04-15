@@ -1,4 +1,6 @@
 ﻿using AMS_MVC.Models;
+using AMS_MVC.Repositories;
+using AMS_MVC.Services;
 using AMS_MVC.Utlity;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,7 @@ namespace AMS_MVC.Controllers.Check
             ViewBag.VCB_Code = VCB_Code;
 
             var companies = new List<Company>();
-            if(companyRepository.GetAllCompanies(out companies).IsSuccess && companies != null)
+            if (companyRepository.GetAllCompanies(out companies).IsSuccess && companies != null)
             {
                 ViewBag.Companies = companies;
             }
@@ -42,8 +44,22 @@ namespace AMS_MVC.Controllers.Check
             Result result = new Result(true);
             try
             {
+                // 작성자 설정
                 model.CHK_Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
-                result = vcbChkRepository.CreateVCBChkInfoRepo(model);
+
+                // DB 저장 시 SqlDateTime 범위(1753-01-01 ~ 9999-12-31)에 벗어나지 않도록 날짜 값이 없는 경우 현재 날짜로 설정
+                if (model.CHK_Tbl_GetDate < new DateTime(1753, 1, 1))
+                {
+                    model.CHK_Tbl_GetDate = DateTime.Now;
+                }
+
+                // ★ 알고리즘 연동 부분 ★
+                // 폼에 바인딩된 각 진단 항목(라디오 버튼 등) 값들을 이용해 folding function(건전도 점수)를 계산
+                VCBChkScoreCalculator scoreCalculator = new VCBChkScoreCalculator();
+                model.FoldingFunction = scoreCalculator.CalculateFoldingFunction(model);
+
+                // 계산된 모델 값을 DB에 저장
+                result = vcbChkRepository.CreateVCBChkRepo(model);
 
                 if (!result.IsSuccess)
                 {
@@ -56,7 +72,7 @@ namespace AMS_MVC.Controllers.Check
                 result.Message = $"오류 발생: {ex.Message}";
                 LogHelper.WriteLog("VCBChkAdd Error", ex.Message);
             }
-           
+
             return Json(result);
         }
     }
