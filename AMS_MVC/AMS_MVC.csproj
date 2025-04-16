@@ -583,8 +583,6 @@
     <Folder Include="Controllers\Regist\CompanyRegist\" />
     <Folder Include="Uploads\" />
     <Folder Include="Views\Algorithm\" />
-    <Folder Include="Views\Equipment\" />
-    <Folder Include="Views\Member\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

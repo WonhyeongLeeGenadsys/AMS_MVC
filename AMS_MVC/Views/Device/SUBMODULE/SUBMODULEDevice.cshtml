@@ -551,6 +551,8 @@
                                     value: parseFloat(point.value)
                                 };
                             });
+
+                            var maxX = data[0].B3Life * 2;
                             $("#chart_line02").dxChart({
                                 dataSource: reliabilityData,
                                 commonSeriesSettings: {
@@ -565,7 +567,7 @@
                                 tooltip: { enabled: true },
                                 argumentAxis: {
                                     title: "시간 (년)",
-                                    visualRange: { startValue: 0, endValue: 80 }
+                                    visualRange: { startValue: 0, endValue: maxX }
                                 },
                                 valueAxis: {
                                     title: "신뢰도 (0 ~ 1)",

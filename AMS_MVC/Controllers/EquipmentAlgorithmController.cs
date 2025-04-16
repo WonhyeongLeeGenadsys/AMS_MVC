@@ -126,7 +126,7 @@ namespace AMS_MVC.Controllers
                 usageYears.Add(used);
             }
 
-            // 5) 히스토그램에 사용할 bin 생성 (시간 범위는 LaAlgorithm의 TimeValues 최대값 사용)
+            // 5) 히스토그램에 사용할 bin 생성 (x축 시간 범위는 LaAlgorithm의 TimeValues 최대값 사용)
             double timeMax = algo.TimeValues.Max();
             int binSize = 10;
             var bins = new List<dynamic>();
@@ -164,6 +164,7 @@ namespace AMS_MVC.Controllers
             var eqList = _weibullRepo.GetAll()
                                      .Where(eq => eq.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
                                      .ToList();
+
             if (eqList.Count == 0)
             {
                 return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
@@ -173,14 +174,24 @@ namespace AMS_MVC.Controllers
 
             foreach (var eq in eqList)
             {
-                if (!eq.ShapeParam.HasValue && !eq.FailureRate.HasValue)
-                    continue;
+                // 형상모수와 척도모수가 둘 다 없으면, 고장률 데이터가 있는지 확인하고 없다면 이 항목은 건너뜁니다.
+                if (!eq.ShapeParam.HasValue || !eq.ScaleParam.HasValue)
+                {
+                    if (!eq.FailureRate.HasValue)
+                    {
+                        // 형상모수/척도모수도 없고 고장률 데이터도 없으므로 해당 장비는 처리하지 않음
+                        continue;
+                    }
+                }
 
                 var algo = new LaAlgorithm();
+
+                // 형상모수와 척도모수가 있다면 이를 사용하여 Weibull 계산 수행
                 if (eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
                 {
                     algo.SetWeibull(eq.ShapeParam.Value, eq.ScaleParam.Value, 10);
                 }
+                // 형상모수/척도모수가 없고 고장률 데이터가 있는 경우라면 고장률을 이용하여 계산 수행
                 else if (eq.FailureRate.HasValue)
                 {
                     algo.SetFailureRate(eq.FailureRate.Value);
