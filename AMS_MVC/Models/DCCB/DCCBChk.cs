@@ -21,7 +21,7 @@ namespace AMS_MVC.Models
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
         public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
+        public string CHK_Chuk_Loc { get; set; }
         public string CHK_Con_Status { get; set; }
         public string CHK_Bolt_Nut_Status { get; set; }
         public string CHK_Contact_Volume { get; set; }
@@ -42,7 +42,19 @@ namespace AMS_MVC.Models
         public string CHK_Cutoff_Count { get; set; }
         public string CHK_A_Rate { get; set; }
         public string CHK_Short_A_Rate { get; set; }
-        public string CHK_Writer { get; set; } // 작성자 
+        public string CHK_Writer { get; set; }
+
+        public float CHK_MainCircuit_InsulationStrength { get; set; }
+        public float CHK_LeakTest { get; set; }
+        public float CHK_MechanicalOperation { get; set; }
+        public float CHK_AuxControlCircuit { get; set; }
+        public float CHK_CE_Voltage { get; set; }
+        public float CHK_G_Voltage { get; set; }
+        public float CHK_On_Resistance { get; set; }
+        public float CHK_Thermal_Resistance { get; set; }
+        public float CHK_C_Current { get; set; }
+        public float CHK_OnOff_Time { get; set; }
+        public int FoldingFunction { get; set; }
         public DateTime CHK_Tbl_GetDate { get; set; }
     }
 }

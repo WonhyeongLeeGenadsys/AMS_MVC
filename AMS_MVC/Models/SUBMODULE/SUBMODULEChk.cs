@@ -43,6 +43,19 @@ namespace AMS_MVC.Models
         public string CHK_A_Rate { get; set; }
         public string CHK_Short_A_Rate { get; set; }
         public string CHK_Writer { get; set; } // 작성자 
+
+        public float CHK_CE_Voltage { get; set; }        /// C-E 전압
+        public float CHK_G_Voltage { get; set; }        /// G 전압
+        public float CHK_On_Resistance { get; set; }        /// On 저항
+        public float CHK_Thermal_Resistance { get; set; }        /// 열 저항        
+        public float CHK_C_Current { get; set; }        ///  전류
+        public float CHK_OnOff_Time { get; set; }         /// On/Off 시간
+        public float CHK_Insulation_Resistance { get; set; }        /// 절연저항
+        public float CHK_ESR { get; set; }        /// ESR
+        public float CHK_Capacitance { get; set; }        /// 커패시턴스
+        public float CHK_Temperature { get; set; }        /// 온도
+        public int FoldingFunction { get; set; }
+        
         public DateTime CHK_Tbl_GetDate { get; set; }
     }
 }

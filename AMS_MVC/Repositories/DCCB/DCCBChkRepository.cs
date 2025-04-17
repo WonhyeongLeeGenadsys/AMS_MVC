@@ -129,44 +129,134 @@ namespace AMS_MVC.Repositories
 
 
         // DCCB 보통점검 데이터 추가
-        public Result CreateDCCBChkInfoRepo(DCCBChk dccbChk)
+        public Result CreateDCCBChkRepo(DCCBChk chk)
         {
             Result res = new Result(true);
-
-            try
+            using (DBHelper dbHelper = new DBHelper())
             {
-                using (DBHelper dbHelper = new DBHelper())
+                using (var conn = dbHelper.Conn)
                 {
-                    const string query = @"
-                INSERT INTO DCCB_CHK (
-                    DCCB_CODE, CHK_GONGSA_NAME, CHK_WEATHER, CHK_TEMP, CHK_HUM, CHK_COMPANY, 
-                    CHK_WORKER, CHK_MANAGER, CHK_URGENT_NO, CHK_TYPE, CHK_START_DATE, 
-                    CHK_END_DATE, CHK_LOC, CHK_CHUK_LOC, CHK_CON_STATUS, CHK_BOLT_NUT_STATUS, 
-                    CHK_CONTACT_VOLUME, CHK_VACUUM_DEGREE, CHK_COIL_A, CHK_CONTACT_R, 
-                    CHK_MAIN_CIRCUIT, CHK_CONTROL_CIRCUIT, CHK_INPUT_TIME, CHK_OPEN_TIME, 
-                    CHK_3_PHASE_OPEN_GAP, CHK_CHATTERING_TIME, CHK_O_C_O, CHK_OPERATE_TIME, 
-                    CHK_OC_TEST, CHK_INDICATOR, CHK_DCCB_COUNT, CHK_CUTOFF_COUNT, 
-                    CHK_A_RATE, CHK_WRITER, CHK_SHORT_A_RATE
-                ) VALUES (
-                    @DCCB_Code, @CHK_Gongsa_Name, @CHK_Weather, @CHK_Temp, @CHK_Hum, @CHK_Company, 
-                    @CHK_Worker, @CHK_Manager, @CHK_Urgent_No, @CHK_Type, @CHK_Start_Date, 
-                    @CHK_End_Date, @CHK_Loc, @CHK_Chuk_Loc, @CHK_Con_Status, @CHK_Bolt_Nut_Status, 
-                    @CHK_Contact_Volume, @CHK_Vacuum_Degree, @CHK_Coil_A, @CHK_Contact_R, 
-                    @CHK_Main_Circuit, @CHK_Control_Circuit, @CHK_Input_Time, @CHK_Open_Time, 
-                    @CHK_3_Phase_Open_Gap, @CHK_Chattering_Time, @CHK_O_C_O, @CHK_Operate_Time, 
-                    @CHK_OC_Test, @CHK_Indicator, @CHK_DCCB_Count, @CHK_CutOff_Count, 
-                    @CHK_A_Rate, @CHK_Writer, @CHK_Short_A_Rate
-                )";
-                    int affectedRows = dbHelper.Conn.Execute(query, dccbChk);
-                    res.Message = affectedRows > 0 ? "DCCB 보통점검 데이터 추가 성공" : "DCCB 보통점검 데이터 추가 실패";
+                    using (var transaction = conn.BeginTransaction())
+                    {
+                        try
+                        {
+                            var query = @"
+                        INSERT INTO DCCB_CHK (
+                            DCCB_CODE,
+                            CHK_GONGSA_NAME,
+                            CHK_WEATHER,
+                            CHK_TEMP,
+                            CHK_HUM,
+                            CHK_COMPANY,
+                            CHK_WORKER,
+                            CHK_MANAGER,
+                            CHK_URGENT_NO,
+                            CHK_TYPE,
+                            CHK_START_DATE,
+                            CHK_END_DATE,
+                            CHK_LOC,
+                            CHK_CHUK_LOC,
+                            CHK_CON_STATUS,
+                            CHK_BOLT_NUT_STATUS,
+                            CHK_CONTACT_VOLUME,
+                            CHK_VACUUM_DEGREE,
+                            CHK_COIL_A,
+                            CHK_CONTACT_R,
+                            CHK_MAIN_CIRCUIT,
+                            CHK_CONTROL_CIRCUIT,
+                            CHK_INPUT_TIME,
+                            CHK_OPEN_TIME,
+                            CHK_3_PHASE_OPEN_GAP,
+                            CHK_CHATTERING_TIME,
+                            CHK_O_C_O,
+                            CHK_OPERATE_TIME,
+                            CHK_OC_TEST,
+                            CHK_INDICATOR,
+                            CHK_DCCB_COUNT,
+                            CHK_CUTOFF_COUNT,
+                            CHK_A_RATE,
+                            CHK_SHORT_A_RATE,
+                            CHK_WRITER,
+                            CHK_MAINCIRCUIT_INSULATIONSTRENGTH,
+                            CHK_LEAKTEST,
+                            CHK_MECHANICALOPERATION,
+                            CHK_AUXCONTROLCIRCUIT,
+                            CHK_CE_VOLTAGE,
+                            CHK_G_VOLTAGE,
+                            CHK_ON_RESISTANCE,
+                            CHK_THERMAL_RESISTANCE,
+                            CHK_C_CURRENT,
+                            CHK_ONOFF_TIME,
+                            FOLDINGFUNCTION,
+                            CHK_TBL_GETDATE
+                        )
+                        VALUES (
+                            @DCCB_Code,
+                            @CHK_Gongsa_Name,
+                            @CHK_Weather,
+                            @CHK_Temp,
+                            @CHK_Hum,
+                            @CHK_Company,
+                            @CHK_Worker,
+                            @CHK_Manager,
+                            @CHK_Urgent_No,
+                            @CHK_Type,
+                            @CHK_Start_Date,
+                            @CHK_End_Date,
+                            @CHK_Loc,
+                            @CHK_Chuk_Loc,
+                            @CHK_Con_Status,
+                            @CHK_Bolt_Nut_Status,
+                            @CHK_Contact_Volume,
+                            @CHK_Vacuum_Degree,
+                            @CHK_Coil_A,
+                            @CHK_Contact_R,
+                            @CHK_Main_Circuit,
+                            @CHK_Control_Circuit,
+                            @CHK_Input_Time,
+                            @CHK_Open_Time,
+                            @CHK_3_PHASE_OPEN_GAP,
+                            @CHK_Chattering_Time,
+                            @CHK_O_C_O,
+                            @CHK_Operate_Time,
+                            @CHK_OC_Test,
+                            @CHK_Indicator,
+                            @CHK_DCCB_Count,
+                            @CHK_Cutoff_Count,
+                            @CHK_A_Rate,
+                            @CHK_Short_A_Rate,
+                            @CHK_Writer,
+                            @CHK_MainCircuit_InsulationStrength,
+                            @CHK_LeakTest,
+                            @CHK_MechanicalOperation,
+                            @CHK_AuxControlCircuit,
+                            @CHK_CE_Voltage,
+                            @CHK_G_Voltage,
+                            @CHK_On_Resistance,
+                            @CHK_Thermal_Resistance,
+                            @CHK_C_Current,
+                            @CHK_OnOff_Time,
+                            @FoldingFunction,
+                            @CHK_Tbl_GetDate
+                        )";
+
+                            int affected = conn.Execute(query, chk, transaction);
+                            if (affected <= 0)
+                                throw new Exception("DCCB_CHK 레코드 삽입 실패");
+
+                            transaction.Commit();
+                            res.Message = "DCCB_CHK 등록 성공";
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            res.IsSuccess = false;
+                            res.Message = "저장 오류: " + ex.Message;
+                            LogHelper.WriteLog("DB(DCCB_CHK)", res.Message);
+                        }
+                    }
                 }
             }
-            catch (Exception ex)
-            {
-                res.IsSuccess = false;
-                res.Message = $"CreateDCCBChkInfoRepo 실패: {ex.Message}";
-            }
-
             return res;
         }
 

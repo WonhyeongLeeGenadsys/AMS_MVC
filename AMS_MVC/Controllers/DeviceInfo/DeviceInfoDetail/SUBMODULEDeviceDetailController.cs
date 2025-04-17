@@ -13,6 +13,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
         public ActionResult SUBMODULEDeviceDetail(string submoduleCode)
         {
             ViewBag.MenuType = "DeviceInfo";
+
             if (string.IsNullOrEmpty(submoduleCode))
             {
                 return HttpNotFound("SUBMODULE 코드가 제공되지 않았습니다.");

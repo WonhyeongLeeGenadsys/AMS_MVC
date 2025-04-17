@@ -13,6 +13,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
         public ActionResult DCCBDeviceDetail(string dccbCode)
         {
             ViewBag.MenuType = "DeviceInfo";
+
             if (string.IsNullOrEmpty(dccbCode))
             {
                 return HttpNotFound("DCCB 코드가 제공되지 않았습니다.");

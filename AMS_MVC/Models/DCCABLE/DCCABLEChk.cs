@@ -42,7 +42,16 @@ namespace AMS_MVC.Models
         public string CHK_Cutoff_Count { get; set; }
         public string CHK_A_Rate { get; set; }
         public string CHK_Short_A_Rate { get; set; }
-        public string CHK_Writer { get; set; } // 작성자 
+        public string CHK_Writer { get; set; }
+        public float CHK_Partial_Discharge { get; set; }     // 부분방전
+        public float CHK_Rated_Voltage { get; set; }         // 공칭전압
+        public float CHK_Tan_Delta { get; set; }             // Tan Delta
+        public float CHK_Resistance { get; set; }            // 저항
+        public float CHK_TDR { get; set; }                   // TDR
+        public int FoldingFunction { get; set; }
+
         public DateTime CHK_Tbl_GetDate { get; set; }
+
+
     }
 }

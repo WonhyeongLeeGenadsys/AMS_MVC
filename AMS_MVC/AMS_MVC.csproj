@@ -173,6 +173,21 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.Add.cs" />
+    <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.cs" />
+    <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.Detail.cs" />
+    <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.List.cs" />
+    <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.Update.cs" />
+    <Compile Include="Controllers\Check\DCCABLE\DCCABLEChkController.Add.cs" />
+    <Compile Include="Controllers\Check\DCCABLE\DCCABLEChkController.cs" />
+    <Compile Include="Controllers\Check\DCCABLE\DCCABLEChkController.Detail.cs" />
+    <Compile Include="Controllers\Check\DCCABLE\DCCABLEChkController.List.cs" />
+    <Compile Include="Controllers\Check\DCCABLE\DCCABLEChkController.Update.cs" />
+    <Compile Include="Controllers\Check\DCCB\DCCBChkController.Add.cs" />
+    <Compile Include="Controllers\Check\DCCB\DCCBChkController.cs" />
+    <Compile Include="Controllers\Check\DCCB\DCCBChkController.Detail.cs" />
+    <Compile Include="Controllers\Check\DCCB\DCCBChkController.List.cs" />
+    <Compile Include="Controllers\Check\DCCB\DCCBChkController.Update.cs" />
     <Compile Include="Controllers\EquipmentAlgorithmController.cs" />
     <Compile Include="Controllers\Check\ITR\ITRChk1Controller.cs" />
     <Compile Include="Controllers\Check\ITR\ITRChk1Controller.Add.cs" />
@@ -338,6 +353,10 @@
     <Compile Include="Repositories\SUBMODULE\SUBMODULEMaintenanceRepository.cs" />
     <Compile Include="Repositories\DCCABLE\DCCABLEMaintenanceRepository.cs" />
     <Compile Include="Repositories\VCB\VCBMaintenanceRepository.cs" />
+    <Compile Include="Services\DCCBChkScoreCalculator.cs" />
+    <Compile Include="Services\DCCABLEChkScoreCalculator.cs" />
+    <Compile Include="Services\SUBMODULEChkScoreCalculator.cs" />
+    <Compile Include="Services\ITRChkScoreCalculator.cs" />
     <Compile Include="Services\VCBChkScoreCalculator.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -582,7 +601,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Regist\CompanyRegist\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\Algorithm\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
