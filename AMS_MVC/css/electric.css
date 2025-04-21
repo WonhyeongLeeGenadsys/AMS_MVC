@@ -1423,8 +1423,12 @@ h4.tit_h4 {
 		min-width: 400px;
 	}
 
-	.box_wrap .flex2 {
+/*	.box_wrap .flex2 {
 		width: calc(66% - 10px);
+	}*/
+
+	.box_wrap .flex2 {
+		width: 100%;
 	}
 
 	.box_wrap .flex3 {
@@ -2058,3 +2062,4 @@ dl.product_info {
 					color: #000;
 					font-weight: bold;
 				}
+

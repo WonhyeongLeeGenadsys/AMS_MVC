@@ -11,18 +11,18 @@ namespace AMS_MVC.Services
 
             int[] scores = new int[]
             {
-                (int)chk.ContactWearPercent,
-                (int)chk.VacuumLeakCurrent,
-                (int)chk.ContactResistance,
-                (int)chk.InsulationResistance,
-                (int)chk.HotSpot,
-                (int)chk.PdPatternValue,
-                (int)chk.MotorCurrent,
-                (int)chk.AccumShortCircuitCurrent,
-                (int)chk.ShortCircuitCount,
-                (int)chk.OperationCount,
-                (int)chk.OpenCloseTime,
-                (int)chk.VisualCheck
+                (int)chk.CHK_ContactWearPercent,
+                (int)chk.CHK_VacuumLeakCurrent,
+                (int)chk.CHK_ContactResistance,
+                (int)chk.CHK_InsulationResistance,
+                (int)chk.CHK_HotSpot,
+                (int)chk.CHK_PdPatternValue,
+                (int)chk.CHK_MotorCurrent,
+                (int)chk.CHK_AccumShortCircuitCurrent,
+                (int)chk.CHK_ShortCircuitCount,
+                (int)chk.CHK_OperationCount,
+                (int)chk.CHK_OpenCloseTime,
+                (int)chk.CHK_VisualCheck
             };
 
             return scores.Max();  
