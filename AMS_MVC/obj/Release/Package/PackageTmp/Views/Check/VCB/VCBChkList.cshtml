@@ -70,13 +70,16 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                const vcbCode = e.data.VCB_Code;  // VCB 코드만 필요함 (Tbl_Idx 필요 없음)
-
-                                var baseUrl = window.location.origin; // 현재 사이트의 기본 URL
+                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBChkDetail 페이지로 이동
+                                const tblIdx = e.data.Tbl_Idx;
+                                const vcbCode = e.data.VCB_Code;
+                                console.log(tblIdx);
+                                console.log(vcbCode);
+                                var baseUrl = window.location.origin;
                                 var detailUrl = '@Url.Action("VCBChkDetail", "VCBChk")';
 
-                                 window.location.href = baseUrl + detailUrl + "?vcbCode=" + encodeURIComponent(vcbCode);
-                                }
+                                window.location.href = baseUrl + detailUrl + "?vcbCode=" + encodeURIComponent(vcbCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
                         });
                     },
                         error: function (xhr, status, error) {

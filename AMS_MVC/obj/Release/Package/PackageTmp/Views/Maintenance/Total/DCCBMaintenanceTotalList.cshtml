@@ -11,6 +11,9 @@
 
     <div class="con_box">
         <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("DCCBMaintenanceAdd", "DCCBMaintenance")" class="btn add blue">추가</a>
+            </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
 
@@ -55,7 +58,7 @@
                                 { dataField: 'MR_Worker', caption: '부품', alignment: 'center', width: 'auto' },
                                 { dataField: 'MR_Manager', caption: '발견자', alignment: 'center', width: 'auto' },
                                 { dataField: 'MR_Date', caption: '점검시작일', alignment: 'center', width: 'auto' },
-                                { dataField: 'MR_Writer', caption: '점검시작일', alignment: 'center', width: 'auto' }
+                                { dataField: 'MR_Writer', caption: '작성자', alignment: 'center', width: 'auto' }
                             ],
                             showBorders: false,
                             searchPanel: { visible: true, width: 240, placeholder: "검색" },
@@ -63,12 +66,17 @@
                             headerFilter: { visible: true },
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
-                            //onRowClick: function (e) {
-                            //    // 각 행의 Tbl_Idx와 DCCB_Code 값을 사용하여 DCCBChkDetail 페이지로 이동
-                            //    const tblIdx = e.data.Tbl_Idx;
-                            //    const dccbCode = e.data.DCCB_Code;
-                            //    window.location.href = `/Gojang/DCCBGojang/DCCBGojangDetail?DCCB_Code=${encodeURIComponent(dccbCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
-                            //}
+                            onRowClick: function (e) {
+
+                                // 각 행의 Tbl_Idx와 DCCB_Code 값을 사용하여 DCCBChkDetail 페이지로 이동
+                                const tblIdx = e.data.Tbl_Idx;
+                                const dccbCode = e.data.DCCB_Code;
+
+                                var baseUrl = window.location.origin;
+                                var detailUrl = '@Url.Action("DCCBMaintenanceDetail", "DCCBMaintenance")';
+
+                                window.location.href = baseUrl + detailUrl + "?dccbCode=" + encodeURIComponent(dccbCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
                         });
                     },
                         error: function (xhr, status, error) {

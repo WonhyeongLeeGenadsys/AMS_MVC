@@ -1,55 +1,96 @@
-﻿@{
+﻿@model AMS_MVC.Models.ITRBasicInfo
+
+@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
+    var allChkData = ViewBag.ITRChkList as List<AMS_MVC.Models.ITRChk>;
+    var lastChk = allChkData != null && allChkData.Any()
+                  ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
+                  : null;
+
+    // Riskmatrix의 HI 값을 파싱
+    int riskHI = 0;
+    if (ViewBag.HIDict != null)
+    {
+        int.TryParse(ViewBag.HIDict.HI, out riskHI);
+    }
 }
+
 
 @section LeftMenu {
     @Html.Partial("_DeviceInfoMenu")
 }
 
 @section MainContent {
-
-
-    <h1>Interface TR - 00000001</h1>
-    <!--전체 박스-->
+    <h1>ITR - @(Model?.ITR_Code ?? "N/A")</h1>
+    <!-- 전체 박스 -->
     <div class="box_wrap">
-        <!--시설정보-->
         <div class="con_box flex3">
             <div class="product">
                 <p class="img">
-                    <img src="../img/img_product.png">
+                    <img src='@Url.Content(Model?.Photo ?? "~/img/default_product.png")' alt="제품 이미지" />
                 </p>
                 <dl class="product_info">
                     <dt>시리얼번호</dt>
-                    <dd>0000001</dd>
+                    <dd>@(Model?.Serial_No ?? "N/A")</dd>
+
                     <dt>설치일</dt>
-                    <dd>2024-05-05</dd>
+                    <dd>
+                        @(Model?.Install_Date != null
+                            ? ((DateTime)Model.Install_Date).ToString("yyyy-MM-dd")
+                            : "N/A")
+                    </dd>
+
                     <dt>가동일</dt>
-                    <dd>2024-05-05</dd>
+                    <dd>
+                        @(Model?.Operating_Date != null
+                            ? ((DateTime)Model.Operating_Date).ToString("yyyy-MM-dd")
+                            : "N/A")
+                    </dd>
+
                     <dt>사용기간</dt>
-                    <dd>00년</dd>
+                    <dd>
+                        @if (Model?.Operating_Date != null)
+                        {
+                            int years = DateTime.Now.Year - ((DateTime)Model.Operating_Date).Year;
+                            @($"{years}년")
+                        }
+                        else
+                        {
+                            @("0년")
+                        }
+                    </dd>
+
                     <dt>구입비용</dt>
-                    <dd>000,000,000원</dd>
+                    <dd>
+                        @(Model != null ? String.Format("{0:N0}원", Model.Price) : "N/A")
+                    </dd>
+
                     <dt>설치장소</dt>
-                    <dd>옥외</dd>
-                    <dt>용량</dt>
-                    <dd>99MVA</dd>
-                    <dt>전압</dt>
-                    <dd>99kV</dd>
-                    <dt>상수</dt>
-                    <dd>3상</dd>
+                    <dd>@(Model?.Install_Place ?? "N/A")</dd>
+
+                    <dt>정격전압</dt>
+                    <dd>@(Model != null ? Model.Rated_V.ToString() : "N/A")</dd>
+
+                    <dt>정격전류</dt>
+                    <dd>@(Model != null ? Model.Rated_A.ToString() : "N/A")</dd>
+
                     <dt>제작사</dt>
-                    <dd>㈜자산관리</dd>
+                    <dd>@(Model?.Make_Company ?? "N/A")</dd>
+
                     <dt>제작번호</dt>
-                    <dd>00-0000-00</dd>
-                    <dt>진단사용</dt>
-                    <dd>아니오</dd>
+                    <dd>@(Model?.Make_No ?? "N/A")</dd>
+
+                    <dt>예방진단사용</dt>
+                    <dd>@(Model != null && Model.Is_Diagnostics ? "예" : "아니오")</dd>
+
                     <dt>건전도 사용</dt>
-                    <dd>예</dd>
+                    <dd>@(Model != null && Model.Is_Health ? "예" : "아니오")</dd>
                 </dl>
             </div>
         </div>
-        <!--//시설정보-->
-        <!--건전도-->
+        <!-- 건전도 차트 -->
         <div class="con_box flex3">
             <!--타이틀-->
             <h2>
@@ -59,267 +100,372 @@
             <!--차트-->
             <div id="gauge" style="height:250px;"></div>
             <!--//차트-->
-            <script>
-                $(() => {
-                    const gauge = $('#gauge').dxCircularGauge({
-                        scale: {
-                            startValue: 10,
-                            endValue: 40,
-                            tickInterval: 5,
-                            label: {
-                                customizeText(arg) {
-                                    return `${arg.valueText} °C`;
-                                },
-                            },
-                        },
-                        rangeContainer: {
-                            ranges: [
-                                { startValue: 10, endValue: 20, color: '#7A92CE' },
-                                { startValue: 20, endValue: 30, color: '#FEA00D' },
-                                { startValue: 30, endValue: 40, color: '#48C29C' },
-                            ],
-                        },
-                        tooltip: { enabled: true },
-
-                        value: 35,
-                        subvalues: [20, 38],
-                    }).dxCircularGauge('instance');
-
-                });
+            <script type="text/javascript">
+        $(function () {
+            const gauge = $('#gauge').dxCircularGauge({
+                scale: {
+                    startValue: 1,
+                    endValue: 5,
+                    tickInterval: 1,
+                    label: {
+                        customizeText: function (arg) {
+                            return "HI: " + arg.valueText;
+                        }
+                    }
+                },
+                rangeContainer: {
+                    ranges: [
+                        { startValue: 0.5, endValue: 1.5, color: '#5B9F56' },  // HI = 1: Very Good
+                        { startValue: 1.5, endValue: 2.5, color: '#B4DEB1' },  // HI = 2: Good
+                        { startValue: 2.5, endValue: 3.5, color: '#EBCD1D' },  // HI = 3: Fair
+                        { startValue: 3.5, endValue: 4.5, color: '#F18425' },  // HI = 4: Bad
+                        { startValue: 4.5, endValue: 5.5, color: '#F05153' }   // HI = 5: Very Bad
+                    ]
+                },
+                tooltip: { enabled: true },
+                // 서버에서 파싱한 riskHI 값을 사용
+                value: @riskHI
+            }).dxCircularGauge("instance");
+        });
             </script>
         </div>
-        <!--//건전도-->
-        <!--risk matrix-->
+        <!-- //건전도 차트 -->
+        <!-- risk matrix 영역 (기존 코드 유지) -->
         <div class="con_box flex3">
             <!--타이틀-->
             <h2>
                 <p>Risk Matrix</p>
             </h2>
             <!--//타이틀-->
-            <!--차트-->
-            <div id="chart_line" style="height:280px;"></div>
-            <!--//차트-->
+            <!-- 메트릭스 -->
+            <div class="matrix">
+                <!-- 메트릭스 좌측 -->
+                <div class="matrix_left">
+                    <h3 class="left tit">PoF</h3>
+                    <ul class="left txt">
+                        <li>Very Poor</li>
+                        <li>Poor</li>
+                        <li>Fair</li>
+                        <li>Good</li>
+                        <li>Very Good</li>
+                    </ul>
+                </div>
+                <!-- //메트릭스 좌측 -->
+                <!-- 그래프 -->
+                <ul class="value">
+                    <li data-position="4,0" class="good">0</li>
+                    <li data-position="4,1" class="fair">0</li>
+                    <li data-position="4,2" class="fair">0</li>
+                    <li data-position="4,3" class="poor">0</li>
+                    <li data-position="4,4" class="verypoor">0</li>
+                    <li data-position="3,0" class="good">0</li>
+                    <li data-position="3,1" class="fair">0</li>
+                    <li data-position="3,2" class="fair">0</li>
+                    <li data-position="3,3" class="poor">0</li>
+                    <li data-position="3,4" class="verypoor">0</li>
+                    <li data-position="2,0" class="good">0</li>
+                    <li data-position="2,1" class="fair">0</li>
+                    <li data-position="2,2" class="fair">0</li>
+                    <li data-position="2,3" class="poor">0</li>
+                    <li data-position="2,4" class="verypoor">0</li>
+                    <li data-position="1,0" class="verygood">0</li>
+                    <li data-position="1,1" class="good">0</li>
+                    <li data-position="1,2" class="good">0</li>
+                    <li data-position="1,3" class="fair">0</li>
+                    <li data-position="1,4" class="verypoor">0</li>
+                    <li data-position="0,0" class="verygood">0</li>
+                    <li data-position="0,1" class="good">0</li>
+                    <li data-position="0,2" class="good">0</li>
+                    <li data-position="0,3" class="fair">0</li>
+                    <li data-position="0,4" class="poor">0</li>
+                </ul>
+                <!-- //그래프 -->
+                <!-- 메트릭스 푸터 -->
+                <div class="matrix_bottom">
+                    <ul class="bottom txt">
+                        <li>Very good</li>
+                        <li>good</li>
+                        <li>Fair</li>
+                        <li>Poor</li>
+                        <li>Very Poor</li>
+                    </ul>
+                    <h3 class="bottom_t tit">CoF</h3>
+                </div>
+                <!-- //메트릭스 푸터 -->
+            </div>
             <script>
-                $(() => {
-                    const chart = $('#chart_line').dxChart({
-                        dataSource: population,
-                        palette: ['#FEA00D'],
+    $(document).ready(function () {
+        // 컨트롤러에서 넘긴 Dictionary<string,int>를 JSON으로 직렬화해서 받음
+        var matrixData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.RiskMatrixDict));
+        console.log("Matrix Data:", matrixData);
 
-                        series: [{
-                            argumentField: 'country',
-                            width: 1
-                        }],
+        // 예: matrixData = { "4,0": 2, "4,1": 3, "3,2": 1, ... }
 
-                        argumentAxis: {
-                            label: {
-                                wordWrap: 'none',
-                            },
-                        },
-                        legend: {
-                            visible: false,
-                        },
-
-                    }).dxChart('instance');
-
-
-                });
-                const population = [
-                    { country: 'China', val: 1382500000 },
-                    { country: 'India', val: 1314300000 },
-                    { country: 'United States', val: 324789000 },
-                    { country: 'Indonesia', val: 261600000 },
-                    { country: 'Brazil', val: 207332000 },
-                    { country: 'Pakistan', val: 196865000 },
-                    { country: 'Nigeria', val: 188500000 },
-                ];
-
+        // 각 li를 순회하면서 data-position="pofIndex,cofIndex"를 키로 하여 값 대입
+        $('.value li').each(function () {
+            var position = $(this).data('position');  // 예: "4,0" or "1,3"
+            var value = matrixData[position] || 0;     // 딕셔너리에 없으면 0
+            $(this).text(value);
+        });
+    });
             </script>
+
         </div>
-        <!--//risk matrix-->
+        <!-- //risk matrix -->
         <!--전략-->
         <div class="con_box">
             <!--타이틀-->
             <h2>
-                <p>보통점검</p>
+                <p>전략</p>
             </h2>
             <!--//타이틀-->
-            <ul class="sub_flex">
-                <li>
-                    <h4 class="tit_h4">DGA – 유증가스 분석</h4>
-                    <div class="table_list_app small">
-                        <table>
-                            <colgroup>
-                                <col style="width:50%">
-                                <col style="width:50%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>파라미터</th>
-                                    <th>판정</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>H2</td>
-                                    <td>401~500</td>
-                                </tr>
-                                <tr>
-                                    <td>C2h2</td>
-                                    <td>61~120</td>
-                                </tr>
-                                <tr>
-                                    <td>C2h4</td>
-                                    <td>201~500</td>
-                                </tr>
-                                <tr>
-                                    <td>Ch4</td>
-                                    <td>151~200</td>
-                                </tr>
-                                <tr>
-                                    <td>C2h6</td>
-                                    <td>201~350</td>
-                                </tr>
-
-                                <tr>
-                                    <td>Co</td>
-                                    <td>801~1200</td>
-                                </tr>
-                                <tr>
-                                    <td>co2</td>
-                                    <td>5001~7000</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-                <li>
-                    <h4 class="tit_h4">Measure</h4>
-                    <div class="table_list_app small">
-                        <table>
-                            <colgroup>
-                                <col style="width:50%">
-                                <col style="width:50%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>파라미터</th>
-                                    <th>판정</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>절연열화 측정</td>
-                                    <td>1-(검출횟수/2)</td>
-                                </tr>
-                                <tr>
-                                    <td>SFRA</td>
-                                    <td>
-                                        0.2dB이상 1-(검출횟수/2)
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>절연 저항 시험</td>
-                                    <td>1000MΩ 미만 불량</td>
-                                </tr>
-                                <tr>
-                                    <td>절연지 잔여수명</td>
-                                    <td>81~90</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-                <li>
-                    <h4 class="tit_h4">Oil Quality</h4>
-                    <div class="table_list_app small">
-                        <table>
-                            <colgroup>
-                                <col style="width:50%">
-                                <col style="width:50%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>파라미터</th>
-                                    <th>판정</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>절연유 내압시험</td>
-                                    <td>30~40</td>
-                                </tr>
-
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-                <li>
-                    <h4 class="tit_h4">Oil Quality</h4>
-                    <div class="table_list_app small">
-                        <table>
-                            <colgroup>
-                                <col style="width:50%">
-                                <col style="width:50%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>파라미터</th>
-                                    <th>판정</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>전산가</td>
-                                    <td>0.111~0.3</td>
-                                </tr>
-                                <tr>
-                                    <td>수분함량</td>
-                                    <td>O 40~50</td>
-                                </tr>
-                                <tr>
-                                    <td>Furfural</td>
-                                    <td>0.1~0.5미만</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-                <li>
-                    <h4 class="tit_h4">Measure</h4>
-                    <div class="table_list_app small">
-                        <table>
-                            <colgroup>
-                                <col style="width:50%">
-                                <col style="width:50%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>파라미터</th>
-                                    <th>판정</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>절연열화 측정</td>
-                                    <td>100mA 이상 1-(검출횟수/2)</td>
-                                </tr>
-                                <tr>
-                                    <td>SFRA</td>
-                                    <td>20%초과 1-(검출횟수/2)</td>
-                                </tr>
-                                <tr>
-                                    <td>절연 저항 시험</td>
-                                    <td>±5%이상 1-(검출횟수/2)</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </li>
-            </ul>
         </div>
-        <!--//전략-->
+
+        <!--전략-->
+        <!-- 보통점검 영역 -->
+        <div class="con_box">
+            <h2><p>보통점검 (최신)</p></h2>
+            @if (lastChk != null)
+            {
+                <ul class="sub_flex">
+                    <!-- 1. 일반육안 점검 -->
+                    <li>
+                        <h4 class="tit_h4">일반육안 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>개폐표시기 정위치</td>
+                                        <td>@(string.IsNullOrEmpty(lastChk.CHK_Chuk_Loc) ? "정상" : lastChk.CHK_Chuk_Loc)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>축세표시 정위치</td>
+                                        <td>@(string.IsNullOrEmpty(lastChk.CHK_Indicator) ? "정상" : lastChk.CHK_Indicator)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>주 전도부 단자 연결상태</td>
+                                        <td>@(string.IsNullOrEmpty(lastChk.CHK_Con_Status) ? "정상" : lastChk.CHK_Con_Status)</td>
+                                    </tr>
+                                    <tr>
+                                        <td>각종 Bolt-Nut의 이완여부</td>
+                                        <td>@(string.IsNullOrEmpty(lastChk.CHK_Bolt_Nut_Status) ? "정상" : lastChk.CHK_Bolt_Nut_Status)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 2. 동작 타이밍 점검 -->
+                    <li>
+                        <h4 class="tit_h4">동작 타이밍 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>무부하 투입시간</td>
+                                        <td>@lastChk.CHK_Input_Time</td>
+                                    </tr>
+                                    <tr>
+                                        <td>무부하 개극시간</td>
+                                        <td>@lastChk.CHK_Open_Time</td>
+                                    </tr>
+                                    <tr>
+                                        <td>3상 개극시 개극차</td>
+                                        <td>@lastChk.CHK_3_Phase_Open_Gap</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Chattering 시간</td>
+                                        <td>@lastChk.CHK_Chattering_Time</td>
+                                    </tr>
+                                    <tr>
+                                        <td>O-C-O</td>
+                                        <td>@lastChk.CHK_O_C_O</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 3. 보조시스템 기능 점검 -->
+                    <li>
+                        <h4 class="tit_h4">보조시스템 기능 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Coil전류</td>
+                                        <td>@lastChk.CHK_Coil_A</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 4. Vacumm Interrupt 점검 -->
+                    <li>
+                        <h4 class="tit_h4">Vacumm Interrupt 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>접점마모량</td>
+                                        <td>@lastChk.CHK_Contact_R</td>
+                                    </tr>
+                                    <tr>
+                                        <td>진공도 측정</td>
+                                        <td>@lastChk.CHK_Vacuum_Degree</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 5. 정기 육안 점검 -->
+                    <li>
+                        <h4 class="tit_h4">정기 육안 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>개폐 조작시험</td>
+                                        <td>@lastChk.CHK_Con_Status</td>
+                                    </tr>
+                                    <tr>
+                                        <td>투입 Spring Charge 표시기</td>
+                                        <td>@lastChk.CHK_Indicator</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 6. 기계적 및 전기적 작동 이력 -->
+                    <li>
+                        <h4 class="tit_h4">기계적 및 전기적 작동 이력</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>ITR 기계적 동작횟수</td>
+                                        <td>@lastChk.CHK_ITR_Count</td>
+                                    </tr>
+                                    <tr>
+                                        <td>단락 고장 차단 횟수</td>
+                                        <td>@lastChk.CHK_Cutoff_Count</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 7. 접촉저항 점검 -->
+                    <li>
+                        <h4 class="tit_h4">접촉저항 점검</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>접촉저항</td>
+                                        <td>@lastChk.CHK_Contact_R</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                    <!-- 8. ITR 통계수명 -->
+                    <li>
+                        <h4 class="tit_h4">ITR 통계수명</h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>사용기간수</td>
+                                        <td>@lastChk.CHK_A_Rate</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <p>보통점검 데이터가 없습니다.</p>
+            }
+        </div>
     </div>
-    <!--//전체 박스-->
-    <!--//컨텐츠가 들어옵니다-->
-    <!--//컨텐츠가 들어옵니다-->
 }

@@ -85,11 +85,20 @@
             <a href="@Url.Action("SubstationInfo", "Setting")" class="btn_gnb">설정</a>
             <ul class="lnb_group setting_sub">
                 <li><a href="@Url.Action("SubstationInfo", "Setting")">변전소 정보</a></li>
-                <li><a href="@Url.Action("MemberInfo", "Setting")">계정정보</a></li>
-                @*<li><a href="@Url.Action("CompanyList", "CompanyRegist")">업체 등록</a></li>*@
-                @* Company CRUD 나중에 추가할 예정 *@
-                <li><a href="@Url.Action("Logout", "Account")">로그아웃</a></li>
+                @* 스크립트를 여기에 넣지 않고 아래로 이동 *@
+                <li><a href="#" id="logoutButton">로그아웃</a></li>
             </ul>
         </li>
     </ul>
+    <!-- ul 바깥에 로그아웃 스크립트를 배치 -->
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $("#logoutButton").click(function (e) {
+            e.preventDefault(); // 기본 동작 취소
+            if (confirm("로그아웃 하시겠습니까?")) {
+                window.location.href = '@Url.Action("Logout", "Login")';
+            }
+        });
+    });
+    </script>
 </article>

@@ -7,12 +7,12 @@
 }
 
 @section MainContent {
-    <h1>전체 DCCB 보통점검</h1>
+    <h1>DCCB 보통점검</h1>
 
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("VCBChkAdd", "VCBChk")" class="btn add blue">추가</a>
+                <a href="@Url.Action("DCCBChkAdd", "DCCBChk")" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -65,12 +65,15 @@
                             headerFilter: { visible: true },
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
-                            //onRowClick: function (e) {
-                            //    // 각 행의 Tbl_Idx와 DCCB_Code 값을 사용하여 DCCBChkDetail 페이지로 이동
-                            //    const tblIdx = e.data.Tbl_Idx;
-                            //    const dccbCode = e.data.DCCB_Code;
-                            //    window.location.href = `/Check/DCCBChk/DCCBChkDetail?DCCB_Code=${encodeURIComponent(dccbCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
-                            //}
+                            onRowClick: function (e) {
+                                const tblIdx = e.data.Tbl_Idx;
+                                const dccbCode = e.data.DCCB_Code;
+
+                                var baseUrl = window.location.origin;
+                                var detailUrl = '@Url.Action("DCCBChkDetail", "DCCBChk")';
+
+                                window.location.href = baseUrl + detailUrl + "?dccbCode=" + encodeURIComponent(dccbCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
                         });
                     },
                         error: function (xhr, status, error) {

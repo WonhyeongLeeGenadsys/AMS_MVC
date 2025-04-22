@@ -50,10 +50,10 @@
 
     <!-- DCCB 메뉴 -->
     <li class="has-sub @(activeMenu == "DCCB" ? "active" : "")" data-menu="DCCB">
-        <a href="@Url.Action("DCCBChkTotalList", "SUBMODULEChk")" class="@(activeMenu == "DCCB" ? "active" : "")">DCCB</a>
+        <a href="@Url.Action("DCCBChkTotalList", "DCCBChk")" class="@(activeMenu == "DCCB" ? "active" : "")">DCCB</a>
         <ul class="two_depth">
             <li class="@(activeSub == "DCCBRegular" ? "active" : "")">
-                <a href="@Url.Action("DCCBChkTotalList", "SUBMODULEChk")" class="@(activeSub == "DCCBRegular" ? "active" : "")">보통점검</a>
+                <a href="@Url.Action("DCCBChkTotalList", "DCCBChk")" class="@(activeSub == "DCCBRegular" ? "active" : "")">보통점검</a>
             </li>
             <li class="@(activeSub == "DCCBPrevention" ? "active" : "")">
                 <a href="@Url.Action("DCCBChkTotalList", "DCCBChk", new { type = "prevention" })" class="@(activeSub == "DCCBPrevention" ? "active" : "")">예방진단</a>

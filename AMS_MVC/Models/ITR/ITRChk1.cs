@@ -32,17 +32,18 @@ namespace AMS_MVC.Models
         public string CHK1_Dielectric_Strength { get; set; } // 유전체강도
 
         // --- 절연 손상／노후도 ---
-        public string CHK1_Remain_Life { get; set; } // 절연지 수명손실
+        public string CHK1_Remain_Life { get; set; } // 잔여수명
         public string CHK1_Age { get; set; } // 나이
         public string CHK1_Gojang_History { get; set; } // 고장이력
 
         // --- 절연진동／기계적 시험 ---
         public string CHK1_Doble { get; set; }
         public string CHK1_SFRA { get; set; }
-
+        
         // --- 절연저항 측정 (HV‑E, LV‑E, HV‑LV, HV‑TV, LV‑TV) ---
         public string CHK1_HV_E { get; set; }
         public string CHK1_LV_E { get; set; }
+        public string CHK1_TV_E { get; set; }
         public string CHK1_HV_LV { get; set; }
         public string CHK1_HV_TV { get; set; }
         public string CHK1_LV_TV { get; set; }

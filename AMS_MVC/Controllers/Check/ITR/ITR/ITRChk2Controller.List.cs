@@ -32,7 +32,7 @@ namespace AMS_MVC.Controllers.Check
                 LogHelper.WriteLog("itrCode 조회 : ", $"{itrCode}");
 
                 List<ITRChk2> itrChks = new List<ITRChk2>();
-                var repoResult = itrChk2Repository.GetITRChk1ByITRCode(itrCode, out itrChks);
+                var repoResult = itrChk2Repository.GetITRChk2ByITRCode(itrCode, out itrChks);
                 if (repoResult.IsSuccess)
                 {
                     LogHelper.WriteLog("ITRChk2Controller.List", $"조회된 데이터: {itrChks.Count}건");

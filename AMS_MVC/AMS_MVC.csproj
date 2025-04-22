@@ -173,6 +173,10 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.TotalList.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.List.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.Add.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.cs" />
     <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.Add.cs" />
     <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.cs" />
     <Compile Include="Controllers\Check\SUBMODULE\SUBMODULEChkController.Detail.cs" />
@@ -189,12 +193,12 @@
     <Compile Include="Controllers\Check\DCCB\DCCBChkController.List.cs" />
     <Compile Include="Controllers\Check\DCCB\DCCBChkController.Update.cs" />
     <Compile Include="Controllers\EquipmentAlgorithmController.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk1Controller.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk1Controller.Add.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk1Controller.List.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk2Controller.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk2Controller.Add.cs" />
-    <Compile Include="Controllers\Check\ITR\ITRChk2Controller.List.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk1Controller.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk1Controller.Add.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk1Controller.List.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk2Controller.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk2Controller.Add.cs" />
+    <Compile Include="Controllers\Check\ITR\ITR\ITRChk2Controller.List.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Detail.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Update.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Add.cs" />
@@ -601,6 +605,7 @@
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Regist\CompanyRegist\" />
     <Folder Include="Uploads\" />
+    <Folder Include="Views\ITRChk\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />
