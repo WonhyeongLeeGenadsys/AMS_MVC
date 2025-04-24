@@ -66,14 +66,13 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBChkDetail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const itrCode = e.data.ITR_Code;
 
+                                var baseUrl = window.location.origin;
                                 var detailUrl = '@Url.Action("ITRChk1Detail", "ITRChk")';
-                                   window.location.href = detailUrl
-                                    + "?ITR_Code=" + encodeURIComponent(itrCode)
-                                    + "&Tbl_Idx=" + encodeURIComponent(tblIdx);
+
+                                window.location.href = baseUrl + detailUrl + "?itrCode=" + encodeURIComponent(itrCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
                             }
                         });
                     },

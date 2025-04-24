@@ -58,3 +58,128 @@
 |2025-04-24 18:48:31  |   VCBChkController.List  |   조회된 데이터: 14건   |
 |2025-04-24 18:50:08  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
 |2025-04-24 18:50:08  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:17:09  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:17:09  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:21:02  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:21:02  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:21:10  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:21:10  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:22:22  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:22:22  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:23:32  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:23:32  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:23:35  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-24 19:23:48  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:23:48  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:24:54  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:24:54  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:24:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-24 19:49:08  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-24 19:49:08  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-24 19:49:13  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 19:49:13  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 19:49:14  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:49:14  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:49:18  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:49:18  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:49:59  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 19:49:59  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 19:50:02  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 19:50:02  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 19:50:03  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:50:03  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:50:13  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:50:13  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:51:07  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:51:07  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:51:07  |   TotalDCCBGojangController.List  |   GetTotalDCCBGojangListData 실행   |
+|2025-04-24 19:51:08  |   DCCBGojangController.List  |   조회된 데이터: 0건   |
+|2025-04-24 19:51:09  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-04-24 19:51:09  |   SUBMODULEGojangController.List  |   조회된 데이터: 0건   |
+|2025-04-24 19:51:11  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:51:11  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:51:12  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:51:12  |   ITRGojangController.List  |   조회된 데이터: 1건   |
+|2025-04-24 19:51:13  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-04-24 19:51:13  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-04-24 19:51:13  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-24 19:51:18  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 19:51:18  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:00:08  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 20:00:08  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 20:00:09  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:00:09  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:00:15  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:00:15  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:00:36  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:00:36  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:00:38  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:00:38  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:01:39  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 20:01:39  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 20:01:42  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:01:42  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:01:57  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:01:57  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:02:01  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-24 20:02:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-24 20:02:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-24 20:02:01  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-24 20:02:03  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-24 20:02:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-24 20:02:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-24 20:02:03  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-24 20:02:04  |   VCBFHController.cs  |   GetVCBFHByVCBCode 실행   |
+|2025-04-24 20:02:04  |   VCBFHController.cs  |   조회된 데이터: 3건   |
+|2025-04-24 20:02:07  |   VCBFHController.cs  |   GetVCBFHByVCBCode 실행   |
+|2025-04-24 20:02:07  |   VCBFHController.cs  |   조회된 데이터: 3건   |
+|2025-04-24 20:02:10  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:02:10  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:02:11  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:02:11  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:02:12  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-04-24 20:02:12  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-24 20:02:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-24 20:02:12  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-04-24 20:02:14  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-04-24 20:02:14  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-04-24 20:02:14  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-04-24 20:02:14  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-04-24 20:02:17  |   ITRFHController.cs  |   GetITRFHByITRCode 실행   |
+|2025-04-24 20:02:17  |   ITRFHController.cs  |   조회된 데이터: 2건   |
+|2025-04-24 20:02:19  |   ITRFHController.cs  |   GetITRFHByITRCode 실행   |
+|2025-04-24 20:02:19  |   ITRFHController.cs  |   조회된 데이터: 2건   |
+|2025-04-24 20:02:21  |   ITRFHController.cs  |   GetITRFHByITRCode 실행   |
+|2025-04-24 20:02:21  |   ITRFHController.cs  |   조회된 데이터: 2건   |
+|2025-04-24 20:03:51  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 20:03:51  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 20:03:51  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:03:51  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:03:59  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:03:59  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:06:51  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 20:06:51  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 20:06:52  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:06:52  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:06:53  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:06:53  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:09  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-04-24 20:11:09  |   VCBGojangController.List  |   조회된 데이터: 3건   |
+|2025-04-24 20:11:10  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:10  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:13  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:13  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:19  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:19  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:22  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:22  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:24  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:24  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:26  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:26  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:29  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:29  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:31  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:31  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-04-24 20:11:34  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-04-24 20:11:34  |   ITRGojangController.List  |   조회된 데이터: 2건   |
