@@ -1,5 +1,4 @@
-﻿using System;
-using System.Linq;
+﻿using System.Linq;
 using AMS_MVC.Models;
 
 namespace AMS_MVC.Services
@@ -11,40 +10,37 @@ namespace AMS_MVC.Services
         /// </summary>
         public int CalculateFoldingFunction(ITRChk1 chk)
         {
-            var scores = new float[]
+            int[] scores = new int[]
             {
                 // DGA
-                float.Parse(chk.CHK1_H2),
-                float.Parse(chk.CHK1_C2H2),
-                float.Parse(chk.CHK1_C2H4),
-                float.Parse(chk.CHK1_CH4),
-                float.Parse(chk.CHK1_C2H6),
-                float.Parse(chk.CHK1_CO),
-                float.Parse(chk.CHK1_CO2),
+                chk.CHK1_H2,
+                chk.CHK1_C2H2,
+                chk.CHK1_C2H4,
+                chk.CHK1_CH4,
+                chk.CHK1_C2H6,
+                chk.CHK1_CO,
+                chk.CHK1_CO2,
 
-                // 유전체강도
-                float.Parse(chk.CHK1_Dielectric_Strength),
+                // 절연 강도/노후도 등
+                chk.CHK1_Dielectric_Strength,
+                chk.CHK1_Remain_Life,
+                chk.CHK1_Age,
+                chk.CHK1_Gojang_History,
 
-                // 절연 손상／노후도
-                float.Parse(chk.CHK1_Remain_Life),
-                float.Parse(chk.CHK1_Age),
-                float.Parse(chk.CHK1_Gojang_History),
-
-                // 절연진동／기계적 시험
-                float.Parse(chk.CHK1_Doble),
-                float.Parse(chk.CHK1_SFRA),
+                // 절연진동/기계적 시험
+                chk.CHK1_Doble,
+                chk.CHK1_SFRA,
 
                 // 절연저항
-                float.Parse(chk.CHK1_HV_E),
-                float.Parse(chk.CHK1_LV_E),
-                float.Parse(chk.CHK1_TV_E),
-                float.Parse(chk.CHK1_HV_LV),
-                float.Parse(chk.CHK1_HV_TV),
-                float.Parse(chk.CHK1_LV_TV)
+                chk.CHK1_HV_E,
+                chk.CHK1_LV_E,
+                chk.CHK1_TV_E,
+                chk.CHK1_HV_LV,
+                chk.CHK1_HV_TV,
+                chk.CHK1_LV_TV
             };
 
-            // 최대값을 int로 리턴
-            return (int)scores.Max();
+            return scores.Max();
         }
 
         /// <summary>
@@ -52,18 +48,19 @@ namespace AMS_MVC.Services
         /// </summary>
         public int CalculateFoldingFunction(ITRChk2 chk)
         {
-            var scores = new float[]
+            int[] scores = new int[]
             {
-                float.Parse(chk.CHK2_Computerized_Price),
-                float.Parse(chk.CHK2_Water_Content),
-                float.Parse(chk.CHK2_Furfural),
-                float.Parse(chk.CHK2_Excitation_Current),
-                float.Parse(chk.CHK2_Short_Current),
-                float.Parse(chk.CHK2_Voltage_Ratio),
-                float.Parse(chk.CHK2_PD)
+                chk.CHK2_Acid_Value,
+                chk.CHK2_Computerized_Price,
+                chk.CHK2_Water_Content,
+                chk.CHK2_Furfural,
+                chk.CHK2_Excitation_Current,
+                chk.CHK2_Short_Current,
+                chk.CHK2_Voltage_Ratio,
+                chk.CHK2_PD
             };
 
-            return (int)scores.Max();
+            return scores.Max();
         }
     }
 }

@@ -1,0 +1,9 @@
+|2025-04-23 18:01:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-23 18:01:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-23 18:01:26  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-04-23 18:01:26  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-04-23 18:01:38  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-23 18:01:38  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-23 18:01:39  |   TotalITRChkController.List  |   GetTotalITRChk1ListData 실행   |
+|2025-04-23 18:01:39  |   TotalITRChkController.List  |   조회된 데이터: 0건   |
+|2025-04-23 18:01:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |

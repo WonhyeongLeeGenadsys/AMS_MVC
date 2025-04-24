@@ -43,21 +43,21 @@
                         <tr>
                             <th>공사명</th>
                             <td colspan="5">
-                                <input type="text" id="chk1_gongsa_name" name="chk1_gongsa_name">
+                                <input type="text" id="chk2_gongsa_name" name="CHK2_Gongsa_Name">
                             </td>
                         </tr>
                         <tr>
                             <th>날씨</th>
                             <td>
-                                <input type="text" id="chk1_weather" name="chk1_weather">
+                                <input type="text" id="chk2_weather" name="CHK2_Weather">
                             </td>
                             <th>기온</th>
                             <td>
-                                <input type="text" id="chk1_temp" name="chk1_temp"> <span>°C</span>
+                                <input type="text" id="chk2_temp" name="CHK2_Temp"> <span>°C</span>
                             </td>
                             <th>습도</th>
                             <td>
-                                <input type="text" id="chk1_hum" name="chk1_hum"> <span>%</span>
+                                <input type="text" id="chk2_hum" name="CHK2_Hum"> <span>%</span>
                             </td>
                         </tr>
                         <tr>
@@ -67,21 +67,21 @@
                             </td>
                             <th>점검자</th>
                             <td>
-                                <input type="text" id="chk1_worker" name="chk1_worker">
+                                <input type="text" id="chk2_worker" name="CHK2_Worker">
                             </td>
                             <th>감독자</th>
                             <td>
-                                <input type="text" id="chk1_manager" name="chk1_manager">
+                                <input type="text" id="chk2_manager" name="CHK2_Manager">
                             </td>
                         </tr>
                         <tr>
                             <th>급전번호</th>
                             <td>
-                                <input type="text" id="chk1_urgent_no" name="chk1_urgent_no">
+                                <input type="text" id="chk2_urgent_no" name="CHK2_Urgent_No">
                             </td>
                             <th>형식</th>
                             <td>
-                                <input type="text" id="chk1_type" name="chk1_type">
+                                <input type="text" id="chk2_type" name="CHK2_Type">
                             </td>
                             <th></th>
                             <td></td>
@@ -89,11 +89,11 @@
                         <tr>
                             <th>점검 시작일</th>
                             <td>
-                                <input type="date" id="chk1_start_date" name="chk1_start_date">
+                                <input type="date" id="chk2_start_date" name="CHK2_Start_Date">
                             </td>
                             <th>점검 종료일</th>
                             <td>
-                                <input type="date" id="chk1_end_date" name="chk1_end_date">
+                                <input type="date" id="chk2_end_date" name="CHK2_End_Date">
                             </td>
                             <th></th>
                             <td></td>
@@ -285,7 +285,7 @@
             }
 
             $.ajax({
-            url: '@Url.Action("ITRChk2Add", "ITRChk2")',
+            url: '@Url.Action("ITRChkAdd2", "ITRChk", new { ITR_Code = itrCode, type = 2 } )',
             type: "POST",
             data: formData,
             processData: false,
@@ -294,7 +294,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 정밀점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk")';
+                    window.location.href = '@Url.Action("TotalList", "ITRChk", new { type = 2 } )';
                 } else {
                     alert("ITR 정밀점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

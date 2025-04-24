@@ -113,6 +113,14 @@ namespace AMSMVC.Controllers
                 return Json(new { error = ex.Message });
             }
         }
+        [HttpPost]
+        public JsonResult GetMonthlyAllITRChkData2()
+        {
+            var data1 = itrChk1Repo.GetMonthlyAllITRChk1Counts();
+            var data2 = itrChk2Repo.GetMonthlyAllITRChk2Counts();  
+            return Json(data1.Concat(data2).OrderBy(x => x.Month), JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// 유지보수 한 달 간격 데이터 가져오기
