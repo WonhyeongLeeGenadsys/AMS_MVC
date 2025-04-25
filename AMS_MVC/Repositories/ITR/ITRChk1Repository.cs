@@ -126,11 +126,11 @@ namespace AMS_MVC.Repositories
                 INSERT INTO INTERFACETR_CHK1 (
                     ITR_CODE, CHK1_GONGSA_NAME, CHK1_WEATHER, CHK1_TEMP, CHK1_HUM, CHK1_COMPANY, 
                     CHK1_WORKER, CHK1_MANAGER, CHK1_URGENT_NO, CHK1_TYPE, CHK1_START_DATE, 
-                    CHK1_END_DATE, CHK1_H2, CHK1_C2H2, CHK1_CH4, CHK1_C2H6, CHK1_CO, CHK1_CO2, CHK1_DOBLE, CHK1_SFRA, CHK1_HV_E, CHK1,LV_E, CHK1_HV_LV, CHKK1_LV_TV, CHK1_REMAIN_LIFE, CHK1_AGE, CHK1_GOJANG_HISTORY, CHK1_WRITER
+                    CHK1_END_DATE, CHK1_H2, CHK1_C2H2, CHK1_CH4, CHK1_C2H6, CHK1_CO, CHK1_CO2, CHK1_DIELECTRIC_STRENGTH, CHK1_REMAIN_LIFE, CHK1_AGE, CHK1_GOJANG_HISTORY, CHK1_DOBLE, CHK1_SFRA, CHK1_HV_E, CHK1_LV_E, CHK1_TV_E, CHK1_HV_LV, CHK1_HV_TV, CHK1_LV_TV, CHK1_WRITER
                 ) VALUES (
                     @ITR_Code, @CHK1_Gongsa_Name, @CHK1_Weather, @CHK1_Temp, @CHK1_Hum, @CHK1_Company, 
                     @CHK1_Worker, @CHK1_Manager, @CHK1_Urgent_No, @CHK1_Type, @CHK1_Start_Date, 
-                    @CHK1_End_Date, @CHK1_H2, @CHK1_C2H2, @CHK1_CH4, @CHK1_C2H6, @CHK1_CO, @CHK1_CO2, @CHK1_DOBLE, @CHK1_SFRA, @CHK1_HV_E, @CHK1_LV_E, @CHK1_HV_LV, @CHK1_LV_TV, @CHK1_Remain_Life, @CHK1_Age, @CHK1_Gojang_History, @CHK1_Writer
+                    @CHK1_End_Date, @CHK1_H2, @CHK1_C2H2, @CHK1_CH4, @CHK1_C2H6, @CHK1_CO, @CHK1_CO2, @CHK1_Dielectric_Strength, @CHK1_Remain_Life, @CHK1_Age, @CHK1_Gojang_History, @CHK1_Doble, @CHK1_SFRA, @CHK1_HV_E, @CHK1_LV_E, @CHK1_TV_E, @CHK1_HV_LV, @CHK1_HV_TV, @CHK1_LV_TV,  @CHK1_Writer
                 )";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk1);
@@ -155,37 +155,40 @@ namespace AMS_MVC.Repositories
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
+
                     const string query = @"
-                UPDATE INTERFACETR_CHK1 
-                SET 
-                    CHK1_WEATHER = @CHK1_Weather,
-                    CHK1_TEMP = @CHK1_Temp,
-                    CHK1_HUM = @CHK1_Hum,
-                    CHK1_COMPANY = @CHK1_Company,
-                    CHK1_WORKER = @CHK1_Worker,
-                    CHK1_MANAGER = @CHK1_Manager,
-                    CHK1_URGENT_NO = @CHK1_Urgent_No,
-                    CHK1_TYPE = @CHK1_Type,
-                    CHK1_START_DATE = @CHK1_Start_Date,
-                    CHK1_END_DATE = @CHK1_End_Date,
-                    CHK1_H2 = @CHK1_H2,
-                    CHK1_C2H2 = @CHK1_C2H2,
-                    CHK1_CH4 = @CHK1_CH4,
-                    CHK1_C2H6 = @CHK1_C2H6,
-                    CHK1_CO = @CHK1_CO,
-                    CHK1_CO2 = @CHK1_CO2,
-                    CHK1_DOBLE = @CHK1_DOBLE,
-                    CHK1_SFRA = @CHK1_SFRA,
-                    CHK1_HV_E = @CH1_HV_E,
-                    CHK1_LV_E = @CHK1_LV_E,
-                    CHK1_HV_LV = @CHK1_HV_LV,
-                    CHK1_LV_TV = @CHK1_LV_TV,
-                    CHK1_REMAIN_LIFE = @CHK1_Remain_Life,
-                    CHK1_AGE = @CHK1_Age,
-                    CHK1_GOJANG_HISTORY = @CHK1_Gojang_History,
-                    CHK1_WRITER = @CHK1_Writer,
-                            
-                WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
+UPDATE INTERFACETR_CHK1
+SET 
+    CHK1_WEATHER      = @CHK1_Weather,
+    CHK1_TEMP         = @CHK1_Temp,
+    CHK1_HUM          = @CHK1_Hum,
+    CHK1_COMPANY      = @CHK1_Company,
+    CHK1_WORKER       = @CHK1_Worker,
+    CHK1_MANAGER      = @CHK1_Manager,
+    CHK1_URGENT_NO    = @CHK1_Urgent_No,
+    CHK1_TYPE         = @CHK1_Type,
+    CHK1_START_DATE   = @CHK1_Start_Date,
+    CHK1_END_DATE     = @CHK1_End_Date,
+    CHK1_H2           = @CHK1_H2,
+    CHK1_C2H2         = @CHK1_C2H2,
+    CHK1_C2H4         = @CHK1_C2H4,
+    CHK1_CH4          = @CHK1_CH4,
+    CHK1_C2H6         = @CHK1_C2H6,
+    CHK1_CO           = @CHK1_CO,
+    CHK1_CO2          = @CHK1_CO2,
+    CHK1_Dielectric_Strength = @CHK1_Dielectric_Strength,
+    CHK1_Remain_Life  = @CHK1_Remain_Life,
+    CHK1_Age          = @CHK1_Age,
+    CHK1_Gojang_History= @CHK1_Gojang_History,
+    CHK1_Doble        = @CHK1_Doble,
+    CHK1_SFRA         = @CHK1_SFRA,
+    CHK1_HV_E         = @CHK1_HV_E,
+    CHK1_LV_E         = @CHK1_LV_E,
+    CHK1_HV_LV        = @CHK1_HV_LV,
+    CHK1_HV_TV        = @CHK1_HV_TV,
+    CHK1_LV_TV        = @CHK1_LV_TV,
+    CHK1_Writer       = @CHK1_Writer
+WHERE ITR_CODE = @ITR_Code AND Tbl_Idx = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk1);
                     res.Message = affectedRows > 0 ? "ITR 보통점검 데이터 업데이트 성공" : "ITR 보통점검 데이터 업데이트 실패";

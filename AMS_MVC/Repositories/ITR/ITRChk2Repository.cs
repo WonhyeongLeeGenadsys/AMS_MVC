@@ -147,44 +147,47 @@ namespace AMS_MVC.Repositories
         // VCB 보통점검 데이터 업데이트
         public Result UpdateITRChk2InfoRepo(ITRChk2 itrChk2)
         {
-            Result res = new Result(true);
-
+            var res = new Result(true);
             try
             {
-                using(DBHelper dbHelper = new DBHelper())
+                using (var dbHelper = new DBHelper())
                 {
                     const string query = @"
-                UPDATE INTERFACETR_CHK2
-                SET 
-                    CHK2_WEATHER = @CHK2_Weather,
-                    CHK2_TEMP = @CHK2_Temp,
-                    CHK2_HUM = @CHK2_Hum,
-                    CHK2_COMPANY = @CHK2_Company,
-                    CHK2_WORKER = @CHK2_Worker,
-                    CHK2_MANAGER = @CHK2_Manager,
-                    CHK2_URGENT_NO = @CHK2_Urgent_No,
-                    CHK2_TYPE = @CHK2_Type,
-                    CHK2_START_DATE = @CHK2_Start_Date,
-                    CHK2_END_DATE = @CHK2_End_Date,
-                    CHK2_COMPUTERIZED_PRICE = @CHK2_Computerized_Price,
-                    CHK2_WATER_CONTENT = @CHK2_Water_Content,
-                    CHK2_FURFURAL = @CHK2_Furfural,
-                    CHK2_EXCITATION_CURRENT = @CHK2_Excitation_Current,
-                    CHK2_SHORT_CURRENT = @CHK1_Short_Current,
-                    CHK2_VOLTAGE_RATIO = @CHK1_Voltage_Ratio,
-                    CHK2_PD = @CHK1_PD,
-                    CHK2_WRITER = @CHK1_Writer,
-                            
-                WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
+UPDATE INTERFACETR_CHK2
+SET
+    CHK2_GONGSA_NAME         = @CHK2_Gongsa_Name,
+    CHK2_WEATHER             = @CHK2_Weather,
+    CHK2_TEMP                = @CHK2_Temp,
+    CHK2_HUM                 = @CHK2_Hum,
+    CHK2_COMPANY             = @CHK2_Company,
+    CHK2_WORKER              = @CHK2_Worker,
+    CHK2_MANAGER             = @CHK2_Manager,
+    CHK2_URGENT_NO           = @CHK2_Urgent_No,
+    CHK2_TYPE                = @CHK2_Type,
+    CHK2_START_DATE          = @CHK2_Start_Date,
+    CHK2_END_DATE            = @CHK2_End_Date,
+    CHK2_COMPUTERIZED_PRICE  = @CHK2_Computerized_Price,
+    CHK2_WATER_CONTENT       = @CHK2_Water_Content,
+    CHK2_FURFURAL            = @CHK2_Furfural,
+    CHK2_EXCITATION_CURRENT  = @CHK2_Excitation_Current,
+    CHK2_SHORT_CURRENT       = @CHK2_Short_Current,
+    CHK2_VOLTAGE_RATIO       = @CHK2_Voltage_Ratio,
+    CHK2_PD                  = @CHK2_PD,
+    CHK2_WRITER              = @CHK2_Writer
+WHERE ITR_CODE = @ITR_Code
+  AND TBL_IDX   = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk2);
-                    res.Message = affectedRows > 0 ? "ITR 정밀점검 데이터 업데이트 성공" : "ITR 정밀점검 데이터 업데이트 실패";
+                    res.Message = affectedRows > 0
+                        ? "ITR 정밀점검 데이터 업데이트 성공"
+                        : "ITR 정밀점검 데이터 업데이트 실패";
                 }
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
                 res.Message = $"UpdateITRChk2InfoRepo 실패: {ex.Message}";
+                Web.Common.Log.LogHelper.WriteLog("DB(ITR_CHK2)", res.Message);
             }
             return res;
         }

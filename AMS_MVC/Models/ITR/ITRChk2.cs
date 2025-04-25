@@ -20,19 +20,118 @@ namespace AMS_MVC.Models
         public DateTime? CHK2_Start_Date { get; set; }
         public DateTime? CHK2_End_Date { get; set; }
 
-        public string CHK2_Acid_Value { get; set; } // 산가
+        public int CHK2_Acid_Value { get; set; } // 산가
 
         // --- 기존 정밀점검 변수 ---
-        public string CHK2_Computerized_Price { get; set; } // 전산가
-        public string CHK2_Water_Content { get; set; } // 수분함량
-        public string CHK2_Furfural { get; set; } // Furfural (플ural)
-        public string CHK2_Excitation_Current { get; set; } // 여자 전류
-        public string CHK2_Short_Current { get; set; } // 단락 전류
-        public string CHK2_Voltage_Ratio { get; set; } // 전압비
-        public string CHK2_PD { get; set; } // 부분 방전
+        public int CHK2_Computerized_Price { get; set; } // 전산가
+        public int CHK2_Water_Content { get; set; } // 수분함량
+        public int CHK2_Furfural { get; set; } // Furfural (플ural)
+        public int CHK2_Excitation_Current { get; set; } // 여자 전류
+        public int CHK2_Short_Current { get; set; } // 단락 전류
+        public int CHK2_Voltage_Ratio { get; set; } // 전압비
+        public int CHK2_PD { get; set; } // 부분 방전
 
         // 작성자·날짜
         public string CHK2_Writer { get; set; }
         public DateTime CHK2_Tbl_GetDate { get; set; }
+        public string AcidValueText
+        {
+            get
+            {
+                switch (CHK2_Acid_Value)
+                {
+                    case 1: return "≤0.1";
+                    case 3: return "≤0.3";
+                    case 5: return ">0.3";
+                    default: return "-";
+                }
+            }
+        }
+        public string CompPriceText
+        {
+            get
+            {
+                switch (CHK2_Computerized_Price)
+                {
+                    case 1: return "≤0.1";
+                    case 3: return "≤0.3";
+                    case 5: return ">0.3";
+                    default: return "-";
+                }
+            }
+        }
+        public string WaterContentText
+        {
+            get
+            {
+                switch (CHK2_Water_Content)
+                {
+                    case 1: return "<40";
+                    case 3: return "≤50";
+                    case 5: return ">50";
+                    default: return "-";
+                }
+            }
+        }
+        public string FurfuralText
+        {
+            get
+            {
+                switch (CHK2_Furfural)
+                {
+                    case 1: return "NOT";
+                    case 5: return "OCCUR";
+                    default: return "-";
+                }
+            }
+        }
+        public string ExcitationCurrentText
+        {
+            get
+            {
+                switch (CHK2_Excitation_Current)
+                {
+                    case 1: return "20%↑";
+                    case 5: return "100%↑";
+                    default: return "-";
+                }
+            }
+        }
+        public string ShortCurrentText
+        {
+            get
+            {
+                switch (CHK2_Short_Current)
+                {
+                    case 1: return "≤20%";
+                    case 5: return ">20%";
+                    default: return "-";
+                }
+            }
+        }
+        public string VoltageRatioText
+        {
+            get
+            {
+                switch (CHK2_Voltage_Ratio)
+                {
+                    case 1: return "≤±5%";
+                    case 5: return ">±5%";
+                    default: return "-";
+                }
+            }
+        }
+        public string PDText
+        {
+            get
+            {
+                switch (CHK2_PD)
+                {
+                    case 1: return "NOT";
+                    case 5: return "OCCUR";
+                    default: return "-";
+                }
+            }
+        }
     }
 }

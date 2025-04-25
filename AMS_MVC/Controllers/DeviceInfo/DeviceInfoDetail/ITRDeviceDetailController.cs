@@ -34,17 +34,16 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
                 return HttpNotFound("해당 ITR 정보를 찾을 수 없습니다.");
             }
 
-            // 보통점검 데이터 조회
+            // 보통점검, 정밀점검 데이터 조회
             var itrChk1Repo = new ITRChk1Repository();
             List<ITRChk1> chk1List;
             var result1 = itrChk1Repo.GetITRChk1ByITRCode(itrCode, out chk1List);
             ViewBag.ITRChk1List = chk1List;
 
-            // 정밀점검 데이터 조회
             var itrChk2Repo = new ITRChk2Repository();
             List<ITRChk2> chk2List;
             var result2 = itrChk2Repo.GetITRChk2ByITRCode(itrCode, out chk2List);
-            ViewBag.ITRChk1List = chk2List;
+            ViewBag.ITRChk2List = chk2List;
 
             return View("~/Views/Device/ITR/ITRDeviceDetail.cshtml", model);
         }

@@ -12,7 +12,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChk2Add", "ITRChk2")" class="btn add blue">추가</a>
+                 <a href="@Url.Action("ITRChkAdd", "ITRChk", new { type = 2 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -25,7 +25,7 @@
             function loadITRChk2Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetTotalITRChk2ListData", "ITRChk2")',
+                    url: '@Url.Action("GetTotalListData", "ITRChk", new { type = 2 })',
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success == false) {
@@ -70,7 +70,7 @@
                                 const itrCode = e.data.ITR_Code;
 
                                 var baseUrl = window.location.origin;
-                                var detailUrl = '@Url.Action("ITRChkDetail", "ITRChk")';
+                                var detailUrl = '@Url.Action("ITRChk2Detail", "ITRChk")';
 
                                 window.location.href = baseUrl + detailUrl + "?itrCode=" + encodeURIComponent(itrCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
                             }

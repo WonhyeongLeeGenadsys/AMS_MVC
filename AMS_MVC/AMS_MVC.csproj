@@ -173,6 +173,8 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.Detail.cs" />
+    <Compile Include="Controllers\Check\ITR\ITRChkController.Update.cs" />
     <Compile Include="Controllers\Check\ITR\ITRChkController.TotalList.cs" />
     <Compile Include="Controllers\Check\ITR\ITRChkController.List.cs" />
     <Compile Include="Controllers\Check\ITR\ITRChkController.Add.cs" />
@@ -600,12 +602,13 @@
     <Content Include="Views\Device\SUBMODULE\SUBMODULEDeviceDetail.cshtml" />
     <Content Include="Views\Device\DCCB\DCCBDeviceDetail.cshtml" />
     <Content Include="Views\Device\DCCABLE\DCCABLEDeviceDetail.cshtml" />
+    <Content Include="Views\Check\ITR\ITRChk1Detail.cshtml" />
+    <Content Include="Views\Check\ITR\ITRChk2Detail.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Regist\CompanyRegist\" />
     <Folder Include="Uploads\" />
-    <Folder Include="Views\ITRChk\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css.map" />

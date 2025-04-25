@@ -1423,11 +1423,11 @@ h4.tit_h4 {
 		min-width: 400px;
 	}
 
-/*	.box_wrap .flex2 {
-		width: calc(66% - 10px);
-	}*/
-
 	.box_wrap .flex2 {
+		width: calc(66% - 10px);
+	}
+
+	.box_wrap .flexCheck {
 		width: 100%;
 	}
 
