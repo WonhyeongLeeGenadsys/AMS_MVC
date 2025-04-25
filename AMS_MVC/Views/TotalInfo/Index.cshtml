@@ -510,7 +510,6 @@
                     });
                 }
 
-                // 예: 고장 데이터를 가져와서 dxDataGrid에 적용하는 예제
                 $(document).ready(function () {
                     $.ajax({
                         type: "POST",
@@ -529,9 +528,7 @@
                                 sorting: { mode: 'multiple' },
                                 scrolling: { columnRenderingMode: 'virtual' },
 
-                                // **여기부터 추가**
                                 onRowPrepared: function (e) {
-                                    // e.rowType==='data' 이면서, 첫 번째 행(rowIndex===0)만
                                     if (e.rowType === 'data' && e.rowIndex === 0) {
                                         e.rowElement.addClass('first-row-highlight');
                                     }
