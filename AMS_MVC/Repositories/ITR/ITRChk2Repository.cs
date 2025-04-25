@@ -13,7 +13,7 @@ namespace AMS_MVC.Repositories
     public class ITRChk2Repository
     {
         // 시리얼 번호로 VCB 보통점검 데이터 조회
-        public Result GetITRChk1ByITRCode(string itrCode, out List<ITRChk2> itrChk2List)
+        public Result GetITRChk2ByITRCode(string itrCode, out List<ITRChk2> itrChk2List)
         {
             Result res = new Result(true);
             itrChk2List = new List<ITRChk2>();

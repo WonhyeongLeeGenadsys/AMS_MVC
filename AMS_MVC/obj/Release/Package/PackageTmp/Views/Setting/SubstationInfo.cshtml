@@ -15,12 +15,12 @@
         <!--컨텐츠 inn-->
         <div class="content_warp">
             <!--버튼-->
-            <div class="btn_area top right">
-                <p>
-                    <a href="#" class="btn red del">삭제</a>
-                    <a href="#" class="btn blue app">적용</a>
-                </p>
-            </div>
+            @*<div class="btn_area top right">
+                    <p>
+                        <a href="#" class="btn red del">삭제</a>
+                        <a href="#" class="btn blue app">적용</a>
+                    </p>
+                </div>*@
             <!--//버튼-->
 
             <div class="interface_wrap">
@@ -77,7 +77,6 @@
                 </div>
                 <!--//CoF-->
             </div>
-
             <div class="interface_wrap mrT20">
                 <!--수명 통계-->
                 <div class="basic_wrap">
@@ -97,51 +96,37 @@
                                         <thead>
                                             <tr>
                                                 <th>설비명</th>
-                                                <th>형상모수</th>
-                                                <th>척도모수</th>
+                                                <th>형상모수(ShapeParam)</th>
+                                                <th>척도모수(ScaleParam)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>VCB</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.VCB?.ShapeParam?.ToString() ?? "")" />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.VCB?.ScaleParam?.ToString() ?? "")" />
+
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>Interface TR</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Arm Reactor</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Wall Bushing</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>PT, CT</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>LA</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>DS</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.ITR?.ShapeParam?.ToString() ?? "")" />
+                                                </td>                                                
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.ITR?.ScaleParam?.ToString() ?? "")" />
+                                                </td>                                                
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
                             </div>
                         </div>
+
                         <!-- DC 통계 -->
                         <div class="small_wrap">
                             <div class="box">
@@ -156,30 +141,41 @@
                                         <thead>
                                             <tr>
                                                 <th>설비명</th>
-                                                <th>형상모수</th>
-                                                <th>척도모수</th>
+                                                <th>형상모수(ShapeParam)</th>
+                                                <th>척도모수(ScaleParam)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <tr>
                                                 <td>Sub Module</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.SUBMODULE?.ShapeParam?.ToString() ?? "")" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.SUBMODULE?.ScaleParam?.ToString() ?? "")" />
+
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td>DCCB</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.DCCB?.ShapeParam?.ToString() ?? "")" />
+
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.DCCB?.ScaleParam?.ToString() ?? "")" />
+
+                                                </td>
                                             </tr>
                                             <tr>
-                                                <td>SA</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>DCCT</td>
-                                                <td><input type="text" /></td>
-                                                <td><input type="text" /></td>
+                                                <td>DC Cable</td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.DCCABLE?.ShapeParam?.ToString() ?? "-")" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" value="@(ViewBag.DCCABLE?.ScaleParam?.ToString() ?? "-")" />
+                                                </td>
+
                                             </tr>
                                         </tbody>
                                     </table>
@@ -200,8 +196,8 @@
                                         <thead>
                                             <tr>
                                                 <th>설비명</th>
-                                                <th>형상모수</th>
-                                                <th>척도모수</th>
+                                                <th>형상모수(ShapeParam)</th>
+                                                <th>척도모수(ScaleParam)</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -249,8 +245,8 @@
                                         <thead>
                                             <tr>
                                                 <th>설비명</th>
-                                                <th>형상모수</th>
-                                                <th>척도모수</th>
+                                                <th>형상모수(ShapeParam)</th>
+                                                <th>척도모수(ScaleParam)</th>
                                             </tr>
                                         </thead>
                                         <tbody>

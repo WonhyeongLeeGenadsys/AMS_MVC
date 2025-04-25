@@ -43,7 +43,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             // 정밀점검 데이터 조회
             var itrChk2Repo = new ITRChk2Repository();
             List<ITRChk2> chk2List;
-            var result2 = itrChk2Repo.GetITRChk1ByITRCode(itrCode, out chk2List);
+            var result2 = itrChk2Repo.GetITRChk2ByITRCode(itrCode, out chk2List);
             ViewBag.ITRChk1List = chk2List;
 
             return View("~/Views/Device/ITR/ITRDeviceDetail.cshtml", model);

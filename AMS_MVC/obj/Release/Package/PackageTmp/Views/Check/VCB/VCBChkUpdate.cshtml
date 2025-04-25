@@ -2,7 +2,6 @@
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var vcbCode = Request.QueryString["vcbCode"] ?? "";
 }
 
 @section LeftMenu {
@@ -11,7 +10,6 @@
 
 @section MainContent {
     <h1>
-        @*VCB 보통점검 수정: @ViewBag.SerialNo*@
         VCB 보통점검 수정 
     </h1>
     <div class="con_box">
@@ -21,8 +19,11 @@
                     <a href="#" class="btn blue app" onclick="updateVCBChk()">적용</a>
                 </p>
             </div>
-            <form id="vcbChkForm" method="post" enctype="multipart/form-data">
-                <input type="hidden" name="VCB_Code" value="@vcbCode" />
+
+            <form id="vcbChkUpdateForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Tbl_Idx" value="@Model.Tbl_Idx" />
+                <input type="hidden" name="VCB_Code" value="@Model.VCB_Code" />
+
                 <div class="table_app" id="vcbChk">
                     <table>
                         <colgroup>
@@ -425,7 +426,7 @@
                                     <div class="flex">
                                         <input type="text" />
                                         @*<input type="text" />
-                                            <input type="text" />*@
+                                <input type="text" />*@
                                     </div>
                                 </td>
                                 <td>30</td>
@@ -438,13 +439,8 @@
     </div>
 
     <script>
-        // VCB 점검 정보 수집 함수 수정하기
         function updateVCBChk() {
-            submitVCBChkForm();
-        }
-
-        function submitVCBChkForm() {
-            var form = document.getElementById("vcbChkForm");
+            var form = document.getElementById("vcbChkUpdateForm");
             var formData = new FormData(form);
 
             // FormData 내용을 콘솔에 출력

@@ -1,0 +1,119 @@
+﻿@model AMS_MVC.Models.DCCABLEMaintenanceHistory
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dccableCode = Request.QueryString["DCCABLE_Code"];
+}
+
+@section LeftMenu {
+    @Html.Partial("_MaintenanceMenu")
+}
+
+@section MainContent {
+    <h1>DCCABLE 유지보수 정보 수정</h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="updateDCCABLEMaintenance()">적용</a>
+                </p>
+            </div>
+
+            <form id="dccableMaintenanceUpdateForm" method="post" enctype="multipart/form-data">
+                <!-- 수정 시 필요한 식별자 -->
+                <input type="hidden" name="Tbl_Idx" value="@Model.Tbl_Idx" />
+                <input type="hidden" name="DCCABLE_Code" value="@Model.DCCABLE_Code" />
+
+                <div class="table_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                        </colgroup>
+                        <tr>
+                            <th>보수명</th>
+                            <td colspan="5">
+                                <input type="text" name="MR_Bosu_Name" value="@Model.MR_Bosu_Name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" name="MR_Weather" value="@Model.MR_Weather" />
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" name="MR_Temp" value="@Model.MR_Temp" /> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" name="MR_Hum" value="@Model.MR_Hum" /> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="5">
+                                <input type="text" name="MR_Content" value="@Model.MR_Content" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상태</th>
+                            <td>
+                                <input type="text" name="MR_Status" value="@Model.MR_Status" />
+                            </td>
+                            <th>부품</th>
+                            <td>
+                                <input type="text" name="MR_Part" value="@Model.MR_Part" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>보수자</th>
+                            <td>
+                                <input type="text" name="MR_Worker" value="@Model.MR_Worker" />
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" name="MR_Manager" value="@Model.MR_Manager" />
+                            </td>
+                            <th>보수일</th>
+                            <td>
+                                <input type="date" name="MR_Date" value="@(Model.MR_Date.HasValue ? Model.MR_Date.Value.ToString("yyyy-MM-dd") : "")" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function updateDCCABLEMaintenance() {
+            var form = document.getElementById("dccableMaintenanceUpdateForm");
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '@Url.Action("DCCABLEMaintenanceUpdate", "DCCABLEMaintenance")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.IsSuccess) {
+                        alert("DCCABLE 유지보수 정보가 수정되었습니다.");
+                        window.location.href = '@Url.Action("DCCABLEMaintenanceTotalList", "DCCABLEMaintenance")';
+                    } else {
+                        alert("DCCABLE 유지보수 정보를 수정하지 못했습니다.: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("DCCABLE 유지보수 정보 수정 중 오류가 발생했습니다." + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

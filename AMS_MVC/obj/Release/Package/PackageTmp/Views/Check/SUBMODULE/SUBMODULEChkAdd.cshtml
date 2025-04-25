@@ -1,0 +1,481 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var submoduleCode = Request.QueryString["SUBMODULE_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>
+        SUBMODULE 보통점검 추가: @ViewBag.SerialNo
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="createSUBMODULEChk()">적용</a>
+                </p>
+            </div>
+            <form id="submoduleChkForm" method="post" enctype="multipart/form-data">
+                @* URL에 SUBMODULE_Code가 전달된 경우 hidden 필드로 사용, 그렇지 않으면 드롭다운 출력 *@
+                @if (!string.IsNullOrEmpty(submoduleCode))
+                {
+                    <input type="hidden" name="SUBMODULE_Code" value="@submoduleCode" />
+                }
+                else
+                {
+                    <div style="margin-bottom: 15px;">
+                        @Html.DropDownList("SUBMODULE_Code", (SelectList)ViewBag.SUBMODULEs, "SUBMODULE를 선택하세요.", new { @class = "form-control", @id = "SUBMODULE_Code" })
+                    </div>
+                }
+                <div class="table_app" id="submoduleChk">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                        </colgroup>
+                        <tr>
+                            <th>공사명</th>
+                            <td colspan="5">
+                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="chk_weather" name="chk_weather">
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="chk_temp" name="chk_temp"> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="chk_hum" name="chk_hum"> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                <input type="text" id="chk_worker" name="chk_worker">
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="chk_manager" name="chk_manager">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>급전번호</th>
+                            <td>
+                                <input type="text" id="chk_urgent_no" name="chk_urgent_no">
+                            </td>
+                            <th>형식</th>
+                            <td>
+                                <input type="text" id="chk_type" name="chk_type">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                <input type="date" id="chk_start_date" name="chk_start_date">
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                <input type="date" id="chk_end_date" name="chk_end_date">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="6">
+                                    IGBT
+                                </td>
+                                <td>C-E 전압</td>
+                                <td></td>
+                                <td>1PU = 제조사 권장값</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_1">
+                                        <input type="radio" id="CHK_CE_Voltage_1" name="CHK_CE_Voltage" value="1" checked>
+                                        <span>0.9~1.0PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_2">
+                                        <input type="radio" id="CHK_CE_Voltage_2" name="CHK_CE_Voltage" value="2">
+                                        <span>1.0~1.1PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_3">
+                                        <input type="radio" id="CHK_CE_Voltage_3" name="CHK_CE_Voltage" value="3">
+                                        <span>1.1~1.2PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_4">
+                                        <input type="radio" id="CHK_CE_Voltage_4" name="CHK_CE_Voltage" value="4">
+                                        <span>1.2~1.25PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_5">
+                                        <input type="radio" id="CHK_CE_Voltage_5" name="CHK_CE_Voltage" value="5">
+                                        <span>1.25PU 초과</span>
+                                    </label>
+                                </td>
+                                <td rowspan="6">-</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    G 전압
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_G_Voltage_1">
+                                        <input type="radio" id="CHK_G_Voltage_1" name="CHK_G_Voltage" value="1" checked>
+                                        <span>0~0.5V</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_G_Voltage_2">
+                                        <input type="radio" id="CHK_G_Voltage_2" name="CHK_G_Voltage" value="2">
+                                        <span>0.5~1.0V</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_G_Voltage_3">
+                                        <input type="radio" id="CHK_G_Voltage_3" name="CHK_G_Voltage" value="3">
+                                        <span>1~3V</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_G_Voltage_4">
+                                        <input type="radio" id="CHK_G_Voltage_4" name="CHK_G_Voltage" value="4">
+                                        <span>3~5V</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_G_Voltage_5">
+                                        <input type="radio" id="CHK_G_Voltage_5" name="CHK_G_Voltage" value="5">
+                                        <span>5V 초과</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    On 전압
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_On_Resistance_1">
+                                        <input type="radio" id="CHK_On_Resistance_1" name="CHK_On_Resistance" value="1" checked>
+                                        <span>0.9~1.0PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_On_Resistance_2">
+                                        <input type="radio" id="CHK_On_Resistance_2" name="CHK_On_Resistance" value="2">
+                                        <span>1.0~1.1PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_On_Resistance_3">
+                                        <input type="radio" id="CHK_On_Resistance_3" name="CHK_On_Resistance" value="3">
+                                        <span>1.1~1.2PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_On_Resistance_4">
+                                        <input type="radio" id="CHK_On_Resistance_4" name="CHK_On_Resistance" value="4">
+                                        <span>1.2~1.25PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_On_Resistance_5">
+                                        <input type="radio" id="CHK_On_Resistance_5" name="CHK_On_Resistance" value="5">
+                                        <span>1.25PU 초과</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    열 저항
+                                </td>
+                                <td></td>
+                                <td>1PU = 제조사 권장값</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_1">
+                                        <input type="radio" id="CHK_Thermal_Resistance_1" name="CHK_Thermal_Resistance" value="1" checked>
+                                        <span>0.9~1.0PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_2">
+                                        <input type="radio" id="CHK_Thermal_Resistance_2" name="CHK_Thermal_Resistance" value="2">
+                                        <span>1.0~1.1PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_3">
+                                        <input type="radio" id="CHK_Thermal_Resistance_3" name="CHK_Thermal_Resistance" value="3">
+                                        <span>1.1~1.2PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_4">
+                                        <input type="radio" id="CHK_Thermal_Resistance_4" name="CHK_Thermal_Resistance" value="4">
+                                        <span>1.2~1.25PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_5">
+                                        <input type="radio" id="CHK_Thermal_Resistance_5" name="CHK_Thermal_Resistance" value="5">
+                                        <span>1.25PU 초과</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    C 전류
+                                </td>
+                                <td></td>
+                                <td>1PU = 정격 스위칭 시간</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_C_Current_1">
+                                        <input type="radio" id="CHK_C_Current_1" name="CHK_C_Current" value="1" checked>
+                                        <span>0.9~1.0PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_C_Current_2">
+                                        <input type="radio" id="CHK_C_Current_2" name="CHK_C_Current" value="2">
+                                        <span>1.0~1.1PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_C_Current_3">
+                                        <input type="radio" id="CHK_C_Current_3" name="CHK_C_Current" value="3">
+                                        <span>1.1~1.2PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_C_Current_4">
+                                        <input type="radio" id="CHK_C_Current_4" name="CHK_C_Current" value="4">
+                                        <span>1.2~1.25PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_C_Current_5">
+                                        <input type="radio" id="CHK_C_Current_5" name="CHK_C_Current" value="5">
+                                        <span>1.25PU 초과</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    On/Off 전류
+                                </td>
+                                <td></td>
+                                <td>1PU = 정격 스위칭 시간</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_OnOff_Time_1">
+                                        <input type="radio" id="CHK_OnOff_Time_1" name="CHK_OnOff_Time" value="1" checked>
+                                        <span>0.9~1.0PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_OnOff_Time_2">
+                                        <input type="radio" id="CHK_OnOff_Time_2" name="CHK_OnOff_Time" value="2">
+                                        <span>1.0~1.1PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_OnOff_Time_3">
+                                        <input type="radio" id="CHK_OnOff_Time_3" name="CHK_OnOff_Time" value="3">
+                                        <span>1.1~1.2PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_OnOff_Time_4">
+                                        <input type="radio" id="CHK_OnOff_Time_4" name="CHK_OnOff_Time" value="4">
+                                        <span>1.2~1.25PU</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_OnOff_Time_5">
+                                        <input type="radio" id="CHK_OnOff_Time_5" name="CHK_OnOff_Time" value="5">
+                                        <span>1.25PU 초과</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="4">
+                                    커패시터
+                                </td>
+                                <td>절연저항</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_1">
+                                        <input type="radio" id="CHK_Insulation_Resistance_1" name="CHK_Insulation_Resistance" value="1" checked>
+                                        <span>500MΩ이상</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_2">
+                                        <input type="radio" id="CHK_Insulation_Resistance_2" name="CHK_Insulation_Resistance" value="2">
+                                        <span>400MΩ~500MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_3">
+                                        <input type="radio" id="CHK_Insulation_Resistance_3" name="CHK_Insulation_Resistance" value="3">
+                                        <span>200MΩ~300MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_4">
+                                        <input type="radio" id="CHK_Insulation_Resistance_4" name="CHK_Insulation_Resistance" value="4">
+                                        <span>100MΩ~200MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_5">
+                                        <input type="radio" id="CHK_Insulation_Resistance_5" name="CHK_Insulation_Resistance" value="5">
+                                        <span>100MΩ미만</span>
+                                    </label>
+                                </td>
+                                <td rowspan="4">-</td>
+                            </tr>
+
+                            <tr>
+                                <td>ESR</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_ESR_1">
+                                        <input type="radio" id="CHK_ESR_1" name="CHK_ESR" value="1" checked>
+                                        <span>초기값 대비 1.1배</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_ESR_2">
+                                        <input type="radio" id="CHK_ESR_2" name="CHK_ESR" value="2">
+                                        <span>초기값 대비 1.25배</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_ESR_3">
+                                        <input type="radio" id="CHK_ESR_3" name="CHK_ESR" value="3">
+                                        <span>초기값 대비 1.5배</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_ESR_4">
+                                        <input type="radio" id="CHK_ESR_4" name="CHK_ESR" value="4">
+                                        <span>초기값 대비 1.75배</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_TDR_5">
+                                        <input type="radio" id="CHK_TDR_5" name="CHK_TDR" value="5">
+                                        <span>초기값 대비 2배 초과</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td>커패시턴스</td>
+                                <td></td>
+                                <td>1PU = 제조사 권장값</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Capacitance_1">
+                                        <input type="radio" id="CHK_Capacitance_1" name="CHK_Capacitance" value="1" checked>
+                                        <span>PU+-2.5%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Capacitance_2">
+                                        <input type="radio" id="CHK_Capacitance_2" name="CHK_Capacitance" value="2">
+                                        <span>PU+-5%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Capacitance_3">
+                                        <input type="radio" id="CHK_Capacitance_3" name="CHK_Capacitance" value="3">
+                                        <span>PU+-7.5%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Capacitance_4">
+                                        <input type="radio" id="CHK_Capacitance_4" name="CHK_Capacitance" value="4">
+                                        <span>PU+-10%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Capacitance_5">
+                                        <input type="radio" id="CHK_Capacitance_5" name="CHK_Capacitance" value="5">
+                                        <span>PU+-10%초과</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td>온도</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Temperature_1">
+                                        <input type="radio" id="CHK_Temperature_1" name="CHK_Temperature" value="1" checked>
+                                        <span>권장온도 80%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Temperature_2">
+                                        <input type="radio" id="CHK_Temperature_2" name="CHK_Temperature" value="2">
+                                        <span>권장온도 85%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Temperature_3">
+                                        <input type="radio" id="CHK_Temperature_3" name="CHK_Temperature" value="3">
+                                        <span>권장온도 95%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Temperature_4">
+                                        <input type="radio" id="CHK_Temperature_4" name="CHK_Temperature" value="4">
+                                        <span>권장온도 100%이내</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK_Temperature_5">
+                                        <input type="radio" id="CHK_Temperature_5" name="CHK_Temperature" value="5">
+                                        <span>권장온도 초과</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // SUBMODULE 점검 정보 수집 함수
+        function createSUBMODULEChk() {
+            submitSUBMODULEChkForm();
+        }
+
+        function submitSUBMODULEChkForm() {
+            var form = document.getElementById("submoduleChkForm");
+            var formData = new FormData(form);
+
+            // 1) SUBMODULE_Code가 hidden인 경우(이미 URL에 있었음) => 바로 진행
+            // 2) SUBMODULE_Code가 드롭다운인 경우 => 선택 체크
+            var submoduleCodeDropdown = document.getElementById("SUBMODULE_Code");
+            if (submoduleCodeDropdown) {
+                // 사용자가 "SUBMODULE를 선택하세요."(기본값) 또는 빈 값("")을 선택한 경우 확인
+                if (!submoduleCodeDropdown.value) {
+                    alert("SUBMODULE를 선택하세요.");
+                    return;
+                }
+            }
+
+            // FormData 내용을 콘솔에 출력
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+            url: '@Url.Action("SUBMODULEChkAdd", "SUBMODULEChk")',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("서버 응답:", response);
+                if (response.IsSuccess) {
+                    alert("SUBMODULE 보통점검 정보가 저장되었습니다.");
+                    window.location.href = '@Url.Action("SUBMODULEChkTotalList", "SUBMODULEChk")';
+                } else {
+                    alert("SUBMODULE 보통점검 정보를 추가하지 못했습니다.: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생:", xhr.responseText || status, error);
+                alert("SUBMODULE 보통점검 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+            }
+        });
+    }
+    </script>
+}

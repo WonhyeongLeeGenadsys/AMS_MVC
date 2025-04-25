@@ -12,7 +12,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("VCBChkAdd", "VCBChk")" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChk1Add", "ITRChk1")" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -71,7 +71,7 @@
                                 const itrCode = e.data.ITR_Code;
 
                                 var baseUrl = window.location.origin;
-                                var detailUrl = '@Url.Action("ITRChk1Detail", "ITRChk1")';
+                                var detailUrl = '@Url.Action("ITRChkDetail", "ITRChk")';
 
                                 window.location.href = baseUrl + detailUrl + "?itrCode=" + encodeURIComponent(itrCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
                             }
