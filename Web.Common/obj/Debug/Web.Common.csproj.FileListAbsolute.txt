@@ -14,4 +14,3 @@ D:\test\AMS_MVC\Web.Common\bin\Debug\Web.Common.pdb
 D:\test\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CoreCompileInputs.cache
 D:\test\AMS_MVC\Web.Common\obj\Debug\Web.Common.dll
 D:\test\AMS_MVC\Web.Common\obj\Debug\Web.Common.pdb
-D:\test\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.AssemblyReference.cache

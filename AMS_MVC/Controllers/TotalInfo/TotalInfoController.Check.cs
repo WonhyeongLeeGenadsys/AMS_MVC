@@ -13,6 +13,9 @@ namespace AMS_MVC.Controllers
         private readonly VCBChkRepository vcbRepo = new VCBChkRepository();
         private readonly ITRChk1Repository itrChk1Repo = new ITRChk1Repository();
         private readonly ITRChk2Repository itrChk2Repo = new ITRChk2Repository();
+        private readonly DCCBChkRepository dccbRepo = new DCCBChkRepository();
+        private readonly DCCABLEChkRepository dccableRepo = new DCCABLEChkRepository();
+        private readonly SUBMODULEChkRepository submoduleRepo = new SUBMODULEChkRepository();
 
         // GET: 점검 일정 API
         public JsonResult GetScheduleData(int year, int month)
@@ -20,47 +23,102 @@ namespace AMS_MVC.Controllers
             List<VCBChk> vcbChecks;
             List<ITRChk1> itrChecks1;
             List<ITRChk2> itrChecks2;
+            List<DCCBChk> dccbChecks;
+            List<DCCABLEChk> dccableChecks;
+            List<SUBMODULEChk> submoduleChecks;
 
             vcbRepo.GetTotalVCBChk(out vcbChecks);
             itrChk1Repo.GetTotalITRChk1(out itrChecks1);
             itrChk2Repo.GetTotalITRChk2(out itrChecks2);
+            dccbRepo.GetTotalDCCBChk(out dccbChecks);
+            dccableRepo.GetTotalDCCABLEChk(out dccableChecks);
+            submoduleRepo.GetTotalSUBMODULEChk(out submoduleChecks);
 
-            var schedules = new List<object>();
+            var schedules = new List<dynamic>();
 
-            schedules.AddRange(vcbChecks
-                .Where(c => c.CHK_Start_Date.HasValue && c.CHK_Start_Date.Value.Year == year && c.CHK_Start_Date.Value.Month == month)
-                .Select(c => new
+            // Helper: 일정 아이템 추가
+            void AddRange<T>(IEnumerable<T> records, Func<T, DateTime?> getStart, Func<T, DateTime?> getEnd, string codeField, string type, string status)
+            {
+                foreach (var c in records)
                 {
-                    Code = c.VCB_Code,
-                    Type = "VCB",
-                    Start = c.CHK_Start_Date.Value.ToString("yyyy-MM-dd"),
-                    End = c.CHK_End_Date?.ToString("yyyy-MM-dd"),
-                    Status = "confirmed"
-                }));
+                    var s = getStart(c);
+                    if (s.HasValue && s.Value.Year == year && s.Value.Month == month)
+                    {
+                        var e = getEnd(c);
+                        schedules.Add(new
+                        {
+                            Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
+                            Type = type,
+                            Start = s.Value.ToString("yyyy-MM-dd"),
+                            End = e?.ToString("yyyy-MM-dd"),
+                            Status = status
+                        });
+                    }
+                    // overdue: End + 3 months
+                    if (getEnd(c)?.AddMonths(3) is DateTime due
+                        && due.Year == year && due.Month == month)
+                    {
+                        schedules.Add(new
+                        {
+                            Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
+                            Type = type,
+                            Start = due.ToString("yyyy-MM-dd"),
+                            End = (string)null,
+                            Status = "overdue"
+                        });
+                    }
+                }
+            }
 
-            schedules.AddRange(itrChecks1
-                .Where(c => c.CHK1_Start_Date.HasValue && c.CHK1_Start_Date.Value.Year == year && c.CHK1_Start_Date.Value.Month == month)
-                .Select(c => new
-                {
-                    Code = c.ITR_Code,
-                    Type = "Interface TR",
-                    Start = c.CHK1_Start_Date.Value.ToString("yyyy-MM-dd"),
-                    End = c.CHK1_End_Date?.ToString("yyyy-MM-dd"),
-                    Status = "risk"
-                }));
-
-            schedules.AddRange(itrChecks2
-                .Where(c => c.CHK2_Start_Date.HasValue && c.CHK2_Start_Date.Value.Year == year && c.CHK2_Start_Date.Value.Month == month)
-                .Select(c => new
-                {
-                    Code = c.ITR_Code,
-                    Type = "Interface TR",
-                    Start = c.CHK2_Start_Date.Value.ToString("yyyy-MM-dd"),
-                    End = c.CHK2_End_Date?.ToString("yyyy-MM-dd"),
-                    Status = "risk"
-                }));
+            AddRange(vcbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "VCB_Code", "VCB", "confirmed");
+            AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "Interface TR", "confirmed");
+            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "Interface TR", "risk");
+            AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DC CB", "confirmed");
+            AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCable_Code", "DC Cable", "confirmed");
+            AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SubModule_Code", "SubModule", "confirmed");
 
             return Json(schedules, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult ScheduleDetail(string type, string code)
+        {
+            ViewBag.Type = type;
+            ViewBag.Code = code;
+
+            // 실제 점검 이력을 담을 객체
+            IEnumerable<object> items = Enumerable.Empty<object>();
+
+            switch (type)
+            {
+                case "VCB":
+                    vcbRepo.GetVCBChkByVCBCode(code, out var vcbList);
+                    items = vcbList;
+                    break;
+
+                case "Interface TR":
+                    itrChk1Repo.GetITRChk1ByITRCode(code, out var t1);
+                    itrChk2Repo.GetITRChk2ByITRCode(code, out var t2);
+                    items = t1.Cast<object>().Concat(t2);
+                    break;
+
+                case "DC CB":
+                    dccbRepo.GetDCCBChkByDCCBCode(code, out var dcb);
+                    items = dcb;
+                    break;
+
+                case "DC Cable":
+                    dccableRepo.GetDCCABLEChkByDCCABLECode(code, out var cab);
+                    items = cab;
+                    break;
+
+                case "SubModule":
+                    submoduleRepo.GetSUBMODULEChkBySUBMODULECode(code, out var sm);
+                    items = sm;
+                    break;
+            }
+
+            return View("~/Views/TotalInfo/ScheduleDetail.cshtml", items);
         }
     }
 }
