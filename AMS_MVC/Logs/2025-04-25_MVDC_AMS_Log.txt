@@ -1,0 +1,4 @@
+|2025-04-25 15:05:52  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-25 15:05:53  |   VCBChkController.List  |   조회된 데이터: 14건   |
+|2025-04-25 15:06:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-25 15:06:07  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |

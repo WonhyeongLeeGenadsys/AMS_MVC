@@ -153,11 +153,11 @@
                 <div class="matrix_left">
                     <h3 class="left tit">PoF</h3>
                     <ul class="left txt">
-                        <li>Very Poor</li>
-                        <li>Poor</li>
-                        <li>Fair</li>
-                        <li>Good</li>
-                        <li>Very Good</li>
+                        <li>5등급</li>
+                        <li>4등급</li>
+                        <li>3등급</li>
+                        <li>2등급</li>
+                        <li>1등급</li>
                     </ul>
                 </div>
                 <!--//메트릭스좌측-->
@@ -194,15 +194,16 @@
                     <li data-position="0,3" class="fair">0</li>
                     <li data-position="0,4" class="poor">0</li>
                 </ul>
+
                 <!--//그래프-->
                 <!--메트릭스푸터-->
                 <div class="matrix_bottom">
                     <ul class="bottom txt">
-                        <li>Very good</li>
-                        <li>good</li>
-                        <li>Fair</li>
-                        <li>Poor</li>
-                        <li>Very Poor</li>
+                        <li>1등급</li>
+                        <li>2등급</li>
+                        <li>3등급</li>
+                        <li>4등급</li>
+                        <li>5등급</li>
                     </ul>
                     <h3 class="bottom_t tit">CoF</h3>
                 </div>
@@ -277,8 +278,26 @@
                     function initializePriorityGrid(data) {
                         $('#gridContainer').dxDataGrid({
                             dataSource: data,
-                            columnFixing: {
-                                enabled: true,
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onCellPrepared: function (e) {
+                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                    var hi = e.value;
+                                    var cls = '';
+                                    switch (hi) {
+                                        case 1: cls = 'priorityVerygood'; break;
+                                        case 2: cls = 'priorityGood'; break;
+                                        case 3: cls = 'priorityFair'; break;
+                                        case 4: cls = 'priorityPoor'; break;
+                                        case 5: cls = 'priorityVerypoor'; break;
+                                    }
+                                    if (cls) {
+                                        e.cellElement.addClass(cls);
+                                    }
+                                }
                             },
                             columns: [
                                 { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
@@ -290,7 +309,12 @@
                                 { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
                                 { dataField: 'CoF', caption: 'CoF', alignment: 'center' },
                                 { dataField: 'PoF', caption: 'PoF', alignment: 'center' },
-                                { dataField: 'HI', caption: 'HI', alignment: 'center' },
+                                {
+                                    dataField: 'HI',
+                                    caption: 'HI',
+                                    alignment: 'center',
+                                    dataType: 'number'
+                                }
                             ],
                             showBorders: true,
                             sorting: {
@@ -311,6 +335,7 @@
                 <p class="schedule_value">
                     <span class="confirmed">보통점검</span>
                     <span class="risk">정밀점검</span>
+                    <span class="alarm">점검 예정일</span>
                 </p>
                 <p class="month_select">
                     <a href="javascript:void(0);" class="arrow prev">이전달</a>
@@ -382,7 +407,7 @@
                                     risk: "background:#800080;",
                                     overdue: "background:#C00;"
                                 };
-                                const width = (endDay - startDay + 1) * 30 + "px";
+                                const width = (endDay - startDay + 1) * 31 + "px";
 
                                 html += `<tr>
                                <th>${type}</th>
@@ -498,9 +523,19 @@
                             var transformed = transformData(response);
                             console.log("변환된 데이터:", transformed);
 
-                            // dxDataGrid에 변환된 데이터를 dataSource로 적용
                             $("#gridContainer02").dxDataGrid({
                                 dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                // **여기부터 추가**
+                                onRowPrepared: function (e) {
+                                    // e.rowType==='data' 이면서, 첫 번째 행(rowIndex===0)만
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
                                 columns: [
                                     { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                     { dataField: 'Code', caption: '코드', alignment: 'center' },
@@ -518,7 +553,7 @@
                                         dataField: 'Date',
                                         caption: '고장일',
                                         alignment: 'center',
-                                        dataType: 'date'  // Date 객체로 전달된 경우 날짜 형식으로 렌더링
+                                        dataType: 'date' 
                                     }
                                 ],
                                 showBorders: true,

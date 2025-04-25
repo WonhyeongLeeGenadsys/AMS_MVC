@@ -1542,6 +1542,25 @@ h4.tit_h4 {
 	background-color: #F05153;
 }
 
+.priorityVerygood {
+	background-color: rgba(91, 159, 86, 0.25); /* 우선순위 HI 배경색 25% 불투명도 */
+}
+
+.priorityGood {
+	background-color: rgba(180, 222, 177, 0.25);
+}
+
+.priorityFair {
+	background-color: rgba(235, 205, 29, 0.25);
+}
+
+.priorityPoor {
+	background-color: rgba(241, 132, 37, 0.25);
+}
+
+.priorityVerypoor {
+	background-color: rgba(240, 81, 83, 0.25);
+}
 #map {
 	border: 5px solid #E0E0E0
 }
@@ -1639,6 +1658,30 @@ h4.tit_h4 {
 	padding-right: 0px;
 	font-size: 20px;
 	font-weight: 800;
+}
+/* 점검 섹션 탭 앞 컬러박스 */
+.schedule_value span.confirmed::before,
+.schedule_value span.risk::before,
+.schedule_value span.alarm::before{
+	content: '';
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin-right: 6px;
+	vertical-align: middle;
+	border-radius: 2px;
+}
+
+.schedule_value span.confirmed::before {
+	background: #0051A2; /* 파란색 */
+}
+
+.schedule_value span.risk::before {
+	background: #800080; /* 보라색 */
+}
+
+.schedule_value span.alarm::before {
+	background: #EE0000; /* 빨간색 */
 }
 
 .schedule_value span {
@@ -2063,3 +2106,10 @@ dl.product_info {
 					font-weight: bold;
 				}
 
+
+
+/* 첫 번째 행 강조용 스타일 */
+.first-row-highlight {
+	border: 1px solid rgba(255, 0, 0, 0.4) !important;
+	background-color: rgba(255, 0, 0, 0.05) !important;
+}
