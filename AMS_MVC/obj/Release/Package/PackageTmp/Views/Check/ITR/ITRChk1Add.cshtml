@@ -43,21 +43,21 @@
                         <tr>
                             <th>공사명</th>
                             <td colspan="5">
-                                <input type="text" id="chk1_gongsa_name" name="chk1_gongsa_name">
+                                <input type="text" id="chk1_gongsa_name" name="Chk1_Gongsa_Name">
                             </td>
                         </tr>
                         <tr>
                             <th>날씨</th>
                             <td>
-                                <input type="text" id="chk1_weather" name="chk1_weather">
+                                <input type="text" id="chk1_weather" name="Chk1_Weather">
                             </td>
                             <th>기온</th>
                             <td>
-                                <input type="text" id="chk1_temp" name="chk1_temp"> <span>°C</span>
+                                <input type="text" id="chk1_temp" name="Chk1_Temp"> <span>°C</span>
                             </td>
                             <th>습도</th>
                             <td>
-                                <input type="text" id="chk1_hum" name="chk1_hum"> <span>%</span>
+                                <input type="text" id="chk1_hum" name="Chk1_Hum"> <span>%</span>
                             </td>
                         </tr>
                         <tr>
@@ -67,21 +67,21 @@
                             </td>
                             <th>점검자</th>
                             <td>
-                                <input type="text" id="chk1_worker" name="chk1_worker">
+                                <input type="text" id="chk1_worker" name="Chk1_Worker">
                             </td>
                             <th>감독자</th>
                             <td>
-                                <input type="text" id="chk1_manager" name="chk1_manager">
+                                <input type="text" id="chk1_manager" name="Chk1_Manager">
                             </td>
                         </tr>
                         <tr>
                             <th>급전번호</th>
                             <td>
-                                <input type="text" id="chk1_urgent_no" name="chk1_urgent_no">
+                                <input type="text" id="chk1_urgent_no" name="Chk1_Urgent_No">
                             </td>
                             <th>형식</th>
                             <td>
-                                <input type="text" id="chk1_type" name="chk1_type">
+                                <input type="text" id="chk1_type" name="Chk1_Type">
                             </td>
                             <th></th>
                             <td></td>
@@ -89,11 +89,11 @@
                         <tr>
                             <th>점검 시작일</th>
                             <td>
-                                <input type="date" id="chk1_start_date" name="chk1_start_date">
+                                <input type="date" id="chk1_start_date" name="Chk1_Start_Date">
                             </td>
                             <th>점검 종료일</th>
                             <td>
-                                <input type="date" id="chk1_end_date" name="chk1_end_date">
+                                <input type="date" id="chk1_end_date" name="Chk1_End_Date">
                             </td>
                             <th></th>
                             <td></td>
@@ -102,57 +102,6 @@
                 </div>
                 <!--//입력테이블-->
                 <!--알고리즘 반영 파라미터-->
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                            <col style="width:3%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="1">
-                                    History
-                                </td>
-                                <td>고장이력</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="CHK1_H2_1">
-                                        <input type="radio" id="CHK1_H2_1" name="CHK1_H2" value="1" checked>
-                                        <span>≤200</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_2">
-                                        <input type="radio" id="CHK1_H2_2" name="CHK1_H2" value="2">
-                                        <span>≤400</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_3">
-                                        <input type="radio" id="CHK1_H2_3" name="CHK1_H2" value="3">
-                                        <span>≤800</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_4">
-                                        <input type="radio" id="CHK1_H2_4" name="CHK1_H2" value="4">
-                                        <span>>800</span>
-                                    </label>
-                                </td>
-                                <td rowspan="1">-</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
                 <div class="table_list_app">
                     <table>
                         <colgroup>
@@ -350,6 +299,367 @@
                         </tbody>
                     </table>
                 </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    History
+                                </td>
+                                <td>고장이력</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Gojang_History_1">
+                                        <input type="radio" id="CHK1_Gojang_History_1" name="CHK1_Gojang_History" value="1" checked>
+                                        <span>NOT</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Gojang_History_5">
+                                        <input type="radio" id="CHK1_Gojang_History_5" name="CHK1_Gojang_History" value="5">
+                                        <span>OCCUR</span>
+                                    </label>
+                                <td rowspan="1">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    Oil Quality
+                                </td>
+                                <td>절연유 내압</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_1">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_1" name="CHK1_Dielectric_Strength" value="1" checked>
+                                        <span>>40</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_3">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_3" name="CHK1_Dielectric_Strength" value="3">
+                                        <span>≤30</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_5">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_5" name="CHK1_Dielectric_Strength" value="5">
+                                        <span><30</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    Age
+                                </td>
+                                <td>나이</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Age_1">
+                                        <input type="radio" id="CHK1_Age_1" name="CHK1_Age" value="1" checked>
+                                        <span>≤20</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_2">
+                                        <input type="radio" id="CHK1_Age_2" name="CHK1_Age" value="2">
+                                        <span>≤40</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_3">
+                                        <input type="radio" id="CHK1_Age_3" name="CHK1_Age" value="3">
+                                        <span>≤60</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_4">
+                                        <input type="radio" id="CHK1_Age_4" name="CHK1_Age" value="4">
+                                        <span>≤80</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_5">
+                                        <input type="radio" id="CHK1_Age_5" name="CHK1_Age" value="5">
+                                        <span>>80</span>
+                                    </label>
+                                </td>
+                                <td rowspan="2">-</td>
+                            </tr>
+                            <tr>
+
+                                <td>잔여수명</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Remain_Life_1">
+                                        <input type="radio" id="CHK1_Remain_Life_1" name="CHK1_Remain_Life" value="1" checked>
+                                        <span>≥20</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Remain_Life_2">
+                                        <input type="radio" id="CHK1_Remain_Life_2" name="CHK1_Remain_Life" value="2">
+                                        <span>≥10</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Remain_Life_3">
+                                        <input type="radio" id="CHK1_Remain_Life_3" name="CHK1_Remain_Life" value="3">
+                                        <span>≥5</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Remain_Life_4">
+                                        <input type="radio" id="CHK1_Remain_Life_4" name="CHK1_Remain_Life" value="4">
+                                        <span>≥3</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Remain_Life_5">
+                                        <input type="radio" id="CHK1_Remain_Life_5" name="CHK1_Remain_Life" value="5">
+                                        <span>≥1</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    Measure
+                                </td>
+                                <td>Doble</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Doble_1">
+                                        <input type="radio" id="CHK1_Doble_1" name="CHK1_Doble" value="1" checked>
+                                        <span>Good</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_2">
+                                        <input type="radio" id="CHK1_Doble_2" name="CHK1_Doble" value="2">
+                                        <span>Observe</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_3">
+                                        <input type="radio" id="CHK1_Doble_3" name="CHK1_Doble" value="3">
+                                        <span>Careful</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_4">
+                                        <input type="radio" id="CHK1_Doble_4" name="CHK1_Doble" value="4">
+                                        <span>Poor</span>
+                                    </label>
+                                </td>
+                                <td rowspan="2">-</td>
+                            </tr>
+                            <tr>
+                                <td>SFRA</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_SFRA_1">
+                                        <input type="radio" id="CHK1_SFRA_1" name="CHK1_SFRA" value="1" checked>
+                                        <span>≥20</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_SFRA_3">
+                                        <input type="radio" id="CHK1_SFRA_3" name="CHK1_SFRA" value="3">
+                                        <span>≥10</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_SFRA_5">
+                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_SFRA" value="5">
+                                        <span>≥5</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="6">
+                                    절연저항
+                                </td>
+                                <td>HV-E</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_E_1">
+                                        <input type="radio" id="CHK1_HV_E_1" name="CHK1_HV_E" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_HV_E_5">
+                                        <input type="radio" id="CHK1_HV_E_5" name="CHK1_HV_E" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                                <td rowspan="6">-</td>
+                            </tr>
+                            <tr>
+                                <td>LV-E</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_LV_E_1">
+                                        <input type="radio" id="CHK1_LV_E_1" name="CHK1_LV_E" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_LV_E_5">
+                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_LV_E" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>TV-E</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_TV_E_1">
+                                        <input type="radio" id="CHK1_TV_E_1" name="CHK1_TV_E" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_TV_E_5">
+                                        <input type="radio" id="CHK1_TV_E_5" name="CHK1_TV_E" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HV-LV</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_LV_1">
+                                        <input type="radio" id="CHK1_HV_LV_1" name="CHK1_HV_LV" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_HV_LV_5">
+                                        <input type="radio" id="CHK1_HV_LV_5" name="CHK1_HV_LV" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HV-TV</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_TV_1">
+                                        <input type="radio" id="CHK1_HV_TV_1" name="CHK1_HV_TV" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_HV_TV_5">
+                                        <input type="radio" id="CHK1_HV_TV_5" name="CHK1_HV_TV" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LV-TV</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_LV_TV_1">
+                                        <input type="radio" id="CHK1_LV_TV_1" name="CHK1_LV_TV" value="1" checked>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_LV_TV_5">
+                                        <input type="radio" id="CHK1_LV_TV_5" name="CHK1_LV_TV" value="5">
+                                        <span><1000MΩ</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </form>
         </div>
     </div>
@@ -379,9 +689,8 @@
             for (var pair of formData.entries()) {
                 console.log(pair[0] + ": " + pair[1]);
             }
-
             $.ajax({
-            url: '@Url.Action("ITRChkAdd", "ITRChk")',
+            url: '@Url.Action("ITRChkAdd1", "ITRChk", new { ITR_Code = itrCode, type = 1 } )',
             type: "POST",
             data: formData,
             processData: false,
@@ -390,7 +699,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 보통점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk")';
+                    window.location.href = '@Url.Action("TotalList", "ITRChk", new { type = 1 } )';
                 } else {
                     alert("ITR 보통점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

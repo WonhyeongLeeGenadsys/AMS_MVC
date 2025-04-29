@@ -22,7 +22,7 @@ namespace AMS_MVC.Repositories
                 using(DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-                SELECT * FROM INTERFACETR_FAILURE_HISTORY 
+                SELECT * FROM ITR_FAILURE_HISTORY 
                 WHERE ITR_CODE = @ITR_Code";
 
                     itrGojnagList = dbHelper.Conn.Query<ITRFailureHistory>(query, new { ITR_Code = itrCode }).AsList();
@@ -49,7 +49,7 @@ namespace AMS_MVC.Repositories
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "SELECT * FROM INTERFACETR_FAILURE_HISTORY";
+                    const string query = "SELECT * FROM ITR_FAILURE_HISTORY";
                     itrGojangList = dbHelper.Conn.Query<ITRFailureHistory>(query).AsList();
                 }
                 res.Message = $"GetTotalITRGojang 성공";
@@ -73,7 +73,7 @@ namespace AMS_MVC.Repositories
                 {
                     const string sql = @"
                     SELECT *
-                      FROM INTERFACETR_FAILURE_HISTORY
+                      FROM ITR_FAILURE_HISTORY
                      WHERE ITR_CODE = @ITR_Code
                        AND TBL_IDX   = @Tbl_Idx";
                     list = db.Conn
@@ -103,7 +103,7 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-        INSERT INTO INTERFACETR_FAILURE_HISTORY (
+        INSERT INTO ITR_FAILURE_HISTORY (
         ITR_CODE, FAIL_GOJANG_NAME, FAIL_WEATHER, FAIL_TEMP, FAIL_HUM, FAIL_CAUSE, FAIL_REASON, FAIL_STATUS, FAIL_PART, FAIL_PERIOD, FAIL_FINDER, FAIL_REPAIRER, FAIL_SUPERVISOR, FAIL_REPAIR_DATE, FAIL_WRITER 
         ) VALUES (@ITR_Code, @Fail_Gojang_Name, @Fail_Weather, @Fail_Temp, @Fail_Hum, @Fail_Cause, @Fail_Reason, @Fail_Status, @Fail_Part, @Fail_Period, @Fail_Finder, @Fail_Repairer, @Fail_Supervisor, @Fail_Repair_Date, @Fail_Writer)";
 
@@ -139,7 +139,7 @@ namespace AMS_MVC.Repositories
                 using (var db = new DBHelper())
                 {
                     const string sql = @"
-                    UPDATE INTERFACETR_FAILURE_HISTORY
+                    UPDATE ITR_FAILURE_HISTORY
                        SET FAIL_WEATHER     = @Fail_Weather,
                            FAIL_TEMP        = @Fail_Temp,
                            FAIL_HUM         = @Fail_Hum,
@@ -179,7 +179,7 @@ namespace AMS_MVC.Repositories
                 {
                     const string sql = @"
                     DELETE
-                      FROM INTERFACETR_FAILURE_HISTORY
+                      FROM ITR_FAILURE_HISTORY
                      WHERE ITR_CODE = @ITR_Code
                        AND TBL_IDX   = @Tbl_Idx";
                     var cnt = db.Conn.Execute(sql, new { ITR_Code = itrCode, Tbl_Idx = tblIdx });

@@ -71,11 +71,11 @@ namespace AMS_MVC.Controllers
             }
 
             AddRange(vcbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "VCB_Code", "VCB", "confirmed");
-            AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "Interface TR", "confirmed");
-            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "Interface TR", "risk");
-            AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DC CB", "confirmed");
-            AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCable_Code", "DC Cable", "confirmed");
-            AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SubModule_Code", "SubModule", "confirmed");
+            AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "ITR", "confirmed");
+            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "ITR ", "risk");
+            AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DCCB", "confirmed");
+            AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCABLE_Code", "DCCABLE", "confirmed");
+            AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SUBMODULE_Code", "SUBMODULE", "confirmed");
 
             return Json(schedules, JsonRequestBehavior.AllowGet);
         }
@@ -96,23 +96,23 @@ namespace AMS_MVC.Controllers
                     items = vcbList;
                     break;
 
-                case "Interface TR":
+                case "ITR":
                     itrChk1Repo.GetITRChk1ByITRCode(code, out var t1);
                     itrChk2Repo.GetITRChk2ByITRCode(code, out var t2);
                     items = t1.Cast<object>().Concat(t2);
                     break;
 
-                case "DC CB":
+                case "DCCB":
                     dccbRepo.GetDCCBChkByDCCBCode(code, out var dcb);
                     items = dcb;
                     break;
 
-                case "DC Cable":
+                case "DCCABLE":
                     dccableRepo.GetDCCABLEChkByDCCABLECode(code, out var cab);
                     items = cab;
                     break;
 
-                case "SubModule":
+                case "SUBMODULE":
                     submoduleRepo.GetSUBMODULEChkBySUBMODULECode(code, out var sm);
                     items = sm;
                     break;

@@ -5,14 +5,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\publish</_PublishTargetUrl>
-    <History>True|2025-04-22T06:31:24.2435243Z;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
+    <History>True|2025-04-25T09:03:28.5103563Z;True|2025-04-22T15:31:24.2435243+09:00;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AMS_MVC.dll">
-      <publishTime>04/22/2025 15:31:24</publishTime>
+      <publishTime>04/25/2025 18:03:28</publishTime>
     </File>
     <File Include="bin/AMS_MVC.pdb">
-      <publishTime>04/22/2025 15:31:24</publishTime>
+      <publishTime>04/25/2025 18:03:28</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>04/22/2025 14:52:29</publishTime>
@@ -270,10 +270,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:29</publishTime>
     </File>
     <File Include="bin/Web.Common.dll">
-      <publishTime>04/22/2025 15:31:23</publishTime>
+      <publishTime>04/25/2025 18:03:27</publishTime>
     </File>
     <File Include="bin/Web.Common.pdb">
-      <publishTime>04/22/2025 15:31:23</publishTime>
+      <publishTime>04/25/2025 18:03:27</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>04/22/2025 14:52:30</publishTime>
@@ -306,7 +306,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="css/electric.css">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 17:04:54</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -600,10 +600,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/DCCABLE/DCCABLEChkAdd.cshtml">
-      <publishTime>04/22/2025 15:28:41</publishTime>
+      <publishTime>04/22/2025 17:51:35</publishTime>
     </File>
     <File Include="Views/Check/DCCABLE/DCCABLEChkDetail.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 19:00:27</publishTime>
     </File>
     <File Include="Views/Check/DCCABLE/DCCABLEChkList.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -612,10 +612,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/DCCB/DCCBChkAdd.cshtml">
-      <publishTime>04/22/2025 15:29:09</publishTime>
+      <publishTime>04/24/2025 18:56:42</publishTime>
     </File>
     <File Include="Views/Check/DCCB/DCCBChkDetail.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 18:58:16</publishTime>
     </File>
     <File Include="Views/Check/DCCB/DCCBChkList.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -624,22 +624,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/ITR/ITRChk1Add.cshtml">
-      <publishTime>04/22/2025 15:08:46</publishTime>
+      <publishTime>04/24/2025 18:28:44</publishTime>
+    </File>
+    <File Include="Views/Check/ITR/ITRChk1Detail.cshtml">
+      <publishTime>04/24/2025 19:16:52</publishTime>
     </File>
     <File Include="Views/Check/ITR/ITRChk1List.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/ITR/ITRChk2Add.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 18:28:44</publishTime>
+    </File>
+    <File Include="Views/Check/ITR/ITRChk2Detail.cshtml">
+      <publishTime>04/24/2025 19:16:52</publishTime>
     </File>
     <File Include="Views/Check/ITR/ITRChk2List.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/SUBMODULE/SUBMODULEChkAdd.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 19:04:51</publishTime>
     </File>
     <File Include="Views/Check/SUBMODULE/SUBMODULEChkDetail.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 19:04:51</publishTime>
     </File>
     <File Include="Views/Check/SUBMODULE/SUBMODULEChkList.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -648,28 +654,28 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Check/Total/DCCABLEChkTotalList.cshtml">
-      <publishTime>04/22/2025 15:23:48</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Check/Total/DCCBChkTotalList.cshtml">
-      <publishTime>04/22/2025 15:23:48</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Check/Total/ITRChk1TotalList.cshtml">
-      <publishTime>04/22/2025 15:23:48</publishTime>
+      <publishTime>04/24/2025 19:22:57</publishTime>
     </File>
     <File Include="Views/Check/Total/ITRChk2TotalList.cshtml">
-      <publishTime>04/22/2025 15:23:48</publishTime>
+      <publishTime>04/24/2025 19:22:57</publishTime>
     </File>
     <File Include="Views/Check/Total/SUBMODULEChkTotalList.cshtml">
-      <publishTime>04/22/2025 15:23:48</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Check/Total/VCBChkTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Check/VCB/VCBChkAdd.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 18:38:55</publishTime>
     </File>
     <File Include="Views/Check/VCB/VCBChkDetail.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 18:56:42</publishTime>
     </File>
     <File Include="Views/Check/VCB/VCBChkList.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -678,31 +684,31 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDevice.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 18:03:07</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDeviceDetail.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDevice.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 18:03:07</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDeviceDetail.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDevice.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 18:03:07</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDeviceDetail.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/23/2025 17:56:59</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDevice.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 18:03:07</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDeviceDetail.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDevice.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 18:03:07</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDeviceDetail.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -738,7 +744,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Gojang/ITR/ITRGojangList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 20:06:38</publishTime>
     </File>
     <File Include="Views/Gojang/ITR/ITRGojangUpdate.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -756,19 +762,19 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Gojang/Total/DCCABLEGojangTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Gojang/Total/DCCBGojangTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Gojang/Total/ITRGojangTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/24/2025 20:01:29</publishTime>
     </File>
     <File Include="Views/Gojang/Total/SUBMODULEGojangTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Gojang/Total/VCBGojangTotalList.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/22/2025 16:54:53</publishTime>
     </File>
     <File Include="Views/Gojang/VCB/VCBGojangAdd.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -786,7 +792,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/Login/Index.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 17:52:54</publishTime>
     </File>
     <File Include="Views/Maintenance/DCCABLE/DCCABLEMaintenanceAdd.cshtml">
       <publishTime>04/22/2025 14:52:28</publishTime>
@@ -969,7 +975,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/22/2025 14:52:28</publishTime>
     </File>
     <File Include="Views/TotalInfo/Index.cshtml">
-      <publishTime>04/22/2025 14:52:28</publishTime>
+      <publishTime>04/25/2025 17:52:54</publishTime>
+    </File>
+    <File Include="Views/TotalInfo/ScheduleDetail.cshtml">
+      <publishTime>04/25/2025 13:49:31</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>04/22/2025 14:52:28</publishTime>

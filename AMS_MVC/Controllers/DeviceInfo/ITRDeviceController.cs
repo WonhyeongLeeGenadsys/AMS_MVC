@@ -1,23 +1,25 @@
-﻿using AMS_MVC.Repositories;
+﻿using AMS_MVC.Database;
+using AMS_MVC.Models;
+using AMS_MVC.Repositories;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
 
-namespace AMSMVC.Controllers
+namespace AMS_MVC.Controllers
 {
     public class ITRDeviceController : Controller
     {
-        private readonly RiskmatrixRepository riskmatrixRepo = new RiskmatrixRepository();
-        private readonly PriorityInfoRepository priorityRepo = new PriorityInfoRepository();
-        private readonly MaintenanceRepository maintenanceRepo = new MaintenanceRepository();
-        private readonly GojangRepository gojangRepo = new GojangRepository();
-        private readonly ITRChk1Repository itrChk1Repo = new ITRChk1Repository();
-        private readonly ITRChk2Repository itrChk2Repo = new ITRChk2Repository();
-
+        private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+        private readonly PriorityInfoRepository _priorityRepo = new PriorityInfoRepository();
+        private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
+        private readonly GojangRepository _gojangRepo = new GojangRepository();
+        private readonly ITRChk1Repository _itrChk1Repo = new ITRChk1Repository();
+        private readonly ITRChk2Repository _itrChk2Repo = new ITRChk2Repository();
 
         // ITRBasicInfoRepository 사용
-        private readonly ITRBasicInfoRepository itrBasicInfoRepo = new ITRBasicInfoRepository();
+        private readonly ITRBasicInfoRepository _itrBasicInfoRepo = new ITRBasicInfoRepository();
 
         // ITRDeviceInfo 페이지
         public ActionResult Index()
@@ -32,8 +34,8 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                // riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환함
-                var riskData = riskmatrixRepo.GetAggregatedHI(prefix);
+                // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
+                var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -42,15 +44,12 @@ namespace AMSMVC.Controllers
             }
         }
 
-
-
-
         /// <summary>
         /// Riskmatrix PoF, CoF 데이터 가져오기
         /// </summary>
         public JsonResult GetRiskMatrixPofCof(string prefix)
         {
-            var PofCof = riskmatrixRepo.GetRiskMatrixPofCof(prefix);
+            var PofCof = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
             return Json(PofCof);
         }
 
@@ -62,28 +61,27 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                var priorityData = priorityRepo.GetPriority(
-                    "ITRBASICINFO", // ITR 기본정보 테이블
-                    "ITRCODE",      // ITR 코드 필드
+                var priorityData = _priorityRepo.GetPriority(
+                    "ITR_BASICINFO", // ITR 기본정보 테이블
+                    "ITR_CODE",      // ITR 코드 필드
                     "ITR",           // 표시용 장치 이름
                     "ITR"            // 별칭
                 );
 
-                // InstallDate와 OperatingDate를 "yy.MM.dd" 형식의 문자열로 변환합니다.
                 var formattedData = priorityData.Select(item => new
                 {
                     item.Priority,
                     item.Sort,
                     item.Code,
-                    item.SerialNo,
+                    item.Serial_No,
                     item.Name,
-                    InstallDate = item.InstallDate.ToString("yy.MM.dd"),
-                    OperatingDate = item.OperatingDate.ToString("yy.MM.dd"),
+                    Install_Date = item.Install_Date.ToString("yy.MM.dd"),
+                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"),
                     item.UsagePeriod,
                     item.Price,
-                    item.RatedV,
-                    item.RatedA,
-                    item.MakeCompany,
+                    item.Rated_V,
+                    item.Rated_A,
+                    item.Make_Company,
                     item.Writer,
                     item.CoF,
                     item.PoF,
@@ -101,24 +99,35 @@ namespace AMSMVC.Controllers
         /// <summary>
         /// 전체 ITR의 월별 점검 데이터 가져오기 (JSON)
         /// </summary>
+        /// <summary>
+        /// ITR 전체(Chk1 + Chk2) 월별 검사 횟수 가져오기
+        /// </summary>
+        [HttpGet]
         public JsonResult GetMonthlyAllITRChkData()
         {
             try
             {
-                var data = itrChk1Repo.GetMonthlyAllITRChk1Counts();
-                return Json(data, JsonRequestBehavior.AllowGet);
+                // 1) 두 리포지토리에서 각각 데이터를 가져옵니다.
+                var chk1 = _itrChk1Repo.GetMonthlyAllITRChk1Counts();
+                var chk2 = _itrChk2Repo.GetMonthlyAllITRChk2Counts();
+
+                // 2) 합치고 같은 Month끼리 묶어서 Count를 합산
+                var merged = chk1
+                    .Concat(chk2)
+                    .GroupBy(x => x.Month)
+                    .Select(g => new {
+                        Month = g.Key,           // 예: "2024-07"
+                Count = g.Sum(x => x.Count)
+                    })
+                    .OrderBy(x => x.Month)
+                    .ToList();
+
+                return Json(merged, JsonRequestBehavior.AllowGet);
             }
-            catch (System.Exception ex)
+            catch (Exception ex)
             {
-                return Json(new { error = ex.Message });
+                return Json(new { error = ex.Message }, JsonRequestBehavior.AllowGet);
             }
-        }
-        [HttpPost]
-        public JsonResult GetMonthlyAllITRChkData2()
-        {
-            var data1 = itrChk1Repo.GetMonthlyAllITRChk1Counts();
-            var data2 = itrChk2Repo.GetMonthlyAllITRChk2Counts();  
-            return Json(data1.Concat(data2).OrderBy(x => x.Month), JsonRequestBehavior.AllowGet);
         }
 
 
@@ -129,7 +138,7 @@ namespace AMSMVC.Controllers
         {
             try
             {
-                var data = maintenanceRepo.GetMonthlyMaintenanceCounts("ITRMAINTENANCEHISTORY", "ITR");
+                var data = _maintenanceRepo.GetMonthlyMaintenanceCounts("ITR_MAINTENANCE_HISTORY", "ITR");
                 return Json(data, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -147,10 +156,10 @@ namespace AMSMVC.Controllers
             try
             {
                 // ITR만 조회
-                var gojangData = gojangRepo.GetGojangData(
-                    "ITRFAILUREHISTORY", // 고장 이력 테이블
-                    "ITRBASICINFO",       // 기본 정보 테이블
-                    "ITRCODE",            // 매칭할 컬럼명
+                var gojangData = _gojangRepo.GetGojangData(
+                    "ITR_FAILURE_HISTORY", // 고장 이력 테이블
+                    "ITR_BASICINFO",       // 기본 정보 테이블
+                    "ITR_CODE",            // 매칭할 컬럼명
                     "ITR",                 // 별칭
                     "ITR"                  // EntityName (Grid에 표시용)
                 );
@@ -170,16 +179,16 @@ namespace AMSMVC.Controllers
             try
             {
                 List<dynamic> infoWithRisk;
-                var result = itrBasicInfoRepo.GetAllITRBasicInfoWithRiskMatrixRepo(out infoWithRisk);
+                var result = _itrBasicInfoRepo.GetAllITRBasicInfoWithRiskMatrixRepo(out infoWithRisk);
 
                 var formatted = infoWithRisk.Select(b => new
                 {
-                    ITRCode = b.ITRCode,
-                    SerialNo = b.SerialNo,
-                    InstallDate = b.InstallDate != null ? ((DateTime)b.InstallDate).ToString("yyyy-MM-dd") : "",
-                    OperatingDate = b.OperatingDate != null ? ((DateTime)b.OperatingDate).ToString("yyyy-MM-dd") : "",
-                    UsagePeriod = b.OperatingDate != null ? (DateTime.Now.Year - ((DateTime)b.OperatingDate).Year).ToString() + "년" : "",
-                    HI = b.HI  // RiskMatrix 테이블에서 가져온 HI 값
+                    ITR_Code = b.ITR_Code,
+                    Serial_No = b.Serial_No,
+                    Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
+                    Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
+                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
+                    HI = b.HI
                 }).ToList();
 
                 return Json(formatted, JsonRequestBehavior.AllowGet);

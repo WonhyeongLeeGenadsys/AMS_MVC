@@ -17,28 +17,6 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; }
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_DCCB_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
         public string CHK_Writer { get; set; }
 
         public float CHK_MainCircuit_InsulationStrength { get; set; }  // 주 회로 절연내력 시험

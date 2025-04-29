@@ -22,7 +22,7 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-                SELECT * FROM INTERFACETR_MAINTENANCE_HISTORY 
+                SELECT * FROM ITR_MAINTENANCE_HISTORY 
                 WHERE ITR_CODE = @ITR_Code";
 
                     itrMRList = dbHelper.Conn.Query<ITRMaintenanceHistory>(query, new { ITR_Code = itrCode }).AsList();
@@ -47,7 +47,7 @@ namespace AMS_MVC.Repositories
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "SELECT * FROM INTERFACETR_MAINTENANCE_HISTORY";
+                    const string query = "SELECT * FROM ITR_MAINTENANCE_HISTORY";
                     itrMRList = dbHelper.Conn.Query<ITRMaintenanceHistory>(query).AsList();
                 }
                 res.Message = $"GetTotalITRMaintenance 성공";
@@ -72,7 +72,7 @@ namespace AMS_MVC.Repositories
                 {
                     const string query = @"
                 SELECT * 
-                FROM INTERFACETR_MAINTENANCE_HISTORY 
+                FROM ITR_MAINTENANCE_HISTORY 
                 WHERE ITR_CODE = @ITR_Code AND MR_BOSU_NAME = @MR_Bosu_Name";
 
                     itrMRList = dbHelper.Conn.Query<ITRMaintenanceHistory>(query, new { ITR_Code = itrCode, MR_Bosu_Name = maintenanceName }).AsList();
@@ -104,7 +104,7 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-        INSERT INTO INTERFACETR_MAINTENANCE_HISTORY (
+        INSERT INTO ITR_MAINTENANCE_HISTORY (
         ITR_CODE, MR_BOSU_NAME, MR_WEATHER, MR_TEMP, MR_HUM, MR_CONTENT, MR_STATUS, MR_PART, MR_COMPANY, MR_WORKER, MR_MANAGER, MR_DATE, MR_WRITER 
         ) VALUES (@ITR_Code, @MR_Bosu_Name, @MR_Weather, @MR_Temp, @MR_Hum, @MR_Content, @MR_Status, @MR_Part, @MR_Company, @MR_Worker, @MR_Mananger, @MR_Date, @MR_Writer)";
 
@@ -175,7 +175,7 @@ namespace AMS_MVC.Repositories
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM INTERFACETR_MAINTENANCE_HISTORY WHERE ITR_CODE = @ITR_Code AND MR_BOSU_NAME = @MR_Bosu_Name";
+                    const string query = "DELETE FROM ITR_MAINTENANCE_HISTORY WHERE ITR_CODE = @ITR_Code AND MR_BOSU_NAME = @MR_Bosu_Name";
 
                     int affectedRows = dbHelper.Conn.Execute(query, new { ITR_Code = itrCode, MR_Bosu_Name = bosuName });
                     res.Message = affectedRows > 0 ? "ITR 유지보수 데이터 삭제 성공" : "ITR 유지보수 데이터 삭제 실패";

@@ -1,8 +1,8 @@
-﻿@model AMS_MVC.Models.DCCBChk
+﻿@model AMS_MVC.Models.ITRChk2
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var dccbCode = Request.QueryString["dccbCode"] ?? "";
+    var itrCode = Request.QueryString["itrCode"] ?? "";
     var tblIdx = Request.QueryString["tblIdx"] ?? "";
 }
 
@@ -11,18 +11,18 @@
 }
 
 @section MainContent {
-    <h1>DCCB 보통점검 상세 정보</h1>
+    <h1>ITR 보통점검 상세 정보</h1>
 
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
                 <p>
-                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@dccbCode', '@tblIdx');">삭제</a>
-                    <a href="@Url.Action("DCCBChkUpdate", "DCCBChk", new { dccbCode = dccbCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@itrCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("ITRChkUpdate", "ITRChk", new { itrCode = itrCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
 
-            <div class="table_app" id="dccbChk">
+            <div class="table_app" id="itrChk">
                 <table>
                     <colgroup>
                         <col style="width:100px;">
@@ -34,37 +34,37 @@
                     </colgroup>
                     <tr>
                         <th>공사명</th>
-                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                        <td colspan="5">@Model.CHK2_Gongsa_Name</td>
                     </tr>
                     <tr>
                         <th>날씨</th>
-                        <td>@Model.CHK_Weather</td>
+                        <td>@Model.CHK2_Weather</td>
                         <th>기온</th>
-                        <td>@Model.CHK_Temp °C</td>
+                        <td>@Model.CHK2_Temp °C</td>
                         <th>습도</th>
-                        <td>@Model.CHK_Hum %</td>
+                        <td>@Model.CHK2_Hum %</td>
                     </tr>
                     <tr>
                         <th>업체명</th>
-                        <td>@Model.CHK_Company</td>
+                        <td>@Model.CHK2_Company</td>
                         <th>점검자</th>
-                        <td>@Model.CHK_Worker</td>
+                        <td>@Model.CHK2_Worker</td>
                         <th>감독자</th>
-                        <td>@Model.CHK_Manager</td>
+                        <td>@Model.CHK2_Manager</td>
                     </tr>
                     <tr>
                         <th>급전번호</th>
-                        <td>@Model.CHK_Urgent_No</td>
+                        <td>@Model.CHK2_Urgent_No</td>
                         <th>형식</th>
-                        <td>@Model.CHK_Type</td>
+                        <td>@Model.CHK2_Type</td>
                         <th></th>
                         <td></td>
                     </tr>
                     <tr>
                         <th>점검 시작일</th>
-                        <td>@Model.CHK_Start_Date</td>
+                        <td>@Model.CHK2_Start_Date</td>
                         <th>점검 종료일</th>
-                        <td>@Model.CHK_End_Date</td>
+                        <td>@Model.CHK2_End_Date</td>
                         <th></th>
                         <td></td>
                     </tr>
@@ -93,90 +93,67 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td rowspan="4">고속 개폐기</td>
-                            <td>주회로 절연내력</td>
+                            <td rowspan="2">Oil Quality</td>
+                            <td>H2</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_MainCircuit_InsulationStrength)</td>
-                            <td rowspan="4"></td>
+                            <td>@(Model.CHK2_Computerized_Price)</td>
+                            <td rowspan="2"></td>
                         </tr>
                         <tr>
-                            <td>기밀시험</td>
+                            <td>수분함량</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_LeakTest)</td>
-                        </tr>
-                        <tr>
-                            <td>기계적 동작(속도)</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_MechanicalOperation)</td>
-                        </tr>
-                        <tr>
-                            <td>보조 및 제어회로(응답시간)</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_AuxControlCircuit)</td>
+                            <td>@(Model.CHK2_Water_Content)</td>
                         </tr>
 
                         <tr>
-                            <td rowspan="6">전자식 차단부</td>
-                            <td>C-E 전압</td>
+                            <td rowspan="4">Measure</td>
+                            <td>전압비</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_CE_Voltage) </td>
-                            <td rowspan="6"></td>
+                            <td>@(Model.CHK2_Voltage_Ratio) </td>
+                            <td rowspan="4"></td>
                         </tr>
                         <tr>
-                            <td>G 전압</td>
+                            <td>여자전류</td>
                             <td></td>
-                            <td>MΩ</td>
-                            <td>@(Model.CHK_G_Voltage)</td>
+                            <td></td>
+                            <td>@(Model.CHK2_Excitation_Current)</td>
                         </tr>
                         <tr>
-                            <td>On 저항</td>
+                            <td>단락전류</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_On_Resistance)</td>
+                            <td>@(Model.CHK2_Short_Current)</td>
                         </tr>
                         <tr>
-                            <td>열 저항</td>
+                            <td>측정</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_AuxControlCircuit)</td>
-                        </tr>
-                        <tr>
-                            <td>C 전류</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_C_Current)</td>
-                        </tr>
-                        <tr>
-                            <td>On/Off 시간</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_OnOff_Time)</td>
+                            <td>@(Model.CHK2_PD)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+
         </div>
     </div>
 }
 <script type="text/javascript">
-        function deleteGojang(dccbCode, tblIdx) {
+        function deleteGojang(itrCode, tblIdx) {
             if (confirm("정말 삭제하시겠습니까?")) {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("DCCBChkDelete", "DCCBChk")',
-                    data: JSON.stringify({ dccbCode: dccbCode, tblIdx: tblIdx }),
+                    url: '@Url.Action("ITRChkDelete", "ITRChk")',
+                    data: JSON.stringify({ itrCode: itrCode, tblIdx: tblIdx }),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success) {
-                            alert("DCCB 기본 정보가 삭제되었습니다.");
-                            window.location.href = '@Url.Action("DCCBChkTotalList", "DCCBChk")';
+                            alert("ITR 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk")';
                         } else {
-                            alert("DCCB 기본 정보 삭제 실패: " + response.message);
+                            alert("ITR 기본 정보 삭제 실패: " + response.message);
                         }
                     },
                     error: function (xhr, status, error) {

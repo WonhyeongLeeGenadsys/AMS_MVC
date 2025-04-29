@@ -59,7 +59,7 @@ namespace AMS_MVC.Repositories
                            r.HI,
                            i.Rated_V,
                            i.Rated_A
-                    FROM INTERFACETR_BASICINFO i
+                    FROM ITR_BASICINFO i
                     LEFT JOIN RISKMATRIX r ON i.ITR_Code = r.Code
                     WHERE i.{dateColumn} BETWEEN @Start AND @End
                 ";

@@ -31,7 +31,7 @@ namespace AMS_MVC.Repositories
             var configs = new[]
             {
         new { Table = "VCB_MAINTENANCE_HISTORY",       Type = "VCB" },
-        new { Table = "INTERFACETR_MAINTENANCE_HISTORY", Type = "Interface TR" },
+        new { Table = "ITR_MAINTENANCE_HISTORY", Type = "Interface TR" },
         new { Table = "DCCB_MAINTENANCE_HISTORY",      Type = "DCCB" },
         new { Table = "DCCABLE_MAINTENANCE_HISTORY",   Type = "DC Cable" },
         new { Table = "SUBMODULE_MAINTENANCE_HISTORY", Type = "Sub Module" }

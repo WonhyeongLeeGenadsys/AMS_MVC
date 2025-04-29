@@ -18,3 +18,9 @@
 |2025-04-25 17:50:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-04-25 17:53:46  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
 |2025-04-25 17:53:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-25 17:58:21  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-04-25 17:58:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-04-25 17:58:31  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-04-25 17:58:31  |   DB(INTERFACETR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-04-25 17:58:35  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-04-25 17:58:35  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |

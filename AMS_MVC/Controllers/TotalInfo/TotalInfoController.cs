@@ -20,22 +20,21 @@ namespace AMS_MVC.Controllers
             ViewBag.Title = "종합정보";
             return View();
         }
-
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
         {
-            try
-            {
-                var repository = new RiskmatrixRepository();
-                var riskData = repository.GetRiskMatrixPofCof(prefix);
-                return Json(riskData);
-            }
-            catch (Exception ex)
-            {
-                return Json(new { error = ex.Message });
-            }
+            var repository = new RiskmatrixRepository();
+            // 올바른 호출: HI 등급별 건수 집계
+            var hiData = repository.GetAggregatedHI(prefix);
+            return Json(hiData);
         }
-
+        [HttpPost]
+        public JsonResult GetHIList(string prefix)
+        {
+            // 각 장비의 HI 값(정수)만 순서대로 리스트로 내려줍니다
+            var list = _riskRepo.GetHIList(prefix);
+            return Json(list);
+        }
         [HttpPost]
         public JsonResult GetRiskMatrixPofCof()
         {

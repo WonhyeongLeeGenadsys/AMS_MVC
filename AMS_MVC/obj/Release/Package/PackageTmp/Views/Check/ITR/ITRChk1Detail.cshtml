@@ -1,0 +1,255 @@
+﻿@model AMS_MVC.Models.ITRChk1
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var itrCode = Request.QueryString["itrCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>ITR 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@itrCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("ITRChk1Update", "ITRChk", new { itrCode = itrCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+            <div class="table_app" id="itrChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK1_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK1_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK1_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK1_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK1_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK1_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK1_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK1_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK1_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK1_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK1_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                        <col style="width:6%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                            <th>가중치</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="7">DGA</td>
+                            <td>H2</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_H2)</td>
+                            <td rowspan="7"></td>
+                        </tr>
+                        <tr>
+                            <td>C2H2</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_C2H2)</td>
+                        </tr>
+                        <tr>
+                            <td>C2H4</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_C2H4)</td>
+                        </tr>
+                        <tr>
+                            <td>CH4</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_CH4)</td>
+                        </tr>
+                        <tr>
+                            <td>C2H6</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_C2H6)</td>
+                        </tr>
+                        <tr>
+                            <td>CO</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_CO)</td>
+                        </tr>
+                        <tr>
+                            <td>CO2</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_CO2)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">History</td>
+                            <td>고장이력</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_Gojang_History) </td>
+                            <td rowspan="1"></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">Oil Quality</td>
+                            <td>절연유 내압</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_Dielectric_Strength) </td>
+                            <td rowspan="1"></td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">Age</td>
+                            <td>나이</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_Age) </td>
+                            <td rowspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>잔여수명</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_Remain_Life)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">Measure</td>
+                            <td>Doble</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_Doble) </td>
+                            <td rowspan="2"></td>
+                        </tr>
+                        <tr>
+                            <td>SFRA</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_SFRA)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="6">절연저항</td>
+                            <td>HV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_HV_E) </td>
+                            <td rowspan="6"></td>
+                        </tr>
+                        <tr>
+                            <td>LV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_LV_E)</td>
+                        </tr>
+                        <tr>
+                            <td>TV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_TV_E)</td>
+                        </tr>
+                        <tr>
+                            <td>HV-LV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_HV_LV)</td>
+                        </tr>
+                        <tr>
+                            <td>HV-TV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_HV_TV)</td>
+                        </tr>
+                        <tr>
+                            <td>LV-TV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.CHK1_LV_TV)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+<script type="text/javascript">
+        function deleteGojang(itrCode, tblIdx) {
+            if (confirm("정말 삭제하시겠습니까?")) {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("ITRChkDelete", "ITRChk")',
+                    data: JSON.stringify({ itrCode: itrCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("ITR 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk")';
+                        } else {
+                            alert("ITR 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+        }
+</script>
+
+

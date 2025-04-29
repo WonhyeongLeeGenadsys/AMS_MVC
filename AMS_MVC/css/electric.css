@@ -2106,10 +2106,24 @@ dl.product_info {
 					font-weight: bold;
 				}
 
-
-
-/* 첫 번째 행 강조용 스타일 */
-.first-row-highlight {
-	border: 1px solid rgba(255, 0, 0, 0.4) !important;
-	background-color: rgba(255, 0, 0, 0.05) !important;
+/* 개별 페이지에서 사용할 override 규칙 */
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerygood {
+	background-color: rgba(91, 159, 86, 0.25) !important;
 }
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityGood {
+	background-color: rgba(180, 222, 177, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityFair {
+	background-color: rgba(235, 205, 29, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityPoor {
+	background-color: rgba(241, 132, 37, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerypoor {
+	background-color: rgba(240, 81, 83, 0.25) !important;
+}
+
