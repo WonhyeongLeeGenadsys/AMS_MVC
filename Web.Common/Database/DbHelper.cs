@@ -13,8 +13,9 @@ namespace AMS_MVC.Database
         public SqlConnection Conn { get { return mConn; } }
         public DBHelper()
         {
-            string connStr = ConfigurationManager.ConnectionStrings["MYDBConnectionString"].ConnectionString;
+            //string connStr = ConfigurationManager.ConnectionStrings["MYDBConnectionString"].ConnectionString;
             //string connStr = ConfigurationManager.ConnectionStrings["MiniSetting"].ConnectionString;
+            string connStr = ConfigurationManager.ConnectionStrings["AMS"].ConnectionString;
 
             mConn = new SqlConnection(connStr);
             mConn.Open();

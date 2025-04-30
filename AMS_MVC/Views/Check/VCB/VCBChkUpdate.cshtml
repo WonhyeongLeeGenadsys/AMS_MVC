@@ -94,351 +94,640 @@
                         </tr>
                     </table>
                 </div>
-                <!--//입력테이블-->
-                <!--리스트형 입력테이블-->
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:15%">
-                            <col style="width:15%">
-                            <col style="width:12%">
-                            <col style="width:8%">
-                            <col>
-                            <col style="width:6%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="4">일반육안점검</td>
-                                <td>개폐표시기 정위치</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    @*개폐표시기 정위치*@
-                                    <label class="ty_rdo" for="chk_loc_normal">
-                                        <input type="radio" id="chk_loc_normal" name="chk_loc" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_loc_abnormal">
-                                        <input type="radio" id="chk_loc_abnormal" name="chk_loc">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="4">7</td>
-                            </tr>
-                            <tr>
-                                <td>축세표시 정위치(Charge, Discharge)</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_chuk_loc_normal">
-                                        <input type="radio" id="chk_chuk_loc_normal" name="chk_chuk_loc" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_chuk_loc_abnormal">
-                                        <input type="radio" id="chk_chuk_loc_abnormal" name="chk_chuk_loc">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>주 전도부 단자의 연결상태</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_con_status_normal">
-                                        <input type="radio" id="chk_con_status_normal" name="chk_con_status" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_con_status_abnormal">
-                                        <input type="radio" id="chk_con_status_abnormal" name="chk_con_status">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>각종Bolt-Nut의 이완여부</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_bolt_nut_status_normal">
-                                        <input type="radio" id="chk_bolt_nut_status_normal" name="chk_bolt_nut_status" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_bolt_nut_status_abnormal">
-                                        <input type="radio" id="chk_bolt_nut_status_abnormal" name="chk_bolt_nut_status">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">Vacumm Interrupt 점검</td>
-                                <td>접점 마모량</td>
-                                <td>소모량 3mm이하</td>
-                                <td>mm</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_contact_volume_up">
-                                        <input type="radio" id="chk_contact_volume_up" name="chk_contact_volume" checked>
-                                        <span>12mm이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_contact_volume_down">
-                                        <input type="radio" id="chk_contact_volume_down" name="chk_contact_volume">
-                                        <span>3mm이하(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="2">9</td>
-                            </tr>
-                            <tr>
-                                <td>진공도 측정(VI누설전류측정)</td>
-                                <td>내전압:50kV   누설전류:0.3mA 이하</td>
-                                <td>mA</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_vacuum_degree_down">
-                                        <input type="radio" id="chk_vacuum_degree_down" name="chk_vacuum_degree" checked>
-                                        <span>0.3mA이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_vacuum_degree_up">
-                                        <input type="radio" id="chk_vacuum_degree_up" name="chk_vacuum_degree">
-                                        <span>0.3mA이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>보조시스템 기능 점검</td>
-                                <td>Coil전류</td>
-                                <td></td>
-                                <td>A</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_coil_a_down">
-                                        <input type="radio" id="chk_coil_a_down" name="chk_coil_a" checked>
-                                        <span>투입:1A이하/트립:1A이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_coil_a_up">
-                                        <input type="radio" id="chk_coil_a_up" name="chk_coil_a">
-                                        <span>투입:1A이상/트립:1A이상(5)</span>
-                                    </label>
-                                </td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>접촉저항 점검</td>
-                                <td>접촉저항</td>
-                                <td></td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_contact_r_down">
-                                        <input type="radio" id="chk_contact_r_down" name="chk_contact_r" checked>
-                                        <span>50uΩ 이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_contact_r_up">
-                                        <input type="radio" id="chk_contact_r_up" name="chk_contact_r">
-                                        <span>50uΩ 이상(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="3">9</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">절연저항 점검</td>
-                                <td>절연저항(주회로)</td>
-                                <td></td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_main_circuit_up">
-                                        <input type="radio" id="chk_main_circuit_up" name="chk_main_circuit" checked>
-                                        <span>500uΩ 이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_main_circuit_down">
-                                        <input type="radio" id="chk_main_circuit_down" name="chk_main_circuit">
-                                        <span>500uΩ 미만(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>절연저항(제어회로)</td>
-                                <td>1000V 메거로 500MΩ 이상</td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_control_circuit_up">
-                                        <input type="radio" id="chk_control_circuit_up" name="chk_control_circuit" checked>
-                                        <span>2uΩ 이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_control_circuit_down">
-                                        <input type="radio" id="chk_control_circuit_down" name="chk_control_circuit">
-                                        <span>2uΩ 미만(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">동작 타이밍 점검</td>
-                                <td>무부하 투입시간</td>
-                                <td>70ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_input_time_in">
-                                        <input type="radio" id="chk_input_time_in" name="chk_input_time" checked>
-                                        <span>65ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_input_time_over">
-                                        <input type="radio" id="chk_input_time_over" name="chk_input_time">
-                                        <span>65ms 초과(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="6">10</td>
-                            </tr>
-                            <tr>
-                                <td>무부하 개극시간</td>
-                                <td>35ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_open_time_in">
-                                        <input type="radio" id="chk_open_time_in" name="chk_open_time" checked>
-                                        <span>40ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_open_time_over">
-                                        <input type="radio" id="chk_open_time_over" name="chk_open_time">
-                                        <span>40ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>3상 개극시 개극차</td>
-                                <td>6ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_3_phase_open_gap_in">
-                                        <input type="radio" id="chk_3_phase_open_gap_in" name="chk_3_phase_open_gap" checked>
-                                        <span>6ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_3_phase_open_gap_over">
-                                        <input type="radio" id="chk_3_phase_open_gap_over" name="chk_3_phase_open_gap">
-                                        <span>6ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Chattering 시간</td>
-                                <td>6ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_chattering_time_in">
-                                        <input type="radio" id="chk_chattering_time_in" name="chk_chattering_time" checked>
-                                        <span>6ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_chattering_time_over">
-                                        <input type="radio" id="chk_chattering_time_over" name="chk_chattering_time">
-                                        <span>6ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>O-C-O</td>
-                                <td>동작책무 이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_o_c_o_in">
-                                        <input type="radio" id="chk_o_c_o_in" name="chk_o_c_o" checked>
-                                        <span>동작책무 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_o_c_o_over">
-                                        <input type="radio" id="chk_o_c_o_over" name="chk_o_c_o">
-                                        <span>동작책무 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>축세조작 시간</td>
-                                <td>12sec 이하</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_operate_time_in">
-                                        <input type="radio" id="chk_operate_time_in" name="chk_operate_time" checked>
-                                        <span>3~5s 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_operate_time_over">
-                                        <input type="radio" id="chk_operate_time_over" name="chk_operate_time">
-                                        <span>5s 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">정기 육안 점검</td>
-                                <td>개폐 조작시험</td>
-                                <td>
-                                    개폐표시기,축세표시기<br />
-                                    도수계정상 동작여부 점검(5회)
-                                </td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_oc_test_normal">
-                                        <input type="radio" id="chk_oc_test_normal" name="chk_oc_test" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_oc_test_abnormal">
-                                        <input type="radio" id="chk_oc_test_abnormal" name="chk_oc_test">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="2">7</td>
-                            </tr>
-                            <tr>
-                                <td>투입 Spring Charget 표시기</td>
-                                <td>상태별 정위치</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!--리스트형 입력테이블-->
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:15%">
-                            <col style="width:20%">
-                            <col style="width:8%">
-                            <col>
-                            <col style="width:6%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>VCB 통계 수명</td>
-                                <td>사용기간수</td>
-                                <td>년</td>
-                                <td>
-                                    <div class="flex">
-                                        <input type="text" />
-                                        @*<input type="text" />
-                                <input type="text" />*@
-                                    </div>
-                                </td>
-                                <td>30</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </form>
-        </div>
-    </div>
+                @model AMS_MVC.Models.VCBChk
 
-    <script>
+                @{
+                    Layout = "~/Views/Shared/_Layout.cshtml";
+                    var vcbCode = Request.QueryString["VCB_Code"] ?? "";
+                }
+
+                @section LeftMenu {
+                    @Html.Partial("_CheckMenu")
+                }
+
+                @section MainContent {
+                    <h1>VCB 보통점검 추가: @ViewBag.SerialNo</h1>
+                    <div class="con_box">
+                        <div class="content_warp">
+                            <div class="btn_area top right">
+                                <a href="javascript:void(0);" class="btn blue app" onclick="createVCBChk()">적용</a>
+                            </div>
+                            <form id="vcbChkForm" method="post" enctype="multipart/form-data">
+                                @* VCB_Code 처리 *@
+                                @if (!string.IsNullOrEmpty(vcbCode))
+                                {
+                                    <input type="hidden" name="VCB_Code" value="@vcbCode" />
+                                }
+                                else
+                                {
+                                    <div style="margin-bottom:15px;">
+                                        @Html.DropDownList(
+                                            "VCB_Code",
+                                            (SelectList)ViewBag.VCBs,
+                                            "VCB를 선택하세요.",
+                                            new { @class = "form-control", id = "VCB_Code" }
+                                        )
+                                    </div>
+                                }
+
+                                <!-- 기본 정보 -->
+                                <div class="table_app" id="vcbChk">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:100px;" />
+                                            <col style="width:calc(33.3% - 100px);" />
+                                            <col style="width:100px;" />
+                                            <col style="width:calc(33.3% - 100px);" />
+                                            <col style="width:100px;" />
+                                            <col style="width:calc(33.3% - 100px);" />
+                                        </colgroup>
+                                        <tr>
+                                            <th>공사명</th>
+                                            <td colspan="5">
+                                                <input type="text" name="CHK_Gongsa_Name" class="w100" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th>날씨</th>
+                                            <td><input type="text" name="CHK_Weather" class="w100" /></td>
+                                            <th>기온</th>
+                                            <td><input type="number" step="0.1" name="CHK_Temp" class="w80" /> °C</td>
+                                            <th>습도</th>
+                                            <td><input type="number" step="0.1" name="CHK_Hum" class="w80" /> %</td>
+                                        </tr>
+                                        <tr>
+                                            <th>업체명</th>
+                                            <td>
+                                                @Html.DropDownList(
+                                                    "CHK_Company",
+                                                    new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"),
+                                                    "제작사를 선택하세요."
+                                                )
+                                            </td>
+                                            <th>점검자</th>
+                                            <td><input type="text" name="CHK_Worker" class="w100" /></td>
+                                            <th>감독자</th>
+                                            <td><input type="text" name="CHK_Manager" class="w100" /></td>
+                                        </tr>
+                                        <tr>
+                                            <th>급전번호</th>
+                                            <td><input type="text" name="CHK_Urgent_No" class="w100" /></td>
+                                            <th>형식</th>
+                                            <td><input type="text" name="CHK_Type" class="w100" /></td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                        <tr>
+                                            <th>점검 시작일</th>
+                                            <td><input type="date" name="CHK_Start_Date" /></td>
+                                            <th>점검 종료일</th>
+                                            <td><input type="date" name="CHK_End_Date" /></td>
+                                            <th></th>
+                                            <td></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <!--// 기본 정보 -->
+                                <!-- 알고리즘 파라미터 (라디오 버튼) -->
+                                <div class="table_list_app">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:15%;" />
+                                            <col style="width:15%;" />
+                                            <col style="width:12%;" />
+                                            <col style="width:8%;" />
+                                            <col />
+                                            <col style="width:6%;" />
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>구분</th>
+                                                <th>Parameters</th>
+                                                <th>단위</th>
+                                                <th></th>
+                                                <th>판정기준 및 score</th>
+                                                <th>가중치</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- 차단부 1: 접점 소모량 -->
+                                            <tr>
+                                                <td rowspan="6">차단부</td>
+                                                <td>접점 소모량</td>
+                                                <td>mm</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactWearPercent" value="1" checked /> 2 미만
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactWearPercent" value="3" /> 2 ~ 3
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactWearPercent" value="5" /> 3 초과
+                                                    </label>
+                                                </td>
+                                                <td rowspan="6">-</td>
+                                            </tr>
+                                            <!-- 차단부 2: 진공(누설전류) -->
+                                            <tr>
+                                                <td>진공(누설전류)</td>
+                                                <td>mA</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_VacuumLeakCurrent" value="1" checked /> 0.1 미만
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_VacuumLeakCurrent" value="3" /> 0.1 ~ 0.2
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_VacuumLeakCurrent" value="5" /> 0.3 초과
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <!-- 차단부 3: 접촉저항 -->
+                                            <tr>
+                                                <td>접촉저항</td>
+                                                <td>초기값 대비</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactResistance" value="1" checked /> ≤ 5%
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactResistance" value="3" /> 5~10%
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactResistance" value="4" /> 10~20%
+                                                    </label>
+                                                    <label class="ty_rdo">
+                                                        <input type="radio" name="CHK_ContactResistance" value="5" /> > 20%
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <!-- 차단부 4: 절연저항 -->
+                                            <tr>
+                                                <td>절연저항</td>
+                                                <td>MΩ</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_InsulationResistance" value="1" checked /> ≥ 500</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_InsulationResistance" value="2" />400~500</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_InsulationResistance" value="3" />300~400</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_InsulationResistance" value="4" />200~300</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_InsulationResistance" value="5" />< 200</label>
+                                                </td>
+                                            </tr>
+                                            <!-- 차단부 5: 핫스팟 -->
+                                            <tr>
+                                                <td>핫스팟</td>
+                                                <td>-</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_HotSpot" value="1" checked /> 없음</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_HotSpot" value="5" /> 발견</label>
+                                                </td>
+                                            </tr>
+                                            <!-- 차단부 6: PD 패턴 및 성장 -->
+                                            <tr>
+                                                <td>PD 패턴 및 성장</td>
+                                                <td>-</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_PdPatternValue" value="1" checked /> 없음</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_PdPatternValue" value="4" /> 있음(성장X)</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_PdPatternValue" value="5" /> 있음</label>
+                                                </td>
+                                            </tr>
+
+                                            <!-- 구동모터 -->
+                                            <tr>
+                                                <td>구동모터</td>
+                                                <td>구동모터 전류</td>
+                                                <td>초기값 대비</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_MotorCurrent" value="1" checked /> ≤ 2%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_MotorCurrent" value="3" />2~5%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_MotorCurrent" value="4" />5~10%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_MotorCurrent" value="5" />>10%</label>
+                                                </td>
+                                                <td>-</td>
+                                            </tr>
+
+                                            <!-- 누적단락전류 -->
+                                            <tr>
+                                                <td>누적단락전류</td>
+                                                <td>누적 단락전류량</td>
+                                                <td>설계 한계치</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_AccumShortCircuitCurrent" value="1" checked /> ≤20%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_AccumShortCircuitCurrent" value="2" />20~40%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_AccumShortCircuitCurrent" value="3" />40~70%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_AccumShortCircuitCurrent" value="4" />70~100%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_AccumShortCircuitCurrent" value="5" />>Limit</label>
+                                                </td>
+                                                <td>-</td>
+                                            </tr>
+
+                                            <!-- 기타 그룹 -->
+                                            <tr>
+                                                <td rowspan="4">기타</td>
+                                                <td>단락전류</td>
+                                                <td>설계 한계치</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_ShortCircuitCount" value="1" checked /> ≤20%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_ShortCircuitCount" value="2" />20~40%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_ShortCircuitCount" value="3" />40~70%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_ShortCircuitCount" value="4" />70~100%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_ShortCircuitCount" value="5" />>Limit</label>
+                                                </td>
+                                                <td rowspan="4">-</td>
+                                            </tr>
+                                            <tr>
+                                                <td>동작 횟수</td>
+                                                <td>설계 한계치</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OperationCount" value="1" checked /> ≤20%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OperationCount" value="2" />20~40%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OperationCount" value="3" />40~70%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OperationCount" value="4" />70~100%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OperationCount" value="5" />>Limit</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>개폐 시간</td>
+                                                <td>초기값 대비</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OpenCloseTime" value="1" checked /> ≤20%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OpenCloseTime" value="3" />40~70%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OpenCloseTime" value="4" />70~100%</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_OpenCloseTime" value="5" />>Limit</label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>외관 점검</td>
+                                                <td>-</td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_VisualCheck" value="1" checked /> 오염·부식·균열 없음</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_VisualCheck" value="3" /> 오염·부식·미약한 균열</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_VisualCheck" value="4" /> 오염·부식 축적</label>
+                                                    <label class="ty_rdo"><input type="radio" name="CHK_VisualCheck" value="5" /> 성능 영향</label>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--리스트형 입력테이블-->
+                                <div class="table_list_app">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:15%">
+                                            <col style="width:15%">
+                                            <col style="width:12%">
+                                            <col style="width:8%">
+                                            <col>
+                                            <col style="width:6%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>구분</th>
+                                                <th>Parameters</th>
+                                                <th>한전기준</th>
+                                                <th>단위</th>
+                                                <th>판정기준 및 score</th>
+                                                <th>가중치</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td rowspan="4">일반육안점검</td>
+                                                <td>개폐표시기 정위치</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    @*개폐표시기 정위치*@
+                                                    <label class="ty_rdo" for="chk_loc_normal">
+                                                        <input type="radio" id="chk_loc_normal" name="chk_loc" checked>
+                                                        <span>정상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_loc_abnormal">
+                                                        <input type="radio" id="chk_loc_abnormal" name="chk_loc">
+                                                        <span>이상(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td rowspan="4">7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>축세표시 정위치(Charge, Discharge)</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_chuk_loc_normal">
+                                                        <input type="radio" id="chk_chuk_loc_normal" name="chk_chuk_loc" checked>
+                                                        <span>정상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_chuk_loc_abnormal">
+                                                        <input type="radio" id="chk_chuk_loc_abnormal" name="chk_chuk_loc">
+                                                        <span>이상(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>주 전도부 단자의 연결상태</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_con_status_normal">
+                                                        <input type="radio" id="chk_con_status_normal" name="chk_con_status" checked>
+                                                        <span>정상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_con_status_abnormal">
+                                                        <input type="radio" id="chk_con_status_abnormal" name="chk_con_status">
+                                                        <span>이상(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>각종Bolt-Nut의 이완여부</td>
+                                                <td></td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_bolt_nut_status_normal">
+                                                        <input type="radio" id="chk_bolt_nut_status_normal" name="chk_bolt_nut_status" checked>
+                                                        <span>정상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_bolt_nut_status_abnormal">
+                                                        <input type="radio" id="chk_bolt_nut_status_abnormal" name="chk_bolt_nut_status">
+                                                        <span>이상(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2">Vacumm Interrupt 점검</td>
+                                                <td>접점 마모량</td>
+                                                <td>소모량 3mm이하</td>
+                                                <td>mm</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_contact_volume_up">
+                                                        <input type="radio" id="chk_contact_volume_up" name="chk_contact_volume" checked>
+                                                        <span>12mm이상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_contact_volume_down">
+                                                        <input type="radio" id="chk_contact_volume_down" name="chk_contact_volume">
+                                                        <span>3mm이하(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td rowspan="2">9</td>
+                                            </tr>
+                                            <tr>
+                                                <td>진공도 측정(VI누설전류측정)</td>
+                                                <td>내전압:50kV   누설전류:0.3mA 이하</td>
+                                                <td>mA</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_vacuum_degree_down">
+                                                        <input type="radio" id="chk_vacuum_degree_down" name="chk_vacuum_degree" checked>
+                                                        <span>0.3mA이하(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_vacuum_degree_up">
+                                                        <input type="radio" id="chk_vacuum_degree_up" name="chk_vacuum_degree">
+                                                        <span>0.3mA이상(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>보조시스템 기능 점검</td>
+                                                <td>Coil전류</td>
+                                                <td></td>
+                                                <td>A</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_coil_a_down">
+                                                        <input type="radio" id="chk_coil_a_down" name="chk_coil_a" checked>
+                                                        <span>투입:1A이하/트립:1A이하(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_coil_a_up">
+                                                        <input type="radio" id="chk_coil_a_up" name="chk_coil_a">
+                                                        <span>투입:1A이상/트립:1A이상(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td>8</td>
+                                            </tr>
+                                            <tr>
+                                                <td>접촉저항 점검</td>
+                                                <td>접촉저항</td>
+                                                <td></td>
+                                                <td>Ω</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_contact_r_down">
+                                                        <input type="radio" id="chk_contact_r_down" name="chk_contact_r" checked>
+                                                        <span>50uΩ 이하(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_contact_r_up">
+                                                        <input type="radio" id="chk_contact_r_up" name="chk_contact_r">
+                                                        <span>50uΩ 이상(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td rowspan="3">9</td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2">절연저항 점검</td>
+                                                <td>절연저항(주회로)</td>
+                                                <td></td>
+                                                <td>Ω</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_main_circuit_up">
+                                                        <input type="radio" id="chk_main_circuit_up" name="chk_main_circuit" checked>
+                                                        <span>500uΩ 이상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_main_circuit_down">
+                                                        <input type="radio" id="chk_main_circuit_down" name="chk_main_circuit">
+                                                        <span>500uΩ 미만(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>절연저항(제어회로)</td>
+                                                <td>1000V 메거로 500MΩ 이상</td>
+                                                <td>Ω</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_control_circuit_up">
+                                                        <input type="radio" id="chk_control_circuit_up" name="chk_control_circuit" checked>
+                                                        <span>2uΩ 이상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_control_circuit_down">
+                                                        <input type="radio" id="chk_control_circuit_down" name="chk_control_circuit">
+                                                        <span>2uΩ 미만(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="6">동작 타이밍 점검</td>
+                                                <td>무부하 투입시간</td>
+                                                <td>70ms이내</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_input_time_in">
+                                                        <input type="radio" id="chk_input_time_in" name="chk_input_time" checked>
+                                                        <span>65ms 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_input_time_over">
+                                                        <input type="radio" id="chk_input_time_over" name="chk_input_time">
+                                                        <span>65ms 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td rowspan="6">10</td>
+                                            </tr>
+                                            <tr>
+                                                <td>무부하 개극시간</td>
+                                                <td>35ms이내</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_open_time_in">
+                                                        <input type="radio" id="chk_open_time_in" name="chk_open_time" checked>
+                                                        <span>40ms 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_open_time_over">
+                                                        <input type="radio" id="chk_open_time_over" name="chk_open_time">
+                                                        <span>40ms 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>3상 개극시 개극차</td>
+                                                <td>6ms이내</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_3_phase_open_gap_in">
+                                                        <input type="radio" id="chk_3_phase_open_gap_in" name="chk_3_phase_open_gap" checked>
+                                                        <span>6ms 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_3_phase_open_gap_over">
+                                                        <input type="radio" id="chk_3_phase_open_gap_over" name="chk_3_phase_open_gap">
+                                                        <span>6ms 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Chattering 시간</td>
+                                                <td>6ms이내</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_chattering_time_in">
+                                                        <input type="radio" id="chk_chattering_time_in" name="chk_chattering_time" checked>
+                                                        <span>6ms 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_chattering_time_over">
+                                                        <input type="radio" id="chk_chattering_time_over" name="chk_chattering_time">
+                                                        <span>6ms 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>O-C-O</td>
+                                                <td>동작책무 이내</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_o_c_o_in">
+                                                        <input type="radio" id="chk_o_c_o_in" name="chk_o_c_o" checked>
+                                                        <span>동작책무 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_o_c_o_over">
+                                                        <input type="radio" id="chk_o_c_o_over" name="chk_o_c_o">
+                                                        <span>동작책무 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>축세조작 시간</td>
+                                                <td>12sec 이하</td>
+                                                <td>S</td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_operate_time_in">
+                                                        <input type="radio" id="chk_operate_time_in" name="chk_operate_time" checked>
+                                                        <span>3~5s 이내(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_operate_time_over">
+                                                        <input type="radio" id="chk_operate_time_over" name="chk_operate_time">
+                                                        <span>5s 초과(5)</span>
+                                                    </label>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td rowspan="2">정기 육안 점검</td>
+                                                <td>개폐 조작시험</td>
+                                                <td>
+                                                    개폐표시기,축세표시기<br />
+                                                    도수계정상 동작여부 점검(5회)
+                                                </td>
+                                                <td></td>
+                                                <td>
+                                                    <label class="ty_rdo" for="chk_oc_test_normal">
+                                                        <input type="radio" id="chk_oc_test_normal" name="chk_oc_test" checked>
+                                                        <span>정상(0)</span>
+                                                    </label>
+                                                    <label class="ty_rdo" for="chk_oc_test_abnormal">
+                                                        <input type="radio" id="chk_oc_test_abnormal" name="chk_oc_test">
+                                                        <span>이상(5)</span>
+                                                    </label>
+                                                </td>
+                                                <td rowspan="2">7</td>
+                                            </tr>
+                                            <tr>
+                                                <td>투입 Spring Charget 표시기</td>
+                                                <td>상태별 정위치</td>
+                                                <td></td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <!--리스트형 입력테이블-->
+                                <div class="table_list_app">
+                                    <table>
+                                        <colgroup>
+                                            <col style="width:15%">
+                                            <col style="width:20%">
+                                            <col style="width:8%">
+                                            <col>
+                                            <col style="width:6%">
+                                        </colgroup>
+                                        <thead>
+                                            <tr>
+                                                <th>구분</th>
+                                                <th>Parameters</th>
+                                                <th>단위</th>
+                                                <th>판정기준 및 score</th>
+                                                <th>가중치</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>VCB 통계 수명</td>
+                                                <td>사용기간수</td>
+                                                <td>년</td>
+                                                <td>
+                                                    <div class="flex">
+                                                        <input type="text" />
+                                                        @*<input type="text" />
+                                                <input type="text" />*@
+                                                    </div>
+                                                </td>
+                                                <td>30</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <script>
         function updateVCBChk() {
             var form = document.getElementById("vcbChkUpdateForm");
             var formData = new FormData(form);
@@ -469,5 +758,6 @@
                 }
             });
         }
-    </script>
-}
+                    </script>
+                }
+                }

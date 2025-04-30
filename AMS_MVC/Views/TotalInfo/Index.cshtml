@@ -51,82 +51,74 @@
                 <li><span class="verypoor"></span><strong>5등급</strong></li>
             </ul>
         </div>
+
         <script>
 $(function(){
-  // 1~5등급 라벨과 색상 맵
-  const hiLabels = {
-    1: '1등급',
-    2: '2등급',
-    3: '3등급',
-    4: '4등급',
-    5: '5등급'
-  };
-  const hiColors = {
-    1: '#5B9F56',   // 초록
-    2: '#B4DEB1',   // 연두
-    3: '#EBCD1D',   // 노랑
-    4: '#F18425',   // 주황
-    5: '#F05153'    // 빨강
-  };
+  // 1~5 HI 순서대로 들어갈 색
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
 
-  // 장비 접두사 목록
-  const prefixes = ['VCB','ITR','SUBMODULE','DCCB','DCCABLE'];
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                  // HI 값
+        state: hi + '등급',
+        value: parseInt(data[hi], 10),
+        color: hiPalette[hi - 1]    // HI-1 인덱스로 색 지정
+      }));
+  }
 
-  prefixes.forEach((prefix, idx) => {
-    const container = '#pie0' + (idx+1);
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
 
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pointInfo => ({ color: pointInfo.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,                  // 라벨 보이기
+                    connector: { visible: true },   // 연결선 보이기
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+            legend: {
+                visible: false   // 범례는 숨김
+            },
+            size: { width: 270, height: 270 },
+            innerRadius: 0.5
+        });
+    }
+
+  function setupChart(id, prefix) {
     $.ajax({
       type: 'POST',
       url: '@Url.Action("GetRiskmatrixData","TotalInfo")',
-      data: JSON.stringify({ prefix: prefix }),
+      data: JSON.stringify({ prefix }),
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
-    }).done(function(counts){
-      // counts 예: { "1":2, "3":1, ... }
-      const dataSource = [];
-      for(let hi=1; hi<=5; hi++){
-        const cnt = parseInt(counts[hi]||0, 10);
-        if(cnt>0){
-          dataSource.push({
-            state: hiLabels[hi],
-            value: cnt,
-            color: hiColors[hi]
-          });
-        }
-      }
+    })
+    .done(counts => initializePieChart(id, counts))
+    .fail(err => console.error(prefix + ' 차트 로드 실패:', err));
+  }
 
-      $(container).dxPieChart({
-        type: 'doughnut',
-        dataSource: dataSource,
-        legend: { visible: false },
-        series: [{
-          argumentField: 'state',
-          valueField: 'value',
-          // ← 이 한 줄만 추가하면 dataSource.color를 그대로 씁니다
-          colorField: 'color',
-          label: {
-            visible: true,
-            connector: { visible: true },
-            customizeText: e => e.valueText + '대'
-          }
-        }],
-        size: { width: 270, height: 270 },
-        innerRadius: 0.5
-      });
-    }).fail(function(err){
-      console.error(prefix + ' 건전도 차트 로드 실패:', err);
-    });
-  });
+  // 5개 차트 모두 세팅
+  setupChart('#pie01','VCB');
+  setupChart('#pie02','ITR');
+  setupChart('#pie03','SUBMODULE');
+  setupChart('#pie04','DCCB');
+  setupChart('#pie05','DCCABLE');
 });
         </script>
-
-
-
-
-
-
-
-
 
         <!--//건전도-->
         <!--risk matrix-->
@@ -273,6 +265,13 @@ $(function(){
                             sorting: { mode: 'multiple' },
                             scrolling: { columnRenderingMode: 'virtual' },
 
+                            // **첫 번째 행 테두리 적용**
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-blue');
+                                }
+                            },
+
                             onCellPrepared: function (e) {
                                 if (e.rowType === 'data' && e.column.dataField === 'HI') {
                                     var hi = e.value;
@@ -289,6 +288,7 @@ $(function(){
                                     }
                                 }
                             },
+
                             columns: [
                                 { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                 { dataField: 'Sort', caption: '구분', alignment: 'center' },
@@ -400,18 +400,18 @@ $(function(){
                                 const width = (endDay - startDay + 1) * 31 + "px";
 
                                 html += `<tr>
-                                                                                                                                                       <th>${type}</th>
-                                                                                                                                                       <td>${item.Code}</td>`;
+                                                                                                                                                                                                                                                                                           <th>${type}</th>
+                                                                                                                                                                                                                                                                                           <td>${item.Code}</td>`;
                                 for (let d = 1; d <= daysInMonth; d++) {
                                     if (d === startDay) {
                                         html += `<td colspan="${endDay - startDay + 1}" style="position:relative;">
-                                                                                                                                                           <span class="bar"
-                                                                                                                                                                 data-type="${type}"
-                                                                                                                                                                 data-code="${item.Code}"
-                                                                                                                                                                 data-start="${item.Start}"
-                                                                                                                                                                 data-end="${item.End || item.Start}"
-                                                                                                                                                                 style="${styles[item.Status]} width:${width};height:20px;display:block;cursor:pointer;"></span>
-                                                                                                                                                         </td>`;
+                                                                                                                                                                                                                                                                                               <span class="bar"
+                                                                                                                                                                                                                                                                                                     data-type="${type}"
+                                                                                                                                                                                                                                                                                                     data-code="${item.Code}"
+                                                                                                                                                                                                                                                                                                     data-start="${item.Start}"
+                                                                                                                                                                                                                                                                                                     data-end="${item.End || item.Start}"
+                                                                                                                                                                                                                                                                                                     style="${styles[item.Status]} width:${width};height:20px;display:block;cursor:pointer;"></span>
+                                                                                                                                                                                                                                                                                             </td>`;
                                         d = endDay;
                                     } else {
                                         html += `<td></td>`;

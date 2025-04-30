@@ -2067,7 +2067,7 @@ dl.product_info {
 			.menu_group .check-menu li.active > a {
 				background-color: #fff;
 				color: #666;
-				font-weight: bold;
+				
 			}
 
 		/* 서브메뉴(two_depth)는 일반 흐름에 포함되어 부모 li의 높이를 확장 */
@@ -2078,6 +2078,7 @@ dl.product_info {
 			margin: 5px 0 0 20px; /* 왼쪽 들여쓰기, 위쪽 여백 추가 */
 			background-color: transparent;
 			border-radius: 20px;
+			color: #666;
 		}
 
 		/* 상위 메뉴 active 시 서브메뉴 표시 */
@@ -2102,8 +2103,7 @@ dl.product_info {
 				.menu_group .check-menu li.has-sub ul.two_depth li a.active,
 				.menu_group .check-menu li.has-sub ul.two_depth li.active > a {
 					background-color: #fff;
-					color: #000;
-					font-weight: bold;
+					color: #666;
 				}
 
 /* 개별 페이지에서 사용할 override 규칙 */
@@ -2127,3 +2127,6 @@ dl.product_info {
 	background-color: rgba(240, 81, 83, 0.25) !important;
 }
 
+.first-row-blue td {
+	border: 1px solid #0051A2 !important;
+}

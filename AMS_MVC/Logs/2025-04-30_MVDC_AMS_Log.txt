@@ -1,0 +1,33 @@
+|2025-04-30 08:53:34  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 08:53:34  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 08:56:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 08:56:21  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 08:56:21  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 08:56:24  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 08:56:24  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 08:56:26  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 08:56:26  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 08:56:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 08:56:33  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 08:56:33  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:02:01  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:02:01  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:02:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 09:02:14  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 09:19:39  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:19:39  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:19:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 09:20:13  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:20:13  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:20:15  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-04-30 09:51:36  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:51:36  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:51:39  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:51:39  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:51:41  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:51:41  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:51:42  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:51:42  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:51:44  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
+|2025-04-30 09:51:44  |   VCBChkController.List  |   조회된 데이터: 6건   |
+|2025-04-30 09:51:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
