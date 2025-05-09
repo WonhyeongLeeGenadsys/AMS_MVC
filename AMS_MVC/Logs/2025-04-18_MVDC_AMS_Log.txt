@@ -1,4 +1,0 @@
-|2025-04-18 09:53:04  |   TotalVCBChkController.List  |   GetTotalVCBChkListData 실행   |
-|2025-04-18 09:53:04  |   VCBChkController.List  |   조회된 데이터: 14건   |
-|2025-04-18 09:53:16  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
-|2025-04-18 09:53:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
