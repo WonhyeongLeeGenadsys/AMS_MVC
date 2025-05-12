@@ -604,6 +604,8 @@
     <Content Include="Views\Device\DCCABLE\DCCABLEDeviceDetail.cshtml" />
     <Content Include="Views\Check\ITR\ITRChk1Detail.cshtml" />
     <Content Include="Views\Check\ITR\ITRChk2Detail.cshtml" />
+    <Content Include="Views\TotalInfo\ScheduleDetail.cshtml" />
+    <Content Include="Views\Check\ITR\ITRChk1Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

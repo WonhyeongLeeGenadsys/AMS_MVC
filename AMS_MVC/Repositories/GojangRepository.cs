@@ -49,7 +49,7 @@ namespace AMS_MVC.Repositories
             var configs = new[]
             {
                 new { FailureTable = "VCB_FAILURE_HISTORY",      BasicTable = "VCB_BASICINFO",      CodeField = "VCB_CODE",      Alias = "VCB",      EntityName = "VCB" },
-                new { FailureTable = "INTERFACETR_FAILURE_HISTORY", BasicTable = "INTERFACETR_BASICINFO", CodeField = "ITR_CODE",      Alias = "ITR",     EntityName = "ITR" },
+                new { FailureTable = "ITR_FAILURE_HISTORY", BasicTable = "ITR_BASICINFO", CodeField = "ITR_CODE",      Alias = "ITR",     EntityName = "ITR" },
                 new { FailureTable = "DCCB_FAILURE_HISTORY",     BasicTable = "DCCB_BASICINFO",     CodeField = "DCCB_CODE",     Alias = "DCCB",    EntityName = "DCCB" },
                 new { FailureTable = "DCCABLE_FAILURE_HISTORY",   BasicTable = "DCCABLE_BASICINFO",   CodeField = "DCCABLE_CODE", Alias = "DCCABLE", EntityName = "DCCABLE" },
                 new { FailureTable = "SUBMODULE_FAILURE_HISTORY", BasicTable = "SUBMODULE_BASICINFO", CodeField = "SUBMODULE_CODE", Alias = "SUBMODULE", EntityName = "SUBMODULE" }

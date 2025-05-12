@@ -10,7 +10,6 @@ namespace AMS_MVC.Controllers
 {
     public partial class ITRGojangController : Controller
     {
-        // 예시: 상세보기 페이지 (여러 고장정보 중 tblIdx에 해당하는 레코드를 선택)
         [HttpGet]
         public ActionResult ITRGojangDetail(string itrCode, string tblIdx)
         {

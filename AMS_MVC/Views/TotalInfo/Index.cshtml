@@ -53,90 +53,72 @@
         </div>
 
         <script>
-            $(document).ready(function () {
+$(function(){
+  // 1~5 HI 순서대로 들어갈 색
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
 
-                // 공통: HI 데이터를 요약하는 함수
-                function summarizeHIData(data) {
-                    var result = [];
-                    Object.keys(data).forEach(function (key) {
-                        result.push({
-                            state: getStateByHI(key),
-                            value: parseInt(data[key], 10)
-                        });
-                    });
-                    return result;
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                  // HI 값
+        state: hi + '등급',
+        value: parseInt(data[hi], 10),
+        color: hiPalette[hi - 1]    // HI-1 인덱스로 색 지정
+      }));
+  }
+
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
+
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pointInfo => ({ color: pointInfo.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,                  // 라벨 보이기
+                    connector: { visible: true },   // 연결선 보이기
+                    customizeText: e => e.valueText + '대'
                 }
+            }],
+            legend: {
+                visible: false   // 범례는 숨김
+            },
+            size: { width: 270, height: 270 },
+            innerRadius: 0.5
+        });
+    }
 
-                // 공통: HI 값에 따른 상태 문자열 반환 함수
-                function getStateByHI(hi) {
-                    var value = parseInt(hi, 10);
-                    switch (value) {
-                        case 1: return 'Very Good';
-                        case 2: return 'Good';
-                        case 3: return 'Fair';
-                        case 4: return 'Poor';
-                        case 5: return 'Very Poor';
-                        default: return 'Unknown';
-                    }
-                }
+  function setupChart(id, prefix) {
+    $.ajax({
+      type: 'POST',
+      url: '@Url.Action("GetRiskmatrixData","TotalInfo")',
+      data: JSON.stringify({ prefix }),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
+    })
+    .done(counts => initializePieChart(id, counts))
+    .fail(err => console.error(prefix + ' 차트 로드 실패:', err));
+  }
 
-                // 공통: dxPieChart를 생성하는 함수
-                function initializePieChart(elementId, data) {
-                    $(elementId).dxPieChart({
-                        type: 'doughnut',
-                        palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                        dataSource: data,
-                        legend: { visible: false },
-                        onPointClick(arg) {
-                            arg.target.select();
-                        },
-                        series: [{
-                            argumentField: 'state',
-                            valueField: 'value',
-                            label: {
-                                visible: true,
-                                format: 'fixedPoint',
-                                precision: 0,
-                                connector: { visible: true }
-                            }
-                        }],
-                        size: { width: 270, height: 270 },
-                        innerRadius: 0.5
-                    });
-                }
-
-                // 공통: 특정 prefix에 대해 데이터를 가져와 HI 데이터를 처리하고 차트를 생성하는 함수
-                function setupChart(elementId, prefix) {
-                    $.ajax({
-                        type: "POST",
-                        url: "/VCBDevice/GetRiskmatrixData",  // HI 집계 데이터를 반환하는 액션
-                        data: JSON.stringify({ prefix: prefix }),
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json"
-                    })
-                        .done(function (response) {
-                            if (response) {
-                                const hiSummary = summarizeHIData(response);
-                                initializePieChart(elementId, hiSummary);
-                            } else {
-                                alert(prefix + " 데이터를 가져오는 데 실패했습니다.");
-                            }
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                        });
-                }
-
-                setupChart('#pie01', 'VCB');       // AC-VCB
-                setupChart('#pie02', 'ITR');       // AC-Interface TR
-                setupChart('#pie03', 'SUBMODULE'); // AC-Sub Module
-                setupChart('#pie04', 'DCCB');      // AC-DCCB
-                setupChart('#pie05', 'DCCABLE');   // AC-DC Cable
-
-            });
+  // 5개 차트 모두 세팅
+  setupChart('#pie01','VCB');
+  setupChart('#pie02','ITR');
+  setupChart('#pie03','SUBMODULE');
+  setupChart('#pie04','DCCB');
+  setupChart('#pie05','DCCABLE');
+});
         </script>
-
 
         <!--//건전도-->
         <!--risk matrix-->
@@ -153,11 +135,11 @@
                 <div class="matrix_left">
                     <h3 class="left tit">PoF</h3>
                     <ul class="left txt">
-                        <li>Very Poor</li>
-                        <li>Poor</li>
-                        <li>Fair</li>
-                        <li>Good</li>
-                        <li>Very Good</li>
+                        <li>5등급</li>
+                        <li>4등급</li>
+                        <li>3등급</li>
+                        <li>2등급</li>
+                        <li>1등급</li>
                     </ul>
                 </div>
                 <!--//메트릭스좌측-->
@@ -194,15 +176,16 @@
                     <li data-position="0,3" class="fair">0</li>
                     <li data-position="0,4" class="poor">0</li>
                 </ul>
+
                 <!--//그래프-->
                 <!--메트릭스푸터-->
                 <div class="matrix_bottom">
                     <ul class="bottom txt">
-                        <li>Very good</li>
-                        <li>good</li>
-                        <li>Fair</li>
-                        <li>Poor</li>
-                        <li>Very Poor</li>
+                        <li>1등급</li>
+                        <li>2등급</li>
+                        <li>3등급</li>
+                        <li>4등급</li>
+                        <li>5등급</li>
                     </ul>
                     <h3 class="bottom_t tit">CoF</h3>
                 </div>
@@ -277,9 +260,35 @@
                     function initializePriorityGrid(data) {
                         $('#gridContainer').dxDataGrid({
                             dataSource: data,
-                            columnFixing: {
-                                enabled: true,
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            // **첫 번째 행 테두리 적용**
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-blue');
+                                }
                             },
+
+                            onCellPrepared: function (e) {
+                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                    var hi = e.value;
+                                    var cls = '';
+                                    switch (hi) {
+                                        case 1: cls = 'priorityVerygood'; break;
+                                        case 2: cls = 'priorityGood'; break;
+                                        case 3: cls = 'priorityFair'; break;
+                                        case 4: cls = 'priorityPoor'; break;
+                                        case 5: cls = 'priorityVerypoor'; break;
+                                    }
+                                    if (cls) {
+                                        e.cellElement.addClass(cls);
+                                    }
+                                }
+                            },
+
                             columns: [
                                 { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                 { dataField: 'Sort', caption: '구분', alignment: 'center' },
@@ -290,7 +299,12 @@
                                 { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
                                 { dataField: 'CoF', caption: 'CoF', alignment: 'center' },
                                 { dataField: 'PoF', caption: 'PoF', alignment: 'center' },
-                                { dataField: 'HI', caption: 'HI', alignment: 'center' },
+                                {
+                                    dataField: 'HI',
+                                    caption: 'HI',
+                                    alignment: 'center',
+                                    dataType: 'number'
+                                }
                             ],
                             showBorders: true,
                             sorting: {
@@ -311,6 +325,7 @@
                 <p class="schedule_value">
                     <span class="confirmed">보통점검</span>
                     <span class="risk">정밀점검</span>
+                    <span class="alarm">점검 예정일</span>
                 </p>
                 <p class="month_select">
                     <a href="javascript:void(0);" class="arrow prev">이전달</a>
@@ -363,44 +378,63 @@
                     }
 
                     function renderSchedule(data, year, month) {
-                        let daysInMonth = new Date(year, month, 0).getDate();
-                        let tbodyHtml = "";
+                        const daysInMonth = new Date(year, month, 0).getDate();
+                        let html = "";
 
-                        let groupedData = {};
-                        data.forEach(item => {
-                            if (!groupedData[item.Type]) {
-                                groupedData[item.Type] = [];
-                            }
-                            groupedData[item.Type].push(item);
-                        });
+                        // type 별로 그룹
+                        const grouped = data.reduce((g, item) => {
+                            (g[item.Type] ||= []).push(item);
+                            return g;
+                        }, {});
 
-                        for (let [type, items] of Object.entries(groupedData)) {
+                        for (const [type, items] of Object.entries(grouped)) {
                             items.forEach(item => {
-                                let startDay = parseInt(item.Start.split('-')[2]);
-                                let endDay = parseInt(item.End ? item.End.split('-')[2] : startDay);
-                                let barStyle = item.Status === "confirmed" ? "background-color:#0051A2;" : "background-color:#800080;";
-                                let barWidth = (endDay - startDay + 1) * 31 + "px";
+                                const startDay = +item.Start.split('-')[2];
+                                const endDay = item.End ? +item.End.split('-')[2] : startDay;
+                                // 상태별 스타일
+                                const styles = {
+                                    confirmed: "background:#0051A2;",
+                                    risk: "background:#800080;",
+                                    overdue: "background:#C00;"
+                                };
+                                const width = (endDay - startDay + 1) * 31 + "px";
 
-                                tbodyHtml += `<tr>
-                                                                                                    <th>${type}</th>
-                                                                                                    <td>${item.Code}</td>`;
-
-                                for (let i = 1; i <= daysInMonth; i++) {
-                                    if (i === startDay) {
-                                        tbodyHtml += `<td colspan="${endDay - startDay + 1}" style="position: relative;">
-                                                                                                            <span class="bar" style="${barStyle} width: ${barWidth}; height: 20px; display: block;"></span>
-                                                                                                        </td>`;
-                                        i = endDay;
+                                html += `<tr>
+                                                                                                                                                                                                                                                                                           <th>${type}</th>
+                                                                                                                                                                                                                                                                                           <td>${item.Code}</td>`;
+                                for (let d = 1; d <= daysInMonth; d++) {
+                                    if (d === startDay) {
+                                        html += `<td colspan="${endDay - startDay + 1}" style="position:relative;">
+                                                                                                                                                                                                                                                                                               <span class="bar"
+                                                                                                                                                                                                                                                                                                     data-type="${type}"
+                                                                                                                                                                                                                                                                                                     data-code="${item.Code}"
+                                                                                                                                                                                                                                                                                                     data-start="${item.Start}"
+                                                                                                                                                                                                                                                                                                     data-end="${item.End || item.Start}"
+                                                                                                                                                                                                                                                                                                     style="${styles[item.Status]} width:${width};height:20px;display:block;cursor:pointer;"></span>
+                                                                                                                                                                                                                                                                                             </td>`;
+                                        d = endDay;
                                     } else {
-                                        tbodyHtml += `<td></td>`;
+                                        html += `<td></td>`;
                                     }
                                 }
-                                tbodyHtml += `</tr>`;
+                                html += `</tr>`;
                             });
                         }
 
-                        $(".schedule_table tbody").html(tbodyHtml);
+                        $(".schedule_table tbody").html(html);
+
+                        // **바 클릭 시** 팝업 띄우기
+                        $(".bar").on("click", function () {
+                            const type = this.dataset.type;
+                            const code = this.dataset.code;
+
+                            window.open(
+                                `/TotalInfo/ScheduleDetail?type=${encodeURIComponent(type)}&code=${encodeURIComponent(code)}`,
+                                "detail", "width=1100,height=600"
+                            );
+                        });
                     }
+
 
                     $(".prev").click(function () {
                         currentMonth--;
@@ -428,7 +462,6 @@
             </script>
         </div>
         <!-- //점검 -->
-
         <!--고장-->
         <div class="con_box">
             <!--타이틀-->
@@ -467,7 +500,6 @@
                     });
                 }
 
-                // 예: 고장 데이터를 가져와서 dxDataGrid에 적용하는 예제
                 $(document).ready(function () {
                     $.ajax({
                         type: "POST",
@@ -480,9 +512,17 @@
                             var transformed = transformData(response);
                             console.log("변환된 데이터:", transformed);
 
-                            // dxDataGrid에 변환된 데이터를 dataSource로 적용
                             $("#gridContainer02").dxDataGrid({
                                 dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                onRowPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
                                 columns: [
                                     { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                     { dataField: 'Code', caption: '코드', alignment: 'center' },
@@ -500,7 +540,7 @@
                                         dataField: 'Date',
                                         caption: '고장일',
                                         alignment: 'center',
-                                        dataType: 'date'  // Date 객체로 전달된 경우 날짜 형식으로 렌더링
+                                        dataType: 'date'
                                     }
                                 ],
                                 showBorders: true,

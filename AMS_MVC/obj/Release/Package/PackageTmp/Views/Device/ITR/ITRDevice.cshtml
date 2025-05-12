@@ -437,10 +437,28 @@
 
                     // dxDataGrid 초기화 함수
                     function initializePriorityGrid(data) {
-                        $("#gridContainer").dxDataGrid({
+                        $('#gridContainer').dxDataGrid({
                             dataSource: data,
-                            columnFixing: {
-                                enabled: true
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onCellPrepared: function (e) {
+                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                    var hi = e.value;
+                                    var cls = '';
+                                    switch (hi) {
+                                        case 1: cls = 'priorityVerygood'; break;
+                                        case 2: cls = 'priorityGood'; break;
+                                        case 3: cls = 'priorityFair'; break;
+                                        case 4: cls = 'priorityPoor'; break;
+                                        case 5: cls = 'priorityVerypoor'; break;
+                                    }
+                                    if (cls) {
+                                        e.cellElement.addClass(cls);
+                                    }
+                                }
                             },
                             columns: [
                                 { dataField: "Priority", caption: "우선순위", alignment: "center" },
@@ -861,6 +879,15 @@
 
                             $("#gridContainer02").dxDataGrid({
                                 dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                onRowPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
                                 columns: [
                                     { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                     { dataField: 'Code', caption: '코드', alignment: 'center' },

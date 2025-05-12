@@ -1542,6 +1542,25 @@ h4.tit_h4 {
 	background-color: #F05153;
 }
 
+.priorityVerygood {
+	background-color: rgba(91, 159, 86, 0.25); /* 우선순위 HI 배경색 25% 불투명도 */
+}
+
+.priorityGood {
+	background-color: rgba(180, 222, 177, 0.25);
+}
+
+.priorityFair {
+	background-color: rgba(235, 205, 29, 0.25);
+}
+
+.priorityPoor {
+	background-color: rgba(241, 132, 37, 0.25);
+}
+
+.priorityVerypoor {
+	background-color: rgba(240, 81, 83, 0.25);
+}
 #map {
 	border: 5px solid #E0E0E0
 }
@@ -1639,6 +1658,30 @@ h4.tit_h4 {
 	padding-right: 0px;
 	font-size: 20px;
 	font-weight: 800;
+}
+/* 점검 섹션 탭 앞 컬러박스 */
+.schedule_value span.confirmed::before,
+.schedule_value span.risk::before,
+.schedule_value span.alarm::before{
+	content: '';
+	display: inline-block;
+	width: 8px;
+	height: 8px;
+	margin-right: 6px;
+	vertical-align: middle;
+	border-radius: 2px;
+}
+
+.schedule_value span.confirmed::before {
+	background: #0051A2; /* 파란색 */
+}
+
+.schedule_value span.risk::before {
+	background: #800080; /* 보라색 */
+}
+
+.schedule_value span.alarm::before {
+	background: #EE0000; /* 빨간색 */
 }
 
 .schedule_value span {
@@ -2024,7 +2067,7 @@ dl.product_info {
 			.menu_group .check-menu li.active > a {
 				background-color: #fff;
 				color: #666;
-				font-weight: bold;
+				
 			}
 
 		/* 서브메뉴(two_depth)는 일반 흐름에 포함되어 부모 li의 높이를 확장 */
@@ -2035,6 +2078,7 @@ dl.product_info {
 			margin: 5px 0 0 20px; /* 왼쪽 들여쓰기, 위쪽 여백 추가 */
 			background-color: transparent;
 			border-radius: 20px;
+			color: #666;
 		}
 
 		/* 상위 메뉴 active 시 서브메뉴 표시 */
@@ -2059,7 +2103,30 @@ dl.product_info {
 				.menu_group .check-menu li.has-sub ul.two_depth li a.active,
 				.menu_group .check-menu li.has-sub ul.two_depth li.active > a {
 					background-color: #fff;
-					color: #000;
-					font-weight: bold;
+					color: #666;
 				}
 
+/* 개별 페이지에서 사용할 override 규칙 */
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerygood {
+	background-color: rgba(91, 159, 86, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityGood {
+	background-color: rgba(180, 222, 177, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityFair {
+	background-color: rgba(235, 205, 29, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityPoor {
+	background-color: rgba(241, 132, 37, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerypoor {
+	background-color: rgba(240, 81, 83, 0.25) !important;
+}
+
+.first-row-blue td {
+	border: 1px solid #0051A2 !important;
+}

@@ -22,7 +22,7 @@ namespace AMS_MVC.Repositories
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "SELECT * FROM INTERFACETR_CHK2 WHERE ITR_CODE = @ITR_Code";
+                    const string query = "SELECT * FROM ITR_CHK2 WHERE ITR_CODE = @ITR_Code";
                     itrChk2List = dbHelper.Conn.Query<ITRChk2>(query, new { ITR_Code = itrCode }).AsList();
                     res.Message = $"GetITRChk2ByITRCode 성공: ITR_CODE = {itrCode}";
                 }
@@ -46,7 +46,7 @@ namespace AMS_MVC.Repositories
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "SELECT * FROM INTERFACETR_CHK2";
+                    const string query = "SELECT * FROM ITR_CHK2";
                     itrChkList = dbHelper.Conn.Query<ITRChk2>(query).AsList();
                     res.Message = $"GetTotalITRChk2 성공";
                 }
@@ -71,7 +71,7 @@ namespace AMS_MVC.Repositories
                 {
                     const string query = @"
                 SELECT * 
-                FROM INTERFACETR_CHK2 
+                FROM ITR_CHK2 
                 WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
 
                     itrChk2List = dbHelper.Conn.Query<ITRChk2>(query, new { ITR_Code = itrCode, Tbl_Idx = tblIdx }).AsList();
@@ -104,7 +104,7 @@ namespace AMS_MVC.Repositories
                         FORMAT(CHK2_Start_Date, 'yyyy-MM') AS Month, 
                         COUNT(*) AS Count,
                         'ITR2' AS Type
-                    FROM INTERFACETR_CHK2
+                    FROM ITR_CHK2
                     WHERE CHK2_Start_Date IS NOT NULL
                     GROUP BY FORMAT(CHK2_Start_Date, 'yyyy-MM')
                     ORDER BY Month;";
@@ -122,7 +122,7 @@ namespace AMS_MVC.Repositories
                 using(DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-                INSERT INTO INTERFACETR_CHK2 (
+                INSERT INTO ITR_CHK2 (
                     ITR_CODE, CHK2_GONGSA_NAME, CHK2_WEATHER, CHK2_TEMP, CHK2_HUM, CHK2_COMPANY, 
                     CHK2_WORKER, CHK2_MANAGER, CHK2_URGENT_NO, CHK2_TYPE, CHK2_START_DATE, 
                     CHK2_END_DATE, CHK2_COMPUTERIZED_PRICE, CHK2_WATER_CONTENT, CHK2_FURFURAL, CHK2_EXCITATION_CURRENT, CHK2_SHORT_CURRENT, CHK2_VOLTAGE_RATIO, CHK2_WRITER
@@ -153,7 +153,7 @@ namespace AMS_MVC.Repositories
                 using (var dbHelper = new DBHelper())
                 {
                     const string query = @"
-UPDATE INTERFACETR_CHK2
+UPDATE ITR_CHK2
 SET
     CHK2_GONGSA_NAME         = @CHK2_Gongsa_Name,
     CHK2_WEATHER             = @CHK2_Weather,
@@ -201,7 +201,7 @@ WHERE ITR_CODE = @ITR_Code
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM INTERFACETR_CHK2 WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
+                    const string query = "DELETE FROM ITR_CHK2 WHERE ITR_CODE = @ITR_Code AND TBL_IDX = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, new { ITR_Code = itrCode, Tbl_Idx = tblIdx });
                     res.Message = affectedRows > 0 ? "ITR 정밀점검 데이터 삭제 성공" : "ITR 정밀점검 데이터 삭제 실패";

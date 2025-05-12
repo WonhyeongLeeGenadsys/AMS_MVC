@@ -23,8 +23,13 @@ namespace AMS_MVC.Repositories
                 // 기존: CoF, PoF 값을 0-based 인덱스로 변환 후 집계
                 foreach (var item in data)
                 {
-                    int cof = Clamp(int.Parse(item.CoF) - 1, 0, 4);
-                    int pof = Clamp(int.Parse(item.PoF) - 1, 0, 4);
+                    // item.CoF, item.PoF 가 null 이면 "0"으로 간주
+                    var cofStr = item.CoF?.ToString() ?? "0";
+                    var pofStr = item.PoF?.ToString() ?? "0";
+
+                    int cof = Clamp(int.Parse(cofStr) - 1, 0, 4);
+                    int pof = Clamp(int.Parse(pofStr) - 1, 0, 4);
+
                     matrix[pof, cof]++;
                 }
 
@@ -114,12 +119,35 @@ namespace AMS_MVC.Repositories
                 var data = dbHelper.Conn.Query(query, parameters).ToList();
 
                 var result = new Dictionary<string, int>();
+
                 foreach (var item in data)
                 {
-                    int count = int.Parse(item.Count.ToString());
-                    result[item.HI.ToString()] = count;
+                    // HI가 null 이면 건너뛰기
+                    if (item.HI == null)
+                        continue;
+
+                    var hiKey = item.HI.ToString();    
+                    var count = Convert.ToInt32(item.Count);
+
+                    result[hiKey] = count;
                 }
+
                 return result;
+            }
+        }
+        public IEnumerable<int> GetHIList(string codePrefix = null)
+        {
+            using (var db = new DBHelper())
+            {
+                // CODE가 prefix + 숫자 로 되어 있다고 가정
+                var sql = @"
+                SELECT CAST(HI AS INT)
+                FROM RISKMATRIX
+                WHERE CODE LIKE @Pattern
+                  AND HI IS NOT NULL";
+                return db.Conn
+                         .Query<int>(sql, new { Pattern = codePrefix + "%" })
+                         .ToList();
             }
         }
 
@@ -182,9 +210,6 @@ namespace AMS_MVC.Repositories
             }
         }
 
-        /// <summary>
-        /// 특정 VCB 코드에 대해 Riskmatrix 테이블의 HI 값을 업데이트.
-        /// </summary>
         public Result UpdateRiskMatrixHI(string code, int newHI)
         {
             Result res = new Result(true);

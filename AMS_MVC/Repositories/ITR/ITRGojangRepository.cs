@@ -22,7 +22,7 @@ namespace AMS_MVC.Repositories
                 using(DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-                SELECT * FROM INTERFACETR_FAILURE_HISTORY 
+                SELECT * FROM ITR_FAILURE_HISTORY 
                 WHERE ITR_CODE = @ITR_Code";
 
                     itrGojnagList = dbHelper.Conn.Query<ITRFailureHistory>(query, new { ITR_Code = itrCode }).AsList();
@@ -49,7 +49,7 @@ namespace AMS_MVC.Repositories
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "SELECT * FROM INTERFACETR_FAILURE_HISTORY";
+                    const string query = "SELECT * FROM ITR_FAILURE_HISTORY";
                     itrGojangList = dbHelper.Conn.Query<ITRFailureHistory>(query).AsList();
                 }
                 res.Message = $"GetTotalITRGojang 성공";
@@ -63,28 +63,26 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
-        public Result GetITRFHDetailByITRCode(string itrCode, string gojangName, out List<ITRFailureHistory> itrGojangList)
+        public Result GetITRFHDetailByITRCode(string itrCode, string tblIdx, out List<ITRFailureHistory> list)
         {
-            Result res = new Result(true);
-            itrGojangList = new List<ITRFailureHistory>();
+            var res = new Result(true);
+            list = new List<ITRFailureHistory>();
             try
             {
-                using (DBHelper dbHelper = new DBHelper())
+                using (var db = new DBHelper())
                 {
-                    const string query = @"
-                SELECT * 
-                FROM INTERFACETR_FAILURE_HISTORY 
-                WHERE ITR_CODE = @ITR_Code AND FAIL_GOJANG_NAME = @Fail_Gojang_Name";
-
-                    itrGojangList = dbHelper.Conn.Query<ITRFailureHistory>(query, new { ITR_Code = itrCode, Fail_Gojang_Name = gojangName }).AsList();
-                    if (itrGojangList.Count == 0)
+                    const string sql = @"
+                    SELECT *
+                      FROM ITR_FAILURE_HISTORY
+                     WHERE ITR_CODE = @ITR_Code
+                       AND TBL_IDX   = @Tbl_Idx";
+                    list = db.Conn
+                             .Query<ITRFailureHistory>(sql, new { ITR_Code = itrCode, Tbl_Idx = tblIdx })
+                             .AsList();
+                    if (!list.Any())
                     {
                         res.IsSuccess = false;
                         res.Message = "조회 결과가 없습니다.";
-                    }
-                    else
-                    {
-                        res.Message = $"GetITRFHDetailByITRCode 성공: ITR_CODE = {itrCode}, FAIL_GOJANG_NAME = {gojangName}";
                     }
                 }
             }
@@ -92,8 +90,8 @@ namespace AMS_MVC.Repositories
             {
                 res.IsSuccess = false;
                 res.Message = $"GetITRFHDetailByITRCode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(ITR_FAILURE_HISTORY)", res.Message);
             }
-
             return res;
         }
         public Result CreateITRFHRepo(ITRFailureHistory itrGojangList)
@@ -105,7 +103,7 @@ namespace AMS_MVC.Repositories
                 using (DBHelper dbHelper = new DBHelper())
                 {
                     const string query = @"
-        INSERT INTO INTERFACETR_FAILURE_HISTORY (
+        INSERT INTO ITR_FAILURE_HISTORY (
         ITR_CODE, FAIL_GOJANG_NAME, FAIL_WEATHER, FAIL_TEMP, FAIL_HUM, FAIL_CAUSE, FAIL_REASON, FAIL_STATUS, FAIL_PART, FAIL_PERIOD, FAIL_FINDER, FAIL_REPAIRER, FAIL_SUPERVISOR, FAIL_REPAIR_DATE, FAIL_WRITER 
         ) VALUES (@ITR_Code, @Fail_Gojang_Name, @Fail_Weather, @Fail_Temp, @Fail_Hum, @Fail_Cause, @Fail_Reason, @Fail_Status, @Fail_Part, @Fail_Period, @Fail_Finder, @Fail_Repairer, @Fail_Supervisor, @Fail_Repair_Date, @Fail_Writer)";
 
@@ -132,64 +130,69 @@ namespace AMS_MVC.Repositories
         }
 
 
-        // VCB 고장이력 데이터 업데이트
-        public Result UpdateITRFHRepo(ITRFailureHistory itrGojangList)
+        // 업데이트
+        public Result UpdateITRFHRepo(ITRFailureHistory item)
         {
-            Result res = new Result(true);
+            var res = new Result(true);
             try
             {
-                using (DBHelper dbHelper = new DBHelper())
+                using (var db = new DBHelper())
                 {
-                    const string query = @"
-                UPDATE INTERFACETR_FAILURE_HISTORY
-                SET 
-                    FAIL_GOJANG_NAME = @Fail_Gojang_Name,
-                    FAIL_WEATHER = @Fail_Weather,
-                    FAIL_TEMP = @Fail_Temp,
-                    FAIL_HUM = @Fail_Hum,
-                    FAIL_REASON = @Fail_Reason,
-                    FAIL_STATUS = @Fail_Status,
-                    FAIL_PART = @Fail_Part,
-                    FAIL_PERIOD = @Fail_Period,
-                    FAIL_FINDER = @Fail_Finder,
-                    FAIL_REPAIRER = @Fail_Repairer,
-                    FAIL_SUPERVISOR = @Fail_Supervisor,
-                    FAIL_REPAIR_DATE = @Fail_Repair_Date,
-                    FAIL_CAUSE = @Fail_Cause,
-                    FAIL_WRITER = @Fail_Writer
-                WHERE ITR_CODE = @ITR_Code AND FAIL_GOJANG_NAME = @Fail_Gojang_Name";
-
-                    int affectedRows = dbHelper.Conn.Execute(query, itrGojangList);
-                    res.Message = affectedRows > 0 ? "ITR 고장이력 데이터 업데이트 성공" : "ITR 고장이력 데이터 업데이트 실패";
+                    const string sql = @"
+                    UPDATE ITR_FAILURE_HISTORY
+                       SET FAIL_WEATHER     = @Fail_Weather,
+                           FAIL_TEMP        = @Fail_Temp,
+                           FAIL_HUM         = @Fail_Hum,
+                           FAIL_CAUSE       = @Fail_Cause,
+                           FAIL_REASON      = @Fail_Reason,
+                           FAIL_STATUS      = @Fail_Status,
+                           FAIL_PART        = @Fail_Part,
+                           FAIL_PERIOD      = @Fail_Period,
+                           FAIL_FINDER      = @Fail_Finder,
+                           FAIL_REPAIRER    = @Fail_Repairer,
+                           FAIL_SUPERVISOR  = @Fail_Supervisor,
+                           FAIL_REPAIR_DATE = @Fail_Repair_Date,
+                           FAIL_WRITER      = @Fail_Writer
+                     WHERE ITR_CODE = @ITR_Code
+                       AND TBL_IDX   = @Tbl_Idx";
+                    var cnt = db.Conn.Execute(sql, item);
+                    res.Message = cnt > 0
+                        ? "ITR 고장이력 데이터 업데이트 성공"
+                        : "ITR 고장이력 데이터 업데이트 실패";
                 }
             }
-
             catch (Exception ex)
             {
                 res.IsSuccess = false;
                 res.Message = $"UpdateITRFHRepo 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(ITR_FAILURE_HISTORY)", res.Message);
             }
             return res;
         }
-
-        // VCB 고장이력 데이터 삭제
-        public Result DeleteITRFHRepo(string itrCode, string gojangName)
+        // 삭제
+        public Result DeleteITRFHRepo(string itrCode, string tblIdx)
         {
-            Result res = new Result(true);
+            var res = new Result(true);
             try
             {
-                using (DBHelper dbHelper = new DBHelper())
+                using (var db = new DBHelper())
                 {
-                    const string query = "DELETE FROM INTERFACETR_FAILURE_HISTORY WHERE ITR_CODE = @ITR_Code AND FAIL_GOJANG_NAME = @Fail_Gojang_Name";
-
-                    int affectedRows = dbHelper.Conn.Execute(query, new { ITR_Code = itrCode, FAIL_Gojang_Name = gojangName });
-                    res.Message = affectedRows > 0 ? "ITR 고장이력 데이터 삭제 성공" : "ITR 고장이력 데이터 삭제 실패";
+                    const string sql = @"
+                    DELETE
+                      FROM ITR_FAILURE_HISTORY
+                     WHERE ITR_CODE = @ITR_Code
+                       AND TBL_IDX   = @Tbl_Idx";
+                    var cnt = db.Conn.Execute(sql, new { ITR_Code = itrCode, Tbl_Idx = tblIdx });
+                    res.Message = cnt > 0
+                        ? "ITR 고장이력 데이터 삭제 성공"
+                        : "ITR 고장이력 데이터 삭제 실패";
                 }
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
                 res.Message = $"DeleteITRFHRepo 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(ITR_FAILURE_HISTORY)", res.Message);
             }
             return res;
         }

@@ -12,7 +12,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChk1Add", "ITRChk1")" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChkAdd", "ITRChk", new { type = 1 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -25,7 +25,7 @@
             function loadITRChk1Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetTotalITRChk1ListData", "ITRChk1")',
+                    url: '@Url.Action("GetTotalListData", "ITRChk", new { type = 1 })',
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success == false) {
@@ -66,12 +66,11 @@
                             loadPanel: { enabled: true },
                             scrolling: { columnRenderingMode: 'virtual' },
                             onRowClick: function (e) {
-                                // 각 행의 Tbl_Idx와 VCB_Code 값을 사용하여 VCBChkDetail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const itrCode = e.data.ITR_Code;
 
                                 var baseUrl = window.location.origin;
-                                var detailUrl = '@Url.Action("ITRChkDetail", "ITRChk")';
+                                var detailUrl = '@Url.Action("ITRChk1Detail", "ITRChk")';
 
                                 window.location.href = baseUrl + detailUrl + "?itrCode=" + encodeURIComponent(itrCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
                             }

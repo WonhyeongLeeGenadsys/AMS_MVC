@@ -49,7 +49,7 @@ namespace AMS_MVC.Repositories
             var configs = new[]
             {
         new { BasicTable = "VCB_BASICINFO", CodeField = "VCB_CODE", Alias = "b", EntityName = "VCB" },
-        new { BasicTable = "INTERFACETR_BASICINFO", CodeField = "ITR_CODE", Alias = "i", EntityName = "Interface TR" },
+        new { BasicTable = "ITR_BASICINFO", CodeField = "ITR_CODE", Alias = "i", EntityName = "ITR" },
         new { BasicTable = "DCCB_BASICINFO", CodeField = "DCCB_CODE", Alias = "d", EntityName = "DCCB" },
         new { BasicTable = "DCCABLE_BASICINFO", CodeField = "DCCABLE_CODE", Alias = "c", EntityName = "DCCABLE" },
         new { BasicTable = "SUBMODULE_BASICINFO", CodeField = "SUBMODULE_CODE", Alias = "s", EntityName = "SUBMODULE" }

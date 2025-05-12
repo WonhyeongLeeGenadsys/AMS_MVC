@@ -429,10 +429,28 @@
 
                     // dxDataGrid 초기화 함수
                     function initializePriorityGrid(data) {
-                        $("#gridContainer").dxDataGrid({
+                        $('#gridContainer').dxDataGrid({
                             dataSource: data,
-                            columnFixing: {
-                                enabled: true
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onCellPrepared: function (e) {
+                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                    var hi = e.value;
+                                    var cls = '';
+                                    switch (hi) {
+                                        case 1: cls = 'priorityVerygood'; break;
+                                        case 2: cls = 'priorityGood'; break;
+                                        case 3: cls = 'priorityFair'; break;
+                                        case 4: cls = 'priorityPoor'; break;
+                                        case 5: cls = 'priorityVerypoor'; break;
+                                    }
+                                    if (cls) {
+                                        e.cellElement.addClass(cls);
+                                    }
+                                }
                             },
                             columns: [
                                 { dataField: "Priority", caption: "우선순위", alignment: "center" },
@@ -680,7 +698,7 @@
         </div>
         <!--//전략-->
         <!--점검-->
-        <div class="con_box flex2 schedule">
+        <div class="con_box flexCheck schedule">
             <!-- 타이틀 영역 -->
             <h2>
                 <p>점검</p>
@@ -824,13 +842,13 @@
         </script>
         <!--//점검-->
         <!--유지보수-->
-        <div class="con_box flex1">
+        <!--<div class="con_box flex1">-->
             <!-- 타이틀 -->
-            <h2>
+            <!--<h2>
                 <p>유지보수</p>
-            </h2>
+            </h2>-->
             <!-- 챠트 컨테이너 -->
-            <div id="chart03"></div>
+            <!--<div id="chart03"></div>
             <script>
                 $(document).ready(function () {
                     // 서버에서 DCCABLE 유지보수 데이터를 가져오는 함수
@@ -920,7 +938,7 @@
                         });
                 });
             </script>
-        </div>
+        </div>-->
         <!--//유지보수-->
         <!--고장-->
         <div class="con_box">
@@ -971,6 +989,15 @@
 
                             $("#gridContainer02").dxDataGrid({
                                 dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                onRowPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
                                 columns: [
                                     { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
                                     { dataField: 'Code', caption: '코드', alignment: 'center' },
