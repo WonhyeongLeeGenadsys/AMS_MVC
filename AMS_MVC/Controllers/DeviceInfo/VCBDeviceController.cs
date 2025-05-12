@@ -64,7 +64,8 @@ namespace AMS_MVC.Controllers
                     "VCB_BASICINFO", // VCB 기본정보 테이블
                     "VCB_CODE",      // VCB 코드 필드
                     "VCB",           // 표시용 장치 이름
-                    "VCB"            // 별칭
+                    "VCB",           // 별칭
+                    "AC"
                 );
 
                 var formattedData = priorityData.Select(item => new

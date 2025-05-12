@@ -65,7 +65,8 @@ namespace AMS_MVC.Controllers
                     "ITR_BASICINFO", // ITR 기본정보 테이블
                     "ITR_CODE",      // ITR 코드 필드
                     "ITR",           // 표시용 장치 이름
-                    "ITR"            // 별칭
+                    "ITR",            // 별칭
+                    "AC"
                 );
 
                 var formattedData = priorityData.Select(item => new

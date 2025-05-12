@@ -115,30 +115,42 @@ namespace AMS_MVC.Repositories
         // ITR 정밀점검 데이터 추가
         public Result CreateITRChk2InfoRepo(ITRChk2 itrChk2)
         {
-            Result res = new Result(true);
+            var res = new Result(true);
 
-            try
+            using (var dbHelper = new DBHelper())
+            using (var conn = dbHelper.Conn)
+            using (var tran = conn.BeginTransaction())
             {
-                using(DBHelper dbHelper = new DBHelper())
+                try
                 {
                     const string query = @"
-                INSERT INTO ITR_CHK2 (
-                    ITR_CODE, CHK2_GONGSA_NAME, CHK2_WEATHER, CHK2_TEMP, CHK2_HUM, CHK2_COMPANY, 
-                    CHK2_WORKER, CHK2_MANAGER, CHK2_URGENT_NO, CHK2_TYPE, CHK2_START_DATE, 
-                    CHK2_END_DATE, CHK2_COMPUTERIZED_PRICE, CHK2_WATER_CONTENT, CHK2_FURFURAL, CHK2_EXCITATION_CURRENT, CHK2_SHORT_CURRENT, CHK2_VOLTAGE_RATIO, CHK2_WRITER
-                ) VALUES (
-                    @ITR_Code, @CHK2_Gongsa_Name, @CHK2_Weather, @CHK2_Temp, @CHK2_Hum, @CHK2_Company, 
-                    @CHK2_Worker, @CHK2_Manager, @CHK2_Urgent_No, @CHK2_Type, @CHK2_Start_Date, 
-                    @CHK2_End_Date, @CHK2_Computerized_Price, @CHK2_Water_Content, @CHK2_Furfural, @CHK2_Excitation_Current, @CHK2_Short_Current, @CHK2_Voltage_Ratio, @CHK2_Writer)";
+INSERT INTO ITR_CHK2 (
+    ITR_CODE, CHK2_GONGSA_NAME, CHK2_WEATHER, CHK2_TEMP, CHK2_HUM, CHK2_COMPANY,
+    CHK2_WORKER, CHK2_MANAGER, CHK2_URGENT_NO, CHK2_TYPE, CHK2_START_DATE,
+    CHK2_END_DATE, CHK2_COMPUTERIZED_PRICE, CHK2_WATER_CONTENT, CHK2_FURFURAL,
+    CHK2_EXCITATION_CURRENT, CHK2_SHORT_CURRENT, CHK2_VOLTAGE_RATIO, CHK2_PD,
+    FOLDINGFUNCTION, CHK2_WRITER, CHK2_TBL_GETDATE
+) VALUES (
+    @ITR_Code, @CHK2_Gongsa_Name, @CHK2_Weather, @CHK2_Temp, @CHK2_Hum, @CHK2_Company,
+    @CHK2_Worker, @CHK2_Manager, @CHK2_Urgent_No, @CHK2_Type, @CHK2_Start_Date,
+    @CHK2_End_Date, @CHK2_Computerized_Price, @CHK2_Water_Content, @CHK2_Furfural,
+    @CHK2_Excitation_Current, @CHK2_Short_Current, @CHK2_Voltage_Ratio, @CHK2_PD,
+    @FoldingFunction, @CHK2_Writer, @CHK2_Tbl_GetDate
+)";
+                    int affected = conn.Execute(query, itrChk2, tran);
+                    if (affected <= 0)
+                        throw new Exception("ITR_CHK2 레코드 삽입 실패");
 
-                    int affectedRows = dbHelper.Conn.Execute(query, itrChk2);
-                    res.Message = affectedRows > 0 ? "ITR 정밀점검 데이터 추가 성공" : "ITR 정밀점검 데이터 추가 실패";
+                    tran.Commit();
+                    res.Message = "ITR 정밀점검 데이터 추가 성공";
                 }
-            }
-            catch (Exception ex)
-            {
-                res.IsSuccess = false;
-                res.Message = $"CreateITRChk2InfoRepo 실패: {ex.Message}";
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    res.IsSuccess = false;
+                    res.Message = "저장 오류: " + ex.Message;
+                    LogHelper.WriteLog("DB(ITR_CHK2)", res.Message);
+                }
             }
 
             return res;
@@ -214,6 +226,19 @@ WHERE ITR_CODE = @ITR_Code
             }
 
             return res;
+        }
+
+        public int? GetLatestFoldingFunction(string itrCode)
+        {
+            using (var db = new DBHelper())
+            {
+                const string sql = @"
+                SELECT TOP 1 FoldingFunction
+                FROM ITR_CHK2
+                WHERE ITR_Code = @Code
+                ORDER BY CHK2_Tbl_GetDate DESC";
+                return db.Conn.QueryFirstOrDefault<int?>(sql, new { Code = itrCode });
+            }
         }
     }
 }

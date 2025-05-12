@@ -20,8 +20,6 @@ namespace AMS_MVC.Models
         public DateTime? CHK2_Start_Date { get; set; }
         public DateTime? CHK2_End_Date { get; set; }
 
-        public int CHK2_Acid_Value { get; set; } // 산가
-
         // --- 기존 정밀점검 변수 ---
         public int CHK2_Computerized_Price { get; set; } // 전산가
         public int CHK2_Water_Content { get; set; } // 수분함량
@@ -30,23 +28,12 @@ namespace AMS_MVC.Models
         public int CHK2_Short_Current { get; set; } // 단락 전류
         public int CHK2_Voltage_Ratio { get; set; } // 전압비
         public int CHK2_PD { get; set; } // 부분 방전
+        public int FoldingFunction { get; set; }
 
         // 작성자·날짜
         public string CHK2_Writer { get; set; }
         public DateTime CHK2_Tbl_GetDate { get; set; }
-        public string AcidValueText
-        {
-            get
-            {
-                switch (CHK2_Acid_Value)
-                {
-                    case 1: return "≤0.1";
-                    case 3: return "≤0.3";
-                    case 5: return ">0.3";
-                    default: return "-";
-                }
-            }
-        }
+
         public string CompPriceText
         {
             get

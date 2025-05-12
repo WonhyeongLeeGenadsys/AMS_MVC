@@ -96,69 +96,97 @@ namespace AMS_MVC.Controllers.Check
         [HttpPost]
         public ActionResult GetTotalVCBChkListData()
         {
-            try
+            // 1) 전체 점검 데이터 조회
+            var repoResult = vcbChkRepository.GetTotalVCBChk(out var vcbChks);
+            if (!repoResult.IsSuccess)
+                return Json(new { success = false, message = repoResult.Message });
+
+            // 2) VCB 기본정보 전체 조회 → 코드별 매핑용 딕셔너리 생성
+            vcbBasicInfoRepository.GetAllVCBBasicInfoRepo(out var basics);
+            var basicMap = basics.ToDictionary(b => b.VCB_Code, b => b);
+
+            // 3) JSON 응답용 객체에 Name, Serial_No 및 모든 CHK_* 필드를 한 번에 담기
+            var formatted = vcbChks.Select(item =>
             {
-                LogHelper.WriteLog("TotalVCBChkController.List", "GetTotalVCBChkListData 실행");
-
-                List<VCBChk> vcbChks = new List<VCBChk>();
-                var repoResult = vcbChkRepository.GetTotalVCBChk(out vcbChks);
-                if (repoResult.IsSuccess)
+                basicMap.TryGetValue(item.VCB_Code, out var basic);
+                return new
                 {
-                    var formattedData = vcbChks.Select(item => new
-                    {
-                        item.Tbl_Idx,
-                        item.VCB_Code,
-                        item.CHK_Gongsa_Name,
-                        item.CHK_Weather,
-                        item.CHK_Temp,
-                        item.CHK_Hum,
-                        item.CHK_Company,
-                        item.CHK_Worker,
-                        item.CHK_Manager,
-                        item.CHK_Urgent_No,
-                        item.CHK_Type,
-                        CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
-                        CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
-                        item.CHK_Loc,
-                        item.CHK_Chuk_Loc,
-                        item.CHK_Con_Status,
-                        item.CHK_Bolt_Nut_Status,
-                        item.CHK_Contact_Volume,
-                        item.CHK_Vacuum_Degree,
-                        item.CHK_Coil_A,
-                        item.CHK_Contact_R,
-                        item.CHK_Main_Circuit,
-                        item.CHK_Control_Circuit,
-                        item.CHK_Input_Time,
-                        item.CHK_Open_Time,
-                        item.CHK_3_Phase_Open_Gap,
-                        item.CHK_Chattering_Time,
-                        item.CHK_O_C_O,
-                        item.CHK_Operate_Time,
-                        item.CHK_OC_Test,
-                        item.CHK_Indicator,
-                        item.CHK_VCB_Count,
-                        item.CHK_Cutoff_Count,
-                        item.CHK_A_Rate,
-                        item.CHK_Short_A_Rate,
-                        item.CHK_Writer,
-                    }).ToList();
+                    // PK
+                    item.Tbl_Idx,
+                    // FK
+                    item.VCB_Code,
 
-                    LogHelper.WriteLog("VCBChkController.List", $"조회된 데이터: {vcbChks.Count}건");
-                    return Json(formattedData);
+                    // 추가한 기본정보
+                    Name = basic?.Name ?? "",
+                    Serial_No = basic?.Serial_No ?? "",
 
-                }
-                else
-                {
-                    LogHelper.WriteLog("VCBChkController.List", "전체 VCB 보통점검 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 VCB 보통점검 데이터 로드 실패" });
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("VCBChkController.List", $"GetTotalVCBListData 실패: {ex.Message}");
-                return Json(new { success = false, message = ex.Message });
-            }
+                    // => 여기에 점검 데이터 전부!
+                    item.CHK_Gongsa_Name,
+                    item.CHK_Weather,
+                    item.CHK_Temp,
+                    item.CHK_Hum,
+                    item.CHK_Company,
+                    item.CHK_Worker,
+                    item.CHK_Manager,
+                    item.CHK_Urgent_No,
+                    item.CHK_Type,
+
+                    // 날짜는 문자열 포맷
+                    CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
+                    CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
+
+                    item.CHK_Loc,
+                    item.CHK_Chuk_Loc,
+                    item.CHK_Con_Status,
+                    item.CHK_Bolt_Nut_Status,
+
+                    item.CHK_Contact_Volume,
+                    item.CHK_Vacuum_Degree,
+                    item.CHK_Coil_A,
+                    item.CHK_Contact_R,
+                    item.CHK_Main_Circuit,
+                    item.CHK_Control_Circuit,
+
+                    item.CHK_Input_Time,
+                    item.CHK_Open_Time,
+                    item.CHK_3_Phase_Open_Gap,
+                    item.CHK_Chattering_Time,
+                    item.CHK_O_C_O,
+                    item.CHK_Operate_Time,
+                    item.CHK_OC_Test,
+                    item.CHK_Indicator,
+
+                    item.CHK_VCB_Count,
+                    item.CHK_Cutoff_Count,
+                    item.CHK_A_Rate,
+                    item.CHK_Short_A_Rate,
+
+                    item.CHK_Writer,
+
+                    // 나머지 고급 항목들
+                    item.CHK_ContactWearPercent,
+                    item.CHK_VacuumLeakCurrent,
+                    item.CHK_ContactResistance,
+                    item.CHK_InsulationResistance,
+                    item.CHK_HotSpot,
+                    item.CHK_PdPatternValue,
+                    item.CHK_MotorCurrent,
+                    item.CHK_AccumShortCircuitCurrent,
+                    item.CHK_ShortCircuitCount,
+                    item.CHK_OperationCount,
+                    item.CHK_OpenCloseTime,
+                    item.CHK_VisualCheck,
+
+                    // 알고리즘 점수
+                    item.FoldingFunction,
+
+                    // DB 반영 일시
+                    CHK_Tbl_GetDate = item.CHK_Tbl_GetDate.ToString("yyyy-MM-dd HH:mm:ss")
+                };
+            }).ToList();
+
+            return Json(formatted);
         }
+
     }
 }

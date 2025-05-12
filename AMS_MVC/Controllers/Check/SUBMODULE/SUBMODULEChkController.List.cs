@@ -86,16 +86,30 @@ namespace AMS_MVC.Controllers.Check
         {
             try
             {
-                LogHelper.WriteLog("TotalSUBMODULEChkController.List", "GetTotalSUBMODULEChkListData 실행");
+                // 1) 전체 점검 데이터 조회
+                var repoResult = submoduleChkRepository.GetTotalSUBMODULEChk(out var submoduleChks);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
 
-                List<SUBMODULEChk> submoduleChks = new List<SUBMODULEChk>();
-                var repoResult = submoduleChkRepository.GetTotalSUBMODULEChk(out submoduleChks);
-                if (repoResult.IsSuccess)
+                // 2) SUBMODULE 기본정보 전체 조회 → 코드별 딕셔너리 생성
+                submoduleBasicInfoRepository.GetAllSUBMODULEBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.SUBMODULE_Code, b => b);
+
+                // 3) JSON 응답용 객체에 Name, Serial_No 및 기존 필드 모두 포함
+                var formatted = submoduleChks.Select(item =>
                 {
-                    var formattedData = submoduleChks.Select(item => new
+                    basicMap.TryGetValue(item.SUBMODULE_Code, out var basic);
+                    return new
                     {
+                        // PK/FK
                         item.Tbl_Idx,
                         item.SUBMODULE_Code,
+
+                        // 추가할 기본정보
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
+
+                        // 기존 체크 항목들
                         item.CHK_Gongsa_Name,
                         item.CHK_Weather,
                         item.CHK_Temp,
@@ -108,6 +122,8 @@ namespace AMS_MVC.Controllers.Check
                         CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
                         CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
                         item.CHK_Writer,
+
+                        // 세부 측정값들
                         item.CHK_CE_Voltage,
                         item.CHK_G_Voltage,
                         item.CHK_On_Resistance,
@@ -118,17 +134,13 @@ namespace AMS_MVC.Controllers.Check
                         item.CHK_ESR,
                         item.CHK_Capacitance,
                         item.CHK_Temperature,
-                    }).ToList();
 
-                    LogHelper.WriteLog("SUBMODULEChkController.List", $"조회된 데이터: {submoduleChks.Count}건");
-                    return Json(formattedData);
+                        // DB 반영 일시
+                        CHK_Tbl_GetDate = item.CHK_Tbl_GetDate.ToString("yyyy-MM-dd HH:mm:ss")
+                    };
+                }).ToList();
 
-                }
-                else
-                {
-                    LogHelper.WriteLog("SUBMODULEChkController.List", "전체 SUBMODULE 보통점검 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 SUBMODULE 보통점검 데이터 로드 실패" });
-                }
+                return Json(formatted);
             }
             catch (Exception ex)
             {
@@ -136,5 +148,6 @@ namespace AMS_MVC.Controllers.Check
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

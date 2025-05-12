@@ -64,7 +64,8 @@ namespace AMS_MVC.Controllers
                     "DCCABLE_BASICINFO", // DCCABLE 기본정보 테이블
                     "DCCABLE_CODE",      // DCCABLE 코드 필드
                     "DCCABLE",           // 표시용 장치 이름
-                    "DCCABLE"            // 별칭
+                    "DCCABLE",            // 별칭
+                    "DC"
                 );
 
                 var formattedData = priorityData.Select(item => new

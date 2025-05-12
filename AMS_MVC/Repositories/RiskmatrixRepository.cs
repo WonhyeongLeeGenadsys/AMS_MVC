@@ -212,28 +212,47 @@ namespace AMS_MVC.Repositories
 
         public Result UpdateRiskMatrixHI(string code, int newHI)
         {
-            Result res = new Result(true);
+            var res = new Result(true);
             try
             {
-                using (DBHelper dbHelper = new DBHelper())
+                using (var dbHelper = new DBHelper())
+                using (var conn = dbHelper.Conn)
                 {
-                    var query = "UPDATE RISKMATRIX SET HI = @HI WHERE CODE = @Code";
-                    int affectedRows = dbHelper.Conn.Execute(query, new { HI = newHI, Code = code });
-                    if (affectedRows <= 0)
+                    // 1) UPDATE 시도
+                    const string updateSql = @"
+                UPDATE RISKMATRIX
+                   SET HI = @HI
+                 WHERE CODE = @Code";
+                    int affected = conn.Execute(updateSql, new { HI = newHI, Code = code });
+
+                    if (affected > 0)
                     {
-                        res.IsSuccess = false;
-                        res.Message = $"Riskmatrix HI 갱신 실패: {code}";
+                        // 기존 레코드가 있어서 업데이트 된 경우
+                        res.Message = $"RiskMatrix HI가 {code}에 대해 갱신되었습니다 (HI = {newHI}).";
                     }
                     else
                     {
-                        res.Message = $"Riskmatrix HI가 {code}에 대해 갱신되었습니다 (HI = {newHI}).";
+                        // 업데이트된 행이 없으면 INSERT
+                        const string insertSql = @"
+                    INSERT INTO RISKMATRIX (CODE, HI)
+                    VALUES (@Code, @HI)";
+                        int inserted = conn.Execute(insertSql, new { HI = newHI, Code = code });
+                        if (inserted > 0)
+                        {
+                            res.Message = $"RiskMatrix에 신규 행이 추가되었습니다 (CODE = {code}, HI = {newHI}).";
+                        }
+                        else
+                        {
+                            res.IsSuccess = false;
+                            res.Message = $"RiskMatrix HI 갱신 및 신규 추가 모두 실패: {code}";
+                        }
                     }
                 }
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "Riskmatrix HI 업데이트 오류: " + ex.Message;
+                res.Message = "RiskMatrix HI 업데이트 오류: " + ex.Message;
             }
             return res;
         }

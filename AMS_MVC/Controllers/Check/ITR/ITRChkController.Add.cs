@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AMS_MVC.Models;
+using AMS_MVC.Utlity;
+using Web.Common.Log;
 
 namespace AMS_MVC.Controllers.Check
 {
@@ -19,7 +21,9 @@ namespace AMS_MVC.Controllers.Check
 
             ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
             ViewBag.ITR_Code = ITR_Code;
-
+            ViewBag.ActiveSubMenu = type == 1
+    ? "ITRRegular"    // 보통점검
+    : "ITRPrecision"; // 정밀점검
             var companies = new List<Company>();
             if (_companyRepo.GetAllCompanies(out companies).IsSuccess && companies != null)
             {
@@ -29,6 +33,7 @@ namespace AMS_MVC.Controllers.Check
             {
                 ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";
             }
+
             string view = type == 1
                 ? "~/Views/Check/ITR/ITRChk1Add.cshtml"
                 : "~/Views/Check/ITR/ITRChk2Add.cshtml";
@@ -38,27 +43,97 @@ namespace AMS_MVC.Controllers.Check
         [HttpPost]
         public ActionResult ITRChkAdd1(ITRChk1 model)  // 보통점검
         {
-            model.CHK1_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
-            model.CHK1_Tbl_GetDate = model.CHK1_Tbl_GetDate < new DateTime(1753, 1, 1)
-                ? DateTime.Now
-                : model.CHK1_Tbl_GetDate;
+            Result result = new Result(true);
+            try
+            {
+                // 1) 작성자, 날짜 처리
+                model.CHK1_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
 
-            var result = _chk1Repo.CreateITRChk1InfoRepo(model);
-            if (!result.IsSuccess) result.Message = "보통점검 등록 실패: " + result.Message;
+                if (model.CHK1_Tbl_GetDate < new DateTime(1753, 1, 1))
+                    model.CHK1_Tbl_GetDate = DateTime.Now;
+
+                // 2) FoldingFunction 계산
+                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+
+                // 3) DB 저장
+                result = _chk1Repo.CreateITRChk1InfoRepo(model);
+                if (!result.IsSuccess)
+                {
+                    result.Message = "ITR 보통점검 정보를 추가하지 못했습니다.: " + result.Message;
+                }
+                else
+                {
+                    // 4) 반대 검사(정밀) 최신 점수 조회
+                    var other = _chk2Repo.GetLatestFoldingFunction(model.ITR_Code);
+                    int hi = other.HasValue
+                        ? Math.Max(model.FoldingFunction, other.Value)
+                        : model.FoldingFunction;
+
+                    // 5) Riskmatrix.HI 업데이트
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    if (!upd.IsSuccess)
+                    {
+                        LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
+                        result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.Message = $"오류 발생: {ex.Message}";
+                LogHelper.WriteLog("ITRChkAdd1 Error", ex.ToString());
+            }
+
             return Json(result);
         }
 
         [HttpPost]
         public ActionResult ITRChkAdd2(ITRChk2 model)  // 정밀점검
         {
-            model.CHK2_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
-            model.CHK2_Tbl_GetDate = model.CHK2_Tbl_GetDate < new DateTime(1753, 1, 1)
-                ? DateTime.Now
-                : model.CHK2_Tbl_GetDate;
+            Result result = new Result(true);
+            try
+            {
+                // 1) 작성자, 날짜 처리
+                model.CHK2_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
+                if (model.CHK2_Tbl_GetDate < new DateTime(1753, 1, 1))
+                    model.CHK2_Tbl_GetDate = DateTime.Now;
 
-            var result = _chk2Repo.CreateITRChk2InfoRepo(model);
-            if (!result.IsSuccess) result.Message = "정밀점검 등록 실패: " + result.Message;
+                // 2) FoldingFunction 계산
+                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+
+                // 3) DB 저장
+                result = _chk2Repo.CreateITRChk2InfoRepo(model);
+                if (!result.IsSuccess)
+                {
+                    result.Message = "ITR 정밀점검 정보를 추가하지 못했습니다.: " + result.Message;
+                }
+                else
+                {
+                    // 4) 반대 검사(보통) 최신 점수 조회
+                    var other = _chk1Repo.GetLatestFoldingFunction(model.ITR_Code);
+                    int hi = other.HasValue
+                        ? Math.Max(model.FoldingFunction, other.Value)
+                        : model.FoldingFunction;
+
+                    // 5) Riskmatrix.HI 업데이트
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    if (!upd.IsSuccess)
+                    {
+                        LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
+                        result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                result.IsSuccess = false;
+                result.Message = $"오류 발생: {ex.Message}";
+                LogHelper.WriteLog("ITRChkAdd2 Error", ex.ToString());
+            }
+
             return Json(result);
         }
+
     }
 }

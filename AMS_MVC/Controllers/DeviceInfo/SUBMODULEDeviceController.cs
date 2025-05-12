@@ -64,7 +64,8 @@ namespace AMS_MVC.Controllers
                     "SUBMODULE_BASICINFO", // SUBMODULE 기본정보 테이블
                     "SUBMODULE_CODE",      // SUBMODULE 코드 필드
                     "SUBMODULE",           // 표시용 장치 이름
-                    "SUBMODULE"            // 별칭
+                    "SUBMODULE",            // 별칭
+                    "DC"
                 );
 
                 var formattedData = priorityData.Select(item => new

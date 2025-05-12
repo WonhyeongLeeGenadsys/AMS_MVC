@@ -6,6 +6,7 @@ using AMS_MVC.Models;
 using AMS_MVC.Repositories;
 using Web.Common.Log;
 using AMS_MVC.Utlity;
+using AMS_MVC.Services;
 
 namespace AMS_MVC.Controllers.Check
 {
@@ -16,6 +17,9 @@ namespace AMS_MVC.Controllers.Check
         protected readonly ITRChk1Repository _chk1Repo;
         protected readonly ITRChk2Repository _chk2Repo;
 
+        private readonly ITRChkScoreCalculator _scoreCalc = new ITRChkScoreCalculator();
+        private readonly RiskmatrixRepository _riskRepo = new RiskmatrixRepository();
+
         public ITRChkController()
         {
             ViewBag.MenuType = "Check";
@@ -24,6 +28,8 @@ namespace AMS_MVC.Controllers.Check
             _basicRepo = new ITRBasicInfoRepository();
             _chk1Repo = new ITRChk1Repository();
             _chk2Repo = new ITRChk2Repository();
+            _scoreCalc = new ITRChkScoreCalculator();
+            _riskRepo = new RiskmatrixRepository();
         }
     }
 }

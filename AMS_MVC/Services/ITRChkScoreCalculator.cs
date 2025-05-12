@@ -50,7 +50,6 @@ namespace AMS_MVC.Services
         {
             int[] scores = new int[]
             {
-                chk.CHK2_Acid_Value,
                 chk.CHK2_Computerized_Price,
                 chk.CHK2_Water_Content,
                 chk.CHK2_Furfural,

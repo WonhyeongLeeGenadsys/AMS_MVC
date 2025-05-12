@@ -88,14 +88,22 @@ namespace AMS_MVC.Controllers.Check
             {
                 LogHelper.WriteLog("TotalDCCBChkController.List", "GetTotalDCCBChkListData 실행");
 
-                List<DCCBChk> dccbChks = new List<DCCBChk>();
-                var repoResult = dccbChkRepository.GetTotalDCCBChk(out dccbChks);
-                if (repoResult.IsSuccess)
+                var repoResult = dccbChkRepository.GetTotalDCCBChk(out var dccbChks);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                dccbBasicInfoRepository.GetAllDCCBBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.DCCB_Code, b => b);
+
+                var formatted = dccbChks.Select(item =>
                 {
-                    var formattedData = dccbChks.Select(item => new
+                    basicMap.TryGetValue(item.DCCB_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.DCCB_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.CHK_Gongsa_Name,
                         item.CHK_Weather,
                         item.CHK_Temp,
@@ -117,18 +125,11 @@ namespace AMS_MVC.Controllers.Check
                         item.CHK_On_Resistance,
                         item.CHK_Thermal_Resistance,
                         item.CHK_C_Current,
-                        item.CHK_OnOff_Time,
-                    }).ToList();
+                        item.CHK_OnOff_Time
+                    };
+                }).ToList();
 
-                    LogHelper.WriteLog("DCCBChkController.List", $"조회된 데이터: {dccbChks.Count}건");
-                    return Json(formattedData);
-
-                }
-                else
-                {
-                    LogHelper.WriteLog("DCCBChkController.List", "전체 DCCB 보통점검 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 DCCB 보통점검 데이터 로드 실패" });
-                }
+                return Json(formatted);
             }
             catch (Exception ex)
             {
@@ -136,5 +137,6 @@ namespace AMS_MVC.Controllers.Check
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

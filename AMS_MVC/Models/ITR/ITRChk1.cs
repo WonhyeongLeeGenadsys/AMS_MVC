@@ -44,6 +44,7 @@ namespace AMS_MVC.Models
         public int CHK1_HV_LV { get; set; }
         public int CHK1_HV_TV { get; set; }
         public int CHK1_LV_TV { get; set; }
+        public int FoldingFunction { get; set; }
 
         public string CHK1_Writer { get; set; }
         public DateTime CHK1_Tbl_GetDate { get; set; }

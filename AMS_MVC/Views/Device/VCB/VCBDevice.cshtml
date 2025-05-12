@@ -429,6 +429,7 @@
                         });
 
                     // dxDataGrid 초기화 함수
+                    // dxDataGrid 초기화 함수
                     function initializePriorityGrid(data) {
                         $('#gridContainer').dxDataGrid({
                             dataSource: data,
@@ -437,37 +438,42 @@
                             sorting: { mode: 'multiple' },
                             scrolling: { columnRenderingMode: 'virtual' },
 
-                            onCellPrepared: function (e) {
-                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
-                                    var hi = e.value;
-                                    var cls = '';
-                                    switch (hi) {
-                                        case 1: cls = 'priorityVerygood'; break;
-                                        case 2: cls = 'priorityGood'; break;
-                                        case 3: cls = 'priorityFair'; break;
-                                        case 4: cls = 'priorityPoor'; break;
-                                        case 5: cls = 'priorityVerypoor'; break;
-                                    }
-                                    if (cls) {
-                                        e.cellElement.addClass(cls);
-                                    }
+                            // 첫 번째 행 강조
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
                                 }
                             },
+
+                            // HI 셀에 클래스 부여
                             columns: [
                                 { dataField: "Priority", caption: "우선순위", alignment: "center" },
                                 { dataField: "Sort", caption: "구분", alignment: "center" },
                                 { dataField: "Name", caption: "설비명", alignment: "center" },
                                 { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
-                                { dataField: "Install_Date", caption: "설치일", alignment: "center" },
-                                { dataField: "Operating_Date", caption: "운영일", alignment: "center" },
+                                { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
+                                { dataField: "Operating_Date", caption: "운영일", alignment: "center", dataType: "date" },
                                 { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
                                 { dataField: "CoF", caption: "CoF", alignment: "center" },
                                 { dataField: "PoF", caption: "PoF", alignment: "center" },
-                                { dataField: "HI", caption: "HI", alignment: "center" }
-                            ],
-                            showBorders: true,
-                            sorting: { mode: "multiple" },
-                            scrolling: { columnRenderingMode: "virtual" }
+                                {
+                                    dataField: "HI",
+                                    caption: "HI",
+                                    alignment: "center",
+                                    dataType: "number",
+                                    cellTemplate: function (container, info) {
+                                        var clsMap = {
+                                            1: 'priorityVerygood',
+                                            2: 'priorityGood',
+                                            3: 'priorityFair',
+                                            4: 'priorityPoor',
+                                            5: 'priorityVerypoor'
+                                        };
+                                        container.addClass(clsMap[info.value] || '');
+                                        container.text(info.value);
+                                    }
+                                }
+                            ]
                         });
                     }
                 });

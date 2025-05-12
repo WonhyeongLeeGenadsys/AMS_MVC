@@ -83,14 +83,22 @@ namespace AMS_MVC.Controllers.Check
             {
                 LogHelper.WriteLog("TotalDCCABLEChkController.List", "GetTotalDCCABLEChkListData 실행");
 
-                List<DCCABLEChk> dccableChks = new List<DCCABLEChk>();
-                var repoResult = dccableChkRepository.GetTotalDCCABLEChk(out dccableChks);
-                if (repoResult.IsSuccess)
+                var repoResult = dccableChkRepository.GetTotalDCCABLEChk(out var dccableChks);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                dccableBasicInfoRepository.GetAllDCCABLEBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.DCCABLE_Code, b => b);
+
+                var formatted = dccableChks.Select(item =>
                 {
-                    var formattedData = dccableChks.Select(item => new
+                    basicMap.TryGetValue(item.DCCABLE_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.DCCABLE_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.CHK_Gongsa_Name,
                         item.CHK_Weather,
                         item.CHK_Temp,
@@ -107,18 +115,11 @@ namespace AMS_MVC.Controllers.Check
                         item.CHK_Rated_Voltage,
                         item.CHK_Tan_Delta,
                         item.CHK_Resistance,
-                        item.CHK_TDR,
-                    }).ToList();
+                        item.CHK_TDR
+                    };
+                }).ToList();
 
-                    LogHelper.WriteLog("DCCABLEChkController.List", $"조회된 데이터: {dccableChks.Count}건");
-                    return Json(formattedData);
-
-                }
-                else
-                {
-                    LogHelper.WriteLog("DCCABLEChkController.List", "전체 DCCABLE 보통점검 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 DCCABLE 보통점검 데이터 로드 실패" });
-                }
+                return Json(formatted);
             }
             catch (Exception ex)
             {
@@ -126,5 +127,6 @@ namespace AMS_MVC.Controllers.Check
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

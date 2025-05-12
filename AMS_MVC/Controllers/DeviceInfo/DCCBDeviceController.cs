@@ -64,7 +64,8 @@ namespace AMS_MVC.Controllers
                     "DCCB_BASICINFO", // DCCB 기본정보 테이블
                     "DCCB_CODE",      // DCCB 코드 필드
                     "DCCB",           // 표시용 장치 이름
-                    "DCCB"            // 별칭
+                    "DCCB",            // 별칭
+                    "DC"
                 );
 
                 var formattedData = priorityData.Select(item => new

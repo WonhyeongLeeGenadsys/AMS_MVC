@@ -59,10 +59,10 @@ $(document).ready(function () {
             else if (currentPage.includes("DCCB") && linkPage.includes("DCCB")) {
                 $(this).addClass('on');
             }
-            else if (currentPage.includes("DCCable") && linkPage.includes("DCCable")) {
+            else if (currentPage.includes("DCCABLE") && linkPage.includes("DCCABLE")) {
                 $(this).addClass('on');
             }
-            else if (currentPage.includes("SubModule") && linkPage.includes("SubModule")) {
+            else if (currentPage.includes("SUBMODULE") && linkPage.includes("SUBMODULE")) {
                 $(this).addClass('on');
             }
         });

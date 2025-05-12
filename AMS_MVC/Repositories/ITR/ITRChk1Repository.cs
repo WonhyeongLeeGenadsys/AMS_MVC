@@ -116,36 +116,48 @@ namespace AMS_MVC.Repositories
         // ITR 보통점검 데이터 추가
         public Result CreateITRChk1InfoRepo(ITRChk1 itrChk1)
         {
-            Result res = new Result(true);
+            var res = new Result(true);
 
-            try
+            using (var dbHelper = new DBHelper())
+            using (var conn = dbHelper.Conn)
+            using (var tran = conn.BeginTransaction())
             {
-                using(DBHelper dbHelper = new DBHelper())
+                try
                 {
                     const string query = @"
-                INSERT INTO ITR_CHK1 (
-                    ITR_CODE, CHK1_GONGSA_NAME, CHK1_WEATHER, CHK1_TEMP, CHK1_HUM, CHK1_COMPANY, 
-                    CHK1_WORKER, CHK1_MANAGER, CHK1_URGENT_NO, CHK1_TYPE, CHK1_START_DATE, 
-                    CHK1_END_DATE, CHK1_H2, CHK1_C2H2, CHK1_CH4, CHK1_C2H6, CHK1_CO, CHK1_CO2, CHK1_DIELECTRIC_STRENGTH, CHK1_REMAIN_LIFE, CHK1_AGE, CHK1_GOJANG_HISTORY, CHK1_DOBLE, CHK1_SFRA, CHK1_HV_E, CHK1_LV_E, CHK1_TV_E, CHK1_HV_LV, CHK1_HV_TV, CHK1_LV_TV, CHK1_WRITER
-                ) VALUES (
-                    @ITR_Code, @CHK1_Gongsa_Name, @CHK1_Weather, @CHK1_Temp, @CHK1_Hum, @CHK1_Company, 
-                    @CHK1_Worker, @CHK1_Manager, @CHK1_Urgent_No, @CHK1_Type, @CHK1_Start_Date, 
-                    @CHK1_End_Date, @CHK1_H2, @CHK1_C2H2, @CHK1_CH4, @CHK1_C2H6, @CHK1_CO, @CHK1_CO2, @CHK1_Dielectric_Strength, @CHK1_Remain_Life, @CHK1_Age, @CHK1_Gojang_History, @CHK1_Doble, @CHK1_SFRA, @CHK1_HV_E, @CHK1_LV_E, @CHK1_TV_E, @CHK1_HV_LV, @CHK1_HV_TV, @CHK1_LV_TV,  @CHK1_Writer
-                )";
+INSERT INTO ITR_CHK1 (
+    ITR_CODE, CHK1_GONGSA_NAME, CHK1_WEATHER, CHK1_TEMP, CHK1_HUM, CHK1_COMPANY,
+    CHK1_WORKER, CHK1_MANAGER, CHK1_URGENT_NO, CHK1_TYPE, CHK1_START_DATE,
+    CHK1_END_DATE, CHK1_H2, CHK1_C2H2, CHK1_C2H4, CHK1_CH4, CHK1_C2H6, CHK1_CO, CHK1_CO2,
+    CHK1_DIELECTRIC_STRENGTH, CHK1_REMAIN_LIFE, CHK1_AGE, CHK1_GOJANG_HISTORY,
+    CHK1_DOBLE, CHK1_SFRA, CHK1_HV_E, CHK1_LV_E, CHK1_TV_E, CHK1_HV_LV,
+    CHK1_HV_TV, CHK1_LV_TV, FOLDINGFUNCTION, CHK1_WRITER, CHK1_TBL_GETDATE
+) VALUES (
+    @ITR_Code, @CHK1_Gongsa_Name, @CHK1_Weather, @CHK1_Temp, @CHK1_Hum, @CHK1_Company,
+    @CHK1_Worker, @CHK1_Manager, @CHK1_Urgent_No, @CHK1_Type, @CHK1_Start_Date,
+    @CHK1_End_Date, @CHK1_H2, @CHK1_C2H2, @CHK1_C2H4, @CHK1_CH4, @CHK1_C2H6, @CHK1_CO, @CHK1_CO2,
+    @CHK1_Dielectric_Strength, @CHK1_Remain_Life, @CHK1_Age, @CHK1_Gojang_History,
+    @CHK1_Doble, @CHK1_SFRA, @CHK1_HV_E, @CHK1_LV_E, @CHK1_TV_E, @CHK1_HV_LV,
+    @CHK1_HV_TV, @CHK1_LV_TV, @FoldingFunction, @CHK1_Writer, @CHK1_Tbl_GetDate
+)";
+                    int affected = conn.Execute(query, itrChk1, tran);
+                    if (affected <= 0)
+                        throw new Exception("ITR_CHK1 레코드 삽입 실패");
 
-                    int affectedRows = dbHelper.Conn.Execute(query, itrChk1);
-                    res.Message = affectedRows > 0 ? "ITR 보통점검 데이터 추가 성공" : "ITR 보통점검 데이터 추가 실패";
+                    tran.Commit();
+                    res.Message = "ITR 보통점검 데이터 추가 성공";
                 }
-            }
-            catch (Exception ex)
-            {
-                res.IsSuccess = false;
-                res.Message = $"CreateITRChk1InfoRepo 실패: {ex.Message}";
+                catch (Exception ex)
+                {
+                    tran.Rollback();
+                    res.IsSuccess = false;
+                    res.Message = "저장 오류: " + ex.Message;
+                    LogHelper.WriteLog("DB(ITR_CHK1)", res.Message);
+                }
             }
 
             return res;
         }
-
         // VCB 보통점검 데이터 업데이트
         public Result UpdateITRChk1InfoRepo(ITRChk1 itrChk1)
         {
@@ -224,6 +236,19 @@ WHERE ITR_CODE = @ITR_Code AND Tbl_Idx = @Tbl_Idx";
             }
 
             return res;
+        }
+
+        public int? GetLatestFoldingFunction(string itrCode)
+        {
+            using (var db = new DBHelper())
+            {
+                const string sql = @"
+                SELECT TOP 1 FoldingFunction
+                FROM ITR_CHK1
+                WHERE ITR_Code = @Code
+                ORDER BY CHK1_Tbl_GetDate DESC";
+                return db.Conn.QueryFirstOrDefault<int?>(sql, new { Code = itrCode });
+            }
         }
     }
 }
