@@ -12,95 +12,62 @@
     <div class="box_wrap">
         <!--건전도-->
         <div class="con_box flex3">
-            <!--타이틀-->
             <h2>건전도</h2>
-            <!--//타이틀-->
-            <!--그래프-->
             <div id="pie01" style="height: 280px; width: 100%;"></div>
-            <!--//그래프-->
-            <!--그래프 타이틀-->
+
+
             <script>
-                $(document).ready(function () {
-                    // 서버에서 HI 집계 데이터를 가져오는 함수
-                    function fetchVCBData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/VCBDevice/GetRiskmatrixData",
-                            data: JSON.stringify({ prefix: "VCB" }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
+$(function(){
+  // 1~5 HI 순서대로 색상
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
 
-                    // dxPieChart 생성 함수
-                    function initializePieChart(data) {
-                        $('#pie01').dxPieChart({
-                            type: 'doughnut',
-                            palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                            dataSource: data,
-                            legend: {
-                                visible: true,
-                                horizontalAlignment: 'center',
-                                verticalAlignment: 'bottom',
-                            },
-                            onPointClick(arg) {
-                                arg.target.select();
-                            },
-                            series: [{
-                                argumentField: 'state',
-                                valueField: 'value',
-                                label: {
-                                    visible: true,
-                                    format: 'fixedPoint',
-                                    precision: 0,
-                                    connector: { visible: true },
-                                },
-                            }],
-                        });
-                    }
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                   // HI 값
+        state: hi + '등급',          // 차트 범례 텍스트
+        value: parseInt(data[hi],10),// 건수
+        color: hiPalette[hi-1]       // HI-1 인덱스로 색 지정
+      }));
+  }
 
-                    // 데이터를 가져와 차트에 적용
-                    fetchVCBData()
-                        .done(function (response) {
-                            if (response) {
-                                // response는 { "1": count, "2": count, ... } 형태
-                                const hiSummary = summarizeHIData(response);
-                                initializePieChart(hiSummary);
-                            } else {
-                                alert("VCB 데이터를 가져오는 데 실패했습니다.");
-                            }
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                        });
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
 
-                    // HI 데이터를 요약하여 배열 형태로 변환하는 함수
-                    function summarizeHIData(data) {
-                        var result = [];
-                        Object.keys(data).forEach(function (key) {
-                            result.push({
-                                state: getStateByHI(key),
-                                value: parseInt(data[key], 10)
-                            });
-                        });
-                        return result;
-                    }
-
-                    // HI 값에 따라 상태 문자열 반환
-                    function getStateByHI(hi) {
-                        var value = parseInt(hi, 10);
-                        switch (value) {
-                            case 1: return 'Very Good';
-                            case 2: return 'Good';
-                            case 3: return 'Fair';
-                            case 4: return 'Poor';
-                            case 5: return 'Very Poor';
-                            default: return 'Unknown';
-                        }
-                    }
-
-                });
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pt => ({ color: pt.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,
+                    connector: { visible: true },
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+        });
+    }
+  // AJAX로 데이터 가져와 차트 그리기
+  $.ajax({
+    type: 'POST',
+    url: '@Url.Action("GetRiskmatrixData","VCBDevice")',
+    data: JSON.stringify({ prefix: 'VCB' }),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json'
+  })
+  .done(counts => initializePieChart('#pie01', counts))
+  .fail(err => console.error('건전도 차트 로드 실패:', err));
+});
             </script>
         </div>
         <!--//건전도-->
@@ -485,74 +452,74 @@
         <h2>고장률</h2>-->
         <!-- 컨테이너: display:block, 명시적 크기 지정 -->
         <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
-            </div>
+                </div>
 
-            <script>
-    $(document).ready(function () {
-        $("#chart_line").css("display", "block");
+                <script>
+        $(document).ready(function () {
+            $("#chart_line").css("display", "block");
 
-        setTimeout(function() {
-            $.ajax({
-                url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-                type: 'GET',
-                data: { equipmentType: "VCB" },
-                dataType: 'json',
-                success: function (data) {
-                    console.log("알고리즘 결과 데이터 (Hazard):", data);
-                    if (Array.isArray(data) && data.length > 0) {
-                        // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
-                        var hazardData = data[0].HazardSeries;
-                        // 혹시 time, value가 문자열이면 숫자로 변환
-                        hazardData = hazardData.map(function (point) {
-                            return {
-                                time: parseFloat(point.time),
-                                value: parseFloat(point.value)
-                            };
-                        });
-                        console.log("Parsed Hazard Data:", hazardData);
+            setTimeout(function() {
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "VCB" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Hazard):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
+                            var hazardData = data[0].HazardSeries;
+                            // 혹시 time, value가 문자열이면 숫자로 변환
+                            hazardData = hazardData.map(function (point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+                            console.log("Parsed Hazard Data:", hazardData);
 
-                        $("#chart_line").dxChart({
-                            dataSource: hazardData,
-                            // 모든 시리즈에 공통 적용될 기본값
-                            commonSeriesSettings: {
-                                type: 'line',
-                                // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                                point: {
-                                    visible: false
+                            $("#chart_line").dxChart({
+                                dataSource: hazardData,
+                                // 모든 시리즈에 공통 적용될 기본값
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    }
+                                },
+                                // 실제 시리즈 설정 (argumentField, valueField 지정)
+                                series: [{
+                                    name: "고장률",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: 80 }
+                                },
+                                valueAxis: {
+                                    title: "신뢰도 (0 ~ 1)",
+                                    // 값이 0~1 범위이면 이렇게 지정 가능
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
+                                    e.component.render();
                                 }
-                            },
-                            // 실제 시리즈 설정 (argumentField, valueField 지정)
-                            series: [{
-                                name: "고장률",
-                                argumentField: 'time',
-                                valueField: 'value'
-                            }],
-                            tooltip: { enabled: true },
-                            argumentAxis: {
-                                title: "시간 (년)",
-                                visualRange: { startValue: 0, endValue: 80 }
-                            },
-                            valueAxis: {
-                                title: "신뢰도 (0 ~ 1)",
-                                // 값이 0~1 범위이면 이렇게 지정 가능
-                                visualRange: { startValue: 0, endValue: 1 }
-                            },
-                            onContentReady: function(e) {
-                                // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
-                                e.component.render();
-                            }
-                        });
-                    } else {
-                        console.warn("고장률 데이터가 없습니다.");
+                            });
+                        } else {
+                            console.warn("고장률 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("고장률 데이터 로드 실패:", error);
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error("고장률 데이터 로드 실패:", error);
-                }
-            });
-        }, 100);
-    });
-            </script>-->
+                });
+            }, 100);
+        });
+                </script>-->
         <!-- 신뢰도 차트 -->
         <div class="con_box flex5">
             <h2>신뢰도</h2>
@@ -622,62 +589,62 @@
 
         <!-- 확률 밀도 함수 차트 -->
         <!--<div class="con_box">
-                <h2>확률 밀도 함수</h2>
-                <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
-            </div>
-            <script>
-        $(document).ready(function () {
-            // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
-            setTimeout(function () {
-    $.ajax({
-        url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-        type: 'GET',
-        data: { equipmentType: "VCB" },
-        dataType: 'json',
-        success: function (data) {
-            if (Array.isArray(data) && data.length > 0) {
-                // 첫 번째 장비의 확률 밀도 함수 데이터 사용
-                var pdfData = data[0].PdfNormalized;
-                pdfData = pdfData.map(function (point) {
-                    return {
-                        time: parseFloat(point.time),
-                        value: parseFloat(point.value)
-                    };
-                });
-                $("#chart_line03").dxChart({
-                    dataSource: pdfData,
-                    commonSeriesSettings: {
-                        type: 'line',
-                        // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                        point: {
-                            visible: false
+                    <h2>확률 밀도 함수</h2>
+                    <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+                </div>
+                <script>
+            $(document).ready(function () {
+                // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
+                setTimeout(function () {
+        $.ajax({
+            url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: "VCB" },
+            dataType: 'json',
+            success: function (data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    // 첫 번째 장비의 확률 밀도 함수 데이터 사용
+                    var pdfData = data[0].PdfNormalized;
+                    pdfData = pdfData.map(function (point) {
+                        return {
+                            time: parseFloat(point.time),
+                            value: parseFloat(point.value)
+                        };
+                    });
+                    $("#chart_line03").dxChart({
+                        dataSource: pdfData,
+                        commonSeriesSettings: {
+                            type: 'line',
+                            // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                            point: {
+                                visible: false
+                            }
+                        },
+                        series: [{
+                            name: "확률 밀도 함수",
+                            argumentField: 'time',
+                            valueField: 'value'
+                        }],
+                        tooltip: { enabled: true },
+                        argumentAxis: {
+                            title: "시간 (년)",
+                            visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
+                        },
+                        valueAxis: {
+                            title: "정규화된 확률 밀도"
                         }
-                    },
-                    series: [{
-                        name: "확률 밀도 함수",
-                        argumentField: 'time',
-                        valueField: 'value'
-                    }],
-                    tooltip: { enabled: true },
-                    argumentAxis: {
-                        title: "시간 (년)",
-                        visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
-                    },
-                    valueAxis: {
-                        title: "정규화된 확률 밀도"
-                    }
-                });
-            } else {
-                console.warn("확률 밀도 함수 데이터가 없습니다.");
+                    });
+                } else {
+                    console.warn("확률 밀도 함수 데이터가 없습니다.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("확률 밀도 함수 데이터 로드 실패:", error);
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("확률 밀도 함수 데이터 로드 실패:", error);
-        }
-    });
-            }, 100); // 100ms 딜레이
         });
-            </script>-->
+                }, 100); // 100ms 딜레이
+            });
+                </script>-->
         <!--전략-->
         <div class="con_box">
             <!--타이틀-->
@@ -837,12 +804,12 @@
         <!--//점검-->
         <!--유지보수-->
         <!--<div class="con_box flex1">-->
-            <!-- 타이틀 -->
-            <!--<h2>
-                <p>유지보수</p>
-            </h2>-->
-            <!-- 챠트 컨테이너 -->
-            <!--<div id="chart03"></div>
+        <!-- 타이틀 -->
+        <!--<h2>
+            <p>유지보수</p>
+        </h2>-->
+        <!-- 챠트 컨테이너 -->
+        <!--<div id="chart03"></div>
             <script>
                 $(document).ready(function () {
                     // 서버에서 VCB 유지보수 데이터를 가져오는 함수

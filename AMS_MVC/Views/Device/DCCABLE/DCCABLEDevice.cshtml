@@ -12,95 +12,62 @@
     <div class="box_wrap">
         <!--건전도-->
         <div class="con_box flex3">
-            <!--타이틀-->
             <h2>건전도</h2>
-            <!--//타이틀-->
-            <!--그래프-->
-            <div id="pie01" style="height: 280px; width: 100%;"></div>
-            <!--//그래프-->
-            <!--그래프 타이틀-->
+            <div id="pie05" style="height: 280px; width: 100%;"></div>
+
+
             <script>
-                $(document).ready(function () {
-                    // 서버에서 HI 집계 데이터를 가져오는 함수
-                    function fetchDCCABLEData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/DCCABLEDevice/GetRiskmatrixData",
-                            data: JSON.stringify({ prefix: "DCCABLE" }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
+$(function(){
+  // 1~5 HI 순서대로 색상
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
 
-                    // dxPieChart 생성 함수
-                    function initializePieChart(data) {
-                        $('#pie01').dxPieChart({
-                            type: 'doughnut',
-                            palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                            dataSource: data,
-                            legend: {
-                                visible: true,
-                                horizontalAlignment: 'center',
-                                verticalAlignment: 'bottom',
-                            },
-                            onPointClick(arg) {
-                                arg.target.select();
-                            },
-                            series: [{
-                                argumentField: 'state',
-                                valueField: 'value',
-                                label: {
-                                    visible: true,
-                                    format: 'fixedPoint',
-                                    precision: 0,
-                                    connector: { visible: true },
-                                },
-                            }],
-                        });
-                    }
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                   // HI 값
+        state: hi + '등급',          // 차트 범례 텍스트
+        value: parseInt(data[hi],10),// 건수
+        color: hiPalette[hi-1]       // HI-1 인덱스로 색 지정
+      }));
+  }
 
-                    // 데이터를 가져와 차트에 적용
-                    fetchDCCABLEData()
-                        .done(function (response) {
-                            if (response) {
-                                // response는 { "1": count, "2": count, ... } 형태
-                                const hiSummary = summarizeHIData(response);
-                                initializePieChart(hiSummary);
-                            } else {
-                                alert("DCCABLE 데이터를 가져오는 데 실패했습니다.");
-                            }
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                        });
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
 
-                    // HI 데이터를 요약하여 배열 형태로 변환하는 함수
-                    function summarizeHIData(data) {
-                        var result = [];
-                        Object.keys(data).forEach(function (key) {
-                            result.push({
-                                state: getStateByHI(key),
-                                value: parseInt(data[key], 10)
-                            });
-                        });
-                        return result;
-                    }
-
-                    // HI 값에 따라 상태 문자열 반환
-                    function getStateByHI(hi) {
-                        var value = parseInt(hi, 10);
-                        switch (value) {
-                            case 1: return 'Very Good';
-                            case 2: return 'Good';
-                            case 3: return 'Fair';
-                            case 4: return 'Poor';
-                            case 5: return 'Very Poor';
-                            default: return 'Unknown';
-                        }
-                    }
-
-                });
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pt => ({ color: pt.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,
+                    connector: { visible: true },
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+        });
+    }
+  // AJAX로 데이터 가져와 차트 그리기
+  $.ajax({
+    type: 'POST',
+    url: '@Url.Action("GetRiskmatrixData","DCCABLEDevice")',
+      data: JSON.stringify({ prefix: 'DCCABLE' }),
+    contentType: 'application/json; charset=utf-8',
+    dataType: 'json'
+  })
+  .done(counts => initializePieChart('#pie05', counts))
+  .fail(err => console.error('건전도 차트 로드 실패:', err));
+});
             </script>
         </div>
         <!--//건전도-->
@@ -480,7 +447,7 @@
         <!--//우선순위-->
         <!-- 고장률 차트 (Hazard) -->
         <!--<div class="con_box flex5">
-        <h2>고장률</h2>-->
+    <h2>고장률</h2>-->
         <!-- 컨테이너: display:block, 명시적 크기 지정 -->
         <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
             </div>
@@ -848,102 +815,102 @@
         <!--//점검-->
         <!--유지보수-->
         <!--<div class="con_box flex1">-->
-            <!-- 타이틀 -->
-            <!--<h2>
-                <p>유지보수</p>
-            </h2>-->
-            <!-- 챠트 컨테이너 -->
-            <!--<div id="chart03"></div>
-            <script>
-                $(document).ready(function () {
-                    // 서버에서 DCCABLE 유지보수 데이터를 가져오는 함수
-                    function fetchMaintenanceData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/DCCABLEDevice/GetMonthlyMaintenanceData",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
+        <!-- 타이틀 -->
+        <!--<h2>
+        <p>유지보수</p>
+    </h2>-->
+        <!-- 챠트 컨테이너 -->
+        <!--<div id="chart03"></div>
+        <script>
+            $(document).ready(function () {
+                // 서버에서 DCCABLE 유지보수 데이터를 가져오는 함수
+                function fetchMaintenanceData() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/DCCABLEDevice/GetMonthlyMaintenanceData",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
 
-                    // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
-                    // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
-                    function transformData(rawArray) {
-                        return rawArray.map(function (itemArray) {
-                            var obj = {};
-                            itemArray.forEach(function (pair) {
-                                obj[pair.Key] = pair.Value;
-                            });
-                            return obj;
+                // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
+                // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            obj[pair.Key] = pair.Value;
                         });
-                    }
+                        return obj;
+                    });
+                }
 
-                    // 데이터를 월별로 그룹화하여 DCCABLE 값만 누적하는 함수
-                    function processChartData(rawData) {
-                        const groupedData = {};
-                        rawData.forEach(item => {
-                            const month = item.Month; // EX: "2024-05"
-                            if (!groupedData[month]) {
-                                groupedData[month] = { Month: month, DCCABLE: 0 };
+                // 데이터를 월별로 그룹화하여 DCCABLE 값만 누적하는 함수
+                function processChartData(rawData) {
+                    const groupedData = {};
+                    rawData.forEach(item => {
+                        const month = item.Month; // EX: "2024-05"
+                        if (!groupedData[month]) {
+                            groupedData[month] = { Month: month, DCCABLE: 0 };
+                        }
+                        if (item.Type === "DCCABLE") {
+                            groupedData[month].DCCABLE += item.Count;
+                        }
+                    });
+                    // 월별 정렬 (yyyy-MM 문자열 기준)
+                    return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
+                }
+
+                // DCCABLE 차트를 렌더링하는 함수
+                function renderDCCABLEChart(data) {
+                    $("#chart03").dxChart({
+                        dataSource: data,
+                        commonSeriesSettings: {
+                            argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
+                            type: "bar"
+                        },
+                        legend: {
+                            visible: true,
+                            position: "bottom"
+                        },
+                        tooltip: {
+                            enabled: true,
+                            customizeTooltip: function (arg) {
+                                return {
+                                    text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
+                                };
                             }
-                            if (item.Type === "DCCABLE") {
-                                groupedData[month].DCCABLE += item.Count;
+                        },
+                        series: [
+                            {
+                                name: "DCCABLE",
+                                valueField: "DCCABLE",  // 각 데이터 객체에 "DCCABLE" 속성이 있어야 함
+                                color: "#0051A2"
                             }
-                        });
-                        // 월별 정렬 (yyyy-MM 문자열 기준)
-                        return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
-                    }
+                        ]
+                    });
+                }
 
-                    // DCCABLE 차트를 렌더링하는 함수
-                    function renderDCCABLEChart(data) {
-                        $("#chart03").dxChart({
-                            dataSource: data,
-                            commonSeriesSettings: {
-                                argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
-                                type: "bar"
-                            },
-                            legend: {
-                                visible: true,
-                                position: "bottom"
-                            },
-                            tooltip: {
-                                enabled: true,
-                                customizeTooltip: function (arg) {
-                                    return {
-                                        text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
-                                    };
-                                }
-                            },
-                            series: [
-                                {
-                                    name: "DCCABLE",
-                                    valueField: "DCCABLE",  // 각 데이터 객체에 "DCCABLE" 속성이 있어야 함
-                                    color: "#0051A2"
-                                }
-                            ]
-                        });
-                    }
-
-                    // AJAX 호출하여 데이터 로드 및 차트 렌더링
-                    fetchMaintenanceData()
-                        .done(function (response) {
-                            console.log("유지보수 raw 데이터:", response);
-                            // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
-                            const transformedData = transformData(response);
-                            console.log("변환된 데이터:", transformedData);
-                            if (!Array.isArray(transformedData) || transformedData.length === 0) {
-                                return;
-                            }
-                            const chartData = processChartData(transformedData);
-                            renderDCCABLEChart(chartData);
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
-                        });
-                });
-            </script>
-        </div>-->
+                // AJAX 호출하여 데이터 로드 및 차트 렌더링
+                fetchMaintenanceData()
+                    .done(function (response) {
+                        console.log("유지보수 raw 데이터:", response);
+                        // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
+                        const transformedData = transformData(response);
+                        console.log("변환된 데이터:", transformedData);
+                        if (!Array.isArray(transformedData) || transformedData.length === 0) {
+                            return;
+                        }
+                        const chartData = processChartData(transformedData);
+                        renderDCCABLEChart(chartData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                    });
+            });
+        </script>
+    </div>-->
         <!--//유지보수-->
         <!--고장-->
         <div class="con_box">

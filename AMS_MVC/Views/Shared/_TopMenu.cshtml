@@ -20,6 +20,23 @@
                 <li><a href="@Url.Action("Index", "SUBMODULEDevice")">Sub Module</a></li>
                 <li><a href="@Url.Action("Index", "DCCBDevice")">DCCB</a></li>
                 <li><a href="@Url.Action("Index", "DCCABLEDevice")">DC Cable</a></li>
+
+                <li><a href="@Url.Action("Index", "SADevice")">SA</a></li>
+                <li><a href="@Url.Action("Index", "DCCTDevice")">DCCT</a></li>
+                <li><a href="@Url.Action("Index", "ArmReactorDevice")">Arm Reactor</a></li>
+                <li><a href="@Url.Action("Index", "WallBushingDevice")">Wall Bushing</a></li>
+                <li><a href="@Url.Action("Index", "PTDevice")">PT</a></li>
+                <li><a href="@Url.Action("Index", "CTDevice")">CT</a></li>
+                <li><a href="@Url.Action("Index", "LADevice")">LA</a></li>
+                <li><a href="@Url.Action("Index", "DSDevice")">DS</a></li>
+
+                <li><a href="@Url.Action("Index", "TankDevice")">Tank</a></li>
+                <li><a href="@Url.Action("Index", "HeatExchangerDevice")">Heat Exchanger</a></li>
+                <li><a href="@Url.Action("Index", "BypassValveDevice")">Bypass Valve</a></li>
+                <li><a href="@Url.Action("Index", "PumpDevice")">Pump</a></li>
+                <li><a href="@Url.Action("Index", "ZigZagTRDevice")">Zig-Zag TR</a></li>
+                <li><a href="@Url.Action("Index", "ESDevice")">ES</a></li>
+                <li><a href="@Url.Action("Index", "NGRDevice")">NGR</a></li>
             </ul>
         </li>
 
@@ -29,13 +46,30 @@
             @*<a href="@Url.Action("VCBBasicList", "VCBBasic", new { menu = "Regist" })" class="btn_gnb" id="gnb_03">등록</a>*@
             @*<a href="@Url.RouteUrl("Default", new { menu = "Regist", controller = "VCBBasic", action = "VCBBasicList" })" class="btn_gnb" id="gnb_03">등록</a>*@
 
-            <ul class="lnb_group">
-                <li><a href="@Url.Action("VCBBasicList", "VCBBasic")">VCB</a></li>
-                <li><a href="@Url.Action("ITRBasicList", "ITRBasic")">Interface TR</a></li>
-                <li><a href="@Url.Action("SUBMODULEBasicList", "SUBMODULEBasic")">Sub Module</a></li>
-                <li><a href="@Url.Action("DCCBBasicList", "DCCBBasic")">DCCB</a></li>
-                <li><a href="@Url.Action("DCCABLEBasicList", "DCCABLEBasic")">DC Cable</a></li>
-            </ul>
+        <ul class="lnb_group">
+            <li><a href="@Url.Action("VCBBasicList", "VCBBasic")">VCB</a></li>
+            <li><a href="@Url.Action("ITRBasicList", "ITRBasic")">Interface TR</a></li>
+            <li><a href="@Url.Action("SUBMODULEBasicList", "SUBMODULEBasic")">Sub Module</a></li>
+            <li><a href="@Url.Action("DCCBBasicList", "DCCBBasic")">DCCB</a></li>
+            <li><a href="@Url.Action("DCCABLEBasicList", "DCCABLEBasic")">DC Cable</a></li>
+
+            <li><a href="@Url.Action("SABasicList",        "SABasic")">SA</a></li>
+            <li><a href="@Url.Action("DCCTBasicList",      "DCCTBasic")">DCCT</a></li>
+            <li><a href="@Url.Action("ArmReactorBasicList","ArmReactorBasic")">Arm Reactor</a></li>
+            <li><a href="@Url.Action("WallBushingBasicList","WallBushingBasic")">Wall Bushing</a></li>
+            <li><a href="@Url.Action("PTBasicList",        "PTBasic")">PT</a></li>
+            <li><a href="@Url.Action("CTBasicList",        "CTBasic")">CT</a></li>
+            <li><a href="@Url.Action("LABasicList",        "LABasic")">LA</a></li>
+            <li><a href="@Url.Action("DSBasicList",        "DSBasic")">DS</a></li>
+
+            <li><a href="@Url.Action("TankBasicList",      "TankBasic")">Tank</a></li>
+            <li><a href="@Url.Action("HeatExchangerBasicList","HeatExchangerBasic")">Heat Exchanger</a></li>
+            <li><a href="@Url.Action("BypassValveBasicList","BypassValveBasic")">Bypass Valve</a></li>
+            <li><a href="@Url.Action("PumpBasicList",      "PumpBasic")">Pump</a></li>
+            <li><a href="@Url.Action("ZigZagTRBasicList",  "ZigZagTRBasic")">Zig-Zag TR</a></li>
+            <li><a href="@Url.Action("ESBasicList",        "ESBasic")">ES</a></li>
+            <li><a href="@Url.Action("NGRBasicList",       "NGRBasic")">NGR</a></li>
+        </ul>
         </li>
 
         <!-- 점검 -->
@@ -47,6 +81,24 @@
                 <li><a href="@Url.Action("SUBMODULEChkTotalList", "SUBMODULEChk")">Sub Module</a></li>
                 <li><a href="@Url.Action("DCCBChkTotalList", "DCCBChk")">DCCB</a></li>
                 <li><a href="@Url.Action("DCCABLEChkTotalList", "DCCABLEChk")">DC Cable</a></li>
+
+                <li><a href="@Url.Action("SAChkTotalList",           "SAChk")">SA</a></li>
+                <li><a href="@Url.Action("DCCTChkTotalList",         "DCCTChk")">DCCT</a></li>
+                <li><a href="@Url.Action("ArmReactorChkTotalList",    "ArmReactorChk")">Arm Reactor</a></li>
+                <li><a href="@Url.Action("WallBushingChkTotalList",   "WallBushingChk")">Wall Bushing</a></li>
+                <li><a href="@Url.Action("PTChkTotalList",            "PTChk")">PT</a></li>
+                <li><a href="@Url.Action("CTChkTotalList",            "CTChk")">CT</a></li>
+                <li><a href="@Url.Action("LAChkTotalList",            "LAChk")">LA</a></li>
+                <li><a href="@Url.Action("DSChkTotalList",            "DSChk")">DS</a></li>
+
+                <li><a href="@Url.Action("TankChkTotalList",          "TankChk")">Tank</a></li>
+                <li><a href="@Url.Action("HeatExchangerChkTotalList", "HeatExchangerChk")">Heat Exchanger</a></li>
+                <li><a href="@Url.Action("BypassValveChkTotalList",   "BypassValveChk")">Bypass Valve</a></li>
+                <li><a href="@Url.Action("PumpChkTotalList",          "PumpChk")">Pump</a></li>
+
+                <li><a href="@Url.Action("ZigZagTRChkTotalList",      "ZigZagTRChk")">Zig-Zag TR</a></li>
+                <li><a href="@Url.Action("ESChkTotalList",            "ESChk")">ES</a></li>
+                <li><a href="@Url.Action("NGRChkTotalList",           "NGRChk")">NGR</a></li>
             </ul>
         </li>
 
@@ -59,6 +111,23 @@
                 <li><a href="@Url.Action("SUBMODULEGojangTotalList", "SUBMODULEGojang")">Sub Module</a></li>
                 <li><a href="@Url.Action("DCCBGojangTotalList", "DCCBGojang")">DCCB</a></li>
                 <li><a href="@Url.Action("DCCABLEGojangTotalList", "DCCABLEGojang")">DC Cable</a></li>
+
+                <li><a href="@Url.Action("SAGojangTotalList",         "SAGojang")">SA</a></li>
+                <li><a href="@Url.Action("DCCTGojangTotalList",       "DCCTGojang")">DCCT</a></li>
+                <li><a href="@Url.Action("ArmReactorGojangTotalList", "ArmReactorGojang")">Arm Reactor</a></li>
+                <li><a href="@Url.Action("WallBushingGojangTotalList","WallBushingGojang")">Wall Bushing</a></li>
+                <li><a href="@Url.Action("PTGojangTotalList",         "PTGojang")">PT</a></li>
+                <li><a href="@Url.Action("CTGojangTotalList",         "CTGojang")">CT</a></li>
+                <li><a href="@Url.Action("LAGojangTotalList",         "LAGojang")">LA</a></li>
+                <li><a href="@Url.Action("DSGojangTotalList",         "DSGojang")">DS</a></li>
+
+                <li><a href="@Url.Action("TankGojangTotalList",       "TankGojang")">Tank</a></li>
+                <li><a href="@Url.Action("HeatExchangerGojangTotalList","HeatExchangerGojang")">Heat Exchanger</a></li>
+                <li><a href="@Url.Action("BypassValveGojangTotalList","BypassValveGojang")">Bypass Valve</a></li>
+                <li><a href="@Url.Action("PumpGojangTotalList",       "PumpGojang")">Pump</a></li>
+                <li><a href="@Url.Action("ZigZagTRGojangTotalList",   "ZigZagTRGojang")">Zig-Zag TR</a></li>
+                <li><a href="@Url.Action("ESGojangTotalList",         "ESGojang")">ES</a></li>
+                <li><a href="@Url.Action("NGRGojangTotalList",        "NGRGojang")">NGR</a></li>
             </ul>
         </li>
 
@@ -71,6 +140,23 @@
                 <li><a href="@Url.Action("SUBMODULEMaintenanceTotalList", "SUBMODULEMaintenance")">Sub Module</a></li>
                 <li><a href="@Url.Action("DCCBMaintenanceTotalList", "DCCBMaintenance")">DCCB</a></li>
                 <li><a href="@Url.Action("DCCABLEMaintenanceTotalList", "DCCABLEMaintenance")">DC Cable</a></li>
+
+                <li><a href="@Url.Action("SAMaintenanceTotalList",        "SAMaintenance")">SA</a></li>
+                <li><a href="@Url.Action("DCCTMaintenanceTotalList",      "DCCTMaintenance")">DCCT</a></li>
+                <li><a href="@Url.Action("ArmReactorMaintenanceTotalList","ArmReactorMaintenance")">Arm Reactor</a></li>
+                <li><a href="@Url.Action("WallBushingMaintenanceTotalList","WallBushingMaintenance")">Wall Bushing</a></li>
+                <li><a href="@Url.Action("PTMaintenanceTotalList",        "PTMaintenance")">PT</a></li>
+                <li><a href="@Url.Action("CTMaintenanceTotalList",        "CTMaintenance")">CT</a></li>
+                <li><a href="@Url.Action("LAMaintenanceTotalList",        "LAMaintenance")">LA</a></li>
+                <li><a href="@Url.Action("DSMaintenanceTotalList",        "DSMaintenance")">DS</a></li>
+
+                <li><a href="@Url.Action("TankMaintenanceTotalList",      "TankMaintenance")">Tank</a></li>
+                <li><a href="@Url.Action("HeatExchangerMaintenanceTotalList","HeatExchangerMaintenance")">Heat Exchanger</a></li>
+                <li><a href="@Url.Action("BypassValveMaintenanceTotalList","BypassValveMaintenance")">Bypass Valve</a></li>
+                <li><a href="@Url.Action("PumpMaintenanceTotalList",      "PumpMaintenance")">Pump</a></li>
+                <li><a href="@Url.Action("ZigZagTRMaintenanceTotalList",  "ZigZagTRMaintenance")">Zig-Zag TR</a></li>
+                <li><a href="@Url.Action("ESMaintenanceTotalList",        "ESMaintenance")">ES</a></li>
+                <li><a href="@Url.Action("NGRMaintenanceTotalList",       "NGRMaintenance")">NGR</a></li>
             </ul>
         </li>
     </ul>

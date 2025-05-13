@@ -11,7 +11,7 @@ namespace AMS_MVC.Controllers.Check
     public partial class ITRChkController
     {
         // GET: /Check/ITRChk/TotalList?type=1
-        public ActionResult TotalList(int type = 1)
+        public ActionResult ITRChkTotalList(int type = 1)
         {
             string view = type == 1
                 ? "~/Views/Check/Total/ITRChk1TotalList.cshtml"
@@ -89,7 +89,6 @@ namespace AMS_MVC.Controllers.Check
                             item.CHK2_Type,
                             CHK2_Start_Date = item.CHK2_Start_Date?.ToString("yy.MM.dd"),
                             CHK2_End_Date = item.CHK2_End_Date?.ToString("yy.MM.dd"),
-                            item.CHK2_Acid_Value,
                             item.CHK2_Computerized_Price,
                             item.CHK2_Water_Content,
                             item.CHK2_Furfural,

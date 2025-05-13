@@ -10,7 +10,7 @@ namespace AMS_MVC.Controllers.Check
     public partial class ITRChkController
     {
         // GET: /Check/ITRChk/List/{ITR_Code}?type=1
-        public ActionResult List(string ITR_Code, int type = 1)
+        public ActionResult ITRChkList(string ITR_Code, int type = 1)
         {
             var basic = _basicRepo.GetITRBasicInfoByITRCode(ITR_Code);
             ViewBag.SerialNo = basic?.Serial_No ?? "";
@@ -24,7 +24,7 @@ namespace AMS_MVC.Controllers.Check
         }
 
         [HttpPost]
-        public ActionResult GetListData(string itrCode, int type = 1)
+        public ActionResult GetITRChkListData(string itrCode, int type = 1)
         {
             try
             {
