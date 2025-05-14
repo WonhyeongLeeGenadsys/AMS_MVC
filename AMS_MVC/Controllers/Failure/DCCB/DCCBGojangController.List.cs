@@ -71,14 +71,23 @@ namespace AMS_MVC.Controllers
             {
                 LogHelper.WriteLog("TotalDCCBGojangController.List", "GetTotalDCCBGojangListData 실행");
 
-                List<DCCBFailureHistory> dccbGojang = new List<DCCBFailureHistory>();
+                List<DCCBFailureHistory> dccbGojang;
                 var repoResult = dccbGojangRepository.GetTotalDCCBGojang(out dccbGojang);
-                if (repoResult.IsSuccess)
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                dccbBasicInfoRepository.GetAllDCCBBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.DCCB_Code, b => b);
+
+                var formattedData = dccbGojang.Select(item =>
                 {
-                    var formattedData = dccbGojang.Select(item => new
+                    basicMap.TryGetValue(item.DCCB_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.DCCB_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.Fail_Gojang_Name,
                         item.Fail_Weather,
                         item.Fail_Temp,
@@ -92,18 +101,12 @@ namespace AMS_MVC.Controllers
                         item.Fail_Repairer,
                         item.Fail_Supervisor,
                         Fail_Repair_Date = item.Fail_Repair_Date?.ToString("yy.MM.dd"),
-                        item.Fail_Writer,
+                        item.Fail_Writer
+                    };
+                }).ToList();
 
-                    }).ToList();
-
-                    LogHelper.WriteLog("DCCBGojangController.List", $"조회된 데이터: {dccbGojang.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("DCCBGojangController.List", "전체 DCCB 고장이력 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 DCCB 고장이력 데이터 로드 실패" });
-                }
+                LogHelper.WriteLog("DCCBGojangController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
@@ -111,5 +114,6 @@ namespace AMS_MVC.Controllers
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

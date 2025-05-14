@@ -71,14 +71,23 @@ namespace AMS_MVC.Controllers
             {
                 LogHelper.WriteLog("TotalITRGojangController.List", "GetTotalITRGojangListData 실행");
 
-                List<ITRFailureHistory> itrGojang = new List<ITRFailureHistory>();
+                List<ITRFailureHistory> itrGojang;
                 var repoResult = itrGojangRepository.GetTotalITRGojang(out itrGojang);
-                if (repoResult.IsSuccess)
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                itrBasicInfoRepository.GetAllITRBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.ITR_Code, b => b);
+
+                var formattedData = itrGojang.Select(item =>
                 {
-                    var formattedData = itrGojang.Select(item => new
+                    basicMap.TryGetValue(item.ITR_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.ITR_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.Fail_Gojang_Name,
                         item.Fail_Weather,
                         item.Fail_Temp,
@@ -92,24 +101,19 @@ namespace AMS_MVC.Controllers
                         item.Fail_Repairer,
                         item.Fail_Supervisor,
                         Fail_Repair_Date = item.Fail_Repair_Date?.ToString("yy.MM.dd"),
-                        item.Fail_Writer,
+                        item.Fail_Writer
+                    };
+                }).ToList();
 
-                    }).ToList();
-
-                    LogHelper.WriteLog("ITRGojangController.List", $"조회된 데이터: {itrGojang.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("ITRGojangController.List", "전체 ITR 고장이력 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 ITR 고장이력 데이터 로드 실패" });
-                }
+                LogHelper.WriteLog("ITRGojangController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
-                LogHelper.WriteLog("ITRGojangController.List", $"GetTotalITRListData 실패: {ex.Message}");
+                LogHelper.WriteLog("ITRGojangController.List", $"GetTotalITRGojangListData 실패: {ex.Message}");
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

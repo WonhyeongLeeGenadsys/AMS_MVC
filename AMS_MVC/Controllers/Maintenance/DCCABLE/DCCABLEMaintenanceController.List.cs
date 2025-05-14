@@ -72,14 +72,25 @@ namespace AMS_MVC.Controllers.Maintenance.DCCABLE
             {
                 LogHelper.WriteLog("TotalDCCABLEMaintenanceController.List", "GetTotalDCCABLEMaintenanceListData 실행");
 
-                List<DCCABLEMaintenanceHistory> dccableMaintenance = new List<DCCABLEMaintenanceHistory>();
-                var repoResult = dccableMaintenanceRepository.GetTotalDCCABLEMaintenance(out dccableMaintenance);
-                if (repoResult.IsSuccess)
+                // 1) 전체 유지보수 이력 조회
+                var repoResult = dccableMaintenanceRepository.GetTotalDCCABLEMaintenance(out List<DCCABLEMaintenanceHistory> dccableMaintenance);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                // 2) 기본정보 전체 조회 및 코드→기본정보 맵 생성
+                dccableBasicInfoRepository.GetAllDCCABLEBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.DCCABLE_Code, b => b);
+
+                // 3) 결과에 Name, Serial_No 추가
+                var formattedData = dccableMaintenance.Select(item =>
                 {
-                    var formattedData = dccableMaintenance.Select(item => new
+                    basicMap.TryGetValue(item.DCCABLE_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.DCCABLE_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.MR_Bosu_Name,
                         item.MR_Weather,
                         item.MR_Temp,
@@ -89,18 +100,12 @@ namespace AMS_MVC.Controllers.Maintenance.DCCABLE
                         item.MR_Part,
                         item.MR_Worker,
                         MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
-                        item.MR_Writer,
+                        item.MR_Writer
+                    };
+                }).ToList();
 
-                    }).ToList();
-
-                    LogHelper.WriteLog("DCCABLEMaintenanceController.List", $"조회된 데이터: {dccableMaintenance.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("DCCABLEMaintenanceController.List", "전체 DCCABLE 유지보수 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 DCCABLE 유지보수 데이터 로드 실패" });
-                }
+                LogHelper.WriteLog("DCCABLEMaintenanceController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
@@ -108,5 +113,6 @@ namespace AMS_MVC.Controllers.Maintenance.DCCABLE
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

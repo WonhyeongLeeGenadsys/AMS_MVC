@@ -71,14 +71,25 @@ namespace AMS_MVC.Controllers.Maintenance.ITR
             {
                 LogHelper.WriteLog("TotalITRMaintenanceController.List", "GetTotalITRMaintenanceListData 실행");
 
-                List<ITRMaintenanceHistory> itrMaintenance = new List<ITRMaintenanceHistory>();
-                var repoResult = itrMaintenanceRepository.GetTotalITRMaintenance(out itrMaintenance);
-                if (repoResult.IsSuccess)
+                // 1) 전체 유지보수 이력 조회
+                var repoResult = itrMaintenanceRepository.GetTotalITRMaintenance(out List<ITRMaintenanceHistory> itrMaintenance);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                // 2) 기본정보 전체 조회 및 코드→기본정보 맵 생성
+                itrBasicInfoRepository.GetAllITRBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.ITR_Code, b => b);
+
+                // 3) 결과에 Name, Serial_No 추가
+                var formattedData = itrMaintenance.Select(item =>
                 {
-                    var formattedData = itrMaintenance.Select(item => new
+                    basicMap.TryGetValue(item.ITR_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.ITR_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.MR_Bosu_Name,
                         item.MR_Weather,
                         item.MR_Temp,
@@ -88,18 +99,12 @@ namespace AMS_MVC.Controllers.Maintenance.ITR
                         item.MR_Part,
                         item.MR_Worker,
                         MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
-                        item.MR_Writer,
+                        item.MR_Writer
+                    };
+                }).ToList();
 
-                    }).ToList();
-
-                    LogHelper.WriteLog("ITRMaintenanceController.List", $"조회된 데이터: {itrMaintenance.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("ITRMaintenanceController.List", "전체 ITR 유지보수 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 ITR 유지보수 데이터 로드 실패" });
-                }
+                LogHelper.WriteLog("ITRMaintenanceController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
@@ -107,5 +112,6 @@ namespace AMS_MVC.Controllers.Maintenance.ITR
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

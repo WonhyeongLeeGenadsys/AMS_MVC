@@ -111,16 +111,13 @@ namespace AMS_MVC.Controllers.Check
                 basicMap.TryGetValue(item.VCB_Code, out var basic);
                 return new
                 {
-                    // PK
                     item.Tbl_Idx,
-                    // FK
                     item.VCB_Code,
 
                     // 추가한 기본정보
                     Name = basic?.Name ?? "",
                     Serial_No = basic?.Serial_No ?? "",
 
-                    // => 여기에 점검 데이터 전부!
                     item.CHK_Gongsa_Name,
                     item.CHK_Weather,
                     item.CHK_Temp,
@@ -131,7 +128,6 @@ namespace AMS_MVC.Controllers.Check
                     item.CHK_Urgent_No,
                     item.CHK_Type,
 
-                    // 날짜는 문자열 포맷
                     CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
                     CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
 
@@ -163,7 +159,6 @@ namespace AMS_MVC.Controllers.Check
 
                     item.CHK_Writer,
 
-                    // 나머지 고급 항목들
                     item.CHK_ContactWearPercent,
                     item.CHK_VacuumLeakCurrent,
                     item.CHK_ContactResistance,

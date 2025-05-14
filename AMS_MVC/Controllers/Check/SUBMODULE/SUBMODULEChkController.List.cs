@@ -101,15 +101,12 @@ namespace AMS_MVC.Controllers.Check
                     basicMap.TryGetValue(item.SUBMODULE_Code, out var basic);
                     return new
                     {
-                        // PK/FK
                         item.Tbl_Idx,
                         item.SUBMODULE_Code,
 
-                        // 추가할 기본정보
                         Name = basic?.Name ?? "",
                         Serial_No = basic?.Serial_No ?? "",
 
-                        // 기존 체크 항목들
                         item.CHK_Gongsa_Name,
                         item.CHK_Weather,
                         item.CHK_Temp,
@@ -123,7 +120,6 @@ namespace AMS_MVC.Controllers.Check
                         CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
                         item.CHK_Writer,
 
-                        // 세부 측정값들
                         item.CHK_CE_Voltage,
                         item.CHK_G_Voltage,
                         item.CHK_On_Resistance,
@@ -135,7 +131,6 @@ namespace AMS_MVC.Controllers.Check
                         item.CHK_Capacitance,
                         item.CHK_Temperature,
 
-                        // DB 반영 일시
                         CHK_Tbl_GetDate = item.CHK_Tbl_GetDate.ToString("yyyy-MM-dd HH:mm:ss")
                     };
                 }).ToList();

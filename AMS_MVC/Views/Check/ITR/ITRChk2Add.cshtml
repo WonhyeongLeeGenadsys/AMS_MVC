@@ -63,7 +63,7 @@
                         <tr>
                             <th>업체명</th>
                             <td>
-                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                                @Html.DropDownList("chk2_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
                             </td>
                             <th>점검자</th>
                             <td>
@@ -285,7 +285,7 @@
             }
 
             $.ajax({
-            url: '@Url.Action("ITRChkAdd2", "ITRChk", new { ITR_Code = itrCode, type = 2 } )',
+            url: '@Url.Action("ITRChkAdd2", "ITRChk", new { ITR_Code = itrCode } )',
             type: "POST",
             data: formData,
             processData: false,
@@ -294,7 +294,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 정밀점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("TotalList", "ITRChk", new { type = 2 } )';
+                    window.location.href = '@Url.Action("GetITRChkTotalList", "ITRChk", new { type = 2 } )';
                 } else {
                     alert("ITR 정밀점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

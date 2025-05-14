@@ -12,7 +12,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChkAdd", "ITRChk", new { type = 1 })" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChkAdd2", "ITRChk", new { type = 1 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -25,7 +25,7 @@
             function loadITRChk1Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetTotalListData", "ITRChk", new { type = 1 })',
+                    url: '@Url.Action("GetTotalITRChkListData", "ITRChk", new { type = 1 })',
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success == false) {

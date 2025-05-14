@@ -446,7 +446,7 @@
                     console.log("서버 응답:", response);
                     if (response.IsSuccess) {
                         alert("ITR 보통점검 정보가 수정되었습니다.");
-                        window.location.href = '@Url.Action("ITRChk1TotalList", "ITRChk1")';
+                        window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk",new { type = 1 })';
                     } else {
                         alert("ITR 보통점검 정보를 수정하지 못했습니다.: " + response.message);
                     }

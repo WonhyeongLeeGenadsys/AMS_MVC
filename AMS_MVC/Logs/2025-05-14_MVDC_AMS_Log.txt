@@ -1,0 +1,82 @@
+|2025-05-14 13:19:41  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:19:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:42  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:19:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:54  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-05-14 13:19:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:55  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-05-14 13:19:55  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-05-14 13:19:55  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:56  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-05-14 13:19:56  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-05-14 13:19:56  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:58  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-05-14 13:19:58  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-05-14 13:19:58  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:19:59  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-05-14 13:19:59  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-05-14 13:19:59  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:20:00  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-05-14 13:20:00  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:20:02  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:20:02  |   VCBGojangController.List  |   조회된 데이터: 4건   |
+|2025-05-14 13:20:04  |   TotalITRGojangController.List  |   GetTotalITRGojangListData 실행   |
+|2025-05-14 13:20:04  |   ITRGojangController.List  |   조회된 데이터: 2건   |
+|2025-05-14 13:20:05  |   TotalSUBMODULEGojangController.List  |   GetTotalSUBMODULEGojangListData 실행   |
+|2025-05-14 13:20:05  |   SUBMODULEGojangController.List  |   조회된 데이터: 2건   |
+|2025-05-14 13:20:05  |   TotalDCCBGojangController.List  |   GetTotalDCCBGojangListData 실행   |
+|2025-05-14 13:20:05  |   DCCBGojangController.List  |   조회된 데이터: 2건   |
+|2025-05-14 13:20:07  |   TotalDCCABLEGojangController.List  |   GetTotalDCCABLEGojangListData 실행   |
+|2025-05-14 13:20:07  |   DCCABLEGojangController.List  |   조회된 데이터: 2건   |
+|2025-05-14 13:20:10  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-05-14 13:20:10  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-05-14 13:20:11  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:20:11  |   VCBGojangController.List  |   조회된 데이터: 4건   |
+|2025-05-14 13:20:12  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:20:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:20:15  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:20:15  |   VCBGojangController.List  |   조회된 데이터: 4건   |
+|2025-05-14 13:20:16  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-05-14 13:20:16  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-05-14 13:20:18  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:20:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:20:20  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:20:20  |   VCBGojangController.List  |   조회된 데이터: 4건   |
+|2025-05-14 13:20:20  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-05-14 13:20:20  |   VCBMaintenanceController.List  |   조회된 데이터: 1건   |
+|2025-05-14 13:20:21  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:20:21  |   VCBGojangController.List  |   조회된 데이터: 4건   |
+|2025-05-14 13:20:22  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:20:22  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:30:51  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:30:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:31:03  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:31:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:31:04  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-05-14 13:31:04  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:29  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-14 13:40:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:34  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:34  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:35  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:35  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:37  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:37  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:38  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:38  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:38  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:38  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:39  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:39  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:40  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-05-14 13:40:40  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:42  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-05-14 13:40:42  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-05-14 13:40:42  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:43  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-05-14 13:40:43  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-05-14 13:40:43  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:44  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-05-14 13:40:44  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-05-14 13:40:45  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-05-14 13:40:45  |   VCBGojangController.List  |   조회된 데이터: 4건   |

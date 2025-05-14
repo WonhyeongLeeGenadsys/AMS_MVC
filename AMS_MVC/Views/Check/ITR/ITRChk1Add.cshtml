@@ -63,7 +63,7 @@
                         <tr>
                             <th>업체명</th>
                             <td>
-                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                                @Html.DropDownList("chk1_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
                             </td>
                             <th>점검자</th>
                             <td>
@@ -690,7 +690,7 @@
                 console.log(pair[0] + ": " + pair[1]);
             }
             $.ajax({
-            url: '@Url.Action("ITRChkAdd1", "ITRChk", new { ITR_Code = itrCode, type = 1 } )',
+            url: '@Url.Action("ITRChkAdd1", "ITRChk", new { ITR_Code = itrCode } )',
             type: "POST",
             data: formData,
             processData: false,
@@ -699,7 +699,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 보통점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("TotalList", "ITRChk", new { type = 1 } )';
+                    window.location.href = '@Url.Action("GetITRChkTotalList", "ITRChk", new { type = 1 } )';
                 } else {
                     alert("ITR 보통점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

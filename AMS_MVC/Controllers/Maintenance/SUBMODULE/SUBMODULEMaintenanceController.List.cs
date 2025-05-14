@@ -72,14 +72,23 @@ namespace AMS_MVC.Controllers.Maintenance.SUBMODULE
             {
                 LogHelper.WriteLog("TotalSUBMODULEMaintenanceController.List", "GetTotalSUBMODULEMaintenanceListData 실행");
 
-                List<SUBMODULEMaintenanceHistory> submoduleMaintenance = new List<SUBMODULEMaintenanceHistory>();
+                List<SUBMODULEMaintenanceHistory> submoduleMaintenance;
                 var repoResult = submoduleMaintenanceRepository.GetTotalSUBMODULEMaintenance(out submoduleMaintenance);
-                if (repoResult.IsSuccess)
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                submoduleBasicInfoRepository.GetAllSUBMODULEBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.SUBMODULE_Code, b => b);
+
+                var formattedData = submoduleMaintenance.Select(item =>
                 {
-                    var formattedData = submoduleMaintenance.Select(item => new
+                    basicMap.TryGetValue(item.SUBMODULE_Code, out var basic);
+                    return new
                     {
                         item.Tbl_Idx,
                         item.SUBMODULE_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
                         item.MR_Bosu_Name,
                         item.MR_Weather,
                         item.MR_Temp,
@@ -89,17 +98,12 @@ namespace AMS_MVC.Controllers.Maintenance.SUBMODULE
                         item.MR_Part,
                         item.MR_Worker,
                         MR_Date = item.MR_Date?.ToString("yy.MM.dd"),
-                        item.MR_Writer,
+                        item.MR_Writer
+                    };
+                }).ToList();
 
-                    }).ToList();
-                    LogHelper.WriteLog("SUBMODULEMaintenanceController.List", $"조회된 데이터: {submoduleMaintenance.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("SUBMODULEMaintenanceController.List", "전체 SUBMODULE 유지보수 데이터 로드 실패");
-                    return Json(new { success = false, message = "전체 SUBMODULE 유지보수 데이터 로드 실패" });
-                }
+                LogHelper.WriteLog("SUBMODULEMaintenanceController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
             }
             catch (Exception ex)
             {
@@ -107,5 +111,6 @@ namespace AMS_MVC.Controllers.Maintenance.SUBMODULE
                 return Json(new { success = false, message = ex.Message });
             }
         }
+
     }
 }

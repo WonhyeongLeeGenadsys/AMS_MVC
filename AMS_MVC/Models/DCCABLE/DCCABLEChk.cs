@@ -19,7 +19,6 @@ namespace AMS_MVC.Models
         public DateTime? CHK_End_Date { get; set; }
         public string CHK_Writer { get; set; }
 
-        // 진단값 (코드값: 1, 3, 10, 30, 100)
         public float CHK_Partial_Discharge { get; set; }   // 부분방전 (pC)
         public float CHK_Rated_Voltage { get; set; }   // 공칭전압 (PU)
         public float CHK_Tan_Delta { get; set; }   // Tan Delta
@@ -28,8 +27,6 @@ namespace AMS_MVC.Models
 
         public int FoldingFunction { get; set; }
         public DateTime CHK_Tbl_GetDate { get; set; }
-
-        // — 텍스트 매핑 프로퍼티 — 
 
         /// <summary>부분방전</summary>
         public string PartialDischargeText

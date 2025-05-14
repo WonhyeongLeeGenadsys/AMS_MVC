@@ -1,0 +1,108 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\project\\AMS\\AMS_MVC\\NUnit_Test\\NUnit_Test.csproj": {}
+  },
+  "projects": {
+    "D:\\project\\AMS\\AMS_MVC\\AMS_MVC\\AMS_MVC.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\project\\AMS\\AMS_MVC\\AMS_MVC\\AMS_MVC.csproj",
+        "projectName": "AMS_MVC",
+        "projectPath": "D:\\project\\AMS\\AMS_MVC\\AMS_MVC\\AMS_MVC.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {
+              "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj": {
+                "projectPath": "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    },
+    "D:\\project\\AMS\\AMS_MVC\\NUnit_Test\\NUnit_Test.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\project\\AMS\\AMS_MVC\\NUnit_Test\\NUnit_Test.csproj",
+        "projectName": "NUnit_Test",
+        "projectPath": "D:\\project\\AMS\\AMS_MVC\\NUnit_Test\\NUnit_Test.csproj",
+        "packagesPath": "C:\\Users\\user\\.nuget\\packages\\",
+        "outputPath": "D:\\project\\AMS\\AMS_MVC\\NUnit_Test\\obj\\",
+        "projectStyle": "PackageReference",
+        "skipContentFileWrite": true,
+        "configFilePaths": [
+          "C:\\Users\\user\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\DevExpress 19.1.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        ],
+        "originalTargetFrameworks": [
+          "net48"
+        ],
+        "sources": {
+          "C:\\Program Files (x86)\\DevExpress 19.1\\Components\\System\\Components\\Packages": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net48": {
+            "projectReferences": {
+              "D:\\project\\AMS\\AMS_MVC\\AMS_MVC\\AMS_MVC.csproj": {
+                "projectPath": "D:\\project\\AMS\\AMS_MVC\\AMS_MVC\\AMS_MVC.csproj"
+              },
+              "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj": {
+                "projectPath": "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj"
+              }
+            }
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[16.11.0, )"
+            },
+            "NUnit": {
+              "target": "Package",
+              "version": "[3.13.2, )"
+            },
+            "NUnit3TestAdapter": {
+              "target": "Package",
+              "version": "[4.2.1, )"
+            }
+          }
+        }
+      },
+      "runtimes": {
+        "win": {
+          "#import": []
+        },
+        "win-x64": {
+          "#import": []
+        },
+        "win-x86": {
+          "#import": []
+        }
+      }
+    },
+    "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj": {
+      "restore": {
+        "projectUniqueName": "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj",
+        "projectName": "Web.Common",
+        "projectPath": "D:\\project\\AMS\\AMS_MVC\\Web.Common\\Web.Common.csproj",
+        "frameworks": {
+          "net48": {
+            "projectReferences": {}
+          }
+        }
+      },
+      "frameworks": {
+        "net48": {}
+      }
+    }
+  }
+}
