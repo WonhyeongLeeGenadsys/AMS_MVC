@@ -1,0 +1,91 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dsCode = Request.QueryString["DS_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_MaintenanceMenu")
+}
+
+@section MainContent {
+    <h1>DS 유지보수: @ViewBag.Name, @ViewBag.SerialNo</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("DSMaintenanceAdd", "DSMaintenance", new { DS_Code = dsCode })" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                loadDSMaintenanceData();
+            });
+
+            function loadDSMaintenanceData() {
+                var dsCode = "@dsCode";
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDSMRByDSCode", "DSMaintenance")',
+                    data: JSON.stringify({ dsCode: dsCode }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success == false) {
+                            console.error("DSMaintenance 데이터 로드 실패: " + response.message);
+                            return;
+                        }
+
+                        // 작성일(Tbl_GetDate) 기준 내림차순 정렬
+                        let data = response.data.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+
+                        // 순번 매기기
+                        data = data.map((item, index) => {
+                            item.RowNumber = data.length - index;
+                            return item;
+                        });
+
+                        $("#gridContainer").dxDataGrid({
+                            dataSource: data,
+                            columnFixing: { enabled: true },
+                            columns: [
+                                { dataField: "RowNumber", caption: "순번", width: 80 },
+                                { dataField: 'MR_Bosu_Name', caption: '고장명', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Weather', caption: '날씨', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Temp', caption: '기온(°C)', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Hum', caption: '습도(%)', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Content', caption: '원인', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Status', caption: '발견동기', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Part', caption: '상태', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Worker', caption: '부품', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Manager', caption: '발견자', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Date', caption: '점검시작일', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Writer', caption: '작성자', alignment: 'center', width: 'auto' }
+
+                            ],
+                            showBorders: false,
+                            searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                            filterRow: { visible: true, applyFilter: 'auto' },
+                            headerFilter: { visible: true },
+                            loadPanel: { enabled: true },
+                            scrolling: { columnRenderingMode: 'virtual' },
+                            onRowClick: function (e) {
+                                const tblIdx = e.data.Tbl_Idx;
+                                const dsCode = e.data.DS_Code;
+
+                                var baseUrl = window.location.origin;
+                                var detailUrl = '@Url.Action("DSMaintenanceDetail", "DSMaintenance")';
+
+                                window.location.href = baseUrl + detailUrl + "?dsCode=" + encodeURIComponent(dsCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
+                        });
+                    },
+                        error: function (xhr, status, error) {
+                            console.error("데이터 로드 중 오류", error);
+                        }
+                });
+            }
+        </script>
+    </div>
+}
