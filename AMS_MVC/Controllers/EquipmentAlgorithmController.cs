@@ -11,12 +11,30 @@ namespace AMS_MVC.Controllers
     public class EquipmentAlgorithmController : Controller
     {
         private EquipmentWeibullRepository _weibullRepo = new EquipmentWeibullRepository();
-        // 각 장비별 기본정보 Repository
+
+        // 기존 5대
         private VCBBasicInfoRepository _vcbRepo = new VCBBasicInfoRepository();
         private DCCBBasicInfoRepository _dccbRepo = new DCCBBasicInfoRepository();
         private DCCABLEBasicInfoRepository _dccableRepo = new DCCABLEBasicInfoRepository();
         private ITRBasicInfoRepository _itrRepo = new ITRBasicInfoRepository();
         private SUBMODULEBasicInfoRepository _submoduleRepo = new SUBMODULEBasicInfoRepository();
+
+        // 추가 15대
+        private SABasicInfoRepository _saRepo = new SABasicInfoRepository();
+        private DCCTBasicInfoRepository _dcctRepo = new DCCTBasicInfoRepository();
+        private ARMREACTORBasicInfoRepository _armReactorRepo = new ARMREACTORBasicInfoRepository();
+        private WALLBUSHINGBasicInfoRepository _wallBushingRepo = new WALLBUSHINGBasicInfoRepository();
+        private PTBasicInfoRepository _ptRepo = new PTBasicInfoRepository();
+        private CTBasicInfoRepository _ctRepo = new CTBasicInfoRepository();
+        private LABasicInfoRepository _laRepo = new LABasicInfoRepository();
+        private DSBasicInfoRepository _dsRepo = new DSBasicInfoRepository();
+        private TANKBasicInfoRepository _tankRepo = new TANKBasicInfoRepository();
+        private HEATEXCHANGERBasicInfoRepository _heatExchangerRepo = new HEATEXCHANGERBasicInfoRepository();
+        private BYPASSVALVEBasicInfoRepository _bypassValveRepo = new BYPASSVALVEBasicInfoRepository();
+        private PUMPBasicInfoRepository _pumpRepo = new PUMPBasicInfoRepository();
+        private ZIGZAGTRBasicInfoRepository _zigZagTRRepo = new ZIGZAGTRBasicInfoRepository();
+        private ESBasicInfoRepository _esRepo = new ESBasicInfoRepository();
+        private NGRBasicInfoRepository _ngrRepo = new NGRBasicInfoRepository();
 
         /// <summary>
         /// 장비 유형(equipmentType)에 따른 B3 히스토그램 데이터를 반환합니다.
@@ -56,63 +74,137 @@ namespace AMS_MVC.Controllers
                 b3 = algo.B3Life;
             }
 
-            // 3) 각 장비 유형에 따른 기본정보 데이터를 가져오기
-            List<dynamic> basicList = null;
-            string type = equipmentType.ToUpper();
-            if (type == "VCB")
+            List<dynamic> basicList;
+            switch (equipmentType.Trim().ToUpper())
             {
-                List<VCBBasicInfo> list;
-                var res = _vcbRepo.GetAllVCBBasicInfoRepo(out list);
-                if (!res.IsSuccess || list == null || !list.Any())
-                {
-                    return Json(new { error = "VCB 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-                }
-                basicList = list.Cast<dynamic>().ToList();
+                case "VCB":
+                    {
+                        _vcbRepo.GetAllVCBBasicInfoRepo(out List<VCBBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "DCCB":
+                    {
+                        _dccbRepo.GetAllDCCBBasicInfoRepo(out List<DCCBBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "DCCABLE":
+                    {
+                        _dccableRepo.GetAllDCCABLEBasicInfoRepo(out List<DCCABLEBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "ITR":
+                    {
+                        _itrRepo.GetAllITRBasicInfoRepo(out List<ITRBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "SUBMODULE":
+                    {
+                        _submoduleRepo.GetAllSUBMODULEBasicInfoRepo(out List<SUBMODULEBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+
+                // --- 추가 15대 ---
+                case "SA":
+                    {
+                        _saRepo.GetAllSABasicInfoRepo(out List<SABasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "DCCT":
+                    {
+                        _dcctRepo.GetAllDCCTBasicInfoRepo(out List<DCCTBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "ARMREACTOR":
+                    {
+                        _armReactorRepo.GetAllARMREACTORBasicInfoRepo(out List<ARMREACTORBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "WALLBUSHING":
+                    {
+                        _wallBushingRepo.GetAllWALLBUSHINGBasicInfoRepo(out List<WALLBUSHINGBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "PT":
+                    {
+                        _ptRepo.GetAllPTBasicInfoRepo(out List<PTBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "CT":
+                    {
+                        _ctRepo.GetAllCTBasicInfoRepo(out List<CTBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "LA":
+                    {
+                        _laRepo.GetAllLABasicInfoRepo(out List<LABasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "DS":
+                    {
+                        _dsRepo.GetAllDSBasicInfoRepo(out List<DSBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "TANK":
+                    {
+                        _tankRepo.GetAllTANKBasicInfoRepo(out List<TANKBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "HEATEXCHANGER":
+                    {
+                        _heatExchangerRepo.GetAllHEATEXCHANGERBasicInfoRepo(out List<HEATEXCHANGERBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "BYPASSVALVE":
+                    {
+                        _bypassValveRepo.GetAllBYPASSVALVEBasicInfoRepo(out List<BYPASSVALVEBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "PUMP":
+                    {
+                        _pumpRepo.GetAllPUMPBasicInfoRepo(out List<PUMPBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "ZIGZAGTR":
+                    {
+                        _zigZagTRRepo.GetAllZIGZAGTRBasicInfoRepo(out List<ZIGZAGTRBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "ES":
+                    {
+                        _esRepo.GetAllESBasicInfoRepo(out List<ESBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+                case "NGR":
+                    {
+                        _ngrRepo.GetAllNGRBasicInfoRepo(out List<NGRBasicInfo> list);
+                        basicList = list.Cast<dynamic>().ToList();
+                    }
+                    break;
+
+                default:
+                    return Json(new { error = "알 수 없는 장비 유형입니다." },
+                                JsonRequestBehavior.AllowGet);
             }
-            else if (type == "DCCB")
-            {
-                List<DCCBBasicInfo> list;
-                var res = _dccbRepo.GetAllDCCBBasicInfoRepo(out list);
-                if (!res.IsSuccess || list == null || !list.Any())
-                {
-                    return Json(new { error = "DCCB 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-                }
-                basicList = list.Cast<dynamic>().ToList();
-            }
-            else if (type == "DCCABLE")
-            {
-                List<DCCABLEBasicInfo> list;
-                var res = _dccableRepo.GetAllDCCABLEBasicInfoRepo(out list);
-                if (!res.IsSuccess || list == null || !list.Any())
-                {
-                    return Json(new { error = "DCCABLE 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-                }
-                basicList = list.Cast<dynamic>().ToList();
-            }
-            else if (type == "ITR")
-            {
-                List<ITRBasicInfo> list;
-                var res = _itrRepo.GetAllITRBasicInfoRepo(out list);
-                if (!res.IsSuccess || list == null || !list.Any())
-                {
-                    return Json(new { error = "ITR 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-                }
-                basicList = list.Cast<dynamic>().ToList();
-            }
-            else if (type == "SUBMODULE")
-            {
-                List<SUBMODULEBasicInfo> list;
-                var res = _submoduleRepo.GetAllSUBMODULEBasicInfoRepo(out list);
-                if (!res.IsSuccess || list == null || !list.Any())
-                {
-                    return Json(new { error = "SUBMODULE 기본정보에 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-                }
-                basicList = list.Cast<dynamic>().ToList();
-            }
-            else
-            {
-                return Json(new { error = "알 수 없는 장비 유형입니다." }, JsonRequestBehavior.AllowGet);
-            }
+
 
             // 4) 각 장비의 가동일(Operating_Date)을 기준으로 사용기간(년) 계산
             var usageYears = new List<double>();
