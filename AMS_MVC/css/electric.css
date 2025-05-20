@@ -1427,6 +1427,10 @@ h4.tit_h4 {
 		width: calc(66% - 10px);
 	}
 
+	.box_wrap .flexSeolbi {
+		width: calc(66% - 5px);
+	}
+
 	.box_wrap .flexCheck {
 		width: 100%;
 	}
@@ -2129,4 +2133,10 @@ dl.product_info {
 
 .first-row-blue td {
 	border: 1px solid #0051A2 !important;
+}
+
+/* 고장 그리드 첫 번째 행 강조 */
+.first-row-highlight td {
+	background-color: rgba(255, 230, 230, 0.5); /* 연한 빨강 배경 */
+	border: 1px solid #C00; /* 진한 빨강 테두리 */
 }

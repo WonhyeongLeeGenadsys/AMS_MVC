@@ -1,10 +1,10 @@
-﻿@model AMS_MVC.Models.VCBBasicInfo
+﻿@model AMS_MVC.Models.DCCTBasicInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
-    var allChkData = ViewBag.VCBChkList as List<AMS_MVC.Models.VCBChk>;
+    var allChkData = ViewBag.DCCTChkList as List<AMS_MVC.Models.DCCTChk>;
     var lastChk = allChkData != null && allChkData.Any()
                   ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
                   : null;
@@ -23,7 +23,7 @@
 }
 
 @section MainContent {
-    <h1>VCB - @(Model?.VCB_Code ?? "N/A")</h1>
+    <h1>DCCT - @(Model?.DCCT_Code ?? "N/A")</h1>
     <!-- 전체 박스 -->
     <div class="box_wrap">
         <div class="con_box flex3">
