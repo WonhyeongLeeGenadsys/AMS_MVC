@@ -1,0 +1,48 @@
+﻿using AMS_MVC.Models;
+using AMS_MVC.Repositories;
+using System.Collections.Generic;
+using System.Web.Mvc;
+
+namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
+{
+    public class BYPASSVALVEDeviceDetailController : Controller
+    {
+        private readonly BYPASSVALVEBasicInfoRepository bypassvalveBasicInfoRepo = new BYPASSVALVEBasicInfoRepository();
+
+        // URL 예: /BYPASSVALVEDeviceDetail/BYPASSVALVEDeviceDetail?bypassvalveCode=BYPASSVALVE0000001
+        public ActionResult BYPASSVALVEDeviceDetail(string bypassvalveCode)
+        {
+            ViewBag.MenuType = "DeviceInfo";
+
+            if (string.IsNullOrEmpty(bypassvalveCode))
+            {
+                return HttpNotFound("BYPASSVALVE 코드가 제공되지 않았습니다.");
+            }
+
+            // RiskMatrix 데이터 처리 (기존 코드)
+            var riskMatrixRepo = new RiskmatrixRepository();
+
+            var hiDict = riskMatrixRepo.GetRiskMatrixByCode(bypassvalveCode);
+            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(bypassvalveCode);
+
+            ViewBag.HIDict = hiDict;
+            ViewBag.RiskMatrixDict = matrixDict;
+
+            // BYPASSVALVE 기본정보 조회
+            var model = bypassvalveBasicInfoRepo.GetBYPASSVALVEBasicInfoByCode(bypassvalveCode);
+            if (model == null)
+            {
+                return HttpNotFound("해당 BYPASSVALVE 정보를 찾을 수 없습니다.");
+            }
+
+            // 보통점검 데이터 조회
+            var bypassvalveChkRepo = new BYPASSVALVEChkRepository();
+            List<BYPASSVALVEChk> chkList;
+            var result = bypassvalveChkRepo.GetBYPASSVALVEChkByBYPASSVALVECode(bypassvalveCode, out chkList);
+            ViewBag.BYPASSVALVEChkList = chkList;
+
+            return View("~/Views/Device/BYPASSVALVE/BYPASSVALVEDeviceDetail.cshtml", model);
+        }
+
+    }
+}

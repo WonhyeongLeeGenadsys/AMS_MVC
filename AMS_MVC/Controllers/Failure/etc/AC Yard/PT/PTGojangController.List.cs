@@ -1,0 +1,119 @@
+﻿using AMS_MVC.Models;
+using AMS_MVC.Utlity;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Web.Common.Log;
+
+namespace AMS_MVC.Controllers
+{
+    public partial class PTGojangController : Controller
+    {
+        // GET: PTGojang
+        public ActionResult PTGojangList(string PT_Code)
+        {
+            var basicInfo = ptBasicInfoRepository.GetPTBasicInfoByCode(PT_Code);
+            ViewBag.PTCode = PT_Code;
+            ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
+            ViewBag.Name = basicInfo != null ? basicInfo.Name : "";
+            return View("~/Views/Gojang/etc/AC Yard/PT/PTGojangList.cshtml");
+        }
+
+        public ActionResult PTGojangTotalList()
+        {
+            return View("~/Views/Gojang/Total/etc/AC Yard/PTGojangTotalList.cshtml");
+        }
+
+        /// <summary>
+        /// PT 고장 이력 데이터 가져오기
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetPTFHByPTCode(string ptCode)
+        {
+            Result res = new Result(true);
+            List<PTFailureHistory> ptFh = new List<PTFailureHistory>();
+
+            try
+            {
+                LogHelper.WriteLog("PTFHController.cs", "GetPTFHByPTCode 실행");
+
+                res = ptGojangRepository.GetPTFHByPTCode(ptCode, out ptFh);
+
+                if (!res.IsSuccess)
+                {
+                    LogHelper.WriteLog("PTFHController.cs", res.Message);
+                    return Json(new { success = false, message = res.Message });
+                }
+
+                if (ptFh.Count == 0)
+                {
+                    LogHelper.WriteLog("PTFHController.cs", "조회된 데이터가 없습니다.");
+                    return Json(new { success = true, data = new List<PTFailureHistory>() });
+                }
+
+                LogHelper.WriteLog("PTFHController.cs", $"조회된 데이터: {ptFh.Count}건");
+
+                return Json(new { success = true, data = ptFh });
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog("PTFHController.cs", "오류 발생: " + ex.Message);
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+        [HttpPost]
+        public ActionResult GetTotalPTGojangListData()
+        {
+            try
+            {
+                LogHelper.WriteLog("TotalPTGojangController.List", "GetTotalPTGojangListData 실행");
+
+                List<PTFailureHistory> ptGojang;
+                var repoResult = ptGojangRepository.GetTotalPTGojang(out ptGojang);
+                if (!repoResult.IsSuccess)
+                    return Json(new { success = false, message = repoResult.Message });
+
+                ptBasicInfoRepository.GetAllPTBasicInfoRepo(out var basics);
+                var basicMap = basics.ToDictionary(b => b.PT_Code, b => b);
+
+                var formattedData = ptGojang.Select(item =>
+                {
+                    basicMap.TryGetValue(item.PT_Code, out var basic);
+                    return new
+                    {
+                        item.Tbl_Idx,
+                        item.PT_Code,
+                        Name = basic?.Name ?? "",
+                        Serial_No = basic?.Serial_No ?? "",
+                        item.Fail_Gojang_Name,
+                        item.Fail_Weather,
+                        item.Fail_Temp,
+                        item.Fail_Hum,
+                        item.Fail_Cause,
+                        item.Fail_Reason,
+                        item.Fail_Status,
+                        item.Fail_Part,
+                        item.Fail_Period,
+                        item.Fail_Finder,
+                        item.Fail_Repairer,
+                        item.Fail_Supervisor,
+                        Fail_Repair_Date = item.Fail_Repair_Date?.ToString("yy.MM.dd"),
+                        item.Fail_Writer
+                    };
+                }).ToList();
+
+                LogHelper.WriteLog("PTGojangController.List", $"조회된 데이터: {formattedData.Count}건");
+                return Json(formattedData);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog("PTGojangController.List", $"GetTotalPTGojangListData 실패: {ex.Message}");
+                return Json(new { success = false, message = ex.Message });
+            }
+        }
+
+    }
+}

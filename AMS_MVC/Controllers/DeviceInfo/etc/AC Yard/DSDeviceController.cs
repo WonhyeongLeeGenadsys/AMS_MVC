@@ -1,0 +1,184 @@
+﻿using AMS_MVC.Database;
+using AMS_MVC.Models;
+using AMS_MVC.Repositories;
+using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web.Mvc;
+
+namespace AMS_MVC.Controllers
+{
+    public class DSDeviceController : Controller
+    {
+        private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+        private readonly PriorityInfoRepository _priorityRepo = new PriorityInfoRepository();
+        private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
+        private readonly GojangRepository _gojangRepo = new GojangRepository();
+        private readonly DSChkRepository _dsChkRepo = new DSChkRepository();
+
+        // DSBasicInfoRepository 사용
+        private readonly DSBasicInfoRepository _dsBasicInfoRepo = new DSBasicInfoRepository();
+
+        // DSDeviceInfo 페이지
+        public ActionResult Index()
+        {
+            ViewBag.MenuType = "DeviceInfo";
+            return View("~/Views/Device/etc/AC Yard/DS/DSDevice.cshtml");
+        }
+
+        // DSDeviceController (또는 DSDeviceDetailController)에 추가
+        [HttpPost]
+        public JsonResult GetRiskmatrixData(string prefix)
+        {
+            try
+            {
+                // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
+                var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
+                return Json(riskData, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// Riskmatrix PoF, CoF 데이터 가져오기
+        /// </summary>
+        public JsonResult GetRiskMatrixPofCof(string prefix)
+        {
+            var PofCof = _riskmatrixRepo.GetRiskMatrixPofCof(prefix);
+            return Json(PofCof);
+        }
+
+        /// <summary>
+        /// 우선순위 데이터 가져오기 (날짜 형식 변환 포함)
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetPriorityDS()
+        {
+            try
+            {
+                var priorityData = _priorityRepo.GetPriority(
+                    "DS_BASICINFO", // DS 기본정보 테이블
+                    "DS_CODE",      // DS 코드 필드
+                    "DS",           // 표시용 장치 이름
+                    "DS",           // 별칭
+                    "AC"
+                );
+
+                var formattedData = priorityData.Select(item => new
+                {
+                    item.Priority,
+                    item.Sort,
+                    item.Code,
+                    item.Serial_No,
+                    item.Name,
+                    Install_Date = item.Install_Date.ToString("yy.MM.dd"),
+                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"),
+                    item.UsagePeriod,
+                    item.Price,
+                    item.Rated_V,
+                    item.Rated_A,
+                    item.Make_Company,
+                    item.Writer,
+                    item.CoF,
+                    item.PoF,
+                    item.HI
+                }).ToList();
+
+                return Json(formattedData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 전체 DS의 월별 점검 데이터 가져오기 (JSON)
+        /// </summary>
+        public JsonResult GetMonthlyAllDSChkData()
+        {
+            try
+            {
+                var data = _dsChkRepo.GetMonthlyAllDSChkCounts();
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (System.Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 유지보수 한 달 간격 데이터 가져오기
+        /// </summary>
+        public JsonResult GetMonthlyMaintenanceData()
+        {
+            try
+            {
+                var data = _maintenanceRepo.GetMonthlyMaintenanceCounts("DS_MAINTENANCE_HISTORY", "DS");
+                return Json(data, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// DS 단독 - 고장 테이블 정보 가져오기
+        /// </summary>
+        [HttpPost]
+        public JsonResult GetGojangDSList()
+        {
+            try
+            {
+                // DS만 조회
+                var gojangData = _gojangRepo.GetGojangData(
+                    "DS_FAILURE_HISTORY", // 고장 이력 테이블
+                    "DS_BASICINFO",       // 기본 정보 테이블
+                    "DS_CODE",            // 매칭할 컬럼명
+                    "DS",                 // 별칭
+                    "DS"                  // EntityName (Grid에 표시용)
+                );
+                return Json(gojangData);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+        /// <summary>
+        /// 기본정보 (DS 설비 목록) 데이터 가져오기
+        /// </summary>
+        public JsonResult GetBasicInfoList()
+        {
+            try
+            {
+                List<dynamic> infoWithRisk;
+                var result = _dsBasicInfoRepo.GetAllDSBasicInfoWithRiskMatrixRepo(out infoWithRisk);
+
+                var formatted = infoWithRisk.Select(b => new
+                {
+                    DS_Code = b.DS_Code,
+                    Serial_No = b.Serial_No,
+                    Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
+                    Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
+                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
+                    HI = b.HI  
+                }).ToList();
+
+                return Json(formatted, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { error = ex.Message });
+            }
+        }
+
+    }
+}
