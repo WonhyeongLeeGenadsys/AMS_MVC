@@ -1428,7 +1428,7 @@ h4.tit_h4 {
 	}
 
 	.box_wrap .flexSeolbi {
-		width: calc(66% - 5px);
+		width: calc(66%);
 	}
 
 	.box_wrap .flexCheck {

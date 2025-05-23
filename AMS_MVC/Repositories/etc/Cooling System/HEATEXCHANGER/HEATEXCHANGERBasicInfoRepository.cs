@@ -54,7 +54,7 @@ namespace AMS_MVC.Repositories
                 {
                     var query = @"SELECT TBL_IDX, HEATEXCHANGER_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                          INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-                                         IS_HEALTH, WRITER, TBL_GETDATE 
+                                         IS_HEALTH, REMAIN_LIFE, WRITER, TBL_GETDATE 
                                   FROM HEATEXCHANGER_BASICINFO";
                     heatexchangerBasicInfo = dbHelper.Conn.Query<HEATEXCHANGERBasicInfo>(query).AsList();
 
@@ -121,10 +121,10 @@ namespace AMS_MVC.Repositories
                             var queryBasicInfo = @"
                 INSERT INTO HEATEXCHANGER_BASICINFO (HEATEXCHANGER_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                              INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, 
-                                             IS_DIAGNOSTICS, IS_HEALTH, WRITER) 
+                                             IS_DIAGNOSTICS, IS_HEALTH, REMAIN_LIFE, WRITER) 
                 VALUES (@HEATEXCHANGER_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
                         @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-                        @Is_Health, @Writer)";
+                        @Is_Health, @Remain_Life, @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newHEATEXCHANGERBasicInfo, transaction);
 
@@ -198,6 +198,7 @@ namespace AMS_MVC.Repositories
                 PHOTO = @Photo, 
                 IS_DIAGNOSTICS = @Is_Diagnostics, 
                 IS_HEALTH = @Is_Health, 
+                REMAIN_LIFE = @Remain_Life,
                 WRITER = @Writer
             WHERE HEATEXCHANGER_CODE = @HEATEXCHANGER_Code";
 

@@ -27,6 +27,7 @@ namespace AMS_MVC.Controllers
             return View("~/Views/Device/etc/Grounding/ZIGZAGTR/ZIGZAGTRDevice.cshtml");
         }
 
+
         // ZIGZAGTRDeviceController (또는 ZIGZAGTRDeviceDetailController)에 추가
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
@@ -155,6 +156,7 @@ namespace AMS_MVC.Controllers
         /// <summary>
         /// 기본정보 (ZIGZAGTR 설비 목록) 데이터 가져오기
         /// </summary>
+
         public JsonResult GetBasicInfoList()
         {
             try
@@ -164,12 +166,13 @@ namespace AMS_MVC.Controllers
 
                 var formatted = infoWithRisk.Select(b => new
                 {
-                    ZIGZAGTR_Code = b.ZIGZAGTR_Code,
-                    Serial_No = b.Serial_No,
-                    Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
-                    Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
-                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
-                    HI = b.HI  
+                    b.ZIGZAGTR_Code,
+                    b.Serial_No,
+                    Install_Date = b.Install_Date?.ToString("yyyy-MM-dd") ?? "",
+                    Operating_Date = b.Operating_Date?.ToString("yyyy-MM-dd") ?? "",
+                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "0년",
+                    HI = int.Parse(b.HI ?? "0"),
+                    Remain_Life = b.Remain_Life   
                 }).ToList();
 
                 return Json(formatted, JsonRequestBehavior.AllowGet);

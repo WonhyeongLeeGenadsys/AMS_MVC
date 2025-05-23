@@ -727,10 +727,10 @@
     <Compile Include="Repositories\etc\AC Yard\PT\PTChkRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\PT\PTGojangRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\PT\PTMaintenanceRepository.cs" />
-    <Compile Include="Repositories\etc\AC Yard\CT\VCBBasicInfoRepository.cs" />
-    <Compile Include="Repositories\etc\AC Yard\CT\VCBChkRepository.cs" />
-    <Compile Include="Repositories\etc\AC Yard\CT\VCBGojangRepository.cs" />
-    <Compile Include="Repositories\etc\AC Yard\CT\VCBMaintenanceRepository.cs" />
+    <Compile Include="Repositories\etc\AC Yard\CT\CTBasicInfoRepository.cs" />
+    <Compile Include="Repositories\etc\AC Yard\CT\CTChkRepository.cs" />
+    <Compile Include="Repositories\etc\AC Yard\CT\CTGojangRepository.cs" />
+    <Compile Include="Repositories\etc\AC Yard\CT\CTMaintenanceRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\LA\LABasicInfoRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\LA\LAChkRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\LA\LAGojangRepository.cs" />
@@ -779,10 +779,10 @@
     <Compile Include="Repositories\etc\Grounding\NGR\NGRChkRepository.cs" />
     <Compile Include="Repositories\etc\Grounding\NGR\NGRGojangRepository.cs" />
     <Compile Include="Repositories\etc\Grounding\NGR\NGRMaintenanceRepository.cs" />
-    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\VCBBasicInfoRepository.cs" />
-    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\VCBChkRepository.cs" />
-    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\VCBGojangRepository.cs" />
-    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\VCBMaintenanceRepository.cs" />
+    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\ZIGZAGTRBasicInfoRepository.cs" />
+    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\ZIGZAGTRChkRepository.cs" />
+    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\ZIGZAGTRGojangRepository.cs" />
+    <Compile Include="Repositories\etc\Grounding\ZIGZAGTR\ZIGZAGTRMaintenanceRepository.cs" />
     <Compile Include="Repositories\GojangRepository.cs" />
     <Compile Include="Repositories\ITR\ITRBasicInfoRepository.cs" />
     <Compile Include="Repositories\ITR\ITRChk1Repository.cs" />
@@ -861,6 +861,7 @@
     <Content Include="img\ty_radio_on.png" />
     <Content Include="js\electric.js" />
     <Content Include="js\jquery-3.6.0.min.js" />
+    <Content Include="js\site.js" />
     <Content Include="plugin\dx.all.js" />
     <Content Include="plugin\dx.light.css" />
     <Content Include="Scripts\bootstrap.js" />

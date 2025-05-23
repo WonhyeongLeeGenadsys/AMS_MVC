@@ -48,23 +48,53 @@ namespace AMS_MVC.Controllers.Check
         [HttpPost]
         public ActionResult ITRChk1Update(ITRChk1 model)
         {
-            Result result = new Result(true);
+            var result = new Result(true);
             try
             {
-                if (!result.IsSuccess)
+                // 1) 작성자, 날짜 처리
+                model.CHK1_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
+                if (model.CHK1_Tbl_GetDate < new DateTime(1753, 1, 1))
+                    model.CHK1_Tbl_GetDate = DateTime.Now;
+
+                // 2) FoldingFunction 재계산
+                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+
+                // 3) DB 수정
+                var upd = _chk1Repo.UpdateITRChk1InfoRepo(model);
+                if (!upd.IsSuccess)
                 {
-                    result.Message = "ITR 보통점검 정보를 수정하지 못했습니다.";
+                    result.IsSuccess = false;
+                    result.Message = "ITR 보통점검 정보 수정 실패: " + upd.Message;
+                }
+                else
+                {
+                    // 4) 반대 검사(정밀) 최신 점수 조회
+                    var other = _chk2Repo.GetLatestFoldingFunction(model.ITR_Code);
+                    int hi = other.HasValue
+                        ? Math.Max(model.FoldingFunction, other.Value)
+                        : model.FoldingFunction;
+
+                    // 5) RiskMatrix HI 업데이트
+                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    if (!riskUpd.IsSuccess)
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
+                    }
+                    else
+                    {
+                        result.Message = "ITR 보통점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
+                    }
                 }
             }
             catch (Exception ex)
             {
                 result.IsSuccess = false;
-                result.Message = $"오류 발생: {ex.Message}";
-                LogHelper.WriteLog("ITRChkUpdate Error", ex.Message);
+                result.Message = "오류 발생: " + ex.Message;
+                LogHelper.WriteLog("ITRChk1Update Error", ex.ToString());
             }
 
-            var res = _chk1Repo.UpdateITRChk1InfoRepo(model);
-            return Json(new { success = res.IsSuccess, message = result.Message });
+            return Json(new { success = result.IsSuccess, message = result.Message });
         }
 
         public ActionResult ITRChk2Update(string itrCode, string tblIdx)
@@ -104,23 +134,53 @@ namespace AMS_MVC.Controllers.Check
         [HttpPost]
         public ActionResult ITRChk2Update(ITRChk2 model)
         {
-            Result result = new Result(true);
+            var result = new Result(true);
             try
             {
-                if (!result.IsSuccess)
+                // 1) 작성자, 날짜 처리
+                model.CHK2_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
+                if (model.CHK2_Tbl_GetDate < new DateTime(1753, 1, 1))
+                    model.CHK2_Tbl_GetDate = DateTime.Now;
+
+                // 2) FoldingFunction 재계산
+                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+
+                // 3) DB 수정
+                var upd = _chk2Repo.UpdateITRChk2InfoRepo(model);
+                if (!upd.IsSuccess)
                 {
-                    result.Message = "ITR 정밀점검 정보를 수정하지 못했습니다.";
+                    result.IsSuccess = false;
+                    result.Message = "ITR 정밀점검 정보 수정 실패: " + upd.Message;
+                }
+                else
+                {
+                    // 4) 반대 검사(보통) 최신 점수 조회
+                    var other = _chk1Repo.GetLatestFoldingFunction(model.ITR_Code);
+                    int hi = other.HasValue
+                        ? Math.Max(model.FoldingFunction, other.Value)
+                        : model.FoldingFunction;
+
+                    // 5) RiskMatrix HI 업데이트
+                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    if (!riskUpd.IsSuccess)
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
+                    }
+                    else
+                    {
+                        result.Message = "ITR 정밀점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
+                    }
                 }
             }
             catch (Exception ex)
             {
                 result.IsSuccess = false;
-                result.Message = $"오류 발생: {ex.Message}";
-                LogHelper.WriteLog("ITRChk2Update Error", ex.Message);
+                result.Message = "오류 발생: " + ex.Message;
+                LogHelper.WriteLog("ITRChk2Update Error", ex.ToString());
             }
 
-            var res = _chk2Repo.UpdateITRChk2InfoRepo(model);
-            return Json(new { success = res.IsSuccess, message = result.Message });
+            return Json(new { success = result.IsSuccess, message = result.Message });
         }
     }
 }

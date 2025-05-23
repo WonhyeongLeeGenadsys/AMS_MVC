@@ -28,6 +28,8 @@ namespace AMS_MVC.Models
         public string Photo { get; set; } // 제품 사진 
         public bool Is_Diagnostics { get; set; } // 예방진단 사용 여부 
         public bool Is_Health { get; set; } // 건전도 사용 여부 
+        public string Remain_Life { get; set; } // 잔여 수명
+
         public string Writer { get; set; } // 작성자 
         public DateTime Tbl_GetDate { get; set; } // 작성일 
     }

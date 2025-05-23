@@ -218,34 +218,42 @@ namespace AMS_MVC.Repositories
                 using (var dbHelper = new DBHelper())
                 using (var conn = dbHelper.Conn)
                 {
-                    // 1) UPDATE 시도
-                    const string updateSql = @"
-                UPDATE RISKMATRIX
-                   SET HI = @HI
-                 WHERE CODE = @Code";
-                    int affected = conn.Execute(updateSql, new { HI = newHI, Code = code });
+                    const string selectSql = @"
+                SELECT TOP 1 HI, LASTTIME
+                FROM RISKMATRIX
+                WHERE CODE = @Code
+                ORDER BY LASTTIME DESC";
+                    var latest = conn.QueryFirstOrDefault<(int? HI, DateTime? LASTTIME)>(
+                        selectSql, new { Code = code });
 
-                    if (affected > 0)
+                    var today = DateTime.Today;
+
+                    if (!latest.HI.HasValue)
                     {
-                        // 기존 레코드가 있어서 업데이트 된 경우
-                        res.Message = $"RiskMatrix HI가 {code}에 대해 갱신되었습니다 (HI = {newHI}).";
+                        const string insertSql = @"
+                    INSERT INTO RISKMATRIX (CODE, HI, LASTTIME)
+                    VALUES (@Code, @HI, GETDATE())";
+                        conn.Execute(insertSql, new { Code = code, HI = newHI });
+                        res.Message = $"[{code}] 신규 행 추가 (HI={newHI})";
+                    }
+                    else if (latest.LASTTIME.Value.Date == today)
+                    {
+                        const string updateSql = @"
+                    UPDATE RISKMATRIX
+                       SET HI = @HI
+                         , LASTTIME = GETDATE()
+                     WHERE CODE = @Code
+                       AND CAST(LASTTIME AS DATE) = @Today";
+                        conn.Execute(updateSql, new { Code = code, HI = newHI, Today = today });
+                        res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI})";
                     }
                     else
                     {
-                        // 업데이트된 행이 없으면 INSERT
                         const string insertSql = @"
-                    INSERT INTO RISKMATRIX (CODE, HI)
-                    VALUES (@Code, @HI)";
-                        int inserted = conn.Execute(insertSql, new { HI = newHI, Code = code });
-                        if (inserted > 0)
-                        {
-                            res.Message = $"RiskMatrix에 신규 행이 추가되었습니다 (CODE = {code}, HI = {newHI}).";
-                        }
-                        else
-                        {
-                            res.IsSuccess = false;
-                            res.Message = $"RiskMatrix HI 갱신 및 신규 추가 모두 실패: {code}";
-                        }
+                    INSERT INTO RISKMATRIX (CODE, HI, LASTTIME)
+                    VALUES (@Code, @HI, GETDATE())";
+                        conn.Execute(insertSql, new { Code = code, HI = newHI });
+                        res.Message = $"[{code}] 새로운 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI})";
                     }
                 }
             }

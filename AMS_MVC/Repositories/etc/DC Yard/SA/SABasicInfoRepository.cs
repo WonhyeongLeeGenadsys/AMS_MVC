@@ -54,7 +54,7 @@ namespace AMS_MVC.Repositories
                 {
                     var query = @"SELECT TBL_IDX, SA_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                          INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-                                         IS_HEALTH, WRITER, TBL_GETDATE 
+                                         IS_HEALTH, REMAIN_LIFE, WRITER, TBL_GETDATE 
                                   FROM SA_BASICINFO";
                     saBasicInfo = dbHelper.Conn.Query<SABasicInfo>(query).AsList();
 
@@ -121,9 +121,9 @@ namespace AMS_MVC.Repositories
                             var queryBasicInfo = @"
                 INSERT INTO SA_BASICINFO (SA_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                              INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, 
-                                             IS_DIAGNOSTICS, IS_HEALTH, WRITER) 
+                                             IS_DIAGNOSTICS, REMAIN_LIFE, IS_HEALTH, WRITER) 
                 VALUES (@SA_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
-                        @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
+                        @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, @Remain_Life
                         @Is_Health, @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newSABasicInfo, transaction);
@@ -197,6 +197,7 @@ namespace AMS_MVC.Repositories
                 MAKE_NO = @Make_No, 
                 PHOTO = @Photo, 
                 IS_DIAGNOSTICS = @Is_Diagnostics, 
+                REMAIN_LIFE = @Remain_Life,
                 IS_HEALTH = @Is_Health, 
                 WRITER = @Writer
             WHERE SA_CODE = @SA_Code";
