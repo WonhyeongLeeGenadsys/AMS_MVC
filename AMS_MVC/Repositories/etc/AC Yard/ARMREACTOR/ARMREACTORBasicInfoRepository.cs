@@ -89,6 +89,7 @@ namespace AMS_MVC.Repositories
                     b.Serial_No, 
                     b.Install_Date, 
                     b.Operating_Date, 
+                    b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM ARMREACTOR_BASICINFO b
                 LEFT JOIN RISKMATRIX r ON b.ARMREACTOR_Code = r.CODE

@@ -166,12 +166,12 @@ namespace AMS_MVC.Controllers
 
                 var formatted = infoWithRisk.Select(b => new
                 {
-                    b.ZIGZAGTR_Code,
-                    b.Serial_No,
-                    Install_Date = b.Install_Date?.ToString("yyyy-MM-dd") ?? "",
-                    Operating_Date = b.Operating_Date?.ToString("yyyy-MM-dd") ?? "",
-                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "0년",
-                    HI = int.Parse(b.HI ?? "0"),
+                    ZIGZAGTR_Code = b.ZIGZAGTR_Code,
+                    Serial_No = b.Serial_No,
+                    Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
+                    Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
+                    UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
+                    HI = b.HI,
                     Remain_Life = b.Remain_Life   
                 }).ToList();
 

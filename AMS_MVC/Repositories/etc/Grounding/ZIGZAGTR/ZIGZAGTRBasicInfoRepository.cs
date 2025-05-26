@@ -85,13 +85,14 @@ namespace AMS_MVC.Repositories
                     var query = @"
                 SELECT 
                     b.TBL_IDX, 
-                    b.ZIGZAGTR_Code, 
-                    b.Serial_No, 
-                    b.Install_Date, 
-                    b.Operating_Date, 
+                    b.ZIGZAGTR_CODE, 
+                    b.SERIAL_NO, 
+                    b.INSTALL_DATE, 
+                    b.OPERATING_DATE, 
+                    b.REMAIN_LIFE   AS Remain_Life, 
                     r.HI
                 FROM ZIGZAGTR_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.ZIGZAGTR_Code = r.CODE
+                LEFT JOIN RISKMATRIX r ON b.ZIGZAGTR_CODE = r.CODE
                 ORDER BY b.TBL_IDX";
                     
                     zigzagtrInfoWithRisk = dbHelper.Conn.Query(query).AsList();

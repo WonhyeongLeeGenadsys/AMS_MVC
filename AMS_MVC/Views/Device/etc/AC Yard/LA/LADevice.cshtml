@@ -12,16 +12,20 @@
     <div class="box_wrap">
 
         <!--전략-->
-        <div class="con_box">
-            <!--타이틀-->
-            <h2>
-                <p>전략</p>
-            </h2>
-            <!--//타이틀-->
+        <div class="con_box" id="strategyContainer">
+            <h2><p>전략</p></h2>
         </div>
 
+        <script>
+    $(function(){
+      loadStrategy(
+        '@Url.Action("GetBasicInfoList","LADevice")',
+        '#strategyContainer',
+        'LA'
+      );
+    });
+        </script>
         <!--//전략-->
-
         <!-- 신뢰도 차트 -->
         <div class="con_box flex5">
             <h2>신뢰도</h2>

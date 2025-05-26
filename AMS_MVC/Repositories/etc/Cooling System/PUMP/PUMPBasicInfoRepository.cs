@@ -88,7 +88,8 @@ namespace AMS_MVC.Repositories
                     b.PUMP_Code, 
                     b.Serial_No, 
                     b.Install_Date, 
-                    b.Operating_Date, 
+                    b.Operating_Date,
+                    b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM PUMP_BASICINFO b
                 LEFT JOIN RISKMATRIX r ON b.PUMP_Code = r.CODE

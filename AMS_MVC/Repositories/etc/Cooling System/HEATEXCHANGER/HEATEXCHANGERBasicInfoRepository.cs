@@ -88,7 +88,8 @@ namespace AMS_MVC.Repositories
                     b.HEATEXCHANGER_Code, 
                     b.Serial_No, 
                     b.Install_Date, 
-                    b.Operating_Date, 
+                    b.Operating_Date,
+                    b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM HEATEXCHANGER_BASICINFO b
                 LEFT JOIN RISKMATRIX r ON b.HEATEXCHANGER_Code = r.CODE
