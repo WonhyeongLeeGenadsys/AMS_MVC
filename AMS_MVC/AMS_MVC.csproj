@@ -632,6 +632,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Code.cs" />
+    <Compile Include="Models\COFModel.cs" />
     <Compile Include="Models\Company.cs" />
     <Compile Include="Models\DCCABLE\DCCABLEFailureHistory.cs" />
     <Compile Include="Models\EquipmentWeibull.cs" />
@@ -720,6 +721,7 @@
     <Compile Include="Models\DCCABLE\DCCABLEMaintenanceHistory.cs" />
     <Compile Include="Models\VCB\VCBMaintenanceHistory.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\CoFRepository.cs" />
     <Compile Include="Repositories\CompanyRepository.cs" />
     <Compile Include="Repositories\EquipmentSearchRepository.cs" />
     <Compile Include="Repositories\EquipmentWeibullRepository.cs" />
@@ -809,6 +811,7 @@
     <Compile Include="Repositories\SUBMODULE\SUBMODULEMaintenanceRepository.cs" />
     <Compile Include="Repositories\DCCABLE\DCCABLEMaintenanceRepository.cs" />
     <Compile Include="Repositories\VCB\VCBMaintenanceRepository.cs" />
+    <Compile Include="Services\CoFCalculator.cs" />
     <Compile Include="Services\DCCBChkScoreCalculator.cs" />
     <Compile Include="Services\DCCABLEChkScoreCalculator.cs" />
     <Compile Include="Services\SUBMODULEChkScoreCalculator.cs" />
@@ -1372,6 +1375,15 @@
     <Content Include="Views\Device\etc\AC Yard\DS\DSDevice.cshtml" />
     <Content Include="Views\Device\etc\AC Yard\CT\CTDevice.cshtml" />
     <Content Include="Views\Device\etc\AC Yard\ARMREACTOR\ARMREACTORDevice.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_HealthPie.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_RiskMatrix.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_B3Chart.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_DeviceList.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_PriorityGrid.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_ReliabilityChart.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_ScheduleTable.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_FailureGrid.cshtml" />
+    <Content Include="Views\Setting\CoFInfo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

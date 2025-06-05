@@ -1,0 +1,18 @@
+|2025-05-28 09:01:42  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-28 09:01:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-28 09:01:42  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-05-28 09:01:42  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-05-28 09:01:49  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-05-28 09:01:49  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-05-28 09:01:56  |   ngrBasicInfo Data  |   총 0 건 조회됨   |
+|2025-05-28 09:01:56  |   DB(NGR_BASICINFO)  |   GetAllNGRBasicInfoRepo 동작 성공   |
+|2025-05-28 09:02:01  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-05-28 09:02:01  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-05-28 09:43:15  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-28 09:43:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-28 10:36:53  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-28 10:36:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-28 11:23:47  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-28 11:23:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-28 11:23:50  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-05-28 11:23:50  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |

@@ -1,0 +1,10 @@
+|2025-05-27 17:08:51  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-27 17:08:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-27 17:09:07  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-27 17:09:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-27 18:14:35  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-27 18:14:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-05-27 18:14:36  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-05-27 18:14:36  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-05-27 18:14:48  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-05-27 18:14:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

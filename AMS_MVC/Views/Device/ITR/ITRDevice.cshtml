@@ -1,5 +1,10 @@
 ﻿﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Prefix"] = "ITR";
+    ViewData["Controller"] = "ITRDevice";
+    ViewData["PieId"] = "pie02";
+    ViewData["DetailParam"] = "itrCode";
 }
 
 @section LeftMenu {
@@ -11,66 +16,9 @@
     <!--전체 박스-->
     <div class="box_wrap">
         <!--건전도-->
-        <div class="con_box flex3">
-            <h2>건전도</h2>
-            <div id="pie02" style="height: 280px; width: 100%;"></div>
-
-
-            <script>
-$(function(){
-  // 1~5 HI 순서대로 색상
-  const hiPalette = [
-    '#5B9F56',  // 1등급
-    '#B4DEB1',  // 2등급
-    '#EBCD1D',  // 3등급
-    '#F18425',  // 4등급
-    '#F05153'   // 5등급
-  ];
-
-  // rawCounts = { "1": "2", "3": "1", … }
-  function summarizeHIData(data) {
-    return [1,2,3,4,5]
-      .filter(hi => (data[hi]||0) > 0)
-      .map(hi => ({
-        hi:    hi,                   // HI 값
-        state: hi + '등급',          // 차트 범례 텍스트
-        value: parseInt(data[hi],10),// 건수
-        color: hiPalette[hi-1]       // HI-1 인덱스로 색 지정
-      }));
-  }
-
-    function initializePieChart(selector, rawCounts) {
-        const ds = summarizeHIData(rawCounts);
-
-        $(selector).dxPieChart({
-            type: 'doughnut',
-            dataSource: ds,
-            customizePoint: pt => ({ color: pt.data.color }),
-            series: [{
-                argumentField: 'state',
-                valueField: 'value',
-                label: {
-                    visible: true,
-                    connector: { visible: true },
-                    customizeText: e => e.valueText + '대'
-                }
-            }],
-        });
-    }
-  // AJAX로 데이터 가져와 차트 그리기
-  $.ajax({
-    type: 'POST',
-    url: '@Url.Action("GetRiskmatrixData","ITRDevice")',
-    data: JSON.stringify({ prefix: 'ITR' }),
-    contentType: 'application/json; charset=utf-8',
-    dataType: 'json'
-  })
-  .done(counts => initializePieChart('#pie02', counts))
-  .fail(err => console.error('건전도 차트 로드 실패:', err));
-});
-            </script>
-        </div>
+        @Html.Partial("DeviceInfo/_HealthPie")
         <!--//건전도-->
+        <!--risk matrix-->
         <!--risk matrix-->
         <div class="con_box flex3">
             <!--타이틀-->
