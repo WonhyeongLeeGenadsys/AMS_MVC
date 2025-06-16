@@ -168,10 +168,10 @@
             <span>@(Session["User_Name"] ?? "Guest")</span>
         </li>
         <li class="setting">
-            <a href="@Url.Action("SubstationInfo", "Setting")" class="btn_gnb">설정</a>
+            <a href="@Url.Action("CoFInfo", "Setting")" class="btn_gnb">설정</a>
             <ul class="lnb_group setting_sub">
-                <li><a href="@Url.Action("CofRegist", "Setting")">CoF 등록</a></li>
-                <li><a href="@Url.Action("SubstationInfo", "Setting")" id="logoutButton">로그아웃</a></li>
+                <li><a href="@Url.Action("CoFInfo", "Setting")">CoF 등록</a></li>
+                @*<li><a href="@Url.Action("SubstationInfo", "Setting")" id="logoutButton">로그아웃</a></li>*@
                 <li><a href="#" id="logoutButton">로그아웃</a></li>
             </ul>
         </li>

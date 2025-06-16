@@ -814,6 +814,7 @@
     <Compile Include="Services\CoFCalculator.cs" />
     <Compile Include="Services\DCCBChkScoreCalculator.cs" />
     <Compile Include="Services\DCCABLEChkScoreCalculator.cs" />
+    <Compile Include="Services\HiPofTable.cs" />
     <Compile Include="Services\SUBMODULEChkScoreCalculator.cs" />
     <Compile Include="Services\ITRChkScoreCalculator.cs" />
     <Compile Include="Services\VCBChkScoreCalculator.cs" />
@@ -1384,6 +1385,7 @@
     <Content Include="Views\Shared\DeviceInfo\_ScheduleTable.cshtml" />
     <Content Include="Views\Shared\DeviceInfo\_FailureGrid.cshtml" />
     <Content Include="Views\Setting\CoFInfo.cshtml" />
+    <Content Include="Views\Setting\_CoFInputs.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

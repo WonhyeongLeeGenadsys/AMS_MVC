@@ -210,59 +210,91 @@ namespace AMS_MVC.Repositories
             }
         }
 
-        public Result UpdateRiskMatrixHI(string code, int newHI)
+        public Result UpdateRiskMatrixHI(string code, int newHI, decimal newPof)
         {
             var res = new Result(true);
             try
             {
-                using (var dbHelper = new DBHelper())
-                using (var conn = dbHelper.Conn)
+                using (var db = new DBHelper())
+                using (var conn = db.Conn)
                 {
+                    // 가장 최근 행 조회
                     const string selectSql = @"
-                SELECT TOP 1 HI, LASTTIME
-                FROM RISKMATRIX
-                WHERE CODE = @Code
-                ORDER BY LASTTIME DESC";
-                    var latest = conn.QueryFirstOrDefault<(int? HI, DateTime? LASTTIME)>(
-                        selectSql, new { Code = code });
+                SELECT TOP 1 HI, Pof, LASTTIME
+                  FROM RISKMATRIX
+                 WHERE CODE = @Code
+              ORDER BY LASTTIME DESC";
+                    var latest = conn.QueryFirstOrDefault<(int? HI, string Pof, DateTime? LASTTIME)>(selectSql, new { Code = code });
 
                     var today = DateTime.Today;
+                    string pofText = newPof.ToString("F6"); // 소수점 6자리 고정
 
                     if (!latest.HI.HasValue)
                     {
                         const string insertSql = @"
-                    INSERT INTO RISKMATRIX (CODE, HI, LASTTIME)
-                    VALUES (@Code, @HI, GETDATE())";
-                        conn.Execute(insertSql, new { Code = code, HI = newHI });
-                        res.Message = $"[{code}] 신규 행 추가 (HI={newHI})";
+                    INSERT INTO RISKMATRIX (CODE, HI, Pof, LASTTIME)
+                    VALUES (@Code, @HI, @Pof, GETDATE())";
+                        conn.Execute(insertSql, new { Code = code, HI = newHI, Pof = pofText });
+                        res.Message = $"[{code}] 신규 행 추가 (HI={newHI}, PoF={pofText})";
                     }
                     else if (latest.LASTTIME.Value.Date == today)
                     {
                         const string updateSql = @"
                     UPDATE RISKMATRIX
                        SET HI = @HI
+                         , Pof = @Pof
                          , LASTTIME = GETDATE()
                      WHERE CODE = @Code
                        AND CAST(LASTTIME AS DATE) = @Today";
-                        conn.Execute(updateSql, new { Code = code, HI = newHI, Today = today });
-                        res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI})";
+                        conn.Execute(updateSql, new { Code = code, HI = newHI, Pof = pofText, Today = today });
+                        res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI}, PoF={pofText})";
                     }
                     else
                     {
                         const string insertSql = @"
-                    INSERT INTO RISKMATRIX (CODE, HI, LASTTIME)
-                    VALUES (@Code, @HI, GETDATE())";
-                        conn.Execute(insertSql, new { Code = code, HI = newHI });
-                        res.Message = $"[{code}] 새로운 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI})";
+                    INSERT INTO RISKMATRIX (CODE, HI, Pof, LASTTIME)
+                    VALUES (@Code, @HI, @Pof, GETDATE())";
+                        conn.Execute(insertSql, new { Code = code, HI = newHI, Pof = pofText });
+                        res.Message = $"[{code}] 새로운 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI}, PoF={pofText})";
                     }
                 }
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "RiskMatrix HI 업데이트 오류: " + ex.Message;
+                res.Message = "RiskMatrix HI·PoF 업데이트 오류: " + ex.Message;
             }
             return res;
+        }
+
+        /// <summary>
+        /// 각 CODE별 최신 한 건(CoF, PoF, Code, LastTime)만 Riskmatrix 모델로
+        /// </summary>
+        public IEnumerable<Riskmatrix> GetLatestRiskPoints(string codePrefix = null)
+        {
+            using (var db = new DBHelper())
+            {
+                const string sql = @"
+WITH Latest AS (
+    SELECT 
+      CODE    AS Code,
+      CoF     AS Cof,
+      PoF     AS Pof,
+      LASTTIME,
+      ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+    FROM RISKMATRIX
+    WHERE (@CodePrefix IS NULL OR CODE LIKE @Pattern)
+)
+SELECT Code, Cof, Pof, LASTTIME
+  FROM Latest
+ WHERE rn = 1;
+";
+                return db.Conn.Query<Riskmatrix>(sql, new
+                {
+                    CodePrefix = codePrefix,
+                    Pattern = codePrefix + "%"
+                });
+            }
         }
     }
 }

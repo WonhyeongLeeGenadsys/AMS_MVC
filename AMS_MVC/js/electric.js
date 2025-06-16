@@ -65,6 +65,12 @@ $(document).ready(function () {
             else if (currentPage.includes("SUBMODULE") && linkPage.includes("SUBMODULE")) {
                 $(this).addClass('on');
             }
+            else if (currentPage.includes("CoFInfo") && linkPage.includes("CoFInfo")) {
+                $(this).addClass('on');
+            }
+            else if (currentPage.includes("SUBSTATION") && linkPage.includes("SUBSTATION")) {
+                $(this).addClass('on');
+            }
         });
     }
 });

@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Linq;
 using AMS_MVC.Models;
+using AMS_MVC.Utlity;
 
 namespace AMS_MVC.Services
 {
     public class DCCABLEChkScoreCalculator
     {
-        public int CalculateFoldingFunction(DCCABLEChk chk)
+        public(decimal HI, decimal PoF) CalculateHiPof(DCCABLEChk chk, decimal alpha = 0.99m)        
         {
 
             int[] scores = new int[]
@@ -19,7 +20,9 @@ namespace AMS_MVC.Services
                
             };
 
-            return scores.Max();  
+            int maxGrade = scores.Max();
+            int frequency = scores.Count(s => s == maxGrade);
+            return HiPofTable.GetHiPof(maxGrade, frequency, alpha);
         }
     }
 }

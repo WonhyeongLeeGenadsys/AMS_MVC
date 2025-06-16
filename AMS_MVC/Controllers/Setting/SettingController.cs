@@ -25,7 +25,6 @@ namespace AMS_MVC.Controllers
             var dccb = eqList.FirstOrDefault(x => x.EquipmentName.ToUpper() == "DCCB");
             var dccable = eqList.FirstOrDefault(x => x.EquipmentName.ToUpper() == "DCCABLE");
 
-
             ViewBag.VCB = vcb;        
             ViewBag.ITR = itr;
             ViewBag.SUBMODULE = submodule;
@@ -41,33 +40,51 @@ namespace AMS_MVC.Controllers
             return View("~/Views/Setting/MemberInfo.cshtml");
         }
 
-        public ActionResult CoFInfo()
+        // GET: Setting/CoFInfo
+        public ActionResult CoFInfo(string code = "VCB")
         {
             ViewBag.MenuType = "Setting";
-            return View("~/Views/Setting/CoFInfo.cshtml");
+
+            // 1) 장비 리스트
+            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, code);
+
+            // 2) 선택된 코드에 대한 최신값 가져오기
+            var model = cofRepo.GetLatest(code);
+            return View(model);
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CoFInfo(COFModel model)
         {
             ViewBag.MenuType = "Setting";
 
-            if (!ModelState.IsValid)
-            {
-                // 유효성 검사 실패 시, 그냥 원래 View로 
-                return View("~/Views/Setting/CoFInfo.cshtml", model);
-            }
+            // 1) 장비 리스트, 선택된 model.Code 가 역시 드롭다운에 걸리도록
+            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, model.Code);
 
-            // 1) 입력값에 대한 계산 수행
+            if (!ModelState.IsValid)
+                return View(model);
+
+            // 2) CoF 계산
             calculator.Calculate(model);
 
-            // 2) DB에 저장
-            cofRepo.Insert(model);
+            // 3) 하루에 한 번만 UPDATE, 아니면 INSERT
+            cofRepo.SaveOrUpdate(model);
 
-            // 3) 다시 최신값(방금 저장된 값)을 받아서 View에 넘김
-            var latest = cofRepo.GetLatest();
-            return View("~/Views/Setting/CoFInfo.cshtml", latest);
+            ModelState.Clear();
+
+            // 4) 다시 최신값 조회 (오늘 업데이트된 or 새로 INSERT 된)
+            var latest = cofRepo.GetLatest(model.Code);
+            return View(latest);
+        }
+
+        [HttpGet]
+        public JsonResult GetCoFData(string code)
+        {
+            // 오늘자 최신 모델 또는 새 빈 모델
+            var model = cofRepo.GetLatest(code) ?? new COFModel { Code = code };
+            return Json(model, JsonRequestBehavior.AllowGet);
         }
     }
 }

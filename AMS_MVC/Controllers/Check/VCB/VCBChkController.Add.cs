@@ -53,8 +53,12 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
                 }
 
-                VCBChkScoreCalculator scoreCalculator = new VCBChkScoreCalculator();
-                model.FoldingFunction = scoreCalculator.CalculateFoldingFunction(model);
+                //VCBChkScoreCalculator scoreCalculator = new VCBChkScoreCalculator();
+                //model.FoldingFunction = scoreCalculator.CalculateFoldingFunction(model);
+
+                var scoreCalculator = new VCBChkScoreCalculator();
+                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
+                model.FoldingFunction = (int)Math.Round(hi);
 
                 result = vcbChkRepository.CreateVCBChkRepo(model);
 
@@ -64,8 +68,9 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    // HI(건전도)를 Riskmatrix에 업데이트: model.VCB_Code에 대해 FoldingFunction 값을 HI에 넣는다.
-                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+                    // HI를 Riskmatrix에 업데이트: model.VCB_Code에 대해 FoldingFunction 값을 HI에 넣음
+                    //Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, (int)System.Math.Round(hi),pof);
                     if (!updateResult.IsSuccess)
                     {
                         // HI 업데이트 실패 시 메시지 추가

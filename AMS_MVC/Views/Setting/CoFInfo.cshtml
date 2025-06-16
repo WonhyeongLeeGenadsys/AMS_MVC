@@ -10,178 +10,95 @@
 @section MainContent {
     <h1>CoF 정보 등록</h1>
 
-    @using (Html.BeginForm("CoFInfo", "Setting", FormMethod.Post))
+    @using (Html.BeginForm("CoFInfo", "Setting", FormMethod.Post, new { id = "cofForm" }))
     {
         @Html.AntiForgeryToken()
 
         <div class="con_box">
             <div class="content_warp">
 
+                <!-- 장비 선택 -->
+                <div class="equipment-wrap">
+                    <label for="Code" class="equipment-label">장비 선택</label>
+                    @Html.DropDownListFor(
+                        m => m.Code,
+                        (SelectList)ViewBag.EquipmentTypes,
+                        "-- 장비 선택 --",
+                        new { id = "Code", @class = "equipment-select" }
+                    )
+                </div>
+
+                <!-- 적용 버튼 -->
                 <div class="btn_area top right">
-                    <a href="javascript:location.reload();" class="btn gray cancel">새로 고침</a>
                     <button type="submit" class="btn blue app">적용</button>
                 </div>
 
                 <div class="interface_wrap">
 
-                    <!--###############
-                         CoF 입력 
-                    ###############-->
-                    <div class="basic_wrap">
-                        <h3>CoF 입력값</h3>
-                        <div class="box">
-                            <table>
-                                <tr>
-                                    <th>정전 시간 (h)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Power_Failure_Time, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>정전 비용 (원/kWh)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Power_Failure_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>정전 확률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Probability_Of_Power_Failure, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>용량 (kW)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Capacity, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>역률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Power_Factor, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>계수</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Coefficient, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>평균 이용률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Average_Utilization_Rate, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>설비 복구 시간 (h)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Facility_Recovery_Time, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>정격 전압 (kV)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Rated_Voltage, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>평균 전력 판매비용 (원/kWh)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Average_Electricity_Sales_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>선로 길이 (km)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Track_Length, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>교체 확률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Replacement_Probability, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>설비 단가 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Equipment_Unit_Price, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>도급 비용 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Facility_Contracting_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>긴급 공사 할증률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Emergency_Construction_Surcharge_Rate, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>안전사고 확률[일반] (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.General_Accident, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>안전사고 확률[사망] (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Dead_Accident, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>사고 보상비용[일반] (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.General_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>사고 보상비용[사망] (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Dead_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>안전 민감 계수</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Safety_Sensitivity_Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>절연유 유출면적 (㎥)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Insulation_Oil_Area, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>환경 보상비용 (원/㎥)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Cost, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>환경 오염 확률 (%)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Environmental_Pollution, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                    <th>위치 가중치</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Position_Weight, new { type = "number", step = "0.01", @class = "w100" })
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
+                    <!-- CoF 입력 (Partial) -->
+                        @Html.Partial("_CoFInputs", Model)
 
-                    <!--###############
-                         계산 결과 
-                    ###############-->
+                    <!-- 계산 결과 -->
                     <div class="basic_wrap">
                         <h3>계산 결과</h3>
                         <div class="box">
                             <table>
                                 <tr>
                                     <th>고객 정전 비용 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Customer_Power_Outage_Cost, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.Customer_Power_Outage_Cost, new { @class = "w100", @readonly = "readonly" })</td>
+                                </tr>
+                                <tr>
                                     <th>계통 손실 비용 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.System_Loss_Cost, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.System_Loss_Cost, new { @class = "w100", @readonly = "readonly" })</td>
+                                </tr>
+                                <tr>
                                     <th>설비 복구 비용 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Facility_Recovery_Cost, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
-                                    <th>수익 손실 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Loss_Of_Profit, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.Facility_Recovery_Cost, new { @class = "w100", @readonly = "readonly" })</td>
+                                </tr>
+                                <tr>
+                                    <th>전력판매 수익 손실 (원)</th>
+                                    <td>@Html.TextBoxFor(m => m.Loss_Of_Profit, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
                                     <th>안전사고 보상 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Safety_Accident_Compensation_1, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.Safety_Accident_Compensation_1, new { @class = "w100", @readonly = "readonly" })</td>
+                                </tr>
+                                <tr>
                                     <th>환경사고 보상 (원)</th>
-                                    <td>
-                                        @Html.TextBoxFor(m => m.Safety_Accident_Compensation_2, new { @class = "w100", @readonly = "readonly" })
-                                    </td>
+                                    <td>@Html.TextBoxFor(m => m.Safety_Accident_Compensation_2, new { @class = "w100", @readonly = "readonly" })</td>
+                                </tr>
+                                <tr>
+                                    <th>최종 COF 합산값</th>
+                                    <td>@Html.TextBoxFor(m => m.Total_Cof, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                             </table>
                         </div>
                     </div>
 
-                </div> 
-            </div> 
-        </div> 
-    } 
-} 
+                </div>  <!-- .interface_wrap -->
+            </div>      <!-- .content_warp -->
+        </div> <!-- .con_box -->
+    }
+}
+
+@section Scripts {
+    <script>
+    $(function() {
+        $('#Code').change(function() {
+            var code = $(this).val();
+            $.getJSON('@Url.Action("GetCoFData","Setting")', { code: code })
+             .done(function(data) {
+                for (var key in data) {
+                    var $el = $('[name="' + key + '"]');
+                    if ($el.length) {
+                        $el.val(data[key]);
+                    }
+                }
+             })
+             .fail(function() {
+                alert('데이터를 가져오는 중 오류가 발생했습니다.');
+             });
+        });
+    });
+    </script>
+}

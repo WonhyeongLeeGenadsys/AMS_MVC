@@ -153,61 +153,45 @@ $(function(){
                     // 서버에서 { x,y,name,group } 배열을 JSON으로 받는다
                     $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")')
                      .done(function(data){
-                        $("#chartContainer").dxChart({
-                            dataSource: data,
-                            // 산점도 시리즈
-                            series: [{
-                                type: "scatter",
-                                argumentField: "x",
-                                valueField: "y",
-                                point: {
-                                    size: 14,
-                                    color: function(pt){
-                                        return pt.data.group === 'G1' ? '#8B4513' : '#4682B4';
-                                    }
-                                },
-                                tooltip: {
-                                    enabled: true,
-                                    customizeTooltip: function(arg){
-                                        return { text: arg.data.name };
-                                    }
-                                }
-                            }],
-                            // X축: CoF
-                            argumentAxis: {
-                                min: 0, max: 5, tickInterval: 1,
-                                label: {
-                                    visible: true,
-                                    customizeText: function(arg) {
-                                        // 실제 CoF 값(1~5)을 x축 단위로 쓰려면 arg.value를 가공
-                                        return arg.value.toString();
-                                    }
-                                },
-                                title: { text: "CoF" },
-                                axisLine: { visible: false },
-                                grid: { visible: false },
-                                tick: { visible: false }
-                            },
-                            // Y축: PoF (위쪽이 높음)
-                            valueAxis: {
-                                min: 0, max: 5, tickInterval: 1,
-                                inverted: true,    // 0이 아래, 5가 위
-                                label: {
-                                    visible: true,
-                                    customizeText: function(arg){
-                                        // 0→0%, 1→20%, … 5→100%
-                                        return (arg.value * 20) + "%";
-                                    }
-                                },
-                                title: { text: "PoF" },
-                                axisLine: { visible: false },
-                                grid: { visible: false },
-                                tick: { visible: false }
-                            },
-                            legend: { visible: false },
-                            background: { visible: false },
-                            margin: { left:0, right:0, top:0, bottom:0 }
-                        });
+                         $("#chartContainer").dxChart({
+                             dataSource: data,
+                             commonSeriesSettings: {
+                                 type: "scatter",
+                                 argumentField: "x",
+                                 valueField: "y",
+                                 point: { size: 14 },
+                                 tooltip: {
+                                     enabled: true,
+                                     customizeTooltip: function (arg) {
+                                         return { text: arg.data.name };
+                                     }
+                                 }
+                             },
+                             seriesTemplate: {
+                                 nameField: "group"
+                             },
+                             legend: {
+                                 visible: true,
+                                 position: "bottom"  
+                             },
+                             argumentAxis: {
+                                 min: 0, max: 5, tickInterval: 1,
+                                 title: { text: "CoF" },
+                                 label: { customizeText: e => e.value.toString() },
+                                 axisLine: { visible: false },
+                                 grid: { visible: false },
+                                 tick: { visible: false }
+                             },
+                             valueAxis: {
+                                 min: 0, max: 5, tickInterval: 1,
+                                 inverted: true,
+                                 title: { text: "PoF" },
+                                 label: { customizeText: e => (e.value * 20) + "%" },
+                                 axisLine: { visible: false },
+                                 grid: { visible: false },
+                                 tick: { visible: false }
+                             }
+                         });
                      })
                      .fail(function(){
                         console.error("위험 포인트 로드 실패");

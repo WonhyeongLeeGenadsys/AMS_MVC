@@ -1,15 +1,15 @@
-﻿using System;
-using System.Linq;
+﻿// AMS_MVC/Services/VCBChkScoreCalculator.cs
 using AMS_MVC.Models;
+using AMS_MVC.Utlity;
+using System.Linq;
 
 namespace AMS_MVC.Services
 {
     public class VCBChkScoreCalculator
     {
-        public int CalculateFoldingFunction(VCBChk chk)
+        public (decimal HI, decimal PoF) CalculateHiPof(VCBChk chk, decimal alpha = 0.99m) //alpha는 보정계수 0.99 고정
         {
-
-            int[] scores = new int[]
+            int[] scores = new[]
             {
                 (int)chk.CHK_ContactWearPercent,
                 (int)chk.CHK_VacuumLeakCurrent,
@@ -25,7 +25,10 @@ namespace AMS_MVC.Services
                 (int)chk.CHK_VisualCheck
             };
 
-            return scores.Max();  
+            int maxGrade = scores.Max(); // Max 값이 HI 값 
+            int frequency = scores.Count(s => s == maxGrade); // Max값으로 빈도수 찾아서 해당하는 Pof값 반환
+
+            return HiPofTable.GetHiPof(maxGrade, frequency, alpha); 
         }
     }
 }

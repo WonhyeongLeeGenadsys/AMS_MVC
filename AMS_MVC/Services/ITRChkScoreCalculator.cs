@@ -1,15 +1,14 @@
 ﻿using System.Linq;
 using AMS_MVC.Models;
+using AMS_MVC.Utlity;
 
 namespace AMS_MVC.Services
 {
     public class ITRChkScoreCalculator
     {
-        /// <summary>
-        /// 보통점검(ITRChk1)에 포함된 모든 수치형 변수 중 최대값을 Folding Function으로 계산
-        /// </summary>
-        public int CalculateFoldingFunction(ITRChk1 chk)
+            public (decimal HI, decimal PoF) CalculateHiPof(ITRChk1 chk, decimal alpha = 0.99m)
         {
+            
             int[] scores = new int[]
             {
                 // DGA
@@ -40,13 +39,16 @@ namespace AMS_MVC.Services
                 chk.CHK1_LV_TV
             };
 
-            return scores.Max();
+            int maxGrade = scores.Max();
+            int frequency = scores.Count(s => s == maxGrade);
+
+            return HiPofTable.GetHiPof(maxGrade, frequency, alpha);
         }
 
         /// <summary>
         /// 정밀점검(ITRChk2)에 포함된 모든 수치형 변수 중 최대값을 Folding Function으로 계산
         /// </summary>
-        public int CalculateFoldingFunction(ITRChk2 chk)
+        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk2 chk, decimal alpha = 0.99m) //alpha는 보정계수 0.99 고정
         {
             int[] scores = new int[]
             {
@@ -59,7 +61,10 @@ namespace AMS_MVC.Services
                 chk.CHK2_PD
             };
 
-            return scores.Max();
+            int maxGrade = scores.Max();
+            int frequency = scores.Count(s => s == maxGrade);
+
+            return HiPofTable.GetHiPof(maxGrade, frequency, alpha);
         }
     }
 }

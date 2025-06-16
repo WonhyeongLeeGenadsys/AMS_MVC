@@ -5,7 +5,7 @@ namespace AMS_MVC.Models
     public class COFModel
     {
         public int Tbl_Idx { get; set; }  
-
+        public string Code { get; set; }
         public decimal Power_Failure_Time { get; set; }             // 정전 시간 (h)
         public decimal Power_Failure_Cost { get; set; }             // 정전 비용 (원/kWh 등)
         public decimal Probability_Of_Power_Failure { get; set; }   // 정전 발생 확률 (%)
@@ -43,6 +43,8 @@ namespace AMS_MVC.Models
         public decimal Safety_Accident_Compensation_1 { get; set; } // 안전사고 보상 (원)
         public decimal Safety_Accident_Compensation_2 { get; set; } // 환경사고 보상 (원)
 
+        public decimal Total_Cof { get; set; }
         public DateTime Tbl_GetDate { get; set; }                   // 입력/수정 일시
     }
 }
+

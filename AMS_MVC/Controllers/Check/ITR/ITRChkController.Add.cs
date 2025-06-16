@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
 using AMS_MVC.Models;
+using AMS_MVC.Services;
 using AMS_MVC.Utlity;
 using Web.Common.Log;
 
@@ -53,7 +54,11 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK1_Tbl_GetDate = DateTime.Now;
 
                 // 2) FoldingFunction 계산
-                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+                //model.foldingfunction = _scorecalc.calculatefoldingfunction(model);
+
+                var scoreCalculator = new ITRChkScoreCalculator();
+                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
+                model.FoldingFunction = (int)Math.Round(hi);
 
                 // 3) DB 저장
                 result = _chk1Repo.CreateITRChk1InfoRepo(model);
@@ -65,12 +70,13 @@ namespace AMS_MVC.Controllers.Check
                 {
                     // 4) 반대 검사(정밀) 최신 점수 조회
                     var other = _chk2Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi = other.HasValue
+                    int hi2 = other.HasValue
                         ? Math.Max(model.FoldingFunction, other.Value)
                         : model.FoldingFunction;
 
                     // 5) Riskmatrix.HI 업데이트
-                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2);
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
                     if (!upd.IsSuccess)
                     {
                         LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
@@ -100,7 +106,11 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK2_Tbl_GetDate = DateTime.Now;
 
                 // 2) FoldingFunction 계산
-                model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+                //model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
+
+                var scoreCalculator = new ITRChkScoreCalculator();
+                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
+                model.FoldingFunction = (int)Math.Round(hi);
 
                 // 3) DB 저장
                 result = _chk2Repo.CreateITRChk2InfoRepo(model);
@@ -112,12 +122,14 @@ namespace AMS_MVC.Controllers.Check
                 {
                     // 4) 반대 검사(보통) 최신 점수 조회
                     var other = _chk1Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi = other.HasValue
+                    int hi1 = other.HasValue
                         ? Math.Max(model.FoldingFunction, other.Value)
                         : model.FoldingFunction;
 
                     // 5) Riskmatrix.HI 업데이트
-                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
+
                     if (!upd.IsSuccess)
                     {
                         LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);

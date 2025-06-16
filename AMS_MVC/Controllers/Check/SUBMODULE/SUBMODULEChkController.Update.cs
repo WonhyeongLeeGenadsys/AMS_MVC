@@ -58,8 +58,12 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
 
                 // 2) FoldingFunction 재계산
+                //var scoreCalc = new SUBMODULEChkScoreCalculator();
+                //model.FoldingFunction = scoreCalc.CalculateFoldingFunction(model);
+
                 var scoreCalc = new SUBMODULEChkScoreCalculator();
-                model.FoldingFunction = scoreCalc.CalculateFoldingFunction(model);
+                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
+                model.FoldingFunction = (int)Math.Round(hi);
 
                 // 3) DB 업데이트
                 var upd = submoduleChkRepository.UpdateSUBMODULEChkInfoRepo(model);
@@ -71,7 +75,9 @@ namespace AMS_MVC.Controllers.Check
                 else
                 {
                     // 4) RiskMatrix HI 업데이트
-                    var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, model.FoldingFunction);
+                    //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, model.FoldingFunction);
+                    var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, model.FoldingFunction, pof);
+
                     if (!riskUpd.IsSuccess)
                     {
                         result.IsSuccess = false;

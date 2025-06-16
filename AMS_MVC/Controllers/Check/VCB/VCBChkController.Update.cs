@@ -33,8 +33,8 @@ namespace AMS_MVC.Controllers.Check
                 ViewBag.Companies = companies;
             }
             else
-            {
-                ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";
+            {               
+                ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";                
             }
 
             var detailRecord = vcbChkList.FirstOrDefault(r => r.Tbl_Idx.ToString() == tblIdx);
@@ -58,8 +58,12 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
 
                 // 2) FoldingFunction 재계산
+                //var scoreCalc = new VCBChkScoreCalculator();
+                //model.FoldingFunction = scoreCalc.CalculateFoldingFunction(model);
+
                 var scoreCalc = new VCBChkScoreCalculator();
-                model.FoldingFunction = scoreCalc.CalculateFoldingFunction(model);
+                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
+                model.FoldingFunction = (int)Math.Round(hi);
 
                 // 3) VCBChk 테이블 UPDATE
                 var upd = vcbChkRepository.UpdateVCBChkInfoRepo(model);
@@ -71,7 +75,8 @@ namespace AMS_MVC.Controllers.Check
                 else
                 {
                     // 4) RiskMatrix HI 업데이트
-                    var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+                    //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+                    var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction, pof);
                     if (!riskUpd.IsSuccess)
                     {
                         result.IsSuccess = false;
