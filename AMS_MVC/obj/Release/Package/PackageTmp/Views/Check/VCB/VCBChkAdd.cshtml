@@ -176,7 +176,7 @@
                                 <td>
                                     <label class="ty_rdo" for="chkContactResistance_1">
                                         <input type="radio" id="chkContactResistance_1" name="CHK_ContactResistance" value="1" checked>
-                                        <span><=5%</span>
+                                        <span>≤5%</span>
                                     </label>
                                     <label class="ty_rdo" for="chkContactResistance_3">
                                         <input type="radio" id="chkContactResistance_3" name="CHK_ContactResistance" value="3" >
@@ -268,7 +268,7 @@
                                 <td>
                                     <label class="ty_rdo" for="MotorCurrent_1">
                                         <input type="radio" id="MotorCurrent_1" name="CHK_MotorCurrent" value="1" checked>
-                                        <span><= 2%</span>
+                                        <span>≤ 2%</span>
                                     </label>
                                     <label class="ty_rdo" for="MotorCurrent_3">
                                         <input type="radio" id="MotorCurrent_3" name="CHK_MotorCurrent" value="3">
@@ -293,7 +293,7 @@
                                 <td>
                                     <label class="ty_rdo" for="accumSCC_1">
                                         <input type="radio" id="accumSCC_1" name="CHK_AccumShortCircuitCurrent" value="1" checked>
-                                        <span><= 20%</span>
+                                        <span>≤ 20%</span>
                                     </label>
                                     <label class="ty_rdo" for="accumSCC_2">
                                         <input type="radio" id="accumSCC_2" name="CHK_AccumShortCircuitCurrent" value="2" >
@@ -324,7 +324,7 @@
                                 <td>
                                     <label class="ty_rdo" for="shortCC_1">
                                         <input type="radio" id="shortCC_1" name="CHK_ShortCircuitCount" value="1" checked>
-                                        <span><= 20%</span>
+                                        <span>≤ 20%</span>
                                     </label>
                                     <label class="ty_rdo" for="shortCC_2">
                                         <input type="radio" id="shortCC_2" name="CHK_ShortCircuitCount" value="2">
@@ -354,7 +354,7 @@
                                 <td>
                                     <label class="ty_rdo" for="operCount_1">
                                         <input type="radio" id="operCount_1" name="CHK_OperationCount"  value="1"checked>
-                                        <span><= 20%</span>
+                                        <span>≤ 20%</span>
                                     </label>
                                     <label class="ty_rdo" for="operCount_2">
                                         <input type="radio" id="operCount_2" name="CHK_OperationCount" value="2">
@@ -383,7 +383,7 @@
                                 <td>
                                     <label class="ty_rdo" for="openCloseTime_1">
                                         <input type="radio" id="openCloseTime_1" name="CHK_OpenCloseTime"  value="1"checked>
-                                        <span><= 20%</span>
+                                        <span>≤ 20%</span>
                                     </label>
                                     <label class="ty_rdo" for="openCloseTime_3">
                                         <input type="radio" id="openCloseTime_3" name="CHK_OpenCloseTime" value="3">
@@ -902,11 +902,8 @@
             var form = document.getElementById("vcbChkForm");
             var formData = new FormData(form);
 
-            // 1) VCB_Code가 hidden인 경우(이미 URL에 있었음) => 바로 진행
-            // 2) VCB_Code가 드롭다운인 경우 => 선택 체크
             var vcbCodeDropdown = document.getElementById("VCB_Code");
             if (vcbCodeDropdown) {
-                // 사용자가 "VCB를 선택하세요."(기본값) 또는 빈 값("")을 선택한 경우 확인
                 if (!vcbCodeDropdown.value) {
                     alert("VCB를 선택하세요.");
                     return;

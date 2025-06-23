@@ -309,7 +309,6 @@ select::-ms-expand {
 select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
-	appearance: none;
 	min-width: 180px;
 	height: 32px;
 	margin-right: 10px;
@@ -1331,6 +1330,9 @@ footer {
 		.interface_wrap table td {
 			height: 50px;
 			padding: 5px 0;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 		}
 
 			.interface_wrap table td input[type="text"] {
@@ -1423,8 +1425,22 @@ h4.tit_h4 {
 		min-width: 400px;
 	}
 
+	.box_wrap .riskMatrix {
+		width: 40%;
+/*		min-width: 400px;
+*/		max-height: 500px;		
+	}
+
+	.box_wrap .wooseon {
+		width: calc(60% - 10px);
+	}
+
 	.box_wrap .flex2 {
 		width: calc(66% - 10px);
+	}
+
+	.box_wrap .flexSeolbi {
+		width: calc(66%);
 	}
 
 	.box_wrap .flexCheck {
@@ -2067,7 +2083,7 @@ dl.product_info {
 			.menu_group .check-menu li.active > a {
 				background-color: #fff;
 				color: #666;
-				font-weight: bold;
+				
 			}
 
 		/* 서브메뉴(two_depth)는 일반 흐름에 포함되어 부모 li의 높이를 확장 */
@@ -2078,6 +2094,7 @@ dl.product_info {
 			margin: 5px 0 0 20px; /* 왼쪽 들여쓰기, 위쪽 여백 추가 */
 			background-color: transparent;
 			border-radius: 20px;
+			color: #666;
 		}
 
 		/* 상위 메뉴 active 시 서브메뉴 표시 */
@@ -2102,14 +2119,161 @@ dl.product_info {
 				.menu_group .check-menu li.has-sub ul.two_depth li a.active,
 				.menu_group .check-menu li.has-sub ul.two_depth li.active > a {
 					background-color: #fff;
-					color: #000;
-					font-weight: bold;
+					color: #666;
 				}
 
-
-
-/* 첫 번째 행 강조용 스타일 */
-.first-row-highlight {
-	border: 1px solid rgba(255, 0, 0, 0.4) !important;
-	background-color: rgba(255, 0, 0, 0.05) !important;
+/* 개별 페이지에서 사용할 override 규칙 */
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerygood {
+	background-color: rgba(91, 159, 86, 0.25) !important;
 }
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityGood {
+	background-color: rgba(180, 222, 177, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityFair {
+	background-color: rgba(235, 205, 29, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityPoor {
+	background-color: rgba(241, 132, 37, 0.25) !important;
+}
+
+.dx-datagrid .dx-datagrid-rowsview td.priorityVerypoor {
+	background-color: rgba(240, 81, 83, 0.25) !important;
+}
+
+.first-row-blue td {
+	border: 1px solid #0051A2 !important;
+}
+
+/* 고장 그리드 첫 번째 행 강조 */
+.first-row-highlight td {
+	background-color: rgba(255, 230, 230, 0.5); /* 연한 빨강 배경 */
+	border: 1px solid #C00; /* 진한 빨강 테두리 */
+}
+.risk-map-wrapper {
+	position: relative;
+	width: 100%;
+	padding-bottom: 100%; /* 정사각형 유지 */
+	height: 0;
+}
+
+.background-grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: table;
+	border-collapse: collapse;
+	z-index: 1;
+}
+
+	.background-grid .grid-row {
+		display: table-row;
+	}
+
+	.background-grid .grid-cell {
+		display: table-cell;
+		border: 1px solid #ddd;
+		box-sizing: border-box;
+	}
+
+/* 색상 클래스 */
+.color-red {
+	background-color: #FF0000;
+}
+
+.color-yellow {
+	background-color: #FFFF00;
+}
+
+.color-lightgreen {
+	background-color: #92D050;
+}
+
+.color-blue {
+	background-color: #00B0F0;
+}
+
+#chartContainer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	background-color: transparent;
+}
+
+.interface_wrap .box table {
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* ──────────────────────────────────────────────── */
+/* 2) 제목 칼럼(th) 고정 너비, 한 줄로 표시 */
+/* ──────────────────────────────────────────────── */
+.interface_wrap table th {
+	width: 170px; 
+	padding: 0 8px; 
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	font-size: 14px;
+	line-height: 32px;
+}
+
+/* ──────────────────────────────────────────────── */
+/* 3) 데이터 셀(td) 한 줄, 패딩 좁게 */
+/* ──────────────────────────────────────────────── */
+.interface_wrap table td {
+	padding: 0 5px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	line-height: 32px;
+}
+
+	/* ──────────────────────────────────────────────── */
+	/* 4) 입력창 너비 제한 */
+	/* ──────────────────────────────────────────────── */
+	.interface_wrap table td input[type="text"],
+	.interface_wrap table td input[type="number"] {
+		max-width: 150px; 
+		width: 100%;
+		height: 28px; 
+		padding: 4px 6px;
+		font-size: 13px;
+		box-sizing: border-box;
+	}
+
+
+/* Risk Matrix 전용 스타일                        */
+/* ──────────────────────────────────────────────── */
+
+/*
+.color-red {
+	background: #FF0000;
+}
+
+.color-yellow {
+	background: #FFFF00;
+}
+
+.color-lightgreen {
+	background: #92D050;
+}
+
+.color-blue {
+	background: #00B0F0;
+}
+
+*/
+
+.con_box.riskMatrix {
+	position: relative;
+	height: 400px; /* 컨테이너 높이 고정 */
+}
+

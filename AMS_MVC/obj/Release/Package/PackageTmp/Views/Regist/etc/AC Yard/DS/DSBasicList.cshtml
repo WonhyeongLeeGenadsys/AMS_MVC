@@ -1,0 +1,111 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_RegistMenu")
+}
+
+@section MainContent {
+    <h1>
+        DS 기본정보 목록
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("DSBasicAdd", "DSBasic")" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                loadDSData();
+            });
+
+            function loadDSData() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetDSListData", "DSBasic")',
+                    /*url: "/DSBasic/GetDSListData",*/
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success === false) {
+                            console.error("DS 데이터 로드 실패: " + response.message);
+                            return;
+                        }
+
+                        let data = response.data.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+
+                        // 순번 매기기
+                        data = data.map((item, index) => {
+                            item.RowNumber = data.length - index;
+                            return item;
+                        });
+
+                        $("#gridContainer").dxDataGrid({
+                            dataSource: data,
+                            columnFixing: { enabled: true },
+                            columns: [
+                                {
+                                    dataField: "RowNumber",
+                                    caption: "순번",
+                                    width: 80
+                                },
+                                { dataField: 'Name', caption: '제품이름', alignment: 'center', width: 'auto' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center', width: 'auto' },
+                                {
+                                    dataField: 'Install_Date',
+                                    caption: '설치일',
+                                    alignment: 'center',
+                                    width: 100,
+                                },
+                                { dataField: 'Operating_Date', caption: '가동일', alignment: 'center', width: 100},
+                                //{ dataField: 'Price', caption: '구입비용(원)', alignment: 'center', width: 100 },
+                                { dataField: 'Install_Place', caption: '설치장소', alignment: 'center', width: 100 },
+                                //{ dataField: 'use', caption: '사용(년)', alignment: 'center', width: 100 },
+                                //{ dataField: 'Rated_V', caption: '정격전압(kV)', alignment: 'center', width: 120 },
+                                //{ dataField: 'Rated_A', caption: '정격전류(A)', alignment: 'center', width: 100 },
+                                //{ dataField: 'Make_Company', caption: '제작사', alignment: 'center', width: 100 },
+                                //{ dataField: 'Make_No', caption: '제작번호', alignment: 'center', width: 120 },
+                                { dataField: 'Is_Diagnostics', caption: '예방진단사용', alignment: 'center', width: 'auto' },
+                                { dataField: 'Is_Health', caption: '건전도 사용', alignment: 'center', width: 'auto' },
+                                { dataField: 'Tbl_GetDate', caption: '작성일자', alignment: 'center', width: 100},
+                                {
+                                    dataField: "manage",
+                                    caption: "관리",
+                                    alignment: "center",
+                                    width: 250,
+                                    cellTemplate: function (container, options) {
+                                        var chkUrl = '@Url.Action("DSChkList", "DSChk")';
+                                        var fhUrl = '@Url.Action("DSGojangList", "DSGojang")';
+                                        var mrUrl = '@Url.Action("DSMaintenanceList", "DSMaintenance")';
+
+                                        container.append(
+                                        `<a href="${chkUrl}?DS_Code=${encodeURIComponent(options.data.DS_Code)}" class="btn table blue">보통점검</a>
+                                        <a href="${fhUrl}?DS_Code=${encodeURIComponent(options.data.DS_Code)}" class="btn table red">고장이력</a>
+                                        <a href="${mrUrl}?DS_Code=${encodeURIComponent(options.data.DS_Code)}" class="btn table gray">유지보수이력</a>`);
+                                     }
+                                }
+                            ],
+                            showBorders: true,
+                            searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                            filterRow: { visible: true, applyFilter: "auto" },
+                            headerFilter: { visible: true },
+                            loadPanel: { enabled: true },
+                            scrolling: { columnRenderingMode: "virtual" },
+                            onRowClick: function (e) {
+                                const tblIdx = e.data.Tbl_Idx;
+                                var detailUrl = '@Url.Action("DSBasicDetail", "DSBasic")';
+                                window.location.href = detailUrl + "?tblIdx=" + encodeURIComponent(tblIdx);
+                            }
+                        });
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("데이터 로드 중 오류", error);
+                    }
+                });
+            }
+        </script>
+    </div>
+}

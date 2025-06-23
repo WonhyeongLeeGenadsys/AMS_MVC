@@ -10,3 +10,9 @@ D:\test\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.AssemblyReference.cache
 D:\test\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CoreCompileInputs.cache
 D:\test\AMS_MVC\Web.Common\obj\Release\Web.Common.dll
 D:\test\AMS_MVC\Web.Common\obj\Release\Web.Common.pdb
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Web.Common.dll
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Web.Common.pdb
+D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.AssemblyReference.cache
+D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CoreCompileInputs.cache
+D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.dll
+D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.pdb

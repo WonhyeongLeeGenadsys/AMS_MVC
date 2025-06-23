@@ -1,0 +1,86 @@
+|2025-06-20 13:48:12  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-20 13:48:12  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-20 13:48:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:12  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-20 13:48:16  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-06-20 13:48:16  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-20 13:48:16  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:16  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-06-20 13:48:18  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:48:28  |   DB(DCCB_BASICINFO)  |   CreateDCCBBasicInfoRepo 성공: DCCB Serial_No: 1   |
+|2025-06-20 13:48:29  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-06-20 13:48:29  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-20 13:48:29  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:29  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-06-20 13:48:31  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-20 13:48:31  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-20 13:48:31  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:31  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-20 13:48:41  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-20 13:48:41  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-20 13:48:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:41  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-20 13:48:44  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-06-20 13:48:44  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-20 13:48:44  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:44  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-06-20 13:48:47  |   DCCBChkController.List  |   GetDCCBChkListData 실행   |
+|2025-06-20 13:48:47  |   dccbCode 조회 :   |   DCCB001   |
+|2025-06-20 13:48:47  |   DCCBChkController.List  |   조회된 데이터: 0건   |
+|2025-06-20 13:48:48  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-20 13:48:48  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:48:48  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:49:03  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2025-06-20 13:49:03  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=4, cof=5576.015293025, pof=13.8000   |
+|2025-06-20 13:49:04  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-06-20 13:49:04  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-20 13:49:04  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:49:44  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-20 13:49:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-20 13:49:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:49:44  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-20 13:49:49  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-20 13:49:49  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-20 13:49:49  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:49:49  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-20 13:49:50  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:49:58  |   DB(SUBMODULE_BASICINFO)  |   CreateSUBMODULEBasicInfoRepo 성공: SUBMODULE Serial_No: 1   |
+|2025-06-20 13:49:59  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-20 13:49:59  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-20 13:49:59  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:49:59  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-20 13:50:02  |   SUBMODULEChkController.List  |   GetSUBMODULEChkListData 실행   |
+|2025-06-20 13:50:02  |   submoduleCode 조회 :   |   SUBMODULE001   |
+|2025-06-20 13:50:02  |   SUBMODULEChkController.List  |   조회된 데이터: 0건   |
+|2025-06-20 13:50:03  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-20 13:50:03  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:50:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:50:15  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2025-06-20 13:50:15  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=3, cof=0, pof=0.1078   |
+|2025-06-20 13:50:16  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-20 13:50:16  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:52:42  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-20 13:52:42  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-20 13:52:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-20 13:52:42  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-20 13:52:45  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2025-06-20 13:52:45  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-20 13:52:45  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:52:45  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2025-06-20 13:52:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:52:56  |   DB(DCCABLE_BASICINFO)  |   CreateDCCABLEBasicInfoRepo 성공: DCCABLE Serial_No: 1   |
+|2025-06-20 13:52:57  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2025-06-20 13:52:57  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-20 13:52:57  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:52:57  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2025-06-20 13:52:59  |   DCCABLEChkController.List  |   GetDCCABLEChkListData 실행   |
+|2025-06-20 13:52:59  |   dccableCode 조회 :   |   DCCABLE001   |
+|2025-06-20 13:52:59  |   DCCABLEChkController.List  |   조회된 데이터: 0건   |
+|2025-06-20 13:53:01  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-20 13:53:01  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-20 13:53:01  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-20 13:53:08  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2025-06-20 13:53:08  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=1, cof=0, pof=0.0000   |
+|2025-06-20 13:53:09  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-06-20 13:53:09  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-20 13:53:09  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |

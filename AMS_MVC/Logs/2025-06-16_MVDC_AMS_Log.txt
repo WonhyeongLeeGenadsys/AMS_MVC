@@ -1,0 +1,12 @@
+|2025-06-16 15:08:03  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-16 15:08:03  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-06-16 15:08:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-16 15:08:03  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-16 15:08:07  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2025-06-16 15:08:07  |   vcbCode 조회 :   |   VCB001   |
+|2025-06-16 15:08:07  |   VCBChkController.List  |   조회된 데이터: 1건   |
+|2025-06-16 15:08:12  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-06-16 15:08:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-16 15:08:12  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-16 18:29:10  |   vcbBasicInfo Data  |   총 4 건 조회됨   |
+|2025-06-16 18:29:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

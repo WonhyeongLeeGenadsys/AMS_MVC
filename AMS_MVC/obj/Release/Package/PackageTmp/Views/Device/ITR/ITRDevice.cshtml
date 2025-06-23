@@ -1,5 +1,10 @@
-﻿@{
+﻿﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewData["Prefix"] = "ITR";
+    ViewData["Controller"] = "ITRDevice";
+    ViewData["PieId"] = "pie02";
+    ViewData["DetailParam"] = "itrCode";
 }
 
 @section LeftMenu {
@@ -11,99 +16,9 @@
     <!--전체 박스-->
     <div class="box_wrap">
         <!--건전도-->
-        <div class="con_box flex3">
-            <!--타이틀-->
-            <h2>건전도</h2>
-            <!--//타이틀-->
-            <!--그래프-->
-            <div id="pie01" style="height: 280px; width: 100%;"></div>
-            <!--//그래프-->
-            <!--그래프 타이틀-->
-            <script>
-                $(document).ready(function () {
-                    // 서버에서 HI 집계 데이터를 가져오는 함수
-                    function fetchITRData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/ITRDevice/GetRiskmatrixData",  // 위에서 추가한 액션 호출
-                            data: JSON.stringify({ prefix: "ITR" }),
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
-
-                    // dxPieChart 생성 함수
-                    function initializePieChart(data) {
-                        $('#pie01').dxPieChart({
-                            type: 'doughnut',
-                            palette: ['#5B9F56', '#B4DEB1', '#EBCD1D', '#F18425', '#F05153'],
-                            dataSource: data,
-                            legend: {
-                                visible: true,
-                                horizontalAlignment: 'center',
-                                verticalAlignment: 'bottom',
-                            },
-                            onPointClick(arg) {
-                                arg.target.select();
-                            },
-                            series: [{
-                                argumentField: 'state',
-                                valueField: 'value',
-                                label: {
-                                    visible: true,
-                                    format: 'fixedPoint',
-                                    precision: 0,
-                                    connector: { visible: true },
-                                },
-                            }],
-                        });
-                    }
-
-                    // 데이터를 가져와 차트에 적용
-                    fetchITRData()
-                        .done(function (response) {
-                            if (response) {
-                                // response는 { "1": count, "2": count, ... } 형태
-                                const hiSummary = summarizeHIData(response);
-                                initializePieChart(hiSummary);
-                            } else {
-                                alert("ITR 데이터를 가져오는 데 실패했습니다.");
-                            }
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("서버에서 데이터를 가져오는 중 오류가 발생했습니다.");
-                        });
-
-                    // HI 데이터를 요약하여 배열 형태로 변환하는 함수
-                    function summarizeHIData(data) {
-                        var result = [];
-                        Object.keys(data).forEach(function (key) {
-                            result.push({
-                                state: getStateByHI(key),
-                                value: parseInt(data[key], 10)
-                            });
-                        });
-                        return result;
-                    }
-
-                    // HI 값에 따라 상태 문자열 반환
-                    function getStateByHI(hi) {
-                        var value = parseInt(hi, 10);
-                        switch (value) {
-                            case 1: return 'Very Good';
-                            case 2: return 'Good';
-                            case 3: return 'Fair';
-                            case 4: return 'Poor';
-                            case 5: return 'Very Poor';
-                            default: return 'Unknown';
-                        }
-                    }
-
-                });
-            </script>
-        </div>
+        @Html.Partial("DeviceInfo/_HealthPie")
         <!--//건전도-->
+        <!--risk matrix-->
         <!--risk matrix-->
         <div class="con_box flex3">
             <!--타이틀-->
@@ -204,17 +119,13 @@
 
         </div>
         <!--//risk matrix-->
-        <!--B3수명-->
+        <!-- B3 수명 차트 -->
         <div class="con_box flex3">
-            <!--타이틀-->
-            <h2>
-                <p>B3 수명</p>
-            </h2>
-            <!--//타이틀-->
-            <!--차트-->
+            <h2><p>B3 수명</p></h2>
             <div id="chart_bar" style="height: 280px;"></div>
-            <!--//차트-->
-            <script>
+        </div>
+
+        <script>
     $(document).ready(function () {
         var equipmentType = "ITR";
 
@@ -283,11 +194,9 @@
             }
         });
     });
-            </script>
+        </script>
 
-        </div>
-        <!--//B3수명-->
-        <!--신뢰도-->
+        <!--설비들-->
         <div class="con_box flex4 system">
             <!-- 타이틀 -->
             <h2>
@@ -326,7 +235,7 @@
                                 switch (hi) {
                                     case 1:
                                         cssClass = "verygoodDevice";
-                                        statusText = "V-Good";
+                                        statusText = "Good";
                                         break;
                                     case 2:
                                         cssClass = "goodDevice";
@@ -342,7 +251,7 @@
                                         break;
                                     case 5:
                                         cssClass = "verybadDevice";
-                                        statusText = "V-Bad";
+                                        statusText = "Bad";
                                         break;
                                     default:
                                         cssClass = "unknown";
@@ -403,8 +312,7 @@
             </script>
 
         </div>
-
-        <!--//신뢰도-->
+        <!--//설비들-->
         <!--우선순위-->
         <div class="con_box flex4">
             <!--타이틀-->
@@ -444,155 +352,265 @@
                             sorting: { mode: 'multiple' },
                             scrolling: { columnRenderingMode: 'virtual' },
 
-                            onCellPrepared: function (e) {
-                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
-                                    var hi = e.value;
-                                    var cls = '';
-                                    switch (hi) {
-                                        case 1: cls = 'priorityVerygood'; break;
-                                        case 2: cls = 'priorityGood'; break;
-                                        case 3: cls = 'priorityFair'; break;
-                                        case 4: cls = 'priorityPoor'; break;
-                                        case 5: cls = 'priorityVerypoor'; break;
-                                    }
-                                    if (cls) {
-                                        e.cellElement.addClass(cls);
-                                    }
+                            // 첫 번째 행 강조
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
                                 }
                             },
+
+                            // HI 셀에 클래스 부여
                             columns: [
                                 { dataField: "Priority", caption: "우선순위", alignment: "center" },
                                 { dataField: "Sort", caption: "구분", alignment: "center" },
                                 { dataField: "Name", caption: "설비명", alignment: "center" },
                                 { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
-                                { dataField: "Install_Date", caption: "설치일", alignment: "center" },
-                                { dataField: "Operating_Date", caption: "운영일", alignment: "center" },
+                                { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
+                                { dataField: "Operating_Date", caption: "운영일", alignment: "center", dataType: "date" },
                                 { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
                                 { dataField: "CoF", caption: "CoF", alignment: "center" },
                                 { dataField: "PoF", caption: "PoF", alignment: "center" },
-                                { dataField: "HI", caption: "HI", alignment: "center" }
-                            ],
-                            showBorders: true,
-                            sorting: { mode: "multiple" },
-                            scrolling: { columnRenderingMode: "virtual" }
+                                {
+                                    dataField: "HI",
+                                    caption: "HI",
+                                    alignment: "center",
+                                    dataType: "number",
+                                    cellTemplate: function (container, info) {
+                                        var clsMap = {
+                                            1: 'priorityVerygood',
+                                            2: 'priorityGood',
+                                            3: 'priorityFair',
+                                            4: 'priorityPoor',
+                                            5: 'priorityVerypoor'
+                                        };
+                                        container.addClass(clsMap[info.value] || '');
+                                        container.text(info.value);
+                                    }
+                                }
+                            ]
                         });
                     }
                 });
             </script>
         </div>
         <!--//우선순위-->
-        <!--고장율-->
-        <!--<div class="con_box flex4">-->
-            <!--타이틀-->
-            <!--<h2>
-                고장률
-            </h2>-->
-            <!--//타이틀-->
-            <!--차트-->
-            <!--<div id="chart_line" style="height: 280px;"></div>-->
-            <!--//차트-->
-            <!--<script>
-                $(() => {
-                    const chart = $('#chart_line').dxChart({
-                        dataSource: population,
-                        palette: ['#FEA00D'],
+        <!-- 고장률 차트 (Hazard) -->
+        <!--<div class="con_box flex5">
+    <h2>고장률</h2>-->
+        <!-- 컨테이너: display:block, 명시적 크기 지정 -->
+        <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
 
-                        series: [{
-                            argumentField: 'country',
-                            width: 1
-                        }],
-
-                        argumentAxis: {
-                            label: {
-                                wordWrap: 'none',
-                            },
-                        },
-                        legend: {
-                            visible: false,
-                        },
-
-                    }).dxChart('instance');
-
-
-                });
-                const population = [
-                    { country: 'China', val: 1382500000 },
-                    { country: 'India', val: 1314300000 },
-                    { country: 'United States', val: 324789000 },
-                    { country: 'Indonesia', val: 261600000 },
-                    { country: 'Brazil', val: 207332000 },
-                    { country: 'Pakistan', val: 196865000 },
-                    { country: 'Nigeria', val: 188500000 },
-                ];
-
-            </script>
-        </div>-->
-        <!--//고장율-->
-        <!--신뢰도-->
-        <div class="con_box flex4">
-            <!--타이틀-->
-            <h2>
-                신뢰도
-            </h2>
-            <!--//타이틀-->
-            <!--차트-->
-            <div id="chart_line02" style="height: 280px;"></div>
-            <!--//차트-->
             <script>
-                $(() => {
-                    const chart = $('#chart_line02').dxChart({
-                        dataSource: population02,
-                        palette: ['#FEA00D'],
+    $(document).ready(function () {
+        $("#chart_line").css("display", "block");
 
-                        series: [{
-                            argumentField: 'country',
-                            width: 1
-                        }],
+        setTimeout(function() {
+            $.ajax({
+                url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                type: 'GET',
+                data: { equipmentType: "ITR" },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("알고리즘 결과 데이터 (Hazard):", data);
+                    if (Array.isArray(data) && data.length > 0) {
+                        // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
+                        var hazardData = data[0].HazardSeries;
+                        // 혹시 time, value가 문자열이면 숫자로 변환
+                        hazardData = hazardData.map(function (point) {
+                            return {
+                                time: parseFloat(point.time),
+                                value: parseFloat(point.value)
+                            };
+                        });
+                        console.log("Parsed Hazard Data:", hazardData);
 
-                        argumentAxis: {
-                            label: {
-                                wordWrap: 'none',
+                        $("#chart_line").dxChart({
+                            dataSource: hazardData,
+                            // 모든 시리즈에 공통 적용될 기본값
+                            commonSeriesSettings: {
+                                type: 'line',
+                                // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                point: {
+                                    visible: false
+                                }
                             },
-                        },
-                        legend: {
-                            visible: false,
-                        },
-
-                    }).dxChart('instance');
-
-
-                });
-                const population02 = [
-                    { country: 'China', val: 1382500000 },
-                    { country: 'India', val: 1314300000 },
-                    { country: 'United States', val: 324789000 },
-                    { country: 'Indonesia', val: 261600000 },
-                    { country: 'Brazil', val: 207332000 },
-                    { country: 'Pakistan', val: 196865000 },
-                    { country: 'Nigeria', val: 188500000 },
-                ];
-
-            </script>
+                            // 실제 시리즈 설정 (argumentField, valueField 지정)
+                            series: [{
+                                name: "고장률",
+                                argumentField: 'time',
+                                valueField: 'value'
+                            }],
+                            tooltip: { enabled: true },
+                            argumentAxis: {
+                                title: "시간 (년)",
+                                visualRange: { startValue: 0, endValue: 80 }
+                            },
+                            valueAxis: {
+                                title: "신뢰도 (0 ~ 1)",
+                                // 값이 0~1 범위이면 이렇게 지정 가능
+                                visualRange: { startValue: 0, endValue: 1 }
+                            },
+                            onContentReady: function(e) {
+                                // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
+                                e.component.render();
+                            }
+                        });
+                    } else {
+                        console.warn("고장률 데이터가 없습니다.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("고장률 데이터 로드 실패:", error);
+                }
+            });
+        }, 100);
+    });
+            </script>-->
+        <!-- 신뢰도 차트 -->
+        <div class="con_box flex5">
+            <h2>신뢰도</h2>
+            <div id="chart_line02" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
         </div>
-        <!--//신뢰도-->
+
+        <script>
+        $(document).ready(function () {
+            setTimeout(function(){
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "ITR" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Reliability):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 신뢰도 시리즈 사용
+                            var reliabilityData = data[0].ReliabilitySeries;
+                            reliabilityData = reliabilityData.map(function(point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+
+                            var maxX = data[0].B3Life * 2;
+
+                            $("#chart_line02").dxChart({
+                                dataSource: reliabilityData,
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    }
+                                },
+                                series: [{
+                                    name: "신뢰도",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: maxX }
+                                },
+                                valueAxis: {
+                                    title: "신뢰도 (0 ~ 1)",
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    e.component.render();
+                                }
+                            });
+                        } else {
+                            console.warn("신뢰도 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("신뢰도 데이터 로드 실패:", error);
+                    }
+                });
+            }, 100);
+        });
+        </script>
+
+        <!-- 확률 밀도 함수 차트 -->
+        <!--<div class="con_box">
+                <h2>확률 밀도 함수</h2>
+                <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
+            <script>
+        $(document).ready(function () {
+            // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
+            setTimeout(function () {
+    $.ajax({
+        url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+        type: 'GET',
+        data: { equipmentType: "ITR" },
+        dataType: 'json',
+        success: function (data) {
+            if (Array.isArray(data) && data.length > 0) {
+                // 첫 번째 장비의 확률 밀도 함수 데이터 사용
+                var pdfData = data[0].PdfNormalized;
+                pdfData = pdfData.map(function (point) {
+                    return {
+                        time: parseFloat(point.time),
+                        value: parseFloat(point.value)
+                    };
+                });
+                $("#chart_line03").dxChart({
+                    dataSource: pdfData,
+                    commonSeriesSettings: {
+                        type: 'line',
+                        // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                        point: {
+                            visible: false
+                        }
+                    },
+                    series: [{
+                        name: "확률 밀도 함수",
+                        argumentField: 'time',
+                        valueField: 'value'
+                    }],
+                    tooltip: { enabled: true },
+                    argumentAxis: {
+                        title: "시간 (년)",
+                        visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
+                    },
+                    valueAxis: {
+                        title: "정규화된 확률 밀도"
+                    }
+                });
+            } else {
+                console.warn("확률 밀도 함수 데이터가 없습니다.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("확률 밀도 함수 데이터 로드 실패:", error);
+        }
+    });
+            }, 100); // 100ms 딜레이
+        });
+            </script>-->
         <!--전략-->
         <div class="con_box">
             <!--타이틀-->
             <h2>
-                <p>전략</p>
+                <p>차년도 유지보수 대상</p>
             </h2>
             <!--//타이틀-->
         </div>
+
         <!--//전략-->
         <!--점검-->
-        <div class="con_box flex2 schedule">
+        <div class="con_box flexCheck schedule">
             <!-- 타이틀 영역 -->
             <h2>
                 <p>점검</p>
                 <p class="schedule_value">
-                    <span class="confirmed">confirmed</span>
-                    <span class="risk">risk</span>
-                    <span class="created">To be Created</span>
+                    <span class="confirmed">보통점검</span>
+                    <span class="risk">정밀점검</span>
+                    @*<span class="created">To be Created</span>*@
                 </p>
                 <p class="month_select">
                     <a href="javascript:void(0);" class="arrow prev">이전달</a>
@@ -655,7 +673,6 @@
                     // 먼저 Type별로 그룹화
                     var groupedData = {};
                     data.forEach(function (item) {
-                        // 여기서는 ITR 점검 데이터만 표시한다고 가정 (item.Type === "ITR")
                         if (!groupedData[item.Type]) {
                             groupedData[item.Type] = [];
                         }
@@ -679,6 +696,7 @@
 
                             } else if (item.Status === "created") {
                                 barStyle = "background-color:gray;";
+                                let barStyle = item.Status === "confirmed" ? "background-color:#0051A2;" : "background-color:#800080;";
 
                             } else {
                                 barStyle = "background-color:lightgray;";
@@ -732,103 +750,103 @@
         </script>
         <!--//점검-->
         <!--유지보수-->
-        <div class="con_box flex1">
-            <!-- 타이틀 -->
-            <h2>
-                <p>유지보수</p>
-            </h2>
-            <!-- 챠트 컨테이너 -->
-            <div id="chart03"></div>
-            <script>
-                $(document).ready(function () {
-                    // 서버에서 ITR 유지보수 데이터를 가져오는 함수
-                    function fetchMaintenanceData() {
-                        return $.ajax({
-                            type: "POST",
-                            url: "/ITRDevice/GetMonthlyMaintenanceData",
-                            contentType: "application/json; charset=utf-8",
-                            dataType: "json"
-                        });
-                    }
+        <!--<div class="con_box flex1">-->
+        <!-- 타이틀 -->
+        <!--<h2>
+        <p>유지보수</p>
+    </h2>-->
+        <!-- 챠트 컨테이너 -->
+        <!--<div id="chart03"></div>
+        <script>
+            $(document).ready(function () {
+                // 서버에서 ITR 유지보수 데이터를 가져오는 함수
+                function fetchMaintenanceData() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/ITRDevice/GetMonthlyMaintenanceData",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
 
-                    // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
-                    // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
-                    function transformData(rawArray) {
-                        return rawArray.map(function (itemArray) {
-                            var obj = {};
-                            itemArray.forEach(function (pair) {
-                                obj[pair.Key] = pair.Value;
-                            });
-                            return obj;
+                // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
+                // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            obj[pair.Key] = pair.Value;
                         });
-                    }
+                        return obj;
+                    });
+                }
 
-                    // 데이터를 월별로 그룹화하여 ITR 값만 누적하는 함수
-                    function processChartData(rawData) {
-                        const groupedData = {};
-                        rawData.forEach(item => {
-                            const month = item.Month; // EX: "2024-05"
-                            if (!groupedData[month]) {
-                                groupedData[month] = { Month: month, ITR: 0 };
+                // 데이터를 월별로 그룹화하여 ITR 값만 누적하는 함수
+                function processChartData(rawData) {
+                    const groupedData = {};
+                    rawData.forEach(item => {
+                        const month = item.Month; // EX: "2024-05"
+                        if (!groupedData[month]) {
+                            groupedData[month] = { Month: month, ITR: 0 };
+                        }
+                        if (item.Type === "ITR") {
+                            groupedData[month].ITR += item.Count;
+                        }
+                    });
+                    // 월별 정렬 (yyyy-MM 문자열 기준)
+                    return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
+                }
+
+                // ITR 차트를 렌더링하는 함수
+                function renderITRChart(data) {
+                    $("#chart03").dxChart({
+                        dataSource: data,
+                        commonSeriesSettings: {
+                            argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
+                            type: "bar"
+                        },
+                        legend: {
+                            visible: true,
+                            position: "bottom"
+                        },
+                        tooltip: {
+                            enabled: true,
+                            customizeTooltip: function (arg) {
+                                return {
+                                    text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
+                                };
                             }
-                            if (item.Type === "ITR") {
-                                groupedData[month].ITR += item.Count;
+                        },
+                        series: [
+                            {
+                                name: "ITR",
+                                valueField: "ITR",  // 각 데이터 객체에 "ITR" 속성이 있어야 함
+                                color: "#0051A2"
                             }
-                        });
-                        // 월별 정렬 (yyyy-MM 문자열 기준)
-                        return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
-                    }
+                        ]
+                    });
+                }
 
-                    // ITR 차트를 렌더링하는 함수
-                    function renderITRChart(data) {
-                        $("#chart03").dxChart({
-                            dataSource: data,
-                            commonSeriesSettings: {
-                                argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
-                                type: "bar"
-                            },
-                            legend: {
-                                visible: true,
-                                position: "bottom"
-                            },
-                            tooltip: {
-                                enabled: true,
-                                customizeTooltip: function (arg) {
-                                    return {
-                                        text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
-                                    };
-                                }
-                            },
-                            series: [
-                                {
-                                    name: "ITR",
-                                    valueField: "ITR",  // 각 데이터 객체에 "ITR" 속성이 있어야 함
-                                    color: "#0051A2"
-                                }
-                            ]
-                        });
-                    }
-
-                    // AJAX 호출하여 데이터 로드 및 차트 렌더링
-                    fetchMaintenanceData()
-                        .done(function (response) {
-                            console.log("유지보수 raw 데이터:", response);
-                            // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
-                            const transformedData = transformData(response);
-                            console.log("변환된 데이터:", transformedData);
-                            if (!Array.isArray(transformedData) || transformedData.length === 0) {
-                                return;
-                            }
-                            const chartData = processChartData(transformedData);
-                            renderITRChart(chartData);
-                        })
-                        .fail(function (xhr, status, error) {
-                            console.error("Ajax Error:", error);
-                            alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
-                        });
-                });
-            </script>
-        </div>
+                // AJAX 호출하여 데이터 로드 및 차트 렌더링
+                fetchMaintenanceData()
+                    .done(function (response) {
+                        console.log("유지보수 raw 데이터:", response);
+                        // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
+                        const transformedData = transformData(response);
+                        console.log("변환된 데이터:", transformedData);
+                        if (!Array.isArray(transformedData) || transformedData.length === 0) {
+                            return;
+                        }
+                        const chartData = processChartData(transformedData);
+                        renderITRChart(chartData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                    });
+            });
+        </script>
+    </div>-->
         <!--//유지보수-->
         <!--고장-->
         <div class="con_box">
@@ -918,7 +936,6 @@
                         });
                 });
             </script>
-
         </div>
         <!--고장-->
     </div>

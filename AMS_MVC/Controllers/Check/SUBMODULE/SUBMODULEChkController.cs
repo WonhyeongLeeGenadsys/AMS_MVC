@@ -13,6 +13,7 @@ namespace AMS_MVC.Controllers.Check
         private readonly SUBMODULEChkRepository submoduleChkRepository;
         private readonly SUBMODULEBasicInfoRepository submoduleBasicInfoRepository;
         private RiskmatrixRepository riskMatrixRepository = new RiskmatrixRepository();
+        private CoFRepository cofRepo = new CoFRepository();
 
         public SUBMODULEChkController()
         {

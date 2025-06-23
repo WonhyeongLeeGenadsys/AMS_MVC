@@ -13,6 +13,7 @@ namespace AMS_MVC.Controllers.Check
         private readonly DCCABLEChkRepository dccableChkRepository;
         private readonly DCCABLEBasicInfoRepository dccableBasicInfoRepository;
         private RiskmatrixRepository riskMatrixRepository = new RiskmatrixRepository();
+        private CoFRepository cofRepo = new CoFRepository();
 
         public DCCABLEChkController()
         {

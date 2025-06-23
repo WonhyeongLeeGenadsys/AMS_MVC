@@ -15,6 +15,36 @@
     <h1>DCCABLE</h1>
     <!--전체 박스-->
     <div class="box_wrap">
+
+        <!-- 전략 -->
+        <div class="con_box" id="strategyContainerMain">
+            <!-- 타이틀 -->
+            <h2><p>차년도 유지보수 대상</p></h2>
+            <!-- //타이틀 -->
+        </div>
+
+        <script>
+$(function(){
+  var prefix = '@ViewData["Prefix"]';
+
+  $.getJSON(
+    '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")',
+      { equipmentType: prefix }
+  )
+  .done(function(res){
+    console.log("B3=", res.B3Life, "HI=", res.HIList);
+    $('#strategyContainerMain')
+      .append('<p>' + (res.error ? '<span class="error">'+res.error+'</span>' : res.StrategyMessage) + '</p>');
+  })
+  .fail(function(xhr, status, err){
+    console.error("GET /EquipmentAlgorithm/GetGroupStrategy 실패:", status, err);
+    $('#strategyContainerMain')
+      .append('<p class="error">전략 로드를 실패했습니다.</p>');
+  });
+});
+        </script>
+        <!--//전략-->
+
         <!--건전도-->
         @Html.Partial("DeviceInfo/_HealthPie")
         <!--//건전도-->
@@ -86,7 +116,7 @@
                 </div>
                 <!--//메트릭스푸터-->
             </div>
-            <script>
+            @*<script>
                 $(document).ready(function () {
                     // 서버에서 데이터를 가져오는 함수
                     function fetchRiskMatrixData() {
@@ -114,7 +144,7 @@
                             console.error("Risk Matrix 데이터를 가져오는 중 오류:", error);
                         });
                 });
-            </script>
+            </script>*@
 
         </div>
         <!--//risk matrix-->
@@ -607,15 +637,6 @@
         }, 100);
     });
         </script>-->
-        <!--전략-->
-        <div class="con_box">
-            <!--타이틀-->
-            <h2>
-                <p>차년도 유지보수 대상</p>
-            </h2>
-            <!--//타이틀-->
-        </div>
-        <!--//전략-->
         <!--점검-->
         <div class="con_box flexCheck schedule">
             <!-- 타이틀 영역 -->

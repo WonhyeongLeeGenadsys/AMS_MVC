@@ -14,7 +14,7 @@ function loadStrategy(url, selector, prefix) {
     const codeKey = `${prefix}_Code`;   
     const $container = $(selector).empty();
 
-    $container.append(`<h2><p>전략 (${prefix})</p></h2>`);
+    //$container.append(`<h2><p>(${prefix})</p></h2>`);
 
     $.getJSON(url)
         .done(devices => {
@@ -34,3 +34,5 @@ function loadStrategy(url, selector, prefix) {
             $container.append('<p class="error">전략 데이터를 불러오지 못했습니다.</p>');
         });
 }
+
+

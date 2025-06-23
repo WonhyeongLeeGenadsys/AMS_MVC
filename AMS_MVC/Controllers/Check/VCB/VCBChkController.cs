@@ -13,6 +13,7 @@ namespace AMS_MVC.Controllers.Check
         private readonly VCBChkRepository vcbChkRepository;
         private readonly VCBBasicInfoRepository vcbBasicInfoRepository;
         private RiskmatrixRepository riskMatrixRepository = new RiskmatrixRepository();
+        private CoFRepository cofRepo = new CoFRepository();
 
         public VCBChkController()
         {

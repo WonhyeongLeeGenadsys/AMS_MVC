@@ -8,12 +8,12 @@
 }
 
 @section MainContent {
-    <h1>ITR 보통점검: @ViewBag.Name, @ViewBag.SerialNo </h1>
+    <h1>Interface TR 보통점검: @ViewBag.Name, @ViewBag.SerialNo </h1>
 
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChk1Add", "ITRChk1", new { ITR_Code = itrCode })" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChkAdd1", "ITRChk", new { ITR_Code = itrCode, type = 1 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -26,7 +26,7 @@
             function loadITRChk1Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetITRChk1ListData", "ITRChk1")',
+                    url: '@Url.Action("GetITRChkListData", "ITRChk", new { type = 1 })',
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success == false) {
@@ -70,7 +70,8 @@
                                 // 각 행의 Tbl_Idx와 ITR_Code 값을 사용하여 ITRChk1Detail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const itrCode = e.data.ITR_Code;
-                                window.location.href = `/Check/ITRChk1/ITRChkDetail?ITR_Code=${encodeURIComponent(itrCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
+                                const detailUrl = '@Url.Action("ITRChkDetail", "ITRChk", new { type = 1 })';
+                                window.location.href = `${detailUrl}?ITR_Code=${encodeURIComponent(itrCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
                             }
                         });
                     },

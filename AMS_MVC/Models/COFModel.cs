@@ -43,7 +43,7 @@ namespace AMS_MVC.Models
         public decimal Safety_Accident_Compensation_1 { get; set; } // 안전사고 보상 (원)
         public decimal Safety_Accident_Compensation_2 { get; set; } // 환경사고 보상 (원)
 
-        public decimal Total_Cof { get; set; }
+        public decimal Total_Cof { get; set; }                      // CoF 총 결과값
         public DateTime Tbl_GetDate { get; set; }                   // 입력/수정 일시
     }
 }

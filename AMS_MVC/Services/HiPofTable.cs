@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace AMS_MVC.Utlity
 {
@@ -27,39 +29,60 @@ namespace AMS_MVC.Utlity
             {(4, 5), 4.63m},
 
             {(5, 1), 5.00m},
+            {(5, 2), 5.00m},  
+            {(5, 3), 5.00m},  
+            {(5, 4), 5.00m},  
+            {(5, 5), 5.00m}  
         };
 
         private static readonly Dictionary<decimal, decimal> PofTable = new Dictionary<decimal, decimal>
         {
-            { 1.00m, 0.000000m },
-            { 2.00m, 0.000045m },
-            { 2.04m, 0.000055m },
-            { 2.16m, 0.000100m },
-            { 2.36m, 0.000270m },
-            { 2.63m, 0.001078m },
-            { 3.00m, 0.006693m },
-            { 3.04m, 0.008146m },
-            { 3.16m, 0.014658m },
-            { 3.36m, 0.038494m },
-            { 3.63m, 0.138000m },
-            { 4.00m, 0.500000m },
-            { 4.04m, 0.549339m },
-            { 4.16m, 0.688261m },
-            { 4.36m, 0.855944m },
-            { 4.63m, 0.959612m },
-            { 5.00m, 1.000000m }
+            { 1.00m, 0.0000m },
+            { 2.00m, 0.0045m },
+            { 2.04m, 0.0055m },
+            { 2.16m, 0.0100m },
+            { 2.36m, 0.0270m },
+            { 2.63m, 0.1078m },
+            { 3.00m, 0.6693m },
+            { 3.04m, 0.8146m },
+            { 3.16m, 1.4658m },
+            { 3.36m, 3.8494m },
+            { 3.63m, 13.8000m },
+            { 4.00m, 50.0000m },
+            { 4.04m, 54.9339m },
+            { 4.16m, 68.8261m },
+            { 4.36m, 85.5944m },
+            { 4.63m, 95.9612m },
+            { 5.00m, 100m }
         };
 
         public static (decimal HI, decimal PoF) GetHiPof(int maxGrade, int frequency, decimal alpha = 1.0m)
         {
-            if (!HiTable.TryGetValue((maxGrade, frequency), out decimal hi))
-                hi = 1.00m; 
+            // 1) 해당 maxGrade에 대해 테이블에 정의된 모든 빈도(frequency) 값을 찾는다
+            var freqs = HiTable.Keys
+                               .Where(k => k.maxGrade == maxGrade)
+                               .Select(k => k.frequency)
+                               .ToList();
 
+            // 정의된 빈도가 하나도 없으면, 기본적으로 (maxGrade,1) 만 있다고 가정
+            if (!freqs.Any())
+                freqs = new List<int> { 1 };
+
+            // 2) 조회할 빈도를 [1 .. freqs.Max()] 범위로 clamp
+            var freqMax = freqs.Max();
+            var lookupFreq = Math.Min(Math.Max(frequency, 1), freqMax);
+
+            // 3) clamp된 빈도로 HI 조회
+            if (!HiTable.TryGetValue((maxGrade, lookupFreq), out decimal hi))
+            {
+                // 혹시 실패하면, maxGrade 값 자체로 처리 (또는 1.0m)
+                hi = maxGrade;
+            }
+
+            // 4) alpha 곱하고 가장 근접한 HI 값 찾은 뒤 PoF 조회
             hi *= alpha;
-
-            decimal nearestHi = FindNearestHI(hi);
-
-            decimal pof = PofTable.TryGetValue(nearestHi, out decimal value) ? value : 0.0m;
+            var nearestHi = FindNearestHI(hi);
+            var pof = PofTable[nearestHi];
 
             return (nearestHi, pof);
         }

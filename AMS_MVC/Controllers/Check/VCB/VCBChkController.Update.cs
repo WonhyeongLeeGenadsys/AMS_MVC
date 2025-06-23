@@ -33,8 +33,8 @@ namespace AMS_MVC.Controllers.Check
                 ViewBag.Companies = companies;
             }
             else
-            {               
-                ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";                
+            {
+                ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";
             }
 
             var detailRecord = vcbChkList.FirstOrDefault(r => r.Tbl_Idx.ToString() == tblIdx);
@@ -76,16 +76,16 @@ namespace AMS_MVC.Controllers.Check
                 {
                     // 4) RiskMatrix HI 업데이트
                     //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
-                    var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction, pof);
-                    if (!riskUpd.IsSuccess)
-                    {
-                        result.IsSuccess = false;
-                        result.Message = "수정은 성공했으나, RiskMatrix HI 업데이트에 실패했습니다: " + riskUpd.Message;
-                    }
-                    else
-                    {
-                        result.Message = "수정 및 RiskMatrix HI 반영이 완료되었습니다.";
-                    }
+                    //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction, pof);
+                    //if (!riskUpd.IsSuccess)
+                    //{
+                    //    result.IsSuccess = false;
+                    //    result.Message = "수정은 성공했으나, RiskMatrix HI 업데이트에 실패했습니다: " + riskUpd.Message;
+                    //}
+                    //else
+                    //{
+                    //    result.Message = "수정 및 RiskMatrix HI 반영이 완료되었습니다.";
+                    //}
                 }
             }
             catch (Exception ex)

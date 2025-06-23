@@ -36,6 +36,8 @@ namespace AMS_MVC.Controllers
         private ESBasicInfoRepository _esRepo = new ESBasicInfoRepository();
         private NGRBasicInfoRepository _ngrRepo = new NGRBasicInfoRepository();
 
+        private RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+
         /// <summary>
         /// 장비 유형(equipmentType)에 따른 B3 히스토그램 데이터를 반환합니다.
         /// </summary>
@@ -325,5 +327,82 @@ namespace AMS_MVC.Controllers
 
             return Json(resultList, JsonRequestBehavior.AllowGet);
         }
+
+        //그룹페이지 "차년도 유지보수 대상" 표기 
+        [HttpGet]
+        public JsonResult GetGroupStrategy(string equipmentType = "VCB")
+        {
+            // 1) B3 계산
+            var list = _weibullRepo.GetAll()
+                           .Where(x => x.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
+                           .ToList();
+            if (!list.Any())
+                return Json(new { error = "Weibull 데이터 없음" }, JsonRequestBehavior.AllowGet);
+
+            var first = list.FirstOrDefault(x => x.ShapeParam.HasValue && x.ScaleParam.HasValue)
+                        ?? list.FirstOrDefault(x => x.FailureRate.HasValue);
+            var algo = new LaAlgorithm();
+            if (first.ShapeParam.HasValue && first.ScaleParam.HasValue)
+                algo.SetWeibull(first.ShapeParam.Value, first.ScaleParam.Value, 10);
+            else
+                algo.SetFailureRate(first.FailureRate.Value);
+
+            double b3 = algo.B3Life;
+
+            // 2) Riskmatrix 최신 HI 가져오기 (equipmentType 으로 필터링)
+            var hiList = _riskmatrixRepo
+                .GetLatestRiskPoints()
+                .Where(r => r.Code.StartsWith(equipmentType, StringComparison.OrdinalIgnoreCase))
+                .Select(r => int.TryParse(r.HI, out var v) ? v : 0)
+                .ToList();
+            if (!hiList.Any())
+                return Json(new { error = "Riskmatrix HI 데이터 없음" }, JsonRequestBehavior.AllowGet);
+
+            // 3) HI >> 남은 수명 매핑
+            Func<int, double> map = hi =>
+            {
+                switch (hi)
+                {
+                    case 5: return 1;
+                    case 4: return b3 - 5;
+                    case 3: return b3;
+                    case 2: return b3 + 1;
+                    case 1: return b3 + 2;
+                    default: return 0;
+                }
+            };
+
+            var life = hiList.Select(map).ToList();
+            double avg = Math.Round(life.Average(), 1);
+            int worst = hiList.Max();
+
+            // 4) 컬러 볼드 처리된 메시지
+            string avgHtml, msg;
+            if (worst >= 4)
+            {
+                avgHtml = $"<strong style=\"color:red;\">{avg}년</strong>";
+                msg = $"긴급 유지보수 권장: 상태가 심각하게 악화된 것으로 판단됩니다. 평균 잔여수명은 {avgHtml}입니다.";
+            }
+            else if (worst == 3)
+            {
+                avgHtml = $"<strong style=\"color:gold;\">{avg}년</strong>";
+                msg = $"유지보수 계획 권장: 상태가 악화되고 있어 계획적 유지보수가 필요합니다. 평균 잔여수명은 {avgHtml}입니다.";
+            }
+            else
+            {
+                avgHtml = $"<strong style=\"color:green;\">{avg}년</strong>";
+                msg = $"정상 운영 가능: 현재 상태가 양호하여 유지보수가 필요하지 않습니다. 평균 잔여수명은 {avgHtml}입니다.";
+            }
+
+            return Json(new
+            {
+                B3Life = b3,
+                HIList = hiList,
+                WorstGrade = worst,
+                AverageLife = avg,
+                StrategyMessage = msg
+            }, JsonRequestBehavior.AllowGet);
+        }
+
     }
 }

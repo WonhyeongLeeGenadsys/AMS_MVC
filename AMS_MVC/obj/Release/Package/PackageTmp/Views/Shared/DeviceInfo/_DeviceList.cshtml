@@ -1,0 +1,56 @@
+﻿@{
+    var prefix = (string)ViewData["Prefix"];
+    var controller = (string)ViewData["Controller"];
+    var detailParam = (string)ViewData["DetailParam"];
+}
+
+<div class="con_box flex4 system">
+    <h2>
+        <p>설비들</p>
+    </h2>
+    <ul id="deviceList" class="box_system"></ul>
+
+    <script>
+  $(function(){
+    $.ajax({
+      type: "GET",
+      url: "/@controller/GetBasicInfoList",
+      dataType: "json"
+    }).done(function(data){
+      var $list = $("#deviceList").empty();
+      data.forEach(function(item){
+        var hi = parseInt(item.HI)||0;
+        var css='', txt='';
+        switch(hi){
+          case 1: css='verygoodDevice'; txt='Good'; break;
+          case 2: css='goodDevice';     txt='Good'; break;
+          case 3: css='fairDevice';     txt='Fair'; break;
+          case 4: css='badDevice';      txt='Bad';  break;
+          case 5: css='verybadDevice';  txt='Bad';  break;
+          default: css='unknown';       txt='Unknown';
+        }
+        var dots = Array(5).fill(0).map((_,i)=>i<hi?'<span class="on"></span>':'<span></span>').join('');
+        var useYear = item.Operating_Date
+          ? (new Date().getFullYear() - new Date(item.Operating_Date).getFullYear()) + '년'
+          : '0년';
+        var href = `/${controller}Detail/${controller}Detail?${detailParam}=` + encodeURIComponent(item[`${prefix}_Code`]||'');
+        $list.append(`
+          <li>
+            <a href="${href}" style="display:block;text-decoration:none;color:inherit;">
+              <dl class="product_info">
+                <dt>시리얼번호</dt><dd>${item.Serial_No||''}</dd>
+                <dt>설치일</dt><dd>${item.Install_Date||''}</dd>
+                <dt>가동일</dt><dd>${item.Operating_Date||''}</dd>
+                <dt>사용기간</dt><dd>${useYear}</dd>
+              </dl>
+              <div class="result ${css}">
+                ${dots}<p class="result_txt">${txt}</p>
+              </div>
+            </a>
+          </li>
+        `);
+      });
+    });
+  });
+    </script>
+</div>

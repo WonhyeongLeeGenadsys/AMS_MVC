@@ -1,6 +1,8 @@
 ﻿using AMS_MVC.Database;
 using AMS_MVC.Models;
 using AMS_MVC.Repositories;
+using AMS_MVC.Services;
+using LaModule;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -12,6 +14,7 @@ namespace AMS_MVC.Controllers
     public class VCBDeviceController : Controller
     {
         private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+
         private readonly PriorityInfoRepository _priorityRepo = new PriorityInfoRepository();
         private readonly MaintenanceRepository _maintenanceRepo = new MaintenanceRepository();
         private readonly GojangRepository _gojangRepo = new GojangRepository();

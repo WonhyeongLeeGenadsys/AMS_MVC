@@ -72,6 +72,9 @@ namespace AMS_MVC.Controllers
             // 3) 하루에 한 번만 UPDATE, 아니면 INSERT
             cofRepo.SaveOrUpdate(model);
 
+            var riskRepo = new RiskmatrixRepository();
+            riskRepo.UpdateCoFByPrefix(model.Code, model.Total_Cof);
+
             ModelState.Clear();
 
             // 4) 다시 최신값 조회 (오늘 업데이트된 or 새로 INSERT 된)

@@ -1,0 +1,842 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_DeviceInfoMenu")
+}
+
+@section MainContent {
+    <h1>BYPASSVALVE</h1>
+    <!--전체 박스-->
+    <div class="box_wrap">
+
+        <!--전략-->
+        <div class="con_box" id="strategyContainer">
+            <h2><p>전략</p></h2>
+        </div>
+
+        <script>
+    $(function(){
+      loadStrategy(
+        '@Url.Action("GetBasicInfoList","BYPASSVALVEDevice")',
+        '#strategyContainer',
+        'BYPASSVALVE'
+      );
+    });
+        </script>
+        <!--//전략-->
+        <!-- 신뢰도 차트 -->
+        <div class="con_box flex5">
+            <h2>신뢰도</h2>
+            <div id="chart_line02" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+        </div>
+
+        <script>
+        $(document).ready(function () {
+            setTimeout(function(){
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "BYPASSVALVE" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Reliability):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 신뢰도 시리즈 사용
+                            var reliabilityData = data[0].ReliabilitySeries;
+                            reliabilityData = reliabilityData.map(function(point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+
+                            var maxX = data[0].B3Life * 2;
+
+                            $("#chart_line02").dxChart({
+                                dataSource: reliabilityData,
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    }
+                                },
+                                series: [{
+                                    name: "신뢰도",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: maxX }
+                                },
+                                valueAxis: {
+                                    title: "신뢰도 (0 ~ 1)",
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    e.component.render();
+                                }
+                            });
+                        } else {
+                            console.warn("신뢰도 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("신뢰도 데이터 로드 실패:", error);
+                    }
+                });
+            }, 100);
+        });
+        </script>
+
+        <!-- B3 수명 차트 -->
+        <div class="con_box flex3">
+            <h2><p>B3 수명</p></h2>
+            <div id="chart_bar" style="height: 280px;"></div>
+        </div>
+
+        <script>
+    $(document).ready(function () {
+        var equipmentType = "BYPASSVALVE";
+
+        $.ajax({
+            url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: equipmentType },
+            dataType: 'json',
+            success: function (res) {
+                if (res.error) {
+                    console.warn("오류:", res.error);
+                    return;
+                }
+                console.log("B3 Histogram 데이터:", res);
+
+                var b3 = res.B3;
+                var binSize = res.BinSize;
+                var timeMax = res.TimeMax;
+                var histogram = res.Histogram;
+
+                $("#chart_bar").dxChart({
+                    dataSource: histogram,
+                    commonSeriesSettings: {
+                        type: 'bar',
+                        argumentField: 'binStart',
+                        valueField: 'count'
+                    },
+                    series: [{ name: "장비 수" }],
+                    legend: { visible: false },
+                    title: "(B3 수명 = " + b3 + ")",
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            var start = arg.point.data.binStart;
+                            var end = start + binSize;
+                            return {
+                                text: "구간: " + start + "~" + end + "년, 장비수: " + arg.value
+                            };
+                        }
+                    },
+                    argumentAxis: {
+                        visualRange: [0, timeMax],
+                        tickInterval: binSize,
+                        title: "사용 기간 (년)",
+                        label: {
+                            customizeText: function () {
+                                return this.value + "년";
+                            }
+                        }
+                    },
+                    valueAxis: {
+                        title: "장비 대수"
+                    },
+                    annotations: [
+                        {
+                            type: "line",
+                            axis: "argumentAxis",
+                            value: b3,
+                            text: "B3 = " + b3
+                        }
+                    ]
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("B3 히스토그램 로드 실패:", error);
+            }
+        });
+    });
+        </script>
+
+        <!--설비들-->
+        <div class="con_box flexSeolbi">
+            <!-- 타이틀 -->
+            <h2>
+                <p>설비들</p>
+                <p class="schedule_value">
+                    <span class="verygoodDevice">V-Good</span>
+                    <span class="goodDevice">Good</span>
+                    <span class="fairDevice">Fair</span>
+                    <span class="badDevice">Bad</span>
+                    <span class="verybadDevice">V-Bad</span>
+                </p>
+            </h2>
+            <!-- //타이틀 -->
+            <!-- 리스트 -->
+            <ul id="deviceList" class="box_system">
+                <!-- 이곳에 AJAX로 동적 생성 -->
+            </ul>
+            <!-- //리스트 -->
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/BYPASSVALVEDevice/GetBasicInfoList",
+                        dataType: "json",
+                        success: function (data) {
+                            var $deviceList = $("#deviceList");
+                            $deviceList.empty();
+
+                            data.forEach(function (item) {
+                                // HI 값 (1~5)
+                                var hi = parseInt(item.HI) || 0; // 혹시 null이면 0 처리
+
+                                // HI에 따른 CSS 클래스 + 텍스트 결정
+                                var cssClass = "";
+                                var statusText = "";
+                                switch (hi) {
+                                    case 1:
+                                        cssClass = "verygoodDevice";
+                                        statusText = "Good";
+                                        break;
+                                    case 2:
+                                        cssClass = "goodDevice";
+                                        statusText = "Good";
+                                        break;
+                                    case 3:
+                                        cssClass = "fairDevice";
+                                        statusText = "Fair";
+                                        break;
+                                    case 4:
+                                        cssClass = "badDevice";
+                                        statusText = "Bad";
+                                        break;
+                                    case 5:
+                                        cssClass = "verybadDevice";
+                                        statusText = "Bad";
+                                        break;
+                                    default:
+                                        cssClass = "unknown";
+                                        statusText = "Unknown";
+                                        break;
+                                }
+
+                                // 항상 5개 동그라미. HI 이하인 경우만 on 클래스로 색칠
+                                var totalDots = 5;
+                                var spansHtml = "";
+                                for (var i = 1; i <= totalDots; i++) {
+                                    if (i <= hi) {
+                                        spansHtml += '<span class="on"></span>';
+                                    } else {
+                                        spansHtml += '<span></span>';
+                                    }
+                                }
+
+                                // 사용기간(년) 계산 (가동일 기준)
+                                var usageYear = "0년";
+                                if (item.Operating_Date) {
+                                    var operating = new Date(item.Operating_Date);
+                                    var now = new Date();
+                                    var diffYear = now.getFullYear() - operating.getFullYear();
+                                    usageYear = diffYear + "년";
+                                }
+
+                                // li 항목 HTML 생성
+                                var liHtml = ''
+                                    + '<li>'
+                                    + '  <a href="/BYPASSVALVEDeviceDetail/BYPASSVALVEDeviceDetail?bypassvalveCode=' + encodeURIComponent(item.BYPASSVALVE_Code) + '" '
+                                    + '     style="display:block; text-decoration:none; color:inherit;">'
+                                    + '    <dl class="product_info">'
+                                    + '      <dt>시리얼번호</dt>'
+                                    + '      <dd>' + (item.Serial_No || "") + '</dd>'
+                                    + '      <dt>설치일</dt>'
+                                    + '      <dd>' + (item.Install_Date || "") + '</dd>'
+                                    + '      <dt>가동일</dt>'
+                                    + '      <dd>' + (item.Operating_Date || "") + '</dd>'
+                                    + '      <dt>사용기간</dt>'
+                                    + '      <dd>' + usageYear + '</dd>'
+                                    + '    </dl>'
+                                    + '    <div class="result ' + cssClass + '">'
+                                    + '      ' + spansHtml
+                                    + '      <p class="result_txt">' + statusText + '</p>'
+                                    + '    </div>'
+                                    + '  </a>'
+                                    + '</li>';
+
+                                $deviceList.append(liHtml);
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching device list:", error);
+                        }
+                    });
+                });
+            </script>
+
+        </div>
+        <!--//설비들-->
+        <!--우선순위-->
+        <div class="con_box flexCheck">
+            <!--타이틀-->
+            <h2>우선순위</h2>
+            <!--그리드-->
+            <div id="gridContainer" class="grid_wrap" style="height: 250px;"></div>
+            <!--//그리드-->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // 우선순위 데이터를 서버에서 가져오는 함수
+                    function fetchPriorityInfo() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "/BYPASSVALVEDevice/GetPriorityBYPASSVALVE",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    fetchPriorityInfo()
+                        .done(function (response) {
+                            console.log("우선순위 데이터:", response);
+                            // 이미 컨트롤러에서 날짜형식 등으로 변환되어 반환되므로 바로 사용
+                            initializePriorityGrid(response);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                        });
+
+                    // dxDataGrid 초기화 함수
+                    // dxDataGrid 초기화 함수
+                    function initializePriorityGrid(data) {
+                        $('#gridContainer').dxDataGrid({
+                            dataSource: data,
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            // 첫 번째 행 강조
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+
+                            // HI 셀에 클래스 부여
+                            columns: [
+                                { dataField: "Priority", caption: "우선순위", alignment: "center" },
+                                { dataField: "Sort", caption: "구분", alignment: "center" },
+                                { dataField: "Name", caption: "설비명", alignment: "center" },
+                                { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
+                                { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
+                                { dataField: "Operating_Date", caption: "운영일", alignment: "center", dataType: "date" },
+                                { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
+                                { dataField: "CoF", caption: "CoF", alignment: "center" },
+                                { dataField: "PoF", caption: "PoF", alignment: "center" },
+                                {
+                                    dataField: "HI",
+                                    caption: "HI",
+                                    alignment: "center",
+                                    dataType: "number",
+                                    cellTemplate: function (container, info) {
+                                        var clsMap = {
+                                            1: 'priorityVerygood',
+                                            2: 'priorityGood',
+                                            3: 'priorityFair',
+                                            4: 'priorityPoor',
+                                            5: 'priorityVerypoor'
+                                        };
+                                        container.addClass(clsMap[info.value] || '');
+                                        container.text(info.value);
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--//우선순위-->
+        <!-- 고장률 차트 (Hazard) -->
+        <!--<div class="con_box flex5">
+    <h2>고장률</h2>-->
+        <!-- 컨테이너: display:block, 명시적 크기 지정 -->
+        <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
+
+            <script>
+    $(document).ready(function () {
+        $("#chart_line").css("display", "block");
+
+        setTimeout(function() {
+            $.ajax({
+                url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                type: 'GET',
+                data: { equipmentType: "BYPASSVALVE" },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("알고리즘 결과 데이터 (Hazard):", data);
+                    if (Array.isArray(data) && data.length > 0) {
+                        // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
+                        var hazardData = data[0].HazardSeries;
+                        // 혹시 time, value가 문자열이면 숫자로 변환
+                        hazardData = hazardData.map(function (point) {
+                            return {
+                                time: parseFloat(point.time),
+                                value: parseFloat(point.value)
+                            };
+                        });
+                        console.log("Parsed Hazard Data:", hazardData);
+
+                        $("#chart_line").dxChart({
+                            dataSource: hazardData,
+                            // 모든 시리즈에 공통 적용될 기본값
+                            commonSeriesSettings: {
+                                type: 'line',
+                                // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                point: {
+                                    visible: false
+                                }
+                            },
+                            // 실제 시리즈 설정 (argumentField, valueField 지정)
+                            series: [{
+                                name: "고장률",
+                                argumentField: 'time',
+                                valueField: 'value'
+                            }],
+                            tooltip: { enabled: true },
+                            argumentAxis: {
+                                title: "시간 (년)",
+                                visualRange: { startValue: 0, endValue: 80 }
+                            },
+                            valueAxis: {
+                                title: "신뢰도 (0 ~ 1)",
+                                // 값이 0~1 범위이면 이렇게 지정 가능
+                                visualRange: { startValue: 0, endValue: 1 }
+                            },
+                            onContentReady: function(e) {
+                                // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
+                                e.component.render();
+                            }
+                        });
+                    } else {
+                        console.warn("고장률 데이터가 없습니다.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("고장률 데이터 로드 실패:", error);
+                }
+            });
+        }, 100);
+    });
+            </script>-->
+        <!-- 확률 밀도 함수 차트 -->
+        <!--<div class="con_box">
+                <h2>확률 밀도 함수</h2>
+                <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
+            <script>
+        $(document).ready(function () {
+            // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
+            setTimeout(function () {
+    $.ajax({
+        url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+        type: 'GET',
+        data: { equipmentType: "BYPASSVALVE" },
+        dataType: 'json',
+        success: function (data) {
+            if (Array.isArray(data) && data.length > 0) {
+                // 첫 번째 장비의 확률 밀도 함수 데이터 사용
+                var pdfData = data[0].PdfNormalized;
+                pdfData = pdfData.map(function (point) {
+                    return {
+                        time: parseFloat(point.time),
+                        value: parseFloat(point.value)
+                    };
+                });
+                $("#chart_line03").dxChart({
+                    dataSource: pdfData,
+                    commonSeriesSettings: {
+                        type: 'line',
+                        // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                        point: {
+                            visible: false
+                        }
+                    },
+                    series: [{
+                        name: "확률 밀도 함수",
+                        argumentField: 'time',
+                        valueField: 'value'
+                    }],
+                    tooltip: { enabled: true },
+                    argumentAxis: {
+                        title: "시간 (년)",
+                        visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
+                    },
+                    valueAxis: {
+                        title: "정규화된 확률 밀도"
+                    }
+                });
+            } else {
+                console.warn("확률 밀도 함수 데이터가 없습니다.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("확률 밀도 함수 데이터 로드 실패:", error);
+        }
+    });
+            }, 100); // 100ms 딜레이
+        });
+            </script>-->
+        <!--점검-->
+        <div class="con_box flexCheck schedule">
+            <!-- 타이틀 영역 -->
+            <h2>
+                <p>점검</p>
+                <p class="schedule_value">
+                    <span class="confirmed">보통점검</span>
+                    <span class="risk">정밀점검</span>
+                    @*<span class="created">To be Created</span>*@
+                </p>
+                <p class="month_select">
+                    <a href="javascript:void(0);" class="arrow prev">이전달</a>
+                    <span id="currentMonth"></span>
+                    <a href="javascript:void(0);" class="arrow next">다음달</a>
+                </p>
+                <a href="javascript:void(0);" class="btn_more">더보기</a>
+            </h2>
+            <!-- //타이틀 영역 -->
+            <!-- 스케줄 테이블 영역 -->
+            <div class="schedule_table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th colspan="2"></th>
+                            @for (int i = 1; i <= 31; i++)
+                            {
+                                <th>@i</th>
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                // 현재 연도와 월 초기화
+                var currentYear = new Date().getFullYear();
+                var currentMonth = new Date().getMonth() + 1; // 월은 0부터 시작하므로 +1
+
+                // 상단에 표시할 현재 연도-월 업데이트 함수
+                function updateMonthDisplay() {
+                    $("#currentMonth").text(currentYear + " - " + String(currentMonth).padStart(2, '0'));
+                }
+
+                // 지정한 연도와 월의 점검 스케줄 데이터를 AJAX로 가져오는 함수
+                function loadSchedule(year, month) {
+                    $.ajax({
+                        url: '/TotalInfo/GetScheduleData',
+                        type: "GET",
+                        data: { year: year, month: month },
+                        dataType: "json",
+                        success: function (data) {
+                            renderSchedule(data, year, month);
+                        },
+                        error: function () {
+                            alert("데이터를 불러오는 중 오류가 발생했습니다.");
+                        }
+                    });
+                }
+
+                // 가져온 데이터를 바탕으로 스케줄 테이블의 행을 생성하는 함수
+                function renderSchedule(data, year, month) {
+                    var daysInMonth = new Date(year, month, 0).getDate();
+                    var tbodyHtml = "";
+
+                    // 먼저 Type별로 그룹화
+                    var groupedData = {};
+                    data.forEach(function (item) {
+                        if (!groupedData[item.Type]) {
+                            groupedData[item.Type] = [];
+                        }
+                        groupedData[item.Type].push(item);
+                    });
+
+                    // 그룹별로 행 생성
+                    for (var type in groupedData) {
+                        var items = groupedData[type];
+                        items.forEach(function (item) {
+                            // 점검 시작일과 종료일의 "일" 숫자를 추출 (예: "2024-07-10" -> 10)
+                            var startDay = parseInt(item.Start.split('-')[2]);
+                            var endDay = item.End ? parseInt(item.End.split('-')[2]) : startDay;
+                            // 상태에 따라 바의 색상 지정
+                            var barStyle = "";
+                            if (item.Status === "confirmed") {
+                                barStyle = "background-color:#0051A2;";
+
+                            } else if (item.Status === "risk") {
+                                barStyle = "background-color:#800080;";
+
+                            } else if (item.Status === "created") {
+                                barStyle = "background-color:gray;";
+                                let barStyle = item.Status === "confirmed" ? "background-color:#0051A2;" : "background-color:#800080;";
+
+                            } else {
+                                barStyle = "background-color:lightgray;";
+                            }
+                            var barWidth = ((endDay - startDay + 1) * 31) + "px";
+
+                            tbodyHtml += "<tr>";
+                            tbodyHtml += "<th>" + type + "</th>";
+                            tbodyHtml += "<td>" + item.Code + "</td>";
+                            // 각 날짜 셀 생성
+                            for (var i = 1; i <= daysInMonth; i++) {
+                                if (i === startDay) {
+                                    tbodyHtml += "<td colspan='" + (endDay - startDay + 1) + "' style='position: relative;'><span class='bar' style='" + barStyle + " width: " + barWidth + "; height: 20px; display: block;'></span></td>";
+                                    i = endDay; // 종료일 다음 날로 건너뛰기
+                                } else {
+                                    tbodyHtml += "<td></td>";
+                                }
+                            }
+                            tbodyHtml += "</tr>";
+                        });
+                    }
+                    $(".schedule_table tbody").html(tbodyHtml);
+                }
+
+                // 이전달 버튼 클릭 시
+                $(".prev").click(function () {
+                    currentMonth--;
+                    if (currentMonth < 1) {
+                        currentMonth = 12;
+                        currentYear--;
+                    }
+                    updateMonthDisplay();
+                    loadSchedule(currentYear, currentMonth);
+                });
+
+                // 다음달 버튼 클릭 시+
+                $(".next").click(function () {
+                    currentMonth++;
+                    if (currentMonth > 12) {
+                        currentMonth = 1;
+                        currentYear++;
+                    }
+                    updateMonthDisplay();
+                    loadSchedule(currentYear, currentMonth);
+                });
+
+                // 초기 로드
+                updateMonthDisplay();
+                loadSchedule(currentYear, currentMonth);
+            });
+        </script>
+        <!--//점검-->
+        <!--유지보수-->
+        <!--<div class="con_box flex1">-->
+        <!-- 타이틀 -->
+        <!--<h2>
+        <p>유지보수</p>
+    </h2>-->
+        <!-- 챠트 컨테이너 -->
+        <!--<div id="chart03"></div>
+        <script>
+            $(document).ready(function () {
+                // 서버에서 BYPASSVALVE 유지보수 데이터를 가져오는 함수
+                function fetchMaintenanceData() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/BYPASSVALVEDevice/GetMonthlyMaintenanceData",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
+
+                // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
+                // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            obj[pair.Key] = pair.Value;
+                        });
+                        return obj;
+                    });
+                }
+
+                // 데이터를 월별로 그룹화하여 BYPASSVALVE 값만 누적하는 함수
+                function processChartData(rawData) {
+                    const groupedData = {};
+                    rawData.forEach(item => {
+                        const month = item.Month; // EX: "2024-05"
+                        if (!groupedData[month]) {
+                            groupedData[month] = { Month: month, BYPASSVALVE: 0 };
+                        }
+                        if (item.Type === "BYPASSVALVE") {
+                            groupedData[month].BYPASSVALVE += item.Count;
+                        }
+                    });
+                    // 월별 정렬 (yyyy-MM 문자열 기준)
+                    return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
+                }
+
+                // BYPASSVALVE 차트를 렌더링하는 함수
+                function renderBYPASSVALVEChart(data) {
+                    $("#chart03").dxChart({
+                        dataSource: data,
+                        commonSeriesSettings: {
+                            argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
+                            type: "bar"
+                        },
+                        legend: {
+                            visible: true,
+                            position: "bottom"
+                        },
+                        tooltip: {
+                            enabled: true,
+                            customizeTooltip: function (arg) {
+                                return {
+                                    text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
+                                };
+                            }
+                        },
+                        series: [
+                            {
+                                name: "BYPASSVALVE",
+                                valueField: "BYPASSVALVE",  // 각 데이터 객체에 "BYPASSVALVE" 속성이 있어야 함
+                                color: "#0051A2"
+                            }
+                        ]
+                    });
+                }
+
+                // AJAX 호출하여 데이터 로드 및 차트 렌더링
+                fetchMaintenanceData()
+                    .done(function (response) {
+                        console.log("유지보수 raw 데이터:", response);
+                        // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
+                        const transformedData = transformData(response);
+                        console.log("변환된 데이터:", transformedData);
+                        if (!Array.isArray(transformedData) || transformedData.length === 0) {
+                            return;
+                        }
+                        const chartData = processChartData(transformedData);
+                        renderBYPASSVALVEChart(chartData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                    });
+            });
+        </script>
+    </div>-->
+        <!--//유지보수-->
+        <!--고장-->
+        <div class="con_box">
+            <!-- 타이틀 -->
+            <h2>
+                <p>고장</p>
+                <a href="javacript:void(0);" class="btn_more">더보기</a>
+            </h2>
+            <!-- //타이틀 -->
+            <!-- 그리드 -->
+            <div id="gridContainer02" class="grid_wrap" style="height: 400px;"></div>
+            <!-- //그리드 -->
+            <script type="text/javascript">
+                function parseDotNetDate(dotNetString) {
+                    var match = /Date\((\d+)\)/.exec(dotNetString);
+                    if (match) {
+                        var timestamp = parseInt(match[1], 10);
+                        return new Date(timestamp);
+                    }
+                    return null;
+                }
+
+                // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                                obj[pair.Key] = parseDotNetDate(pair.Value);
+                            } else {
+                                obj[pair.Key] = pair.Value;
+                            }
+                        });
+                        return obj;
+                    });
+                }
+
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/BYPASSVALVEDevice/GetGojangBYPASSVALVEList",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    })
+                        .done(function (response) {
+                            var transformed = transformData(response);
+                            console.log("BYPASSVALVE 전용 고장 데이터:", transformed);
+
+                            $("#gridContainer02").dxDataGrid({
+                                dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                onRowPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
+                                columns: [
+                                    { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                    { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                    { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                    { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                    { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                    { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                    { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                    { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                    { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                    { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                    { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                    { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                    {
+                                        dataField: 'Date',
+                                        caption: '고장일',
+                                        alignment: 'center',
+                                        dataType: 'date'
+                                    }
+                                ],
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' }
+                            });
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("BYPASSVALVE 고장 데이터를 가져오는 중 오류:", error);
+                        });
+                });
+            </script>
+        </div>
+        <!--고장-->
+    </div>
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
+}

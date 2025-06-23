@@ -154,26 +154,23 @@ namespace AMS_MVC.Controllers
         [HttpGet]
         public JsonResult GetRiskMapPoints()
         {
-            // 1) Riskmatrix 모델 리스트
-            var raw = _riskRepo.GetLatestRiskPoints(null);
+            var raw = _riskRepo.GetLatestRiskPoints();
 
-            // 2) string.Substring + char.IsDigit 으로 prefix 추출
             var points = raw.Select(r => {
-                // r.Code 는 e.g. "VCB001", "DCCB12" 같은 문자열
                 string code = r.Code;
 
-                // 첫 번째 숫자 등장 인덱스
                 int idx = 0;
                 while (idx < code.Length && !char.IsDigit(code[idx]))
                     idx++;
-
-                // 0~idx-1 까지가 prefix
                 string prefix = code.Substring(0, idx);
+
+                decimal cofValue = r.Cof;
+                decimal pofPercent = r.Pof;
 
                 return new
                 {
-                    x = int.Parse(r.Cof),    // Cof, Pof 가 string 프로퍼티 라면 파싱
-                    y = int.Parse(r.Pof),
+                    x = cofValue,        
+                    y = pofPercent,      
                     name = code,
                     group = prefix
                 };

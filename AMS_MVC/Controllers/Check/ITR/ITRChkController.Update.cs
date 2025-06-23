@@ -80,16 +80,16 @@ namespace AMS_MVC.Controllers.Check
                         : model.FoldingFunction;
 
                     // 5) RiskMatrix HI 업데이트
-                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
-                    if (!riskUpd.IsSuccess)
-                    {
-                        result.IsSuccess = false;
-                        result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
-                    }
-                    else
-                    {
-                        result.Message = "ITR 보통점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
-                    }
+                    //var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
+                    //if (!riskUpd.IsSuccess)
+                    //{
+                    //    result.IsSuccess = false;
+                    //    result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
+                    //}
+                    //else
+                    //{
+                    //    result.Message = "ITR 보통점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
+                    //}
                 }
             }
             catch (Exception ex)
@@ -170,16 +170,16 @@ namespace AMS_MVC.Controllers.Check
                         : model.FoldingFunction;
 
                     // 5) RiskMatrix HI 업데이트
-                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
-                    if (!riskUpd.IsSuccess)
-                    {
-                        result.IsSuccess = false;
-                        result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
-                    }
-                    else
-                    {
-                        result.Message = "ITR 정밀점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
-                    }
+                    //var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
+                    //if (!riskUpd.IsSuccess)
+                    //{
+                    //    result.IsSuccess = false;
+                    //    result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
+                    //}
+                    //else
+                    //{
+                    //    result.Message = "ITR 정밀점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
+                    //}
                 }
             }
             catch (Exception ex)

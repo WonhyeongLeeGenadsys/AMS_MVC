@@ -1,0 +1,58 @@
+|2025-06-23 13:16:38  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 13:16:38  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 13:20:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 13:20:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 14:15:30  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 14:15:30  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 14:41:37  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 14:41:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 15:09:27  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 15:09:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 15:25:02  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 15:25:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:30:42  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:30:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:30:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:30:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:30:54  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:30:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:31:45  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:31:45  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:31:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:31:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:31:51  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:31:51  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:31:53  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:31:53  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:38:59  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:38:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:39:07  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:39:07  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:39:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-06-23 16:39:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-06-23 16:39:18  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-23 16:39:18  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:57:28  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:57:28  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:57:36  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:57:36  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:57:53  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-23 16:57:53  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:58:05  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-23 16:58:05  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:58:48  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-23 16:58:48  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:58:51  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:58:51  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:58:53  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-23 16:58:53  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-23 16:58:57  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-23 16:58:57  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-23 16:59:00  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 16:59:00  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 18:35:15  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 18:35:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 18:35:46  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 18:35:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-23 18:36:29  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 18:36:29  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |

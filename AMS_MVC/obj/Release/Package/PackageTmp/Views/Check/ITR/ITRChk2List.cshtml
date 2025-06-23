@@ -13,7 +13,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChk2Add", "ITRChk2", new { ITR_Code = itrCode })" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChkAdd2", "ITRChk", new { ITR_Code = itrCode, type = 2 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>
@@ -26,7 +26,7 @@
             function loadITRChk2Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetITRChk2ListData", "ITRChk2")',
+                    url: '@Url.Action("GetITRChkListData", "ITRChk", new { type = 2 })',
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {
                         if (response.success == false) {
@@ -70,8 +70,8 @@
                                 // 각 행의 Tbl_Idx와 ITR_Code 값을 사용하여 ITRChk2Detail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const itrCode = e.data.ITR_Code;
-                                window.location.href = `/Check/ITRChk2/ITRChkDetail?ITR_Code=${encodeURIComponent(itrCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
-                            }
+                                const detailUrl = '@Url.Action("ITRChkDetail", "ITRChk", new { type = 2 })';
+                                window.location.href = `${detailUrl}?ITR_Code=${encodeURIComponent(itrCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;                            }
                         });
                     },
                         error: function (xhr, status, error) {

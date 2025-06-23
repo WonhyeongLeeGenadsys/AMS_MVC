@@ -62,6 +62,8 @@ namespace AMS_MVC.Controllers.Check
 
                 // 3) DB 저장
                 result = _chk1Repo.CreateITRChk1InfoRepo(model);
+                LogHelper.WriteLog("ITRChk1Add", $"[CreateITRChk1Repo] Success={result.IsSuccess}, Message={result.Message}");
+
                 if (!result.IsSuccess)
                 {
                     result.Message = "ITR 보통점검 정보를 추가하지 못했습니다.: " + result.Message;
@@ -76,11 +78,23 @@ namespace AMS_MVC.Controllers.Check
 
                     // 5) Riskmatrix.HI 업데이트
                     //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2);
-                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
-                    if (!upd.IsSuccess)
+                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
+                    //if (!upd.IsSuccess)
+                    //{
+                    //    LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
+                    //    result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                    //}
+
+                    var cofModel = cofRepo.GetLatest("ITR");
+                    decimal cofValue = cofModel.Total_Cof;
+
+                    Result updateResult = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, cofValue, pof);
+                    LogHelper.WriteLog("ITRChkAdd2", $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi2}, cof={cofValue}, pof={pof}");
+                    if (!updateResult.IsSuccess)
                     {
-                        LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
-                        result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                        // HI 업데이트 실패 시 메시지 추가
+                        result.IsSuccess = false;
+                        result.Message += " / HI 업데이트 실패: " + updateResult.Message;
                     }
                 }
             }
@@ -114,6 +128,8 @@ namespace AMS_MVC.Controllers.Check
 
                 // 3) DB 저장
                 result = _chk2Repo.CreateITRChk2InfoRepo(model);
+                LogHelper.WriteLog("ITRChk2Add", $"[CreateITRChk2Repo] Success={result.IsSuccess}, Message={result.Message}");
+
                 if (!result.IsSuccess)
                 {
                     result.Message = "ITR 정밀점검 정보를 추가하지 못했습니다.: " + result.Message;
@@ -128,12 +144,24 @@ namespace AMS_MVC.Controllers.Check
 
                     // 5) Riskmatrix.HI 업데이트
                     //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
-                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
+                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
 
-                    if (!upd.IsSuccess)
+                    //if (!upd.IsSuccess)
+                    //{
+                    //    LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
+                    //    result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                    //}
+
+                    var cofModel = cofRepo.GetLatest("ITR");
+                    decimal cofValue = cofModel.Total_Cof;
+
+                    Result updateResult = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, cofValue, pof);
+                    LogHelper.WriteLog("ITRChkAdd2", $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi1}, cof={cofValue}, pof={pof}");
+                    if (!updateResult.IsSuccess)
                     {
-                        LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
-                        result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
+                        // HI 업데이트 실패 시 메시지 추가
+                        result.IsSuccess = false;
+                        result.Message += " / HI 업데이트 실패: " + updateResult.Message;
                     }
                 }
             }

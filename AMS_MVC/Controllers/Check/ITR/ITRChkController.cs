@@ -19,6 +19,7 @@ namespace AMS_MVC.Controllers.Check
 
         private readonly ITRChkScoreCalculator _scoreCalc = new ITRChkScoreCalculator();
         private readonly RiskmatrixRepository _riskRepo = new RiskmatrixRepository();
+        private CoFRepository cofRepo = new CoFRepository();
 
         public ITRChkController()
         {

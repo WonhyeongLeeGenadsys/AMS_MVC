@@ -220,8 +220,7 @@ namespace AMS_MVC.Repositories
                                     CHK_OPERATIONCOUNT,
                                     CHK_OPENCLOSETIME,
                                     CHK_VISUALCHECK,
-                                    FOLDINGFUNCTION,
-                                    CHK_TBL_GETDATE
+                                    FOLDINGFUNCTION
                                 )
                                 VALUES (
                                     @VCB_Code,
@@ -271,8 +270,7 @@ namespace AMS_MVC.Repositories
                                     @CHK_OperationCount,
                                     @CHK_OpenCloseTime,
                                     @CHK_VisualCheck,
-                                    @FoldingFunction,
-                                    @CHK_Tbl_GetDate
+                                    @FoldingFunction
                                 )";
 
                             int affected = conn.Execute(query, chk, transaction);

@@ -1,8 +1,5 @@
-﻿
-
-@model AMS_MVC.Models.VCBBasicInfo
+﻿@model AMS_MVC.Models.VCBBasicInfo
 @using Web.Common.Utlity
-
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -18,7 +15,6 @@
         <div class="content_warp">
             <div class="btn_area top right">
                 <p>
-                    @*<a href="@Url.Action("Index", "VCBBasic")" class="btn gray cancel">돌아가기</a>*@
                     <a href="#" class="btn red del" onclick="deleteVCBBasicInfo(); return false;">삭제</a>
                     <a href="@Url.Action("UpdateVCBBasic", "VCBBasic", new { tblIdx = Model.Tbl_Idx })" class="btn blue edit">수정</a>
                 </p>
@@ -27,69 +23,45 @@
                 <table>
                     <tr>
                         <th>제품 이름</th>
-                        <td>
-                            <input type="text" value="@Model.Name" readonly>
-                        </td>
+                        <td>@Model.Name</td>
                         <th>시리얼 번호</th>
-                        <td>
-                            <input type="text" value="@Model.Serial_No" readonly>
-                        </td>
+                        <td>@Model.Serial_No</td>
                     </tr>
                     <tr>
                         <th>설치일</th>
-                        <td>
-                            <input type="text" value="@DateHelper.FormatDate(Model.Install_Date)" readonly>
-                        </td>
+                        <td>@DateHelper.FormatDate(Model.Install_Date)</td>
                         <th>가동일</th>
-                        <td>
-                            <input type="text" value="@DateHelper.FormatDate(Model.Operating_Date)" readonly>
-                        </td>
+                        <td>@DateHelper.FormatDate(Model.Operating_Date)</td>
                     </tr>
                     <tr>
                         <th>구입비용</th>
-                        <td>
-                            <input type="text" value="@Model.Price.ToString("N0") + " 원" readonly>
-                        </td>
+                        <td>@(Model.Price.ToString("N0")) 원</td>
                         <th>설치장소</th>
-                        <td>
-                            <input type="text" value="@Model.Install_Place" readonly>
-                        </td>
+                        <td>@Model.Install_Place</td>
                         <th>정격전압</th>
-                        <td>
-                            <input type="text" value="@Model.Rated_V + " kV"" readonly>
-                        </td>
+                        <td>@Model.Rated_V kV</td>
                     </tr>
                     <tr>
                         <th>정격전류</th>
-                        <td>
-                            <input type="text" value="@Model.Rated_A + " A"" readonly>
-                        </td>
+                        <td>@Model.Rated_A A</td>
                         <th>제작사</th>
-                        <td>
-                            <input type="text" value="@Model.Make_Company" readonly>
-                        </td>
+                        <td>@Model.Make_Company</td>
                         <th>제작번호</th>
-                        <td>
-                            <input type="text" value="@Model.Make_No" readonly>
-                        </td>
+                        <td>@Model.Make_No</td>
                     </tr>
                     <tr>
                         <th>제품사진</th>
                         <td colspan="5">
                             <p class="img">
-                                <img src="@(!string.IsNullOrEmpty(Model.Photo) ? Model.Photo : "/images/no_image.png")" width="200" height="200">
+                                <img src="@(!string.IsNullOrEmpty(Model.Photo) ? Model.Photo : "/images/no_image.png")" width="200" height="200" />
                             </p>
                         </td>
                     </tr>
                     <tr>
                         <th>예방진단 사용</th>
-                        <td>
-                            <input type="text" value="@(Model.Is_Diagnostics ? "예" : "아니오")" readonly>
-                        </td>
+                        <td>@(Model.Is_Diagnostics ? "예" : "아니오")</td>
                         <th>건전도 사용</th>
-                        <td>
-                            <input type="text" value="@(Model.Is_Health ? "예" : "아니오")" readonly>
-                        </td>
+                        <td>@(Model.Is_Health ? "예" : "아니오")</td>
                     </tr>
                 </table>
             </div>

@@ -1,0 +1,40 @@
+﻿@{
+    var prefix = (string)ViewData["Prefix"];
+    var controller = (string)ViewData["Controller"];
+    var pieId = (string)ViewData["PieId"];
+}
+
+<div class="con_box flex3">
+    <h2>건전도</h2>
+    <div id="@pieId" style="height:280px;width:100%;"></div>
+    <script>
+    $(function(){
+      const palette = ['#5B9F56','#B4DEB1','#EBCD1D','#F18425','#F05153'];
+      function summarize(data){
+        return [1,2,3,4,5]
+          .filter(i=>data[i]>0)
+          .map(i=>({ state:i+'등급', value:+data[i], color:palette[i-1] }));
+      }
+      $.ajax({
+        type:'POST',
+        url: '/@controller/GetRiskmatrixData',
+        data: JSON.stringify({ prefix: '@prefix' }),
+        contentType: 'application/json',
+        dataType: 'json'
+      })
+      .done(counts=>{
+        const ds = summarize(counts);
+        $(`#@pieId`).dxPieChart({
+          type:'doughnut',
+          dataSource: ds,
+          customizePoint: pt=>({ color:pt.data.color }),
+          series:[{
+            argumentField:'state',
+            valueField:'value',
+            label:{ visible:true, connector:{visible:true}, customizeText:e=>e.valueText+'대' }
+          }]
+        });
+      });
+    });
+    </script>
+</div>

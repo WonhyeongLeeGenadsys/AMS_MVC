@@ -61,6 +61,7 @@ namespace AMS_MVC.Controllers.Check
                 model.FoldingFunction = (int)Math.Round(hi);
 
                 result = submoduleChkRepository.CreateSUBMODULEChkRepo(model);
+                LogHelper.WriteLog("SUBMODULEChkAdd", $"[CreateSUBMODULEChkRepo] Success={result.IsSuccess}, Message={result.Message}");
 
                 if (!result.IsSuccess)
                 {
@@ -68,10 +69,15 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    // HI(건전도)를 Riskmatrix에 업데이트: model.SUBMODULE_Code에 대해 FoldingFunction 값을 HI에 넣는다.
-                    //Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, model.FoldingFunction);
-                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, (int)System.Math.Round(hi), pof);
 
+                    // HI를 Riskmatrix에 업데이트: model.VCB_Code에 대해 FoldingFunction 값을 HI에 넣음
+                    //Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
+
+                    var cofModel = cofRepo.GetLatest("SUBMODULE");
+                    decimal cofValue = cofModel.Total_Cof;
+
+                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.SUBMODULE_Code, (int)System.Math.Round(hi), cofValue, pof);
+                    LogHelper.WriteLog("SUBMODULEChkAdd", $"[UpdateRiskMatrixHI] code={model.SUBMODULE_Code}, hi={(int)Math.Round(hi)}, cof={cofValue}, pof={pof}");
                     if (!updateResult.IsSuccess)
                     {
                         // HI 업데이트 실패 시 메시지 추가

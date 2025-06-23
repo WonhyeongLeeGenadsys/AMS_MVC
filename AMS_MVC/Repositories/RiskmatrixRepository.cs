@@ -210,7 +210,7 @@ namespace AMS_MVC.Repositories
             }
         }
 
-        public Result UpdateRiskMatrixHI(string code, int newHI, decimal newPof)
+        public Result UpdateRiskMatrixHI(string code, int newHI, decimal newCof, decimal newPof)
         {
             var res = new Result(true);
             try
@@ -218,44 +218,78 @@ namespace AMS_MVC.Repositories
                 using (var db = new DBHelper())
                 using (var conn = db.Conn)
                 {
-                    // 가장 최근 행 조회
+                    // 1) TBL_IDX, HI, Pof, LASTTIME 모두 가져오기
                     const string selectSql = @"
-                SELECT TOP 1 HI, Pof, LASTTIME
-                  FROM RISKMATRIX
-                 WHERE CODE = @Code
-              ORDER BY LASTTIME DESC";
-                    var latest = conn.QueryFirstOrDefault<(int? HI, string Pof, DateTime? LASTTIME)>(selectSql, new { Code = code });
+SELECT TOP 1 
+    TBL_IDX,
+    HI,
+    Cof,
+    Pof,
+    LASTTIME
+  FROM RISKMATRIX
+ WHERE CODE = @Code
+ORDER BY 
+    CASE WHEN LASTTIME IS NULL THEN 0 ELSE 1 END DESC,  -- NULL은 가장 먼저
+    LASTTIME DESC";
+                    var latest = conn.QueryFirstOrDefault<(int TblIdx, int? HI, string Cof, string Pof, DateTime? LASTTIME)>(
+                        selectSql, new { Code = code });
 
                     var today = DateTime.Today;
-                    string pofText = newPof.ToString("F6"); // 소수점 6자리 고정
+                    string cofText = newCof.ToString("F2"); 
+                    string pofText = newPof.ToString("F6"); // 소수점 6자리
 
-                    if (!latest.HI.HasValue)
+                    if (latest.TblIdx != 0 && latest.LASTTIME == null)
                     {
-                        const string insertSql = @"
-                    INSERT INTO RISKMATRIX (CODE, HI, Pof, LASTTIME)
-                    VALUES (@Code, @HI, @Pof, GETDATE())";
-                        conn.Execute(insertSql, new { Code = code, HI = newHI, Pof = pofText });
-                        res.Message = $"[{code}] 신규 행 추가 (HI={newHI}, PoF={pofText})";
+                        //  초기 BASICINFO 생성 때 들어간 행 
+                        const string updateInitialSql = @"
+UPDATE RISKMATRIX
+   SET HI      = @HI,
+       Cof     = @Cof,
+       Pof     = @Pof,
+       LASTTIME = GETDATE()
+ WHERE TBL_IDX = @TblIdx";
+                        conn.Execute(updateInitialSql, new
+                        {
+                            TblIdx = latest.TblIdx,
+                            HI = newHI,
+                            Cof = cofText,
+                            Pof = pofText
+                        });
+                        res.Message = $"[{code}] 초기 행 업데이트 (HI={newHI}, Cof = {cofText}, PoF={pofText})";
                     }
-                    else if (latest.LASTTIME.Value.Date == today)
+                    else if (latest.LASTTIME.HasValue && latest.LASTTIME.Value.Date == today)
                     {
-                        const string updateSql = @"
-                    UPDATE RISKMATRIX
-                       SET HI = @HI
-                         , Pof = @Pof
-                         , LASTTIME = GETDATE()
-                     WHERE CODE = @Code
-                       AND CAST(LASTTIME AS DATE) = @Today";
-                        conn.Execute(updateSql, new { Code = code, HI = newHI, Pof = pofText, Today = today });
-                        res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI}, PoF={pofText})";
+                        // 같은 날 이미 업데이트된 행
+                        const string updateTodaySql = @"
+UPDATE RISKMATRIX
+   SET HI      = @HI,
+       Cof     = @Cof,
+       Pof     = @Pof,
+       LASTTIME = GETDATE()
+ WHERE TBL_IDX = @TblIdx";
+                        conn.Execute(updateTodaySql, new
+                        {
+                            TblIdx = latest.TblIdx,                            
+                            HI = newHI,
+                            Cof = cofText,
+                            Pof = pofText
+                        });
+                        res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI}, CoF = {cofText}, PoF={pofText})";
                     }
                     else
                     {
+                        // 새로운 날짜면 INSERT
                         const string insertSql = @"
-                    INSERT INTO RISKMATRIX (CODE, HI, Pof, LASTTIME)
-                    VALUES (@Code, @HI, @Pof, GETDATE())";
-                        conn.Execute(insertSql, new { Code = code, HI = newHI, Pof = pofText });
-                        res.Message = $"[{code}] 새로운 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI}, PoF={pofText})";
+INSERT INTO RISKMATRIX (CODE, HI, Cof, Pof, LASTTIME)
+VALUES (@Code, @HI, @Cof, @Pof, GETDATE())";
+                        conn.Execute(insertSql, new
+                        {
+                            Code = code,
+                            HI = newHI,
+                            Cof = cofText,
+                            Pof = pofText
+                        });
+                        res.Message = $"[{code}] 새 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI}, Cof = {cofText}, PoF={pofText})";
                     }
                 }
             }
@@ -268,32 +302,48 @@ namespace AMS_MVC.Repositories
         }
 
         /// <summary>
-        /// 각 CODE별 최신 한 건(CoF, PoF, Code, LastTime)만 Riskmatrix 모델로
+        /// 각 CODE별로 5대장비의 최신 데이터만(CoF, PoF, Code, LastTime)만 Riskmatrix 표기
         /// </summary>
-        public IEnumerable<Riskmatrix> GetLatestRiskPoints(string codePrefix = null)
+        public IEnumerable<Riskmatrix> GetLatestRiskPoints()
         {
             using (var db = new DBHelper())
             {
                 const string sql = @"
 WITH Latest AS (
     SELECT 
-      CODE    AS Code,
-      CoF     AS Cof,
-      PoF     AS Pof,
-      LASTTIME,
+      CODE      AS Code,
+      Cof       AS Cof,
+      Pof       AS Pof,
+      HI        AS HI,
+      LASTTIME  AS LastTime,
       ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
     FROM RISKMATRIX
-    WHERE (@CodePrefix IS NULL OR CODE LIKE @Pattern)
+    WHERE 
+      CODE LIKE 'VCB%'        OR
+      CODE LIKE 'ITR%'        OR
+      CODE LIKE 'DCCB%'       OR
+      CODE LIKE 'DCCABLE%'    OR
+      CODE LIKE 'SUBMODULE%'
 )
-SELECT Code, Cof, Pof, LASTTIME
-  FROM Latest
- WHERE rn = 1;
+SELECT Code, Cof, Pof, HI, LastTime
+FROM Latest
+WHERE rn = 1;
 ";
-                return db.Conn.Query<Riskmatrix>(sql, new
-                {
-                    CodePrefix = codePrefix,
-                    Pattern = codePrefix + "%"
-                });
+                return db.Conn.Query<Riskmatrix>(sql);                                
+            }
+        }
+
+        //Cof CODE에서 VCB, DCCB 장비 이름만 앞에 단어 찾기
+        public void UpdateCoFByPrefix(string codePrefix, decimal newCoF)
+        {
+            var pattern = codePrefix + "%";
+            const string sql = @"
+            UPDATE RISKMATRIX
+               SET CoF = @CoF
+             WHERE CODE LIKE @Pattern";
+            using (var db = new DBHelper())
+            {
+                db.Conn.Execute(sql, new { Pattern = pattern, CoF = newCoF });
             }
         }
     }

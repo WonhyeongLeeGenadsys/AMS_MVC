@@ -9,8 +9,8 @@ namespace AMS_MVC.Models
     {
         public int Tbl_Idx { get; set; }
         public string Code { get; set; }
-        public string Cof { get; set; }
-        public string Pof { get; set; }
+        public decimal Cof { get; set; }
+        public decimal Pof { get; set; }
         public string HI { get; set; }
         public DateTime LastTime { get; set; }
     }
