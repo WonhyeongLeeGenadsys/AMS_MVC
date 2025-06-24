@@ -1,0 +1,31 @@
+﻿@model IEnumerable<dynamic>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "점검 상세보기";
+}
+
+<h2>점검 상세 : @ViewBag.Type / @ViewBag.Code</h2>
+
+<table class="table_list_app">
+    <thead>
+        <tr>
+            <th>타입</th>
+            <th>코드</th>
+            <th>시작일</th>
+            <th>종료일</th>
+            <th>상태</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @*<td>@item.Type</td>*@
+                <td>@item.Code</td>
+                <td>@(item.Start ?? "-")</td>
+                <td>@(item.End   ?? "-")</td>
+                <td>@item.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

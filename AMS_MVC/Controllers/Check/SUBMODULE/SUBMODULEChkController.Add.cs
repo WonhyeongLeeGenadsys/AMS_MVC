@@ -53,9 +53,6 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
                 }
 
-                //SUBMODULEChkScoreCalculator scoreCalculator = new SUBMODULEChkScoreCalculator();
-                //model.FoldingFunction = scoreCalculator.CalculateFoldingFunction(model);
-
                 var scoreCalculator = new SUBMODULEChkScoreCalculator();
                 var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
                 model.FoldingFunction = (int)Math.Round(hi);
@@ -69,9 +66,6 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-
-                    // HI를 Riskmatrix에 업데이트: model.VCB_Code에 대해 FoldingFunction 값을 HI에 넣음
-                    //Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
 
                     var cofModel = cofRepo.GetLatest("SUBMODULE");
                     decimal cofValue = cofModel.Total_Cof;

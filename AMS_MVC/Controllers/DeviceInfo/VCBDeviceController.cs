@@ -183,5 +183,49 @@ namespace AMS_MVC.Controllers
             }
         }
 
+        [HttpGet]
+        public JsonResult GetScheduleData(string equipmentType, int year, int month)
+        {
+
+            var all = new List<dynamic>();
+
+            List<VCBChk> checks;
+            _vcbChkRepo.GetTotalVCBChk(out checks);
+
+            foreach (var c in checks)
+            {
+                if (c.CHK_Start_Date.HasValue
+                   && c.CHK_Start_Date.Value.Year == year
+                   && c.CHK_Start_Date.Value.Month == month)
+                {
+                    all.Add(new
+                    {
+                        Type = equipmentType,
+                        Code = c.VCB_Code,
+                        Start = c.CHK_Start_Date.Value.ToString("yyyy-MM-dd"),
+                        End = c.CHK_End_Date.HasValue
+                               ? c.CHK_End_Date.Value.ToString("yyyy-MM-dd")
+                               : (string)null,
+                        Status = "confirmed"
+                    });
+                }
+
+                // Overdue 예시: End +3 개월 …
+            }
+
+            return Json(all, JsonRequestBehavior.AllowGet);
+        }
+
+        // 상세보기
+        [HttpGet]
+        public ActionResult ScheduleDetail(string type, string code)
+        {
+            ViewBag.Type = type;
+            ViewBag.Code = code;
+
+            // VCB 만 처리
+            _vcbChkRepo.GetVCBChkByVCBCode(code, out var list);
+            return View("~/Views/Device/VCB/ScheduleDetail.cshtml", list.Cast<dynamic>());
+        }
     }
 }

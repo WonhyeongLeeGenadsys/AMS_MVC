@@ -2274,6 +2274,30 @@ dl.product_info {
 
 .con_box.riskMatrix {
 	position: relative;
-	height: 400px; /* 컨테이너 높이 고정 */
+	height: 400px; 
 }
 
+/* ──────────────────────────────────────────────── */
+/* 스케줄 테이블: 타입/코드 컬럼만 고정 너비, 나머지는 유동 */
+/* ──────────────────────────────────────────────── */
+.schedule_table {
+	overflow-x: auto;
+}
+
+	.schedule_table table {
+		width: 100%;
+		table-layout: fixed;
+	}
+
+	.schedule_table th:nth-child(1),
+	.schedule_table td:nth-child(1),
+	.schedule_table th:nth-child(2),
+	.schedule_table td:nth-child(2) {
+		text-align: center;
+		vertical-align: middle;
+		width: 80px; 	
+	}
+.table_list_app th:nth-child(n+3),
+.table_list_app td:nth-child(n+3){
+	text-align: center;
+}

@@ -22,3 +22,17 @@
 |2025-06-24 10:50:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
 |2025-06-24 10:51:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
 |2025-06-24 10:51:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 14:16:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 14:16:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 14:54:57  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 14:54:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 14:55:21  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 14:55:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 14:55:27  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 14:55:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 14:55:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 14:55:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 19:03:07  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 19:03:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 19:04:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 19:04:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
