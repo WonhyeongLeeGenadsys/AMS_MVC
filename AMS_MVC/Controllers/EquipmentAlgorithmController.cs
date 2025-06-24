@@ -291,6 +291,7 @@ namespace AMS_MVC.Controllers
                     algo.SetFailureRate(eq.FailureRate.Value);
                 }
 
+                double timeMax = algo.TimeValues.Max();
                 int length = algo.TimeValues.Length;
                 var reliabilitySeries = new List<object>();
                 var hazardSeries = new List<object>();
@@ -319,6 +320,7 @@ namespace AMS_MVC.Controllers
                 {
                     EquipmentName = eq.EquipmentName,
                     B3Life = algo.B3Life,
+                    TimeMax = timeMax,
                     ReliabilitySeries = reliabilitySeries,
                     HazardSeries = hazardSeries,
                     PdfNormalized = pdfSeries

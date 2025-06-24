@@ -56,3 +56,5 @@
 |2025-06-23 18:35:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-06-23 18:36:29  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
 |2025-06-23 18:36:29  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-06-23 18:57:57  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-23 18:57:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

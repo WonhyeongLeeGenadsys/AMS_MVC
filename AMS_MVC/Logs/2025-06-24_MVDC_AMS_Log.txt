@@ -1,0 +1,24 @@
+|2025-06-24 09:44:21  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 09:44:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 09:45:39  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 09:45:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 09:45:39  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 09:45:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:46:04  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 10:46:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:47:34  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 10:47:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:24  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 10:50:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:28  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-24 10:50:28  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:34  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-06-24 10:50:34  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:36  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 10:50:36  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:36  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-06-24 10:50:36  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-06-24 10:50:54  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-24 10:50:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-24 10:51:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 10:51:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
