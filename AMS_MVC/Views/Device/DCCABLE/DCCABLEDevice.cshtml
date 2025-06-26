@@ -500,7 +500,6 @@ $(function(){
 
         <script>
 $(function(){
-  // 신뢰도 데이터 + B3 값 가져오기
   $.ajax({
     url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
     type: 'GET',
@@ -517,12 +516,13 @@ $(function(){
           : parseFloat(resp[0].B3Life);
       console.log("!!!!!!!!!!!!B3 값!!!!!!!!!:", b3);
 
+      var usagePeriods = resp[0].UsagePeriod || [];
+
     var seriesData = resp[0].ReliabilitySeries.map(function(pt){
       return { time: parseFloat(pt.time), value: parseFloat(pt.value) };
     });
     var maxX = resp[0].TimeMax;
 
-    // 3) 차트 초기화
     $("#chart_line02").dxChart({
       dataSource: seriesData,
       commonSeriesSettings: {
@@ -538,18 +538,34 @@ $(function(){
       argumentAxis: {
         title: "시간 (년)",
         visualRange: { startValue: 0, endValue: maxX },
-        constantLines: [{
-          value: b3,
-          color: "red",
-          width: 2.5,
-          dashStyle: "dash",
-          label: {
-            text: "B3 = " + b3,
-            visible: true,
-            font: { color: "red" },
-            position: "inside"
-          }
-        }]
+        constantLines: [
+           {
+                value: b3,
+                color: "red",
+                width: 2.5,
+                dashStyle: "dash",
+                label: {
+                      text: "B3 = " + b3 + "년",
+                      visible: true,
+                      font: { color: "red" },
+                      position: "inside"
+                }
+                }
+            ]
+            .concat(usagePeriods.map(function (u) {
+                  return {
+                        value: u,
+                        color: "green",
+                        width: 2.5,
+                        dashStyle: "solid",
+                      label: {
+                          text: "사용기간: " + usagePeriods + "년",
+                          visible: true,
+                          font: { color: "green" },
+                          position: "inside"
+                      }
+                  };
+                    }))
       },
       valueAxis: {
         title: "신뢰도 (0 ~ 1)",

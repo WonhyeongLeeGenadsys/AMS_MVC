@@ -36,3 +36,5 @@
 |2025-06-24 19:03:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-06-24 19:04:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
 |2025-06-24 19:04:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-24 19:09:32  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-24 19:09:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

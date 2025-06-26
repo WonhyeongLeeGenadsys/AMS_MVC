@@ -20,28 +20,17 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_NGR_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
+
+        //
+        public string CHK_1_1 { get; set; } // 외함 온도 상승 및 이음 여부
+        public string CHK_1_2 { get; set; } // 부싱 균열 및 오손 확인/청소
+        public string CHK_1_3 { get; set; } // 절연유 누유 여부
+        public string CHK_2_1 { get; set; } // 접지선 점검
+        public string CHK_2_2 { get; set; } // 각 연결부 볼트 조임
+        public string CHK_3_1 { get; set; } // 호흡기 상태/절연저항 측정 등 
+
+
+        //
         public string CHK_Writer { get; set; } // 작성자         
         public DateTime CHK_Tbl_GetDate { get; set; }
 

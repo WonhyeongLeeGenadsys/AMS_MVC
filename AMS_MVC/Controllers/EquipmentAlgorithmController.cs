@@ -38,258 +38,210 @@ namespace AMS_MVC.Controllers
 
         private RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
 
+        private (List<dynamic> basicList, List<double> usageYears)
+        GetBasicInfoAndUsage(string equipmentType)
+        {
+            List<dynamic> basicList;
+            switch (equipmentType.Trim().ToUpper())
+            {
+
+                // 5대 주요설비
+                case "VCB":
+                    _vcbRepo.GetAllVCBBasicInfoRepo(out List<VCBBasicInfo> vcb);
+                    basicList = vcb.Cast<dynamic>().ToList();
+                    break;
+                case "ITR":
+                    _itrRepo.GetAllITRBasicInfoRepo(out List<ITRBasicInfo> itr);
+                    basicList = itr.Cast<dynamic>().ToList();
+                    break;
+                case "DCCB":
+                    _dccbRepo.GetAllDCCBBasicInfoRepo(out List<DCCBBasicInfo> dccb);
+                    basicList = dccb.Cast<dynamic>().ToList();
+                    break;
+                case "DCCABLE":
+                    _dccableRepo.GetAllDCCABLEBasicInfoRepo(out List<DCCABLEBasicInfo> dccable);
+                    basicList = dccable.Cast<dynamic>().ToList();
+                    break;
+                case "SUBMODULE":
+                    _submoduleRepo.GetAllSUBMODULEBasicInfoRepo(out List<SUBMODULEBasicInfo> submodule);
+                    basicList = submodule.Cast<dynamic>().ToList();
+                    break;
+
+                // 15대 설비 
+                case "SA":
+                    _saRepo.GetAllSABasicInfoRepo(out List<SABasicInfo> sa);
+                    basicList = sa.Cast<dynamic>().ToList();
+                    break;
+                case "DCCT":
+                    _dcctRepo.GetAllDCCTBasicInfoRepo(out List<DCCTBasicInfo> dcct);
+                    basicList = dcct.Cast<dynamic>().ToList();
+                    break;
+                case "ARMREACTOR":
+                    _armReactorRepo.GetAllARMREACTORBasicInfoRepo(out List<ARMREACTORBasicInfo> armReactor);
+                    basicList = armReactor.Cast<dynamic>().ToList();
+                    break;
+                case "WALLBUSHING":
+                    _wallBushingRepo.GetAllWALLBUSHINGBasicInfoRepo(out List<WALLBUSHINGBasicInfo> wallbushing);
+                    basicList = wallbushing.Cast<dynamic>().ToList();
+                    break;
+                case "PT":
+                    _ptRepo.GetAllPTBasicInfoRepo(out List<PTBasicInfo> pt);
+                    basicList = pt.Cast<dynamic>().ToList();
+                    break;
+
+                case "CT":
+                    _ctRepo.GetAllCTBasicInfoRepo(out List<CTBasicInfo> ct);
+                    basicList = ct.Cast<dynamic>().ToList();
+                    break;
+                case "LA":
+                    _laRepo.GetAllLABasicInfoRepo(out List<LABasicInfo> la);
+                    basicList = la.Cast<dynamic>().ToList();
+                    break;
+                case "DS":
+                    _dsRepo.GetAllDSBasicInfoRepo(out List<DSBasicInfo> ds);
+                    basicList = ds.Cast<dynamic>().ToList();
+                    break;
+                case "TANK":
+                    _tankRepo.GetAllTANKBasicInfoRepo(out List<TANKBasicInfo> tank);
+                    basicList = tank.Cast<dynamic>().ToList();
+                    break;
+                case "HEATEXCHANGER":
+                    _heatExchangerRepo.GetAllHEATEXCHANGERBasicInfoRepo(out List<HEATEXCHANGERBasicInfo> heatExchanger);
+                    basicList = heatExchanger.Cast<dynamic>().ToList();
+                    break;
+
+                case "BYPASSVALVE":
+                    _bypassValveRepo.GetAllBYPASSVALVEBasicInfoRepo(out List<BYPASSVALVEBasicInfo> bypassValve);
+                    basicList = bypassValve.Cast<dynamic>().ToList();
+                    break;
+                case "PUMP":
+                    _pumpRepo.GetAllPUMPBasicInfoRepo(out List<PUMPBasicInfo> pump);
+                    basicList = pump.Cast<dynamic>().ToList();
+                    break;
+                case "ZIGZAGTR":
+                    _zigZagTRRepo.GetAllZIGZAGTRBasicInfoRepo(out List<ZIGZAGTRBasicInfo> zigZagTR);
+                    basicList = zigZagTR.Cast<dynamic>().ToList();
+                    break;
+                case "ES":
+                    _esRepo.GetAllESBasicInfoRepo(out List<ESBasicInfo> es);
+                    basicList = es.Cast<dynamic>().ToList();
+                    break;
+                case "NGR":
+                    _ngrRepo.GetAllNGRBasicInfoRepo(out List<NGRBasicInfo> ngr);                    
+                    basicList = ngr.Cast<dynamic>().ToList();
+                    break;
+
+                    // 예외처리
+                default:
+                    basicList = new List<dynamic>();
+                    break;
+            }
+
+            var usageYears = basicList
+                .Select(b => b.Operating_Date is DateTime od
+                                ? (double)(DateTime.Now.Year - od.Year)
+                                : 0d)
+                .ToList();
+
+            return (basicList, usageYears);
+        }
+
         /// <summary>
-        /// 장비 유형(equipmentType)에 따른 B3 히스토그램 데이터를 반환합니다.
+        /// B3 수명 기반 히스토그램 데이터
         /// </summary>
         [HttpGet]
         public ActionResult GetB3HistogramEquipment(string equipmentType = "VCB")
         {
-            // 1) EquipmentWeibull 테이블에서 해당 장비 유형 데이터 가져오기
-            var eqList = _weibullRepo.GetAll();
-            var filteredWeibullList = eqList
-                .Where(eq => eq.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
+            // 1) Weibull 데이터 필터링
+            var eqList = _weibullRepo.GetAll()
+                .Where(eq => eq.EquipmentName
+                               .ToUpper()
+                               .Contains(equipmentType.ToUpper()))
                 .ToList();
+            if (!eqList.Any())
+                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." },
+                            JsonRequestBehavior.AllowGet);
 
-            if (filteredWeibullList.Count == 0)
-            {
-                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-            }
-
-            // 2) 첫 번째 항목의 shape/scale 혹은 FailureRate를 사용하여 B3 수명 계산
-            var first = filteredWeibullList.FirstOrDefault(eq => eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
-                        ?? filteredWeibullList.FirstOrDefault(eq => eq.FailureRate.HasValue);
+            // 2) B3 수명 계산
+            var first = eqList
+                .FirstOrDefault(eq => eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
+                ?? eqList.FirstOrDefault(eq => eq.FailureRate.HasValue);
             if (first == null)
-            {
-                return Json(new { error = "Weibull 또는 고장률 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-            }
+                return Json(new { error = "Weibull 또는 고장률 데이터가 없습니다." },
+                            JsonRequestBehavior.AllowGet);
 
-            double b3 = 0;
             var algo = new LaAlgorithm();
             if (first.ShapeParam.HasValue && first.ScaleParam.HasValue)
-            {
-                algo.SetWeibull(first.ShapeParam.Value, first.ScaleParam.Value, 10);
-                b3 = algo.B3Life;
-            }
-            else if (first.FailureRate.HasValue)
-            {
-                algo.SetFailureRate(first.FailureRate.Value);
-                b3 = algo.B3Life;
-            }
+                algo.SetWeibull((double)first.ShapeParam.Value,
+                                (double)first.ScaleParam.Value,
+                                10);
+            else
+                algo.SetFailureRate((double)first.FailureRate.Value);
 
-            List<dynamic> basicList;
-            switch (equipmentType.Trim().ToUpper())
-            {
-                case "VCB":
-                    {
-                        _vcbRepo.GetAllVCBBasicInfoRepo(out List<VCBBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "DCCB":
-                    {
-                        _dccbRepo.GetAllDCCBBasicInfoRepo(out List<DCCBBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "DCCABLE":
-                    {
-                        _dccableRepo.GetAllDCCABLEBasicInfoRepo(out List<DCCABLEBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "ITR":
-                    {
-                        _itrRepo.GetAllITRBasicInfoRepo(out List<ITRBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "SUBMODULE":
-                    {
-                        _submoduleRepo.GetAllSUBMODULEBasicInfoRepo(out List<SUBMODULEBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-
-                // --- 추가 15대 ---
-                case "SA":
-                    {
-                        _saRepo.GetAllSABasicInfoRepo(out List<SABasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "DCCT":
-                    {
-                        _dcctRepo.GetAllDCCTBasicInfoRepo(out List<DCCTBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "ARMREACTOR":
-                    {
-                        _armReactorRepo.GetAllARMREACTORBasicInfoRepo(out List<ARMREACTORBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "WALLBUSHING":
-                    {
-                        _wallBushingRepo.GetAllWALLBUSHINGBasicInfoRepo(out List<WALLBUSHINGBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "PT":
-                    {
-                        _ptRepo.GetAllPTBasicInfoRepo(out List<PTBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "CT":
-                    {
-                        _ctRepo.GetAllCTBasicInfoRepo(out List<CTBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "LA":
-                    {
-                        _laRepo.GetAllLABasicInfoRepo(out List<LABasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "DS":
-                    {
-                        _dsRepo.GetAllDSBasicInfoRepo(out List<DSBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "TANK":
-                    {
-                        _tankRepo.GetAllTANKBasicInfoRepo(out List<TANKBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "HEATEXCHANGER":
-                    {
-                        _heatExchangerRepo.GetAllHEATEXCHANGERBasicInfoRepo(out List<HEATEXCHANGERBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "BYPASSVALVE":
-                    {
-                        _bypassValveRepo.GetAllBYPASSVALVEBasicInfoRepo(out List<BYPASSVALVEBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "PUMP":
-                    {
-                        _pumpRepo.GetAllPUMPBasicInfoRepo(out List<PUMPBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "ZIGZAGTR":
-                    {
-                        _zigZagTRRepo.GetAllZIGZAGTRBasicInfoRepo(out List<ZIGZAGTRBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "ES":
-                    {
-                        _esRepo.GetAllESBasicInfoRepo(out List<ESBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-                case "NGR":
-                    {
-                        _ngrRepo.GetAllNGRBasicInfoRepo(out List<NGRBasicInfo> list);
-                        basicList = list.Cast<dynamic>().ToList();
-                    }
-                    break;
-
-                default:
-                    return Json(new { error = "알 수 없는 장비 유형입니다." },
-                                JsonRequestBehavior.AllowGet);
-            }
-
-
-            // 4) 각 장비의 가동일(Operating_Date)을 기준으로 사용기간(년) 계산
-            var usageYears = new List<double>();
-            foreach (var item in basicList)
-            {
-                double used = 0;
-                if (item.Operating_Date != null)
-                {
-                    used = DateTime.Now.Year - ((DateTime)item.Operating_Date).Year;
-                }
-                usageYears.Add(used);
-            }
-
-            // 5) 히스토그램에 사용할 bin 생성 (x축 시간 범위는 LaAlgorithm의 TimeValues 최대값 사용)
+            double b3 = algo.B3Life;
             double timeMax = algo.TimeValues.Max();
             int binSize = 10;
-            var bins = new List<dynamic>();
-            for (int start = 0; start < (int)timeMax; start += binSize)
+
+            // 3) 기본정보 + 사용기간 가져오기
+            var (basicList, usageYears) = GetBasicInfoAndUsage(equipmentType);
+
+            // 4) bin 초기화
+            var binCount = (int)Math.Ceiling(timeMax / binSize);
+            var bins = Enumerable.Range(0, binCount)
+                .Select(i => new { binStart = i * binSize, count = 0 })
+                .ToList();
+
+            // 5) 카운팅
+            foreach (var years in usageYears)
             {
-                bins.Add(new { binStart = start, count = 0 });
+                var idx = Math.Min((int)(years / binSize), bins.Count - 1);
+                bins[idx] = new { bins[idx].binStart, count = bins[idx].count + 1 };
             }
 
-            // 6) 사용기간 데이터를 각 bin에 배분
-            foreach (double usedYear in usageYears)
-            {
-                int index = (int)(usedYear / binSize);
-                if (index >= bins.Count)
-                    index = bins.Count - 1;
-                var oldItem = bins[index];
-                bins[index] = new { binStart = oldItem.binStart, count = (int)oldItem.count + 1 };
-            }
-
-            // 7) 결과 데이터 구성 후 반환
-            var result = new
+            // 6) 결과 반환 (usageYears도 함께 반환하여 차트 위에 추가선 그리기 용이)
+            return Json(new
             {
                 B3 = b3,
                 BinSize = binSize,
                 TimeMax = timeMax,
-                Histogram = bins
-            };
-
-            return Json(result, JsonRequestBehavior.AllowGet);
+                Histogram = bins,
+                Usage = usageYears
+            }, JsonRequestBehavior.AllowGet);
         }
 
+        /// <summary>
+        /// 신뢰도/고장률/PDF 시리즈 + 사용기간 데이터를 함께 반환
+        /// </summary>
         [HttpGet]
         public ActionResult GetAlgorithmData(string equipmentType = "VCB")
         {
-            // EquipmentWeibull 테이블에서 해당 장비 유형 데이터 가져오기
+            // 1) Weibull 데이터 필터링
             var eqList = _weibullRepo.GetAll()
-                                     .Where(eq => eq.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
-                                     .ToList();
+                .Where(eq => eq.EquipmentName
+                               .ToUpper()
+                               .Contains(equipmentType.ToUpper()))
+                .ToList();
+            if (!eqList.Any())
+                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." },
+                            JsonRequestBehavior.AllowGet);
 
-            if (eqList.Count == 0)
-            {
-                return Json(new { error = "해당 장비의 Weibull 데이터가 없습니다." }, JsonRequestBehavior.AllowGet);
-            }
+            // 2) 기본정보 + 사용기간
+            var (_, usageYears) = GetBasicInfoAndUsage(equipmentType);
 
             var resultList = new List<object>();
 
             foreach (var eq in eqList)
             {
-                // 형상모수와 척도모수가 둘 다 없으면, 고장률 데이터가 있는지 확인하고 없다면 이 항목은 건너뜁니다.
-                if (!eq.ShapeParam.HasValue || !eq.ScaleParam.HasValue)
-                {
-                    if (!eq.FailureRate.HasValue)
-                    {
-                        // 형상모수/척도모수도 없고 고장률 데이터도 없으므로 해당 장비는 처리하지 않음
-                        continue;
-                    }
-                }
-
+                // 2a) 알고리즘 초기화
                 var algo = new LaAlgorithm();
-
-                // 형상모수와 척도모수가 있다면 이를 사용하여 Weibull 계산 수행
                 if (eq.ShapeParam.HasValue && eq.ScaleParam.HasValue)
-                {
-                    algo.SetWeibull(eq.ShapeParam.Value, eq.ScaleParam.Value, 10);
-                }
-                // 형상모수/척도모수가 없고 고장률 데이터가 있는 경우라면 고장률을 이용하여 계산 수행
+                    algo.SetWeibull((double)eq.ShapeParam.Value,
+                                    (double)eq.ScaleParam.Value,
+                                    10);
                 else if (eq.FailureRate.HasValue)
-                {
-                    algo.SetFailureRate(eq.FailureRate.Value);
-                }
+                    algo.SetFailureRate((double)eq.FailureRate.Value);
+                else
+                    continue;
 
                 double timeMax = algo.TimeValues.Max();
                 int length = algo.TimeValues.Length;
@@ -297,6 +249,7 @@ namespace AMS_MVC.Controllers
                 var hazardSeries = new List<object>();
                 var pdfSeries = new List<object>();
 
+                // 2b) 시리즈 생성
                 for (int i = 0; i < length; i++)
                 {
                     reliabilitySeries.Add(new
@@ -321,6 +274,7 @@ namespace AMS_MVC.Controllers
                     EquipmentName = eq.EquipmentName,
                     B3Life = algo.B3Life,
                     TimeMax = timeMax,
+                    UsagePeriod = usageYears,
                     ReliabilitySeries = reliabilitySeries,
                     HazardSeries = hazardSeries,
                     PdfNormalized = pdfSeries
