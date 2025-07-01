@@ -20,28 +20,18 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_PUMP_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
+
+        //
+        public string CHK_1_1 { get; set; } // 펌프 본체, 연결부, 베이스 부식/손상/누수 여부 확인
+        public string CHK_1_2 { get; set; } // 모터 표면의 부식 및 손상 확인
+        public string CHK_2_1 { get; set; } // 정상 작동 여부 및 이상 소음, 진동 확인
+        public string CHK_2_2 { get; set; } // 흡입/토출 유량 및 압력, 탱크 내 액위 확인
+        public string CHK_3_1 { get; set; } // 제어반 수동 기동 후 전체 계통 정상 여부 확인
+        public string CHK_4_1 { get; set; } // 밸브, 필터, 압력계 등 부속품 작동 상태 점검
+        public string CHK_5_1 { get; set; } // 흡입/토출 유량 및 압력 측정
+        public string CHK_6_1 { get; set; } // 점검 주기 및 결과 기록, 상태 변화 추적
+
+        //
         public string CHK_Writer { get; set; } // 작성자         
         public DateTime CHK_Tbl_GetDate { get; set; }
 

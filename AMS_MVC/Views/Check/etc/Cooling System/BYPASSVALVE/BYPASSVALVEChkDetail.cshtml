@@ -70,6 +70,7 @@
                     </tr>
                 </table>
             </div>
+
             <div class="table_list_app">
                 <table>
                     <colgroup>
@@ -91,321 +92,52 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr>
-                            <td rowspan="6">차단부</td>
-                            <td>접점 소모량</td>
-                            <td></td>
-                            <td>mm</td>
-                            <td>@(Model.CHK_ContactWearPercent)</td>
-                            <td rowspan="6"></td>
+                            <td rowspan="1">외관 점검</td>
+                            <td>밸브 주변 누유, 손상, 부식 여부 확인</td>
+                            <td>누유/부식/손상 없음</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1)</td>
+                            <td rowspan="1"></td>
                         </tr>
                         <tr>
-                            <td>진공(누설전류)</td>
-                            <td></td>
-                            <td>mA</td>
-                            <td>@(Model.CHK_VacuumLeakCurrent)</td>
+                            <td rowspan="1">작동 점검</td>
+                            <td>밸브 개폐 작동 상태 확인</td>
+                            <td>정상 작동 및 개폐 상태 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_2_1)</td>
+                            <td rowspan="1"></td>
                         </tr>
                         <tr>
-                            <td>접촉저항</td>
-                            <td></td>
-                            <td>초기값 대비</td>
-                            <td>@(Model.CHK_ContactResistance)</td>
+                            <td rowspan="1">압력 점검</td>
+                            <td>밸브 개폐 압력 측정 및 설계 사양 부합 여부 확인</td>
+                            <td>설계 사양 내 압력 유지</td>
+                            <td>-</td>/
+                            <td>@(Model.CHK_3_1)</td>
+                            <td rowspan="1"></td>
                         </tr>
                         <tr>
-                            <td>절연저항</td>
-                            <td></td>
-                            <td>MΩ</td>
-                            <td>@(Model.CHK_InsulationResistance)</td>
+                            <td rowspan="1">필터 점검</td>
+                            <td>바이패스 경로 필터 막힘 여부 점검</td>
+                            <td>필터 막힘 없을 것</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_4_1)</td>
+                            <td rowspan="1"></td>
                         </tr>
                         <tr>
-                            <td>핫스팟</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_HotSpot)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                PD 패턴 및 성장
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_PdPatternValue)</td>
-                        </tr>
-                        <tr>
-                            <td rowspan="1">구동모터</td>
-                            <td>구동모터 전류</td>
-                            <td></td>
-                            <td>초기값 대비</td>
-                            <td>@(Model.CHK_MotorCurrent) </td>
+                            <td rowspan="1">정비 이력</td>
+                            <td>정비 이력 및 교체 주기 확인</td>
+                            <td>정기 정비 이력 확보 및 필요 시 정비 실시</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_1)</td>
                             <td rowspan="1"></td>
                         </tr>
 
-                        <tr>
-                            <td rowspan="1">누적단락전류</td>
-                            <td>누적 단락전류량</td>
-                            <td>
-          
-                            </td>
-                            <td>설계 한계치</td>
-                            <td>@(Model.CHK_AccumShortCircuitCurrent)</td>
-                            <td rowspan="1"></td>
-                        </tr>
-                        <tr>
-                            <td rowspan="5">기타</td>
-                            <td>단락전류</td>
-                            <td>
-                            </td>
-                            <td>
-                                설계 한계치
-                            </td>
-                            <td>@(Model.CHK_ShortCircuitCount)</td>
-                            <td rowspan="5"></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                동작 횟수
-                            </td>
-                            <td></td>
-                            <td>설계 한계치</td>
-                            <td>@(Model.CHK_OperationCount)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                개폐 시간
-                            </td>
-                            <td></td>
-                            <td>초기값 대비</td>
-                            <td>@(Model.CHK_OpenCloseTime)</td>
-                        </tr>
-                        <tr>
-                            <td>
-                                외관 점검
-                            </td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK_VisualCheck)</td>
-                        </tr>
                     </tbody>
                 </table>
-                </div>
-                <!-- 점검 상세 정보 리스트 -->
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:15%">
-                            <col style="width:15%">
-                            <col style="width:12%">
-                            <col style="width:8%">
-                            <col>
-                            <col style="width:6%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="4">일반육안점검</td>
-                                <td>개폐표시기 정위치</td>
-                                <td></td>
-                                <td></td>
-                                <td>@(Model.CHK_Loc == "정상" ? "정상(0)" : "이상(5)")</td>
-                                <td rowspan="4">7</td>
-                            </tr>
-                            <tr>
-                                <td>축세표시 정위치</td>
-                                <td></td>
-                                <td></td>
-                                <td>@(Model.CHK_Chuk_Loc == "정상" ? "정상(0)" : "이상(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>주 전도부 단자의 연결상태</td>
-                                <td></td>
-                                <td></td>
-                                <td>@(Model.CHK_Con_Status == "정상" ? "정상(0)" : "이상(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>각종 Bolt-Nut의 이완여부</td>
-                                <td></td>
-                                <td></td>
-                                <td>@(Model.CHK_Bolt_Nut_Status == "정상" ? "정상(0)" : "이상(5)")</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">Vacuum Interrupt 점검</td>
-                                <td>접점 마모량</td>
-                                <td>소모량 3mm이하</td>
-                                <td>mm</td>
-                                <td>@(double.TryParse(Model.CHK_Contact_Volume, out var contactVolume) && contactVolume <= 3 ? "3mm 이하(0)" : "3mm 초과(5)")</td>
-                                <td rowspan="2">9</td>
-                            </tr>
-                            <tr>
-                                <td>진공도 측정</td>
-                                <td>내전압: 50kV, 누설전류: 0.3mA 이하</td>
-                                <td>mA</td>
-                                <td>@(double.TryParse(Model.CHK_Vacuum_Degree, out var vacuumDegree) && vacuumDegree <= 0.3 ? "0.3mA 이하(0)" : "0.3mA 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">절연저항 점검</td>
-                                <td>절연저항(주회로)</td>
-                                <td>500uΩ 이상</td>
-                                <td>Ω</td>
-                                <td>@(double.TryParse(Model.CHK_Main_Circuit, out var mainCircuit) && mainCircuit >= 500 ? "500uΩ 이상(0)" : "500uΩ 미만(5)")</td>
-                                <td rowspan="2">9</td>
-                            </tr>
-                            <tr>
-                                <td>절연저항(제어회로)</td>
-                                <td>1000V 메거로 500MΩ 이상</td>
-                                <td>Ω</td>
-                                <td>@(double.TryParse(Model.CHK_Control_Circuit, out var controlCircuit) && controlCircuit >= 500 ? "500MΩ 이상(0)" : "500MΩ 미만(5)")</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">동작 타이밍 점검</td>
-                                <td>무부하 투입시간</td>
-                                <td>70ms이내</td>
-                                <td>S</td>
-                                <td>@(double.TryParse(Model.CHK_Input_Time, out var inputTime) && inputTime <= 65 ? "65ms 이내(0)" : "65ms 초과(5)")</td>
-                                <td rowspan="6">10</td>
-                            </tr>
-                            <tr>
-                                <td>무부하 개극시간</td>
-                                <td>35ms이내</td>
-                                <td>S</td>
-                                <td>@(double.TryParse(Model.CHK_Open_Time, out var openTime) && openTime <= 40 ? "40ms 이내(0)" : "40ms 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>3상 개극시 개극차</td>
-                                <td>6ms이내</td>
-                                <td>S</td>
-                                <td>@(double.TryParse(Model.CHK_3_Phase_Open_Gap, out var phaseGap) && phaseGap <= 6 ? "6ms 이내(0)" : "6ms 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>Chattering 시간</td>
-                                <td>6ms이내</td>
-                                <td>S</td>
-                                <td>@(double.TryParse(Model.CHK_Chattering_Time, out var chatteringTime) && chatteringTime <= 6 ? "6ms 이내(0)" : "6ms 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>O-C-O</td>
-                                <td>동작책무 이내</td>
-                                <td>S</td>
-                                <td>@(Model.CHK_O_C_O == "이내" ? "동작책무 이내(0)" : "동작책무 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td>축세조작 시간</td>
-                                <td>12sec 이하</td>
-                                <td>S</td>
-                                <td>@(double.TryParse(Model.CHK_Operate_Time, out var operateTime) && operateTime <= 5 ? "3~5s 이내(0)" : "5s 초과(5)")</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">정기 육안 점검</td>
-                                <td>개폐 조작시험</td>
-                                <td>
-                                    개폐표시기,축세표시기<br>
-                                    도수계정상 동작여부 점검(5회)
-                                </td>
-                                <td></td>
-                                <td>@(Model.CHK_OC_Test == "정상" ? "정상(0)" : "이상(5)")</td>
-                                <td rowspan="2">7</td>
-                            </tr>
-                            <tr>
-                                <td>투입 Spring Charget 표시기</td>
-                                <td>상태별 정위치</td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        </tbody>
-                    </table>
-
-                    <!-- 점검 상세 정보 리스트 -->
-                    <div class="table_list_app">
-                        <table>
-                            <colgroup>
-                                <col style="width:15%">
-                                <col style="width:20%">
-                                <col style="width:8%">
-                                <col>
-                                <col style="width:6%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>구분</th>
-                                    <th>Parameters</th>
-                                    <th>단위</th>
-                                    <th>판정기준 및 score</th>
-                                    <th>가중치</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td rowspan="2">기계적 및 전기적 작동 이력</td>
-                                    <td>BYPASSVALVE 기계적 동작횟수</td>
-                                    <td>횟수</td>
-                                    <td>@(int.TryParse(Model.CHK_BYPASSVALVE_Count, out var bypassvalveCount) && bypassvalveCount < 9000 ? "9,000회 미만(0)" : bypassvalveCount < 10000 ? "9,000회~10,000회 미만(3)" : "10,000회 초과(5)")</td>
-                                    <td rowspan="2">15</td>
-                                </tr>
-                                <tr>
-                                    <td>단락 고장 차단 횟수</td>
-                                    <td>횟수</td>
-                                    <td>@(int.TryParse(Model.CHK_Cutoff_Count, out var cutoffCount) && cutoffCount < 50 ? "50회 미만(0)" : cutoffCount < 100 ? "50회~100회 미만(3)" : "100회 초과(5)")</td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">부하 및 단락 전류 비율 이력</td>
-                                    <td>정격 차단 전류에 대한 부하전류 비율</td>
-                                    <td>%</td>
-                                    <td>@(double.TryParse(Model.CHK_A_Rate, out var aRate) && aRate < 0.8 ? "0.8% 미만(0)" : aRate < 100 ? "0.8%~100% 미만(3)" : "100% 초과(5)")</td>
-                                    <td rowspan="2">20</td>
-                                </tr>
-                                <tr>
-                                    <td>정격 차단 전류에 대한 단락전류 비율</td>
-                                    <td>%</td>
-                                    <td>@(double.TryParse(Model.CHK_Short_A_Rate, out var shortARate) && shortARate < 0.8 ? "0.8% 미만(0)" : shortARate < 100 ? "0.8%~100% 미만(3)" : "100% 초과(5)")</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <!-- BYPASSVALVE 통계 수명 추가 -->
-                    <div class="table_list_app">
-                        <table>
-                            <colgroup>
-                                <col style="width:10%">
-                                <col style="width:10%">
-                                <col style="width:8%">
-                                <col>
-                                <col style="width:12%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>구분</th>
-                                    <th>Parameters</th>
-                                    <th>단위</th>
-                                    <th>판정기준 및 score</th>
-                                    <th>가중치</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>BYPASSVALVE 통계 수명</td>
-                                    <td>사용기간수</td>
-                                    <td>년</td>
-                                    <td>
-                                        <div class="flex">
-                                            @*<input type="text" value="@Model.CHK_Usage_Years" readonly>*@
-                                        </div>
-                                    </td>
-                                    <td>30</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
             </div>
+        </div>
         </div>
 }
 <script type="text/javascript">

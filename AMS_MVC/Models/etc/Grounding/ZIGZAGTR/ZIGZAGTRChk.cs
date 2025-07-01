@@ -20,28 +20,21 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_ZIGZAGTR_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
+
+
+        //
+        public string CHK_1_1 { get; set; } // 변압기 본체, 냉각 장치, 단자함 파손/부식/변형/누유 확인
+        public string CHK_2_1 { get; set; } // 절연 저항 및 부분 방전 측정
+        public string CHK_3_1 { get; set; } // 접지 저항 측정 및 접지선 연결 상태 확인
+        public string CHK_4_1 { get; set; } // 본체, 권선, 오일 온도 측정 및 과열 여부 확인
+        public string CHK_5_1 { get; set; } // 이상 소음 유무 확인
+        public string CHK_6_1 { get; set; } // 절연유 레벨, 색상, 절연 내력 확인 (유입식)
+        public string CHK_7_1 { get; set; } // 1차 및 2차 권선 저항 측정
+        public string CHK_8_1 { get; set; } // 임피던스 전압, 단락 전류 측정
+        public string CHK_9_1 { get; set; } // 운전 중 권선 온도 상승률 측정
+        public string CHK_10_1 { get; set; } // 보호장치, 냉각장치, 부싱 상태 점검
+
+        //
         public string CHK_Writer { get; set; } // 작성자         
         public DateTime CHK_Tbl_GetDate { get; set; }
 

@@ -1,0 +1,82 @@
+|2025-06-27 13:08:41  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:08:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:08:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:08:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-27 13:11:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-27 13:11:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:39  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-27 13:11:39  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:40  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-06-27 13:11:40  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:41  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-27 13:11:41  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:11:41  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-06-27 13:11:41  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:09  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:12:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:12  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:12:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:18  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:12:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:12:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-27 13:12:55  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:12:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:55  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-27 13:12:57  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:12:57  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:12:57  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:57  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:12:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-27 13:12:59  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:12:59  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:12:59  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:12:59  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:13:02  |   SUBMODULEChkController.List  |   GetSUBMODULEChkListData 실행   |
+|2025-06-27 13:13:02  |   submoduleCode 조회 :   |   SUBMODULE001   |
+|2025-06-27 13:13:02  |   SUBMODULEChkController.List  |   조회된 데이터: 1건   |
+|2025-06-27 13:13:13  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-27 13:13:13  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:13:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:13:13  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-27 13:13:16  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:13:16  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:13:16  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:13:16  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:13:18  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:13:18  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:13:18  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:13:18  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:13:19  |   SUBMODULEChkController.List  |   GetSUBMODULEChkListData 실행   |
+|2025-06-27 13:13:19  |   submoduleCode 조회 :   |   SUBMODULE001   |
+|2025-06-27 13:13:19  |   SUBMODULEChkController.List  |   조회된 데이터: 1건   |
+|2025-06-27 13:13:23  |   SUBMODULEChkController.List  |   GetSUBMODULEChkListData 실행   |
+|2025-06-27 13:13:23  |   submoduleCode 조회 :   |   SUBMODULE001   |
+|2025-06-27 13:13:23  |   SUBMODULEChkController.List  |   조회된 데이터: 1건   |
+|2025-06-27 13:14:42  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-06-27 13:14:42  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-06-27 13:14:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-06-27 13:14:42  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-06-27 13:14:44  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:14:44  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:14:44  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:14:44  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:14:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-27 13:21:08  |   DB(SUBMODULE_BASICINFO)  |   CreateSUBMODULEBasicInfoRepo 성공: SUBMODULE Serial_No: 001   |
+|2025-06-27 13:21:09  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-06-27 13:21:09  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:21:09  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:21:09  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-06-27 13:21:12  |   SUBMODULEChkController.List  |   GetSUBMODULEChkListData 실행   |
+|2025-06-27 13:21:12  |   submoduleCode 조회 :   |   SUBMODULE001   |
+|2025-06-27 13:21:12  |   SUBMODULEChkController.List  |   조회된 데이터: 0건   |
+|2025-06-27 13:21:13  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:21:13  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-06-27 13:21:13  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-06-27 13:21:55  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2025-06-27 13:21:55  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=4, cof=19709.556237490, pof=13.8000   |
+|2025-06-27 13:21:56  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-06-27 13:21:56  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |

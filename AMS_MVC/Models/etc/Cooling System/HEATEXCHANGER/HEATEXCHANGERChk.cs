@@ -20,28 +20,16 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_HEATEXCHANGER_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
+
+        //
+        public string CHK_1_1 { get; set; } // 열교환기 표면의 부식, 손상, 누수 여부 확인
+        public string CHK_1_2 { get; set; } // 배관 연결부, 밸브, 계측기 등의 이상 유무 확인
+        public string CHK_1_3 { get; set; } // 주변 설비의 이상 유무 확인
+        public string CHK_2_1 { get; set; } // 공급/환수 온도 측정 및 변화 확인
+        public string CHK_2_2 { get; set; } // 공급/환수 압력 측정 및 변화 확인
+        public string CHK_3_1 { get; set; } // 공급/환수 유량 변화 확인
+        public string CHK_4_1 { get; set; } // 이상 소음 및 진동 여부 확인
+        //
         public string CHK_Writer { get; set; } // 작성자        
         public DateTime CHK_Tbl_GetDate { get; set; }
 

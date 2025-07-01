@@ -20,28 +20,27 @@ namespace AMS_MVC.Models
         public string CHK_Type { get; set; }
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
-        public string CHK_Loc { get; set; }
-        public string CHK_Chuk_Loc { get; set; } //개폐표시기 정위치
-        public string CHK_Con_Status { get; set; }
-        public string CHK_Bolt_Nut_Status { get; set; }
-        public string CHK_Contact_Volume { get; set; }
-        public string CHK_Vacuum_Degree { get; set; }
-        public string CHK_Coil_A { get; set; }
-        public string CHK_Contact_R { get; set; }
-        public string CHK_Main_Circuit { get; set; }
-        public string CHK_Control_Circuit { get; set; }
-        public string CHK_Input_Time { get; set; }
-        public string CHK_Open_Time { get; set; }
-        public string CHK_3_Phase_Open_Gap { get; set; }
-        public string CHK_Chattering_Time { get; set; }
-        public string CHK_O_C_O { get; set; }
-        public string CHK_Operate_Time { get; set; }
-        public string CHK_OC_Test { get; set; }
-        public string CHK_Indicator { get; set; }
-        public string CHK_ES_Count { get; set; }
-        public string CHK_Cutoff_Count { get; set; }
-        public string CHK_A_Rate { get; set; }
-        public string CHK_Short_A_Rate { get; set; }
+
+        //
+        public string CHK_1_1 { get; set; } // 케이스 손상, 부식, 변색 여부 확인
+        public string CHK_1_2 { get; set; } // 냉각 팬 및 통풍구 막힘 여부 확인
+        public string CHK_1_3 { get; set; } // 단자대 및 배선 손상 여부 점검
+        public string CHK_1_4 { get; set; } // 접지 상태 확인
+        public string CHK_2_1 { get; set; } // 전압, 전류, 저항 측정 및 정상 범위 확인
+        public string CHK_2_2 { get; set; } // 절연 저항 측정 및 정상 범위 확인
+        public string CHK_2_3 { get; set; } // 배터리 전압, 내부 저항 측정
+        public string CHK_3_1 { get; set; } // 작동 온도 및 습도 확인
+        public string CHK_3_2 { get; set; } // 온도 센서 및 습도 센서 작동 확인
+        public string CHK_4_1 { get; set; } // 통신 프로토콜 작동 확인
+        public string CHK_4_2 { get; set; } // 원격 제어 기능 점검
+        public string CHK_4_3 { get; set; } // 안전 장치 (과전압, 과전류, 과열 등) 점검
+        public string CHK_5_1 { get; set; } // 부품 마모 및 노후화 점검
+        public string CHK_5_2 { get; set; } // 먼지 및 이물질 축적 여부 확인
+        public string CHK_6_1 { get; set; } // 계통 연계형: 전력 품질 및 계통 연계 상태 점검
+        public string CHK_6_2 { get; set; } // 독립형: 배터리 충/방전 상태 및 수명 점검
+        public string CHK_7_1 { get; set; } // 보호 장치 작동 여부 확인
+
+        //
         public string CHK_Writer { get; set; } // 작성자         
         public DateTime CHK_Tbl_GetDate { get; set; }
 
