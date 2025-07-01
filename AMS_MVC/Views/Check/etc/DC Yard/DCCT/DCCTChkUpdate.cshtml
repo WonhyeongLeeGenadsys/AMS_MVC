@@ -94,6 +94,230 @@
                         </tr>
                     </table>
                 </div>
+                <!--알고리즘 반영 파라미터-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    내부 점검
+                                </td>
+                                <td>내부 점검 및 청소</td>
+                                <td>이물질 제거 및 이음 없음</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_1_1">
+                                        <input type="radio" id="chk_1_1_1" name="chk_1_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_1_2">
+                                        <input type="radio" id="chk_1_1_2" name="chk_1_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    충전 상태 점검
+                                </td>
+                                <td>수동/부동/균등 충전 및 전압 측정</td>
+                                <td>정상 충전상태 및 전압 기준 부합</td>
+                                <td>V</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_1_1">
+                                        <input type="radio" id="chk_2_1_1" name="chk_2_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_1_2">
+                                        <input type="radio" id="chk_2_1_2" name="chk_2_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    동작 시험
+                                </td>
+                                <td>Drop Ry 동작 시험</td>
+                                <td>정상 동작 시 확인음 및 동작표시 확인</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_3_1_1">
+                                        <input type="radio" id="chk_3_1_1" name="chk_3_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_3_1_2">
+                                        <input type="radio" id="chk_3_1_2" name="chk_3_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    표시 기능
+                                </td>
+                                <td>표시 시험 (LED, LCD 등)</td>
+                                <td>정확한 상태 표시 확인</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_4_1_1">
+                                        <input type="radio" id="chk_4_1_1" name="chk_4_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_4_1_2">
+                                        <input type="radio" id="chk_4_1_2" name="chk_4_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    절연 상태
+                                </td>
+                                <td>절연저항 측정</td>
+                                <td>정상 기준치 이상 (예: 1MΩ 이상)</td>
+                                <td>MΩ</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_1_1">
+                                        <input type="radio" id="chk_5_1_1" name="chk_5_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_1_2">
+                                        <input type="radio" id="chk_5_1_2" name="chk_5_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    계측 정확도
+                                </td>
+                                <td>계기 오차 시험</td>
+                                <td>허용 오차 범위 이내</td>
+                                <td>%</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_6_1_1">
+                                        <input type="radio" id="chk_6_1_1" name="chk_6_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_6_1_2">
+                                        <input type="radio" id="chk_6_1_2" name="chk_6_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    보호 계전기
+                                </td>
+                                <td>계전기 시험</td>
+                                <td>계전기 설정값 및 동작 확인</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_7_1_1">
+                                        <input type="radio" id="chk_7_1_1" name="chk_7_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_7_1_2">
+                                        <input type="radio" id="chk_7_1_2" name="chk_7_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    입력 전원 기능
+                                </td>
+                                <td>AC 입력 및 충전기 절체 기능 점검</td>
+                                <td>정상 절체 및 AC 입력 상태 확인</td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_8_1_1">
+                                        <input type="radio" id="chk_8_1_1" name="chk_8_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_8_1_2">
+                                        <input type="radio" id="chk_8_1_2" name="chk_8_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    출력 전압 상태
+                                </td>
+                                <td>DC 출력 전압의 리플 함유율 측정 (필요시)</td>
+                                <td>허용치 이내 (예: 2% 이하)</td>
+                                <td>%</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_9_1_1">
+                                        <input type="radio" id="chk_9_1_1" name="chk_9_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_9_1_2">
+                                        <input type="radio" id="chk_9_1_2" name="chk_9_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    보호 장치
+                                </td>
+                                <td>노-휴즈 브레이커(NFB) 동작 체크</td>
+                                <td>정상 차단 동작 확인</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_10_1_1">
+                                        <input type="radio" id="chk_10_1_1" name="chk_10_1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_10_1_2">
+                                        <input type="radio" id="chk_10_1_2" name="chk_10_1">
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                                <td rowspan="1">-</td>
+                            </tr>
+
+                    </table>
+                </div>
             </form>
         </div>
     </div>
