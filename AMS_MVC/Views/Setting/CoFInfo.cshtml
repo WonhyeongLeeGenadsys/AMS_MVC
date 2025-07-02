@@ -81,91 +81,57 @@
     }
 }
 
-@section Scripts 
-{
-        <script>
-    $(document).ready(function () {
-        // 장비 선택시 데이터 불러오기
-        $('#Code').change(function () {
-            var code = $(this).val();
-            $.getJSON('@Url.Action("GetCoFData", "Setting")', { code: code })
-                .done(function (data) {
-                    for (var key in data) {
-                        var $el = $('[name="' + key + '"]');
-                        if (!$el.length) continue;
+@section Scripts {
+    <script>
+$(function() {
+  // 천단위 쉼표 + 소수점 2자리
+  $('input[type="text"]').not('[readonly]').on('input', function() {
+    var raw = $(this).val().replace(/[^0-9.]/g, '');
+    var fixed = parseFloat(raw || 0).toFixed(2);
+    $(this).val(fixed.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+  });
 
-                        // === COF 입력값 ===
-                        if (key === "General_Accident" || key === "Dead_Accident") {
-                            // 4개 특수 값: 소수점 9자리
-                            var v9 = formatDecimal(data[key], 9);
-                            $el.val(v9);
-                        }
-                        else if ($el.is('input[type="number"]')) {
-                            // 나머지 입력값: 소수점 2자리 + 쉼표
-                            var v2 = formatDecimal(data[key], 2);
-                            $el.val(formatNumberWithComma(v2));
-                        }
-                        // === 계산 결과 ===
-                        else if ($el.is('input[readonly]')) {
-                            // 결과값: 소수점 2자리 + 쉼표
-                            var r2 = formatDecimal(data[key], 2);
-                            $el.val(formatNumberWithComma(r2));
-                        }
-                    }
-                })
-                .fail(function () {
-                    alert('데이터를 가져오는 중 오류가 발생했습니다.');
-                });
-        });
+  // — 장비 변경 시 JSON 세팅
+$('#Code').change(function() {
+  $.getJSON('@Url.Action("GetCoFData","Setting")', { code: this.value })
+   .done(function(data) {
+     $.each(data, function(key, val) {
+       var $el = $('[name="' + key + '"]');
+       if (!$el.length) return;
 
-        // CoF값 입력중에 숫자 입력 시 자동 쉼표 추가 
-        $('input[type="number"]').on('input', function () {
-            var raw = $(this).val().replace(/[^0-9.]/g, '');
-            // keep any partial typing
-            $(this).val(formatNumberWithComma(raw));
-        });
+       // — 안전사고 확률[일반] & [사망] 은 소수점 9자리 고정
+       if (key==='General_Accident' || key==='Dead_Accident') {
+         var num = parseFloat(val);
+         $el.val(isNaN(num) ? '' : num.toFixed(9));
+       }
+       // — 그 외 입력 필드: 소수점2자리 + 쉼표
+       else if ($el.is('input[type="text"]') && !$el.is('[readonly]')) {
+         var v2 = parseFloat(val||0).toFixed(2);
+         $el.val(v2.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+       }
+       // — 계산 결과: 2자리 + 쉼표
+       else if ($el.is('[readonly]')) {
+         var r2 = parseFloat(val||0).toFixed(2);
+         $el.val(r2.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
+       }
+     });
+   });
+});
 
-        // 초기 로딩 시: COF 입력값, 계산 결과 모두 포맷팅
-        formatAllFields();
-
-        // helper: 소수점 자리수 제한
-        function formatDecimal(value, decimalPlaces) {
-            var num = parseFloat(value);
-            if (isNaN(num)) return value;
-            return num.toFixed(decimalPlaces);                  
-        }
-
-        // helper: 천 단위 쉼표
-        function formatNumberWithComma(value) {
-            var parts = value.split('.');
-            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-            return parts.join('.');
-        }
-
-        //처음 데이터 불러올때 소수점 9자리 표기 되는 오류 잡기 위해서 첫 로딩시 소수점 자리 체킹 안전사고 확률은 배제 
-        // 페이지 로드 및 재적용용
-        function formatAllFields() {
-
-            // COF 입력값
-            $('input[type="number"]').each(function () {
-                var name = $(this).attr('name');
-                var val = $(this).val().replace(/,/g,'');
-                if (name === "General_Accident" || name === "Dead_Accident") {
-                    $(this).val(formatDecimal(val, 9));
-                } else {
-                    var v2 = formatDecimal(val, 2);
-                    $(this).val(formatNumberWithComma(v2));
-                }
-            });
-
-            // 계산 결과
-            $('input[type="text"][readonly]').each(function () {
-                var val = $(this).val().replace(/,/g,'');
-                var r2 = formatDecimal(val, 2);
-                $(this).val(formatNumberWithComma(r2));
-            });
-        }
+  // — 제출 전, 모든 text 필드에서 쉼표 제거
+  $('#cofForm').submit(function() {
+    $(this).find('input[type="text"]').each(function() {
+      // readonly 필드는 서버로 전달되지 않으니 skip 가능
+      if ($(this).is('[readonly]')) return;
+      $(this).val($(this).val().replace(/,/g, ''));
     });
-        </script>
-    }
+  });
+
+  // — 초기 로드 시에도 데이터 바인딩
+  $('#Code').trigger('change');
+});
+    </script>
+}
+
+
 }
