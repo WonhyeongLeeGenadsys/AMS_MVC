@@ -10,7 +10,7 @@
                 <td>
                     @Html.TextBoxFor(m => m.Power_Failure_Time, new { type = "number", step = "any", @class = "w100" })
                 </td>
-                <th>정전 비용 (원/kWh)</th>
+                <th>정전 비용 ($/kWh)</th>
                 <td>
                     @Html.TextBoxFor(m => m.Power_Failure_Cost, new { type = "number", step = "any", @class = "w100" })
                 </td>
@@ -51,7 +51,7 @@
                 <td>
                     @Html.TextBoxFor(m => m.Rated_Voltage, new { type = "number", step = "any", @class = "w100" })
                 </td>
-                <th>평균 전력 판매비용 (원/kWh)</th>
+                <th>평균 전력 판매비용 ($/kWh)</th>
                 <td>
                     @Html.TextBoxFor(m => m.Average_Electricity_Sales_Cost, new { type = "number", step = "any", @class = "w100" })
                 </td>
@@ -68,11 +68,11 @@
                 </td>
             </tr>
             <tr>
-                <th>설비 단가 (원)</th>
+                <th>설비 단가 ($)</th>
                 <td>
                     @Html.TextBoxFor(m => m.Equipment_Unit_Price, new { type = "number", step = "any", @class = "w100" })
                 </td>
-                <th>도급 비용 (원)</th>
+                <th>도급 비용 ($)</th>
                 <td>
                     @Html.TextBoxFor(m => m.Facility_Contracting_Cost, new { type = "number", step = "any", @class = "w100" })
                 </td>
@@ -94,13 +94,13 @@
                 <td>
                     @Html.TextBoxFor(m => m.Dead_Accident, new { type = "number", step = "any", @class = "w100" })
                 </td>
-                <th>사고 보상비용[일반] (원)</th>
+                <th>사고 보상비용[일반] ($)</th>
                 <td>
                     @Html.TextBoxFor(m => m.General_Cost, new { type = "number", step = "any", @class = "w100" })
                 </td>
             </tr>
             <tr>
-                <th>사고 보상비용[사망] (원)</th>
+                <th>사고 보상비용[사망] ($)</th>
                 <td>
                     @Html.TextBoxFor(m => m.Dead_Cost, new { type = "number", step = "any", @class = "w100" })
                 </td>
@@ -131,5 +131,5 @@
                 </td>
             </tr>
         </table>
-    </div>
+    </div>       
 </div>

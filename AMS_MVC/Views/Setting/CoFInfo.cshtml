@@ -36,7 +36,7 @@
                 <div class="interface_wrap">
 
                     <!-- CoF 입력 (Partial) -->
-                        @Html.Partial("_CoFInputs", Model)
+                    @Html.Partial("_CoFInputs", Model)
 
                     <!-- 계산 결과 -->
                     <div class="basic_wrap">
@@ -44,27 +44,27 @@
                         <div class="box">
                             <table>
                                 <tr>
-                                    <th>고객 정전 비용 (원)</th>
+                                    <th>고객 정전 비용 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.Customer_Power_Outage_Cost, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
-                                    <th>계통 손실 비용 (원)</th>
+                                    <th>계통 손실 비용 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.System_Loss_Cost, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
-                                    <th>설비 복구 비용 (원)</th>
+                                    <th>설비 복구 비용 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.Facility_Recovery_Cost, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
-                                    <th>전력판매 수익 손실 (원)</th>
+                                    <th>전력판매 수익 손실 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.Loss_Of_Profit, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
-                                    <th>안전사고 보상 (원)</th>
+                                    <th>안전사고 보상 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.Safety_Accident_Compensation_1, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
-                                    <th>환경사고 보상 (원)</th>
+                                    <th>환경사고 보상 ($)</th>
                                     <td>@Html.TextBoxFor(m => m.Safety_Accident_Compensation_2, new { @class = "w100", @readonly = "readonly" })</td>
                                 </tr>
                                 <tr>
@@ -81,24 +81,91 @@
     }
 }
 
-@section Scripts {
-    <script>
-    $(function() {
-        $('#Code').change(function() {
+@section Scripts 
+{
+        <script>
+    $(document).ready(function () {
+        // 장비 선택시 데이터 불러오기
+        $('#Code').change(function () {
             var code = $(this).val();
-            $.getJSON('@Url.Action("GetCoFData","Setting")', { code: code })
-             .done(function(data) {
-                for (var key in data) {
-                    var $el = $('[name="' + key + '"]');
-                    if ($el.length) {
-                        $el.val(data[key]);
+            $.getJSON('@Url.Action("GetCoFData", "Setting")', { code: code })
+                .done(function (data) {
+                    for (var key in data) {
+                        var $el = $('[name="' + key + '"]');
+                        if (!$el.length) continue;
+
+                        // === COF 입력값 ===
+                        if (key === "General_Accident" || key === "Dead_Accident") {
+                            // 4개 특수 값: 소수점 9자리
+                            var v9 = formatDecimal(data[key], 9);
+                            $el.val(v9);
+                        }
+                        else if ($el.is('input[type="number"]')) {
+                            // 나머지 입력값: 소수점 2자리 + 쉼표
+                            var v2 = formatDecimal(data[key], 2);
+                            $el.val(formatNumberWithComma(v2));
+                        }
+                        // === 계산 결과 ===
+                        else if ($el.is('input[readonly]')) {
+                            // 결과값: 소수점 2자리 + 쉼표
+                            var r2 = formatDecimal(data[key], 2);
+                            $el.val(formatNumberWithComma(r2));
+                        }
                     }
-                }
-             })
-             .fail(function() {
-                alert('데이터를 가져오는 중 오류가 발생했습니다.');
-             });
+                })
+                .fail(function () {
+                    alert('데이터를 가져오는 중 오류가 발생했습니다.');
+                });
         });
+
+        // CoF값 입력중에 숫자 입력 시 자동 쉼표 추가 
+        $('input[type="number"]').on('input', function () {
+            var raw = $(this).val().replace(/[^0-9.]/g, '');
+            // keep any partial typing
+            $(this).val(formatNumberWithComma(raw));
+        });
+
+        // 초기 로딩 시: COF 입력값, 계산 결과 모두 포맷팅
+        formatAllFields();
+
+        // helper: 소수점 자리수 제한
+        function formatDecimal(value, decimalPlaces) {
+            var num = parseFloat(value);
+            if (isNaN(num)) return value;
+            return num.toFixed(decimalPlaces);                  
+        }
+
+        // helper: 천 단위 쉼표
+        function formatNumberWithComma(value) {
+            var parts = value.split('.');
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join('.');
+        }
+
+        //처음 데이터 불러올때 소수점 9자리 표기 되는 오류 잡기 위해서 첫 로딩시 소수점 자리 체킹 안전사고 확률은 배제 
+        // 페이지 로드 및 재적용용
+        function formatAllFields() {
+
+            // COF 입력값
+            $('input[type="number"]').each(function () {
+                var name = $(this).attr('name');
+                var val = $(this).val().replace(/,/g,'');
+                if (name === "General_Accident" || name === "Dead_Accident") {
+                    $(this).val(formatDecimal(val, 9));
+                } else {
+                    var v2 = formatDecimal(val, 2);
+                    $(this).val(formatNumberWithComma(v2));
+                }
+            });
+
+            // 계산 결과
+            $('input[type="text"][readonly]').each(function () {
+                var val = $(this).val().replace(/,/g,'');
+                var r2 = formatDecimal(val, 2);
+                $(this).val(formatNumberWithComma(r2));
+            });
+        }
     });
-    </script>
+        </script>
+    }
 }

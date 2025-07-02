@@ -4,6 +4,8 @@ namespace AMS_MVC.Models
 {
     public class COFModel
     {
+
+        // (원)은 $로 교체함 (언제 다시 원화로 교체될 가능성이 있음!!!!)
         public int Tbl_Idx { get; set; }  
         public string Code { get; set; }
         public decimal Power_Failure_Time { get; set; }             // 정전 시간 (h)

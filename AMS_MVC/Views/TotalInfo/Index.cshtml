@@ -162,7 +162,7 @@ $(function(){
              grid: { visible: true },
              valueMarginsEnabled: false,
              endOnTick: false,
-             title: { text: "CoF (원)" },
+               title: { text: "CoF ($)" },
              label: { customizeText: e => e.value.toLocaleString() },
              strips: [
                { startValue:    0, endValue:  8000, color: "#00B0F0" },
@@ -197,7 +197,7 @@ $(function(){
                return {
                  html:
                    `<strong>${d.name}</strong><br/>
-                    CoF: ${d.x.toLocaleString()}원<br/>
+                    CoF: ${d.x.toLocaleString()}$<br/>
                     PoF: ${d.y.toFixed(2)}%`
                };
              }
@@ -205,7 +205,7 @@ $(function(){
 
            onPointClick(e) {
              const d = e.target.originalData;
-             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}원\nPoF: ${d.y.toFixed(2)}%`);
+               alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
            },
 
            legend: { visible: true, position: "bottom" },
@@ -217,105 +217,105 @@ $(function(){
         </script>
 
 
-<!--//risk matrix-->
-<!--우선순위-->
-<div class="con_box wooseon">
-    <!--타이틀-->
-    <h2>
-        우선순위
-        @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
-    </h2>
-    <!--//타이틀-->
-    <!--그리드-->
-    <div id="gridContainer" class="grid_wrap" style="height: 250px;"></div>
-    <!--//그리드-->
-    <script type="text/javascript">
-        $(document).ready(function () {
-            // 서버에서 우선순위 데이터를 가져오는 함수
-            function fetchPriorityInfo() {
-                return $.ajax({
-                    type: "POST",
-                    url: "/TotalInfo/GetPriorityInfo",
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json"
+        <!--//risk matrix-->
+        <!--우선순위-->
+        <div class="con_box wooseon">
+            <!--타이틀-->
+            <h2>
+                우선순위
+                @*<a href="javacript:void(0);" class="btn_more">더보기</a>*@
+            </h2>
+            <!--//타이틀-->
+            <!--그리드-->
+            <div id="gridContainer" class="grid_wrap" style="height: 250px;"></div>
+            <!--//그리드-->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // 서버에서 우선순위 데이터를 가져오는 함수
+                    function fetchPriorityInfo() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "/TotalInfo/GetPriorityInfo",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    // 데이터를 가져와 DataGrid에 적용
+                    fetchPriorityInfo()
+                        .done(function (response) {
+                            const priorityData = response;
+                            console.log("우선순위 데이터:", priorityData);
+                            initializePriorityGrid(priorityData);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                        });
+
+                    // DataGrid 초기화 함수
+                    function initializePriorityGrid(data) {
+                        $('#gridContainer').dxDataGrid({
+                            dataSource: data,
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            // **첫 번째 행 테두리 적용**
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+
+                            onCellPrepared: function (e) {
+                                if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                    var hi = e.value;
+                                    var cls = '';
+                                    switch (hi) {
+                                        case 1: cls = 'priorityVerygood'; break;
+                                        case 2: cls = 'priorityGood'; break;
+                                        case 3: cls = 'priorityFair'; break;
+                                        case 4: cls = 'priorityPoor'; break;
+                                        case 5: cls = 'priorityVerypoor'; break;
+                                    }
+                                    if (cls) {
+                                        e.cellElement.addClass(cls);
+                                    }
+                                }
+                            },
+
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Sort', caption: '구분', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
+                                { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
+                                { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
+                                { dataField: 'CoF', caption: 'CoF($)', alignment: 'center' },
+                                { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center' },
+                                {
+                                    dataField: 'HI',
+                                    caption: 'HI',
+                                    alignment: 'center',
+                                    dataType: 'number'
+                                }
+                            ],
+                            showBorders: true,
+                            sorting: {
+                                mode: 'multiple',
+                            },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    }
                 });
-            }
+            </script>
+        </div>
+        <!--//우선순위-->
 
-            // 데이터를 가져와 DataGrid에 적용
-            fetchPriorityInfo()
-                .done(function (response) {
-                    const priorityData = response;
-                    console.log("우선순위 데이터:", priorityData);
-                    initializePriorityGrid(priorityData);
-                })
-                .fail(function (xhr, status, error) {
-                    console.error("Ajax Error:", error);
-                    alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
-                });
-
-            // DataGrid 초기화 함수
-            function initializePriorityGrid(data) {
-                $('#gridContainer').dxDataGrid({
-                    dataSource: data,
-                    columnFixing: { enabled: true },
-                    showBorders: true,
-                    sorting: { mode: 'multiple' },
-                    scrolling: { columnRenderingMode: 'virtual' },
-
-                    // **첫 번째 행 테두리 적용**
-                    onRowPrepared: function (e) {
-                        if (e.rowType === 'data' && e.rowIndex === 0) {
-                            e.rowElement.addClass('first-row-highlight');
-                        }
-                    },
-
-                    onCellPrepared: function (e) {
-                        if (e.rowType === 'data' && e.column.dataField === 'HI') {
-                            var hi = e.value;
-                            var cls = '';
-                            switch (hi) {
-                                case 1: cls = 'priorityVerygood'; break;
-                                case 2: cls = 'priorityGood'; break;
-                                case 3: cls = 'priorityFair'; break;
-                                case 4: cls = 'priorityPoor'; break;
-                                case 5: cls = 'priorityVerypoor'; break;
-                            }
-                            if (cls) {
-                                e.cellElement.addClass(cls);
-                            }
-                        }
-                    },
-
-                    columns: [
-                        { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
-                        { dataField: 'Sort', caption: '구분', alignment: 'center' },
-                        { dataField: 'Name', caption: '설비명', alignment: 'center' },
-                        { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
-                        { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
-                        { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
-                        { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
-                        { dataField: 'CoF', caption: 'CoF(원)', alignment: 'center' },
-                        { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center' },
-                        {
-                            dataField: 'HI',
-                            caption: 'HI',
-                            alignment: 'center',
-                            dataType: 'number'
-                        }
-                    ],
-                    showBorders: true,
-                    sorting: {
-                        mode: 'multiple',
-                    },
-                    scrolling: { columnRenderingMode: 'virtual' }
-                });
-            }
-        });
-    </script>
-</div>
-<!--//우선순위-->
-
-</div>
-<!--//전체 박스-->
-<!--//컨텐츠가 들어옵니다-->
+    </div>
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
 }
