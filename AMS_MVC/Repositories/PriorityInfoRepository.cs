@@ -26,8 +26,8 @@ namespace AMS_MVC.Repositories
 SELECT
     ROW_NUMBER() OVER (
         ORDER BY 
-            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC,
-            {alias}.INSTALL_DATE ASC 
+            CAST(r.COF AS INT) * CAST(r.POF AS INT) DESC,  -- RiskScore 내림차순
+            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC  -- 동차 정렬
     ) AS Priority,
     '{sortValue}'   AS Sort,
     {alias}.{codeField} AS Code,

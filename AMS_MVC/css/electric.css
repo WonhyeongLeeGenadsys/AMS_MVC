@@ -607,6 +607,109 @@ textarea {
 			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
 		}
 
+/*큰텝*/
+.tab_onedepth {
+	position: relative;
+	z-index: 0;
+	top: 3px;
+	display: flex;
+	gap: 0;
+	padding: 0 8px;
+}
+
+	.tab_onedepth .tab_btn {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 220px;
+		height: 45px;
+		position: relative;
+		font-size: 22px;
+		font-weight: 800;
+		cursor: pointer;
+		transition: color .2s, background .2s;
+		margin-left: 13px;
+		border-radius: 8px 8px 0 0;
+	}
+		/* 비활성 탭 */
+		.tab_onedepth .tab_btn:not(.on) {
+			background: #0051A2;
+			color: #6B99C8;
+		}
+		/* 활성 탭 */
+		.tab_onedepth .tab_btn.on {
+			background: #ffffff;
+			color: #0051A2;
+			z-index: 1;
+			box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+		}
+
+		.tab_onedepth .tab_btn::after {
+			content: "";
+			position: absolute;
+			right: -23px;
+			bottom: -1px;
+			width: 24px;
+			height: 42px;
+			background: inherit;
+			clip-path: polygon(0 0,100% 100%,0 100%);
+		}
+
+		.tab_onedepth .tab_btn:not(:first-child)::before {
+			content: "";
+			position: absolute;
+			left: 0;
+			top: 0;
+			bottom: 0;
+			width: 24px;
+			background: inherit;
+			clip-path: polygon(100% 0,100% 100%,0 100%);
+		}
+
+.tab_twodepth {
+	position: relative;
+	z-index: 0;
+	display: flex;
+	gap: 0;
+	padding-left: 10px;
+	margin-bottom: 20px;
+	border-radius: 20px;
+	width: 420px;
+	background: #ECECEC;
+}
+
+	.tab_twodepth li {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		min-width: 150px;
+		height: 32px;
+		margin-left: -10px;
+		background: #ECECEC;
+		color: #999999;
+		font-weight: 800;
+		font-size: 16px;
+		cursor: pointer;
+		transition: color .1s, background .1s;
+		border-radius: 20px;
+	}
+
+		.tab_twodepth li:last-child {
+			border-radius: 0 20px 20px 0
+		}
+
+		.tab_twodepth li:first-child {
+			border-radius: 20px 0 0 20px
+		}
+
+		.tab_twodepth li.on {
+			position: relative;
+			z-index: 1;
+			background: #0051A2;
+			color: #fff;
+			border-radius: 20px;
+		}
+
 .flex {
 	display: flex;
 }
@@ -954,17 +1057,22 @@ footer {
 /*레트프메뉴*/
 .electric_content {
 	display: flex;
-	min-height: 1000px;
 }
 	/*.electric_content .menu_group{width:220px; background-color: var(--left-bg); min-height: calc(100% - 68px);}
 */
 	/* 좌측 메뉴 컨테이너가 자동 확장되도록 설정 */
 	.electric_content .menu_group {
+		position: relative;
 		width: 220px;
+		left: 0;
 		background-color: var(--left-bg);
 		height: auto; /* 내용에 따라 높이 자동 확장 */
 		padding-bottom: 20px;
 	}
+
+		.electric_content .menu_group.on {
+			left: -220px;
+		}
 
 		.electric_content .menu_group h1 {
 			margin: 40px 0 30px;
@@ -1026,10 +1134,18 @@ footer {
 
 	/*컨텐츠*/
 	.electric_content .content_group {
+		position: relative;
+		left: 0px;
 		width: calc(100% - 220px);
 		min-height: calc(100% - 68px);
 		padding: 40px;
 	}
+
+		.electric_content .content_group.on {
+			position: absolute;
+			width: 100%;
+			left: 0px;
+		}
 
 		.electric_content .content_group h1 {
 			display: flex;
@@ -1138,6 +1254,53 @@ footer {
 	width: 100%
 }
 
+.totalInfo .sub_flex li {
+	position: relative;
+}
+
+.totalInfo .chart_box {
+	display: flex;
+	justify-content: center;
+}
+
+	.totalInfo .chart_box.matrix {
+		position: relative;
+		justify-content: flex-start;
+		min-width: 420px;
+		z-index: 15;
+	}
+
+.totalInfo .sub_flex li .chartContainer_bg {
+	position: absolute;
+	top: 53px;
+	left: 76px;
+	z-index: 10;
+	display: flex;
+	flex-wrap: wrap;
+	width: 247px;
+	height: 188px;
+}
+
+	.totalInfo .sub_flex li .chartContainer_bg li {
+		width: 20%;
+		height: 20%;
+	}
+
+		.totalInfo .sub_flex li .chartContainer_bg li.green {
+			background: #B2E3AE
+		}
+
+		.totalInfo .sub_flex li .chartContainer_bg li.yellow {
+			background: #FFF09E
+		}
+
+		.totalInfo .sub_flex li .chartContainer_bg li.orange {
+			background: #F8BB87
+		}
+
+		.totalInfo .sub_flex li .chartContainer_bg li.blue {
+			background: #A2D7E9
+		}
 /*팝업*/
 .popup {
 	background-color: #fff;
@@ -1408,6 +1571,8 @@ h4.tit_h4 {
 
 /*종합정보*/
 .box_wrap {
+	position: relative;
+	z-index: 0;
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
@@ -1420,6 +1585,10 @@ h4.tit_h4 {
 		padding: 20px 25px;
 	}
 
+		.box_wrap .con_box.totalInfo {
+			padding: 0;
+		}
+
 	.box_wrap .flex1 {
 		width: 33.3%;
 		min-width: 400px;
@@ -1427,8 +1596,8 @@ h4.tit_h4 {
 
 	.box_wrap .riskMatrix {
 		width: 40%;
-/*		min-width: 400px;
-*/		max-height: 500px;		
+		/*		min-width: 400px;
+*/ max-height: 500px;
 	}
 
 	.box_wrap .wooseon {
@@ -1495,10 +1664,69 @@ h4.tit_h4 {
 			text-align: center;
 		}
 
-.chart_box {
-	width: 270px;
-	height: 270px;
+
+	.box_wrap .box_group {
+		margin: 0px 25px 20px;
+	}
+
+.guide_txt_wrap {
+	position: relative;
+	display: flex;
+	align-items: center;
+	background: #F2F6FF;
+	padding: 20px 25px;
+	border-radius: 0 0 10px 10px;
 }
+
+.box_wrap .con_box .guide_txt_wrap h2 {
+	height: 100%;
+	padding-left: 20px;
+	font-size: 20px;
+	color: #0051A2;
+	font-weight: 900;
+}
+
+.guide_txt_wrap h2::before {
+	content: '';
+	display: inline-block;
+	width: 56px;
+	height: 50px;
+	margin-right: 10px;
+	background: url(../img/guide_tit.png) no-repeat 100% 100%;
+	vertical-align: middle;
+	background-size: contain;
+}
+
+.guide_txt_wrap ul {
+	margin-left: 30px;
+	padding-left: 30px;
+	border-left: 1px solid #AABBE6;
+}
+
+.guide_txt_wrap li {
+	color: #000;
+	font-size: 16px;
+	margin-bottom: 7px;
+}
+
+	.guide_txt_wrap li::before {
+		content: '';
+		display: inline-block;
+		width: 4px;
+		height: 4px;
+		margin-right: 10px;
+		background: url(../img/ico_dot.png) no-repeat 100% 100%;
+		vertical-align: middle;
+		background-size: contain;
+	}
+
+.totalInfo_content {
+	display: none;
+}
+
+	.totalInfo_content.on {
+		display: block;
+	}
 
 .box_wrap .chart li .title {
 	display: inline-block;
@@ -1525,16 +1753,16 @@ h4.tit_h4 {
 	.box_wrap .valuee li {
 		display: flex;
 		align-items: center;
-		margin-right: 30px;
+		margin-right: 10px;
 	}
 
 	.box_wrap .valuee span {
-		width: 30px;
+		width: 20px;
 		height: 10px;
 	}
 
 	.box_wrap .valuee strong {
-		padding-left: 10px;
+		padding-left: 5px;
 		font-size: 12px;
 	}
 
@@ -1577,6 +1805,7 @@ h4.tit_h4 {
 .priorityVerypoor {
 	background-color: rgba(240, 81, 83, 0.25);
 }
+
 #map {
 	border: 5px solid #E0E0E0
 }
@@ -1678,7 +1907,7 @@ h4.tit_h4 {
 /* 점검 섹션 탭 앞 컬러박스 */
 .schedule_value span.confirmed::before,
 .schedule_value span.risk::before,
-.schedule_value span.alarm::before{
+.schedule_value span.alarm::before {
 	content: '';
 	display: inline-block;
 	width: 8px;
@@ -1996,32 +2225,44 @@ dl.product_info {
 	flex-wrap: wrap;
 }
 
-	.sub_flex li {
-		position: relative;
-		width: 33.3%;
-		padding-right: 60px;
-		margin-bottom: 50px;
+.con_box.totalInfo .sub_flex {
+	padding: 20px 25px;
+}
+
+.sub_flex > li {
+	position: relative;
+	width: 33.3%;
+	min-width: 300px;
+	padding-right: 60px;
+	margin-bottom: 50px;
+}
+
+.sub_flex.main > li {
+	position: relative;
+	width: 33.3%;
+	padding-right: 60px;
+	margin-bottom: 0px;
+}
+
+.sub_flex > li::after {
+	content: '';
+	position: absolute;
+	top: 40px;
+	right: 30px;
+	display: inline-block;
+	width: 20px;
+	height: 80%;
+	margin-right: 0px;
+	border-right: 1px dashed #BABDC8;
+}
+
+.sub_flex > li:nth-child(3n) {
+	padding-right: 0;
+}
+
+	.sub_flex > li:nth-child(3n)::after {
+		display: none
 	}
-
-		.sub_flex li::after {
-			content: '';
-			position: absolute;
-			top: 40px;
-			right: 30px;
-			display: inline-block;
-			width: 20px;
-			height: 80%;
-			margin-right: 0px;
-			border-right: 1px dashed #BABDC8;
-		}
-
-		.sub_flex li:nth-child(3n) {
-			padding-right: 0;
-		}
-
-			.sub_flex li:nth-child(3n)::after {
-				display: none
-			}
 
 /*데이터그리드 수정*/
 .dx-texteditor-input-container input {
@@ -2034,7 +2275,7 @@ dl.product_info {
 }
 
 .dx-datagrid-headers {
-	border-top: 1px solid #999;
+	border-top: 1px solid #999 !important;
 }
 
 	.dx-datagrid-borders .dx-datagrid-rowsview, .dx-datagrid-headers + .dx-datagrid-rowsview, .dx-datagrid-rowsview.dx-datagrid-after-headers {
@@ -2053,6 +2294,15 @@ dl.product_info {
 
 .dx-datagrid .dx-header-filter {
 	font: 11px/1 DXIcons !important;
+}
+
+.dx-datagrid-borders > .dx-datagrid-rowsview, .dx-datagrid-borders > .dx-datagrid-total-footer {
+	border-bottom: none;
+}
+
+.dx-datagrid-borders > .dx-datagrid-headers, .dx-datagrid-borders > .dx-datagrid-rowsview, .dx-datagrid-borders > .dx-datagrid-total-footer {
+	border-left: none;
+	border-right: none;
 }
 
 /* _CheckMenu 전용 스타일 (원래 디자인 유지) */
@@ -2083,7 +2333,6 @@ dl.product_info {
 			.menu_group .check-menu li.active > a {
 				background-color: #fff;
 				color: #666;
-				
 			}
 
 		/* 서브메뉴(two_depth)는 일반 흐름에 포함되어 부모 li의 높이를 확장 */
@@ -2150,8 +2399,9 @@ dl.product_info {
 /* 고장 그리드 첫 번째 행 강조 */
 .first-row-highlight td {
 	background-color: rgba(255, 230, 230, 0.5); /* 연한 빨강 배경 */
-	border: 1px solid #C00; /* 진한 빨강 테두리 */
+	/*border: 1px solid #C00;  진한 빨강 테두리 */
 }
+
 .risk-map-wrapper {
 	position: relative;
 	width: 100%;
@@ -2196,7 +2446,7 @@ dl.product_info {
 .color-blue {
 	background-color: #00B0F0;
 }
-
+/*
 #chartContainer {
 	position: absolute;
 	top: 0;
@@ -2206,7 +2456,7 @@ dl.product_info {
 	z-index: 2;
 	background-color: transparent;
 }
-
+*/
 .interface_wrap .box table {
 	table-layout: fixed;
 	width: 100%;
@@ -2216,8 +2466,8 @@ dl.product_info {
 /* 2) 제목 칼럼(th) 고정 너비, 한 줄로 표시 */
 /* ──────────────────────────────────────────────── */
 .interface_wrap table th {
-	width: 170px; 
-	padding: 0 8px; 
+	width: 170px;
+	padding: 0 8px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -2241,9 +2491,9 @@ dl.product_info {
 	/* ──────────────────────────────────────────────── */
 	.interface_wrap table td input[type="text"],
 	.interface_wrap table td input[type="number"] {
-		max-width: 150px; 
+		max-width: 150px;
 		width: 100%;
-		height: 28px; 
+		height: 28px;
 		padding: 4px 6px;
 		font-size: 13px;
 		box-sizing: border-box;
@@ -2274,7 +2524,7 @@ dl.product_info {
 
 .con_box.riskMatrix {
 	position: relative;
-	height: 400px; 
+	height: 400px; /* 컨테이너 높이 고정 */
 }
 
 /* ──────────────────────────────────────────────── */
@@ -2295,9 +2545,10 @@ dl.product_info {
 	.schedule_table td:nth-child(2) {
 		text-align: center;
 		vertical-align: middle;
-		width: 80px; 	
+		width: 80px;
 	}
+
 .table_list_app th:nth-child(n+3),
-.table_list_app td:nth-child(n+3){
+.table_list_app td:nth-child(n+3) {
 	text-align: center;
 }

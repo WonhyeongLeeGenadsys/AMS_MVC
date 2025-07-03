@@ -10,7 +10,7 @@
 @section MainContent {
     <h1>CoF 정보 등록</h1>
 
-    @using (Html.BeginForm("CoFInfo", "Setting", FormMethod.Post, new { id = "cofForm" }))
+    @using (Html.BeginForm("CofInfo", "Setting", FormMethod.Post, new { id = "cofForm" }))
     {
         @Html.AntiForgeryToken()
 
@@ -36,7 +36,7 @@
                 <div class="interface_wrap">
 
                     <!-- CoF 입력 (Partial) -->
-                    @Html.Partial("_CoFInputs", Model)
+                    @Html.Partial("_CofInputs", Model)
 
                     <!-- 계산 결과 -->
                     <div class="basic_wrap">
@@ -91,7 +91,6 @@ $(function() {
     $(this).val(fixed.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
   });
 
-  // — 장비 변경 시 JSON 세팅
 $('#Code').change(function() {
   $.getJSON('@Url.Action("GetCoFData","Setting")', { code: this.value })
    .done(function(data) {
@@ -104,7 +103,7 @@ $('#Code').change(function() {
          var num = parseFloat(val);
          $el.val(isNaN(num) ? '' : num.toFixed(9));
        }
-       // — 그 외 입력 필드: 소수점2자리 + 쉼표
+       // — 입력 필드: 소수점 2자리 + 쉼표
        else if ($el.is('input[type="text"]') && !$el.is('[readonly]')) {
          var v2 = parseFloat(val||0).toFixed(2);
          $el.val(v2.replace(/\B(?=(\d{3})+(?!\d))/g, ","));
@@ -118,7 +117,7 @@ $('#Code').change(function() {
    });
 });
 
-  // — 제출 전, 모든 text 필드에서 쉼표 제거
+  // — text 필드에서 쉼표 제거 13,000 >> 130000
   $('#cofForm').submit(function() {
     $(this).find('input[type="text"]').each(function() {
       // readonly 필드는 서버로 전달되지 않으니 skip 가능
@@ -127,7 +126,7 @@ $('#Code').change(function() {
     });
   });
 
-  // — 초기 로드 시에도 데이터 바인딩
+  // — 초기 로드 시에도 데이터 바인딩/ 이거 안하면 초기값 설정된 소수점 6자리로 표기되어서 로딩 해줘야함!
   $('#Code').trigger('change');
 });
     </script>

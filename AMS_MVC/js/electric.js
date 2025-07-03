@@ -65,7 +65,7 @@ $(document).ready(function () {
             else if (currentPage.includes("SUBMODULE") && linkPage.includes("SUBMODULE")) {
                 $(this).addClass('on');
             }
-            else if (currentPage.includes("CoFInfo") && linkPage.includes("CoFInfo")) {
+            else if (currentPage.includes("CofInfo") && linkPage.includes("CofInfo")) {
                 $(this).addClass('on');
             }
             else if (currentPage.includes("SUBSTATION") && linkPage.includes("SUBSTATION")) {
@@ -130,4 +130,32 @@ document.addEventListener('input', function (event) {
     if (target.dataset.type === 'string') {
         target.value = target.value.replace(/[^a-zA-Z0-9_-]/g, ''); // 영문, 숫자, 하이픈, 밑줄만 허용
     }
+});
+
+//텝 클릭시 활성화
+document.querySelectorAll('.tab_twodepth').forEach(tabGroup => {
+    const tabBtns = tabGroup.querySelectorAll('.tab_btn');
+
+    tabBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // 현재 클릭한 버튼의 data-tab 값으로 대상 콘텐츠 id 찾기
+            const targetId = btn.getAttribute('data-tab');
+            const targetContent = document.querySelector('#' + targetId);
+
+            // 같은 그룹 내에서만 탭 버튼 활성화 조작
+            tabBtns.forEach(b => b.classList.remove('on'));
+            btn.classList.add('on');
+
+            // 이 탭 그룹과 관련된 콘텐츠들만 찾아서 조작
+            // (탭 그룹과 콘텐츠가 같은 부모 요소를 공유한다고 가정)
+            const parent = tabGroup.parentElement;
+
+            const contents = parent.querySelectorAll('.totalInfo_content');
+            contents.forEach(c => c.classList.remove('on'));
+
+            if (targetContent) {
+                targetContent.classList.add('on');
+            }
+        });
+    });
 });

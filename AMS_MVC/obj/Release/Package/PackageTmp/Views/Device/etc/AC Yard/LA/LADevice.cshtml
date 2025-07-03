@@ -13,7 +13,7 @@
 
         <!--전략-->
         <div class="con_box" id="strategyContainer">
-            <h2><p>전략</p></h2>
+            <h2><p>차년도 교체 대상</p></h2>
         </div>
 
         <script>
@@ -33,65 +33,89 @@
         </div>
 
         <script>
-        $(document).ready(function () {
-            setTimeout(function(){
-                $.ajax({
-                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-                    type: 'GET',
-                    data: { equipmentType: "LA" },
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log("알고리즘 결과 데이터 (Reliability):", data);
-                        if (Array.isArray(data) && data.length > 0) {
-                            // 첫 번째 장비의 신뢰도 시리즈 사용
-                            var reliabilityData = data[0].ReliabilitySeries;
-                            reliabilityData = reliabilityData.map(function(point) {
-                                return {
-                                    time: parseFloat(point.time),
-                                    value: parseFloat(point.value)
-                                };
-                            });
+$(function(){
+  $.ajax({
+    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+    type: 'GET',
+    data: { equipmentType: "LA" },
+    dataType: 'json'
+  }).done(function(resp){
+    if (!Array.isArray(resp) || resp.length === 0) {
+      console.warn("신뢰도 데이터가 없습니다.");
+      return;
+    }
 
-                            var maxX = data[0].B3Life * 2;
+    var b3 = resp.B3Life !== undefined
+              ? parseFloat(resp.B3Life)
+          : parseFloat(resp[0].B3Life);
+      console.log("!!!!!!!!!!!!B3 값!!!!!!!!!:", b3);
 
-                            $("#chart_line02").dxChart({
-                                dataSource: reliabilityData,
-                                commonSeriesSettings: {
-                                    type: 'line',
-                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                                    point: {
-                                        visible: false
-                                    }
-                                },
-                                series: [{
-                                    name: "신뢰도",
-                                    argumentField: 'time',
-                                    valueField: 'value'
-                                }],
-                                tooltip: { enabled: true },
-                                argumentAxis: {
-                                    title: "시간 (년)",
-                                    visualRange: { startValue: 0, endValue: maxX }
-                                },
-                                valueAxis: {
-                                    title: "신뢰도 (0 ~ 1)",
-                                    visualRange: { startValue: 0, endValue: 1 }
-                                },
-                                onContentReady: function(e) {
-                                    e.component.render();
-                                }
-                            });
-                        } else {
-                            console.warn("신뢰도 데이터가 없습니다.");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("신뢰도 데이터 로드 실패:", error);
-                    }
-                });
-            }, 100);
-        });
+      var usagePeriods = resp[0].UsagePeriod || [];
+
+    var seriesData = resp[0].ReliabilitySeries.map(function(pt){
+      return { time: parseFloat(pt.time), value: parseFloat(pt.value) };
+    });
+    var maxX = resp[0].TimeMax;
+
+    $("#chart_line02").dxChart({
+      dataSource: seriesData,
+      commonSeriesSettings: {
+        type: "line",
+        point: { visible: false }
+      },
+      series: [{
+        name: "신뢰도",
+        argumentField: "time",
+        valueField: "value"
+      }],
+      tooltip: { enabled: true },
+      argumentAxis: {
+        title: "시간 (년)",
+        visualRange: { startValue: 0, endValue: maxX },
+        constantLines: [
+           {
+                value: b3,
+                color: "red",
+                width: 2.5,
+                dashStyle: "dash",
+                label: {
+                      text: "B3 = " + b3 + "년",
+                      visible: true,
+                      font: { color: "red" },
+                      position: "inside"
+                }
+                }
+            ]
+            .concat(usagePeriods.map(function (u) {
+                  return {
+                        value: u,
+                        color: "green",
+                        width: 2.5,
+                        dashStyle: "solid",
+                      label: {
+                          text: "사용기간: " + usagePeriods + "년",
+                          visible: true,
+                          font: { color: "green" },
+                          position: "inside"
+                      }
+                  };
+                    }))
+      },
+      valueAxis: {
+        title: "신뢰도 (0 ~ 1)",
+        visualRange: { startValue: 0, endValue: 1 }
+      },
+      legend: { visible: false },
+      onContentReady: function(e){
+        e.component.render();
+      }
+    });
+  }).fail(function(err){
+    console.error("신뢰도 데이터 로드 실패:", err);
+  });
+});
         </script>
+
 
         <!-- B3 수명 차트 -->
         <div class="con_box flex3">

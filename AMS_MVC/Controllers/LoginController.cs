@@ -29,20 +29,40 @@ namespace AMS_MVC.Controllers
                 Session["UserId"] = user.Id;
                 Session["User_Name"] = user.User_Name;
                 Session["User_Buseo"] = user.Buseo;
-                return Json(new { result = "success" }); // 로그인 성공
+
+                string dbKey = "DefaultDB"; // 기본값 설정
+
+                switch (userId.ToLower())
+                {
+                    case "test1":
+                        dbKey = "DB_test1";
+                        break;
+                    case "test2":
+                        dbKey = "DB_test2";
+                        break;
+                    case "test3":
+                        dbKey = "DB_test3";
+                        break;
+                    case "test4":
+                        dbKey = "DB_test4";
+                        break;
+                    case "mini": 
+                        dbKey = "MiniDB";
+                        break;
+                }
+                Session["DBKey"] = dbKey;
+
+                return Json(new { result = "success" }); 
             }
             return Json(new { result = "fail" });
         }
 
-        // 로그아웃 액션
+        // 로그아웃 
         public ActionResult Logout()
         {
-            // 세션의 모든 값을 제거합니다.
             Session.Clear();
             Session.Abandon();
 
-            // 폼 인증 사용 시, 인증 쿠키를 제거할 수 있습니다.
-            // (폼 인증을 사용하지 않으면 이 부분은 생략해도 됩니다.)
             if (Request.Cookies[FormsAuthentication.FormsCookieName] != null)
             {
                 HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, "");
@@ -50,8 +70,6 @@ namespace AMS_MVC.Controllers
                 Response.Cookies.Add(authCookie);
             }
 
-            // 추가로, 사용자 관련 쿠키가 있다면 제거하는 것도 고려합니다.
-            // 예를 들어, "savedUserId" 쿠키 같은 경우도 삭제합니다.
             if (Request.Cookies["savedUserId"] != null)
             {
                 HttpCookie savedIdCookie = new HttpCookie("savedUserId", "");
@@ -59,7 +77,6 @@ namespace AMS_MVC.Controllers
                 Response.Cookies.Add(savedIdCookie);
             }
 
-            // 로그아웃 후 로그인 페이지나 원하는 페이지로 리다이렉트
             return RedirectToAction("Index", "Login");
         }
     }

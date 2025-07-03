@@ -41,7 +41,7 @@ namespace AMS_MVC.Controllers
         }
 
         // GET: Setting/CoFInfo
-        public ActionResult CoFInfo(string code = "VCB")
+        public ActionResult CofInfo(string code = "VCB")
         {
             ViewBag.MenuType = "Setting";
 
@@ -55,7 +55,7 @@ namespace AMS_MVC.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        public ActionResult CoFInfo(COFModel model)
+        public ActionResult CofInfo(COFModel model)
         {
             ViewBag.MenuType = "Setting";
 
@@ -83,7 +83,7 @@ namespace AMS_MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetCoFData(string code)
+        public JsonResult GetCofData(string code)
         {
             // 오늘자 최신 모델 또는 새 빈 모델
             var model = cofRepo.GetLatest(code) ?? new COFModel { Code = code };

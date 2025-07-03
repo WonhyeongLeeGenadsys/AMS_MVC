@@ -15,6 +15,36 @@
     <h1>ITR</h1>
     <!--전체 박스-->
     <div class="box_wrap">
+
+        <!-- 전략 -->
+        <div class="con_box" id="strategyContainerMain">
+            <!-- 타이틀 -->
+            <h2><p>차년도 유지보수 대상</p></h2>
+            <!-- //타이틀 -->
+        </div>
+
+        <script>
+$(function(){
+  var prefix = '@ViewData["Prefix"]';
+
+  $.getJSON(
+    '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")',
+      { equipmentType: prefix }
+  )
+  .done(function(res){
+    console.log("B3=", res.B3Life, "HI=", res.HIList);
+    $('#strategyContainerMain')
+      .append('<p>' + (res.error ? '<span class="error">'+res.error+'</span>' : res.StrategyMessage) + '</p>');
+  })
+  .fail(function(xhr, status, err){
+    console.error("GET /EquipmentAlgorithm/GetGroupStrategy 실패:", status, err);
+    $('#strategyContainerMain')
+      .append('<p class="error">전략 로드를 실패했습니다.</p>');
+  });
+});
+        </script>
+        <!--//전략-->
+
         <!--건전도-->
         @Html.Partial("DeviceInfo/_HealthPie")
         <!--//건전도-->
@@ -87,7 +117,7 @@
                 </div>
                 <!--//메트릭스푸터-->
             </div>
-            <script>
+            @*<script>
                 $(document).ready(function () {
                     // 서버에서 데이터를 가져오는 함수
                     function fetchRiskMatrixData() {
@@ -115,7 +145,7 @@
                             console.error("Risk Matrix 데이터를 가져오는 중 오류:", error);
                         });
                 });
-            </script>
+            </script>*@
 
         </div>
         <!--//risk matrix-->
@@ -474,64 +504,87 @@
         </div>
 
         <script>
-        $(document).ready(function () {
-            setTimeout(function(){
-                $.ajax({
-                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-                    type: 'GET',
-                    data: { equipmentType: "ITR" },
-                    dataType: 'json',
-                    success: function (data) {
-                        console.log("알고리즘 결과 데이터 (Reliability):", data);
-                        if (Array.isArray(data) && data.length > 0) {
-                            // 첫 번째 장비의 신뢰도 시리즈 사용
-                            var reliabilityData = data[0].ReliabilitySeries;
-                            reliabilityData = reliabilityData.map(function(point) {
-                                return {
-                                    time: parseFloat(point.time),
-                                    value: parseFloat(point.value)
-                                };
-                            });
+$(function(){
+  $.ajax({
+    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+    type: 'GET',
+    data: { equipmentType: "ITR" },
+    dataType: 'json'
+  }).done(function(resp){
+    if (!Array.isArray(resp) || resp.length === 0) {
+      console.warn("신뢰도 데이터가 없습니다.");
+      return;
+    }
 
-                            var maxX = data[0].B3Life * 2;
+    var b3 = resp.B3Life !== undefined
+              ? parseFloat(resp.B3Life)
+          : parseFloat(resp[0].B3Life);
+      console.log("!!!!!!!!!!!!B3 값!!!!!!!!!:", b3);
 
-                            $("#chart_line02").dxChart({
-                                dataSource: reliabilityData,
-                                commonSeriesSettings: {
-                                    type: 'line',
-                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                                    point: {
-                                        visible: false
-                                    }
-                                },
-                                series: [{
-                                    name: "신뢰도",
-                                    argumentField: 'time',
-                                    valueField: 'value'
-                                }],
-                                tooltip: { enabled: true },
-                                argumentAxis: {
-                                    title: "시간 (년)",
-                                    visualRange: { startValue: 0, endValue: maxX }
-                                },
-                                valueAxis: {
-                                    title: "신뢰도 (0 ~ 1)",
-                                    visualRange: { startValue: 0, endValue: 1 }
-                                },
-                                onContentReady: function(e) {
-                                    e.component.render();
-                                }
-                            });
-                        } else {
-                            console.warn("신뢰도 데이터가 없습니다.");
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("신뢰도 데이터 로드 실패:", error);
-                    }
-                });
-            }, 100);
-        });
+      var usagePeriods = resp[0].UsagePeriod || [];
+
+    var seriesData = resp[0].ReliabilitySeries.map(function(pt){
+      return { time: parseFloat(pt.time), value: parseFloat(pt.value) };
+    });
+    var maxX = resp[0].TimeMax;
+
+    $("#chart_line02").dxChart({
+      dataSource: seriesData,
+      commonSeriesSettings: {
+        type: "line",
+        point: { visible: false }
+      },
+      series: [{
+        name: "신뢰도",
+        argumentField: "time",
+        valueField: "value"
+      }],
+      tooltip: { enabled: true },
+      argumentAxis: {
+        title: "시간 (년)",
+        visualRange: { startValue: 0, endValue: maxX },
+        constantLines: [
+           {
+                value: b3,
+                color: "red",
+                width: 2.5,
+                dashStyle: "dash",
+                label: {
+                      text: "B3 = " + b3 + "년",
+                      visible: true,
+                      font: { color: "red" },
+                      position: "inside"
+                }
+                }
+            ]
+            .concat(usagePeriods.map(function (u) {
+                  return {
+                        value: u,
+                        color: "green",
+                        width: 2.5,
+                        dashStyle: "solid",
+                      label: {
+                          text: "사용기간: " + usagePeriods + "년",
+                          visible: true,
+                          font: { color: "green" },
+                          position: "inside"
+                      }
+                  };
+                    }))
+      },
+      valueAxis: {
+        title: "신뢰도 (0 ~ 1)",
+        visualRange: { startValue: 0, endValue: 1 }
+      },
+      legend: { visible: false },
+      onContentReady: function(e){
+        e.component.render();
+      }
+    });
+  }).fail(function(err){
+    console.error("신뢰도 데이터 로드 실패:", err);
+  });
+});
         </script>
 
         <!-- 확률 밀도 함수 차트 -->
@@ -592,16 +645,7 @@
             }, 100); // 100ms 딜레이
         });
             </script>-->
-        <!--전략-->
-        <div class="con_box">
-            <!--타이틀-->
-            <h2>
-                <p>차년도 유지보수 대상</p>
-            </h2>
-            <!--//타이틀-->
-        </div>
 
-        <!--//전략-->
         <!--점검-->
         <div class="con_box flexCheck schedule">
             <!-- 타이틀 영역 -->
