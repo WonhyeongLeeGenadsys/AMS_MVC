@@ -220,7 +220,7 @@
                                         <span>≤250</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK1_CH4_3">
-                                        <input type="radio" id="CHK1_CH4_3" name="CHK1_C2H2" value="3">
+                                        <input type="radio" id="CHK1_CH4_3" name="CHK1_CH4" value="3">
                                         <span>≤750</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK1_CH4_4">
@@ -699,7 +699,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 보통점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("GetITRChkTotalList", "ITRChk", new { type = 1 } )';
+                    window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk", new { type = 1 } )';
                 } else {
                     alert("ITR 보통점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

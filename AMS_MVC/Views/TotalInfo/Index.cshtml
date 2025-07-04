@@ -27,7 +27,7 @@
                     <!--//타이틀-->
                     <!--그래프-->
 
-                    <div id="pie01" class="chart_box"></div>
+                    <div id="pieAll" class="chart_box"></div>
                     <!--//그래프
                     <ul class="valuee">
                         <li><span class="verygood"></span><strong>1등급</strong></li>
@@ -120,6 +120,7 @@ $(function(){
     '#F05153'   // 5등급
   ];
 
+
   // rawCounts = { "1": "2", "3": "1", … }
   function summarizeHIData(data) {
     return [1,2,3,4,5]
@@ -156,20 +157,21 @@ $(function(){
         });
     }
 
-  function setupChart(id, prefix) {
+  function setupChart(selector, group) {
     $.ajax({
       type: 'POST',
       url: '@Url.Action("GetRiskmatrixData","TotalInfo")',
-      data: JSON.stringify({ prefix }),
+      data: JSON.stringify({ prefix: group }),
       contentType: 'application/json; charset=utf-8',
       dataType: 'json'
     })
-    .done(counts => initializePieChart(id, counts))
-    .fail(err => console.error(prefix + ' 차트 로드 실패:', err));
+    .done(counts => initializePieChart(selector, counts))
+    .fail(err => console.error(group + ' 차트 로드 실패:', err));
   }
 
-  // 5개 차트 모두 세팅
-  setupChart('#pie01','VCB');
+  setupChart('#pieAll', null);    // all five
+  //setupChart('#pieAC',  'AC');    // VCB + ITR
+  //setupChart('#pieDC',  'DC');    // DCCB + DCCABLE + SUBMODULE
 });
         </script>
 
@@ -196,13 +198,12 @@ $(function(){
            border: {
                visible: false // 차트 전체의 외곽선(테두리)을 숨깁니다.
            },
+          
            seriesTemplate: { nameField: "group" },
            argumentAxis: {
                visualRange: { startValue: 0, endValue: 40000 },
+               valueMarginsEnabled: false, // 여백 제거
                tickInterval: 8000,
-               min: 0, // 첫 번째 셀의 시작 X 좌표
-               max: 5, // 마지막 셀의 끝 X 좌표 (5x5 격자 기준)
-
                grid: {
                    visible: true,
                    opacity: 0.5, /* 선을 더 연하게 */
@@ -219,7 +220,6 @@ $(function(){
                    { startValue: 32000, endValue: 40000, color: "#F05153" }   // 5열
                ],
                */
-
                title: { text: "CoF ($)" },
                label: { customizeText: e => e.value.toLocaleString() }
            },
@@ -230,7 +230,7 @@ $(function(){
                // 눈금을 tick에 맞춰 늘리지 않음
                endOnTick: false,
                // 데이터 끝에 여백을 두지 않음
-               valueMarginsEnabled: false,
+               valueMarginsEnabled: false, // 여백 제거
                tickInterval: 20,
                min: 0, // 첫 번째 셀의 시작 Y 좌표
                max: 5, // 마지막 셀의 끝 Y 좌표
@@ -272,7 +272,7 @@ $(function(){
              alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
          },
          legend: { visible: true, position: "bottom" },
-           size: { width:450, height: 250 },
+           size: { width:400, height: 250 },
            margin: 0,
 
        });
@@ -430,11 +430,15 @@ $(function(){
     </div>
     <div class="box_wrap totalInfo_content" id="con_box02">
         <div class="con_box totalInfo">
+            <!-- AC group -->
+            <div id="pieAC" class="chart_box"></div>
             두번째박스입니다.
         </div>
     </div>
     <div class="box_wrap totalInfo_content" id="con_box03">
         <div class="con_box totalInfo">
+            <!-- DC group -->
+            <div id="pieDC" class="chart_box"></div>
             세번째
         </div>
     </div>

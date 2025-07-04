@@ -20,14 +20,30 @@ namespace AMS_MVC.Controllers
             ViewBag.Title = "종합정보";
             return View();
         }
+
+        /// <summary>
+        /// 전체 5대장비, AC(VCB, ITR), DC(DCCB, DCCABLE, SUBMODULE) 3가지 분류!
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
         {
-            var repository = new RiskmatrixRepository();
-            // 올바른 호출: HI 등급별 건수 집계
-            var hiData = repository.GetAggregatedHI(prefix);
+            // Determine which equipment prefixes to include
+            string[] codePrefixes;
+            if (string.IsNullOrEmpty(prefix))
+                codePrefixes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            else if (prefix == "AC")
+                codePrefixes = new[] { "VCB", "ITR" };
+            else if (prefix == "DC")
+                codePrefixes = new[] { "DCCB", "DCCABLE", "SUBMODULE" };
+            else
+                codePrefixes = new[] { prefix };
+
+            var hiData = _riskRepo.GetAggregatedHI(codePrefixes);
             return Json(hiData);
         }
+
         [HttpPost]
         public JsonResult GetHIList(string prefix)
         {

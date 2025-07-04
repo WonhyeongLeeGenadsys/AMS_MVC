@@ -29,7 +29,7 @@ namespace AMS_MVC.Controllers
 
         // LADeviceController (또는 LADeviceDetailController)에 추가
         [HttpPost]
-        public JsonResult GetRiskmatrixData(string prefix)
+        public JsonResult GetRiskmatrixData(IEnumerable<string> prefix)
         {
             try
             {

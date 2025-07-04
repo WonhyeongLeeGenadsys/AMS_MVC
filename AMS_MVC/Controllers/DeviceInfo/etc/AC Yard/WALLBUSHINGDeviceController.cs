@@ -29,7 +29,7 @@ namespace AMS_MVC.Controllers
 
         // WALLBUSHINGDeviceController (또는 WALLBUSHINGDeviceDetailController)에 추가
         [HttpPost]
-        public JsonResult GetRiskmatrixData(string prefix)
+        public JsonResult GetRiskmatrixData(IEnumerable<string> prefix)
         {
             try
             {

@@ -1266,18 +1266,17 @@ footer {
 	.totalInfo .chart_box.matrix {
 		position: relative;
 		justify-content: flex-start;
-		min-width: 420px;
 		z-index: 15;
 	}
 
 .totalInfo .sub_flex li .chartContainer_bg {
 	position: absolute;
 	top: 53px;
-	left: 76px;
+	left: 68px;
 	z-index: 10;
 	display: flex;
 	flex-wrap: wrap;
-	width: 247px;
+	width: 251px;
 	height: 188px;
 }
 
@@ -2446,17 +2445,7 @@ dl.product_info {
 .color-blue {
 	background-color: #00B0F0;
 }
-/*
-#chartContainer {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 2;
-	background-color: transparent;
-}
-*/
+
 .interface_wrap .box table {
 	table-layout: fixed;
 	width: 100%;
@@ -2499,28 +2488,6 @@ dl.product_info {
 		box-sizing: border-box;
 	}
 
-
-/* Risk Matrix 전용 스타일                        */
-/* ──────────────────────────────────────────────── */
-
-/*
-.color-red {
-	background: #FF0000;
-}
-
-.color-yellow {
-	background: #FFFF00;
-}
-
-.color-lightgreen {
-	background: #92D050;
-}
-
-.color-blue {
-	background: #00B0F0;
-}
-
-*/
 
 .con_box.riskMatrix {
 	position: relative;

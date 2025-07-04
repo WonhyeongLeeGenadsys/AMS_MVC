@@ -1,0 +1,379 @@
+|2025-07-04 09:17:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 09:17:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 09:21:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 09:21:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 10:46:32  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 10:46:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:23:16  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:23:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:26:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:26:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:27:32  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:27:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:30:40  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:30:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:35:29  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:35:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:35:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:35:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:36:43  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:36:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:36:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:36:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:37:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:37:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:43:50  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:43:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:44:07  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:44:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:44:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:44:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:44:47  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:44:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:46:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:46:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:46:27  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:46:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:47:16  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:47:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:48:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:48:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:48:57  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:48:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:49:18  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:49:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:53:45  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:53:45  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:54:18  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:54:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:54:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:54:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:57:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:57:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:58:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:58:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 11:58:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 11:58:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:06:16  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:06:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:06  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:06  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:17  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:19  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:36  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:36  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:07:57  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:07:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:08:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:08:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:08:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:08:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:08:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:08:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:08:46  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:08:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:08:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:08:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 12:09:57  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 12:09:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 13:15:00  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 13:15:00  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 13:57:49  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 13:57:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 14:12:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 14:12:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 14:12:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 14:12:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:49:47  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:49:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:50:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:50:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:50:55  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:50:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:52:34  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:52:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 15:53:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:53:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 15:53:14  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-07-04 15:53:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:53:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:14  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-07-04 15:53:15  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:53:24  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:53:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:28  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 15:53:28  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:53:28  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:28  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 15:53:31  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-07-04 15:53:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:53:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:31  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-07-04 15:53:32  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:53:52  |   DB(DCCB_BASICINFO)  |   CreateDCCBBasicInfoRepo 성공: DCCB Serial_No: 001   |
+|2025-07-04 15:53:53  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-07-04 15:53:53  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:53:53  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:53  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-07-04 15:53:55  |   DCCBChkController.List  |   GetDCCBChkListData 실행   |
+|2025-07-04 15:53:55  |   dccbCode 조회 :   |   DCCB001   |
+|2025-07-04 15:53:55  |   DCCBChkController.List  |   조회된 데이터: 0건   |
+|2025-07-04 15:53:56  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:53:56  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:53:56  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:54:31  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2025-07-04 15:54:31  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=5, cof=5576.015293025, pof=100   |
+|2025-07-04 15:54:33  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-07-04 15:54:33  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:54:33  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:54:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:54:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:56:25  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 15:56:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:56:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:56:25  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 15:56:28  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2025-07-04 15:56:28  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-04 15:56:28  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:56:28  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2025-07-04 15:56:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:56:52  |   DB(DCCABLE_BASICINFO)  |   CreateDCCABLEBasicInfoRepo 성공: DCCABLE Serial_No: 001   |
+|2025-07-04 15:56:53  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2025-07-04 15:56:53  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-04 15:56:53  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:56:53  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2025-07-04 15:56:56  |   DCCABLEChkController.List  |   GetDCCABLEChkListData 실행   |
+|2025-07-04 15:56:56  |   dccableCode 조회 :   |   DCCABLE001   |
+|2025-07-04 15:56:56  |   DCCABLEChkController.List  |   조회된 데이터: 0건   |
+|2025-07-04 15:56:57  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-04 15:56:57  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:56:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:58:18  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2025-07-04 15:58:18  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=2, cof=8879.537954019, pof=0.0270   |
+|2025-07-04 15:58:19  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-07-04 15:58:19  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-04 15:58:19  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:58:21  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:58:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:06  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 15:59:06  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:59:06  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:06  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 15:59:09  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 15:59:09  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 15:59:09  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:09  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 15:59:10  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:59:33  |   DB(ITR_BASICINFO)  |   CreateInterfaceTrBasicInfoRepo 성공: ITR Serial_No: 001   |
+|2025-07-04 15:59:34  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 15:59:34  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 15:59:34  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:34  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 15:59:39  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 15:59:39  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 15:59:39  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:39  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 15:59:42  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 15:59:42  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 15:59:42  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:42  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 15:59:48  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 15:59:49  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 15:59:49  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 15:59:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:49  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 15:59:54  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2025-07-04 15:59:54  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-04 15:59:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:54  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2025-07-04 15:59:56  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-07-04 15:59:56  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-04 15:59:56  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:56  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-07-04 15:59:56  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2025-07-04 15:59:56  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-04 15:59:56  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:56  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2025-07-04 15:59:59  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 15:59:59  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 15:59:59  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 15:59:59  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 16:01:06  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:01:06  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:07  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:07  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:10  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:10  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:12  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:12  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:13  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:13  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:14  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:14  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:14  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:14  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:15  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:15  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:15  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:15  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:17  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:17  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:17  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:17  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:18  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:18  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:18  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:18  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:19  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:19  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:19  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:19  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:01:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:01:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:02:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:02:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:07  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:39:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:20  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:39:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:21  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:39:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:23  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:39:23  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:26  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:39:26  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:59  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:39:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:39:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:39:59  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:40:02  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 16:40:02  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:40:02  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:40:02  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 16:40:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:40:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:40:54  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:40:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:40:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:40:54  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:40:55  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 16:40:55  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:40:55  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:40:55  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 16:49:12  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:49:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:13  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:49:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:49:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:13  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:49:15  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 16:49:15  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:49:15  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:15  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 16:49:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:49:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 16:49:27  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:49:27  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:30  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:49:30  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:49:34  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:49:34  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:50:18  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:50:18  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:50:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:50:18  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:50:20  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 16:50:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:50:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:50:20  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 16:50:22  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:50:22  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:50:22  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 16:55:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:55:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:55:55  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:55:57  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:55:58  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:55:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:55:58  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:55:59  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:55:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:07  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:07  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:12  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:12  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:12  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:21  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 16:56:21  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 16:56:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:21  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 16:56:24  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 16:56:24  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 16:56:24  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 16:56:24  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 17:03:16  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 17:03:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:03:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:03:16  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 17:06:17  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:06:17  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:06:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 17:06:55  |   DB(ITR_CHK1)  |   저장 오류: 열 이름 'CHK1_C2H4'이(가) 잘못되었습니다.   |
+|2025-07-04 17:06:55  |   ITRChk1Add  |   [CreateITRChk1Repo] Success=False, Message=저장 오류: 열 이름 'CHK1_C2H4'이(가) 잘못되었습니다.   |
+|2025-07-04 17:11:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 17:11:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 17:11:36  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 17:11:36  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 17:11:36  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 17:11:36  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 17:11:38  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 17:11:38  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:11:38  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:11:38  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 17:11:40  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:11:40  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:11:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 17:12:13  |   DB(ITR_CHK1)  |   저장 오류: 열 이름 'CHK1_C2H4'이(가) 잘못되었습니다.   |
+|2025-07-04 17:12:13  |   ITRChk1Add  |   [CreateITRChk1Repo] Success=False, Message=저장 오류: 열 이름 'CHK1_C2H4'이(가) 잘못되었습니다.   |
+|2025-07-04 17:17:49  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 17:17:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 17:33:25  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-04 17:33:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 17:33:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-04 17:33:25  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-04 17:33:27  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2025-07-04 17:33:27  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:33:27  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:33:27  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2025-07-04 17:33:32  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-04 17:33:32  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-04 17:33:32  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-04 17:34:07  |   ITRChk1Add  |   [CreateITRChk1Repo] Success=True, Message=ITR 보통점검 데이터 추가 성공   |
+|2025-07-04 17:34:07  |   ITRChkAdd2  |   [UpdateRiskMatrixHI] code=ITR001, hi=3, cof=17189.105230286, pof=3.8494   |
+|2025-07-04 17:35:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-04 17:35:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

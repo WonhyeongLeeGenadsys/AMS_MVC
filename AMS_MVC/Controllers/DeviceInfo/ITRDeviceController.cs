@@ -30,7 +30,7 @@ namespace AMS_MVC.Controllers
 
         // ITRDeviceController (또는 ITRDeviceDetailController)에 추가
         [HttpPost]
-        public JsonResult GetRiskmatrixData(string prefix)
+        public JsonResult GetRiskmatrixData(IEnumerable<string> prefix)
         {
             try
             {

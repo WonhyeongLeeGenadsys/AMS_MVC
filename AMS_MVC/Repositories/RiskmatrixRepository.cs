@@ -98,40 +98,33 @@ namespace AMS_MVC.Repositories
             }
         }
 
-        /// <summary>
-        /// HI 값을 기준으로 집계한 데이터를 반환
-        /// HI 값별 건수를 Dictionary<string, int> 형태로 반환
-        /// </summary>
-        public Dictionary<string, int> GetAggregatedHI(string codePrefix = null)
+        public Dictionary<string, int> GetAggregatedHI(IEnumerable<string> codePrefixes)
         {
-            using (DBHelper dbHelper = new DBHelper())
+            using (var db = new DBHelper())
             {
-                const string query = @"
-            SELECT HI, COUNT(*) AS Count
-            FROM RISKMATRIX
-            WHERE (@CodePrefix IS NULL OR CODE LIKE @CodePattern)
-            GROUP BY HI";
-                var parameters = new
+                var clauses = new List<string>();
+                var parameters = new DynamicParameters();
+                int i = 0;
+                foreach (var pre in codePrefixes)
                 {
-                    CodePrefix = codePrefix,
-                    CodePattern = codePrefix != null ? $"{codePrefix}%" : null
-                };
-                var data = dbHelper.Conn.Query(query, parameters).ToList();
-
-                var result = new Dictionary<string, int>();
-
-                foreach (var item in data)
-                {
-                    // HI가 null 이면 건너뛰기
-                    if (item.HI == null)
-                        continue;
-
-                    var hiKey = item.HI.ToString();    
-                    var count = Convert.ToInt32(item.Count);
-
-                    result[hiKey] = count;
+                    var name = $"p{i++}";
+                    clauses.Add($"CODE LIKE @{name}");
+                    parameters.Add(name, $"{pre}%");
                 }
 
+                var sql = $@"
+          SELECT HI, COUNT(*) AS Count
+          FROM RISKMATRIX
+          WHERE {string.Join(" OR ", clauses)}
+          GROUP BY HI";
+
+                var rows = db.Conn.Query(sql, parameters);
+                var result = new Dictionary<string, int>();
+                foreach (var r in rows)
+                {
+                    if (r.HI == null) continue;
+                    result[r.HI.ToString()] = (int)r.Count;
+                }
                 return result;
             }
         }

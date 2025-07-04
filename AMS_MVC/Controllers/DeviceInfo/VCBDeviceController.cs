@@ -32,7 +32,7 @@ namespace AMS_MVC.Controllers
 
         // VCBDeviceController (또는 VCBDeviceDetailController)에 추가
         [HttpPost]
-        public JsonResult GetRiskmatrixData(string prefix)
+        public JsonResult GetRiskmatrixData(IEnumerable<string> prefix)
         {
             try
             {
