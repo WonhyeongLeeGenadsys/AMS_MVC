@@ -15,33 +15,20 @@
     <ul class="tab_onedepth">
         <li class="tab_btn on" data-tab="con_box01">5대주요장비</li>
         <li class="tab_btn" data-tab="con_box02">AC</li>
-        <li class="tab_btn" data-tab="con_box02">DC</li>
+        <li class="tab_btn" data-tab="con_box03">DC</li>
     </ul>
     <!--전체 박스-->
     <div class="box_wrap totalInfo_content on" id="con_box01">
         <div class="con_box totalInfo">
             <ul class="sub_flex main">
                 <li>
-                    <!--타이틀-->
                     <h2>건전도</h2>
-                    <!--//타이틀-->
-                    <!--그래프-->
 
                     <div id="pieAll" class="chart_box"></div>
-                    <!--//그래프
-                    <ul class="valuee">
-                        <li><span class="verygood"></span><strong>1등급</strong></li>
-                        <li><span class="good"></span><strong>2등급</strong></li>
-                        <li><span class="fair"></span><strong>3등급</strong></li>
-                        <li><span class="poor"></span><strong>4등급</strong></li>
-                        <li><span class="verypoor"></span><strong>5등급</strong></li>
-                    </ul>
-                    -->
-
                 </li>
                 <li>
                     <h2>Risk Matrix</h2>
-                    <div id="chartContainer" class="chart_box matrix"></div>
+                    <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>
                     <!--배경계단식으로 처리-->
                     <ul class="chartContainer_bg">
                         <li class="yellow"></li>
@@ -91,7 +78,9 @@
                 <!--그리드-->
                 <div id="gridContainer" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
                 <!--//그리드-->
-                <div id="gridContainer02" class="grid_wrap totalInfo_content" style="height: 250px;">두번째 그래프</div>
+
+                <div id="gridContainer02" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+
                 <div id="gridContainer03" class="grid_wrap totalInfo_content" style="height: 250px;">세번째 그래프</div>
             </div>
             <!--차년도 유지보수 대상-->
@@ -170,8 +159,8 @@ $(function(){
   }
 
   setupChart('#pieAll', null);    // all five
-  //setupChart('#pieAC',  'AC');    // VCB + ITR
-  //setupChart('#pieDC',  'DC');    // DCCB + DCCABLE + SUBMODULE
+  setupChart('#pieAC',  'AC');    // VCB + ITR
+  setupChart('#pieDC',  'DC');    // DCCB + DCCABLE + SUBMODULE
 });
         </script>
 
@@ -179,14 +168,14 @@ $(function(){
         <!--Risk Matrix-->
         <script>
   $(function(){
-    $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")')
+      $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'all' })
      .done(function(raw){
        const data = raw.map(p => ({
          x: p.x, y: p.y, name: p.name, group: p.group
        }));
 
 
-       $("#chartContainer").dxChart({
+       $("#chartContainerAll").dxChart({
          dataSource: data,
          commonSeriesSettings: {
            type: "scatter",
@@ -198,7 +187,935 @@ $(function(){
            border: {
                visible: false // 차트 전체의 외곽선(테두리)을 숨깁니다.
            },
-          
+
+           seriesTemplate: { nameField: "group" },
+           argumentAxis: {
+               visualRange: { startValue: 0, endValue: 40000 },
+               valueMarginsEnabled: false, // 여백 제거
+               tickInterval: 8000,
+               grid: {
+                   visible: true,
+                   opacity: 0.5, /* 선을 더 연하게 */
+                   color: '#ffffff', /* 선 색상 지정 */
+                   width: 1 /* 선 두께 지정 */
+               },
+               title: { text: "CoF ($)" },
+               label: { customizeText: e => e.value.toLocaleString() }
+           },
+
+           valueAxis: {
+               // 0~100% 딱 고정
+               visualRange: { startValue: 0, endValue: 100 },
+               // 눈금을 tick에 맞춰 늘리지 않음
+               endOnTick: false,
+               // 데이터 끝에 여백을 두지 않음
+               valueMarginsEnabled: false, // 여백 제거
+               tickInterval: 20,
+               min: 0, // 첫 번째 셀의 시작 Y 좌표
+               max: 5, // 마지막 셀의 끝 Y 좌표
+               grid: {
+                   visible: true,
+                   opacity: 0.5, /* 선을 더 연하게 */
+                   color: '#ffffff', /* 선 색상 지정 */
+                   width: 1 /* 선 두께 지정 */
+               },
+               title: { text: "PoF (%)" },
+               label: { customizeText: e => e.value.toFixed(0) + "%" },
+           },
+
+
+         tooltip: {
+             enabled: true,
+             location: 'edge',
+             customizeTooltip: info => {
+             const d = info.point.data;
+             return { html:
+               `<strong>${d.name}</strong><br/>
+                CoF: ${d.x.toLocaleString()}$<br/>
+                PoF: ${d.y.toFixed(2)}%` };
+             }
+
+         },
+         onPointClick(e) {
+           const d = e.target.originalData;
+             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+         },
+         legend: { visible: true, position: "bottom" },
+           size: { width:400, height: 250 },
+           margin: 0,
+
+       });
+     });
+  });
+        </script>
+
+        <!--//risk matrix-->
+        <script>
+        $(document).ready(function () {
+            setTimeout(function(){
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "VCB" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Reliability):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 신뢰도 시리즈 사용
+                            var reliabilityData = data[0].ReliabilitySeries;
+                            reliabilityData = reliabilityData.map(function(point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+
+                            var maxX = data[0].B3Life * 2;
+
+                            $("#chart_line01").dxChart({
+                                dataSource: reliabilityData,
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    },
+                                },
+                                size: { width: '100%', height: 250 },
+                                series: [{
+                                    name: "HI",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: maxX }
+                                },
+                                valueAxis: {
+                                    title: "HI (0 ~ 1)",
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    e.component.render();
+                                }
+                            });
+                        } else {
+                            console.warn("HI 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("HI 데이터 로드 실패:", error);
+                    }
+                });
+            }, 100);
+        });
+        </script>
+        @*우선순위*@
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // 서버에서 우선순위 데이터를 가져오는 함수
+                function fetchPriorityInfo() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/TotalInfo/GetPriorityInfo",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
+
+                // 데이터를 가져와 DataGrid에 적용
+                fetchPriorityInfo()
+                    .done(function (response) {
+                        const priorityData = response;
+                        console.log("우선순위 데이터:", priorityData);
+                        initializePriorityGrid(priorityData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                    });
+
+                // DataGrid 초기화 함수
+                function initializePriorityGrid(data) {
+                    $('#gridContainer').dxDataGrid({
+                        dataSource: data,
+                        columnFixing: { enabled: true },
+                        showBorders: true,
+                        sorting: { mode: 'multiple' },
+                        scrolling: { columnRenderingMode: 'virtual' },
+                        height: 200,
+
+                        // **첫 번째 행 테두리 적용**
+                        onRowPrepared: function (e) {
+                            if (e.rowType === 'data' && e.rowIndex === 0) {
+                                e.rowElement.addClass('first-row-highlight');
+                            }
+                        },
+
+                        onCellPrepared: function (e) {
+                            if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                var hi = e.value;
+                                var cls = '';
+                                switch (hi) {
+                                    case 1: cls = 'priorityVerygood'; break;
+                                    case 2: cls = 'priorityGood'; break;
+                                    case 3: cls = 'priorityFair'; break;
+                                    case 4: cls = 'priorityPoor'; break;
+                                    case 5: cls = 'priorityVerypoor'; break;
+                                }
+                                if (cls) {
+                                    e.cellElement.addClass(cls);
+                                }
+                            }
+                        },
+
+                        columns: [
+                            { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                            { dataField: 'Sort', caption: '구분', alignment: 'center' },
+                            { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                            { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                            { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
+                            { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
+                            { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
+                            { dataField: 'CoF', caption: 'CoF($)', alignment: 'center' },
+                            { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center' },
+                            {
+                                dataField: 'HI',
+                                caption: 'HI',
+                                alignment: 'center',
+                                dataType: 'number'
+                            }
+                        ],
+                        showBorders: true,
+                        sorting: {
+                            mode: 'multiple',
+                        },
+                        scrolling: { columnRenderingMode: 'virtual' }
+                    });
+                }
+            });
+        </script>
+        @*//우선순위*@
+
+        @*고장이력*@
+        <script type="text/javascript">
+            // .NET Date 형식("/Date(숫자)/")를 JavaScript Date 객체로 변환하는 함수
+            function parseDotNetDate(dotNetString) {
+                var match = /Date\((\d+)\)/.exec(dotNetString);
+                if (match) {
+                    var timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+            function transformData(rawArray) {
+                return rawArray.map(function (itemArray) {
+                    var obj = {};
+                    itemArray.forEach(function (pair) {
+                        // Date 필드 처리: "Date" 키에 해당하는 값은 파싱하여 Date 객체로 변환
+                        if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                            obj[pair.Key] = parseDotNetDate(pair.Value);
+                        } else {
+                            obj[pair.Key] = pair.Value;
+                        }
+                    });
+                    return obj;
+                });
+            }
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/TotalInfo/GetGojangList",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                })
+                    .done(function (response) {
+                        // response는 [ [ {Key, Value}, ... ], [ {Key, Value}, ... ], ... ]
+                        var transformed = transformData(response);
+                        console.log("변환된 데이터:", transformed);
+
+                        $("#gridContainer02").dxDataGrid({
+                            dataSource: transformed,
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                {
+                                    dataField: 'Date',
+                                    caption: '고장일',
+                                    alignment: 'center',
+                                    dataType: 'date'
+                                }
+                            ],
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("데이터 로드 중 오류:", error);
+                    });
+            });
+        </script>
+
+        @*//고장이력*@
+    </div>
+    <div class="box_wrap totalInfo_content" id="con_box02">
+        <div class="con_box totalInfo">
+            <ul class="sub_flex main">
+                <li>
+                    <h2>건전도</h2>
+
+                    <div id="pieAC" class="chart_box"></div>
+                </li>
+                <li>
+                    <h2>Risk Matrix</h2>
+                    <div id="chartContainerAC" class="chart_box matrix" data-prefix="ac"></div>
+                    <!--배경계단식으로 처리-->
+                    <ul class="chartContainer_bg">
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="blue"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="blue"></li>
+                        <li class="blue"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="tab_twodepth tab_active">
+                        <li class="tab_btn on" data-tab="chart_line01">건전도 이력</li>
+                        <li class="tab_btn" data-tab="chart_line02">Pof 이력</li>
+                        <li class="tab_btn" data-tab="chart_line03">Cof 이력</li>
+                    </ul>
+                    <div id="chart_line01" class="totalInfo_content on"></div>
+                    <div id="chart_line02" class="totalInfo_content">두번째 차트</div>
+                    <div id="chart_line03" class="totalInfo_content">세번째 차트</div>
+                </li>
+            </ul>
+            <div class="box_group">
+                <ul class="tab_twodepth tab_active">
+                    <li class="tab_btn on" data-tab="gridContainer">우선순위</li>
+                    <li class="tab_btn" data-tab="gridContainer02">고장이력</li>
+                    <li class="tab_btn" data-tab="gridContainer03">점검일정</li>
+                </ul>
+                <!--그리드-->
+                <div id="gridContainer" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
+                <!--//그리드-->
+
+                <div id="gridContainer02" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+
+                <div id="gridContainer03" class="grid_wrap totalInfo_content" style="height: 250px;">세번째 그래프</div>
+            </div>
+            <!--차년도 유지보수 대상-->
+            <div class="guide_txt_wrap">
+                <h2>
+                    차년도<br />
+                    유지보수 대상
+                </h2>
+                <ul>
+                    <li>현재 00 변전소의 주요장비는 총 00대 중에서 AC 00대, DC 00대입니다.</li>
+                    <li>AC 00대 중에서 현재 최저 등급은 VCB 3등급이며 유지보수 계획이 권장됩니다.</li>
+                    <li>DC 00대 중에서 현재 최저 등급은 DCCB 2등급이며 정상 운영 가능됩니다.</li>
+                </ul>
+            </div>
+            <!--//차년도 유지보수 대상-->
+        </div>
+
+        <script>
+$(function(){
+  // 1~5 HI 순서대로 들어갈 색
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
+
+
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                  // HI 값
+        state: hi + '등급',
+        value: parseInt(data[hi], 10),
+        color: hiPalette[hi - 1]    // HI-1 인덱스로 색 지정
+      }));
+  }
+
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
+
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pointInfo => ({ color: pointInfo.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,                  // 라벨 보이기
+                    connector: { visible: true },   // 연결선 보이기
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+            legend: {
+                visible: true   // 범례는 숨김
+            },
+            size: { width: 380, height: 250 },
+            innerRadius: 0.5
+        });
+    }
+
+  function setupChart(selector, group) {
+    $.ajax({
+      type: 'POST',
+      url: '@Url.Action("GetRiskmatrixData","TotalInfo")',
+      data: JSON.stringify({ prefix: group }),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
+    })
+    .done(counts => initializePieChart(selector, counts))
+    .fail(err => console.error(group + ' 차트 로드 실패:', err));
+  }
+
+  setupChart('#pieAC',  'AC');    // VCB + ITR
+
+});
+        </script>
+
+        <!--//건전도-->
+        <!--Risk Matrix-->
+        <script>
+  $(function(){
+      $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'ac' })
+     .done(function(raw){
+       const data = raw.map(p => ({
+         x: p.x, y: p.y, name: p.name, group: p.group
+       }));
+
+
+       $("#chartContainerAC").dxChart({
+         dataSource: data,
+         commonSeriesSettings: {
+           type: "scatter",
+           argumentField: "x",
+           valueField: "y",
+           point: { size: 10 }
+           },
+           palette: ['#34A369', '#B82069', '#F57B50', '#2B6D6F', '#38B295', '#DC9FF1', '#EBCC44', '#CFD94D', '#E43387','#002C68'],
+           border: {
+               visible: false // 차트 전체의 외곽선(테두리)을 숨깁니다.
+           },
+
+           seriesTemplate: { nameField: "group" },
+           argumentAxis: {
+               visualRange: { startValue: 0, endValue: 40000 },
+               valueMarginsEnabled: false, // 여백 제거
+               tickInterval: 8000,
+               grid: {
+                   visible: true,
+                   opacity: 0.5, /* 선을 더 연하게 */
+                   color: '#ffffff', /* 선 색상 지정 */
+                   width: 1 /* 선 두께 지정 */
+               },
+               // CoF 구간별 색깔 (5개로 나눠서)
+               title: { text: "CoF ($)" },
+               label: { customizeText: e => e.value.toLocaleString() }
+           },
+
+           valueAxis: {
+               // 0~100% 딱 고정
+               visualRange: { startValue: 0, endValue: 100 },
+               // 눈금을 tick에 맞춰 늘리지 않음
+               endOnTick: false,
+               // 데이터 끝에 여백을 두지 않음
+               valueMarginsEnabled: false, // 여백 제거
+               tickInterval: 20,
+               min: 0, // 첫 번째 셀의 시작 Y 좌표
+               max: 5, // 마지막 셀의 끝 Y 좌표
+               grid: {
+                   visible: true,
+                   opacity: 0.5, /* 선을 더 연하게 */
+                   color: '#ffffff', /* 선 색상 지정 */
+                   width: 1 /* 선 두께 지정 */
+               },
+               title: { text: "PoF (%)" },
+               label: { customizeText: e => e.value.toFixed(0) + "%" },
+           },
+
+
+         tooltip: {
+             enabled: true,
+             location: 'edge',
+             customizeTooltip: info => {
+             const d = info.point.data;
+             return { html:
+               `<strong>${d.name}</strong><br/>
+                CoF: ${d.x.toLocaleString()}$<br/>
+                PoF: ${d.y.toFixed(2)}%` };
+             }
+
+         },
+         onPointClick(e) {
+           const d = e.target.originalData;
+             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+         },
+         legend: { visible: true, position: "bottom" },
+           size: { width:400, height: 250 },
+           margin: 0,
+
+       });
+     });
+  });
+        </script>
+
+        <!--//risk matrix-->
+        <script>
+        $(document).ready(function () {
+            setTimeout(function(){
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "VCB" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Reliability):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 신뢰도 시리즈 사용
+                            var reliabilityData = data[0].ReliabilitySeries;
+                            reliabilityData = reliabilityData.map(function(point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+
+                            var maxX = data[0].B3Life * 2;
+
+                            $("#chart_line01").dxChart({
+                                dataSource: reliabilityData,
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    },
+                                },
+                                size: { width: '100%', height: 250 },
+                                series: [{
+                                    name: "HI",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: maxX }
+                                },
+                                valueAxis: {
+                                    title: "HI (0 ~ 1)",
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    e.component.render();
+                                }
+                            });
+                        } else {
+                            console.warn("HI 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("HI 데이터 로드 실패:", error);
+                    }
+                });
+            }, 100);
+        });
+        </script>
+        @*우선순위*@
+        <script type="text/javascript">
+            $(document).ready(function () {
+                // 서버에서 우선순위 데이터를 가져오는 함수
+                function fetchPriorityInfo() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/TotalInfo/GetPriorityInfo",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
+
+                // 데이터를 가져와 DataGrid에 적용
+                fetchPriorityInfo()
+                    .done(function (response) {
+                        const priorityData = response;
+                        console.log("우선순위 데이터:", priorityData);
+                        initializePriorityGrid(priorityData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                    });
+
+                // DataGrid 초기화 함수
+                function initializePriorityGrid(data) {
+                    $('#gridContainerAC').dxDataGrid({
+                        dataSource: data,
+                        columnFixing: { enabled: true },
+                        showBorders: true,
+                        sorting: { mode: 'multiple' },
+                        scrolling: { columnRenderingMode: 'virtual' },
+                        height: 200,
+
+                        // **첫 번째 행 테두리 적용**
+                        onRowPrepared: function (e) {
+                            if (e.rowType === 'data' && e.rowIndex === 0) {
+                                e.rowElement.addClass('first-row-highlight');
+                            }
+                        },
+
+                        onCellPrepared: function (e) {
+                            if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                var hi = e.value;
+                                var cls = '';
+                                switch (hi) {
+                                    case 1: cls = 'priorityVerygood'; break;
+                                    case 2: cls = 'priorityGood'; break;
+                                    case 3: cls = 'priorityFair'; break;
+                                    case 4: cls = 'priorityPoor'; break;
+                                    case 5: cls = 'priorityVerypoor'; break;
+                                }
+                                if (cls) {
+                                    e.cellElement.addClass(cls);
+                                }
+                            }
+                        },
+
+                        columns: [
+                            { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                            { dataField: 'Sort', caption: '구분', alignment: 'center' },
+                            { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                            { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                            { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
+                            { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
+                            { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
+                            { dataField: 'CoF', caption: 'CoF($)', alignment: 'center' },
+                            { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center' },
+                            {
+                                dataField: 'HI',
+                                caption: 'HI',
+                                alignment: 'center',
+                                dataType: 'number'
+                            }
+                        ],
+                        showBorders: true,
+                        sorting: {
+                            mode: 'multiple',
+                        },
+                        scrolling: { columnRenderingMode: 'virtual' }
+                    });
+                }
+            });
+        </script>
+        @*//우선순위*@
+
+        @*고장이력*@
+        <script type="text/javascript">
+            // .NET Date 형식("/Date(숫자)/")를 JavaScript Date 객체로 변환하는 함수
+            function parseDotNetDate(dotNetString) {
+                var match = /Date\((\d+)\)/.exec(dotNetString);
+                if (match) {
+                    var timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+            function transformData(rawArray) {
+                return rawArray.map(function (itemArray) {
+                    var obj = {};
+                    itemArray.forEach(function (pair) {
+                        // Date 필드 처리: "Date" 키에 해당하는 값은 파싱하여 Date 객체로 변환
+                        if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                            obj[pair.Key] = parseDotNetDate(pair.Value);
+                        } else {
+                            obj[pair.Key] = pair.Value;
+                        }
+                    });
+                    return obj;
+                });
+            }
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/TotalInfo/GetGojangList",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                })
+                    .done(function (response) {
+                        // response는 [ [ {Key, Value}, ... ], [ {Key, Value}, ... ], ... ]
+                        var transformed = transformData(response);
+                        console.log("변환된 데이터:", transformed);
+
+                        $("#gridContainer02").dxDataGrid({
+                            dataSource: transformed,
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                {
+                                    dataField: 'Date',
+                                    caption: '고장일',
+                                    alignment: 'center',
+                                    dataType: 'date'
+                                }
+                            ],
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("데이터 로드 중 오류:", error);
+                    });
+            });
+        </script>
+
+        @*//고장이력*@
+    </div>
+
+    <div class="box_wrap totalInfo_content" id="con_box03">
+        <div class="con_box totalInfo">
+            <ul class="sub_flex main">
+                <li>
+                    <h2>건전도</h2>
+
+                    <div id="pieDC" class="chart_box"></div>
+                </li>
+                <li>
+                    <h2>Risk Matrix</h2>
+                    <div id="chartContainerDC" class="chart_box matrix" data-prefix="dc"></div>
+                    <!--배경계단식으로 처리-->
+                    <ul class="chartContainer_bg">
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="orange"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="orange"></li>
+                        <li class="blue"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                        <li class="yellow"></li>
+                        <li class="blue"></li>
+                        <li class="blue"></li>
+                        <li class="green"></li>
+                        <li class="green"></li>
+                        <li class="yellow"></li>
+                    </ul>
+                </li>
+                <li>
+                    <ul class="tab_twodepth tab_active">
+                        <li class="tab_btn on" data-tab="chart_line01">건전도 이력</li>
+                        <li class="tab_btn" data-tab="chart_line02">Pof 이력</li>
+                        <li class="tab_btn" data-tab="chart_line03">Cof 이력</li>
+                    </ul>
+                    <div id="chart_line01" class="totalInfo_content on"></div>
+                    <div id="chart_line02" class="totalInfo_content">두번째 차트</div>
+                    <div id="chart_line03" class="totalInfo_content">세번째 차트</div>
+                </li>
+            </ul>
+            <div class="box_group">
+                <ul class="tab_twodepth tab_active">
+                    <li class="tab_btn on" data-tab="gridContainer">우선순위</li>
+                    <li class="tab_btn" data-tab="gridContainer02">고장이력</li>
+                    <li class="tab_btn" data-tab="gridContainer03">점검일정</li>
+                </ul>
+                <!--그리드-->
+                <div id="gridContainer" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
+                <!--//그리드-->
+
+                <div id="gridContainer02" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+
+                <div id="gridContainer03" class="grid_wrap totalInfo_content" style="height: 250px;">세번째 그래프</div>
+            </div>
+            <!--차년도 유지보수 대상-->
+            <div class="guide_txt_wrap">
+                <h2>
+                    차년도<br />
+                    유지보수 대상
+                </h2>
+                <ul>
+                    <li>현재 00 변전소의 주요장비는 총 00대 중에서 AC 00대, DC 00대입니다.</li>
+                    <li>AC 00대 중에서 현재 최저 등급은 VCB 3등급이며 유지보수 계획이 권장됩니다.</li>
+                    <li>DC 00대 중에서 현재 최저 등급은 DCCB 2등급이며 정상 운영 가능됩니다.</li>
+                </ul>
+            </div>
+            <!--//차년도 유지보수 대상-->
+        </div>
+
+        <script>
+$(function(){
+  // 1~5 HI 순서대로 들어갈 색
+  const hiPalette = [
+    '#5B9F56',  // 1등급
+    '#B4DEB1',  // 2등급
+    '#EBCD1D',  // 3등급
+    '#F18425',  // 4등급
+    '#F05153'   // 5등급
+  ];
+
+
+  // rawCounts = { "1": "2", "3": "1", … }
+  function summarizeHIData(data) {
+    return [1,2,3,4,5]
+      .filter(hi => (data[hi]||0) > 0)
+      .map(hi => ({
+        hi:    hi,                  // HI 값
+        state: hi + '등급',
+        value: parseInt(data[hi], 10),
+        color: hiPalette[hi - 1]    // HI-1 인덱스로 색 지정
+      }));
+  }
+
+    function initializePieChart(selector, rawCounts) {
+        const ds = summarizeHIData(rawCounts);
+
+        $(selector).dxPieChart({
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pointInfo => ({ color: pointInfo.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,                  // 라벨 보이기
+                    connector: { visible: true },   // 연결선 보이기
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+            legend: {
+                visible: true   // 범례는 숨김
+            },
+            size: { width: 380, height: 250 },
+            innerRadius: 0.5
+        });
+    }
+
+  function setupChart(selector, group) {
+    $.ajax({
+      type: 'POST',
+      url: '@Url.Action("GetRiskmatrixData","TotalInfo")',
+      data: JSON.stringify({ prefix: group }),
+      contentType: 'application/json; charset=utf-8',
+      dataType: 'json'
+    })
+    .done(counts => initializePieChart(selector, counts))
+    .fail(err => console.error(group + ' 차트 로드 실패:', err));
+  }
+
+  setupChart('#pieDC', 'DC');    // DCCB + DCCABLE + SUBMODULE
+
+});
+        </script>
+
+        <!--//건전도-->
+        <!--Risk Matrix-->
+        <script>
+  $(function(){
+      $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'dc' })
+     .done(function(raw){
+       const data = raw.map(p => ({
+         x: p.x, y: p.y, name: p.name, group: p.group
+       }));
+
+
+       $("#chartContainerDC").dxChart({
+         dataSource: data,
+         commonSeriesSettings: {
+           type: "scatter",
+           argumentField: "x",
+           valueField: "y",
+           point: { size: 10 }
+           },
+           palette: ['#34A369', '#B82069', '#F57B50', '#2B6D6F', '#38B295', '#DC9FF1', '#EBCC44', '#CFD94D', '#E43387','#002C68'],
+           border: {
+               visible: false // 차트 전체의 외곽선(테두리)을 숨깁니다.
+           },
+
            seriesTemplate: { nameField: "group" },
            argumentAxis: {
                visualRange: { startValue: 0, endValue: 40000 },
@@ -342,6 +1259,7 @@ $(function(){
             }, 100);
         });
         </script>
+        @*우선순위*@
         <script type="text/javascript">
             $(document).ready(function () {
                 // 서버에서 우선순위 데이터를 가져오는 함수
@@ -426,22 +1344,93 @@ $(function(){
                 }
             });
         </script>
+        @*//우선순위*@
 
-    </div>
-    <div class="box_wrap totalInfo_content" id="con_box02">
-        <div class="con_box totalInfo">
-            <!-- AC group -->
-            <div id="pieAC" class="chart_box"></div>
-            두번째박스입니다.
-        </div>
-    </div>
-    <div class="box_wrap totalInfo_content" id="con_box03">
-        <div class="con_box totalInfo">
-            <!-- DC group -->
-            <div id="pieDC" class="chart_box"></div>
-            세번째
-        </div>
+        @*고장이력*@
+        <script type="text/javascript">
+            // .NET Date 형식("/Date(숫자)/")를 JavaScript Date 객체로 변환하는 함수
+            function parseDotNetDate(dotNetString) {
+                var match = /Date\((\d+)\)/.exec(dotNetString);
+                if (match) {
+                    var timestamp = parseInt(match[1], 10);
+                    return new Date(timestamp);
+                }
+                return null;
+            }
+
+            // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+            function transformData(rawArray) {
+                return rawArray.map(function (itemArray) {
+                    var obj = {};
+                    itemArray.forEach(function (pair) {
+                        // Date 필드 처리: "Date" 키에 해당하는 값은 파싱하여 Date 객체로 변환
+                        if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                            obj[pair.Key] = parseDotNetDate(pair.Value);
+                        } else {
+                            obj[pair.Key] = pair.Value;
+                        }
+                    });
+                    return obj;
+                });
+            }
+
+            $(document).ready(function () {
+                $.ajax({
+                    type: "POST",
+                    url: "/TotalInfo/GetGojangList",
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
+                })
+                    .done(function (response) {
+                        // response는 [ [ {Key, Value}, ... ], [ {Key, Value}, ... ], ... ]
+                        var transformed = transformData(response);
+                        console.log("변환된 데이터:", transformed);
+
+                        $("#gridContainer02").dxDataGrid({
+                            dataSource: transformed,
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+                            columns: [
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                {
+                                    dataField: 'Date',
+                                    caption: '고장일',
+                                    alignment: 'center',
+                                    dataType: 'date'
+                                }
+                            ],
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' }
+                        });
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("데이터 로드 중 오류:", error);
+                    });
+            });
+        </script>
+
+        @*//고장이력*@
     </div>
     <!--//전체 박스-->
     <!--//컨텐츠가 들어옵니다-->
 }
+ 

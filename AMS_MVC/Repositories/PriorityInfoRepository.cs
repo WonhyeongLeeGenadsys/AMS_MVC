@@ -26,8 +26,8 @@ namespace AMS_MVC.Repositories
 SELECT
     ROW_NUMBER() OVER (
         ORDER BY 
-            CAST(r.COF AS INT) * CAST(r.POF AS INT) DESC,  -- RiskScore 내림차순
-            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC  -- 동차 정렬
+            CAST(r.COF AS DECIMAL(18,2)) * CAST(r.POF AS DECIMAL(18,2)) DESC,  
+            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC  
     ) AS Priority,
     '{sortValue}'   AS Sort,
     {alias}.{codeField} AS Code,
@@ -43,7 +43,7 @@ SELECT
     {alias}.WRITER       AS Writer,
     r.COF AS CoF,
     r.POF AS PoF,
-    CAST(r.COF AS INT) * CAST(r.POF AS INT) AS RiskScore,
+    CAST(r.COF AS DECIMAL(18,2)) * CAST(r.POF AS DECIMAL(18,2)) AS RiskScore
     r.HI AS HI
 FROM {basicInfoTable} {alias}
 LEFT JOIN RISKMATRIX r
@@ -86,13 +86,12 @@ SELECT
     r.COF AS CoF,
     r.POF AS PoF,
     r.HI  AS HI,
-    CAST(r.COF AS INT) * CAST(r.POF AS INT) AS RiskScore
+    CAST(r.COF AS DECIMAL(18,2)) * CAST(r.POF AS DECIMAL(18,2)) AS RiskScore
 FROM {cfg.Table} {cfg.Alias}
 LEFT JOIN RISKMATRIX r
     ON {cfg.Alias}.{cfg.CodeField} = r.CODE"
             ).ToList();
-
-            // CTE + 최종 ORDER BY 적용
+            
             string fullQuery = $@"
 WITH CombinedData AS (
     {string.Join("\nUNION ALL\n", unionQueries)}

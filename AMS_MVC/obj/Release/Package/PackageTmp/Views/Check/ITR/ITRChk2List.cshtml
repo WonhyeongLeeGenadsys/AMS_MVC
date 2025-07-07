@@ -8,12 +8,12 @@
 }
 
 @section MainContent {
-    <h1>ITR 정밀점검: @ViewBag.Name, @ViewBag.SerialNo </h1>
+    <h1>Interface TR 정밀점검: @ViewBag.Name, @ViewBag.SerialNo </h1>
 
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
-                <a href="@Url.Action("ITRChkAdd2", "ITRChk", new { ITR_Code = itrCode, type = 2 })" class="btn add blue">추가</a>
+                <a href="@Url.Action("ITRChkAdd", "ITRChk", new { ITR_Code = itrCode, type = 2 })" class="btn add blue">추가</a>
             </div>
             <div id="gridContainer" class="grid_wrap"></div>
         </div>

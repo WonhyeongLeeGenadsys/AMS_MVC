@@ -11,82 +11,80 @@ namespace AMS_MVC.Repositories
 {
     public class RiskmatrixRepository
     {
-        private Dictionary<string, int> GetRiskMatrixInternal(string query, object parameters)
+        private Dictionary<string, int> GetRiskMatrixInternal(IEnumerable<string> codePrefixes)
         {
-            using (DBHelper dbHelper = new DBHelper())
+            using (var db = new DBHelper())
             {
-                var data = dbHelper.Conn.Query(query, parameters).ToList();
+                var clauses = new List<string>();
+                var parameters = new DynamicParameters();
+                int idx = 0;
 
-                // 5x5 Matrix 초기화 (인덱스 0~4)
-                var matrix = new int[5, 5];
-
-                // 기존: CoF, PoF 값을 0-based 인덱스로 변환 후 집계
-                foreach (var item in data)
+                foreach (var pre in codePrefixes)
                 {
-                    // item.CoF, item.PoF 가 null 이면 "0"으로 간주
-                    var cofStr = item.CoF?.ToString() ?? "0";
-                    var pofStr = item.PoF?.ToString() ?? "0";
-
-                    int cof = Clamp(int.Parse(cofStr) - 1, 0, 4);
-                    int pof = Clamp(int.Parse(pofStr) - 1, 0, 4);
-
-                    matrix[pof, cof]++;
+                    var name = $"p{idx++}";
+                    clauses.Add($"CODE LIKE @{name}");
+                    parameters.Add(name, $"{pre}%");
                 }
 
-                // 결과를 Dictionary<string, int>로 변환 (키: "pofIndex,cofIndex")
-                var result = new Dictionary<string, int>();
-                for (int i = 0; i < 5; i++)
-                {
-                    for (int j = 0; j < 5; j++)
-                    {
-                        result[$"{i},{j}"] = matrix[i, j];
-                    }
-                }
-                return result;
+                var sql = $@"
+SELECT Cof AS X, PoF AS Y, COUNT(*) AS Count
+FROM RISKMATRIX
+WHERE {string.Join(" OR ", clauses)}
+GROUP BY Cof, PoF";
+
+                // 반환 포맷이 다르다면 여기에 맞게 변환하세요.
+                var rows = db.Conn.Query(sql, parameters)
+                            .Select(r => new { Key = $"{r.X},{r.Y}", Value = (int)r.Count });
+
+                return rows.ToDictionary(r => r.Key, r => r.Value);
             }
         }
 
-        private int Clamp(int value, int min, int max)
+        // ------------------------
+        // 2) 단일 prefix 용 오버로드
+        // ------------------------
+        public Dictionary<string, int> GetRiskMatrixPofCof(string prefix = null)
         {
-            if (value < min) return min;
-            if (value > max) return max;
-            return value;
+            string[] codePrefixes;
+
+            if (string.IsNullOrEmpty(prefix))
+            {
+                // ALL
+                codePrefixes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            }
+            else if (prefix == "AC")
+            {
+                codePrefixes = new[] { "VCB", "ITR" };
+            }
+            else if (prefix == "DC")
+            {
+                codePrefixes = new[] { "DCCB", "DCCABLE", "SUBMODULE" };
+            }
+            else
+            {
+                // VCB, ITR 같은 개별 prefix
+                codePrefixes = new[] { prefix };
+            }
+
+            return GetRiskMatrixInternal(codePrefixes);
         }
 
-        /// <summary>
-        /// VCB 코드로 Riskmatrix 데이터를 조회 (단일 VCB에 해당하는 데이터)
-        /// </summary>
+        // ------------------------
+        // 3) 기존 단일 코드 조회용 메서드는 그대로
+        // ------------------------
         public Dictionary<string, int> GetRiskMatrixPofCofByCode(string code)
         {
-            const string query = @"
-                SELECT CoF, PoF
-                FROM RISKMATRIX
-                WHERE CODE = @Code";
-            var parameters = new { Code = code };
-            return GetRiskMatrixInternal(query, parameters);
+            const string sql = @"
+SELECT Cof AS X, PoF AS Y
+FROM RISKMATRIX
+WHERE CODE = @Code";
+            return GetRiskMatrixInternal(new[] { code });
         }
 
-        /// <summary>
-        /// codePrefix (예: "VCB")로 Riskmatrix 데이터를 조회 (여러 건 누적)
-        /// </summary>
-        public Dictionary<string, int> GetRiskMatrixPofCof(string codePrefix = null)
-        {
-            const string query = @"
-                SELECT CoF, PoF
-                FROM RISKMATRIX
-                WHERE (@CodePrefix IS NULL OR CODE LIKE @CodePattern)";
-            var parameters = new
-            {
-                CodePrefix = codePrefix,
-                CodePattern = codePrefix != null ? $"{codePrefix}%" : null
-            };
-            return GetRiskMatrixInternal(query, parameters);
-        }
-
-        /// <summary>
-        /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
-        /// </summary>
-        public Riskmatrix GetRiskMatrixByCode(string code)
+    /// <summary>
+    /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
+    /// </summary>
+    public Riskmatrix GetRiskMatrixByCode(string code)
         {
             using (DBHelper dbHelper = new DBHelper())
             {

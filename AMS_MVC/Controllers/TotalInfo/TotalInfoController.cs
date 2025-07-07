@@ -167,32 +167,49 @@ namespace AMS_MVC.Controllers
             return View();
         }
 
+        /// <summary>
+        /// riskmatrix 값 전체, AC, DC 구별
+        /// </summary>
+        /// <param name="prefix"></param>
+        /// <returns></returns>
         [HttpGet]
-        public JsonResult GetRiskMapPoints()
+        public JsonResult GetRiskMapPoints(string prefix = "all")
         {
             var raw = _riskRepo.GetLatestRiskPoints();
+            IEnumerable<Riskmatrix> filtered;
 
-            var points = raw.Select(r => {
-                string code = r.Code;
+            prefix = (prefix ?? "").ToLower();
+            if (prefix == "ac")
+            {
+                filtered = raw.Where(r => 
+                r.Code.StartsWith("VCB") || 
+                r.Code.StartsWith("ITR"));
+            }
 
-                int idx = 0;
-                while (idx < code.Length && !char.IsDigit(code[idx]))
-                    idx++;
-                string prefix = code.Substring(0, idx);
+            else if (prefix == "dc")
+            {
+                filtered = raw.Where(r =>
+                    r.Code.StartsWith("DCCB") ||
+                    r.Code.StartsWith("DCCABLE") ||
+                    r.Code.StartsWith("SUBMODULE"));
+            }
 
-                decimal cofValue = r.Cof;
-                decimal pofPercent = r.Pof;
+            else
+            {
+                filtered = raw;
+            }
 
-                return new
-                {
-                    x = cofValue,        
-                    y = pofPercent,      
-                    name = code,
-                    group = prefix
-                };
+            var points = filtered.Select(r => new {
+                x = r.Cof,
+                y = r.Pof,
+                name = r.Code,
+                group = new string(r.Code.TakeWhile(c => !char.IsDigit(c)).ToArray())
             });
 
             return Json(points, JsonRequestBehavior.AllowGet);
         }
+
+
+
     }
 }

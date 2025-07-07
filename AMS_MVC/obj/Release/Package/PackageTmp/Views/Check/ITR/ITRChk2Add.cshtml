@@ -294,7 +294,7 @@
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
                     alert("ITR 정밀점검 정보가 저장되었습니다.");
-                    window.location.href = '@Url.Action("GetITRChkTotalList", "ITRChk", new { type = 2 } )';
+                    window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk", new { type = 2 } )';
                 } else {
                     alert("ITR 정밀점검 정보를 추가하지 못했습니다.: " + response.message);
                 }

@@ -73,20 +73,34 @@
                                 caption: '관리',
                                 alignment: 'center',
                                 width: 250,
-                                cellTemplate: function (container, options) {
-                                    var chk1Url = '@Url.Action("ITRChk1List", "ITRChk1")';
-                                    var chk2Url = '@Url.Action("ITRChk2List", "ITRChk2")';
-                                    var gojangUrl = '@Url.Action("ITRGojangList", "ITRGojang")';
-                                    var mrUrl = '@Url.Action("ITRMaintenanceList", "ITRMaintenance")';
 
-                                    container.append(
-        `<a href="${chk1Url}?ITR_Code=${encodeURIComponent(options.data.ITR_Code)}" class="btn table blue">보통점검</a>
-         <a href="${chk2Url}?ITR_Code=${encodeURIComponent(options.data.ITR_Code)}" class="btn table red">정밀점검</a>
-    <a href="${gojangUrl}?ITR_Code=${encodeURIComponent(options.data.ITR_Code)}" class="btn table gray">고장이력</a>
-         <a href="${mrUrl}?ITR_Code=${encodeURIComponent(options.data.ITR_Code)}" class="btn table gray">유지보수</a>`
-    );
-}
+                                cellTemplate: function(container, options) {
+                                // ITRChkController 의 ITRChkList 액션 호출 (type=1/2)
+                                // 만약 여러분이 Check Area 안에 두셨다면, area도 지정해 주세요: new { area = "Check", type = 1 }
+                                var baseUrl = '@Url.Action("ITRChkList", "ITRChk")';
+
+                                // 보통점검(type=1), 정밀점검(type=2)
+                                var chk1Url = baseUrl
+                                + '?ITR_Code=' + encodeURIComponent(options.data.ITR_Code)
+                                + '&type=1';
+                                var chk2Url = baseUrl
+                                + '?ITR_Code=' + encodeURIComponent(options.data.ITR_Code)
+                                + '&type=2';
+
+                                // 고장이력·유지보수 URL (별도 컨트롤러)
+                                var gojangUrl = '@Url.Action("ITRGojangList", "ITRGojang")'
+                                + '?ITR_Code=' + encodeURIComponent(options.data.ITR_Code);
+                                var mrUrl     = '@Url.Action("ITRMaintenanceList", "ITRMaintenance")'
+                                + '?ITR_Code=' + encodeURIComponent(options.data.ITR_Code);
+
+                                container.append(`
+                                <a href="${chk1Url}" class="btn table blue">보통점검</a>
+                                <a href="${chk2Url}" class="btn table red">정밀점검</a>
+                                <a href="${gojangUrl}" class="btn table gray">고장이력</a>
+                                <a href="${mrUrl}"     class="btn table gray">유지보수</a>`);
                                 }
+
+                            }
                             ],
                             showBorders: true,
                             searchPanel: { visible: true, width: 240, placeholder: "검색" },

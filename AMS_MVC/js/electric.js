@@ -75,6 +75,17 @@ $(document).ready(function () {
     }
 });
 
+// 메뉴 숨기기/보이기 토글
+$('.btn_menu').click(function () {
+    $('.menu_group').toggle(); // 좌측 메뉴 영역을 토글
+    // 필요하다면 버튼 텍스트도 변경
+    if ($('.menu_group').is(':visible')) {
+        $(this).text('메뉴 숨기기');
+    } else {
+        $(this).text('메뉴 보이기');
+    }
+});
+
 // 팝업
 function openPop(url, w, h) {
     window.open(url, "openpopup", "width=" + w + ", height=" + h + ", top=10, left=10");
@@ -158,4 +169,25 @@ document.querySelectorAll('.tab_twodepth').forEach(tabGroup => {
             }
         });
     });
+});
+
+$(document).ready(function () {
+    // …기존 메뉴 활성화 코드…
+
+    // 1-depth 탭 클릭 처리
+    $('.tab_onedepth .tab_btn').on('click', function () {
+        // 1) 탭 하이라이트
+        $('.tab_onedepth .tab_btn').removeClass('on');
+        $(this).addClass('on');
+
+        // 2) 해당 컨텐츠 보이기
+        var targetId = $(this).data('tab');  // ex: "con_box02"
+        $('.box_wrap.totalInfo_content').removeClass('on');
+        $('#' + targetId).addClass('on');
+
+        const target = $(this).data('tab');
+        if (target === 'con_box02') setupChart('#pieAC', 'AC');
+        if (target === 'con_box03') setupChart('#pieDC', 'DC');
+    });
+
 });
