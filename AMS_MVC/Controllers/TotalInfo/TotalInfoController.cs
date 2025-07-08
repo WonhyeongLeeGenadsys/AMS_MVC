@@ -219,6 +219,21 @@ namespace AMS_MVC.Controllers
                     time = r.LastTime.ToString("MM.dd"),
                     hi = int.Parse(r.HI)
                 }).ToList();
+            
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult GetPofHistory(string prefix)
+        {
+            var list = _riskRepo.GetRiskHistory(prefix ?? "")
+                .Select(r => new
+                {
+                    code = r.Code,
+                    time = r.LastTime.ToString("MM.dd"),
+                    pof = r.Pof
+                }).ToList();
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
 

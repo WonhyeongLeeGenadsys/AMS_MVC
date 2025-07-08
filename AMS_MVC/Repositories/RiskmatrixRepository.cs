@@ -362,7 +362,8 @@ WHERE rn = 1;
             SELECT
                 CODE,
                 LASTTIME,
-                HI
+                HI,
+                POF
             FROM RISKMATRIX
             WHERE {string.Join(" OR ", clauses)}
             ORDER BY CODE, LASTTIME";

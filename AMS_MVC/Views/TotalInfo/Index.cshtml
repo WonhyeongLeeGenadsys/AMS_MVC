@@ -256,7 +256,6 @@ $(function(){
   });
         </script>
         <!--//risk matrix-->
-        
         @* 건전도 그래프 종합 ALL*@
         <script>
     function setupHistoryChart(containerId, prefix) {
@@ -300,6 +299,50 @@ $(function(){
         @*// 건전도 그래프 종합 ALL*@
 
         @* Pof 이력 그래프 종합 ALL*@
+        <script>
+  function setupPofChart(containerId, prefix) {
+    $.getJSON('@Url.Action("GetPofHistory","TotalInfo")', { prefix: prefix })
+     .done(function(data){
+       $("#" + containerId).dxChart({
+         dataSource: data,
+         commonSeriesSettings: {
+           type: "line",
+           argumentField: "time",
+           valueField: "pof",
+           point: { visible: true }
+         },
+         seriesTemplate: { nameField: "code" },
+         argumentAxis: {
+           type: "datetime",
+           title: "날짜",
+         },
+           valueAxis: {
+               title: "PoF (%)",
+               visualRange: { startValue: 0, endValue: 100 },
+               tickInterval: 20,
+               endOnTick: false,
+               label: {
+                   customizeText: e => e.valueText + "%"
+               }
+           },
+         legend: {
+           visible: true,
+           position: "bottom"
+         },
+         tooltip: {
+           enabled: true,
+           tooltip: { enabled: true },           
+         },
+       });
+     });
+  }
+
+  // 페이지 로드 시 호출
+  $(function(){
+    // 첫 번째 탭 HI
+      setupPofChart("chart_line02", "");
+  });
+        </script>
 
         @*// Pof 이력 그래프 종합 ALL*@
 
@@ -713,7 +756,7 @@ $(function(){
         </script>
 
         <!--//risk matrix-->
-        @*건전도 그래프 종합 ALL*@
+        @*건전도 그래프 종합 AC*@
         <script>
     function setupHistoryChart(containerId, prefix) {
       $.getJSON('@Url.Action("GetRiskHistory","TotalInfo")', { prefix: prefix })
@@ -750,7 +793,54 @@ $(function(){
       setupHistoryChart("chart_line11", "AC");
     });
 
-     </script>
+        </script>
+
+        @*Pof 그래프 종합 AC*@
+        <script>
+  function setupPofChart(containerId, prefix) {
+    $.getJSON('@Url.Action("GetPofHistory","TotalInfo")', { prefix: prefix })
+     .done(function(data){
+       $("#" + containerId).dxChart({
+         dataSource: data,
+         commonSeriesSettings: {
+           type: "line",
+           argumentField: "time",
+           valueField: "pof",
+           point: { visible: true }
+         },
+         seriesTemplate: { nameField: "code" },
+         argumentAxis: {
+           type: "datetime",
+           title: "날짜",
+         },
+           valueAxis: {
+               title: "PoF (%)",
+               visualRange: { startValue: 0, endValue: 100 },
+               tickInterval: 20,
+               endOnTick: false,
+               label: {
+                   customizeText: e => e.valueText + "%"
+               }
+           },
+         legend: {
+           visible: true,
+           position: "bottom"
+         },
+         tooltip: {
+             enabled: true,
+             tooltip: { enabled: true },           
+         },
+       });
+     });
+  }
+
+  // 페이지 로드 시 호출
+  $(function(){
+    // 첫 번째 탭 HI
+      setupPofChart("chart_line12", "AC");
+  });
+        </script>
+
         <script type="text/javascript">
             $(document).ready(function () {
                 // 서버에서 우선순위 데이터를 가져오는 함수
@@ -1190,7 +1280,52 @@ $(function(){
       setupHistoryChart("chart_line21", "DC");
     });
         </script>
-       
+
+        @*Pof 그래프 종합 DC*@
+        <script>
+  function setupPofChart(containerId, prefix) {
+    $.getJSON('@Url.Action("GetPofHistory","TotalInfo")', { prefix: prefix })
+     .done(function(data){
+       $("#" + containerId).dxChart({
+         dataSource: data,
+         commonSeriesSettings: {
+           type: "line",
+           argumentField: "time",
+           valueField: "pof",
+           point: { visible: true }
+         },
+         seriesTemplate: { nameField: "code" },
+         argumentAxis: {
+           type: "datetime",
+           title: "날짜",
+         },
+           valueAxis: {
+               title: "PoF (%)",
+               visualRange: { startValue: 0, endValue: 100 },
+               tickInterval: 20,
+               endOnTick: false,
+               label: {
+                   customizeText: e => e.valueText + "%"
+               }
+           },
+         legend: {
+           visible: true,
+           position: "bottom"
+         },
+         tooltip: {
+           enabled: true,
+           tooltip: { enabled: true }        
+         },
+       });
+     });
+  }
+
+  // 페이지 로드 시 호출
+  $(function(){
+      setupPofChart("chart_line22", "DC");
+  });
+        </script>
+
         @*우선순위*@
         <script type="text/javascript">
             $(document).ready(function () {
