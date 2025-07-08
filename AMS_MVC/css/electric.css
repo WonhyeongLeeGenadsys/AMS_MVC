@@ -1276,14 +1276,15 @@ footer {
 	z-index: 10;
 	display: flex;
 	flex-wrap: wrap;
-	width: 251px;
-	height: 188px;
+	width: 314px;
+	height: 186px;
 }
 
 	.totalInfo .sub_flex li .chartContainer_bg li {
 		width: 20%;
 		height: 20%;
 	}
+
 
 		.totalInfo .sub_flex li .chartContainer_bg li.green {
 			background: #B2E3AE
@@ -2238,22 +2239,26 @@ dl.product_info {
 
 .sub_flex.main > li {
 	position: relative;
-	width: 33.3%;
+	width: calc((100% - 460px)/2);
 	padding-right: 60px;
 	margin-bottom: 0px;
 }
 
-.sub_flex > li::after {
-	content: '';
-	position: absolute;
-	top: 40px;
-	right: 30px;
-	display: inline-block;
-	width: 20px;
-	height: 80%;
-	margin-right: 0px;
-	border-right: 1px dashed #BABDC8;
+.sub_flex.main > li:nth-child(2) {
+	width:460px;	
 }
+
+	.sub_flex > li::after {
+		content: '';
+		position: absolute;
+		top: 40px;
+		right: 30px;
+		display: inline-block;
+		width: 20px;
+		height: 80%;
+		margin-right: 0px;
+		border-right: 1px dashed #BABDC8;
+	}
 
 .sub_flex > li:nth-child(3n) {
 	padding-right: 0;

@@ -292,3 +292,15 @@
 |2025-07-07 18:55:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-07-07 18:55:08  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
 |2025-07-07 18:55:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:07:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:07:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:07:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:07:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:07:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:07:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:15:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:15:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:15:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:15:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-07 19:15:39  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-07 19:15:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

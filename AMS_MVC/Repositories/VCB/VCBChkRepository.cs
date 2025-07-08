@@ -119,47 +119,6 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
-        // VCB 보통점검 데이터 추가
-        //public Result CreateVCBChkInfoRepo(VCBChk vcbChk)
-        //{
-        //    Result res = new Result(true);
-
-        //    try
-        //    {
-        //        using(DBHelper dbHelper = new DBHelper())
-        //        {
-        //            const string query = @"
-        //        INSERT INTO VCB_CHK (
-        //            VCB_CODE, CHK_GONGSA_NAME, CHK_WEATHER, CHK_TEMP, CHK_HUM, CHK_COMPANY, 
-        //            CHK_WORKER, CHK_MANAGER, CHK_URGENT_NO, CHK_TYPE, CHK_START_DATE, 
-        //            CHK_END_DATE, CHK_LOC, CHK_CHUK_LOC, CHK_CON_STATUS, CHK_BOLT_NUT_STATUS, 
-        //            CHK_CONTACT_VOLUME, CHK_VACUUM_DEGREE, CHK_COIL_A, CHK_CONTACT_R, 
-        //            CHK_MAIN_CIRCUIT, CHK_CONTROL_CIRCUIT, CHK_INPUT_TIME, CHK_OPEN_TIME, 
-        //            CHK_3_PHASE_OPEN_GAP, CHK_CHATTERING_TIME, CHK_O_C_O, CHK_OPERATE_TIME, 
-        //            CHK_OC_TEST, CHK_INDICATOR, CHK_VCB_COUNT, CHK_CUTOFF_COUNT, 
-        //            CHK_A_RATE, CHK_WRITER, CHK_SHORT_A_RATE
-        //        ) VALUES (
-        //            @VCB_Code, @CHK_Gongsa_Name, @CHK_Weather, @CHK_Temp, @CHK_Hum, @CHK_Company, 
-        //            @CHK_Worker, @CHK_Manager, @CHK_Urgent_No, @CHK_Type, @CHK_Start_Date, 
-        //            @CHK_End_Date, @CHK_Loc, @CHK_Chuk_Loc, @CHK_Con_Status, @CHK_Bolt_Nut_Status, 
-        //            @CHK_Contact_Volume, @CHK_Vacuum_Degree, @CHK_Coil_A, @CHK_Contact_R, 
-        //            @CHK_Main_Circuit, @CHK_Control_Circuit, @CHK_Input_Time, @CHK_Open_Time, 
-        //            @CHK_3_Phase_Open_Gap, @CHK_Chattering_Time, @CHK_O_C_O, @CHK_Operate_Time, 
-        //            @CHK_OC_Test, @CHK_Indicator, @CHK_VCB_Count, @CHK_CutOff_Count, 
-        //            @CHK_A_Rate, @CHK_Writer, @CHK_Short_A_Rate
-        //        )";
-        //            int affectedRows = dbHelper.Conn.Execute(query, vcbChk);
-        //            res.Message = affectedRows > 0 ? "VCB 보통점검 데이터 추가 성공" : "VCB 보통점검 데이터 추가 실패";
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        res.IsSuccess = false;
-        //        res.Message = $"CreateVCBChkInfoRepo 실패: {ex.Message}";
-        //    }
-
-        //    return res;
-        //}
         public Result CreateVCBChkRepo(VCBChk chk)
         {
             Result res = new Result(true);

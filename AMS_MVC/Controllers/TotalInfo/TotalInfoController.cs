@@ -16,7 +16,7 @@ namespace AMS_MVC.Controllers
         // GET: TotalInfo/Index
         public ActionResult Index()
         {
-            ViewBag.MenuType = "TotalInfo"; // TopMenu 등록 Event 활성화
+            ViewBag.MenuType = "TotalInfo"; 
             ViewBag.Title = "종합정보";
             return View();
         }
@@ -209,7 +209,18 @@ namespace AMS_MVC.Controllers
             return Json(points, JsonRequestBehavior.AllowGet);
         }
 
-
+        [HttpGet]
+        public JsonResult GetRiskHistory(string prefix)
+        {
+            var list = _riskRepo.GetRiskHistory(prefix ?? "")
+                .Select(r => new
+                {
+                    code = r.Code,
+                    time = r.LastTime.ToString("MM.dd"),
+                    hi = int.Parse(r.HI)
+                }).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }

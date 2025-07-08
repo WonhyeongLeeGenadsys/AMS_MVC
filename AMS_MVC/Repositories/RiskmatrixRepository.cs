@@ -27,22 +27,17 @@ namespace AMS_MVC.Repositories
                 }
 
                 var sql = $@"
-SELECT Cof AS X, PoF AS Y, COUNT(*) AS Count
-FROM RISKMATRIX
-WHERE {string.Join(" OR ", clauses)}
-GROUP BY Cof, PoF";
+                SELECT Cof AS X, PoF AS Y, COUNT(*) AS Count
+                FROM RISKMATRIX
+                WHERE {string.Join(" OR ", clauses)}
+                GROUP BY Cof, PoF";
 
-                // 반환 포맷이 다르다면 여기에 맞게 변환하세요.
                 var rows = db.Conn.Query(sql, parameters)
                             .Select(r => new { Key = $"{r.X},{r.Y}", Value = (int)r.Count });
 
                 return rows.ToDictionary(r => r.Key, r => r.Value);
             }
         }
-
-        // ------------------------
-        // 2) 단일 prefix 용 오버로드
-        // ------------------------
         public Dictionary<string, int> GetRiskMatrixPofCof(string prefix = null)
         {
             string[] codePrefixes;
@@ -69,15 +64,17 @@ GROUP BY Cof, PoF";
             return GetRiskMatrixInternal(codePrefixes);
         }
 
-        // ------------------------
-        // 3) 기존 단일 코드 조회용 메서드는 그대로
-        // ------------------------
+        /// <summary>
+        /// 단일 코드 조회하기!!
+        /// </summary>
+        /// <param name="code"></param>
+        /// <returns></returns>
         public Dictionary<string, int> GetRiskMatrixPofCofByCode(string code)
         {
             const string sql = @"
-SELECT Cof AS X, PoF AS Y
-FROM RISKMATRIX
-WHERE CODE = @Code";
+            SELECT Cof AS X, PoF AS Y
+            FROM RISKMATRIX
+            WHERE CODE = @Code";
             return GetRiskMatrixInternal(new[] { code });
         }
 
@@ -111,10 +108,10 @@ WHERE CODE = @Code";
                 }
 
                 var sql = $@"
-          SELECT HI, COUNT(*) AS Count
-          FROM RISKMATRIX
-          WHERE {string.Join(" OR ", clauses)}
-          GROUP BY HI";
+                SELECT HI, COUNT(*) AS Count
+                FROM RISKMATRIX
+                WHERE {string.Join(" OR ", clauses)}
+                GROUP BY HI";
 
                 var rows = db.Conn.Query(sql, parameters);
                 var result = new Dictionary<string, int>();
@@ -336,6 +333,46 @@ WHERE rn = 1;
             {
                 db.Conn.Execute(sql, new { Pattern = pattern, CoF = newCoF });
             }
+        }
+
+        /// <summary>
+        /// prefix 에 따라 CODE LIKE 조건을 걸어서
+        /// CODE, LASTTIME, HI 이력을 시간 순으로 반환
+        /// prefix == null  → 전체
+        /// prefix == "AC"  → VCB, ITR
+        /// prefix == "DC"  → DCCB, DCCABLE, SUBMODULE
+        /// prefix == "VCB" → VCB 단일
+        /// </summary>
+        public IEnumerable<Riskmatrix> GetRiskHistory(string prefix = null)
+        {
+            string[] codePrefixes;
+            if (string.IsNullOrEmpty(prefix))
+                codePrefixes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            else if (prefix == "AC")
+                codePrefixes = new[] { "VCB", "ITR" };
+            else if (prefix == "DC")
+                codePrefixes = new[] { "DCCB", "DCCABLE", "SUBMODULE" };
+            else
+                codePrefixes = new[] { prefix };
+
+            var clauses = codePrefixes
+                .Select((p, i) => $"CODE LIKE @p{i}")
+                .ToArray();
+            var sql = $@"
+            SELECT
+                CODE,
+                LASTTIME,
+                HI
+            FROM RISKMATRIX
+            WHERE {string.Join(" OR ", clauses)}
+            ORDER BY CODE, LASTTIME";
+
+            var dp = new DynamicParameters();
+            for (int i = 0; i < codePrefixes.Length; i++)
+                dp.Add($"p{i}", codePrefixes[i] + "%");
+
+            using (var db = new DBHelper())
+                return db.Conn.Query<Riskmatrix>(sql, dp);
         }
     }
 }
