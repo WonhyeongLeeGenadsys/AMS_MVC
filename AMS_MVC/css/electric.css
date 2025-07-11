@@ -1269,38 +1269,58 @@ footer {
 		z-index: 15;
 	}
 
-.totalInfo .sub_flex li .chartContainer_bg {
+/* background grid container */
+.matrix_group {
 	position: absolute;
-	top: 53px;
-	left: 68px;
-	z-index: 10;
-	display: flex;
-	flex-wrap: wrap;
-	width: 314px;
-	height: 186px;
+	z-index:0;
+	top:60px;
+	left:50%;
+	width:400px;
+	height:300px;
+	margin-left:-200px;
 }
+.totalInfo .matrix_group {
+	left: 0;
+	margin-left: 0;
+}
+	.matrix_group .chart_box.matrix {
+	position: relative;
+	z-index: 15;
+}
+	.chartContainer_bg {
+		position: absolute;
+		top: 8px; /* 필요에 따라 조정 */
+		left: 68px; /* 필요에 따라 조정 */
+		z-index: 1;
+		display: flex;
+		flex-wrap: wrap;
+		width: 313px; /* 5칸×(칸 너비) */
+		height: 187px; /* 5칸×(칸 높이) */
+	}
 
-	.totalInfo .sub_flex li .chartContainer_bg li {
+	/* each cell */
+	.chartContainer_bg li {
 		width: 20%;
 		height: 20%;
 	}
 
-
-		.totalInfo .sub_flex li .chartContainer_bg li.green {
-			background: #B2E3AE
+		/* colors */
+		.chartContainer_bg li.yellow {
+			background: #FFF09E;
 		}
 
-		.totalInfo .sub_flex li .chartContainer_bg li.yellow {
-			background: #FFF09E
+		.chartContainer_bg li.orange {
+			background: #F8BB87;
 		}
 
-		.totalInfo .sub_flex li .chartContainer_bg li.orange {
-			background: #F8BB87
+		.chartContainer_bg li.green {
+			background: #B2E3AE;
 		}
 
-		.totalInfo .sub_flex li .chartContainer_bg li.blue {
-			background: #A2D7E9
+		.chartContainer_bg li.blue {
+			background: #A2D7E9;
 		}
+
 /*팝업*/
 .popup {
 	background-color: #fff;

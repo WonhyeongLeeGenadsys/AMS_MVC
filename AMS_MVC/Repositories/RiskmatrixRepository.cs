@@ -343,7 +343,7 @@ WHERE rn = 1;
         /// prefix == "DC"  → DCCB, DCCABLE, SUBMODULE
         /// prefix == "VCB" → VCB 단일
         /// </summary>
-        public IEnumerable<Riskmatrix> GetRiskHistory(string prefix = null)
+        public IEnumerable<Riskmatrix> GetRiskMatrixHistory(string prefix = null)
         {
             string[] codePrefixes;
             if (string.IsNullOrEmpty(prefix))
@@ -363,7 +363,8 @@ WHERE rn = 1;
                 CODE,
                 LASTTIME,
                 HI,
-                POF
+                POF,
+                COF
             FROM RISKMATRIX
             WHERE {string.Join(" OR ", clauses)}
             ORDER BY CODE, LASTTIME";

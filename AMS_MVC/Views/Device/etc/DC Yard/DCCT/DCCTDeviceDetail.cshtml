@@ -99,6 +99,78 @@
             <!--//타이틀-->
         </div>
         <!--전략-->
+        <!-- 보통점검 영역 -->
+        <div class="con_box">
+            <h2><p>보통점검</p></h2>
+            @if (lastChk != null)
+            {
+                <ul class="sub_flex">
+                    <li>
+                        <h4 class="tit_h4"></h4>
+                        <div class="table_list_app small">
+                            <table>
+                                <colgroup>
+                                    <col style="width:50%">
+                                    <col style="width:50%">
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th>파라미터</th>
+                                        <th>판정</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>내부 점검 및 청소</td>
+                                        <td>@lastChk.CHK_1_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>수동/부동/균등 충전 및 전압 측정</td>
+                                        <td>@lastChk.CHK_2_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Drop Ry 동작 시험</td>
+                                        <td>@lastChk.CHK_3_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>표시 시험 (LED, LCD 등)</td>
+                                        <td>@lastChk.CHK_4_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>절연저항 측정</td>
+                                        <td>@lastChk.CHK_5_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>계기 오차 시험</td>
+                                        <td>@lastChk.CHK_6_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>계전기 시험</td>
+                                        <td>@lastChk.CHK_7_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>AC 입력 및 충전기 절체 기능 점검</td>
+                                        <td>@lastChk.CHK_8_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>DC 출력 전압의 리플 함유율 측정 (필요시)</td>
+                                        <td>@lastChk.CHK_9_1</td>
+                                    </tr>
+                                    <tr>
+                                        <td>노-휴즈 브레이커(NFB) 동작 체크</td>
+                                        <td>@lastChk.CHK_10_1</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </li>
+                </ul>
+            }
+            else
+            {
+                <p>보통점검 데이터가 없습니다.</p>
+            }
+        </div>
 
     </div>
 }

@@ -124,7 +124,7 @@
                 },
                 tooltip: { enabled: true },
                 // 서버에서 파싱한 riskHI 값을 사용
-                value: @riskHI
+                value: @riskHI,
             }).dxCircularGauge("instance");
         });
             </script>
@@ -224,13 +224,12 @@
         <!--전략-->
         <!-- 보통점검 영역 -->
         <div class="con_box">
-            <h2><p>보통점검 (최근)</p></h2>
+            <h2><p>보통점검</p></h2>
             @if (lastChk != null)
             {
         <ul class="sub_flex">
-            <!-- 1. 접점 소모량  -->
             <li>
-                <h4 class="tit_h4">차단부</h4>
+                <h4 class="tit_h4"></h4>
                 <div class="table_list_app small">
                     <table>
                         <colgroup>
@@ -245,323 +244,72 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <td>접점 소모량</td>
-                                <td>@lastChk.CHK_ContactWearPercent</td>
+                                <td>케이스 손상, 부식, 변색 여부 확인</td>
+                                <td>@lastChk.CHK_1_1</td>
                             </tr>
                             <tr>
-                                <td>진공(누설전류)</td>
-                                <td>@lastChk.CHK_VacuumLeakCurrent</td>
+                                <td>냉각 팬 및 통풍구 막힘 여부 확인</td>
+                                <td>@lastChk.CHK_1_2</td>
                             </tr>
                             <tr>
-                                <td>접촉저항</td>
-                                <td>@lastChk.CHK_ContactResistance</td>
+                                <td>단자대 및 배선 손상 여부 점검</td>
+                                <td>@lastChk.CHK_1_3</td>
                             </tr>
                             <tr>
-                                <td>절연저항</td>
-                                <td>@lastChk.CHK_InsulationResistance</td>
+                                <td>접지 상태 확인</td>
+                                <td>@lastChk.CHK_1_4</td>
                             </tr>
                             <tr>
-                                <td>핫스팟</td>
-                                <td>@lastChk.CHK_HotSpot</td>
+                                <td>전압, 전류, 저항 측정 및 정상 범위 확인</td>
+                                <td>@lastChk.CHK_2_1</td>
                             </tr>
                             <tr>
-                                <td>PD 패턴 및 성장</td>
-                                <td>@lastChk.CHK_PdPatternValue</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <li>
-                <h4 class="tit_h4">구동모터</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>구동모터 전류</td>
-                                <td>@lastChk.CHK_MotorCurrent</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <li>
-                <h4 class="tit_h4">기타</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>누적 단락전류량</td>
-                                <td>@lastChk.CHK_AccumShortCircuitCurrent</td>
+                                <td>절연 저항 측정 및 정상 범위 확인</td>
+                                <td>@lastChk.CHK_2_2</td>
                             </tr>
                             <tr>
-                                <td>단락전류 횟수</td>
-                                <td>@lastChk.CHK_ShortCircuitCount</td>
+                                <td>배터리 전압, 내부 저항 측정</td>
+                                <td>@lastChk.CHK_2_3</td>
                             </tr>
                             <tr>
-                                <td>동작 횟수</td>
-                                <td>@lastChk.CHK_OperationCount</td>
+                                <td>작동 온도 및 습도 확인</td>
+                                <td>@lastChk.CHK_3_1</td>
                             </tr>
                             <tr>
-                                <td>개폐 시간</td>
-                                <td>@lastChk.CHK_OpenCloseTime</td>
+                                <td>온도 센서 및 습도 센서 작동 확인</td>
+                                <td>@lastChk.CHK_3_2</td>
                             </tr>
                             <tr>
-                                <td>외관 점검</td>
-                                <td>@lastChk.CHK_VisualCheck</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-
-            <!-- 1. 일반육안 점검 -->
-            <li>
-                <h4 class="tit_h4">일반육안 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>개폐표시기 정위치</td>
-                                <td>@(string.IsNullOrEmpty(lastChk.CHK_Chuk_Loc) ? "정상" : lastChk.CHK_Chuk_Loc)</td>
+                                <td>통신 프로토콜 작동 확인</td>
+                                <td>@lastChk.CHK_4_1</td>
                             </tr>
                             <tr>
-                                <td>축세표시 정위치</td>
-                                <td>@(string.IsNullOrEmpty(lastChk.CHK_Indicator) ? "정상" : lastChk.CHK_Indicator)</td>
+                                <td>원격 제어 기능 점검</td>
+                                <td>@lastChk.CHK_4_2</td>
                             </tr>
                             <tr>
-                                <td>주 전도부 단자 연결상태</td>
-                                <td>@(string.IsNullOrEmpty(lastChk.CHK_Con_Status) ? "정상" : lastChk.CHK_Con_Status)</td>
+                                <td>안전 장치 (과전압, 과전류, 과열 등) 점검</td>
+                                <td>@lastChk.CHK_4_3</td>
                             </tr>
                             <tr>
-                                <td>각종 Bolt-Nut의 이완여부</td>
-                                <td>@(string.IsNullOrEmpty(lastChk.CHK_Bolt_Nut_Status) ? "정상" : lastChk.CHK_Bolt_Nut_Status)</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 2. 동작 타이밍 점검 -->
-            <li>
-                <h4 class="tit_h4">동작 타이밍 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>무부하 투입시간</td>
-                                <td>@lastChk.CHK_Input_Time</td>
+                                <td>부품 마모 및 노후화 점검</td>
+                                <td>@lastChk.CHK_5_1</td>
                             </tr>
                             <tr>
-                                <td>무부하 개극시간</td>
-                                <td>@lastChk.CHK_Open_Time</td>
+                                <td> 먼지 및 이물질 축적 여부 확인</td>
+                                <td>@lastChk.CHK_5_2</td>
                             </tr>
                             <tr>
-                                <td>3상 개극시 개극차</td>
-                                <td>@lastChk.CHK_3_Phase_Open_Gap</td>
+                                <td>계통 연계형: 전력 품질 및 계통 연계 상태 점검</td>
+                                <td>@lastChk.CHK_6_1</td>
                             </tr>
                             <tr>
-                                <td>Chattering 시간</td>
-                                <td>@lastChk.CHK_Chattering_Time</td>
+                                <td>독립형: 배터리 충/방전 상태 및 수명 점검</td>
+                                <td>@lastChk.CHK_6_2</td>
                             </tr>
                             <tr>
-                                <td>O-C-O</td>
-                                <td>@lastChk.CHK_O_C_O</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 3. 보조시스템 기능 점검 -->
-            <li>
-                <h4 class="tit_h4">보조시스템 기능 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Coil전류</td>
-                                <td>@lastChk.CHK_Coil_A</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 4. Vacumm Interrupt 점검 -->
-            <li>
-                <h4 class="tit_h4">Vacumm Interrupt 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>접점마모량</td>
-                                <td>@lastChk.CHK_Contact_R</td>
-                            </tr>
-                            <tr>
-                                <td>진공도 측정</td>
-                                <td>@lastChk.CHK_Vacuum_Degree</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 5. 정기 육안 점검 -->
-            <li>
-                <h4 class="tit_h4">정기 육안 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>개폐 조작시험</td>
-                                <td>@lastChk.CHK_Con_Status</td>
-                            </tr>
-                            <tr>
-                                <td>투입 Spring Charge 표시기</td>
-                                <td>@lastChk.CHK_Indicator</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 6. 기계적 및 전기적 작동 이력 -->
-            <li>
-                <h4 class="tit_h4">기계적 및 전기적 작동 이력</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ES 기계적 동작횟수</td>
-                                <td>@lastChk.CHK_ES_Count</td>
-                            </tr>
-                            <tr>
-                                <td>단락 고장 차단 횟수</td>
-                                <td>@lastChk.CHK_Cutoff_Count</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 7. 접촉저항 점검 -->
-            <li>
-                <h4 class="tit_h4">접촉저항 점검</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>접촉저항</td>
-                                <td>@lastChk.CHK_Contact_R</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </li>
-            <!-- 8. ES 통계수명 -->
-            <li>
-                <h4 class="tit_h4">ES 통계수명</h4>
-                <div class="table_list_app small">
-                    <table>
-                        <colgroup>
-                            <col style="width:50%">
-                            <col style="width:50%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>파라미터</th>
-                                <th>판정</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>사용기간수</td>
-                                <td>@lastChk.CHK_A_Rate</td>
+                                <td>보호 장치 작동 여부 확인</td>
+                                <td>@lastChk.CHK_7_1</td>
                             </tr>
                         </tbody>
                     </table>

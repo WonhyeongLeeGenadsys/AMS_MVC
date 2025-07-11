@@ -19,6 +19,8 @@
         </div>
 
         <script>
+                var itrCode = '@itrCode';
+
             $(document).ready(function () {
                 loadITRChk1Data();
             });
@@ -26,22 +28,17 @@
             function loadITRChk1Data() {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("GetITRChkListData", "ITRChk", new { type = 1 })',
-                    contentType: "application/json; charset=utf-8",
+                    url: '@Url.Action("GetITRChkListData", "ITRChk")',
+                    data: { itrCode: itrCode, type: 1 },
+                    dataType: "json",
                     success: function (response) {
-                        if (response.success == false) {
-                            console.error("ITRChk1 데이터 로드 실패: " + response.message);
-                            return;
-                        }
 
-                        // 작성일(Tbl_GetDate) 기준 내림차순 정렬
-                        let data = response.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
-
-                        // 순번 매기기
-                        data = data.map((item, index) => {
-                            item.RowNumber = data.length - index;
-                            return item;
-                        });
+                        let data = response
+                            .sort((a, b) => new Date(b.CHK1_Tbl_GetDate) - new Date(a.CHK1_Tbl_GetDate))
+                            .map((item, index, arr) => {
+                                item.RowNumber = arr.length - index;
+                                return item;
+                            });
 
                         $("#gridContainer").dxDataGrid({
                             dataSource: data,
@@ -70,8 +67,8 @@
                                 // 각 행의 Tbl_Idx와 ITR_Code 값을 사용하여 ITRChk1Detail 페이지로 이동
                                 const tblIdx = e.data.Tbl_Idx;
                                 const itrCode = e.data.ITR_Code;
-                                const detailUrl = '@Url.Action("ITRChkDetail", "ITRChk", new { type = 1 })';
-                                window.location.href = `${detailUrl}?ITR_Code=${encodeURIComponent(itrCode)}&Tbl_Idx=${encodeURIComponent(tblIdx)}`;
+                                const detailUrl = '@Url.Action("ITRChk1Detail", "ITRChk")';
+                                window.location.href = detailUrl + '?itrCode=' + encodeURIComponent(itrCode) + '&tblIdx='  + encodeURIComponent(tblIdx);
                             }
                         });
                     },

@@ -166,8 +166,8 @@ namespace AMS_MVC.Controllers
 
                 var formatted = infoWithRisk.Select(b => new
                 {
-                    //ZIGZAGTR_Code = b.ZIGZAGTR_Code,
-                    b.ZIGZAGTR_Code,
+                    ZIGZAGTR_Code = b.ZIGZAGTR_Code,
+                    //b.ZIGZAGTR_Code,
                     Serial_No = b.Serial_No,
                     Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
                     Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",

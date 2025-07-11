@@ -29,7 +29,6 @@ namespace AMS_MVC.Controllers
         [HttpPost]
         public JsonResult GetRiskmatrixData(string prefix)
         {
-            // Determine which equipment prefixes to include
             string[] codePrefixes;
             if (string.IsNullOrEmpty(prefix))
                 codePrefixes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
@@ -157,16 +156,6 @@ namespace AMS_MVC.Controllers
             }
         }
 
-        public ActionResult Check()
-        {
-            return View();
-        }
-
-        public ActionResult Connection()
-        {
-            return View();
-        }
-
         /// <summary>
         /// riskmatrix 값 전체, AC, DC 구별
         /// </summary>
@@ -176,33 +165,33 @@ namespace AMS_MVC.Controllers
         public JsonResult GetRiskMapPoints(string prefix = "all")
         {
             var raw = _riskRepo.GetLatestRiskPoints();
-            IEnumerable<Riskmatrix> filtered;
-
             prefix = (prefix ?? "").ToLower();
+
+            IEnumerable<Riskmatrix> filtered;
             if (prefix == "ac")
             {
-                filtered = raw.Where(r => 
-                r.Code.StartsWith("VCB") || 
-                r.Code.StartsWith("ITR"));
+                filtered = raw.Where(r => r.Code.StartsWith("VCB") || r.Code.StartsWith("ITR"));
             }
-
             else if (prefix == "dc")
             {
-                filtered = raw.Where(r =>
-                    r.Code.StartsWith("DCCB") ||
-                    r.Code.StartsWith("DCCABLE") ||
-                    r.Code.StartsWith("SUBMODULE"));
+                filtered = raw.Where(r => r.Code.StartsWith("DCCB")
+                                      || r.Code.StartsWith("DCCABLE")
+                                      || r.Code.StartsWith("SUBMODULE"));
             }
-
+            else if (new[] { "vcb", "itr", "dccb", "dccable", "submodule" }.Contains(prefix))
+            {
+                filtered = raw.Where(r => r.Code.StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
+            }
             else
             {
-                filtered = raw;
+                filtered = raw; // 전체 5대 장비 출력임
             }
 
             var points = filtered.Select(r => new {
                 x = r.Cof,
                 y = r.Pof,
                 name = r.Code,
+                hi = int.Parse(r.HI),
                 group = new string(r.Code.TakeWhile(c => !char.IsDigit(c)).ToArray())
             });
 
@@ -210,32 +199,19 @@ namespace AMS_MVC.Controllers
         }
 
         [HttpGet]
-        public JsonResult GetRiskHistory(string prefix)
+        public JsonResult GetHIPofCofHistory(string prefix)
         {
-            var list = _riskRepo.GetRiskHistory(prefix ?? "")
+            var list = _riskRepo.GetRiskMatrixHistory(prefix ?? "")
                 .Select(r => new
                 {
                     code = r.Code,
-                    time = r.LastTime.ToString("MM.dd"),
-                    hi = int.Parse(r.HI)
+                    time = r.LastTime.ToString(),
+                    hi = int.Parse(r.HI),
+                    pof = r.Pof,
+                    cof = r.Cof
                 }).ToList();
             
             return Json(list, JsonRequestBehavior.AllowGet);
         }
-
-        [HttpGet]
-        public JsonResult GetPofHistory(string prefix)
-        {
-            var list = _riskRepo.GetRiskHistory(prefix ?? "")
-                .Select(r => new
-                {
-                    code = r.Code,
-                    time = r.LastTime.ToString("MM.dd"),
-                    pof = r.Pof
-                }).ToList();
-
-            return Json(list, JsonRequestBehavior.AllowGet);
-        }
-
     }
 }
