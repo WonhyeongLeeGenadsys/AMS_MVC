@@ -334,112 +334,170 @@
         </script>
         <!--//risk matrix-->
         @*이력 차트 hi, pof, cof*@
-        <div class="box_wrap totalInfo_content on" id="con_box01">
-            <script>
-                // 전체(all) 용: HI 이력
-                function setupHistoryChart(containerId, history) {
-                    $("#" + containerId).dxChart({
-                        dataSource: history,
-                        commonSeriesSettings: {
-                            type: "line",
-                            argumentField: "time",
-                            valueField: "hi",
-                            point: { visible: true }
+    <div class="box_wrap totalInfo_content on" id="con_box01">
+        <script>
+            // 전체(all) 용: HI 이력
+            function setupHistoryChart(containerId, history) {
+                $("#" + containerId).dxChart({
+                    dataSource: history,
+                    commonSeriesSettings: {
+                        type: "line",
+                        argumentField: "time",
+                        valueField: "hi",
+                        point: { visible: true }
+                    },
+                    seriesTemplate: { nameField: "code" },
+                    argumentAxis: {
+                        valueType: "datetime",
+                        label: {
+                            format: "yy.MM.dd",
+                            overlappingBehavior: {
+                                mode: "rotate",
+                                rotationAngle: 45
+                            }
                         },
-                        seriesTemplate: { nameField: "code" },
-                        argumentAxis: {
-                            valueType: "datetime",
-                            title: "날짜",
-                            label: {}
-                        },
-                        valueAxis: {
-                            title: "HI",
-                            visualRange: { startValue: 0, endValue: 5 },
-                            tickInterval: 1,
-                            endOnTick: false,
-                            max: 5
-                        },
-                        legend: { visible: true, position: "bottom" },
-                        tooltip: { enabled: true }
-                    });
-                }
+                        title: { text: "날짜" }
+                    },
 
-                // 전체(all) 용: PoF 이력
-                function setupPofChart(containerId, history) {
-                    $("#" + containerId).dxChart({
-                        dataSource: history,
-                        commonSeriesSettings: {
-                            type: "line",
-                            argumentField: "time",
-                            valueField: "pof",
-                            point: { visible: true }
-                        },
-                        seriesTemplate: { nameField: "code" },
-                        argumentAxis: {
-                            valueType: "datetime",
-                            label: {
-                                format: "yy.MM.dd",
-                                overlappingBehavior: {
-                                    mode: "rotate",
-                                    rotationAngle: 45
-                                }
-                            },
-                            title: { text: "날짜" }
-                        },
-                        valueAxis: {
-                            title: "PoF (%)",
-                            visualRange: { startValue: 0, endValue: 100 },
-                            tickInterval: 20,
-                            max: 100
-                        },
-                        legend: { visible: true, position: "bottom" },
-                        tooltip: { enabled: true }
-                    });
-                }
+                    valueAxis: {
+                        title: "HI",
+                        visualRange: { startValue: 0, endValue: 5 },
+                        tickInterval: 1,
+                        endOnTick: false,
+                        max: 5
+                    },
+                    legend: { visible: true, position: "bottom" },
+                    tooltip: { enabled: true }
+                });
+            }
 
-                // 전체(all) 용: CoF 이력
-                function setupCofChart(containerId, history) {
-                    $("#" + containerId).dxChart({
-                        dataSource: history,
-                        commonSeriesSettings: {
-                            type: "line",
-                            argumentField: "time",
-                            valueField: "cof",
-                            point: { visible: true }
+            // 전체(all) 용: PoF 이력
+            function setupPofChart(containerId, history) {
+                $("#" + containerId).dxChart({
+                    dataSource: history,
+                    commonSeriesSettings: {
+                        type: "line",
+                        argumentField: "time",
+                        valueField: "pof",
+                        point: { visible: true }
+                    },
+                    seriesTemplate: { nameField: "code" },
+                    argumentAxis: {
+                        valueType: "datetime",
+                        label: {
+                            format: "yy.MM.dd",
+                            overlappingBehavior: {
+                                mode: "rotate",
+                                rotationAngle: 45
+                            }
                         },
-                        seriesTemplate: { nameField: "code" },
-                        argumentAxis: {
-                            valueType: "datetime",
-                            title: "날짜"
-                        },
-                        valueAxis: {
-                            title: "CoF",
-                            visualRange: { startValue: 8000, endValue: 40000 },
-                            tickInterval: 8000,
-                            endOnTick: false,
-                            label: { customizeText: e => e.valueText + "$" }
-                        },
-                        legend: { visible: true, position: "bottom" },
-                        tooltip: { enabled: true }
-                    });
-                }
-            </script>
+                        title: { text: "날짜" }
+                    },
+                    valueAxis: {
+                        title: "PoF (%)",
+                        visualRange: { startValue: 0, endValue: 100 },
+                        tickInterval: 20,
+                        max: 100
+                    },
+                    legend: { visible: true, position: "bottom" },
+                    tooltip: { enabled: true }
+                });
+            }
 
-            <!-- 한 번의 호출로 HI/Pof/Cof 이력 그리기 -->
-            <script>
-    $(function(){
-      const urlHist = '@Url.Action("GetHIPofCofHistory","TotalInfo")';
-      $.getJSON(urlHist, { prefix: '' })
-        .done(history => {
-          setupHistoryChart('chart_line01', history);
-          setupPofChart     ('chart_line02', history);
-          setupCofChart     ('chart_line03', history);
-        })
-        .fail(err => console.error('GetHIPofCofHistory 오류', err));
-    });
-            </script>
+            // 전체(all) 용: CoF 이력
+            function setupCofChart(containerId, history) {
+                $("#" + containerId).dxChart({
+                    dataSource: history,
+                    commonSeriesSettings: {
+                        type: "line",
+                        argumentField: "time",
+                        valueField: "cof",
+                        point: { visible: true }
+                    },
+                    seriesTemplate: { nameField: "code" },
+                    argumentAxis: {
+                        valueType: "datetime",
+                        label: {
+                            format: "yy.MM.dd",
+                            overlappingBehavior: {
+                                mode: "rotate",
+                                rotationAngle: 45
+                            }
+                        },
+                        title: { text: "날짜" }
+                    },
 
-        </div>
+                    valueAxis: {
+                        title: "CoF",
+                        visualRange: { startValue: 8000, endValue: 40000 },
+                        tickInterval: 8000,
+                        endOnTick: false,
+                        label: { customizeText: e => e.valueText + "$" }
+                    },
+                    legend: { visible: true, position: "bottom" },
+                    tooltip: { enabled: true }
+                });
+            }
+        </script>
+        <script>
+        $(function(){
+            const urlHist = '@Url.Action("GetHIPofCofHistory","TotalInfo")';
+            let historyData = null;
+            let histLoaded = false, pofLoaded = false, cofLoaded = false;
+
+            // 1) 최초 한번만 data 불러오기
+            function loadHistoryData(callback) {
+                if (historyData) return callback();
+
+                $.getJSON(urlHist, { prefix: '' })
+                    .done(data => {
+                        historyData = data
+                            .map(d => ({
+                                ...d,
+                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
+                            }))
+                            .sort((a, b) => a.time - b.time);
+
+                        callback();
+                    })
+                    .fail(err => console.error('GetHIPofCofHistory 오류', err));
+            }
+
+            // 2) 건전도 차트만 초기 렌더링
+            loadHistoryData(() => {
+            setupHistoryChart('chart_line01', historyData);
+            histLoaded = true;
+            });
+
+            // 3) 2-depth 탭 클릭 처리
+            $('.sub_flex .tab_twodepth .tab_btn').on('click', function(){
+                const target = $(this).data('tab');
+                $(this)
+                .addClass('on')
+                .siblings().removeClass('on');
+            // 컨텐츠 show/hide
+                $(this).closest('li').find('.totalInfo_content')
+                .removeClass('on');
+            $('#' + target).addClass('on');
+    
+            // lazy load Pof / Cof
+            if (target === 'chart_line02' && !pofLoaded) {
+            loadHistoryData(() => {
+                setupPofChart('chart_line02', historyData);
+                pofLoaded = true;
+            });
+            }
+            if (target === 'chart_line03' && !cofLoaded) {
+                loadHistoryData(() => {
+                setupCofChart('chart_line03', historyData);
+                cofLoaded = true;
+                });
+            }
+            });
+        });
+        </script>
+
+    </div>
     </div>
 
 }
@@ -663,7 +721,7 @@
                             columns: [
                                 { dataField: 'Priority', caption: '우선순위', alignment: 'center', width: 80 },
                                 { dataField: 'Type', caption: '설비명', alignment: 'center' },
-                                { dataField: 'Code', caption: '시리얼번호', alignment: 'center' },
+                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
                                 {
                                     caption: '구분',
                                     alignment: 'center',

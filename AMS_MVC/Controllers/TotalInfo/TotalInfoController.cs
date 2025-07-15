@@ -202,16 +202,20 @@ namespace AMS_MVC.Controllers
         public JsonResult GetHIPofCofHistory(string prefix)
         {
             var list = _riskRepo.GetRiskMatrixHistory(prefix ?? "")
+                .OrderBy(r => r.LastTime)
                 .Select(r => new
                 {
                     code = r.Code,
-                    time = r.LastTime.ToString(),
+
+            time = r.LastTime.ToString("o"),
                     hi = int.Parse(r.HI),
                     pof = r.Pof,
                     cof = r.Cof
-                }).ToList();
-            
+                })
+                .ToList();
+
             return Json(list, JsonRequestBehavior.AllowGet);
         }
+
     }
 }

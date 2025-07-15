@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Web.Common", "Web.Common\We
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS_MVC.Tests", "AMS_MVC.Tests\AMS_MVC.Tests.csproj", "{3D7E9BA2-2084-4C8C-A730-DF97B49618F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMS_DATA", "AMS_DATA\AMS_DATA.csproj", "{DDAE50FA-0ADE-4F98-BDEF-3E721B35922B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{3D7E9BA2-2084-4C8C-A730-DF97B49618F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3D7E9BA2-2084-4C8C-A730-DF97B49618F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3D7E9BA2-2084-4C8C-A730-DF97B49618F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDAE50FA-0ADE-4F98-BDEF-3E721B35922B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDAE50FA-0ADE-4F98-BDEF-3E721B35922B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDAE50FA-0ADE-4F98-BDEF-3E721B35922B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDAE50FA-0ADE-4F98-BDEF-3E721B35922B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

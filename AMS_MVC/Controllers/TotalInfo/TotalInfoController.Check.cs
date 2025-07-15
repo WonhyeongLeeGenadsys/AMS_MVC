@@ -10,14 +10,21 @@ namespace AMS_MVC.Controllers
 {
     public partial class TotalInfoController : Controller
     {
+        // 5대 장비 기본정보 
+        private readonly VCBBasicInfoRepository _vcbBasic = new VCBBasicInfoRepository();
+        private readonly ITRBasicInfoRepository _itrBasic = new ITRBasicInfoRepository();
+        private readonly DCCBBasicInfoRepository _dccbBasic = new DCCBBasicInfoRepository();
+        private readonly DCCABLEBasicInfoRepository _dccableBasic = new DCCABLEBasicInfoRepository();
+        private readonly SUBMODULEBasicInfoRepository _subBasic = new SUBMODULEBasicInfoRepository();
+
+        // 5대 장비 보통점검, 정밀점검 
         private readonly VCBChkRepository vcbRepo = new VCBChkRepository();
         private readonly ITRChk1Repository itrChk1Repo = new ITRChk1Repository();
         private readonly ITRChk2Repository itrChk2Repo = new ITRChk2Repository();
         private readonly DCCBChkRepository dccbRepo = new DCCBChkRepository();
         private readonly DCCABLEChkRepository dccableRepo = new DCCABLEChkRepository();
         private readonly SUBMODULEChkRepository submoduleRepo = new SUBMODULEChkRepository();
-
-        // GET: 점검 일정 API
+        
         public JsonResult GetScheduleData(int year, int month)
         {
             List<VCBChk> vcbChecks;
@@ -35,12 +42,37 @@ namespace AMS_MVC.Controllers
             submoduleRepo.GetTotalSUBMODULEChk(out submoduleChecks);
 
             var schedules = new List<dynamic>();
-
-            // Helper: 일정 아이템 추가
+            
             void AddRange<T>(IEnumerable<T> records, Func<T, DateTime?> getStart, Func<T, DateTime?> getEnd, string codeField, string type, string status)
             {
                 foreach (var c in records)
                 {
+                    var code = (string)c.GetType().GetProperty(codeField).GetValue(c);
+
+                    // 시리얼번호 가져오기
+                    string serial;
+                    switch (type)
+                    {
+                        case "VCB":
+                            serial = _vcbBasic.GetVCBBasicInfoByCode(code)?.Serial_No;
+                            break;
+                        case "ITR":
+                            serial = _itrBasic.GetITRBasicInfoByITRCode(code)?.Serial_No;
+                            break;
+                        case "DCCB":
+                            serial = _dccbBasic.GetDCCBBasicInfoByCode(code)?.Serial_No;
+                            break;
+                        case "DCCABLE":
+                            serial = _dccableBasic.GetDCCABLEBasicInfoByCode(code)?.Serial_No;
+                            break;
+                        case "SUBMODULE":
+                            serial = _subBasic.GetSUBMODULEBasicInfoByCode(code)?.Serial_No;
+                            break;
+                        default:
+                            serial = null;
+                            break;
+                    }
+
                     var s = getStart(c);
                     if (s.HasValue && s.Value.Year == year && s.Value.Month == month)
                     {
@@ -48,19 +80,21 @@ namespace AMS_MVC.Controllers
                         schedules.Add(new
                         {
                             Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
+                            Serial_No = serial,
                             Type = type,
                             Start = s.Value.ToString("yyyy-MM-dd"),
                             End = e?.ToString("yyyy-MM-dd"),
                             Status = status
                         });
                     }
-                    // overdue: End + 3 months
+                    // overdue: End + 3개월 
                     if (getEnd(c)?.AddMonths(3) is DateTime due
                         && due.Year == year && due.Month == month)
                     {
                         schedules.Add(new
                         {
                             Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
+                            Serial_No = serial,
                             Type = type,
                             Start = due.ToString("yyyy-MM-dd"),
                             End = (string)null,

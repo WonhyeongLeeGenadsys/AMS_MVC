@@ -11,7 +11,7 @@ function getStrategyMessage(hi, life) {
 }
 
 function loadStrategy(url, selector, prefix) {
-    const codeKey = `${prefix}_Code`;   
+    //const codeKey = `${prefix}_Code`;   
     const $container = $(selector).empty();
 
     //$container.append(`<h2><p>(${prefix})</p></h2>`);
@@ -19,13 +19,15 @@ function loadStrategy(url, selector, prefix) {
     $.getJSON(url)
         .done(devices => {
             devices.forEach(item => {
-                const code = item[codeKey];
+                //const code = item[codeKey];
                 const hi = item.HI;
                 const life = item.Remain_Life;
                 const msg = getStrategyMessage(hi, life);
 
                 $container.append(
-                    `<p><strong>${code}</strong> — ${msg}</p>`
+                    //`<p><strong>${code}</strong> — ${msg}</p>`
+                    `<p>${msg}</p>`
+
                 );
             });
         })
