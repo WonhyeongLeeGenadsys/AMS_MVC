@@ -185,9 +185,5 @@ $(document).ready(function () {
         $('.box_wrap.totalInfo_content').removeClass('on');
         $('#' + targetId).addClass('on');
 
-        const target = $(this).data('tab');
-        if (target === 'con_box02') setupChart('#pieAC', 'AC');
-        if (target === 'con_box03') setupChart('#pieDC', 'DC');
     });
-
 });

@@ -2544,3 +2544,16 @@ dl.product_info {
 .table_list_app td:nth-child(n+3) {
 	text-align: center;
 }
+
+#chart_line01,
+#chart_line02,
+#chart_line03,
+#chart_line01AC,
+#chart_line02AC,
+#chart_line03AC,
+#chart_line01DC,
+#chart_line02DC,
+#chart_line03DC {
+	width: 550px !important;
+	height: 260px !important;
+}

@@ -528,7 +528,7 @@ $(function(){
         <!-- 신뢰도 차트 -->
         <div class="con_box flex5">
             <h2>신뢰도</h2>
-            <div id="chart_line02" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            <div id="chart_line_trust" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
         </div>
 
         <script>
@@ -556,7 +556,7 @@ $(function(){
     });
     var maxX = resp[0].TimeMax;
 
-    $("#chart_line02").dxChart({
+    $("#chart_line_trust").dxChart({
       dataSource: seriesData,
       commonSeriesSettings: {
         type: "line",

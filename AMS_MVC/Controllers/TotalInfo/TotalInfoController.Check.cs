@@ -106,7 +106,7 @@ namespace AMS_MVC.Controllers
 
             AddRange(vcbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "VCB_Code", "VCB", "confirmed");
             AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "ITR", "confirmed");
-            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "ITR ", "risk");
+            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "ITR", "risk");
             AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DCCB", "confirmed");
             AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCABLE_Code", "DCCABLE", "confirmed");
             AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SUBMODULE_Code", "SUBMODULE", "confirmed");

@@ -935,7 +935,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Shared\_TopMenu.cshtml" />
-    <Content Include="Views\TotalInfo\IndexBackup.cshtml" />
     <Content Include="Views\Shared\_LeftMenu.cshtml" />
     <Content Include="Views\Shared\_TotalInfoMenu.cshtml" />
     <Content Include="Views\Shared\_DeviceInfoMenu.cshtml" />
