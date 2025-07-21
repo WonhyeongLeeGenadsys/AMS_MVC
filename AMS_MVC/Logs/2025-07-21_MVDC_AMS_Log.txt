@@ -1,0 +1,292 @@
+|2025-07-21 15:23:10  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:23:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:23:10  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:23:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:39:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:39:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:24  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:39:24  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:28  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:39:28  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:33  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:33  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:35  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:35  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:38  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:38  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:39  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:39  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:39  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:39  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:41  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:41  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:46  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:39:46  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:48  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:48  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:48  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:39:48  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:49  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:39:49  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:57  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:39:57  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:39:59  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:39:59  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:04  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:04  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:04  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:04  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:14  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:14  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:19  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:19  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:40:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:20  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:20  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:20  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:20  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:40:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:21  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:21  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:21  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:21  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:22  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:22  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:22  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:40:22  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:23  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:40:23  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:23  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:23  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:23  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:23  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:23  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:24  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:24  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:25  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:25  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:25  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.SUBMODULEBasicInfo]   |
+|2025-07-21 15:40:25  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:26  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:40:26  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:55  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:56  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:40:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:40:59  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:40:59  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:00  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 15:41:00  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:07  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:41:07  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:08  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:41:08  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:12  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:41:12  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 15:41:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:15  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 15:41:15  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:16  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 15:41:16  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:19  |   saBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 15:41:19  |   DB(SA_BASICINFO)  |   GetAllSABasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:20  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 15:41:20  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:21  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 15:41:21  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:21  |   saBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 15:41:21  |   DB(SA_BASICINFO)  |   GetAllSABasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:50  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:41:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 15:41:51  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 15:41:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:10:50  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:10:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:10:52  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:10:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:15:15  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:15:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:15:16  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:15:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:15:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:15:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:15:26  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:15:26  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:23:46  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:23:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:23:46  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:23:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:24:04  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:24:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:24:06  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:24:06  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:29:24  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:29:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:29:25  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:29:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:29:56  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:29:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:29:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:29:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:55:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:55:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:55:04  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:55:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:55:41  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:55:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 16:55:41  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 16:55:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 17:00:10  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 17:00:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 17:00:11  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 17:00:11  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:02:57  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 18:02:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:02:58  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 18:02:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:07  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 18:03:07  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:07  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.ITRBasicInfo]   |
+|2025-07-21 18:03:07  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:16  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 18:03:16  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:17  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCBBasicInfo]   |
+|2025-07-21 18:03:17  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:24  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:24  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:25  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:25  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:40  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:40  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:41  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:41  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:42  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:42  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:44  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:44  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:51  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:51  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:53  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 실패:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   위치: System.Data.SqlClient.SqlDataReader.get_MetaData()
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   위치: System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   위치: Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) 파일 /_/Dapper/SqlMapper.cs:줄 1156
+   위치: Dapper.SqlMapper.<QueryImpl>d__144`1.MoveNext() 파일 /_/Dapper/SqlMapper.cs:줄 1184
+   위치: System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   위치: System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   위치: Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 815
+   위치: AMS_MVC.Repositories.ESBasicInfoRepository.GetAllESBasicInfoRepo(List`1& esBasicInfo) 파일 D:\project\AMS\AMS_MVC\AMS_MVC\Repositories\etc\Grounding\ES\ESBasicInfoRepository.cs:줄 59열 이름 'TBL_IDX'이(가) 잘못되었습니다.   |
+|2025-07-21 18:03:55  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 실패:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   위치: System.Data.SqlClient.SqlDataReader.get_MetaData()
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   위치: System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   위치: Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) 파일 /_/Dapper/SqlMapper.cs:줄 1156
+   위치: Dapper.SqlMapper.<QueryImpl>d__144`1.MoveNext() 파일 /_/Dapper/SqlMapper.cs:줄 1184
+   위치: System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   위치: System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   위치: Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 815
+   위치: AMS_MVC.Repositories.ESBasicInfoRepository.GetAllESBasicInfoRepo(List`1& esBasicInfo) 파일 D:\project\AMS\AMS_MVC\AMS_MVC\Repositories\etc\Grounding\ES\ESBasicInfoRepository.cs:줄 59열 이름 'TBL_IDX'이(가) 잘못되었습니다.   |
+|2025-07-21 18:03:56  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:03:56  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:03:58  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 실패:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   위치: System.Data.SqlClient.SqlDataReader.get_MetaData()
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   위치: System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   위치: Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) 파일 /_/Dapper/SqlMapper.cs:줄 1156
+   위치: Dapper.SqlMapper.<QueryImpl>d__144`1.MoveNext() 파일 /_/Dapper/SqlMapper.cs:줄 1184
+   위치: System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   위치: System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   위치: Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 815
+   위치: AMS_MVC.Repositories.ESBasicInfoRepository.GetAllESBasicInfoRepo(List`1& esBasicInfo) 파일 D:\project\AMS\AMS_MVC\AMS_MVC\Repositories\etc\Grounding\ES\ESBasicInfoRepository.cs:줄 59열 이름 'TBL_IDX'이(가) 잘못되었습니다.   |
+|2025-07-21 18:04:00  |   wallbushingBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 18:04:00  |   DB(WALLBUSHING_BASICINFO)  |   GetAllWALLBUSHINGBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:02  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 실패:    위치: System.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   위치: System.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   위치: System.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   위치: System.Data.SqlClient.SqlDataReader.TryConsumeMetaData()
+   위치: System.Data.SqlClient.SqlDataReader.get_MetaData()
+   위치: System.Data.SqlClient.SqlCommand.FinishExecuteReader(SqlDataReader ds, RunBehavior runBehavior, String resetOptionsString, Boolean isInternal, Boolean forDescribeParameterEncryption, Boolean shouldCacheForAlwaysEncrypted)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, Boolean inRetry, SqlDataReader ds, Boolean describeParameterEncryptionRequest)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean& usedCache, Boolean asyncWrite, Boolean inRetry)
+   위치: System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   위치: System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   위치: System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   위치: Dapper.SqlMapper.ExecuteReaderWithFlagsFallback(IDbCommand cmd, Boolean wasClosed, CommandBehavior behavior) 파일 /_/Dapper/SqlMapper.cs:줄 1156
+   위치: Dapper.SqlMapper.<QueryImpl>d__144`1.MoveNext() 파일 /_/Dapper/SqlMapper.cs:줄 1184
+   위치: System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   위치: System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   위치: Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) 파일 /_/Dapper/SqlMapper.cs:줄 815
+   위치: AMS_MVC.Repositories.ESBasicInfoRepository.GetAllESBasicInfoRepo(List`1& esBasicInfo) 파일 D:\project\AMS\AMS_MVC\AMS_MVC\Repositories\etc\Grounding\ES\ESBasicInfoRepository.cs:줄 59열 이름 'TBL_IDX'이(가) 잘못되었습니다.   |
+|2025-07-21 18:04:03  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 18:04:03  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:04  |   wallbushingBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 18:04:04  |   DB(WALLBUSHING_BASICINFO)  |   GetAllWALLBUSHINGBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:04  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[AMS_MVC.Models.DCCABLEBasicInfo]   |
+|2025-07-21 18:04:04  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:08  |   heatexchangerBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 18:04:08  |   DB(HEATEXCHANGER_BASICINFO)  |   GetAllHEATEXCHANGERBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:11  |   heatexchangerBasicInfo Data  |   총 0 건 조회됨   |
+|2025-07-21 18:04:11  |   DB(HEATEXCHANGER_BASICINFO)  |   GetAllHEATEXCHANGERBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:26  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:04:26  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:27  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:04:27  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:55  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 18:04:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:56  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 18:04:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:57  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:04:57  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:04:58  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:04:58  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:05:19  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-21 18:05:19  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-21 18:05:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-21 18:05:19  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-21 18:05:22  |   ZIGZAGTRBasicController.List  |   GetZIGZAGTRListData 실행   |
+|2025-07-21 18:05:22  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:05:22  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:05:22  |   ZIGZAGTRBasicController.List  |   ZIGZAGTR 데이터 로드 성공   |
+|2025-07-21 18:05:30  |   ZIGZAGTRBasicController.List  |   GetZIGZAGTRListData 실행   |
+|2025-07-21 18:05:30  |   zigzagtrBasicInfo Data  |   총 1 건 조회됨   |
+|2025-07-21 18:05:30  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-07-21 18:05:30  |   ZIGZAGTRBasicController.List  |   ZIGZAGTR 데이터 로드 성공   |

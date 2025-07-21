@@ -1385,7 +1385,6 @@
     <Content Include="Views\Shared\DeviceInfo\_FailureGrid.cshtml" />
     <Content Include="Views\Setting\CofInfo.cshtml" />
     <Content Include="Views\Setting\_CofInputs.cshtml" />
-    <Content Include="Views\Device\VCB\ScheduleDetail.cshtml" />
     <Content Include="Views\TotalInfo\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>

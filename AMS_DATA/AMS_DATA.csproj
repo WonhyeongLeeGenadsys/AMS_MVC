@@ -175,5 +175,19 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AMS_MVC.Tests\AMS_MVC.Tests.csproj">
+      <Project>{3d7e9ba2-2084-4c8c-a730-df97b49618f1}</Project>
+      <Name>AMS_MVC.Tests</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\AMS_MVC\AMS_MVC.csproj">
+      <Project>{a8fc0247-9717-4851-b19e-44796d021260}</Project>
+      <Name>AMS_MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.Common\Web.Common.csproj">
+      <Project>{f7976e28-56a6-410f-a084-b1d979f9d7ee}</Project>
+      <Name>Web.Common</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
