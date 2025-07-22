@@ -19,11 +19,26 @@ namespace AMS_DATA
             //["YHLU01/SPDC1.ST.DscnCnt."] = nameof(VCBChk.CHK_ShortCircuitCount),
             //["YHLU01/SPDC1.SP.EvtAmpTrhe2."] = nameof(VCBChk.CHK_PdPatternValue),
             //["YHLU01/STMP1.MV.Tmp."] = nameof(VCBChk.CHK_HotSpot),
+
+            //["YHLU01/SPDC1.ST.MoDevComF."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU01/SPDC1.ST.MoDevFlt."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU01/SPDC1.MV.AppPaDsch."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU01/SPDC1.SP.EvtAmpTrhe2."]= nameof(VCBChk.CHK_HotSpot),
+
+            //["YHLU01/SPDC1.ST.PaDschAlm."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU01/SPDC1.ST.EvtLvlSt."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU02/ITSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU03/ITSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
+
+            //["YHLU04/SCBR1.ST.EvtTransF."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU04/WTSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU06/ZSAR1.ST.OpCnt."] = nameof(VCBChk.CHK_HotSpot),
+            //["YHLU06/ZSAR1.MX.LeakA."] = nameof(VCBChk.CHK_HotSpot),
+                                                                                              
             ["KEPCOALM/CINGGIO1$ST$Ind01$q"] = nameof(VCBChk.CHK_OperationCount),
             ["KEPCOALM/CINGGIO1$ST$Ind02$q"] = nameof(VCBChk.CHK_ShortCircuitCount),
             ["KEPCOALM/CINGGIO1$ST$Ind03$q"] = nameof(VCBChk.CHK_PdPatternValue),
-            ["KEPCOALM/CINGGIO1$ST$Ind04$q"] = nameof(VCBChk.CHK_HotSpot)
-
+            ["KEPCOALM/CINGGIO1$ST$Ind04$q"] = nameof(VCBChk.CHK_HotSpot)            
         };
     }
 
@@ -37,13 +52,14 @@ namespace AMS_DATA
             var basicInfo = basicRepo.GetVCBBasicInfoByCode(latestCode);
 
             Console.WriteLine($"▶ 처리할 VCB_CODE: {basicInfo.VCB_Code}, Serial: {basicInfo.Serial_No}");
-            
-            var client = InfluxDBClientFactory.Create(
-                "http://192.168.0.24:8086",
-                "cOPC3HVD8zxxSWUs2go2zWaVx7NAVEjVoX3cCAKzLc_QZJeUFoCJxvYjS8dKynP5s37jsYsfjA0baQLFKpE64Q=="
-            );
+
             const string org = "mvdc";
             const string bucket = "AMS";
+            const string url = "http://192.168.0.24:8086";
+            const string token = "cOPC3HVD8zxxSWUs2go2zWaVx7NAVEjVoX3cCAKzLc_QZJeUFoCJxvYjS8dKynP5s37jsYsfjA0baQLFKpE64Q==";
+
+            // db 연결
+            var client = InfluxDBClientFactory.Create(url, token);
 
             // 1) 실시간 신호값 읽기 (YHLU 측정치 기준)
             var signals = await FetchSignals(client, org, bucket);
@@ -52,7 +68,6 @@ namespace AMS_DATA
             var model = new VCBChk
             {
                 VCB_Code = basicInfo.VCB_Code,
-                CHK_Tbl_GetDate = DateTime.Now
             };
             FillModelFromSignals(model, signals);
 

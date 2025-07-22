@@ -49,7 +49,7 @@ namespace AMS_MVC.Controllers
                     case "mini": 
                         dbKey = "MiniDB";
                         break;
-                }
+                }                
                 Session["DBKey"] = dbKey;
 
                 return Json(new { result = "success" }); 

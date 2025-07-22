@@ -1360,6 +1360,11 @@
                 'DC': 'DC'
             };
 
+            const tabLoaded = { '': true, AC: false, DC: false };
+            const historyLoaded = { '': false, AC: false, DC: false };
+            const scheduleLoaded = { '': false, AC: false, DC: false };
+
+
             //  공통 그리드 렌더 함수
             function renderGrid(selector, data, columns) {
                 $(selector).dxDataGrid({
