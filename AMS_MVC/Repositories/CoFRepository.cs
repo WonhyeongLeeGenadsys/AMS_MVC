@@ -191,4 +191,19 @@ INSERT INTO COF (
             db.Conn.Execute(sql, m);
         }
     }
+
+    public decimal GetTotalCofByPrefix(string prefix)
+    {
+        const string sql = @"
+    SELECT SUM(TOTAL_COF) AS TotalCof
+    FROM COF
+    WHERE Code LIKE @Prefix";
+
+        using (var db = new DBHelper())
+        {
+            var result = db.Conn.QueryFirstOrDefault<decimal?>(sql, new { Prefix = prefix + "%" });
+            return result ?? 0m;
+        }
+    }
+
 }

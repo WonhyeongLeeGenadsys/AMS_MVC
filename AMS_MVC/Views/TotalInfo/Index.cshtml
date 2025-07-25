@@ -400,6 +400,7 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
                         legend: {
@@ -823,6 +824,7 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
                         legend: { visible: true, position: "bottom" },
@@ -1236,6 +1238,7 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
                         legend: { visible: true, position: "bottom" },
@@ -1415,7 +1418,7 @@
                                     });
                                 }
                             }
-                            
+
                         }
                     },
                     columns: columns
@@ -1427,7 +1430,7 @@
                 const suf = SUFFIX[prefix];
                 $.post(URLS.PRIORITY)
                     .done(data => {
-                        // 1) AC탭, DC탭 필터링 
+                        // 1) AC탭, DC탭 필터링
                         let filtered = data;
                         if (prefix === 'AC') {
                             filtered = data.filter(d => d.Sort === 'AC');
@@ -1467,7 +1470,7 @@
 
             function loadHistory(prefix) {
                 const suf = SUFFIX[prefix];
-                $.post(URLS.GOJANG)   
+                $.post(URLS.GOJANG)
                     .done(raw => {
                         let ds = raw;
                         if (prefix === 'AC') {
@@ -1625,6 +1628,47 @@
 
             //  초기엔 5대 주요장비 우선순위만
             loadPriority('');
+
+             setInterval(() => {
+        // 1) pie 데이터 재조회
+        $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+          .done(rawPoints => {
+            var buckets = rawPoints.reduce((a,p) => {
+              a[p.hi] = a[p.hi]||{hi:p.hi,codes:[]};
+              a[p.hi].codes.push(p.name);
+              return a;
+            }, {});
+            var ds = Object.values(buckets).map(b=>({
+              state: b.hi+'등급', value: b.codes.length, codes: b.codes, hi: b.hi
+            }));
+            $('#pieAll').dxPieChart('instance').option('dataSource', ds);
+          });
+
+        // 2) risk matrix 재조회
+        $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+          .done(raw => {
+            var data = raw.map(p=>({x:p.x,y:p.y,name:p.name,group:p.group}));
+            $('#chartContainerAll').dxChart('instance').option('dataSource', data);
+          });
+
+        // 3) 이력 차트 재조회
+        $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
+          .done(hist => {
+            hist = hist.map(d=>({ ...d, time: new Date(d.time) }));
+            ['#chart_line01','#chart_line02','#chart_line03']
+              .forEach(id =>
+                $(id).dxChart('instance').option('dataSource', hist)
+              );
+          });
+
+        // 4) 우선순위 그리드 재조회
+        $.post('@Url.Action("GetPriorityInfo","TotalInfo")')
+          .done(dataGrid => {
+            $('#gridContainer').dxDataGrid('instance')
+                               .option('dataSource', dataGrid);
+          });
+
+      }, 10000);
         });
     </script>
 }

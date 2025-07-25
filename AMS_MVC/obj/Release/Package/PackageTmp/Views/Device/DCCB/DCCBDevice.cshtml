@@ -694,151 +694,106 @@ $(function(){
         }, 100);
     });
         </script>-->
-        <!--점검-->
-        <div class="con_box flexCheck schedule">
-            <!-- 타이틀 영역 -->
-            <h2>
-                <p>점검</p>
-                <p class="schedule_value">
-                    <span class="confirmed">보통점검</span>
-                    <span class="risk">정밀점검</span>
-                    @*<span class="created">To be Created</span>*@
-                </p>
-                <p class="month_select">
-                    <a href="javascript:void(0);" class="arrow prev">이전달</a>
-                    <span id="currentMonth"></span>
-                    <a href="javascript:void(0);" class="arrow next">다음달</a>
-                </p>
-                <a href="javascript:void(0);" class="btn_more">더보기</a>
-            </h2>
-            <!-- //타이틀 영역 -->
-            <!-- 스케줄 테이블 영역 -->
-            <div class="schedule_table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th colspan="2"></th>
-                            @for (int i = 1; i <= 31; i++)
-                            {
-                                <th>@i</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                </table>
-            </div>
+        <!-- 점검일정 -->
+        <div class="con_box">
+            <h2>점검일정</h2>
+            <div id="gridContainerSchedule" class="grid_wrap" style="height:250px;"></div>
         </div>
 
         <script>
-            $(document).ready(function () {
-                // 현재 연도와 월 초기화
-                var currentYear = new Date().getFullYear();
-                var currentMonth = new Date().getMonth() + 1; // 월은 0부터 시작하므로 +1
+  $(function(){
+    var today = new Date();
+    var year  = today.getFullYear();
+    var month = today.getMonth() + 1;
 
-                // 상단에 표시할 현재 연도-월 업데이트 함수
-                function updateMonthDisplay() {
-                    $("#currentMonth").text(currentYear + " - " + String(currentMonth).padStart(2, '0'));
-                }
+    $.getJSON('@Url.Action("GetScheduleData","TotalInfo")', { year: year, month: month })
+      .done(function(res){
+        // 1) VCB만 필터
+        let vcbs = res.filter(r => r.Type === 'DCCB');
 
-                // 지정한 연도와 월의 점검 스케줄 데이터를 AJAX로 가져오는 함수
-                function loadSchedule(year, month) {
-                    $.ajax({
-                        url: '/TotalInfo/GetScheduleData',
-                        type: "GET",
-                        data: { year: year, month: month },
-                        dataType: "json",
-                        success: function (data) {
-                            renderSchedule(data, year, month);
-                        },
-                        error: function () {
-                            alert("데이터를 불러오는 중 오류가 발생했습니다.");
-                        }
-                    });
-                }
+        // 2) DueDate 계산 (End + 3개월)
+        vcbs.forEach(item => {
+          if (item.End) {
+            let d = new Date(item.End);
+            d.setMonth(d.getMonth() + 3);
+            item.DueDate = d.toISOString().slice(0,10);
+          }
+        });
 
-                // 가져온 데이터를 바탕으로 스케줄 테이블의 행을 생성하는 함수
-                function renderSchedule(data, year, month) {
-                    var daysInMonth = new Date(year, month, 0).getDate();
-                    var tbodyHtml = "";
+        // 3) 같은 Serial_No별로 최신 DueDate 항목만 남기기
+        let latestBySerial = Object.values(
+          vcbs.reduce((acc, item) => {
+            let prev = acc[item.Serial_No];
+            if (!prev || new Date(item.DueDate) > new Date(prev.DueDate)) {
+              acc[item.Serial_No] = item;
+            }
+            return acc;
+          }, {})
+        );
 
-                    // 먼저 Type별로 그룹화
-                    var groupedData = {};
-                    data.forEach(function (item) {
-                        if (!groupedData[item.Type]) {
-                            groupedData[item.Type] = [];
-                        }
-                        groupedData[item.Type].push(item);
-                    });
+        // 4) DueDate 오름차순 정렬 후 Priority 재부여
+        latestBySerial
+          .sort((a,b) => new Date(a.DueDate) - new Date(b.DueDate))
+          .forEach((item, idx) => item.Priority = idx+1);
 
-                    // 그룹별로 행 생성
-                    for (var type in groupedData) {
-                        var items = groupedData[type];
-                        items.forEach(function (item) {
-                            // 점검 시작일과 종료일의 "일" 숫자를 추출 (예: "2024-07-10" -> 10)
-                            var startDay = parseInt(item.Start.split('-')[2]);
-                            var endDay = item.End ? parseInt(item.End.split('-')[2]) : startDay;
-                            // 상태에 따라 바의 색상 지정
-                            var barStyle = "";
-                            if (item.Status === "confirmed") {
-                                barStyle = "background-color:#0051A2;";
+        // 5) DevExtreme DataGrid 렌더
+        $("#gridContainerSchedule").dxDataGrid({
+          dataSource: latestBySerial,
+          showBorders: true,
+          sorting: { mode: 'multiple' },
+          scrolling: { columnRenderingMode: 'virtual' },
 
-                            } else if (item.Status === "risk") {
-                                barStyle = "background-color:#800080;";
+          onCellPrepared: function(e) {
+            if (e.rowType !== 'data') return;
 
-                            } else if (item.Status === "created") {
-                                barStyle = "background-color:gray;";
+            // 시작일 → 연두색
+            if (e.column.dataField === 'Start') {
+              e.cellElement.css({ color: 'green', 'font-weight': 'medium' });
+            }
+            // 종료일 → 검정
+            else if (e.column.dataField === 'End') {
+              e.cellElement.css({ color: 'black', 'font-weight': 'medium' });
+            }
+            // 점검일(DueDate) → 빨강
+            else if (e.column.dataField === 'DueDate') {
+              e.cellElement.css({ color: 'red', 'font-weight': 'bold' });
+            }
+            // 우선순위는 굵게
+            else if (e.column.dataField === 'Priority') {
+              e.cellElement.css({ 'font-weight': 'bold' });
+            }
+          },
 
-                            } else {
-                                barStyle = "background-color:lightgray;";
-                            }
-                            var barWidth = ((endDay - startDay + 1) * 31) + "px";
-
-                            tbodyHtml += "<tr>";
-                            tbodyHtml += "<th>" + type + "</th>";
-                            tbodyHtml += "<td>" + item.Code + "</td>";
-                            // 각 날짜 셀 생성
-                            for (var i = 1; i <= daysInMonth; i++) {
-                                if (i === startDay) {
-                                    tbodyHtml += "<td colspan='" + (endDay - startDay + 1) + "' style='position: relative;'><span class='bar' style='" + barStyle + " width: " + barWidth + "; height: 20px; display: block;'></span></td>";
-                                    i = endDay; // 종료일 다음 날로 건너뛰기
-                                } else {
-                                    tbodyHtml += "<td></td>";
-                                }
-                            }
-                            tbodyHtml += "</tr>";
-                        });
-                    }
-                    $(".schedule_table tbody").html(tbodyHtml);
-                }
-
-                // 이전달 버튼 클릭 시
-                $(".prev").click(function () {
-                    currentMonth--;
-                    if (currentMonth < 1) {
-                        currentMonth = 12;
-                        currentYear--;
-                    }
-                    updateMonthDisplay();
-                    loadSchedule(currentYear, currentMonth);
-                });
-
-                // 다음달 버튼 클릭 시
-                $(".next").click(function () {
-                    currentMonth++;
-                    if (currentMonth > 12) {
-                        currentMonth = 1;
-                        currentYear++;
-                    }
-                    updateMonthDisplay();
-                    loadSchedule(currentYear, currentMonth);
-                });
-
-                // 초기 로드
-                updateMonthDisplay();
-                loadSchedule(currentYear, currentMonth);
-            });
+          columns: [
+            { dataField: "Priority", caption: "우선순위", alignment: "center" },
+            {
+                  caption: "구분",
+                  alignment: "center",
+                  calculateCellValue: function () {
+                      return "DC";
+                  }
+            },
+            { dataField: "Type", caption: "설비명", alignment: "center" },
+            {
+              caption: "점검유형", alignment: "center",
+              calculateCellValue: row =>
+                row.Status === 'confirmed' ? '보통점검'
+              : row.Status === 'risk'      ? '정밀점검'
+              : row.Status
+            },
+            { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
+            { dataField: "Start",      caption: "시작일",    dataType: "date", alignment: "center" },
+            { dataField: "End",        caption: "종료일",    dataType: "date", alignment: "center" },
+            { dataField: "DueDate",    caption: "정기점검일",dataType: "date", alignment: "center" }
+          ]
+        });
+      })
+      .fail(function(xhr, status, err){
+        console.error("GetScheduleData 오류:", err);
+      });
+  });
         </script>
+
         <!--//점검-->
         <!--유지보수-->
         <!--<div class="con_box flex1">-->

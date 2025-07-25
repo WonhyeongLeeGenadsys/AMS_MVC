@@ -7,7 +7,7 @@ namespace AMS_MVC.Services
 {
     public class VCBChkScoreCalculator
     {
-        public (decimal HI, decimal PoF) CalculateHiPof(VCBChk chk, decimal alpha = 0.99m) //alpha는 보정계수 0.99 고정
+        public (decimal HI, decimal PoF) CalculateHiPof(VCBChk chk, decimal alpha = 1.00m) //alpha는 보정계수 0.99 고정
         {
             int[] scores = new[]
             {

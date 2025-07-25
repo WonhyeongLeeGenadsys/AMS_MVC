@@ -6,7 +6,7 @@ namespace AMS_MVC.Services
 {
     public class ITRChkScoreCalculator
     {
-            public (decimal HI, decimal PoF) CalculateHiPof(ITRChk1 chk, decimal alpha = 0.99m)
+            public (decimal HI, decimal PoF) CalculateHiPof(ITRChk1 chk, decimal alpha = 1.00m)
         {
             
             int[] scores = new int[]
@@ -48,7 +48,7 @@ namespace AMS_MVC.Services
         /// <summary>
         /// 정밀점검(ITRChk2)에 포함된 모든 수치형 변수 중 최대값을 Folding Function으로 계산
         /// </summary>
-        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk2 chk, decimal alpha = 0.99m) //alpha는 보정계수 0.99 고정
+        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk2 chk, decimal alpha = 1.00m) //alpha는 보정계수 0.99 고정
         {
             int[] scores = new int[]
             {

@@ -7,7 +7,7 @@ namespace AMS_MVC.Services
 {
     public class SUBMODULEChkScoreCalculator
     {
-        public (decimal HI, decimal PoF) CalculateHiPof(SUBMODULEChk chk, decimal alpha = 0.99m)
+        public (decimal HI, decimal PoF) CalculateHiPof(SUBMODULEChk chk, decimal alpha = 1.00m)
         {
             int[] scores = new int[]
             {

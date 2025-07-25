@@ -1,0 +1,23 @@
+|2025-07-23 16:36:01  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:02  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:27  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:35  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-07-23 16:36:37  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:36:41  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:36:41  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:37:09  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:37:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:37:11  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:37:11  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:37:13  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:37:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-23 16:37:29  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-23 16:37:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

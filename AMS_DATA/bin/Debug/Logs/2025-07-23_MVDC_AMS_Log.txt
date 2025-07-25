@@ -1,0 +1,4 @@
+|2025-07-23 11:24:54  |   DB(VCB_CHK)  |   저장 오류: 테이블 'AMS.dbo.VCB_CHK', 열 'CHK_GONGSA_NAME'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |
+|2025-07-23 13:53:00  |   DB(VCB_CHK)  |   저장 오류: 테이블 'AMS.dbo.VCB_CHK', 열 'CHK_GONGSA_NAME'에 NULL 값을 삽입할 수 없습니다. 열에는 NULL을 사용할 수 없습니다. INSERT이(가) 실패했습니다.
+문이 종료되었습니다.   |

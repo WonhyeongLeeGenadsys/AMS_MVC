@@ -5,14 +5,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\publish</_PublishTargetUrl>
-    <History>True|2025-07-18T08:57:18.8586039Z;True|2025-07-07T18:17:07.6085702+09:00;True|2025-07-03T16:16:20.2137252+09:00;True|2025-06-20T14:05:31.5569305+09:00;True|2025-06-20T14:03:50.7715630+09:00;True|2025-04-25T18:03:28.5103563+09:00;True|2025-04-22T15:31:24.2435243+09:00;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
+    <History>True|2025-07-22T08:14:13.6437450Z;True|2025-07-18T17:57:18.8586039+09:00;True|2025-07-07T18:17:07.6085702+09:00;True|2025-07-03T16:16:20.2137252+09:00;True|2025-06-20T14:05:31.5569305+09:00;True|2025-06-20T14:03:50.7715630+09:00;True|2025-04-25T18:03:28.5103563+09:00;True|2025-04-22T15:31:24.2435243+09:00;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AMS_MVC.dll">
-      <publishTime>07/18/2025 17:57:17</publishTime>
+      <publishTime>07/22/2025 17:14:12</publishTime>
     </File>
     <File Include="bin/AMS_MVC.pdb">
-      <publishTime>07/18/2025 17:57:17</publishTime>
+      <publishTime>07/22/2025 17:14:12</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>05/12/2025 17:46:10</publishTime>
@@ -306,7 +306,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:09</publishTime>
     </File>
     <File Include="css/electric.css">
-      <publishTime>07/18/2025 16:52:08</publishTime>
+      <publishTime>07/22/2025 13:05:44</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>05/12/2025 17:46:10</publishTime>
@@ -903,7 +903,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 19:03:52</publishTime>
     </File>
     <File Include="Views/Check/VCB/VCBChkAdd.cshtml">
-      <publishTime>06/17/2025 17:24:01</publishTime>
+      <publishTime>07/21/2025 16:10:36</publishTime>
     </File>
     <File Include="Views/Check/VCB/VCBChkDetail.cshtml">
       <publishTime>05/12/2025 17:46:09</publishTime>
@@ -915,115 +915,115 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:09</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/ARMREACTOR/ARMREACTORDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/ARMREACTOR/ARMREACTORDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/CT/CTDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/CT/CTDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/DS/DSDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/DS/DSDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/LA/LADevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/LA/LADeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/PT/PTDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/PT/PTDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/WALLBUSHING/WALLBUSHINGDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/WALLBUSHING/WALLBUSHINGDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/BYPASSVALVE/BYPASSVALVEDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/BYPASSVALVE/BYPASSVALVEDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/HEATEXCHANGER/HEATEXCHANGERDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/HEATEXCHANGER/HEATEXCHANGERDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/PUMP/PUMPDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/PUMP/PUMPDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/TANK/TANKDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/Cooling System/TANK/TANKDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/DC Yard/DCCT/DCCTDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/DC Yard/DCCT/DCCTDeviceDetail.cshtml">
       <publishTime>07/11/2025 11:54:40</publishTime>
     </File>
     <File Include="Views/Device/etc/DC Yard/SA/SADevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:29</publishTime>
     </File>
     <File Include="Views/Device/etc/DC Yard/SA/SADeviceDetail.cshtml">
       <publishTime>07/11/2025 11:54:40</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/ES/ESDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:58:55</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/ES/ESDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/NGR/NGRDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:59:23</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/NGR/NGRDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/ZIGZAGTR/ZIGZAGTRDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 18:00:06</publishTime>
     </File>
     <File Include="Views/Device/etc/Grounding/ZIGZAGTR/ZIGZAGTRDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDevice.cshtml">
-      <publishTime>07/18/2025 17:47:38</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDeviceDetail.cshtml">
       <publishTime>07/11/2025 14:10:19</publishTime>
@@ -1032,10 +1032,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/25/2025 14:13:38</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDevice.cshtml">
-      <publishTime>07/18/2025 17:11:41</publishTime>
+      <publishTime>07/21/2025 17:53:44</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDeviceDetail.cshtml">
-      <publishTime>07/11/2025 14:10:19</publishTime>
+      <publishTime>07/21/2025 16:10:36</publishTime>
     </File>
     <File Include="Views/Gojang/DCCABLE/DCCABLEGojangAdd.cshtml">
       <publishTime>05/12/2025 17:46:09</publishTime>
@@ -1887,7 +1887,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>07/02/2025 13:33:07</publishTime>
     </File>
     <File Include="Views/Setting/MemberInfo.cshtml">
-      <publishTime>05/12/2025 17:46:09</publishTime>
+      <publishTime>07/21/2025 19:04:51</publishTime>
     </File>
     <File Include="Views/Setting/SubstationInfo.cshtml">
       <publishTime>05/12/2025 17:46:09</publishTime>
@@ -1944,7 +1944,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>06/11/2025 11:24:54</publishTime>
     </File>
     <File Include="Views/Shared/_TopMenu.cshtml">
-      <publishTime>07/18/2025 16:38:51</publishTime>
+      <publishTime>07/22/2025 13:12:20</publishTime>
     </File>
     <File Include="Views/Shared/_TotalInfoMenu.cshtml">
       <publishTime>05/12/2025 18:24:44</publishTime>
@@ -1959,7 +1959,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:09</publishTime>
     </File>
     <File Include="Views/TotalInfo/Index.cshtml">
-      <publishTime>07/18/2025 17:52:22</publishTime>
+      <publishTime>07/21/2025 19:04:51</publishTime>
     </File>
     <File Include="Views/TotalInfo/IndexBackup.cshtml">
       <publishTime>07/02/2025 09:26:42</publishTime>

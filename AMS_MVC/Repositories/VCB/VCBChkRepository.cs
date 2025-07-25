@@ -295,8 +295,21 @@ namespace AMS_MVC.Repositories
                     CHK_VCB_COUNT = @CHK_VCB_Count,
                     CHK_CUTOFF_COUNT = @CHK_Cutoff_Count,
                     CHK_A_RATE = @CHK_A_Rate,
-                    CHK_SHORT_A_RATE = @CHK_Short_A_Rate
-                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                    CHK_SHORT_A_RATE = @CHK_Short_A_Rate,
+                    CHK_CONTACTWEARPERCENT = @CHK_ContactWearPercent,
+                    CHK_VACUUMLEAKCURRENT = @CHK_VacuumLeakCurrent,
+                    CHK_CONTACTRESISTANCE = @CHK_ContactResistance,
+                    CHK_INSULATIONRESISTANCE = @CHK_InsulationResistance,
+                    CHK_HOTSPOT = @CHK_HotSpot,
+                    CHK_PDPATTERNVALUE = @CHK_PdPatternValue,
+                    CHK_MOTORCURRENT = @CHK_MotorCurrent,
+                    CHK_ACCUMSHORTCIRCUITCURRENT = @CHK_AccumShortCircuitCurrent,
+                    CHK_SHORTCIRCUITCOUNT = @CHK_ShortCircuitCount,
+                    CHK_OPERATIONCOUNT = @CHK_OperationCount,
+                    CHK_OPENCLOSETIME = @CHK_OpenCloseTime,
+                    CHK_VISUALCHECK = @CHK_VisualCheck,
+                    FOLDINGFUNCTION = @FoldingFunction                
+                 WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, vcbChk);
                     res.Message = affectedRows > 0 ? "VCB 보통점검 데이터 업데이트 성공" : "VCB 보통점검 데이터 업데이트 실패";

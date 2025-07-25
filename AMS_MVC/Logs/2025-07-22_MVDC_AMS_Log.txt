@@ -2,3 +2,29 @@
 |2025-07-22 11:20:26  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
 |2025-07-22 11:20:26  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-07-22 11:20:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-22 17:57:03  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 17:57:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 17:57:04  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 17:57:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:33  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:35  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-07-22 18:00:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:35  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-07-22 18:00:44  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:53  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:00:54  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:00:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:02:34  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:02:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:02:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:02:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:03:35  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:03:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-07-22 18:03:36  |   vcbBasicInfo Data  |   총 5 건 조회됨   |
+|2025-07-22 18:03:36  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

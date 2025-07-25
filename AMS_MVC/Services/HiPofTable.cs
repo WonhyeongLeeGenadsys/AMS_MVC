@@ -56,7 +56,7 @@ namespace AMS_MVC.Utlity
             { 5.00m, 100m }
         };
 
-        public static (decimal HI, decimal PoF) GetHiPof(int maxGrade, int frequency, decimal alpha = 1.0m)
+        public static (decimal HI, decimal PoF) GetHiPof(int maxGrade, int frequency, decimal alpha = 1.00m)
         {
             // 1) 해당 maxGrade에 대해 테이블에 정의된 모든 빈도(frequency) 값을 찾는다
             var freqs = HiTable.Keys

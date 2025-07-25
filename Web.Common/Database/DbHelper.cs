@@ -13,15 +13,23 @@ namespace AMS_MVC.Database
         public SqlConnection Conn { get { return mConn; } }
         public DBHelper()
         {
-            //string connStr = ConfigurationManager.ConnectionStrings["MYDBConnectionString"].ConnectionString;
-            //string connStr = ConfigurationManager.ConnectionStrings["MiniSetting"].ConnectionString;
+            // ASP.NET 컨텍스트가 있으면 세션에서 DBKey 가져오고,
+            // 없으면 "DefaultDB"를 사용하도록 변경
+            string dbKey = "DefaultDB";
+            if (HttpContext.Current?.Session != null
+             && HttpContext.Current.Session["DBKey"] != null)
+            {
+                dbKey = HttpContext.Current.Session["DBKey"].ToString();
+            }
 
-            string dbKey = HttpContext.Current.Session?["DBKey"]?.ToString() ?? "DefaultDB";
-            string connStr = ConfigurationManager.ConnectionStrings[dbKey].ConnectionString;
+            string connStr = ConfigurationManager
+                .ConnectionStrings[dbKey]
+                .ConnectionString;
 
             mConn = new SqlConnection(connStr);
             mConn.Open();
         }
+
         public void Dispose()
         {
             if (mConn != null)

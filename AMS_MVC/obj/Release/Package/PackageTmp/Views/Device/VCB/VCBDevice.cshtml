@@ -48,46 +48,46 @@ $(function(){
         @Html.Partial("DeviceInfo/_HealthPie")
         <!--//건전도-->
         <!--risk matrix-->
-    <div class="con_box flex3 riskMatrix">
-        <h2>Risk Matrix</h2>
-        <div class="matrix_group">
-            <div id="chartRiskVCB" class="chart_box matrix"></div>
-            <ul class="chartContainer_bg">
-                <!-- 1행 -->
-                <li class="yellow"></li>
-                <li class="yellow"></li>
-                <li class="orange"></li>
-                <li class="orange"></li>
-                <li class="orange"></li>
-                <!-- 2행 -->
-                <li class="green"></li>
-                <li class="yellow"></li>
-                <li class="yellow"></li>
-                <li class="orange"></li>
-                <li class="orange"></li>
-                <!-- 3행 -->
-                <li class="green"></li>
-                <li class="green"></li>
-                <li class="yellow"></li>
-                <li class="yellow"></li>
-                <li class="orange"></li>
-                <!-- 4행 -->
-                <li class="blue"></li>
-                <li class="green"></li>
-                <li class="green"></li>
-                <li class="yellow"></li>
-                <li class="yellow"></li>
-                <!-- 5행 -->
-                <li class="blue"></li>
-                <li class="blue"></li>
-                <li class="green"></li>
-                <li class="green"></li>
-                <li class="yellow"></li>
-            </ul>
-        </div>
-        
+        <div class="con_box flex3 riskMatrix">
+            <h2>Risk Matrix</h2>
+            <div class="matrix_group">
+                <div id="chartRiskVCB" class="chart_box matrix"></div>
+                <ul class="chartContainer_bg">
+                    <!-- 1행 -->
+                    <li class="yellow"></li>
+                    <li class="yellow"></li>
+                    <li class="orange"></li>
+                    <li class="orange"></li>
+                    <li class="orange"></li>
+                    <!-- 2행 -->
+                    <li class="green"></li>
+                    <li class="yellow"></li>
+                    <li class="yellow"></li>
+                    <li class="orange"></li>
+                    <li class="orange"></li>
+                    <!-- 3행 -->
+                    <li class="green"></li>
+                    <li class="green"></li>
+                    <li class="yellow"></li>
+                    <li class="yellow"></li>
+                    <li class="orange"></li>
+                    <!-- 4행 -->
+                    <li class="blue"></li>
+                    <li class="green"></li>
+                    <li class="green"></li>
+                    <li class="yellow"></li>
+                    <li class="yellow"></li>
+                    <!-- 5행 -->
+                    <li class="blue"></li>
+                    <li class="blue"></li>
+                    <li class="green"></li>
+                    <li class="green"></li>
+                    <li class="yellow"></li>
+                </ul>
+            </div>
 
-    </div>
+
+        </div>
 
         <script>
             $(function(){
@@ -175,8 +175,8 @@ $(function(){
        });
      });
   });
-        </script>        
-    <!--//risk matrix-->
+        </script>
+        <!--//risk matrix-->
         <!-- B3 수명 차트 -->
         <div class="con_box flex3">
             <h2><p>B3 수명</p></h2>
@@ -674,137 +674,104 @@ $(function(){
             }, 100); // 100ms 딜레이
         });
             </script>-->
-        <!--점검-->
-        <div class="con_box flexCheck schedule">
-            <h2>
-                점검
-                <p class="schedule_value">
-                    <span class="confirmed">보통점검</span>
-                    <span class="risk">정밀점검</span>
-                
-                <p class="month_select">
-                    <a href="javascript:void(0)" class="arrow prev">이전달</a>
-                    <span id="currentMonth"></span>
-                    <a href="javascript:void(0)" class="arrow next">다음달</a>
-                
-            </h2>
-
-            <div class="schedule_table">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>타입</th>
-                            <th>코드</th>
-                            @* 실제 일 수만큼 th 생성 *@
-                            @for (int d = 1; d <= DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month); d++)
-                            {
-                                <th>@d</th>
-                            }
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
-            </div>
+        <!-- 점검일정 -->
+        <div class="con_box">
+            <h2>점검일정</h2>
+            <div id="gridContainerSchedule" class="grid_wrap" style="height:250px;"></div>
         </div>
+
         <script>
-$(function(){
-  var prefix = '@ViewData["Prefix"]';
-  var currentYear  = new Date().getFullYear();
-  var currentMonth = new Date().getMonth() + 1;
+  $(function(){
+    var today = new Date();
+    var year  = today.getFullYear();
+    var month = today.getMonth() + 1;
 
-  function updateMonthDisplay(){
-    $("#currentMonth").text(currentYear + "-" + String(currentMonth).padStart(2,"0"));
-  }
+    $.getJSON('@Url.Action("GetScheduleData","TotalInfo")', { year: year, month: month })
+      .done(function(res){
+        // 1) VCB만 필터
+        let vcbs = res.filter(r => r.Type === 'VCB');
 
-  function loadSchedule(year, month){
-    $.ajax({
-      url: '@Url.Action("GetScheduleData","VCBDevice")',
-      data: { equipmentType: prefix, year: year, month: month },
-      dataType: "json",
-      success: function(data){
-        renderSchedule(data, year, month);
-      },
-      error: function(){
-        alert("스케줄 로드 실패");
-      }
-    });
-  }
-
-  function renderSchedule(data, year, month){
-    var daysInMonth = new Date(year, month, 0).getDate();
-    var $thead = $(".schedule_table thead tr");
-    $thead.find("th:gt(1)").remove();
-    for(var d=1; d<=daysInMonth; d++){
-      $thead.append("<th>"+d+"</th>");
-    }
-
-    var $tbody = $(".schedule_table tbody").empty();
-
-    var byType = {};
-    data.forEach(function(item){
-      if(item.Type !== prefix) return;
-      byType[item.Type] = byType[item.Type]||[];
-      byType[item.Type].push(item);
-    });
-
-    $.each(byType, function(type, items){
-      items.forEach(function(item){
-        var startDay = parseInt(item.Start.split("-")[2],10);
-        var endDay   = item.End ? parseInt(item.End.split("-")[2],10) : startDay;
-        var colspan  = endDay - startDay + 1;
-
-        var $tr = $("<tr></tr>")
-          .append("<td>"+type+"</td>")
-          .append("<td>"+item.Code+"</td>");
-
-        for(var d=1; d<=daysInMonth; d++){
-          if(d===startDay){
-            var $td = $("<td colspan='"+colspan+"'></td>")
-              .css({position:"relative", padding:0})
-              .append(
-                $("<a></a>")
-                  .attr("href", "@Url.Action("ScheduleDetail","VCBDevice")?type="+type+"&code="+item.Code)
-                  .addClass("bar")
-                  .css({
-                    display:"block",
-                    height:"20px",
-                    backgroundColor: item.Status==="risk"? "#800080"
-                                   : item.Status==="created"? "gray"
-                                   : item.Status==="confirmed"? "#0051A2"
-                                   : "lightgray",
-                    width: "100%"
-                  })
-              );
-            $tr.append($td);
-            d = endDay;  // 루프 스킵
-          } else {
-            $tr.append("<td></td>");
+        // 2) DueDate 계산 (End + 3개월)
+        vcbs.forEach(item => {
+          if (item.End) {
+            let d = new Date(item.End);
+            d.setMonth(d.getMonth() + 3);
+            item.DueDate = d.toISOString().slice(0,10);
           }
-        }
+        });
 
-        $tbody.append($tr);
+        // 3) 같은 Serial_No별로 최신 DueDate 항목만 남기기
+        let latestBySerial = Object.values(
+          vcbs.reduce((acc, item) => {
+            let prev = acc[item.Serial_No];
+            if (!prev || new Date(item.DueDate) > new Date(prev.DueDate)) {
+              acc[item.Serial_No] = item;
+            }
+            return acc;
+          }, {})
+        );
+
+        // 4) DueDate 오름차순 정렬 후 Priority 재부여
+        latestBySerial
+          .sort((a,b) => new Date(a.DueDate) - new Date(b.DueDate))
+          .forEach((item, idx) => item.Priority = idx+1);
+
+        // 5) DevExtreme DataGrid 렌더
+        $("#gridContainerSchedule").dxDataGrid({
+          dataSource: latestBySerial,
+          showBorders: true,
+          sorting: { mode: 'multiple' },
+          scrolling: { columnRenderingMode: 'virtual' },
+
+          onCellPrepared: function(e) {
+            if (e.rowType !== 'data') return;
+
+            // 시작일 → 연두색
+            if (e.column.dataField === 'Start') {
+              e.cellElement.css({ color: 'green', 'font-weight': 'medium' });
+            }
+            // 종료일 → 검정
+            else if (e.column.dataField === 'End') {
+              e.cellElement.css({ color: 'black', 'font-weight': 'medium' });
+            }
+            // 점검일(DueDate) → 빨강
+            else if (e.column.dataField === 'DueDate') {
+              e.cellElement.css({ color: 'red', 'font-weight': 'bold' });
+            }
+            // 우선순위는 굵게
+            else if (e.column.dataField === 'Priority') {
+              e.cellElement.css({ 'font-weight': 'bold' });
+            }
+          },
+
+          columns: [
+            { dataField: "Priority", caption: "우선순위", alignment: "center" },
+            {
+                  caption: "구분",
+                  alignment: "center",
+                  calculateCellValue: function () {
+                      return "AC";    
+                  }
+            },
+            { dataField: "Type", caption: "설비명", alignment: "center" },
+            {
+              caption: "점검유형", alignment: "center",
+              calculateCellValue: row =>
+                row.Status === 'confirmed' ? '보통점검'
+              : row.Status === 'risk'      ? '정밀점검'
+              : row.Status
+            },
+            { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
+            { dataField: "Start",      caption: "시작일",    dataType: "date", alignment: "center" },
+            { dataField: "End",        caption: "종료일",    dataType: "date", alignment: "center" },
+            { dataField: "DueDate",    caption: "정기점검일",dataType: "date", alignment: "center" }
+          ]
+        });
+      })
+      .fail(function(xhr, status, err){
+        console.error("GetScheduleData 오류:", err);
       });
-    });
-  }
-
-  // 이전/다음 달
-  $(".prev").click(function(){
-    currentMonth--;
-    if(currentMonth<1){ currentMonth=12; currentYear--; }
-    updateMonthDisplay();
-    loadSchedule(currentYear, currentMonth);
   });
-  $(".next").click(function(){
-    currentMonth++;
-    if(currentMonth>12){ currentMonth=1; currentYear++; }
-    updateMonthDisplay();
-    loadSchedule(currentYear, currentMonth);
-  });
-
-  // 초기
-  updateMonthDisplay();
-  loadSchedule(currentYear, currentMonth);
-});
         </script>
 
         <!--//점검-->
