@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "DCCT_BASICINFO",       // 기본 정보 테이블
                     "DCCT_CODE",            // 매칭할 컬럼명
                     "DCCT",                 // 별칭
-                    "DCCT"                  // EntityName (Grid에 표시용)
+                    "DC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

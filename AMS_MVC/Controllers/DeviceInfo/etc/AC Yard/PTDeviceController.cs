@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "PT_BASICINFO",       // 기본 정보 테이블
                     "PT_CODE",            // 매칭할 컬럼명
                     "PT",                 // 별칭
-                    "PT"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

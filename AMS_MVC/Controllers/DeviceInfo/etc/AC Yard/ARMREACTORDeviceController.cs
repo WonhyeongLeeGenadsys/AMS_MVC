@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "ARMREACTOR_BASICINFO",       // 기본 정보 테이블
                     "ARMREACTOR_CODE",            // 매칭할 컬럼명
                     "ARMREACTOR",                 // 별칭
-                    "ARMREACTOR"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

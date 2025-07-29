@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "NGR_CODE",      // NGR 코드 필드
                     "NGR",           // 표시용 장치 이름
                     "NGR",           // 별칭
-                    "AC"
+                    "GROUNDING"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "NGR_BASICINFO",       // 기본 정보 테이블
                     "NGR_CODE",            // 매칭할 컬럼명
                     "NGR",                 // 별칭
-                    "NGR"                  // EntityName (Grid에 표시용)
+                    "GROUNDING"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

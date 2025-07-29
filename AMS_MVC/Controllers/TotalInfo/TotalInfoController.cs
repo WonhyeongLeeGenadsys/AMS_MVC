@@ -16,7 +16,7 @@ namespace AMS_MVC.Controllers
         // GET: TotalInfo/Index
         public ActionResult Index()
         {
-            ViewBag.MenuType = "TotalInfo"; 
+            ViewBag.MenuType = "TotalInfo";
             ViewBag.Title = "종합정보";
             return View();
         }
@@ -80,8 +80,8 @@ namespace AMS_MVC.Controllers
                     item.Code,
                     item.Serial_No,
                     item.Name,
-                    Install_Date = item.Install_Date.ToString("yy.MM.dd"), 
-                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"), 
+                    Install_Date = item.Install_Date.ToString("yy.MM.dd"),
+                    Operating_Date = item.Operating_Date.ToString("yy.MM.dd"),
                     item.UsagePeriod,
                     item.Price,
                     item.Rated_V,
@@ -191,7 +191,7 @@ namespace AMS_MVC.Controllers
                 x = r.Cof,
                 y = r.Pof,
                 name = r.Code,
-                hi = int.Parse(r.HI),
+                hi = int.TryParse(r.HI, out int hiValue) ? hiValue : 0,
                 group = new string(r.Code.TakeWhile(c => !char.IsDigit(c)).ToArray())
             });
 
@@ -206,9 +206,8 @@ namespace AMS_MVC.Controllers
                 .Select(r => new
                 {
                     code = r.Code,
-
-            time = r.LastTime.ToString("o"),
-                    hi = int.Parse(r.HI),
+                    time = r.LastTime != DateTime.MinValue ? r.LastTime.ToString("o") : "N/A", 
+                    hi = int.TryParse(r.HI, out int hiValue) ? hiValue : 0,
                     pof = r.Pof,
                     cof = r.Cof
                 })

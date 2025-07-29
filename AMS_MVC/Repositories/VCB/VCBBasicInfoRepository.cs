@@ -17,7 +17,7 @@ namespace AMS_MVC.Repositories
         {
             using (DBHelper dbHelper = new DBHelper())
             {
-                var query = "SELECT MAX(VCB_CODE) FROM VCB_BASICINFO WHERE VCB_CODE LIKE 'V%'";
+                var query = "SELECT MAX(VCB_CODE) FROM VCB_BASICINFO WHERE VCB_CODE LIKE 'VCB%'";
                 return dbHelper.Conn.QuerySingleOrDefault<string>(query);
             }
         }

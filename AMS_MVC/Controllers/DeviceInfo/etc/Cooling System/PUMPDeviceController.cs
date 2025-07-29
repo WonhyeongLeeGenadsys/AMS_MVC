@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "PUMP_CODE",      // PUMP 코드 필드
                     "PUMP",           // 표시용 장치 이름
                     "PUMP",           // 별칭
-                    "AC"
+                    "COOLING SYSTEM"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "PUMP_BASICINFO",       // 기본 정보 테이블
                     "PUMP_CODE",            // 매칭할 컬럼명
                     "PUMP",                 // 별칭
-                    "PUMP"                  // EntityName (Grid에 표시용)
+                    "COOLING SYSTEM"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

@@ -162,7 +162,7 @@ namespace AMS_MVC.Controllers
                     "ITR_BASICINFO",       // 기본 정보 테이블
                     "ITR_CODE",            // 매칭할 컬럼명
                     "ITR",                 // 별칭
-                    "ITR"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

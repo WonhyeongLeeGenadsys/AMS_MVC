@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "TANK_CODE",      // TANK 코드 필드
                     "TANK",           // 표시용 장치 이름
                     "TANK",           // 별칭
-                    "AC"
+                    "COOLING SYSTEM"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "TANK_BASICINFO",       // 기본 정보 테이블
                     "TANK_CODE",            // 매칭할 컬럼명
                     "TANK",                 // 별칭
-                    "TANK"                  // EntityName (Grid에 표시용)
+                    "COOLING SYSTEM"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

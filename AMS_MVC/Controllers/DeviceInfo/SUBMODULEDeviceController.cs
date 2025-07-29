@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "SUBMODULE_BASICINFO",       // 기본 정보 테이블
                     "SUBMODULE_CODE",            // 매칭할 컬럼명
                     "SUBMODULE",                 // 별칭
-                    "SUBMODULE"                  // EntityName (Grid에 표시용)
+                    "DC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

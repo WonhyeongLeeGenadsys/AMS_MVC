@@ -1,4 +1,5 @@
-﻿﻿@{
+﻿[media pointer="file-service://file-7SgeQAcep1wfjy38obBrLy"]
+﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     ViewData["Prefix"] = "VCB";
@@ -24,7 +25,6 @@
         </div>
 
         <script>
-$(function(){
   var prefix = '@ViewData["Prefix"]';
 
   $.getJSON(
@@ -32,7 +32,6 @@ $(function(){
       { equipmentType: prefix }
   )
   .done(function(res){
-    console.log("B3=", res.B3Life, "HI=", res.HIList);
     $('#strategyContainerMain')
       .append('<p>' + (res.error ? '<span class="error">'+res.error+'</span>' : res.StrategyMessage) + '</p>');
   })
@@ -41,7 +40,6 @@ $(function(){
     $('#strategyContainerMain')
       .append('<p class="error">전략 로드를 실패했습니다.</p>');
   });
-});
         </script>
         <!--//전략-->
         <!--건전도-->
@@ -167,6 +165,7 @@ $(function(){
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -277,7 +276,7 @@ $(function(){
                 $(document).ready(function () {
                     $.ajax({
                         type: "GET",
-                        url: "/VCBDevice/GetBasicInfoList",
+                        url: '@Url.Action("GetBasicInfoList", "VCBDevice")',
                         dataType: "json",
                         success: function (data) {
                             var $deviceList = $("#deviceList");
@@ -439,7 +438,8 @@ $(function(){
                                             2: 'priorityGood',
                                             3: 'priorityFair',
                                             4: 'priorityPoor',
-                                            5: 'priorityVerypoor'
+                                            5: 'priorityVerypoor',
+                                            0: 'priorityUndefined'
                                         };
                                         container.addClass(clsMap[info.value] || '');
                                         container.text(info.value);
@@ -454,77 +454,77 @@ $(function(){
         <!--//우선순위-->
         <!-- 고장률 차트 (Hazard) -->
         <!--<div class="con_box flex5">
-    <h2>고장률</h2>-->
+        <h2>고장률</h2>-->
         <!-- 컨테이너: display:block, 명시적 크기 지정 -->
         <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
-            </div>
+                </div>
 
-            <script>
-    $(document).ready(function () {
-        $("#chart_line").css("display", "block");
+                <script>
+        $(document).ready(function () {
+            $("#chart_line").css("display", "block");
 
-        setTimeout(function() {
-            $.ajax({
-                url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-                type: 'GET',
-                data: { equipmentType: "VCB" },
-                dataType: 'json',
-                success: function (data) {
-                    console.log("알고리즘 결과 데이터 (Hazard):", data);
-                    if (Array.isArray(data) && data.length > 0) {
-                        // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
-                        var hazardData = data[0].HazardSeries;
-                        // 혹시 time, value가 문자열이면 숫자로 변환
-                        hazardData = hazardData.map(function (point) {
-                            return {
-                                time: parseFloat(point.time),
-                                value: parseFloat(point.value)
-                            };
-                        });
-                        console.log("Parsed Hazard Data:", hazardData);
+            setTimeout(function() {
+                $.ajax({
+                    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                    type: 'GET',
+                    data: { equipmentType: "VCB" },
+                    dataType: 'json',
+                    success: function (data) {
+                        console.log("알고리즘 결과 데이터 (Hazard):", data);
+                        if (Array.isArray(data) && data.length > 0) {
+                            // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
+                            var hazardData = data[0].HazardSeries;
+                            // 혹시 time, value가 문자열이면 숫자로 변환
+                            hazardData = hazardData.map(function (point) {
+                                return {
+                                    time: parseFloat(point.time),
+                                    value: parseFloat(point.value)
+                                };
+                            });
+                            console.log("Parsed Hazard Data:", hazardData);
 
-                        $("#chart_line").dxChart({
-                            dataSource: hazardData,
-                            // 모든 시리즈에 공통 적용될 기본값
-                            commonSeriesSettings: {
-                                type: 'line',
-                                // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                                point: {
-                                    visible: false
+                            $("#chart_line").dxChart({
+                                dataSource: hazardData,
+                                // 모든 시리즈에 공통 적용될 기본값
+                                commonSeriesSettings: {
+                                    type: 'line',
+                                    // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                    point: {
+                                        visible: false
+                                    }
+                                },
+                                // 실제 시리즈 설정 (argumentField, valueField 지정)
+                                series: [{
+                                    name: "고장률",
+                                    argumentField: 'time',
+                                    valueField: 'value'
+                                }],
+                                tooltip: { enabled: true },
+                                argumentAxis: {
+                                    title: "시간 (년)",
+                                    visualRange: { startValue: 0, endValue: 80 }
+                                },
+                                valueAxis: {
+                                    title: "신뢰도 (0 ~ 1)",
+                                    // 값이 0~1 범위이면 이렇게 지정 가능
+                                    visualRange: { startValue: 0, endValue: 1 }
+                                },
+                                onContentReady: function(e) {
+                                    // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
+                                    e.component.render();
                                 }
-                            },
-                            // 실제 시리즈 설정 (argumentField, valueField 지정)
-                            series: [{
-                                name: "고장률",
-                                argumentField: 'time',
-                                valueField: 'value'
-                            }],
-                            tooltip: { enabled: true },
-                            argumentAxis: {
-                                title: "시간 (년)",
-                                visualRange: { startValue: 0, endValue: 80 }
-                            },
-                            valueAxis: {
-                                title: "신뢰도 (0 ~ 1)",
-                                // 값이 0~1 범위이면 이렇게 지정 가능
-                                visualRange: { startValue: 0, endValue: 1 }
-                            },
-                            onContentReady: function(e) {
-                                // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
-                                e.component.render();
-                            }
-                        });
-                    } else {
-                        console.warn("고장률 데이터가 없습니다.");
+                            });
+                        } else {
+                            console.warn("고장률 데이터가 없습니다.");
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("고장률 데이터 로드 실패:", error);
                     }
-                },
-                error: function (xhr, status, error) {
-                    console.error("고장률 데이터 로드 실패:", error);
-                }
-            });
-        }, 100);
-    });
-            </script>-->
+                });
+            }, 100);
+        });
+                </script>-->
         <!-- 신뢰도 차트 -->
         <div class="con_box flex5">
             <h2>신뢰도</h2>
@@ -618,62 +618,62 @@ $(function(){
 
         <!-- 확률 밀도 함수 차트 -->
         <!--<div class="con_box">
-                <h2>확률 밀도 함수</h2>
-                <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
-            </div>
-            <script>
-        $(document).ready(function () {
-            // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
-            setTimeout(function () {
-    $.ajax({
-        url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
-        type: 'GET',
-        data: { equipmentType: "VCB" },
-        dataType: 'json',
-        success: function (data) {
-            if (Array.isArray(data) && data.length > 0) {
-                // 첫 번째 장비의 확률 밀도 함수 데이터 사용
-                var pdfData = data[0].PdfNormalized;
-                pdfData = pdfData.map(function (point) {
-                    return {
-                        time: parseFloat(point.time),
-                        value: parseFloat(point.value)
-                    };
-                });
-                $("#chart_line03").dxChart({
-                    dataSource: pdfData,
-                    commonSeriesSettings: {
-                        type: 'line',
-                        // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
-                        point: {
-                            visible: false
+                    <h2>확률 밀도 함수</h2>
+                    <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+                </div>
+                <script>
+            $(document).ready(function () {
+                // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
+                setTimeout(function () {
+        $.ajax({
+            url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: "VCB" },
+            dataType: 'json',
+            success: function (data) {
+                if (Array.isArray(data) && data.length > 0) {
+                    // 첫 번째 장비의 확률 밀도 함수 데이터 사용
+                    var pdfData = data[0].PdfNormalized;
+                    pdfData = pdfData.map(function (point) {
+                        return {
+                            time: parseFloat(point.time),
+                            value: parseFloat(point.value)
+                        };
+                    });
+                    $("#chart_line03").dxChart({
+                        dataSource: pdfData,
+                        commonSeriesSettings: {
+                            type: 'line',
+                            // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                            point: {
+                                visible: false
+                            }
+                        },
+                        series: [{
+                            name: "확률 밀도 함수",
+                            argumentField: 'time',
+                            valueField: 'value'
+                        }],
+                        tooltip: { enabled: true },
+                        argumentAxis: {
+                            title: "시간 (년)",
+                            visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
+                        },
+                        valueAxis: {
+                            title: "정규화된 확률 밀도"
                         }
-                    },
-                    series: [{
-                        name: "확률 밀도 함수",
-                        argumentField: 'time',
-                        valueField: 'value'
-                    }],
-                    tooltip: { enabled: true },
-                    argumentAxis: {
-                        title: "시간 (년)",
-                        visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
-                    },
-                    valueAxis: {
-                        title: "정규화된 확률 밀도"
-                    }
-                });
-            } else {
-                console.warn("확률 밀도 함수 데이터가 없습니다.");
+                    });
+                } else {
+                    console.warn("확률 밀도 함수 데이터가 없습니다.");
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("확률 밀도 함수 데이터 로드 실패:", error);
             }
-        },
-        error: function (xhr, status, error) {
-            console.error("확률 밀도 함수 데이터 로드 실패:", error);
-        }
-    });
-            }, 100); // 100ms 딜레이
         });
-            </script>-->
+                }, 100); // 100ms 딜레이
+            });
+                </script>-->
         <!-- 점검일정 -->
         <div class="con_box">
             <h2>점검일정</h2>
@@ -750,7 +750,7 @@ $(function(){
                   caption: "구분",
                   alignment: "center",
                   calculateCellValue: function () {
-                      return "AC";    
+                      return "AC";
                   }
             },
             { dataField: "Type", caption: "설비명", alignment: "center" },
@@ -779,100 +779,100 @@ $(function(){
         <!--<div class="con_box flex1">-->
         <!-- 타이틀 -->
         <!--<h2>
-        <p>유지보수</p>
-    </h2>-->
+            <p>유지보수</p>
+        </h2>-->
         <!-- 챠트 컨테이너 -->
         <!--<div id="chart03"></div>
-        <script>
-            $(document).ready(function () {
-                // 서버에서 VCB 유지보수 데이터를 가져오는 함수
-                function fetchMaintenanceData() {
-                    return $.ajax({
-                        type: "POST",
-                        url: "/VCBDevice/GetMonthlyMaintenanceData",
-                        contentType: "application/json; charset=utf-8",
-                        dataType: "json"
-                    });
-                }
-
-                // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
-                // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
-                function transformData(rawArray) {
-                    return rawArray.map(function (itemArray) {
-                        var obj = {};
-                        itemArray.forEach(function (pair) {
-                            obj[pair.Key] = pair.Value;
+            <script>
+                $(document).ready(function () {
+                    // 서버에서 VCB 유지보수 데이터를 가져오는 함수
+                    function fetchMaintenanceData() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "/VCBDevice/GetMonthlyMaintenanceData",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
                         });
-                        return obj;
-                    });
-                }
+                    }
 
-                // 데이터를 월별로 그룹화하여 VCB 값만 누적하는 함수
-                function processChartData(rawData) {
-                    const groupedData = {};
-                    rawData.forEach(item => {
-                        const month = item.Month; // EX: "2024-05"
-                        if (!groupedData[month]) {
-                            groupedData[month] = { Month: month, VCB: 0 };
-                        }
-                        if (item.Type === "VCB") {
-                            groupedData[month].VCB += item.Count;
-                        }
-                    });
-                    // 월별 정렬 (yyyy-MM 문자열 기준)
-                    return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
-                }
+                    // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
+                    // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
+                    function transformData(rawArray) {
+                        return rawArray.map(function (itemArray) {
+                            var obj = {};
+                            itemArray.forEach(function (pair) {
+                                obj[pair.Key] = pair.Value;
+                            });
+                            return obj;
+                        });
+                    }
 
-                // VCB 차트를 렌더링하는 함수
-                function renderVCBChart(data) {
-                    $("#chart03").dxChart({
-                        dataSource: data,
-                        commonSeriesSettings: {
-                            argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
-                            type: "bar"
-                        },
-                        legend: {
-                            visible: true,
-                            position: "bottom"
-                        },
-                        tooltip: {
-                            enabled: true,
-                            customizeTooltip: function (arg) {
-                                return {
-                                    text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
-                                };
+                    // 데이터를 월별로 그룹화하여 VCB 값만 누적하는 함수
+                    function processChartData(rawData) {
+                        const groupedData = {};
+                        rawData.forEach(item => {
+                            const month = item.Month; // EX: "2024-05"
+                            if (!groupedData[month]) {
+                                groupedData[month] = { Month: month, VCB: 0 };
                             }
-                        },
-                        series: [
-                            {
-                                name: "VCB",
-                                valueField: "VCB",  // 각 데이터 객체에 "VCB" 속성이 있어야 함
-                                color: "#0051A2"
+                            if (item.Type === "VCB") {
+                                groupedData[month].VCB += item.Count;
                             }
-                        ]
-                    });
-                }
+                        });
+                        // 월별 정렬 (yyyy-MM 문자열 기준)
+                        return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
+                    }
 
-                // AJAX 호출하여 데이터 로드 및 차트 렌더링
-                fetchMaintenanceData()
-                    .done(function (response) {
-                        console.log("유지보수 raw 데이터:", response);
-                        // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
-                        const transformedData = transformData(response);
-                        console.log("변환된 데이터:", transformedData);
-                        if (!Array.isArray(transformedData) || transformedData.length === 0) {
-                            return;
-                        }
-                        const chartData = processChartData(transformedData);
-                        renderVCBChart(chartData);
-                    })
-                    .fail(function (xhr, status, error) {
-                        console.error("Ajax Error:", error);
-                        alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
-                    });
-            });
-        </script>
-    </div>-->
+                    // VCB 차트를 렌더링하는 함수
+                    function renderVCBChart(data) {
+                        $("#chart03").dxChart({
+                            dataSource: data,
+                            commonSeriesSettings: {
+                                argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
+                                type: "bar"
+                            },
+                            legend: {
+                                visible: true,
+                                position: "bottom"
+                            },
+                            tooltip: {
+                                enabled: true,
+                                customizeTooltip: function (arg) {
+                                    return {
+                                        text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
+                                    };
+                                }
+                            },
+                            series: [
+                                {
+                                    name: "VCB",
+                                    valueField: "VCB",  // 각 데이터 객체에 "VCB" 속성이 있어야 함
+                                    color: "#0051A2"
+                                }
+                            ]
+                        });
+                    }
+
+                    // AJAX 호출하여 데이터 로드 및 차트 렌더링
+                    fetchMaintenanceData()
+                        .done(function (response) {
+                            console.log("유지보수 raw 데이터:", response);
+                            // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
+                            const transformedData = transformData(response);
+                            console.log("변환된 데이터:", transformedData);
+                            if (!Array.isArray(transformedData) || transformedData.length === 0) {
+                                return;
+                            }
+                            const chartData = processChartData(transformedData);
+                            renderVCBChart(chartData);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                        });
+                });
+            </script>
+        </div>-->
         <!--//유지보수-->
         <!--고장-->
         <div class="con_box">

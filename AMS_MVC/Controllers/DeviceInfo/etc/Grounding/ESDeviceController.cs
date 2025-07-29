@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "ES_CODE",      // ES 코드 필드
                     "ES",           // 표시용 장치 이름
                     "ES",           // 별칭
-                    "AC"
+                    "GROUNDING"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "ES_BASICINFO",       // 기본 정보 테이블
                     "ES_CODE",            // 매칭할 컬럼명
                     "ES",                 // 별칭
-                    "ES"                  // EntityName (Grid에 표시용)
+                    "GROUNDING"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

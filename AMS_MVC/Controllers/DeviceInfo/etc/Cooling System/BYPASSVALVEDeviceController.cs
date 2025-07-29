@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "BYPASSVALVE_CODE",      // BYPASSVALVE 코드 필드
                     "BYPASSVALVE",           // 표시용 장치 이름
                     "BYPASSVALVE",           // 별칭
-                    "AC"
+                    "COOLING SYSTEM"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "BYPASSVALVE_BASICINFO",       // 기본 정보 테이블
                     "BYPASSVALVE_CODE",            // 매칭할 컬럼명
                     "BYPASSVALVE",                 // 별칭
-                    "BYPASSVALVE"                  // EntityName (Grid에 표시용)
+                    "COOLING SYSTEM"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

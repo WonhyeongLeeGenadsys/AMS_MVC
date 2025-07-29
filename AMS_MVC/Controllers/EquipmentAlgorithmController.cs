@@ -290,8 +290,8 @@ namespace AMS_MVC.Controllers
         {
             // 1) B3 계산
             var list = _weibullRepo.GetAll()
-                           .Where(x => x.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
-                           .ToList();
+                                   .Where(x => x.EquipmentName.ToUpper().Contains(equipmentType.ToUpper()))
+                                   .ToList();
             if (!list.Any())
                 return Json(new { error = "Weibull 데이터 없음" }, JsonRequestBehavior.AllowGet);
 
@@ -306,24 +306,23 @@ namespace AMS_MVC.Controllers
             double b3 = algo.B3Life;
 
             // 2) Riskmatrix 최신 HI 가져오기 (equipmentType 으로 필터링)
-            var hiList = _riskmatrixRepo
-                .GetLatestRiskPoints()
+            var hiList = _riskmatrixRepo                .GetLatestRiskPoints()
                 .Where(r => r.Code.StartsWith(equipmentType, StringComparison.OrdinalIgnoreCase))
                 .Select(r => int.TryParse(r.HI, out var v) ? v : 0)
                 .ToList();
             if (!hiList.Any())
                 return Json(new { error = "Riskmatrix HI 데이터 없음" }, JsonRequestBehavior.AllowGet);
 
-            // 3) HI >> 남은 수명 매핑
+            // 3) 각 설비의 등급별 수명 매핑
             Func<int, double> map = hi =>
             {
                 switch (hi)
                 {
-                    case 5: return 1;
-                    case 4: return b3 - 5;
-                    case 3: return b3;
-                    case 2: return b3 + 1;
-                    case 1: return b3 + 2;
+                    case 5: return 1;                    // POF 5등급 -> 1년
+                    case 4: return b3 - 5;               // POF 4등급 -> B3Life - 5
+                    case 3: return b3;                   // POF 3등급 -> B3Life
+                    case 2: return b3 + 1;               // POF 2등급 -> B3Life + 1
+                    case 1: return b3 + 2;               // POF 1등급 -> B3Life + 2
                     default: return 0;
                 }
             };
@@ -332,33 +331,106 @@ namespace AMS_MVC.Controllers
             double avg = Math.Round(life.Average(), 1);
             int worst = hiList.Max();
 
-            // 4) 컬러 볼드 처리된 메시지
+            // 4) 그룹 전체의 전략 결정 (최저 등급을 기준으로 전략 설정)
             string avgHtml, msg;
             if (worst >= 4)
             {
-                avgHtml = $"<strong style=\"color:red;\">{avg}년</strong>";
-                msg = $"긴급 유지보수 권장: 상태가 심각하게 악화된 것으로 판단됩니다. 평균 잔여수명은 {avgHtml}입니다.";
+                avgHtml = $"<strong style=\"color:red;\">{avg}</strong>";
+                msg = $"긴급 유지보수 권장: 상태가 심각하게 악화된 것으로 판단됩니다. 평균 잔여수명은 {avgHtml}년입니다.";
             }
             else if (worst == 3)
             {
-                avgHtml = $"<strong style=\"color:gold;\">{avg}년</strong>";
-                msg = $"유지보수 계획 권장: 상태가 악화되고 있어 계획적 유지보수가 필요합니다. 평균 잔여수명은 {avgHtml}입니다.";
+                avgHtml = $"<strong style=\"color:gold;\">{avg}</strong>";
+                msg = $"유지보수 계획 권장: 상태가 악화되고 있어 계획적 유지보수가 필요합니다. 평균 잔여수명은 {avgHtml}년입니다.";
             }
             else
             {
-                avgHtml = $"<strong style=\"color:green;\">{avg}년</strong>";
-                msg = $"정상 운영 가능: 현재 상태가 양호하여 유지보수가 필요하지 않습니다. 평균 잔여수명은 {avgHtml}입니다.";
+                avgHtml = $"<strong style=\"color:green;\">{avg}</strong>";
+                msg = $"정상 운영 가능: 현재 상태가 양호하여 유지보수가 필요하지 않습니다. 평균 잔여수명은 {avgHtml}년입니다.";
+
             }
 
             return Json(new
             {
-                B3Life = b3,
-                HIList = hiList,
-                WorstGrade = worst,
                 AverageLife = avg,
                 StrategyMessage = msg
             }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult GetEquipmentStrategy(string code)
+        {
+            // 1) 해당 설비 HI 하나만 조회
+            var hiDict = _riskmatrixRepo.GetRiskMatrixByCode(code);
+            if (hiDict == null || !int.TryParse(hiDict.HI, out var hi))
+                return Json(new { error = "HI 데이터 없음" }, JsonRequestBehavior.AllowGet);
+
+            // 2) Weibull → B3 계산 (VCB 장비 기준)
+            var first = _weibullRepo.GetAll()
+                .FirstOrDefault(x => x.EquipmentName.ToUpper().Contains("VCB") &&
+                                     (x.ShapeParam.HasValue && x.ScaleParam.HasValue || x.FailureRate.HasValue));
+            if (first == null)
+                return Json(new { error = "Weibull 데이터 없음" }, JsonRequestBehavior.AllowGet);
+
+            var algo = new LaAlgorithm();
+            if (first.ShapeParam.HasValue && first.ScaleParam.HasValue)
+                algo.SetWeibull(first.ShapeParam.Value, first.ScaleParam.Value, 10);
+            else
+                algo.SetFailureRate(first.FailureRate.Value);
+
+            double b3 = algo.B3Life;
+
+            // 3) POF 등급 → 남은수명 매핑 
+            double remaining;
+            switch (hi)
+            {
+                case 5:
+                    remaining = 1;
+                    break;
+                case 4:
+                    remaining = b3 - 5;
+                    break;
+                case 3:
+                    remaining = b3;
+                    break;
+                case 2:
+                    remaining = b3 + 1;
+                    break;
+                case 1:
+                    remaining = b3 + 2;
+                    break;
+                default:
+                    remaining = 0;
+                    break;
+            }
+
+            // 4) 개별 전략 메시지
+            string avgHtml, msg;
+            if (hi >= 4)
+            {
+                avgHtml = $"<strong style=\"color:red;\">{remaining}</strong>";
+                msg = $"긴급 유지보수 권장: 상태가 심각하게 악화된 것으로 판단됩니다. 잔여수명은 {avgHtml}년입니다.";
+            }
+            else if (hi == 3)
+            {
+                avgHtml = $"<strong style=\"color:gold;\">{remaining}</strong>";
+                msg = $"유지보수 계획 권장: 상태가 악화되고 있어 계획적 유지보수가 필요합니다. 잔여수명은 {avgHtml}년입니다.";
+            }
+            else
+            {
+                avgHtml = $"<strong style=\"color:green;\">{remaining}</strong>";
+                msg = $"정상 운영 가능: 현재 상태가 양호하여 유지보수가 필요하지 않습니다. 잔여수명은 {avgHtml}년입니다.";
+            }
+
+            return Json(new
+            {
+                HI = hi,
+                RemainingLife = remaining,
+                StrategyMessage = msg
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
 
     }
 }

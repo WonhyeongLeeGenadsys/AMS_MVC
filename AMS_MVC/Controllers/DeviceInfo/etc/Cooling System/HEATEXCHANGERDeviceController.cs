@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "HEATEXCHANGER_BASICINFO",       // 기본 정보 테이블
                     "HEATEXCHANGER_CODE",            // 매칭할 컬럼명
                     "HEATEXCHANGER",                 // 별칭
-                    "HEATEXCHANGER"                  // EntityName (Grid에 표시용)
+                    "COOLING SYSTEM"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

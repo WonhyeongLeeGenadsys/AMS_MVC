@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "DCCABLE_BASICINFO",       // 기본 정보 테이블
                     "DCCABLE_CODE",            // 매칭할 컬럼명
                     "DCCABLE",                 // 별칭
-                    "DCCABLE"                  // EntityName (Grid에 표시용)
+                    "DC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

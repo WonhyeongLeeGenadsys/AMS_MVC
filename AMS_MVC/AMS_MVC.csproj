@@ -623,6 +623,7 @@
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.List.cs" />
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.Detail.cs" />
     <Compile Include="Controllers\Setting\SettingController.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.Recent.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Battery.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Check.cs" />

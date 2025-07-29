@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "WALLBUSHING_BASICINFO",       // 기본 정보 테이블
                     "WALLBUSHING_CODE",            // 매칭할 컬럼명
                     "WALLBUSHING",                 // 별칭
-                    "WALLBUSHING"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

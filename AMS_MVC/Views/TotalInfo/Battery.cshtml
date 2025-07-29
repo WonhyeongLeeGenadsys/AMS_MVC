@@ -7,7 +7,7 @@
 }
 
 @section MainContent {
-    <h1>건전도 검색</h1>
+    <h1>기간별 설비 검색</h1>
     <div class="con_box">
         <!-- 검색 영역 -->
         <div class="search_box">
@@ -73,6 +73,22 @@
                                 dataSource: res.data,
                                 keyExpr: 'Code',
                                 columnFixing: { enabled: true },
+                                showBorders: false,
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                // HI 컬럼 배경색 지정
+                                onCellPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.column.dataField === 'HI') {
+                                        switch (e.value) {
+                                            case 1: e.cellElement.addClass('priorityVerygood'); break;
+                                            case 2: e.cellElement.addClass('priorityGood'); break;
+                                            case 3: e.cellElement.addClass('priorityFair'); break;
+                                            case 4: e.cellElement.addClass('priorityPoor'); break;
+                                            case 5: e.cellElement.addClass('priorityVerypoor'); break;
+                                        }
+                                    }
+                                },
+
                                 columns: [
                                     { dataField: 'Priority', caption: '우선순위', alignment: 'center', width: 80 },
                                     { dataField: 'Category', caption: '구분', alignment: 'center', width: 80 },

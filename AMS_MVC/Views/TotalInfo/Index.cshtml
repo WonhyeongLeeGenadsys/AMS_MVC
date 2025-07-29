@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 @section LeftMenu {
@@ -157,89 +156,86 @@
         </div>
 
         <script>
-  $(function(){
-    // 1) 최신 리스크 포인트(코드, HI) 가져오기
-    $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
-      .done(function(rawPoints){
-        // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
-        const buckets = rawPoints.reduce((acc, p) => {
-          const hi = p.hi;            // RiskmatrixController 에서 내려주는 hi 필드
-          if (!acc[hi]) {
-            acc[hi] = { hi, codes: [] };
-          }
-          acc[hi].codes.push(p.name); // name 은 "VCB001" 같은 코드
-          return acc;
-        }, {});
-
-        // 3) dxPieChart용 배열로 변환
-        const ds = Object.values(buckets)
-          .map(b => ({
-            hi: b.hi,
-            state: b.hi + '등급',
-            value: b.codes.length,
-            codes: b.codes
-          }))
-          // 원하시면 등급 오름차순으로 정렬
-          .sort((a, b) => a.hi - b.hi);
-
-        // 4) 차트 초기화
-        $('#pieAll').dxPieChart({
-          type: 'doughnut',
-          dataSource: ds,
-          customizePoint: pt => ({ color: getHiColor(pt.data.hi) }),
-          series: [{
-            argumentField: 'state',
-            valueField: 'value',
-            label: {
-              visible: true,
-              connector: { visible: true },
-              customizeText: e => e.valueText + '대'
-            }
-          }],
-          legend: {
-            visible: true,
-            verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
-          },
-          size: { width: '100%', height: 300 },
-          innerRadius: 0.5,
-
-          // 5) 툴팁 켜고 내용 커스터마이징
-          tooltip: {
-            enabled: true,
-            customizeTooltip: function(info) {
-              const d = info.point.data;
-              return {
-                html: `
-                  <strong>${d.state}</strong><br/>
-                  대수: ${d.value}대<br/>
-                  장비: ${d.codes.join(', ')}
-                `
-              };
-            }
-          },
-
-          // 6) 클릭해도 툴팁이 떠 있도록
-          onPointClick: function(e) {
-            e.target.showTooltip();
-          }
-        });
-
-        // helper: HI 별 색상 매핑
-        function getHiColor(hi) {
-          switch (hi) {
-            case 1: return '#5B9F56';
-            case 2: return '#B4DEB1';
-            case 3: return '#EBCD1D';
-            case 4: return '#F18425';
-            case 5: return '#F05153';
-            default: return undefined;
-          }
+$(function () {
+  // 데이터 가져오기 및 차트 설정
+  $.getJSON('@Url.Action("GetRiskMapPoints", "TotalInfo")', { prefix: '' })
+    .done(function (rawPoints) {
+      // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
+      const buckets = rawPoints.reduce((acc, p) => {
+        const hi = p.hi;            // RiskmatrixController에서 내려주는 hi 필드
+        if (!acc[hi]) {
+          acc[hi] = { hi, codes: [] };
         }
-      })
-      .fail(err => console.error('GetRiskMapPoints 오류', err));
-  });
-        </script>
+        acc[hi].codes.push(p.name); // name은 "VCB001" 같은 코드
+        return acc;
+      }, {});
+
+      // 3) dxPieChart용 배열로 변환
+      const ds = Object.values(buckets)
+        .map(b => ({
+          hi: b.hi,
+          state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
+          value: b.codes.length,
+          codes: b.codes
+        }))
+        .sort((a, b) => a.hi - b.hi);  // 등급 오름차순으로 정렬
+
+      // 4) 차트 초기화
+      $('#pieAll').dxPieChart({
+        type: 'doughnut',
+        dataSource: ds,
+        customizePoint: pt => ({ color: getHiColor(pt.data.hi) }),
+        series: [{
+          argumentField: 'state',
+          valueField: 'value',
+          label: {
+            visible: true,
+            connector: { visible: true },
+            customizeText: e => e.valueText + '대'
+          }
+        }],
+        legend: {
+          visible: true,
+          verticalAlignment: 'bottom',
+          horizontalAlignment: 'center',
+          markerShape: 'circle',
+        },
+        size: { width: '100%', height: 300 },
+        innerRadius: 0.5,
+        tooltip: {
+          enabled: true,
+          customizeTooltip: function (info) {
+            const d = info.point.data;
+            const serialNumbersText = d.codes.length > 0 ? d.codes.join(', ') : '없음';
+            return {
+              html: `
+                <strong>${d.state}</strong><br/>
+                대수: ${d.value}대<br/>
+                장비: ${serialNumbersText}`
+            };
+          }
+        },
+        onPointClick: function (e) {
+          e.target.showTooltip();
+        }
+      });
+
+      // HI 별 색상 매핑
+      function getHiColor(hi) {
+        switch (hi) {
+          case 1: return '#5B9F56';
+          case 2: return '#B4DEB1';
+          case 3: return '#EBCD1D';
+          case 4: return '#F18425';
+          case 5: return '#F05153';
+          default: return '#888888';  
+        }
+      }
+    })
+    .fail(function (err) {
+      console.error('GetRiskMapPoints 오류', err);
+    });
+});        </script>
 
         <!--//건전도-->
         <!--Risk Matrix-->
@@ -321,6 +317,7 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -368,7 +365,9 @@
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -407,7 +406,10 @@
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -448,7 +450,9 @@
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -604,7 +608,7 @@
         const ds = Object.values(buckets)
           .map(b => ({
             hi: b.hi,
-            state: b.hi + '등급',
+            state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
             value: b.codes.length,
             codes: b.codes
           }))
@@ -628,7 +632,9 @@
           legend: {
             visible: true,
             verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
+              horizontalAlignment: 'center',
+              markerShape: 'circle',
+
           },
           size: { width: '100%', height: 300 },
           innerRadius: 0.5,
@@ -662,7 +668,7 @@
             case 3: return '#EBCD1D';
             case 4: return '#F18425';
             case 5: return '#F05153';
-            default: return undefined;
+            default: return '#888888';
           }
         }
       })
@@ -750,6 +756,7 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -793,7 +800,11 @@
                             endOnTick: false,
                             max: 5
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -827,7 +838,10 @@
                             endOnTick: false,
                             max: 100
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+ },
                         tooltip: { enabled: true }
                     });
                 }
@@ -863,7 +877,10 @@
                             endOnTick: false,
                             label: { customizeText: e => e.valueText + "$" }
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+},
                         tooltip: { enabled: true }
                     });
                 }
@@ -1018,7 +1035,7 @@
         const ds = Object.values(buckets)
           .map(b => ({
             hi: b.hi,
-            state: b.hi + '등급',
+            state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
             value: b.codes.length,
             codes: b.codes
           }))
@@ -1042,7 +1059,9 @@
           legend: {
             visible: true,
             verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
+              horizontalAlignment: 'center',
+              markerShape: 'circle',
+
           },
           size: { width: '100%', height: 300 },
           innerRadius: 0.5,
@@ -1076,7 +1095,7 @@
             case 3: return '#EBCD1D';
             case 4: return '#F18425';
             case 5: return '#F05153';
-            default: return undefined;
+            default: return '#888888';  
           }
         }
       })
@@ -1164,6 +1183,8 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
+
            },
 
            size: { width:400, height: 300 },
@@ -1207,7 +1228,10 @@
                             endOnTick: false,
                             max: 5
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+},
                         tooltip: { enabled: true }
                     });
                 }
@@ -1241,7 +1265,10 @@
                             endOnTick: false,
                             max: 100
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+},
                         tooltip: { enabled: true }
                     });
                 }
@@ -1277,7 +1304,10 @@
                             endOnTick: false,
                             label: { customizeText: e => e.valueText + "$" }
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+},
                         tooltip: { enabled: true }
                     });
                 }
@@ -1390,7 +1420,8 @@
                                     2: 'priorityGood',
                                     3: 'priorityFair',
                                     4: 'priorityPoor',
-                                    5: 'priorityVerypoor'
+                                    5: 'priorityVerypoor',
+                                    0: 'priorityUndefined'  
                                 }[e.value];
                                 if (cls) e.cellElement.addClass(cls);
                             }
@@ -1410,7 +1441,7 @@
                                         'font-weight': 'medium'
                                     });
                                 }
-                                // DueDate 강조(빨간색)
+                                // DueDate
                                 if (e.column.dataField === 'DueDate') {
                                     e.cellElement.css({
                                         color: 'red',
@@ -1418,7 +1449,6 @@
                                     });
                                 }
                             }
-
                         }
                     },
                     columns: columns
@@ -1668,8 +1698,8 @@
                                .option('dataSource', dataGrid);
           });
 
-      }, 10000);
-        });
+      }, 60000);
+    });
     </script>
 }
 

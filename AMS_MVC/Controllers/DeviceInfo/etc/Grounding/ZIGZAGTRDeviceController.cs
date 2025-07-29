@@ -66,7 +66,7 @@ namespace AMS_MVC.Controllers
                     "ZIGZAGTR_CODE",      // ZIGZAGTR 코드 필드
                     "ZIGZAGTR",           // 표시용 장치 이름
                     "ZIGZAGTR",           // 별칭
-                    "AC"
+                    "GROUNDING"
                 );
 
                 var formattedData = priorityData.Select(item => new
@@ -143,7 +143,7 @@ namespace AMS_MVC.Controllers
                     "ZIGZAGTR_BASICINFO",       // 기본 정보 테이블
                     "ZIGZAGTR_CODE",            // 매칭할 컬럼명
                     "ZIGZAGTR",                 // 별칭
-                    "ZIGZAGTR"                  // EntityName (Grid에 표시용)
+                    "GROUNDING"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

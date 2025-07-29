@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "DS_BASICINFO",       // 기본 정보 테이블
                     "DS_CODE",            // 매칭할 컬럼명
                     "DS",                 // 별칭
-                    "DS"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

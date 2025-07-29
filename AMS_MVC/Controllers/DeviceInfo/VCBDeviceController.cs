@@ -30,7 +30,6 @@ namespace AMS_MVC.Controllers
             return View("~/Views/Device/VCB/VCBDevice.cshtml");
         }
 
-        // VCBDeviceController (또는 VCBDeviceDetailController)에 추가
         [HttpPost]
         public JsonResult GetRiskmatrixData(IEnumerable<string> prefix)
         {
@@ -145,7 +144,7 @@ namespace AMS_MVC.Controllers
                     "VCB_BASICINFO",       // 기본 정보 테이블
                     "VCB_CODE",            // 매칭할 컬럼명
                     "VCB",                 // 별칭
-                    "VCB"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }
@@ -227,5 +226,9 @@ namespace AMS_MVC.Controllers
             _vcbChkRepo.GetVCBChkByVCBCode(code, out var list);
             return View("~/Views/Device/VCB/ScheduleDetail.cshtml", list.Cast<dynamic>());
         }
+
+
     }
+
+
 }

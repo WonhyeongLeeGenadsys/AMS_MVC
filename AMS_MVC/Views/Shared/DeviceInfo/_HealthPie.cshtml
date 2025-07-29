@@ -7,34 +7,71 @@
 <div class="con_box flex3">
     <h2>건전도</h2>
     <div id="@pieId" style="height:280px;width:100%;"></div>
-    <script>
-    $(function(){
-      const palette = ['#5B9F56','#B4DEB1','#EBCD1D','#F18425','#F05153'];
-      function summarize(data){
-        return [1,2,3,4,5]
-          .filter(i=>data[i]>0)
-          .map(i=>({ state:i+'등급', value:+data[i], color:palette[i-1] }));
-      }
-      $.ajax({
-        type:'POST',
+<script>
+$(function(){
+    const palette = ['#5B9F56','#B4DEB1','#EBCD1D','#F18425','#F05153'];
+
+    function summarize(data) {
+        return [1, 2, 3, 4, 5]
+            .filter(i => data[i] > 0)
+            .map(i => ({
+                state: i + '등급',
+                value: +data[i],
+                color: palette[i - 1],
+            }));
+    }
+
+    $.ajax({
+        type: 'POST',
         url: '/@controller/GetRiskmatrixData',
-        data: JSON.stringify({ prefix: '@prefix' }),
+        data: JSON.stringify({ prefix: '@prefix' }),  
         contentType: 'application/json',
         dataType: 'json'
-      })
-      .done(counts=>{
+    })
+    .done(counts => {
+        console.log("Counts from server:", counts); 
         const ds = summarize(counts);
         $(`#@pieId`).dxPieChart({
-          type:'doughnut',
-          dataSource: ds,
-          customizePoint: pt=>({ color:pt.data.color }),
-          series:[{
-            argumentField:'state',
-            valueField:'value',
-            label:{ visible:true, connector:{visible:true}, customizeText:e=>e.valueText+'대' }
-          }]
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pt => ({ color: pt.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,
+                    connector: { visible: true },
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+            legend: {
+                visible: true,
+                verticalAlignment: 'bottom',
+                horizontalAlignment: 'center',
+                markerShape: 'circle',
+            },
+            size: { width: '100%', height: 300 },
+            innerRadius: 0.5,
+
+            tooltip: {
+                enabled: true,
+                customizeTooltip: function (info) {
+                    const d = info.point.data;
+                    return {
+                        html: `
+                <strong>${d.state}</strong><br/>
+                대수: ${d.value}대<br/>
+            `
+                    };
+                }
+            },
+            onPointClick: function (e) {
+                e.target.showTooltip();
+            }
         });
-      });
     });
+});
     </script>
+
+
 </div>

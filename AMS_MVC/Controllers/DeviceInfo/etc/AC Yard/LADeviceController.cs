@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "LA_BASICINFO",       // 기본 정보 테이블
                     "LA_CODE",            // 매칭할 컬럼명
                     "LA",                 // 별칭
-                    "LA"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }

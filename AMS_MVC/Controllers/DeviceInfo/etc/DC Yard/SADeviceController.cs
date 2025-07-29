@@ -65,7 +65,7 @@ namespace AMS_MVC.Controllers
                     "SA_CODE",      // SA 코드 필드
                     "SA",           // 표시용 장치 이름
                     "SA",           // 별칭
-                    "AC"
+                    "DC"
                 );
 
                 var formattedData = priorityData.Select(item => new

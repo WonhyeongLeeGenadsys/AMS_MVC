@@ -142,7 +142,7 @@ namespace AMS_MVC.Controllers
                     "CT_BASICINFO",       // 기본 정보 테이블
                     "CT_CODE",            // 매칭할 컬럼명
                     "CT",                 // 별칭
-                    "CT"                  // EntityName (Grid에 표시용)
+                    "AC"                  // EntityName (Grid에 표시용)
                 );
                 return Json(gojangData);
             }
