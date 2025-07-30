@@ -361,8 +361,8 @@ namespace AMS_MVC.Controllers
         public JsonResult GetEquipmentStrategy(string code)
         {
             // 1) 해당 설비 HI 하나만 조회
-            var hiDict = _riskmatrixRepo.GetRiskMatrixByCode(code);
-            if (hiDict == null || !int.TryParse(hiDict.HI, out var hi))
+            var latestRisk = _riskmatrixRepo.GetLatestRiskMatrixByCode(code);
+            if (latestRisk == null || !int.TryParse(latestRisk.HI, out var hi))
                 return Json(new { error = "HI 데이터 없음" }, JsonRequestBehavior.AllowGet);
 
             // 2) Weibull → B3 계산 (VCB 장비 기준)

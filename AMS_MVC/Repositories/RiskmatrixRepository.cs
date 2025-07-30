@@ -78,10 +78,10 @@ namespace AMS_MVC.Repositories
             return GetRiskMatrixInternal(new[] { code });
         }
 
-    /// <summary>
-    /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
-    /// </summary>
-    public Riskmatrix GetRiskMatrixByCode(string code)
+        /// <summary>
+        /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
+        /// </summary>
+        public Riskmatrix GetRiskMatrixByCode(string code)
         {
             using (DBHelper dbHelper = new DBHelper())
             {
@@ -93,7 +93,27 @@ namespace AMS_MVC.Repositories
             }
         }
 
-        public Dictionary<string, int> GetAggregatedHI(IEnumerable<string> codePrefixes)
+        public Riskmatrix GetLatestRiskMatrixByCode(string code)
+        {
+            using (DBHelper dbHelper = new DBHelper())
+            {
+                const string query = @"
+                    SELECT TOP(1) *
+                    FROM RISKMATRIX
+                    WHERE CODE = @Code
+                    ORDER BY 
+                        CASE WHEN LASTTIME IS NULL THEN 0 ELSE 1 END DESC,
+                        LASTTIME DESC";
+                return dbHelper.Conn.QueryFirstOrDefault<Riskmatrix>(query, new { Code = code });
+            }
+        }
+
+        /// <summary>
+        /// 종합정보 건전도 도넛에서 사용할 HI 추출 함수
+        /// </summary>
+        /// <param name="codePrefixes"></param>
+        /// <returns></returns>
+        public Dictionary<string, int> GetAllHIByCode(IEnumerable<string> codePrefixes)
         {
             using (var db = new DBHelper())
             {
@@ -123,6 +143,52 @@ namespace AMS_MVC.Repositories
                 return result;
             }
         }
+
+        public Dictionary<string, int> GetLatestHIByCode(IEnumerable<string> codePrefixes)
+        {
+            using (var db = new DBHelper())
+            {
+                var clauses = new List<string>();
+                var parameters = new DynamicParameters();
+                int i = 0;
+                foreach (var pre in codePrefixes)
+                {
+                    var name = $"p{i++}";
+                    clauses.Add($"CODE LIKE @{name}");
+                    parameters.Add(name, $"{pre}%");
+                }
+                var where = string.Join(" OR ", clauses);
+
+                var sql = $@"
+                WITH Latest AS (
+                    SELECT
+                        CODE,
+                        HI,
+                ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+                FROM RISKMATRIX
+                WHERE {where}
+
+                )
+                SELECT
+                    CAST(HI AS INT)   AS HI,    
+                    COUNT(*)         AS Cnt
+                FROM Latest
+                WHERE rn = 1
+                    AND HI IS NOT NULL
+                GROUP BY CAST(HI AS INT);";
+
+                var list = db.Conn.Query(sql, parameters)
+                    .Select(r => new {
+                        HI = (int)r.HI,
+                        Cnt = (int)r.Cnt
+                    });
+
+                return list.ToDictionary(x => x.HI.ToString(), x => x.Cnt);
+            }
+        }
+
+
+
         public IEnumerable<int> GetHIList(string codePrefix = null)
         {
             using (var db = new DBHelper())
@@ -139,10 +205,12 @@ namespace AMS_MVC.Repositories
             }
         }
 
+
+
         public IEnumerable<dynamic> GetDevicesByDateRange(string dateType, DateTime start, DateTime end)
         {
             using (DBHelper dbHelper = new DBHelper())
-            {            
+            {
                 string columnName = "";
                 switch (dateType.ToLower())
                 {
@@ -223,7 +291,7 @@ ORDER BY
                         selectSql, new { Code = code });
 
                     var today = DateTime.Today;
-                    string cofText = newCof.ToString("F2"); 
+                    string cofText = newCof.ToString("F2");
                     string pofText = newPof.ToString("F6"); // 소수점 6자리
 
                     if (latest.TblIdx != 0 && latest.LASTTIME == null)
@@ -257,7 +325,7 @@ UPDATE RISKMATRIX
  WHERE TBL_IDX = @TblIdx";
                         conn.Execute(updateTodaySql, new
                         {
-                            TblIdx = latest.TblIdx,                            
+                            TblIdx = latest.TblIdx,
                             HI = newHI,
                             Cof = cofText,
                             Pof = pofText
@@ -317,7 +385,7 @@ SELECT Code, Cof, Pof, HI, LastTime
 FROM Latest
 WHERE rn = 1;
 ";
-                return db.Conn.Query<Riskmatrix>(sql);                                
+                return db.Conn.Query<Riskmatrix>(sql);
             }
         }
 

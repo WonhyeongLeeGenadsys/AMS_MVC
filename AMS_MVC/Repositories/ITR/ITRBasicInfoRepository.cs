@@ -79,21 +79,34 @@ namespace AMS_MVC.Repositories
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
+                    // 각 CODE별로 LASTTIME 기준 최신 행만 뽑아서 JOIN
                     var query = @"
-                SELECT 
-                    b.TBL_IDX, 
-                    b.ITR_Code, 
-                    b.Serial_No, 
-                    b.Install_Date, 
-                    b.Operating_Date, 
-                    r.HI
-                FROM ITR_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.ITR_Code = r.CODE
-                ORDER BY b.TBL_IDX";
+SELECT 
+    b.TBL_IDX, 
+    b.ITR_Code, 
+    b.Serial_No, 
+    b.Install_Date, 
+    b.Operating_Date, 
+    r_latest.HI
+FROM ITR_BASICINFO b
+LEFT JOIN (
+    SELECT CODE, HI
+    FROM (
+        SELECT 
+            CODE, 
+            HI,
+            ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+        FROM RISKMATRIX
+    ) t
+    WHERE t.rn = 1
+) r_latest
+    ON b.ITR_Code = r_latest.CODE
+ORDER BY b.TBL_IDX;
+";
 
                     itrInfoWithRisk = dbHelper.Conn.Query(query).AsList();
                 }
-                res.Message = "ITR 기본정보와 RISKMATRIX 정보 조회 성공";
+                res.Message = "ITR 기본정보와 최신 RISKMATRIX 정보 조회 성공";
             }
             catch (Exception ex)
             {

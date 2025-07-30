@@ -34,7 +34,7 @@ namespace AMS_MVC.Controllers
             try
             {
                 // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
-                var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
+                var riskData = _riskmatrixRepo.GetLatestHIByCode(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)

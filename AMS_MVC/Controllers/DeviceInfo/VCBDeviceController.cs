@@ -36,7 +36,7 @@ namespace AMS_MVC.Controllers
             try
             {
                 // _riskmatrixRepo.GetAggregatedHI(prefix) 는 { "1": count1, "2": count2, ... } 형식의 Dictionary를 반환
-                var riskData = _riskmatrixRepo.GetAggregatedHI(prefix);
+                var riskData = _riskmatrixRepo.GetLatestHIByCode(prefix);
                 return Json(riskData, JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
@@ -171,7 +171,7 @@ namespace AMS_MVC.Controllers
                     Install_Date = b.Install_Date != null ? ((DateTime)b.Install_Date).ToString("yyyy-MM-dd") : "",
                     Operating_Date = b.Operating_Date != null ? ((DateTime)b.Operating_Date).ToString("yyyy-MM-dd") : "",
                     UsagePeriod = b.Operating_Date != null ? (DateTime.Now.Year - ((DateTime)b.Operating_Date).Year).ToString() + "년" : "",
-                    HI = b.HI  
+                    HI = b.HI
                 }).ToList();
 
                 return Json(formatted, JsonRequestBehavior.AllowGet);

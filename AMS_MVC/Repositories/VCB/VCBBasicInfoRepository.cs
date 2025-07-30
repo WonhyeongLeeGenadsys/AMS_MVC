@@ -4,8 +4,6 @@ using AMS_MVC.Utlity;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using Web.Common.Log;
 
 namespace AMS_MVC.Repositories
@@ -77,26 +75,39 @@ namespace AMS_MVC.Repositories
         {
             Result res = new Result(true);
             vcbInfoWithRisk = new List<dynamic>();
-            
+
             try
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
+                    // 각 CODE별로 LASTTIME 기준 최신 행만 뽑아서 JOIN
                     var query = @"
-                SELECT 
-                    b.TBL_IDX, 
-                    b.VCB_Code, 
-                    b.Serial_No, 
-                    b.Install_Date, 
-                    b.Operating_Date, 
-                    r.HI
-                FROM VCB_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.VCB_Code = r.CODE
-                ORDER BY b.TBL_IDX";
-                    
+SELECT 
+    b.TBL_IDX, 
+    b.VCB_Code, 
+    b.Serial_No, 
+    b.Install_Date, 
+    b.Operating_Date, 
+    r_latest.HI
+FROM VCB_BASICINFO b
+LEFT JOIN (
+    SELECT CODE, HI
+    FROM (
+        SELECT 
+            CODE, 
+            HI,
+            ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+        FROM RISKMATRIX
+    ) t
+    WHERE t.rn = 1
+) r_latest
+    ON b.VCB_Code = r_latest.CODE
+ORDER BY b.TBL_IDX;
+";
+
                     vcbInfoWithRisk = dbHelper.Conn.Query(query).AsList();
                 }
-                res.Message = "VCB 기본정보와 RISKMATRIX 정보 조회 성공";
+                res.Message = "VCB 기본정보와 최신 RISKMATRIX 정보 조회 성공";
             }
             catch (Exception ex)
             {

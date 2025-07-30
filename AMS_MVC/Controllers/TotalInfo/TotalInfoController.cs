@@ -39,7 +39,7 @@ namespace AMS_MVC.Controllers
             else
                 codePrefixes = new[] { prefix };
 
-            var hiData = _riskRepo.GetAggregatedHI(codePrefixes);
+            var hiData = _riskRepo.GetAllHIByCode(codePrefixes);
             return Json(hiData);
         }
 

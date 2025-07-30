@@ -22,7 +22,7 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             // RiskMatrix 데이터 처리 (기존 코드)
             var riskMatrixRepo = new RiskmatrixRepository();
 
-            var hiDict = riskMatrixRepo.GetRiskMatrixByCode(tankCode);
+            var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(tankCode);
             var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(tankCode);
 
             ViewBag.HIDict = hiDict;

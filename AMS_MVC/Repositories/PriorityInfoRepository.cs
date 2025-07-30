@@ -1,7 +1,6 @@
 ﻿using AMS_MVC.Database;
 using AMS_MVC.Models;
 using Dapper;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -9,9 +8,7 @@ namespace AMS_MVC.Repositories
 {
     public class PriorityInfoRepository
     {
-        /// <summary>
-        /// 특정 기본정보 테이블에 대해 우선순위 리스트를 반환합니다. (기존 메서드)
-        /// </summary>
+
         public List<dynamic> GetPriority(
             string basicInfoTable,
             string codeField,
@@ -21,36 +18,52 @@ namespace AMS_MVC.Repositories
         {
             using (var dbHelper = new DBHelper())
             {
-                string query = $@"
-                SELECT
-                    ROW_NUMBER() OVER (
-                        ORDER BY 
-                            CAST(r.COF AS DECIMAL(18,2)) * CAST(r.POF AS DECIMAL(18,2)) DESC,
-                            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC
-                    ) AS Priority,
-                    '{sortValue}'   AS Sort,
-                    {alias}.{codeField} AS Code,
-                    {alias}.SERIAL_NO      AS Serial_No,
-                    '{entityName}'         AS Name,
-                    {alias}.INSTALL_DATE   AS Install_Date,
-                    {alias}.OPERATING_DATE AS Operating_Date,
-                    DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) AS UsagePeriod,
-                    {alias}.PRICE   AS Price,
-                    {alias}.RATED_V AS Rated_V,
-                    {alias}.RATED_A AS Rated_A,
-                    {alias}.MAKE_COMPANY AS Make_Company,
-                    {alias}.WRITER       AS Writer,
-                    r.COF AS CoF,
-                    r.POF AS PoF,
-                    CAST(r.COF AS DECIMAL(18,2)) * CAST(r.POF AS DECIMAL(18,2)) AS RiskScore,
-                    r.HI AS HI
-                FROM {basicInfoTable} {alias}
-                LEFT JOIN RISKMATRIX r
-                  ON {alias}.{codeField} = r.CODE;
-                ";
+                var query = $@"
+WITH LatestRisk AS (
+    SELECT CODE, COF, POF, HI
+    FROM (
+        SELECT
+            CODE,
+            COF,
+            POF,
+            HI,
+            ROW_NUMBER() OVER (
+                PARTITION BY CODE
+                ORDER BY LASTTIME DESC
+            ) AS rn
+        FROM RISKMATRIX
+    ) t
+    WHERE t.rn = 1
+)
+SELECT
+    ROW_NUMBER() OVER (
+        ORDER BY
+            CAST(lr.COF  AS DECIMAL(18,2)) * CAST(lr.POF AS DECIMAL(18,2)) DESC,
+            DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC
+    ) AS Priority,
+    '{sortValue}'                  AS Sort,
+    {alias}.{codeField}            AS Code,
+    {alias}.SERIAL_NO              AS Serial_No,
+    '{entityName}'                 AS Name,
+    {alias}.INSTALL_DATE           AS Install_Date,
+    {alias}.OPERATING_DATE         AS Operating_Date,
+    DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) AS UsagePeriod,
+    {alias}.PRICE                  AS Price,
+    {alias}.RATED_V                AS Rated_V,
+    {alias}.RATED_A                AS Rated_A,
+    {alias}.MAKE_COMPANY           AS Make_Company,
+    {alias}.WRITER                 AS Writer,
+    lr.COF  AS CoF,
+    lr.POF  AS PoF,
+    lr.HI   AS HI
+FROM {basicInfoTable} {alias}
+LEFT JOIN LatestRisk lr
+  ON {alias}.{codeField} = lr.CODE
+";
                 return dbHelper.Conn.Query(query).AsList();
             }
         }
+
 
         /// <summary>
         /// 모든 장비(VCB, ITR, DCCB, DC Cable, Sub Module)에 대한 우선순위 리스트를 반환합니다.
@@ -68,7 +81,7 @@ namespace AMS_MVC.Repositories
                 new { Table = "SUBMODULE_BASICINFO",CodeField = "SUBMODULE_CODE", Alias = "s", EntityName = "Sub Module", Sort = "DC" }
             };
 
-            // 1) LatestRisk CTE: 장비별 가장 최근 리스크 한 건만
+            // 1) LatestRisk 장비별 가장 최근 리스크 한 건만
             var withLatestRisk = @"
             WITH LatestRisk AS (
                 SELECT CODE, COF, POF, HI
@@ -88,7 +101,7 @@ namespace AMS_MVC.Repositories
                 ), CombinedData AS (
                 ";
 
-            // 2) CombinedData CTE: 기본정보 UNION ALL + LatestRisk JOIN
+            // 2) CombinedData  기본정보 UNION ALL + LatestRisk JOIN
             var unionQueries = configs.Select(cfg => $@"
     SELECT
         '{cfg.Sort}'                         AS Sort,
