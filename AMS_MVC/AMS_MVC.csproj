@@ -1387,6 +1387,7 @@
     <Content Include="Views\Setting\CofInfo.cshtml" />
     <Content Include="Views\Setting\_CofInputs.cshtml" />
     <Content Include="Views\TotalInfo\Index.cshtml" />
+    <Content Include="Views\TotalInfo\Recent.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

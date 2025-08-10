@@ -978,7 +978,7 @@ $(function () {
                             <li class="orange"></li>
                             <li class="blue"></li>
                             <li class="green"></li>
-                            <li class="green"></li>
+                            <li class="green"></li> 
                             <li class="yellow"></li>
                             <li class="yellow"></li>
                             <li class="blue"></li>
@@ -990,6 +990,7 @@ $(function () {
                     </div>
                 </li>
                 <li>
+
                     <ul class="tab_twodepth tab_active">
                         <li class="tab_btn on" data-tab="chart_line01DC">건전도 이력</li>
                         <li class="tab_btn" data-tab="chart_line02DC">Pof 이력</li>
@@ -1655,7 +1656,7 @@ $(function () {
                 if (target.startsWith('gridContainer03')) loadSchedule(prefix);
             });
 
-            //  초기엔 5대 주요장비 우선순위만
+            //  처음 로딩할 때 5대 주요장비 우선순위만
             loadPriority('');
 
              setInterval(() => {

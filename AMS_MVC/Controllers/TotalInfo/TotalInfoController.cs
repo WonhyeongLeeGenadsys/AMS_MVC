@@ -46,7 +46,7 @@ namespace AMS_MVC.Controllers
         [HttpPost]
         public JsonResult GetHIList(string prefix)
         {
-            // 각 장비의 HI 값(정수)만 순서대로 리스트로 내려줍니다
+            // 각 장비의 HI 값(정수)만 순서대로 리스트화
             var list = _riskRepo.GetHIList(prefix);
             return Json(list);
         }

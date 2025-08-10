@@ -1057,6 +1057,7 @@ footer {
 /*레트프메뉴*/
 .electric_content {
 	display: flex;
+	height: calc(100vh - 10px);
 }
 	/*.electric_content .menu_group{width:220px; background-color: var(--left-bg); min-height: calc(100% - 68px);}
 */
@@ -1066,7 +1067,7 @@ footer {
 		width: 220px;
 		left: 0;
 		background-color: var(--left-bg);
-		height: auto; /* 내용에 따라 높이 자동 확장 */
+		height: 100%;
 		padding-bottom: 20px;
 	}
 
@@ -2265,7 +2266,7 @@ dl.product_info {
 	position: relative;
 	width: calc((100% - 460px)/2);
 	padding-right: 60px;
-	margin-bottom: 0px;
+	margin-bottom: 20px;
 }
 
 .sub_flex.main > li:nth-child(2) {
@@ -2562,3 +2563,39 @@ dl.product_info {
 	height: 260px !important;
 }
 
+/* 1) 최근 활동 3개 차트 한 줄, 스크롤 제거 */
+.recent-flex {
+	display: flex;
+	gap: 20px;
+	justify-content: space-between;
+	flex-wrap: nowrap; /* 무조건 1행 */
+	overflow: hidden; /* 스크롤 제거 */
+}
+
+/* 각 칼럼이 줄어들 수 있게, 3등분 */
+.col {
+	flex: 1 1 0; /* 늘어나고 줄어들고 기본 0 */
+	min-width: 0; /* 자식이 넘치면 줄어들게 */
+	max-width: 33%; /* 세 개가 한 줄에 들어가도록 제한 (필요에 따라 30%로 조정) */
+	position: relative;
+}
+
+/* pie / matrix 차트가 부모 너비에 맞게 */
+.chart_box {
+	width: 100% !important;
+	height: 250px !important;
+}
+
+/* 히스토리/이력 차트들: 고정된 550px 제거하고 유동으로 */
+#chart_line01,
+#chart_line02,
+#chart_line03,
+#chart_line01AC,
+#chart_line02AC,
+#chart_line03AC,
+#chart_line01DC,
+#chart_line02DC,
+#chart_line03DC {
+	width: 100% !important;
+	height: 260px !important;
+}

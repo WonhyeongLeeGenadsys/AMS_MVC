@@ -1,0 +1,251 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section LeftMenu {
+    @Html.Partial("_TotalInfoMenu")
+}
+@section MainContent {
+    <h1>최근 활동</h1>
+
+    <!-- 1) 차트 1행 배치 -->
+    <div class="box_wrap totalInfo_content on">
+        <div class="con_box">
+
+            <div class="sub_flex main" style="display:flex; gap:20px; justify-content:space-between;">
+                <div style="flex:1;">
+                    <h2>건전도 (Before)</h2>
+                    <div id="pieBefore" class="chart_box" style="height:250px;"></div>
+                </div>
+                <div style="flex:1;">
+                    <h2>건전도 (After)</h2>
+                    <div id="pieAfter" class="chart_box" style="height:250px;"></div>
+                </div>
+                <div style="flex:1;">
+                    <h2>Risk Matrix (Before)</h2>
+                    <div id="matrixBefore" class="chart_box matrix" style="height:250px;"></div>
+                </div>
+                <div style="flex:1;">
+                    <h2>Risk Matrix (After)</h2>
+                    <div id="matrixAfter" class="chart_box matrix" style="height:250px;"></div>
+                </div>
+            </div>
+
+            <!-- 2) 변경 내역 표 -->
+            <h2 style="margin-top:30px;">변경 내역</h2>
+            <div id="changeGrid" style="margin-top:10px;"></div>
+
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script>
+$(function(){
+    // MS JSON 날짜 문자열을 Date로 바꾸는 헬퍼
+    function parseMsDate(msDateStr) {
+        if (!msDateStr) return null;
+        const ticks = parseInt(msDateStr.replace(/\D/g, ''), 10);
+        return isNaN(ticks) ? null : new Date(ticks);
+    }
+
+    $.getJSON('@Url.Action("GetRecentActivity","TotalInfo")')
+     .done(function(data){
+        // 1) Before/After Pie 용 카운트 집계
+        const beforeCnt = {}, afterCnt = {};
+        data.forEach(d => {
+            beforeCnt[d.Before.Hi] = (beforeCnt[d.Before.Hi]||0) + 1;
+            afterCnt [d.After.Hi ] = (afterCnt [d.After.Hi ]||0) + 1;
+        });
+        function makeDs(cntObj){
+            return Object.entries(cntObj)
+                         .map(([hi,c])=>({ hi:+hi, state:hi+'등급', value:c }))
+                         .sort((a,b)=>a.hi-b.hi);
+        }
+        const dsBefore = makeDs(beforeCnt),
+              dsAfter  = makeDs(afterCnt);
+
+        // HI별 색상 함수
+        function getHiColor(hi){
+            switch(hi){
+                case 1: return '#5B9F56';
+                case 2: return '#B4DEB1';
+                case 3: return '#EBCD1D';
+                case 4: return '#F18425';
+                case 5: return '#F05153';
+                default: return '#888';
+            }
+        }
+
+        // 2) Doughnut 차트
+        ['Before','After'].forEach(stage=>{
+            $('#pie'+stage).dxPieChart({
+                type:'doughnut',
+                dataSource: stage==='Before'? dsBefore: dsAfter,
+                customizePoint: pt=>({ color:getHiColor(pt.data.hi) }),
+                series:[{
+                    argumentField:'state',
+                    valueField:'value',
+                    label:{
+                        visible:true,
+                        connector:{ visible:true },
+                        customizeText:e=>e.valueText+'대'
+                    }
+                }],
+                legend:{
+                    visible:true,
+                    verticalAlignment:'bottom',
+                    horizontalAlignment:'center'
+                },
+                size:{ height:250 },
+                innerRadius:0.5
+            });
+        });
+
+        // 3) Risk Matrix Scatter
+         [['Before', 'matrixBefore'], ['After', 'matrixAfter']]
+             .forEach(([stage, id]) => {
+                 const pts = data.map(d => ({
+                     x: stage === 'Before' ? +d.Before.Cof : +d.After.Cof,  // 숫자로 강제 변환
+                     y: stage === 'Before' ? +d.Before.Pof : +d.After.Pof,  // 숫자로 강제 변환
+                     name: d.Code
+                 }));
+                 $('#' + id).dxChart({
+                     dataSource: pts,
+                     commonSeriesSettings: {
+                         type: 'scatter',
+                         argumentField: 'x',
+                         valueField: 'y',
+                         point: { size: 8 }
+                     },
+                     argumentAxis: {
+                         title: { text: 'CoF ($)' },
+                         valueMarginsEnabled: false
+                     },
+                     valueAxis: {
+                         title: { text: 'PoF (%)' },
+                         visualRange: [0, 100]
+                     },
+                     tooltip: {
+                         enabled: true,
+                         customizeTooltip: info => {
+                             const d = info.point.data;
+                             return {
+                                 html:
+                                     `<strong>${d.name}</strong><br/>` +
+                                     `CoF: ${d.x}$<br/>` +
+                                     `PoF: ${d.y}%`
+                             };
+                         }
+                     },
+                     legend: { visible: false },
+                     size: { height: 250 }
+                 });
+             });
+
+
+        // 4) 변경 내역 DevExpress Grid — 날짜 파싱 및 최신 AfterTime 기준 정렬
+         const gridDs = data
+             .map(d => ({
+                 Code: d.Code,
+                 Before_HI: d.Before.Hi,
+                 After_HI: d.After.Hi,
+                 Before_CoF: d.Before.Cof,
+                 After_CoF: d.After.Cof,
+                 Before_PoF: d.Before.Pof / 100,
+                 After_PoF: d.After.Pof / 100,
+                 BeforeTime: parseMsDate(d.BeforeTime),
+                 AfterTime: parseMsDate(d.AfterTime)
+             }))
+             .filter(r =>
+                 r.Before_HI !== r.After_HI ||
+                 r.Before_CoF !== r.After_CoF ||
+                 r.Before_PoF !== r.After_PoF
+             );
+
+         $('#changeGrid').dxDataGrid({
+             dataSource: gridDs,
+             showBorders: true,
+             columnAutoWidth: true,
+             sorting: { mode: 'multiple' },
+             columns: [
+                 { dataField: 'Code', caption: '코드', alignment: 'center' },
+                 {
+                     dataField: 'BeforeTime',
+                     caption: 'Before 시점',
+                     alignment: 'center',
+                     dataType: 'datetime',
+                     format: 'yyyy-MM-dd HH:mm'
+                 },
+                 {
+                     dataField: 'AfterTime',
+                     caption: 'After 시점',
+                     alignment: 'center',
+                     dataType: 'datetime',
+                     format: 'yyyy-MM-dd HH:mm',
+                     sortOrder: 'desc' 
+                 },
+                 { dataField: 'Before_HI', caption: 'Before HI', alignment: 'center', dataType: 'number' },
+                 { dataField: 'After_HI', caption: 'After HI', alignment: 'center', dataType: 'number' },
+                 { dataField: 'Before_CoF', caption: 'Before CoF($)', alignment: 'center', format: { type: 'fixedPoint', precision: 2 } },
+                 { dataField: 'After_CoF', caption: 'After CoF($)', alignment: 'center', format: { type: 'fixedPoint', precision: 2 } },
+                 { dataField: 'Before_PoF', caption: 'Before PoF(%)', alignment: 'center', format: { type: 'percent', precision: 2 } },
+                 { dataField: 'After_PoF', caption: 'After PoF(%)', alignment: 'center', format: { type: 'percent', precision: 2 } }
+             ],
+             paging: { pageSize: 10 },
+             pager: {
+                 showPageSizeSelector: true,
+                 allowedPageSizes: [5, 10, 20],
+                 showInfo: true
+             },
+             onCellPrepared: function (e) {
+                 if (e.rowType === 'data' && (e.column.dataField === 'Before_HI' || e.column.dataField === 'After_HI')) {
+                     const cls = {
+                         1: 'priorityVerygood',
+                         2: 'priorityGood',
+                         3: 'priorityFair',
+                         4: 'priorityPoor',
+                         5: 'priorityVerypoor'
+                     }[e.value] || 'priorityUndefined';
+                     e.cellElement.addClass(cls);
+                 }
+                 if (e.rowType === 'data' && e.column.dataField === 'Before_HI') {
+                     e.cellElement.css({
+                         'border-right': '1px solid #CBD2E0',
+                         'border-left': '1px solid #CBD2E0',
+                         'padding-left': '8px',
+                         'padding-right': '8px'
+                     });
+                 }
+                 if (e.rowType === 'data' && e.column.dataField === 'After_HI') {
+                     e.cellElement.css({
+                         'border-left': '1px solid #CBD2E0',
+                         'padding-left': '8px'
+                     });
+                 }
+                 if (e.rowType === 'data' && e.column.dataField === 'Before_PoF') {
+                     e.cellElement.css({
+                         'border-left': '1px solid #CBD2E0',
+                         'padding-left': '8px'
+                     });
+                 }
+                 if (e.rowType === 'data' && e.column.dataField === 'After_CoF') {
+                     e.cellElement.css({
+                         'border-right': '1px solid #CBD2E0',
+                         'padding-right': '8px'
+                     });
+                 }
+                 if (e.rowType === 'data' && e.column.dataField === 'Before_CoF') {
+                     e.cellElement.css({
+                         'border-left': '1px solid #CBD2E0',
+                         'padding-left': '8px'
+                     });
+                 }
+             }
+         });
+
+     })
+     .fail(err=> console.error('GetRecentActivity 오류', err));
+});
+    </script>
+}
+
