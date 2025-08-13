@@ -40,47 +40,37 @@ namespace AMS_MVC.Controllers
             return View("~/Views/Setting/MemberInfo.cshtml");
         }
 
-        // GET: Setting/CoFInfo
         public ActionResult CofInfo(string code = "VCB")
         {
             ViewBag.MenuType = "Setting";
 
-            // 1) 장비 리스트
-            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
-            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, code);
+            // 모델 먼저 준비
+            var model = cofRepo.GetLatest(code) ?? new COFModel { Code = code };
 
-            // 2) 선택된 코드에 대한 최신값 가져오기
-            var model = cofRepo.GetLatest(code);
+            // 드롭다운 아이템 + 현재 선택값 = model.Code
+            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, model.Code);
+
             return View(model);
         }
+
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CofInfo(COFModel model)
         {
             ViewBag.MenuType = "Setting";
+            if (!ModelState.IsValid) return View(model);
 
-            // 1) 장비 리스트, 선택된 model.Code 가 역시 드롭다운에 걸리도록
-            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
-            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, model.Code);
-
-            if (!ModelState.IsValid)
-                return View(model);
-
-            // 2) CoF 계산
             calculator.Calculate(model);
 
-            // 3) 하루에 한 번만 UPDATE, 아니면 INSERT
-            cofRepo.SaveOrUpdate(model);
+            int affected = (model.Tbl_Idx == 0)
+                ? cofRepo.Insert(model)           // 처음 저장
+                : cofRepo.UpdateById(model);      // 기존 행 변경
 
-            var riskRepo = new RiskmatrixRepository();
-            riskRepo.UpdateCoFByPrefix(model.Code, model.Total_Cof);
-
-            ModelState.Clear();
-
-            // 4) 다시 최신값 조회 (오늘 업데이트된 or 새로 INSERT 된)
-            var latest = cofRepo.GetLatest(model.Code);
-            return View(latest);
+            TempData["SaveInfo"] = (model.Tbl_Idx == 0) ? "저장 완료" : "변경 완료";
+            return RedirectToAction(nameof(CofInfo), new { code = model.Code }); // PRG
         }
+
 
         [HttpGet]
         public JsonResult GetCofData(string code)

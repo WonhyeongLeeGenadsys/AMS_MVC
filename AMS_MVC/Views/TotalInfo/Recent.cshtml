@@ -101,12 +101,12 @@ $(function(){
             });
         });
 
-        // 3) Risk Matrix Scatter
+        // 3) Risk Matrix 
          [['Before', 'matrixBefore'], ['After', 'matrixAfter']]
              .forEach(([stage, id]) => {
                  const pts = data.map(d => ({
-                     x: stage === 'Before' ? +d.Before.Cof : +d.After.Cof,  // 숫자로 강제 변환
-                     y: stage === 'Before' ? +d.Before.Pof : +d.After.Pof,  // 숫자로 강제 변환
+                     x: stage === 'Before' ? +d.Before.Cof : +d.After.Cof,  
+                     y: stage === 'Before' ? +d.Before.Pof : +d.After.Pof,  
                      name: d.Code
                  }));
                  $('#' + id).dxChart({
@@ -242,7 +242,6 @@ $(function(){
                  }
              }
          });
-
      })
      .fail(err=> console.error('GetRecentActivity 오류', err));
 });

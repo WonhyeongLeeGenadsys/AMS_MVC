@@ -14,32 +14,17 @@ namespace AMS_DATA
 {
     static class InfluxSignalMapper
     {
-        public static readonly IReadOnlyDictionary<string, string> Map = new Dictionary<string, string>
+        public static readonly IReadOnlyDictionary<string, string> VCB = new Dictionary<string, string>
         {
-            //["YHLU01/SPDC1.ST.OpCnt."] = nameof(VCBChk.CHK_OperationCount),
-            //["YHLU01/SPDC1.ST.DscnCnt."] = nameof(VCBChk.CHK_ShortCircuitCount),
-            //["YHLU01/SPDC1.SP.EvtAmpTrhe2."] = nameof(VCBChk.CHK_PdPatternValue),
-            //["YHLU01/STMP1.MV.Tmp."] = nameof(VCBChk.CHK_HotSpot),
+        };
 
-            //["YHLU01/SPDC1.ST.MoDevComF."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU01/SPDC1.ST.MoDevFlt."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU01/SPDC1.MV.AppPaDsch."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU01/SPDC1.SP.EvtAmpTrhe2."]= nameof(VCBChk.CHK_HotSpot),
+        public static readonly IReadOnlyDictionary<string, string> ITR1 = new Dictionary<string, string>
+        {
+        };
 
-            //["YHLU01/SPDC1.ST.PaDschAlm."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU01/SPDC1.ST.EvtLvlSt."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU02/ITSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU03/ITSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
-
-            //["YHLU04/SCBR1.ST.EvtTransF."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU04/WTSTMP1.MX.Tmp."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU06/ZSAR1.ST.OpCnt."] = nameof(VCBChk.CHK_HotSpot),
-            //["YHLU06/ZSAR1.MX.LeakA."] = nameof(VCBChk.CHK_HotSpot),
-
-            ["KEPCOALM/CINGGIO1$ST$Ind01$q"] = nameof(VCBChk.CHK_OperationCount),
-            ["KEPCOALM/CINGGIO1$ST$Ind02$q"] = nameof(VCBChk.CHK_ShortCircuitCount),
-            ["KEPCOALM/CINGGIO1$ST$Ind03$q"] = nameof(VCBChk.CHK_PdPatternValue),
-            ["KEPCOALM/CINGGIO1$ST$Ind04$q"] = nameof(VCBChk.CHK_HotSpot)
+        public static readonly IReadOnlyDictionary<string, string> ITR2 = new Dictionary<string, string>
+        {
+            ["YHLU03/SPDC1$ST$PaDschAlm$stVal"] = nameof(ITRChk2.CHK2_PD),
         };
     }
 
@@ -47,13 +32,18 @@ namespace AMS_DATA
     {
         static async Task Main(string[] args)
         {
-            // 0) 최신 VCB 코드 조회
+            // 0) 최신 코드 조회
             var basicRepo = new VCBBasicInfoRepository();
-            var latestCode = basicRepo.GetLatestVCBCode();
-            var basicInfo = basicRepo.GetVCBBasicInfoByCode(latestCode);
+            var ITRBasicRepo = new ITRBasicInfoRepository();
 
+            var latestCode = basicRepo.GetLatestVCBCode();
+            var ITRLatestCode = ITRBasicRepo.GetLatestITRCode();
+
+            var basicInfo = basicRepo.GetVCBBasicInfoByCode(latestCode);
+            var ITRbasicInfo = ITRBasicRepo.GetITRBasicInfoByITRCode(ITRLatestCode); 
 
             Console.WriteLine($"▶ 처리할 VCB_CODE: {basicInfo.VCB_Code}, Serial: {basicInfo.Serial_No}\n");
+            Console.WriteLine($"▶ 처리할 ITR_CODE: {ITRbasicInfo.ITR_Code}, Serial: {basicInfo.Serial_No}\n");
 
             // InfluxDB 설정
             const string url = "http://192.168.0.24:8086";
@@ -63,126 +53,165 @@ namespace AMS_DATA
 
             var client = InfluxDBClientFactory.Create(url, token);
             var chkRepo = new VCBChkRepository();
+            var itr1Repo = new ITRChk1Repository();
+            var itr2Repo = new ITRChk2Repository();
             var riskRepo = new RiskmatrixRepository();
             var cofRepo = new CoFRepository();
+            var itrCalc = new ITRChkScoreCalculator();
 
-            // 기존 VCB_CHK 모두 로드
-            chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out var existing);
+            // 기존 CHK 모두 로드
+            chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out var vcbExisting);
+            itr1Repo.GetITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out var itr1Existing);
+            itr2Repo.GetITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out var itr2Existing);
 
-            // 오늘 날짜 레코드 찾기
+            // 오늘 레코드 찾기
             DateTime today = DateTime.Today;
-            VCBChk todayRecord = existing.FirstOrDefault(x => x.CHK_Tbl_GetDate.Date == today);
-            decimal? lastHi = todayRecord?.FoldingFunction;
+            VCBChk todayVCB = vcbExisting?.FirstOrDefault(x => x.CHK_Tbl_GetDate.Date == today);
+            ITRChk1 todayITR1 = itr1Existing?.FirstOrDefault(x => x.CHK1_Tbl_GetDate.Date == today);
+            ITRChk2 todayITR2 = itr2Existing?.FirstOrDefault(x => x.CHK2_Tbl_GetDate.Date == today);
 
             while (true)
             {
-                // 1) InfluxDB에서 실시간 신호 읽기 + **디버그 출력**
+                // 1) Influx 실시간 신호
                 var signals = await FetchSignals(client, org, bucket);
-
-                // influxdb에서 데이터 가져오는 개수가 0이면 연결 오류라 판단하여 업데이트 건너뜀
-                   if (signals == null || signals.Count == 0)
-                     {
+                if (signals == null || signals.Count == 0)
+                {
                     Console.WriteLine("[WARN] InfluxDB에서 데이터를 가져오지 못했습니다. 업데이트를 건너뜁니다.");
                     await Task.Delay(TimeSpan.FromSeconds(10));
-                      continue;
-                     }
+                    continue;
+                }
 
-                // 2) 오늘 레코드가 없으면 새로 복제 후 INSERT
-                if (todayRecord == null)
+                // =========================
+                // VCB
+                // =========================
+                if (todayVCB == null)
                 {
-                    var template = existing.OrderBy(x => x.Tbl_Idx).LastOrDefault();
-                    todayRecord = template != null
-                        ? CloneRecord(template)
-                        : new VCBChk();
+                    var template = vcbExisting?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+                    todayVCB = template != null ? CloneRecordVCBChk(template) : new VCBChk();
+                    todayVCB.VCB_Code = basicInfo.VCB_Code;
+                    todayVCB.CHK_Gongsa_Name = "예방진단 데이터";
 
-                    todayRecord.VCB_Code = basicInfo.VCB_Code;
-                    todayRecord.CHK_Gongsa_Name = "예방진단 데이터";
+                    FillModelFromSignalsVCBChk(todayVCB, signals);
 
-                    FillModelFromSignals(todayRecord, signals);
+                    var (hi, pof) = new VCBChkScoreCalculator().CalculateHiPof(todayVCB, 1.0m);
+                    todayVCB.FoldingFunction = (int)Math.Truncate(hi);
 
-                    var (hi, pof) = new VCBChkScoreCalculator()
-                                       .CalculateHiPof(todayRecord, 1.0m);
-                    todayRecord.FoldingFunction = (int)Math.Truncate(hi);
+                    var cRes = chkRepo.CreateVCBChkRepo(todayVCB);
+                    Console.WriteLine($"[CREATED VCB] Success={cRes.IsSuccess}, Msg={cRes.Message}\n");
 
-                    var cRes = chkRepo.CreateVCBChkRepo(todayRecord);
-                    Console.WriteLine($"[CREATED] Success={cRes.IsSuccess}, Msg={cRes.Message}\n");
-
-                    chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out existing);
-                    todayRecord = existing.OrderBy(x => x.Tbl_Idx).Last();
-                    lastHi = todayRecord.FoldingFunction;
+                    chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out vcbExisting);
+                    todayVCB = vcbExisting.OrderBy(x => x.Tbl_Idx).Last();
                 }
                 else
                 {
-                    FillModelFromSignals(todayRecord, signals);
+                    FillModelFromSignalsVCBChk(todayVCB, signals);
 
-                    var scoreList = new int[]
-                    {
-                        (int)todayRecord.CHK_ContactWearPercent,
-                        (int)todayRecord.CHK_VacuumLeakCurrent,
-                        (int)todayRecord.CHK_ContactResistance,
-                        (int)todayRecord.CHK_InsulationResistance,
-                        (int)todayRecord.CHK_HotSpot,
-                        (int)todayRecord.CHK_PdPatternValue,
-                        (int)todayRecord.CHK_MotorCurrent,
-                        (int)todayRecord.CHK_AccumShortCircuitCurrent,
-                        (int)todayRecord.CHK_ShortCircuitCount,
-                        (int)todayRecord.CHK_OperationCount,
-                        (int)todayRecord.CHK_OpenCloseTime,         
-                        (int)todayRecord.CHK_VisualCheck
-                    };
+                    var (hi, pof) = new VCBChkScoreCalculator().CalculateHiPof(todayVCB, 1.0m);
+                    todayVCB.FoldingFunction = (int)Math.Truncate(hi);
 
-                    Console.WriteLine($"[DEBUG] Algorithm values: {string.Join(",", scoreList)}");
+                    var uRes = chkRepo.UpdateVCBChkInfoRepo(todayVCB);
+                    Console.WriteLine($"[UPDATED VCB] Success={uRes.IsSuccess}, Msg={uRes.Message}");
 
-                    var (hi, pof) = new VCBChkScoreCalculator()
-                                       .CalculateHiPof(todayRecord, 1.0m);
-                    todayRecord.FoldingFunction = (int)Math.Truncate(hi);
+                    var cof = Math.Round(cofRepo.GetTotalCofByPrefix("VCB"), 2);
+                    var rm = riskRepo.UpdateRiskMatrixHI(basicInfo.VCB_Code, (int)Math.Truncate(hi), cof, pof);
+                    Console.WriteLine($"[RISKMATRIX VCB] Success={rm.IsSuccess}, Msg={rm.Message}");
+                }
 
-                    Console.WriteLine($"[CALC] HI={hi:F2}, PoF={pof:F2}%, FoldingFunction={todayRecord.FoldingFunction}");
+                // =========================
+                // ITR 보통점검 (ITRChk1)
+                // =========================
+                if (todayITR1 == null)
+                {
+                    var template1 = itr1Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+                    todayITR1 = template1 != null ? CloneRecordITRChk1(template1) : new ITRChk1();
+                    todayITR1.ITR_Code = ITRbasicInfo.ITR_Code;
+                    todayITR1.CHK1_Gongsa_Name = "예방진단 데이터";
 
-                    // 1) 업데이트 실행
-                    var uRes = chkRepo.UpdateVCBChkInfoRepo(todayRecord);
+                    FillModelFromSignalsITRChk1(todayITR1, signals);
 
-                    decimal cofDec = Math.Round(cofRepo.GetTotalCofByPrefix("VCB"), 2);
+                    var (hi1, pof1) = itrCalc.CalculateHiPof(todayITR1, 1.00m);
+                    todayITR1.FoldingFunction = (int)Math.Truncate(hi1);
 
-                    var hiInt = (int)Math.Truncate(hi);
-                    var pofDec = pof;
+                    var c1 = itr1Repo.CreateITRChk1InfoRepo(todayITR1);
+                    Console.WriteLine($"[CREATED ITR1] Success={c1.IsSuccess}, Msg={c1.Message}");
 
-                    var rmRes = riskRepo.UpdateRiskMatrixHI(
-                        basicInfo.VCB_Code,
-                        hiInt,
-                        cofDec,
-                        pofDec
-                    );
-                    Console.WriteLine($"[RISKMATRIX] Success={rmRes.IsSuccess}, Msg={rmRes.Message}");
+                    itr1Repo.GetITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out itr1Existing);
+                    todayITR1 = itr1Existing.OrderBy(x => x.Tbl_Idx).Last();
 
-                    // 2) 바로 재조회
-                    chkRepo.GetVCBChkDetailByVCBCode(basicInfo.VCB_Code, todayRecord.Tbl_Idx.ToString(), out var verifyList);
-                    if (verifyList.Any())
-                    {
-                        var v = verifyList.First();
-                        //Console.WriteLine($"[VERIFY] DB → CHK_OperationCount={v.CHK_OperationCount}, FOLDINGFUNCTION={v.FoldingFunction}");
-                    }
-                    else
-                    {
-                        Console.WriteLine("[VERIFY] 재조회 결과가 없습니다.");
-                    }
+                    var cof1 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
+                    var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1, pof1);
+                    Console.WriteLine($"[RISKMATRIX ITR1] Success={rm1.IsSuccess}, Msg={rm1.Message}");
+                }
+                else
+                {
+                    FillModelFromSignalsITRChk1(todayITR1, signals);
 
-                    lastHi = todayRecord.FoldingFunction;
+                    var (hi1, pof1) = itrCalc.CalculateHiPof(todayITR1, 1.00m);
+                    todayITR1.FoldingFunction = (int)Math.Truncate(hi1);
+
+                    var u1 = itr1Repo.UpdateITRChk1InfoRepo(todayITR1);
+                    Console.WriteLine($"[UPDATED ITR1] Success={u1.IsSuccess}, Msg={u1.Message}");
+
+                    var cof1 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
+                    var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1, pof1);
+                    Console.WriteLine($"[RISKMATRIX ITR1] Success={rm1.IsSuccess}, Msg={rm1.Message}");
+                }
+
+                // =========================
+                // ITR 정밀점검 (ITRChk2)
+                // =========================
+                if (todayITR2 == null)
+                {
+                    var template2 = itr2Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+                    todayITR2 = template2 != null ? CloneRecordITRChk2(template2) : new ITRChk2();
+                    todayITR2.ITR_Code = ITRbasicInfo.ITR_Code;
+                    todayITR2.CHK2_Gongsa_Name = "예방진단 데이터";
+
+                    FillModelFromSignalsITRChk2(todayITR2, signals);
+
+                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 0.99m);
+                    todayITR2.FoldingFunction = (int)Math.Truncate(hi2);
+
+                    var c2 = itr2Repo.CreateITRChk2InfoRepo(todayITR2);
+                    Console.WriteLine($"[CREATED ITR2] Success={c2.IsSuccess}, Msg={c2.Message}");
+
+                    itr2Repo.GetITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out itr2Existing);
+                    todayITR2 = itr2Existing.OrderBy(x => x.Tbl_Idx).Last();
+
+                    var cof2 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
+                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2, pof2);
+                    Console.WriteLine($"[RISKMATRIX ITR2] Success={rm2.IsSuccess}, Msg={rm2.Message}");
+                }
+                else
+                {
+                    FillModelFromSignalsITRChk2(todayITR2, signals);
+
+                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 0.99m);
+                    todayITR2.FoldingFunction = (int)Math.Truncate(hi2);
+
+                    var u2 = itr2Repo.UpdateITRChk2InfoRepo(todayITR2);
+                    Console.WriteLine($"[UPDATED ITR2] Success={u2.IsSuccess}, Msg={u2.Message}");
+
+                    var cof2 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
+                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2, pof2);
+                    Console.WriteLine($"[RISKMATRIX ITR2] Success={rm2.IsSuccess}, Msg={rm2.Message}");
                 }
 
                 // 날짜가 바뀌면 오늘 레코드 리셋
                 if (DateTime.Today > today)
                 {
                     today = DateTime.Today;
-                    todayRecord = null;
+                    todayVCB = null;
+                    todayITR1 = null;
+                    todayITR2 = null;
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(10));
             }
         }
 
-        static async Task<Dictionary<string, float>> FetchSignals(
-            InfluxDBClient client, string org, string bucket)
+        // -------------------- InfluxDB Fetch --------------------
+        static async Task<Dictionary<string, float>> FetchSignals(InfluxDBClient client, string org, string bucket)
         {
             var flux = $@"
             from(bucket: ""{bucket}"")
@@ -190,6 +219,7 @@ namespace AMS_DATA
                 |> filter(fn: (r) => r._field == ""value"")
                 |> last()
             ";
+
             try
             {
                 var tables = await client.GetQueryApi().QueryAsync(flux, org);
@@ -203,16 +233,14 @@ namespace AMS_DATA
                 }
                 Console.WriteLine("=====================================================================\n");
 
-                // build the dictionary
                 var dict = new Dictionary<string, float>();
                 foreach (var rec in tables.SelectMany(t => t.Records))
                 {
-                   // 1) 태그 addr 을 키로 사용
                     if (!rec.Values.TryGetValue("ADDR", out var addrObj))
-                       continue;
+                        continue;
+
                     var addrKey = addrObj.ToString();
-                   // 2) 필드 value 를 float 로 파싱
-                    if (float.TryParse(rec.GetValue().ToString(), out var v))
+                    if (float.TryParse(rec.GetValue()?.ToString(), out var v))
                         dict[addrKey] = v;
                 }
                 return dict;
@@ -224,38 +252,125 @@ namespace AMS_DATA
             }
         }
 
-
-
-        static VCBChk CloneRecord(VCBChk src)
+        // -------------------- DB 복사하기! --------------------
+        static VCBChk CloneRecordVCBChk(VCBChk src)
         {
             var dst = new VCBChk();
-            foreach (var p in typeof(VCBChk)
-                .GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                .Where(p => p.CanWrite && p.Name != nameof(VCBChk.Tbl_Idx)))
-            {
+            foreach (var p in typeof(VCBChk).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                     .Where(p => p.CanWrite && p.Name != nameof(VCBChk.Tbl_Idx)))
                 p.SetValue(dst, p.GetValue(src));
-            }
             return dst;
         }
 
-        static void FillModelFromSignals(VCBChk model, Dictionary<string, float> signals)
+        static ITRChk1 CloneRecordITRChk1(ITRChk1 src)
         {
-            Console.WriteLine("=== FillModelFromSignals 시작!!! ======================\n");
+            var dst = new ITRChk1();
+            foreach (var p in typeof(ITRChk1).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                     .Where(p => p.CanWrite && p.Name != nameof(ITRChk1.Tbl_Idx)))
+                p.SetValue(dst, p.GetValue(src));
+            return dst;
+        }
+
+        static ITRChk2 CloneRecordITRChk2(ITRChk2 src)
+        {
+            var dst = new ITRChk2();
+            foreach (var p in typeof(ITRChk2).GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                     .Where(p => p.CanWrite && p.Name != nameof(ITRChk2.Tbl_Idx)))
+                p.SetValue(dst, p.GetValue(src));
+            return dst;
+        }
+
+        // -------------------- 데이터 맵핑하기!!! --------------------
+        static void FillModelFromSignalsVCBChk(VCBChk model, Dictionary<string, float> signals)
+        {
+            Console.WriteLine("=== FillModelFromSignals(VCB) ===========================\n");
             foreach (var kv in signals)
             {
-                if (InfluxSignalMapper.Map.TryGetValue(kv.Key, out var propName))
+                if (!InfluxSignalMapper.VCB.TryGetValue(kv.Key, out var propName))
                 {
-                    var prop = typeof(VCBChk).GetProperty(propName);
-                    if (prop != null)
-                        prop.SetValue(model, kv.Value);
-                    Console.WriteLine($"[MAPPED] ADDR=\"{kv.Key}\" → {propName} = {kv.Value}");
+                    Console.WriteLine($"[SKIPPED][VCB] {kv.Key} (맵핑정보 없음)");
+                    continue;
+                }
+                var prop = typeof(VCBChk).GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
+                if (prop == null || !prop.CanWrite)
+                {
+                    Console.WriteLine($"[SKIPPED][VCB] 세터 없음: {propName}");
+                    continue;
+                }
+                SetValue(prop, model, kv.Value);
+                Console.WriteLine($"[MAPPED][VCB] {kv.Key} → {propName} = {kv.Value}");
+            }
+            Console.WriteLine("=========================================================\n");
+        }
+
+        static void FillModelFromSignalsITRChk1(ITRChk1 model, Dictionary<string, float> signals)
+        {
+            Console.WriteLine("=== FillModelFromSignals(ITR1) ==========================\n");
+            foreach (var kv in signals)
+            {
+                if (!InfluxSignalMapper.ITR1.TryGetValue(kv.Key, out var propName))
+                {
+                    Console.WriteLine($"[SKIPPED][ITR1] {kv.Key} (맵핑정보 없음)");
+                    continue;
+                }
+                var prop = typeof(ITRChk1).GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
+                if (prop == null || !prop.CanWrite)
+                {
+                    Console.WriteLine($"[SKIPPED][ITR1] 세터 없음: {propName}");
+                    continue;
+                }
+                SetValue(prop, model, kv.Value);
+                Console.WriteLine($"[MAPPED][ITR1] {kv.Key} → {propName} = {kv.Value}");
+            }
+            Console.WriteLine("=========================================================\n");
+        }
+
+        static void FillModelFromSignalsITRChk2(ITRChk2 model, Dictionary<string, float> signals)
+        {
+            Console.WriteLine("=== FillModelFromSignals(ITR2) ==========================\n");
+            foreach (var kv in signals)
+            {
+                if (!InfluxSignalMapper.ITR2.TryGetValue(kv.Key, out var propName))
+                {
+                    Console.WriteLine($"[SKIPPED][ITR2] {kv.Key} (맵핑정보 없음)");
+                    continue;
+                }
+                var prop = typeof(ITRChk2).GetProperty(propName, BindingFlags.Public | BindingFlags.Instance);
+                if (prop == null || !prop.CanWrite)
+                {
+                    Console.WriteLine($"[SKIPPED][ITR2] 세터 없음: {propName}");
+                    continue;
+                }
+
+                if (kv.Key == "YHLU03/SPDC1$ST$PaDschAlm$stVal" && propName == nameof(ITRChk2.CHK2_PD))
+                {
+                    int score = (kv.Value == 0f) ? 1 : 5;
+                    prop.SetValue(model, score);
+                    Console.WriteLine($"[MAPPED][ITR2:PD] {kv.Key} → {propName} = {score} (raw={kv.Value})");
                 }
                 else
                 {
-                    Console.WriteLine($"[SKIPPED] ADDR=\"{kv.Key}\" (맵핑정보 없음)");
+                    SetValue(prop, model, kv.Value);
+                    Console.WriteLine($"[MAPPED][ITR2] {kv.Key} → {propName} = {kv.Value}");
                 }
             }
-            Console.WriteLine("=== FillModelFromSignals 종료!!! =====================\n");
+            Console.WriteLine("=========================================================\n");
+        }
+
+        // 받아들이는 float 타입을 --> 숫자 및 문자열로 변환하기!
+        static void SetValue(PropertyInfo prop, object target, float raw)
+        {
+            var t = Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType;
+            object val =
+                t == typeof(int) ? Convert.ToInt32(raw) :
+                t == typeof(long) ? Convert.ToInt64(raw) :
+                t == typeof(decimal) ? (decimal)raw :
+                t == typeof(double) ? (double)raw :
+                t == typeof(float) ? raw :
+                t == typeof(string) ? raw.ToString() :
+                Convert.ChangeType(raw, t);
+
+            prop.SetValue(target, val);
         }
     }
 }

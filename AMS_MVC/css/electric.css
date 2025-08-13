@@ -611,8 +611,9 @@ textarea {
 .tab_onedepth {
 	position: relative;
 	z-index: 0;
-	top: 3px;
+	top: -55px;
 	display: flex;
+	justify-content: center;
 	gap: 0;
 	padding: 0 8px;
 }
@@ -898,9 +899,12 @@ textarea {
 
 		.header .gnb_group > li {
 			position: relative;
+			height: 100%;
 		}
 
 			.header .gnb_group > li > a {
+				display: flex;
+				align-items: center;
 				width: 100%;
 				height: 100%;
 				padding: 0 30px;
@@ -919,44 +923,51 @@ textarea {
 				}
 
 
+
 	.header .lnb_group {
 		position: absolute;
 		z-index: 10;
-		top: 20px;
+		top: 58px;
 		left: 50%;
-		width: 170px;
-		margin-left: -80px;
+		transform: translateX(-50%);
+		padding: 10px 0px 10px 30px;
 		box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
 		display: none;
+		background: var(--white-color);
 	}
 
 		.header .lnb_group.on {
-			display: block
+			display: flex;
 		}
 
 		.header .lnb_group::before {
 			content: '';
 			position: absolute;
-			top: -4px;
+			top: -16px;
 			left: 50%;
-			margin-left: -8px;
+			transform: translateX(-50%);
 			border-top: 8px solid transparent;
 			border-right: 8px solid transparent;
 			border-bottom: 8px solid var(--white-color);
-			border-left: 8px solid transparent
+			border-left: 8px solid transparent;
+			z-index: 11;
 		}
 
-		.header .lnb_group li {
-			width: 100%;
-			height: 40px;
-			padding: 8px 15px;
-			text-align: left; /* 텍스트 정렬 */
-			background: var(--white-color);
+
+		.header .lnb_group > ul {
+			margin-right: 30px;
 		}
+
+			.header .lnb_group > ul > li {
+				height: 40px;
+				text-align: left; /* 텍스트 정렬 */
+			}
 
 		.header .lnb_group a {
+			display: flex;
+			align-items: center;
 			width: 100%;
-			height: 100%;
+			height: 40px;
 			font-size: 16px;
 			color: var(--gray02-color);
 			font-weight: 500;
@@ -964,22 +975,24 @@ textarea {
 			overflow: hidden; /* 넘치는 텍스트를 숨김 */
 			text-overflow: ellipsis; /* 넘치는 부분을 "..."로 표시 */
 		}
-
+			/*
 		.header .lnb_group li:first-child {
 			margin-top: 10px;
 			height: 50px;
 			padding-top: 15px;
 		}
+			*/
 
-		.header .lnb_group a:hover {
-			color: var(--tit-color);
-			text-decoration: underline;
-			font-weight: 700;
-		}
+			.header .lnb_group a:hover {
+				color: var(--tit-color);
+				text-decoration: underline;
+			}
 
 	.header .info_group {
 		display: flex;
+		align-items: center;
 		position: relative;
+		height: 100%;
 		z-index: 2;
 	}
 
@@ -1013,7 +1026,8 @@ textarea {
 
 		.header .info_group li.setting {
 			position: relative;
-			height: 33px;
+			height: 100%;
+			padding-top: 15px;
 			padding-left: 20px;
 			border-left: 1px solid #AED9D5
 		}
@@ -1027,17 +1041,17 @@ textarea {
 			}
 
 			.header .info_group li.setting > .lnb_group {
-				left: auto;
-				margin-left: 0;
-				top: 40px;
-				right: 0;
+				padding-right: 30px;
+				margin-left: -10px;
 			}
 
+				.header .info_group li.setting > .lnb_group.on {
+					display: block;
+				}
+
 				.header .info_group li.setting > .lnb_group::before {
-					top: -16px;
 					left: auto;
-					right: 10px;
-					margin-left: 0;
+					right: 20%;
 				}
 
 .electric_body {
@@ -1057,7 +1071,6 @@ footer {
 /*레트프메뉴*/
 .electric_content {
 	display: flex;
-	height: calc(100vh - 10px);
 }
 	/*.electric_content .menu_group{width:220px; background-color: var(--left-bg); min-height: calc(100% - 68px);}
 */
@@ -1067,7 +1080,7 @@ footer {
 		width: 220px;
 		left: 0;
 		background-color: var(--left-bg);
-		height: 100%;
+		height: auto; /* 내용에 따라 높이 자동 확장 */
 		padding-bottom: 20px;
 	}
 
@@ -1138,8 +1151,8 @@ footer {
 		position: relative;
 		left: 0px;
 		width: calc(100% - 220px);
-		min-height: calc(100% - 68px);
-		padding: 10px;
+		min-height: calc(100vh - 60px);
+		padding: 40px 40px 0;
 	}
 
 		.electric_content .content_group.on {
@@ -1151,10 +1164,10 @@ footer {
 		.electric_content .content_group h1 {
 			display: flex;
 			justify-content: space-between;
-			margin-bottom: 10px;
+			margin-bottom: 20px;
 			font-size: 30px;
 			color: #000;
-			font-weight: 700;
+			font-weight: 800;
 		}
 
 			.electric_content .content_group h1 .btn_guide {
@@ -1175,7 +1188,7 @@ footer {
 }
 
 .content_warp {
-	padding: 50px 30px;
+	padding: 20px 30px 50px;
 }
 
 /*검색*/
@@ -1252,7 +1265,8 @@ footer {
 
 /*그리드*/
 .grid_wrap {
-	width: 100%
+	width: 100%;
+	margin-bottom: 10px;
 }
 
 .totalInfo .sub_flex li {
@@ -1273,31 +1287,34 @@ footer {
 /* background grid container */
 .matrix_group {
 	position: absolute;
-	z-index:0;
-	top:60px;
-	left:50%;
-	width:400px;
-	height:300px;
-	margin-left:-200px;
+	z-index: 0;
+	top: 60px;
+	left: 50%;
+	width: 400px;
+	height: 300px;
+	margin-left: -200px;
 }
+
 .totalInfo .matrix_group {
 	left: 0;
 	margin-left: 0;
 }
-	.matrix_group .chart_box.matrix {
+
+.matrix_group .chart_box.matrix {
 	position: relative;
 	z-index: 15;
 }
-	.chartContainer_bg {
-		position: absolute;
-		top: 8px; /* 필요에 따라 조정 */
-		left: 68px; /* 필요에 따라 조정 */
-		z-index: 1;
-		display: flex;
-		flex-wrap: wrap;
-		width: 313px; /* 5칸×(칸 너비) */
-		height: 187px; /* 5칸×(칸 높이) */
-	}
+
+.chartContainer_bg {
+	position: absolute;
+	top: 8px; /* 필요에 따라 조정 */
+	left: 68px; /* 필요에 따라 조정 */
+	z-index: 1;
+	display: flex;
+	flex-wrap: wrap;
+	width: 313px; /* 5칸×(칸 너비) */
+	height: 187px; /* 5칸×(칸 높이) */
+}
 
 	/* each cell */
 	.chartContainer_bg li {
@@ -1608,6 +1625,9 @@ h4.tit_h4 {
 
 		.box_wrap .con_box.totalInfo {
 			padding: 0;
+			position: relative;
+			top: -58px;
+			margin-bottom: -25px;
 		}
 
 	.box_wrap .flex1 {
@@ -1661,7 +1681,6 @@ h4.tit_h4 {
 		margin-bottom: 20px;
 		font-size: 20px;
 		font-weight: 800;
-		border: 1px solid red;
 	}
 
 	.box_wrap .btn_more {
@@ -1687,7 +1706,8 @@ h4.tit_h4 {
 
 
 	.box_wrap .box_group {
-		margin: 0px 25px 20px;
+		margin: 0px 25px 0px;
+		padding-bottom: 10px;
 	}
 
 .guide_txt_wrap {
@@ -1695,7 +1715,7 @@ h4.tit_h4 {
 	display: flex;
 	align-items: center;
 	background: #F2F6FF;
-	padding: 20px 25px;
+	padding: 10px 25px;
 	border-radius: 0 0 10px 10px;
 }
 
@@ -1825,10 +1845,6 @@ h4.tit_h4 {
 
 .priorityVerypoor {
 	background-color: rgba(240, 81, 83, 0.25);
-}
-
-.priorityUndefined {
-	background-color: #D3D3D3; 
 }
 
 #map {
@@ -2142,11 +2158,11 @@ dl.product_info {
 
 		dl.product_info dt::after {
 			content: '';
-			position: absolute;			
-			right: 3px;
-			top: 3.5px;
+			position: absolute;
+			right: 11px;
+			top: 3px;
 			display: block;
-			width: 2px;
+			width: 1px;
 			height: 10px;
 			background: #BABDC8
 		}
@@ -2251,7 +2267,7 @@ dl.product_info {
 }
 
 .con_box.totalInfo .sub_flex {
-	padding: 20px 25px;
+	padding: 10px 25px;
 }
 
 .sub_flex > li {
@@ -2266,24 +2282,24 @@ dl.product_info {
 	position: relative;
 	width: calc((100% - 460px)/2);
 	padding-right: 60px;
-	margin-bottom: 20px;
+	margin-bottom: 0px;
 }
 
-.sub_flex.main > li:nth-child(2) {
-	width:460px;	
-}
-
-	.sub_flex > li::after {
-		content: '';
-		position: absolute;
-		top: 40px;
-		right: 30px;
-		display: inline-block;
-		width: 20px;
-		height: 80%;
-		margin-right: 0px;
-		border-right: 1px dashed #BABDC8;
+	.sub_flex.main > li:nth-child(2) {
+		width: 460px;
 	}
+
+.sub_flex > li::after {
+	content: '';
+	position: absolute;
+	top: 40px;
+	right: 30px;
+	display: inline-block;
+	width: 20px;
+	height: 80%;
+	margin-right: 0px;
+	border-right: 1px dashed #BABDC8;
+}
 
 .sub_flex > li:nth-child(3n) {
 	padding-right: 0;
@@ -2560,42 +2576,5 @@ dl.product_info {
 #chart_line02DC,
 #chart_line03DC {
 	width: 550px !important;
-	height: 260px !important;
-}
-
-/* 1) 최근 활동 3개 차트 한 줄, 스크롤 제거 */
-.recent-flex {
-	display: flex;
-	gap: 20px;
-	justify-content: space-between;
-	flex-wrap: nowrap; /* 무조건 1행 */
-	overflow: hidden; /* 스크롤 제거 */
-}
-
-/* 각 칼럼이 줄어들 수 있게, 3등분 */
-.col {
-	flex: 1 1 0; /* 늘어나고 줄어들고 기본 0 */
-	min-width: 0; /* 자식이 넘치면 줄어들게 */
-	max-width: 33%; /* 세 개가 한 줄에 들어가도록 제한 (필요에 따라 30%로 조정) */
-	position: relative;
-}
-
-/* pie / matrix 차트가 부모 너비에 맞게 */
-.chart_box {
-	width: 100% !important;
-	height: 250px !important;
-}
-
-/* 히스토리/이력 차트들: 고정된 550px 제거하고 유동으로 */
-#chart_line01,
-#chart_line02,
-#chart_line03,
-#chart_line01AC,
-#chart_line02AC,
-#chart_line03AC,
-#chart_line01DC,
-#chart_line02DC,
-#chart_line03DC {
-	width: 100% !important;
 	height: 260px !important;
 }

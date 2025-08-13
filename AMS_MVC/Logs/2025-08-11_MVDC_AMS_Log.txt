@@ -1,0 +1,36 @@
+|2025-08-11 13:13:38  |   vcbBasicInfo Data  |   총 7 건 조회됨   |
+|2025-08-11 13:13:38  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-11 13:13:40  |   vcbBasicInfo Data  |   총 7 건 조회됨   |
+|2025-08-11 13:13:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:11  |   vcbBasicInfo Data  |   총 7 건 조회됨   |
+|2025-08-11 16:25:11  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:11  |   vcbBasicInfo Data  |   총 7 건 조회됨   |
+|2025-08-11 16:25:11  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:14  |   pumpBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:14  |   DB(PUMP_BASICINFO)  |   GetAllPUMPBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:15  |   pumpBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:15  |   DB(PUMP_BASICINFO)  |   GetAllPUMPBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:23  |   zigzagtrBasicInfo Data  |   총 2 건 조회됨   |
+|2025-08-11 16:25:23  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:24  |   zigzagtrBasicInfo Data  |   총 2 건 조회됨   |
+|2025-08-11 16:25:24  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:32  |   esBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:32  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:33  |   esBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:33  |   DB(ES_BASICINFO)  |   GetAllESBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:37  |   ngrBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:37  |   DB(NGR_BASICINFO)  |   GetAllNGRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:39  |   ngrBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:39  |   DB(NGR_BASICINFO)  |   GetAllNGRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:46  |   bypassvalveBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:46  |   DB(BYPASSVALVE_BASICINFO)  |   GetAllBYPASSVALVEBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:47  |   bypassvalveBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:25:47  |   DB(BYPASSVALVE_BASICINFO)  |   GetAllBYPASSVALVEBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:51  |   zigzagtrBasicInfo Data  |   총 2 건 조회됨   |
+|2025-08-11 16:25:51  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:25:51  |   zigzagtrBasicInfo Data  |   총 2 건 조회됨   |
+|2025-08-11 16:25:51  |   DB(ZIGZAGTR_BASICINFO)  |   GetAllZIGZAGTRBasicInfoRepo 동작 성공   |
+|2025-08-11 16:26:25  |   pumpBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:26:25  |   DB(PUMP_BASICINFO)  |   GetAllPUMPBasicInfoRepo 동작 성공   |
+|2025-08-11 16:26:27  |   pumpBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-11 16:26:27  |   DB(PUMP_BASICINFO)  |   GetAllPUMPBasicInfoRepo 동작 성공   |
