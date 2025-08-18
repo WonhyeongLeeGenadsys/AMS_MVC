@@ -39,6 +39,40 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestSUBMODULEChkBySUBMODULECode(string submoduleCode, out List<SUBMODULEChk> submoduleChkList)
+        {
+            Result res = new Result(true);
+            submoduleChkList = new List<SUBMODULEChk>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM SUBMODULE_CHK
+                    WHERE SUBMODULE_CODE = @SUBMODULE_Code
+                    ORDER BY CHK_TBL_GETDATE DESC;";
+
+                    submoduleChkList = dbHelper.Conn
+                        .Query<SUBMODULEChk>(query, new { SUBMODULE_Code = submoduleCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetLatestSUBMODULEChkBySUBMODULECode 성공(최신 1건): SUBMODULE_CODE = {submoduleCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetLatestSUBMODULEChkBySUBMODULECode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(SUBMODULE_CHK)", res.Message);
+            }
+
+            return res;
+        }
+
+
         public SUBMODULEChk GetSUBMODULEChkByCode(string submoduleCode)
         {
             using (DBHelper dbHelper = new DBHelper())

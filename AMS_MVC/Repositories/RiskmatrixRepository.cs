@@ -205,8 +205,6 @@ namespace AMS_MVC.Repositories
             }
         }
 
-
-
         public IEnumerable<dynamic> GetDevicesByDateRange(string dateType, DateTime start, DateTime end)
         {
             using (DBHelper dbHelper = new DBHelper())
@@ -276,17 +274,17 @@ namespace AMS_MVC.Repositories
                 {
                     // 1) TBL_IDX, HI, Pof, LASTTIME 모두 가져오기
                     const string selectSql = @"
-SELECT TOP 1 
-    TBL_IDX,
-    HI,
-    Cof,
-    Pof,
-    LASTTIME
-  FROM RISKMATRIX
- WHERE CODE = @Code
-ORDER BY 
-    CASE WHEN LASTTIME IS NULL THEN 0 ELSE 1 END DESC,  -- NULL은 가장 먼저
-    LASTTIME DESC";
+                    SELECT TOP 1 
+                        TBL_IDX,
+                        HI,
+                        Cof,
+                        Pof,
+                        LASTTIME
+                    FROM RISKMATRIX
+                    WHERE CODE = @Code
+                    ORDER BY 
+                    CASE WHEN LASTTIME IS NULL THEN 0 ELSE 1 END DESC,  -- NULL은 가장 먼저
+                    LASTTIME DESC";
                     var latest = conn.QueryFirstOrDefault<(int TblIdx, int? HI, string Cof, string Pof, DateTime? LASTTIME)>(
                         selectSql, new { Code = code });
 
@@ -298,12 +296,12 @@ ORDER BY
                     {
                         //  초기 BASICINFO 생성 때 들어간 행 
                         const string updateInitialSql = @"
-UPDATE RISKMATRIX
-   SET HI      = @HI,
-       Cof     = @Cof,
-       Pof     = @Pof,
-       LASTTIME = GETDATE()
- WHERE TBL_IDX = @TblIdx";
+                        UPDATE RISKMATRIX
+                            SET HI      = @HI,
+                                Cof     = @Cof,
+                                Pof     = @Pof,
+                                LASTTIME = GETDATE()
+                        WHERE TBL_IDX = @TblIdx";
                         conn.Execute(updateInitialSql, new
                         {
                             TblIdx = latest.TblIdx,
@@ -317,12 +315,12 @@ UPDATE RISKMATRIX
                     {
                         // 같은 날 이미 업데이트된 행
                         const string updateTodaySql = @"
-UPDATE RISKMATRIX
-   SET HI      = @HI,
-       Cof     = @Cof,
-       Pof     = @Pof,
-       LASTTIME = GETDATE()
- WHERE TBL_IDX = @TblIdx";
+                        UPDATE RISKMATRIX
+                            SET HI      = @HI,
+                            Cof     = @Cof,
+                            Pof     = @Pof,
+                            LASTTIME = GETDATE()
+                        WHERE TBL_IDX = @TblIdx";
                         conn.Execute(updateTodaySql, new
                         {
                             TblIdx = latest.TblIdx,
@@ -336,8 +334,8 @@ UPDATE RISKMATRIX
                     {
                         // 새로운 날짜면 INSERT
                         const string insertSql = @"
-INSERT INTO RISKMATRIX (CODE, HI, Cof, Pof, LASTTIME)
-VALUES (@Code, @HI, @Cof, @Pof, GETDATE())";
+                        INSERT INTO RISKMATRIX (CODE, HI, Cof, Pof, LASTTIME)
+                        VALUES (@Code, @HI, @Cof, @Pof, GETDATE())";
                         conn.Execute(insertSql, new
                         {
                             Code = code,
@@ -365,26 +363,26 @@ VALUES (@Code, @HI, @Cof, @Pof, GETDATE())";
             using (var db = new DBHelper())
             {
                 const string sql = @"
-WITH Latest AS (
-    SELECT 
-      CODE      AS Code,
-      Cof       AS Cof,
-      Pof       AS Pof,
-      HI        AS HI,
-      LASTTIME  AS LastTime,
-      ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
-    FROM RISKMATRIX
-    WHERE 
-      CODE LIKE 'VCB%'        OR
-      CODE LIKE 'ITR%'        OR
-      CODE LIKE 'DCCB%'       OR
-      CODE LIKE 'DCCABLE%'    OR
-      CODE LIKE 'SUBMODULE%'
-)
-SELECT Code, Cof, Pof, HI, LastTime
-FROM Latest
-WHERE rn = 1;
-";
+                WITH Latest AS (
+                SELECT 
+                    CODE      AS Code,
+                    Cof       AS Cof,
+                    Pof       AS Pof,
+                    HI        AS HI,
+                    LASTTIME  AS LastTime,
+                    ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+                FROM RISKMATRIX
+                WHERE 
+                    CODE LIKE 'VCB%'        OR
+                    CODE LIKE 'ITR%'        OR
+                    CODE LIKE 'DCCB%'       OR
+                    CODE LIKE 'DCCABLE%'    OR
+                    CODE LIKE 'SUBMODULE%'
+                 )
+                SELECT Code, Cof, Pof, HI, LastTime
+                FROM Latest
+                WHERE rn = 1;
+                ";
                 return db.Conn.Query<Riskmatrix>(sql);
             }
         }
@@ -406,10 +404,10 @@ WHERE rn = 1;
         /// <summary>
         /// prefix 에 따라 CODE LIKE 조건을 걸어서
         /// CODE, LASTTIME, HI 이력을 시간 순으로 반환
-        /// prefix == null  → 전체
-        /// prefix == "AC"  → VCB, ITR
-        /// prefix == "DC"  → DCCB, DCCABLE, SUBMODULE
-        /// prefix == "VCB" → VCB 단일
+        /// prefix == null --> 전체
+        /// prefix == "AC" --> VCB, ITR
+        /// prefix == "DC" --> DCCB, DCCABLE, SUBMODULE
+        /// prefix == "VCB" --> VCB 단일
         /// </summary>
         public IEnumerable<Riskmatrix> GetRiskMatrixHistory(string prefix = null)
         {
@@ -444,7 +442,5 @@ WHERE rn = 1;
             using (var db = new DBHelper())
                 return db.Conn.Query<Riskmatrix>(sql, dp);
         }
-
-
     }
 }

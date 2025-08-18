@@ -52,20 +52,14 @@ namespace AMS_MVC.Controllers.Check
             var result = new Result(true);
             try
             {
-                // 1) 작성자, 날짜 처리 (필요하다면)
                 model.CHK_Writer = Session["User_Name"]?.ToString() ?? "Anonymous";
                 if (model.CHK_Tbl_GetDate < new DateTime(1753, 1, 1))
                     model.CHK_Tbl_GetDate = DateTime.Now;
 
-                // 2) FoldingFunction 재계산
-                //var scoreCalc = new VCBChkScoreCalculator();
-                //model.FoldingFunction = scoreCalc.CalculateFoldingFunction(model);
-
                 var scoreCalc = new VCBChkScoreCalculator();
-                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
+                var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
                 model.FoldingFunction = (int)Math.Round(hi);
 
-                // 3) VCBChk 테이블 UPDATE
                 var upd = vcbChkRepository.UpdateVCBChkInfoRepo(model);
                 if (!upd.IsSuccess)
                 {
@@ -74,18 +68,34 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    // 4) RiskMatrix HI 업데이트
-                    //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction);
-                    //var riskUpd = riskMatrixRepository.UpdateRiskMatrixHI(model.VCB_Code, model.FoldingFunction, pof);
-                    //if (!riskUpd.IsSuccess)
-                    //{
-                    //    result.IsSuccess = false;
-                    //    result.Message = "수정은 성공했으나, RiskMatrix HI 업데이트에 실패했습니다: " + riskUpd.Message;
-                    //}
-                    //else
-                    //{
-                    //    result.Message = "수정 및 RiskMatrix HI 반영이 완료되었습니다.";
-                    //}
+                    var cofModel = cofRepo.GetLatest(model.VCB_Code) ?? cofRepo.GetLatest("VCB");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
+
+                    decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
+                    if (pofPercent < 0m) pofPercent = 0m;
+                    if (pofPercent > 100m) pofPercent = 100m;
+
+                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
+
+                    var rm = riskMatrixRepository.UpdateRiskMatrixHI(
+                        model.VCB_Code,
+                        (int)Math.Round(hi),
+                        adjustedCof,
+                        pofPercent
+                    );
+
+                    LogHelper.WriteLog("VCBChkUpdate",
+                        $"[UpdateRiskMatrixHI] code={model.VCB_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
+
+                    if (!rm.IsSuccess)
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "수정은 성공했으나, RiskMatrix 업데이트 실패: " + rm.Message;
+                    }
+                    else
+                    {
+                        result.Message = "수정 및 RiskMatrix 반영이 완료되었습니다.";
+                    }
                 }
             }
             catch (Exception ex)
@@ -97,6 +107,7 @@ namespace AMS_MVC.Controllers.Check
 
             return Json(result);
         }
+
 
     }
 }

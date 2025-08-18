@@ -23,8 +23,8 @@ namespace AMS_MVC.Controllers.Check
             ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
             ViewBag.ITR_Code = ITR_Code;
             ViewBag.ActiveSubMenu = type == 1
-    ? "ITRRegular"    // 보통점검
-    : "ITRPrecision"; // 정밀점검
+            ? "ITRRegular"    // 보통점검
+            : "ITRPrecision"; // 정밀점검
             var companies = new List<Company>();
             if (_companyRepo.GetAllCompanies(out companies).IsSuccess && companies != null)
             {
@@ -37,6 +37,7 @@ namespace AMS_MVC.Controllers.Check
 
             string view = type == 1
                 ? "~/Views/Check/ITR/ITRChk1Add.cshtml"
+
                 : "~/Views/Check/ITR/ITRChk2Add.cshtml";
             return View(view);
         }
@@ -70,31 +71,31 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    // 4) 반대 검사(정밀) 최신 점수 조회
+                    // 반대 검사 최신 HI 조회 → 두 검사 중 큰 값으로 HI 집계
                     var other = _chk2Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi2 = other.HasValue
-                        ? Math.Max(model.FoldingFunction, other.Value)
-                        : model.FoldingFunction;
+                    int hi2 = other.HasValue ? Math.Max(model.FoldingFunction, other.Value) : model.FoldingFunction;
 
-                    // 5) Riskmatrix.HI 업데이트
-                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2);
-                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
-                    //if (!upd.IsSuccess)
-                    //{
-                    //    LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
-                    //    result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
-                    //}
+                    // --- CoF/PoF 계산 및 저장 ---
+                    // 1) CoF 원본: 장비별 코드 우선, 없으면 타입별("ITR") 폴백
+                    var cofModel = cofRepo.GetLatest(model.ITR_Code) ?? cofRepo.GetLatest("ITR");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    var cofModel = cofRepo.GetLatest("ITR");
-                    decimal cofValue = cofModel.Total_Cof;
+                    // 2) PoF 정규화: 계산기 값이 0~1이면 %로 변환, 이미 %이면 그대로 (DB는 % 저장)
+                    decimal pofPercent = (pof <= 1m) ? pof * 100m : pof;
+                    if (pofPercent < 0m) pofPercent = 0m;
+                    if (pofPercent > 100m) pofPercent = 100m;
 
-                    Result updateResult = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, cofValue, pof);
-                    LogHelper.WriteLog("ITRChkAdd2", $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi2}, cof={cofValue}, pof={pof}");
-                    if (!updateResult.IsSuccess)
+                    // 3) 요구사항: PoF=50% → Total_Cof / 2
+                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
+
+                    // 4) RiskMatrix 반영 (PoF는 퍼센트로 저장)
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, adjustedCof, pofPercent);
+                    LogHelper.WriteLog("ITRChkAdd1",
+                        $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi2}, baseCof={baseCof}, pof%={pofPercent}, adjCof={adjustedCof}, ok={upd.IsSuccess}");
+                    if (!upd.IsSuccess)
                     {
-                        // HI 업데이트 실패 시 메시지 추가
                         result.IsSuccess = false;
-                        result.Message += " / HI 업데이트 실패: " + updateResult.Message;
+                        result.Message += " / RiskMatrix 업데이트 실패: " + upd.Message;
                     }
                 }
             }
@@ -123,7 +124,7 @@ namespace AMS_MVC.Controllers.Check
                 //model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
 
                 var scoreCalculator = new ITRChkScoreCalculator();
-                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
+                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 1.00m);
                 model.FoldingFunction = (int)Math.Round(hi);
 
                 // 3) DB 저장
@@ -136,32 +137,27 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    // 4) 반대 검사(보통) 최신 점수 조회
+                    // 반대 검사 최신 HI 조회 → 두 검사 중 큰 값으로 HI 집계
                     var other = _chk1Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi1 = other.HasValue
-                        ? Math.Max(model.FoldingFunction, other.Value)
-                        : model.FoldingFunction;
+                    int hi1 = other.HasValue ? Math.Max(model.FoldingFunction, other.Value) : model.FoldingFunction;
 
-                    // 5) Riskmatrix.HI 업데이트
-                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi);
-                    //var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
+                    // --- CoF/PoF 계산 및 저장 ---
+                    var cofModel = cofRepo.GetLatest(model.ITR_Code) ?? cofRepo.GetLatest("ITR");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    //if (!upd.IsSuccess)
-                    //{
-                    //    LogHelper.WriteLog("Riskmatrix HI 갱신 실패", upd.Message);
-                    //    result.Message += " (RiskMatrix HI 갱신에 실패했습니다.)";
-                    //}
+                    decimal pofPercent = (pof <= 1m) ? pof * 100m : pof;
+                    if (pofPercent < 0m) pofPercent = 0m;
+                    if (pofPercent > 100m) pofPercent = 100m;
 
-                    var cofModel = cofRepo.GetLatest("ITR");
-                    decimal cofValue = cofModel.Total_Cof;
+                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
 
-                    Result updateResult = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, cofValue, pof);
-                    LogHelper.WriteLog("ITRChkAdd2", $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi1}, cof={cofValue}, pof={pof}");
-                    if (!updateResult.IsSuccess)
+                    var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, adjustedCof, pofPercent);
+                    LogHelper.WriteLog("ITRChkAdd2",
+                        $"[UpdateRiskMatrixHI] code={model.ITR_Code}, hi={hi1}, baseCof={baseCof}, pof%={pofPercent}, adjCof={adjustedCof}, ok={upd.IsSuccess}");
+                    if (!upd.IsSuccess)
                     {
-                        // HI 업데이트 실패 시 메시지 추가
                         result.IsSuccess = false;
-                        result.Message += " / HI 업데이트 실패: " + updateResult.Message;
+                        result.Message += " / RiskMatrix 업데이트 실패: " + upd.Message;
                     }
                 }
             }

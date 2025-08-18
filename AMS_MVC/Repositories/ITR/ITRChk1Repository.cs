@@ -13,7 +13,7 @@ namespace AMS_MVC.Repositories
     public class ITRChk1Repository
     {
 
-        // 시리얼 번호로 VCB 보통점검 데이터 조회
+        // 시리얼 번호로 ITR 보통점검 데이터 조회
         public Result GetITRChk1ByITRCode(string itrCode, out List<ITRChk1> itrChk1List)
         {
             Result res = new Result(true);
@@ -34,6 +34,39 @@ namespace AMS_MVC.Repositories
                 res.Message = $"GetITRChk1ByITRCode 실패: {ex.Message}";
                 LogHelper.WriteLog("DB(ITR_CHK1)", res.Message);
             }
+            return res;
+        }
+
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestITRChk1ByITRCode(string itrCode, out List<ITRChk1> itrChk1List)
+        {
+            Result res = new Result(true);
+            itrChk1List = new List<ITRChk1>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM ITR_CHK1
+                    WHERE ITR_CODE = @ITR_Code
+                    ORDER BY CHK1_TBL_GETDATE DESC;";
+
+                    itrChk1List = dbHelper.Conn
+                        .Query<ITRChk1>(query, new { ITR_Code = itrCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetLatestITRChk1ByITRCode 성공(최신 1건): ITR_CODE = {itrCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetLatestITRChk1ByITRCode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(ITR_CHK1)", res.Message);
+            }
+
             return res;
         }
 

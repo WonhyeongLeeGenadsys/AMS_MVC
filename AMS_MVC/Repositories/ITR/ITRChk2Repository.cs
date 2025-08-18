@@ -36,6 +36,39 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestITRChk2ByITRCode(string itrCode, out List<ITRChk2> itrChk2List)
+        {
+            Result res = new Result(true);
+            itrChk2List = new List<ITRChk2>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM ITR_CHK2
+                    WHERE ITR_CODE = @ITR_Code
+                    ORDER BY CHK2_TBL_GETDATE DESC;";
+
+                    itrChk2List = dbHelper.Conn
+                        .Query<ITRChk2>(query, new { ITR_Code = itrCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetLatestITRChk2ByITRCode 성공(최신 1건): ITR_CODE = {itrCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetLatestITRChk2ByITRCode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(ITR_CHK2)", res.Message);
+            }
+
+            return res;
+        }
+
         // 전체 ITR 보통점검 데이터 조회
         public Result GetTotalITRChk2(out List<ITRChk2> itrChkList)
         {

@@ -39,6 +39,39 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestDCCBChkByDCCBCode(string dccbCode, out List<DCCBChk> dccbChkList)
+        {
+            Result res = new Result(true);
+            dccbChkList = new List<DCCBChk>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM DCCB_CHK
+                    WHERE DCCB_CODE = @DCCB_Code
+                    ORDER BY CHK_TBL_GETDATE DESC;";
+
+                    dccbChkList = dbHelper.Conn
+                        .Query<DCCBChk>(query, new { DCCB_Code = dccbCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetLatestDCCBChkByDCCBCode 성공(최신 1건): DCCB_CODE = {dccbCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetLatestDCCBChkByDCCBCode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(DCCB_CHK)", res.Message);
+            }
+
+            return res;
+        }
+
         public DCCBChk GetDCCBChkByCode(string dccbCode)
         {
             using (DBHelper dbHelper = new DBHelper())

@@ -13,7 +13,7 @@ namespace AMS_MVC.Repositories
     public class VCBChkRepository
     {
 
-        // 시리얼 번호로 VCB 보통점검 데이터 조회
+        // 시리얼 번호로 VCB 전체 보통점검 데이터 조회
         public Result GetVCBChkByVCBCode(string vcbCode, out List<VCBChk> vcbChkList)
         {
             Result res = new Result(true);
@@ -38,6 +38,40 @@ namespace AMS_MVC.Repositories
             }
             return res;
         }
+
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestVCBChkByVCBCode(string vcbCode, out List<VCBChk> vcbChkList)
+        {
+            Result res = new Result(true);
+            vcbChkList = new List<VCBChk>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM VCB_CHK
+                    WHERE VCB_CODE = @VCB_Code
+                    ORDER BY CHK_TBL_GETDATE DESC;";
+
+                    vcbChkList = dbHelper.Conn
+                        .Query<VCBChk>(query, new { VCB_Code = vcbCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetVCBChkByVCBCode 성공(최신 1건): VCB_CODE = {vcbCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetVCBChkByVCBCode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(VCB_CHK)", res.Message);
+            }
+
+            return res;
+        }
+
 
         public Result GetVCBChkDetailByVCBCode(string vcbCode, string tblIdx, out List<VCBChk> vcbChkList)
         {

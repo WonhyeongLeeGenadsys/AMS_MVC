@@ -1,0 +1,4 @@
+|2025-08-18 13:40:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-08-18 13:40:09  |   vcbBasicInfo Data  |   총 7 건 조회됨   |
+|2025-08-18 13:40:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-18 13:40:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |

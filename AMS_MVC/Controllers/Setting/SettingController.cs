@@ -25,7 +25,7 @@ namespace AMS_MVC.Controllers
             var dccb = eqList.FirstOrDefault(x => x.EquipmentName.ToUpper() == "DCCB");
             var dccable = eqList.FirstOrDefault(x => x.EquipmentName.ToUpper() == "DCCABLE");
 
-            ViewBag.VCB = vcb;        
+            ViewBag.VCB = vcb;
             ViewBag.ITR = itr;
             ViewBag.SUBMODULE = submodule;
             ViewBag.DCCB = dccb;
@@ -40,37 +40,55 @@ namespace AMS_MVC.Controllers
             return View("~/Views/Setting/MemberInfo.cshtml");
         }
 
+        // GET: Setting/CofInfo
         public ActionResult CofInfo(string code = "VCB")
         {
             ViewBag.MenuType = "Setting";
 
-            // 모델 먼저 준비
-            var model = cofRepo.GetLatest(code) ?? new COFModel { Code = code };
-
-            // 드롭다운 아이템 + 현재 선택값 = model.Code
             var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
-            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, model.Code);
+            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, code);
 
+            var model = cofRepo.GetLatest(code); // 없으면 내부에서 Code만 채운 새 모델 반환
             return View(model);
         }
-
 
         [HttpPost, ValidateAntiForgeryToken]
         public ActionResult CofInfo(COFModel model)
         {
             ViewBag.MenuType = "Setting";
-            if (!ModelState.IsValid) return View(model);
+            var equipmentTypes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+            ViewBag.EquipmentTypes = new SelectList(equipmentTypes, model.Code);
 
+            string[] computedKeys = {
+            nameof(model.Customer_Power_Outage_Cost),
+            nameof(model.System_Loss_Cost),
+            nameof(model.Facility_Recovery_Cost),
+            nameof(model.Loss_Of_Profit),
+            nameof(model.Safety_Accident_Compensation_1),
+            nameof(model.Safety_Accident_Compensation_2),
+            nameof(model.Total_Cof)
+            };
+            foreach (var k in computedKeys) ModelState.Remove(k);
+
+            if (!ModelState.IsValid)
+            {
+                // 검증 오류 있으면 그대로 입력값 다시 보여줌
+                return View(model);
+            }
+
+            // 계산
             calculator.Calculate(model);
 
-            int affected = (model.Tbl_Idx == 0)
-                ? cofRepo.Insert(model)           // 처음 저장
-                : cofRepo.UpdateById(model);      // 기존 행 변경
+            // 저장 (오늘 날짜와 다르면 INSERT, 같으면 UPDATE)
+            cofRepo.SaveOrUpdate(model);
 
-            TempData["SaveInfo"] = (model.Tbl_Idx == 0) ? "저장 완료" : "변경 완료";
-            return RedirectToAction(nameof(CofInfo), new { code = model.Code }); // PRG
+            // 리스크매트릭스 반영
+            var riskRepo = new RiskmatrixRepository();
+            riskRepo.UpdateCoFByPrefix(model.Code, model.Total_Cof);
+
+            //  최신값 화면으로
+            return RedirectToAction(nameof(CofInfo), new { code = model.Code });
         }
-
 
         [HttpGet]
         public JsonResult GetCofData(string code)

@@ -11,6 +11,7 @@
         종합정보
         <a href="javascript:openPop('/Location/Index','900','600')" class="btn blue map tooltip" data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>
     </h1>
+
     <ul class="tab_onedepth">
         <li class="tab_btn on" data-tab="con_box01" data-prefix="">5대 주요장비</li>
         <li class="tab_btn" data-tab="con_box02" data-prefix="AC">AC</li>
@@ -228,7 +229,7 @@ $(function () {
           case 3: return '#EBCD1D';
           case 4: return '#F18425';
           case 5: return '#F05153';
-          default: return '#888888';  
+          default: return '#888888';
         }
       }
     })
@@ -841,7 +842,7 @@ $(function () {
                         legend: {
                             visible: true, position: "bottom",
                             markerShape: 'circle',
- },
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -880,7 +881,7 @@ $(function () {
                         legend: {
                             visible: true, position: "bottom",
                             markerShape: 'circle',
-},
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -978,7 +979,7 @@ $(function () {
                             <li class="orange"></li>
                             <li class="blue"></li>
                             <li class="green"></li>
-                            <li class="green"></li> 
+                            <li class="green"></li>
                             <li class="yellow"></li>
                             <li class="yellow"></li>
                             <li class="blue"></li>
@@ -1096,7 +1097,7 @@ $(function () {
             case 3: return '#EBCD1D';
             case 4: return '#F18425';
             case 5: return '#F05153';
-            default: return '#888888';  
+            default: return '#888888';
           }
         }
       })
@@ -1104,7 +1105,6 @@ $(function () {
   });
         </script>
         <!--//건전도-->
-
         <!--Risk Matrix-->
         <script>
             $(function(){
@@ -1231,7 +1231,7 @@ $(function () {
                         legend: {
                             visible: true, position: "bottom",
                             markerShape: 'circle',
-},
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1268,7 +1268,7 @@ $(function () {
                         legend: {
                             visible: true, position: "bottom",
                             markerShape: 'circle',
-},
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1307,7 +1307,7 @@ $(function () {
                         legend: {
                             visible: true, position: "bottom",
                             markerShape: 'circle',
-},
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1421,7 +1421,7 @@ $(function () {
                                     3: 'priorityFair',
                                     4: 'priorityPoor',
                                     5: 'priorityVerypoor',
-                                    0: 'priorityUndefined'  
+                                    0: 'priorityUndefined'
                                 }[e.value];
                                 if (cls) e.cellElement.addClass(cls);
                             }
@@ -1659,46 +1659,54 @@ $(function () {
             //  처음 로딩할 때 5대 주요장비 우선순위만
             loadPriority('');
 
-             setInterval(() => {
-        // 1) pie 데이터 재조회
-        $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
-          .done(rawPoints => {
-            var buckets = rawPoints.reduce((a,p) => {
-              a[p.hi] = a[p.hi]||{hi:p.hi,codes:[]};
-              a[p.hi].codes.push(p.name);
-              return a;
-            }, {});
-            var ds = Object.values(buckets).map(b=>({
-              state: b.hi+'등급', value: b.codes.length, codes: b.codes, hi: b.hi
-            }));
-            $('#pieAll').dxPieChart('instance').option('dataSource', ds);
-          });
+setInterval(() => {
+  // 1) pie 데이터 재조회
+  $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+    .done(rawPoints => {
+      var buckets = rawPoints.reduce((a,p) => {
+        a[p.hi] = a[p.hi]||{hi:p.hi,codes:[]};
+        a[p.hi].codes.push(p.name);
+        return a;
+      }, {});
+      var ds = Object.values(buckets).map(b=>({
+        state: b.hi+'등급', value: b.codes.length, codes: b.codes, hi: b.hi
+      }));
+      var pie = $('#pieAll').data('dxPieChart');
+      if (pie) pie.option('dataSource', ds);
+    });
 
-        // 2) risk matrix 재조회
-        $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
-          .done(raw => {
-            var data = raw.map(p=>({x:p.x,y:p.y,name:p.name,group:p.group}));
-            $('#chartContainerAll').dxChart('instance').option('dataSource', data);
-          });
+  // 2) risk matrix 재조회
+  $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+    .done(raw => {
+      var data = raw.map(p=>({x:p.x,y:p.y,name:p.name,group:p.group}));
+      var rm = $('#chartContainerAll').data('dxChart');
+      if (rm) rm.option('dataSource', data);
+    });
 
-        // 3) 이력 차트 재조회
-        $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
-          .done(hist => {
-            hist = hist.map(d=>({ ...d, time: new Date(d.time) }));
-            ['#chart_line01','#chart_line02','#chart_line03']
-              .forEach(id =>
-                $(id).dxChart('instance').option('dataSource', hist)
-              );
-          });
+  // 3) 이력 차트 재조회 (생성된 차트만 업데이트)
+  $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
+    .done(hist => {
+      hist = hist.map(d=>({ ...d, time: new Date(d.time) }));
 
-        // 4) 우선순위 그리드 재조회
-        $.post('@Url.Action("GetPriorityInfo","TotalInfo")')
-          .done(dataGrid => {
-            $('#gridContainer').dxDataGrid('instance')
-                               .option('dataSource', dataGrid);
-          });
+      const hiChart  = $('#chart_line01').data('dxChart');
+      const pofChart = $('#chart_line02').data('dxChart');
+      const cofChart = $('#chart_line03').data('dxChart');
 
-      }, 10000);
+      if (hiChart)  hiChart.option('dataSource', hist);
+      if (pofChart) pofChart.option('dataSource', hist);
+      if (cofChart) cofChart.option('dataSource', hist);
+    });
+
+  // 4) 우선순위 그리드 재조회
+  $.post('@Url.Action("GetPriorityInfo","TotalInfo")')
+    .done(dataGrid => {
+      var grid = $('#gridContainer').data('dxDataGrid');
+      if (grid) grid.option('dataSource', dataGrid);
+    });
+
+}, 10000);
+
+
     });
     </script>
 }

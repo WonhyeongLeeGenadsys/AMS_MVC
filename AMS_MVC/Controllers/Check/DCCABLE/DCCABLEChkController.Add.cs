@@ -44,17 +44,12 @@ namespace AMS_MVC.Controllers.Check
             Result result = new Result(true);
             try
             {
-                // 작성자 설정
                 model.CHK_Writer = Session["User_Name"] != null ? Session["User_Name"].ToString() : "Anonymous";
-
-                //// DB 저장 시 SqlDateTime 범위(1753-01-01 ~ 9999-12-31)에 벗어나지 않도록 날짜 값이 없는 경우 현재 날짜로 설정
                 if (model.CHK_Tbl_GetDate < new DateTime(1753, 1, 1))
-                {
                     model.CHK_Tbl_GetDate = DateTime.Now;
-                }
 
                 var scoreCalculator = new DCCABLEChkScoreCalculator();
-                var (hi, pof) = scoreCalculator.CalculateHiPof(model, alpha: 0.99m);
+                var (hi, pofRaw) = scoreCalculator.CalculateHiPof(model, alpha: 1.00m);
                 model.FoldingFunction = (int)Math.Round(hi);
 
                 result = dccableChkRepository.CreateDCCABLEChkRepo(model);
@@ -66,15 +61,27 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
+                    var cofModel = cofRepo.GetLatest(model.DCCABLE_Code) ?? cofRepo.GetLatest("DCCABLE");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    var cofModel = cofRepo.GetLatest("DCCABLE");
-                    decimal cofValue = cofModel.Total_Cof;
+                    decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
+                    if (pofPercent < 0m) pofPercent = 0m;
+                    if (pofPercent > 100m) pofPercent = 100m;
 
-                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(model.DCCABLE_Code, (int)System.Math.Round(hi), cofValue, pof);
-                    LogHelper.WriteLog("DCCABLEChkAdd", $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Round(hi)}, cof={cofValue}, pof={pof}");
+                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
+
+                    Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(
+                        model.DCCABLE_Code,
+                        (int)Math.Round(hi),
+                        adjustedCof,
+                        pofPercent
+                    );
+
+                    LogHelper.WriteLog("DCCABLEChkAdd",
+                        $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
+
                     if (!updateResult.IsSuccess)
                     {
-                        // HI 업데이트 실패 시 메시지 추가
                         result.IsSuccess = false;
                         result.Message += " / HI 업데이트 실패: " + updateResult.Message;
                     }

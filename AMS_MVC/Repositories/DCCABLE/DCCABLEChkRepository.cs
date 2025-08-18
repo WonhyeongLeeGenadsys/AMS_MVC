@@ -39,6 +39,38 @@ namespace AMS_MVC.Repositories
             return res;
         }
 
+        //최근 점검 데이터 한개만 불러오기 
+        public Result GetLatestDCCABLEChkByDCCABLECode(string dccableCode, out List<DCCABLEChk> dccableChkList)
+        {
+            Result res = new Result(true);
+            dccableChkList = new List<DCCABLEChk>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    const string query = @"
+                    SELECT TOP 1 *
+                    FROM DCCABLE_CHK
+                    WHERE DCCABLE_CODE = @DCCABLE_Code
+                    ORDER BY CHK_TBL_GETDATE DESC;";
+
+                    dccableChkList = dbHelper.Conn
+                        .Query<DCCABLEChk>(query, new { DCCABLE_Code = dccableCode })
+                        .AsList();
+                }
+
+                res.Message = $"GetLatestDCCABLEChkByDCCABLECode 성공(최신 1건): DCCABLE_CODE = {dccableCode}";
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = $"GetLatestDCCABLEChkByDCCABLECode 실패: {ex.Message}";
+                LogHelper.WriteLog("DB(DCCABLE_CHK)", res.Message);
+            }
+
+            return res;
+        }
         public DCCABLEChk GetDCCABLEChkByCode(string dccableCode)
         {
             using (DBHelper dbHelper = new DBHelper())

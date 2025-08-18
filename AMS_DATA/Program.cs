@@ -40,10 +40,10 @@ namespace AMS_DATA
             var ITRLatestCode = ITRBasicRepo.GetLatestITRCode();
 
             var basicInfo = basicRepo.GetVCBBasicInfoByCode(latestCode);
-            var ITRbasicInfo = ITRBasicRepo.GetITRBasicInfoByITRCode(ITRLatestCode); 
+            var ITRbasicInfo = ITRBasicRepo.GetITRBasicInfoByITRCode(ITRLatestCode);
 
             Console.WriteLine($"▶ 처리할 VCB_CODE: {basicInfo.VCB_Code}, Serial: {basicInfo.Serial_No}\n");
-            Console.WriteLine($"▶ 처리할 ITR_CODE: {ITRbasicInfo.ITR_Code}, Serial: {basicInfo.Serial_No}\n");
+            Console.WriteLine($"▶ 처리할 ITR_CODE: {ITRbasicInfo.ITR_Code}, Serial: {ITRbasicInfo.Serial_No}\n");
 
             // InfluxDB 설정
             const string url = "http://192.168.0.24:8086";
@@ -60,12 +60,13 @@ namespace AMS_DATA
             var itrCalc = new ITRChkScoreCalculator();
 
             // 기존 CHK 모두 로드
-            chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out var vcbExisting);
-            itr1Repo.GetITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out var itr1Existing);
-            itr2Repo.GetITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out var itr2Existing);
+            chkRepo.GetLatestVCBChkByVCBCode(basicInfo.VCB_Code, out var vcbExisting);
+            itr1Repo.GetLatestITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out var itr1Existing);
+            itr2Repo.GetLatestITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out var itr2Existing);
 
             // 오늘 레코드 찾기
             DateTime today = DateTime.Today;
+
             VCBChk todayVCB = vcbExisting?.FirstOrDefault(x => x.CHK_Tbl_GetDate.Date == today);
             ITRChk1 todayITR1 = itr1Existing?.FirstOrDefault(x => x.CHK1_Tbl_GetDate.Date == today);
             ITRChk2 todayITR2 = itr2Existing?.FirstOrDefault(x => x.CHK2_Tbl_GetDate.Date == today);
@@ -87,7 +88,10 @@ namespace AMS_DATA
                 if (todayVCB == null)
                 {
                     var template = vcbExisting?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
-                    todayVCB = template != null ? CloneRecordVCBChk(template) : new VCBChk();
+                    todayVCB = template != null
+                        ? CloneRecordVCBChk(template)
+                        : new VCBChk { CHK_Tbl_GetDate = DateTime.Now }; // 신규 생성 시에도 지금 시간
+
                     todayVCB.VCB_Code = basicInfo.VCB_Code;
                     todayVCB.CHK_Gongsa_Name = "예방진단 데이터";
 
@@ -99,8 +103,9 @@ namespace AMS_DATA
                     var cRes = chkRepo.CreateVCBChkRepo(todayVCB);
                     Console.WriteLine($"[CREATED VCB] Success={cRes.IsSuccess}, Msg={cRes.Message}\n");
 
-                    chkRepo.GetVCBChkByVCBCode(basicInfo.VCB_Code, out vcbExisting);
-                    todayVCB = vcbExisting.OrderBy(x => x.Tbl_Idx).Last();
+                    // 생성 후 예전 목록 재사용 금지 → 재조회
+                    chkRepo.GetLatestVCBChkByVCBCode(basicInfo.VCB_Code, out vcbExisting);
+                    todayVCB = vcbExisting?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
                 }
                 else
                 {
@@ -123,7 +128,10 @@ namespace AMS_DATA
                 if (todayITR1 == null)
                 {
                     var template1 = itr1Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
-                    todayITR1 = template1 != null ? CloneRecordITRChk1(template1) : new ITRChk1();
+                    todayITR1 = template1 != null
+                        ? CloneRecordITRChk1(template1)
+                        : new ITRChk1 { CHK1_Tbl_GetDate = DateTime.Now };
+
                     todayITR1.ITR_Code = ITRbasicInfo.ITR_Code;
                     todayITR1.CHK1_Gongsa_Name = "예방진단 데이터";
 
@@ -135,8 +143,9 @@ namespace AMS_DATA
                     var c1 = itr1Repo.CreateITRChk1InfoRepo(todayITR1);
                     Console.WriteLine($"[CREATED ITR1] Success={c1.IsSuccess}, Msg={c1.Message}");
 
-                    itr1Repo.GetITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out itr1Existing);
-                    todayITR1 = itr1Existing.OrderBy(x => x.Tbl_Idx).Last();
+                    // 재조회
+                    itr1Repo.GetLatestITRChk1ByITRCode(ITRbasicInfo.ITR_Code, out itr1Existing);
+                    todayITR1 = itr1Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
                     var cof1 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
                     var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1, pof1);
@@ -163,20 +172,24 @@ namespace AMS_DATA
                 if (todayITR2 == null)
                 {
                     var template2 = itr2Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
-                    todayITR2 = template2 != null ? CloneRecordITRChk2(template2) : new ITRChk2();
+                    todayITR2 = template2 != null
+                        ? CloneRecordITRChk2(template2)
+                        : new ITRChk2 { CHK2_Tbl_GetDate = DateTime.Now };
+
                     todayITR2.ITR_Code = ITRbasicInfo.ITR_Code;
                     todayITR2.CHK2_Gongsa_Name = "예방진단 데이터";
 
                     FillModelFromSignalsITRChk2(todayITR2, signals);
 
-                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 0.99m);
+                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 1.00m);
                     todayITR2.FoldingFunction = (int)Math.Truncate(hi2);
 
                     var c2 = itr2Repo.CreateITRChk2InfoRepo(todayITR2);
                     Console.WriteLine($"[CREATED ITR2] Success={c2.IsSuccess}, Msg={c2.Message}");
 
-                    itr2Repo.GetITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out itr2Existing);
-                    todayITR2 = itr2Existing.OrderBy(x => x.Tbl_Idx).Last();
+                    // 재조회
+                    itr2Repo.GetLatestITRChk2ByITRCode(ITRbasicInfo.ITR_Code, out itr2Existing);
+                    todayITR2 = itr2Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
                     var cof2 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
                     var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2, pof2);
@@ -186,7 +199,7 @@ namespace AMS_DATA
                 {
                     FillModelFromSignalsITRChk2(todayITR2, signals);
 
-                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 0.99m);
+                    var (hi2, pof2) = itrCalc.CalculateHiPof(todayITR2, 1.00m);
                     todayITR2.FoldingFunction = (int)Math.Truncate(hi2);
 
                     var u2 = itr2Repo.UpdateITRChk2InfoRepo(todayITR2);
@@ -210,7 +223,7 @@ namespace AMS_DATA
             }
         }
 
-        // -------------------- InfluxDB Fetch --------------------
+        // -------------------- InfluxDB 연동--------------------
         static async Task<Dictionary<string, float>> FetchSignals(InfluxDBClient client, string org, string bucket)
         {
             var flux = $@"
@@ -257,8 +270,12 @@ namespace AMS_DATA
         {
             var dst = new VCBChk();
             foreach (var p in typeof(VCBChk).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                     .Where(p => p.CanWrite && p.Name != nameof(VCBChk.Tbl_Idx)))
+                     .Where(p => p.CanWrite
+                              && p.Name != nameof(VCBChk.Tbl_Idx)
+                              && p.Name != nameof(VCBChk.CHK_Tbl_GetDate))) // 날짜는 복사 안 함
                 p.SetValue(dst, p.GetValue(src));
+
+            dst.CHK_Tbl_GetDate = DateTime.Now; // 지금 시간
             return dst;
         }
 
@@ -266,8 +283,12 @@ namespace AMS_DATA
         {
             var dst = new ITRChk1();
             foreach (var p in typeof(ITRChk1).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                     .Where(p => p.CanWrite && p.Name != nameof(ITRChk1.Tbl_Idx)))
+                     .Where(p => p.CanWrite
+                              && p.Name != nameof(ITRChk1.Tbl_Idx)
+                              && p.Name != nameof(ITRChk1.CHK1_Tbl_GetDate)))
                 p.SetValue(dst, p.GetValue(src));
+
+            dst.CHK1_Tbl_GetDate = DateTime.Now; // 지금 시간
             return dst;
         }
 
@@ -275,8 +296,12 @@ namespace AMS_DATA
         {
             var dst = new ITRChk2();
             foreach (var p in typeof(ITRChk2).GetProperties(BindingFlags.Public | BindingFlags.Instance)
-                     .Where(p => p.CanWrite && p.Name != nameof(ITRChk2.Tbl_Idx)))
+                     .Where(p => p.CanWrite
+                              && p.Name != nameof(ITRChk2.Tbl_Idx)
+                              && p.Name != nameof(ITRChk2.CHK2_Tbl_GetDate)))
                 p.SetValue(dst, p.GetValue(src));
+
+            dst.CHK2_Tbl_GetDate = DateTime.Now; // 지금 시간
             return dst;
         }
 
