@@ -272,31 +272,19 @@
   });
         </script>
         <!--//risk matrix-->
-        <!-- 전략 -->
-        <div class="con_box" id="strategyContainerMain">
-            <!-- 타이틀 -->
-            <h2><p>차년도 유지보수 대상</p></h2>
-            <!-- //타이틀 -->
+        <!-- 그룹 전략 박스 -->
+        <div class="con_box" id="groupStrategy">
+            <h2>차년도 유지보수 대상 (그룹)</h2>
+            <div id="groupStrategyMessage">로딩 중…</div>
         </div>
 
         <script>
 $(function(){
   var prefix = '@ViewData["Prefix"]';
 
-  $.getJSON(
-      '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")',
-      { equipmentType: prefix }
-  )
-  .done(function(res){
-    console.log("B3=", res.B3Life, "HI=", res.HIList);
-    $('#strategyContainerMain')
-      .append('<p>' + (res.error ? '<span class="error">'+res.error+'</span>' : res.StrategyMessage) + '</p>');
-  })
-  .fail(function(xhr, status, err){
-    console.error("GET /EquipmentAlgorithm/GetGroupStrategy 실패:", status, err);
-    $('#strategyContainerMain')
-      .append('<p class="error">전략 로드를 실패했습니다.</p>');
-  });
+  $.getJSON('@Url.Action("GetGroupStrategy","EquipmentAlgorithm")', { equipmentType: 'VCB' })
+   .done(res => $('#groupStrategyMessage').html(res.StrategyMessage))
+   .fail(() => $('#groupStrategyMessage').html('<span class="error">불러오기 실패</span>'));
 });
         </script>
         <!--//전략-->

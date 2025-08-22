@@ -50,7 +50,7 @@ namespace AMS_MVC.Controllers.Check
 
                 var scoreCalculator = new DCCABLEChkScoreCalculator();
                 var (hi, pofRaw) = scoreCalculator.CalculateHiPof(model, alpha: 1.00m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 result = dccableChkRepository.CreateDCCABLEChkRepo(model);
                 LogHelper.WriteLog("DCCABLEChkAdd", $"[CreateDCCABLEChkRepo] Success={result.IsSuccess}, Message={result.Message}");
@@ -61,24 +61,20 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    var cofModel = cofRepo.GetLatest(model.DCCABLE_Code) ?? cofRepo.GetLatest("DCCABLE");
+                    var cofModel = cofRepo.GetLatest("DCCABLE");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
-                    if (pofPercent < 0m) pofPercent = 0m;
-                    if (pofPercent > 100m) pofPercent = 100m;
-
-                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
+                    decimal adjustedCof = Math.Round(baseCof * (pofRaw / 100m), 2);
 
                     Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.DCCABLE_Code,
-                        (int)Math.Round(hi),
+                        (int)Math.Truncate(hi),
                         adjustedCof,
-                        pofPercent
+                        pofRaw
                     );
 
                     LogHelper.WriteLog("DCCABLEChkAdd",
-                        $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofRaw}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
 
                     if (!updateResult.IsSuccess)
                     {

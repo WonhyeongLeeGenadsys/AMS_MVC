@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetRiskMatrixByCode(ptCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(ptCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // PT 기본정보 조회
             var model = ptBasicInfoRepo.GetPTBasicInfoByCode(ptCode);

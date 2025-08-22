@@ -33,6 +33,10 @@ namespace AMS_MVC.Controllers.Check
                 return HttpNotFound("해당 보통점검 정보를 찾을 수 없습니다.");
             }
 
+            var basic = _basicRepo.GetITRBasicInfoByITRCode(itrCode);
+            ViewBag.Name = basic?.Name ?? "";
+            ViewBag.SerialNo = basic?.Serial_No ?? "";
+
             return View("~/Views/Check/ITR/ITRChk1Detail.cshtml", detailRecord);
         }
 
@@ -98,6 +102,10 @@ namespace AMS_MVC.Controllers.Check
             {
                 return HttpNotFound("해당 정밀점검 정보를 찾을 수 없습니다.");
             }
+
+            var basic = _basicRepo.GetITRBasicInfoByITRCode(itrCode);
+            ViewBag.Name = basic?.Name ?? "";
+            ViewBag.SerialNo = basic?.Serial_No ?? "";
 
             return View("~/Views/Check/ITR/ITRChk2Detail.cshtml", detailRecord);
         }

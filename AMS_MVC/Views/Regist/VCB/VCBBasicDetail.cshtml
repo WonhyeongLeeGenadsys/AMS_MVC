@@ -81,7 +81,7 @@
             success: function (response) {
                 if (response.success) {
                     alert("VCB 기본정보가 삭제되었습니다.");
-                    window.location.href = "@Url.Action("Index", "VCBBasic")";
+                    window.location.href = "@Url.Action("VCBBasicList", "VCBBasic")";
                 } else {
                     alert(response.message);
                 }

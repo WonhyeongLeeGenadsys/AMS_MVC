@@ -1388,6 +1388,7 @@
     <Content Include="Views\Setting\_CofInputs.cshtml" />
     <Content Include="Views\TotalInfo\Index.cshtml" />
     <Content Include="Views\TotalInfo\Recent.cshtml" />
+    <Content Include="Views\Check\ITR\ITRChk2Update.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

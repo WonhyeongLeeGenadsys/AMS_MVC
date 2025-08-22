@@ -8,33 +8,84 @@
     <h2>건전도</h2>
     <div id="@pieId" style="height:280px;width:100%;"></div>
     <script>
-    $(function(){
-      const palette = ['#5B9F56','#B4DEB1','#EBCD1D','#F18425','#F05153'];
-      function summarize(data){
+$(function(){
+    const palette = ['#5B9F56','#B4DEB1','#EBCD1D','#F18425','#F05153'];
+
+    function summarize(data) {
         return [1,2,3,4,5]
-          .filter(i=>data[i]>0)
-          .map(i=>({ state:i+'등급', value:+data[i], color:palette[i-1] }));
-      }
-      $.ajax({
-        type:'POST',
-        url: '/@controller/GetRiskmatrixData',
-        data: JSON.stringify({ prefix: '@prefix' }),
+            .filter(i => data[i] > 0)
+            .map(i => ({
+                state: i + '등급',
+                value: +data[i],
+                color: palette[i - 1],
+            }));
+    }
+
+    const url = '/@controller/GetRiskmatrixData';
+    const payload = { prefix: '@prefix' };
+
+    console.log('▶ AJAX 요청 URL:', url);
+    console.log('▶ 보낼 데이터(payload):', payload);
+
+    $.ajax({
+        type: 'POST',
+        url: url,
+        data: JSON.stringify(payload),
         contentType: 'application/json',
-        dataType: 'json'
-      })
-      .done(counts=>{
+        dataType: 'json',
+        beforeSend: () => console.log('→ 요청 전송...'),
+    })
+    .done(counts => {
+        console.log('✅ 서버 응답 counts:', counts);
+
+        if (counts.error) {
+            console.error('🚨 서버에서 에러 반환:', counts.error);
+            return;
+        }
+
         const ds = summarize(counts);
+        console.log('🔎 summarize 후 dataSource:', ds);
+
         $(`#@pieId`).dxPieChart({
-          type:'doughnut',
-          dataSource: ds,
-          customizePoint: pt=>({ color:pt.data.color }),
-          series:[{
-            argumentField:'state',
-            valueField:'value',
-            label:{ visible:true, connector:{visible:true}, customizeText:e=>e.valueText+'대' }
-          }]
+            type: 'doughnut',
+            dataSource: ds,
+            customizePoint: pt => ({ color: pt.data.color }),
+            series: [{
+                argumentField: 'state',
+                valueField: 'value',
+                label: {
+                    visible: true,
+                    connector: { visible: true },
+                    customizeText: e => e.valueText + '대'
+                }
+            }],
+            legend: {
+                visible: true,
+                verticalAlignment: 'bottom',
+                horizontalAlignment: 'center',
+                markerShape: 'circle',
+            },
+            size: { width: '100%', height: 300 },
+            innerRadius: 0.5,
+            tooltip: {
+                enabled: true,
+                customizeTooltip: info => {
+                    const d = info.point.data;
+                    return {
+                        html: `<strong>${d.state}</strong><br/>대수: ${d.value}대`
+                    };
+                }
+            },
+            onPointClick: e => e.target.showTooltip()
         });
-      });
+    })
+    .fail((jqXHR, textStatus, errorThrown) => {
+        console.error('❌ AJAX 실패:', textStatus, errorThrown);
+        console.error('▶ 응답 텍스트:', jqXHR.responseText);
     });
+});
+
     </script>
+
+
 </div>

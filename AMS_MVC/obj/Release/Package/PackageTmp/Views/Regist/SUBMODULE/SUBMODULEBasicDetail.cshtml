@@ -82,7 +82,7 @@
             success: function (response) {
                 if (response.success) {
                     alert("SUBMODULE 기본정보가 삭제되었습니다.");
-                    window.location.href = "@Url.Action("Index", "SUBMODULEBasic")";
+                    window.location.href = "@Url.Action("SUBMOUDLEBasicList", "SUBMODULEBasic")";
                 } else {
                     alert(response.message);
                 }

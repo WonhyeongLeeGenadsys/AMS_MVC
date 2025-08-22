@@ -5,75 +5,75 @@
         <table>
             <tr>
                 <th>정전 시간 (h)</th>
-                <td>@Html.TextBoxFor(m => m.Power_Failure_Time, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Power_Failure_Time, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>정전 비용 ($/kWh)</th>
-                <td>@Html.TextBoxFor(m => m.Power_Failure_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Power_Failure_Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>정전 확률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Probability_Of_Power_Failure, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Probability_Of_Power_Failure, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>용량 (kW)</th>
-                <td>@Html.TextBoxFor(m => m.Capacity, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Capacity, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>역률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Power_Factor, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Power_Factor, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>계수</th>
-                <td>@Html.TextBoxFor(m => m.Coefficient, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Coefficient, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>평균 이용률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Average_Utilization_Rate, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Average_Utilization_Rate, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>설비 복구 시간 (h)</th>
-                <td>@Html.TextBoxFor(m => m.Facility_Recovery_Time, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Facility_Recovery_Time, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>정격 전압 (kV)</th>
-                <td>@Html.TextBoxFor(m => m.Rated_Voltage, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Rated_Voltage, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>평균 전력 판매비용 ($/kWh)</th>
-                <td>@Html.TextBoxFor(m => m.Average_Electricity_Sales_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Average_Electricity_Sales_Cost, "{0:0.0000}", new { type = "number", step = "0.0001", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>선로 길이 (km)</th>
-                <td>@Html.TextBoxFor(m => m.Track_Length, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Track_Length, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>교체 확률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Replacement_Probability, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Replacement_Probability, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>설비 단가 ($)</th>
-                <td>@Html.TextBoxFor(m => m.Equipment_Unit_Price, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Equipment_Unit_Price, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>도급 비용 ($)</th>
-                <td>@Html.TextBoxFor(m => m.Facility_Contracting_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Facility_Contracting_Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>긴급 공사 할증률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Emergency_Construction_Surcharge_Rate, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Emergency_Construction_Surcharge_Rate, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>안전사고 확률[일반] (%)</th>
-                <td>@Html.TextBoxFor(m => m.General_Accident, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.General_Accident, "{0:0.000000000}", new { type = "number", step = "0.000000001", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>안전사고 확률[사망] (%)</th>
-                <td>@Html.TextBoxFor(m => m.Dead_Accident, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Dead_Accident, "{0:0.000000000}", new { type = "number", step = "0.000000001", @class = "w100" })</td>
                 <th>사고 보상비용[일반] ($)</th>
-                <td>@Html.TextBoxFor(m => m.General_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.General_Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>사고 보상비용[사망] ($)</th>
-                <td>@Html.TextBoxFor(m => m.Dead_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Dead_Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>안전 민감 계수</th>
-                <td>@Html.TextBoxFor(m => m.Safety_Sensitivity_Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Safety_Sensitivity_Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>절연유 유출면적 (㎥)</th>
-                <td>@Html.TextBoxFor(m => m.Insulation_Oil_Area, new { type = "text", @class = "w100" })</td>
-                <th>환경 보상비용 (원/㎥)</th>
-                <td>@Html.TextBoxFor(m => m.Cost, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Insulation_Oil_Area, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
+                <th>환경 보상비용 ($/㎥)</th>
+                <td>@Html.TextBoxFor(m => m.Cost, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
             <tr>
                 <th>환경 오염 확률 (%)</th>
-                <td>@Html.TextBoxFor(m => m.Environmental_Pollution, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Environmental_Pollution, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
                 <th>위치 가중치</th>
-                <td>@Html.TextBoxFor(m => m.Position_Weight, new { type = "text", @class = "w100" })</td>
+                <td>@Html.TextBoxFor(m => m.Position_Weight, "{0:0.00}", new { type = "number", step = "0.01", @class = "w100" })</td>
             </tr>
         </table>
     </div>

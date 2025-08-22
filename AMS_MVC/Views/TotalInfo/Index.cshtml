@@ -9,7 +9,9 @@
 @section MainContent {
     <h1>
         종합정보
-        <a href="javascript:openPop('/Location/Index','900','600')" class="btn blue map tooltip" data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>
+        @*<a href="javascript:openPop('/Location/Index','900','600')"
+           class="btn blue map tooltip"
+           data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>*@  
     </h1>
 
     <ul class="tab_onedepth">
@@ -22,13 +24,12 @@
             <ul class="sub_flex main">
                 <li>
                     <h2>건전도</h2>
-
                     <div id="pieAll" class="chart_box"></div>
                 </li>
                 <li>
                     <h2>Risk Matrix</h2>
                     <div class="matrix_group">
-                        <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>
+                        <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>                        
                         <!--배경계단식으로 처리-->
                         <ul class="chartContainer_bg">
                             <li class="yellow"></li>
@@ -247,7 +248,6 @@ $(function () {
        const data = raw.map(p => ({
          x: p.x, y: p.y, name: p.name, group: p.group
        }));
-
 
        $("#chartContainerAll").dxChart({
          dataSource: data,
@@ -472,11 +472,13 @@ $(function () {
                 $.getJSON(urlHist, { prefix: '' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);   // 시간 없애고 '일자'만 남김 ← 핵심 한 줄
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
+
 
                         callback();
                     })
@@ -501,7 +503,6 @@ $(function () {
 
             $('#' + target).addClass('on');
 
-            // lazy load Pof / Cof
             if (target === 'chart_line02' && !pofLoaded) {
             loadHistoryData(() => {
                 setupPofChart('chart_line02', historyData);
@@ -524,12 +525,14 @@ $(function () {
     <div class="box_wrap totalInfo_content" id="con_box02">
         <div class="con_box totalInfo">
             <ul class="sub_flex main">
+
                 <li>
                     <h2>건전도</h2>
 
                     <div id="pieAC" class="chart_box"></div>
                 </li>
                 <li>
+
                     <h2>Risk Matrix</h2>
                     <div class="matrix_group">
                         <div id="chartContainerAC" class="chart_box matrix" data-prefix="ac"></div>
@@ -899,10 +902,11 @@ $(function () {
                 $.getJSON(urlHist, { prefix: 'AC' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);  
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
 
                         callback();
@@ -1325,10 +1329,11 @@ $(function () {
                 $.getJSON(urlHist, { prefix: 'DC' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);   // 시간 없애고 '일자'만 남김 ← 핵심 한 줄
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
 
                         callback();
@@ -1685,9 +1690,13 @@ setInterval(() => {
 
   // 3) 이력 차트 재조회 (생성된 차트만 업데이트)
   $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
-    .done(hist => {
-      hist = hist.map(d=>({ ...d, time: new Date(d.time) }));
-
+      .done(hist => {
+          hist = hist.map(d => {
+              const t = new Date(d.time);
+              t.setHours(0, 0, 0, 0);   
+              return { ...d, time: t };
+          });
+        
       const hiChart  = $('#chart_line01').data('dxChart');
       const pofChart = $('#chart_line02').data('dxChart');
       const cofChart = $('#chart_line03').data('dxChart');

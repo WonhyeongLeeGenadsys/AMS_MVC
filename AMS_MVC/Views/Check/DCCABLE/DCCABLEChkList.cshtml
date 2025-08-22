@@ -8,10 +8,12 @@
 }
 
 @section MainContent {
-    <h1>DCCABLE 보통점검이력: @ViewBag.Name, @ViewBag.SerialNo</h1>
+    <h1>DCCABLE 보통점검이력</h1>
 
     <div class="con_box">
         <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
             <div class="btn_area top right">
                 <a href="@Url.Action("DCCABLEChkAdd", "DCCABLEChk", new { DCCABLE_Code = dccableCode })" class="btn add blue">추가</a>
             </div>
@@ -48,6 +50,12 @@
 
                         $("#gridContainer").dxDataGrid({
                             dataSource: data,
+                            hoverStateEnabled: true,
+                            onRowPrepared: function (e) {
+                                if (e.rowType === "data") {
+                                    e.rowElement.css("cursor", "pointer");
+                                }
+                            },
                             columnFixing: { enabled: true },
                             columns: [
                                 { dataField: "RowNumber", caption: "순번", width: 80 },

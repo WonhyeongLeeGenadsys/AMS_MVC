@@ -8,10 +8,12 @@
 }
 
 @section MainContent {
-    <h1>CT 고장이력: @ViewBag.Name, @ViewBag.SerialNo</h1>
+    <h1>CT 고장이력</h1>
 
     <div class="con_box">
         <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
             <div class="btn_area top right">
                 <a href="@Url.Action("CTGojangAdd", "CTGojang", new { CT_Code = ctCode })" class="btn add blue">추가</a>
             </div>

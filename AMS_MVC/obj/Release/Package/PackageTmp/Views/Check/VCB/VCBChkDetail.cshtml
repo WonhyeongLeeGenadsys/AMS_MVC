@@ -17,7 +17,9 @@
         <div class="content_warp">
             <div class="btn_area top right">
                 <p>
-                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@vcbCode', '@tblIdx');">삭제</a>
+                    <a href="javascript:void(0);" class="btn red del"
+                       onclick="deleteChk('@vcbCode', '@tblIdx');">삭제</a>
+
                     <a href="@Url.Action("VCBChkUpdate", "VCBChk", new { vcbCode = vcbCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
@@ -34,7 +36,11 @@
                     </colgroup>
                     <tr>
                         <th>공사명</th>
-                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                        <td>@Model.CHK_Gongsa_Name</td>
+                        <th>제품명</th>
+                        <td>@ViewBag.Name</td>
+                        <th>시리얼번호</th>
+                        <td>@ViewBag.SerialNo</td>
                     </tr>
                     <tr>
                         <th>날씨</th>
@@ -189,7 +195,7 @@
                 </table>
                 </div>
                 <!-- 점검 상세 정보 리스트 -->
-                <div class="table_list_app">
+                <!--<div class="table_list_app">
                     <table>
                         <colgroup>
                             <col style="width:15%">
@@ -323,7 +329,7 @@
                     </table>
 
                     <!-- 점검 상세 정보 리스트 -->
-                    <div class="table_list_app">
+                    <!--<div class="table_list_app">
                         <table>
                             <colgroup>
                                 <col style="width:15%">
@@ -368,10 +374,10 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
+                    </div>-->
 
                     <!-- VCB 통계 수명 추가 -->
-                    <div class="table_list_app">
+                    <!--<div class="table_list_app">
                         <table>
                             <colgroup>
                                 <col style="width:10%">
@@ -395,42 +401,41 @@
                                     <td>사용기간수</td>
                                     <td>년</td>
                                     <td>
-                                        <div class="flex">
+                                        <div class="flex">-->
                                             @*<input type="text" value="@Model.CHK_Usage_Years" readonly>*@
-                                        </div>
+                                        @*</div>
                                     </td>
                                     <td>30</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
-                </div>
+                </div>-->*@
             </div>
         </div>
 }
 <script type="text/javascript">
-        function deleteGojang(vcbCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("VCBChkDelete", "VCBChk")',
-                    data: JSON.stringify({ vcbCode: vcbCode, tblIdx: tblIdx }),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (response) {
-                        if (response.success) {
-                            alert("VCB 기본 정보가 삭제되었습니다.");
-                            window.location.href = '@Url.Action("VCBChkTotalList", "VCBChk")';
-                        } else {
-                            alert("VCB 기본 정보 삭제 실패: " + response.message);
-                        }
-                    },
-                    error: function (xhr, status, error) {
-                        console.error("삭제 중 오류:", xhr.responseText || status, error);
-                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
-                    }
-                });
-            }
+  function deleteChk(vcbCode, tblIdx) {
+    if (!confirm("정말 삭제하시겠습니까?")) return;
+
+    $.ajax({
+      type: "POST",
+      url: '@Url.Action("DeleteVCBChk", "VCBChk")',
+      data: { vcbCode: vcbCode, tblIdx: tblIdx }, // 폼 인코딩 방식
+      success: function (response) {
+        if (response.success) {
+          alert("VCB 보통점검 정보가 삭제되었습니다.");
+          window.location.href = '@Url.Action("VCBChkTotalList", "VCBChk")';
+        } else {
+          alert("VCB 보통점검 정보 삭제 실패: " + (response.message || ""));
         }
+      },
+      error: function (xhr, status, error) {
+        console.error("삭제 중 오류:", xhr.responseText || status, error);
+        alert("삭제 중 오류가 발생했습니다: " + (xhr.responseText || error));
+      }
+    });
+  }
 </script>
 
 

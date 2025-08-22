@@ -82,7 +82,7 @@
             success: function (response) {
                 if (response.success) {
                     alert("DCCABLE 기본정보가 삭제되었습니다.");
-                    window.location.href = "@Url.Action("Index", "DCCABLEBasic")";
+                    window.location.href = "@Url.Action("DCCABLEBasicList", "DCCABLEBasic")";
                 } else {
                     alert(response.message);
                 }

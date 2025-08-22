@@ -1,0 +1,219 @@
+﻿@model AMS_MVC.Models.ITRChk2
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>
+        ITR 정밀점검 수정 
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="updateITRChk2()">적용</a>
+                </p>
+            </div>
+
+            <form id="itrChk1UpdateForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Tbl_Idx" value="@Model.Tbl_Idx" />
+                <input type="hidden" name="ITR_Code" value="@Model.ITR_Code" />
+
+                <div class="table_app" id="itrChk2">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                        </colgroup>
+                        <tr>
+                            <th>공사명</th>
+                            <td colspan="5">
+                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name" value="@Model.CHK2_Gongsa_Name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="chk_weather" name="chk_weather" value="@Model.CHK2_Weather">
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="chk_temp" name="chk_temp" value="@Model.CHK2_Temp"> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="chk_hum" name="chk_hum" value="@Model.CHK2_Hum"> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.DropDownList("chk2_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name", Model.CHK2_Company), "제작사를 선택하세요.")
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                <input type="text" id="chk_worker" name="chk_worker" value="@Model.CHK2_Worker">
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="chk_manager" name="chk_manager" value="@Model.CHK2_Manager">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>급전번호</th>
+                            <td>
+                                <input type="text" id="chk_urgent_no" name="chk_urgent_no" value="@Model.CHK2_Urgent_No">
+                            </td>
+                            <th>형식</th>
+                            <td>
+                                <input type="text" id="chk_type" name="chk_type" value="@Model.CHK2_Type">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                <input type="date" id="chk_start_date" name="chk_start_date" value="@(Model.CHK2_Start_Date.HasValue ? Model.CHK2_Start_Date.Value.ToString("yyyy-MM-dd") : "")">
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                <input type="date" id="chk_end_date" name="chk_end_date" value="@(Model.CHK2_End_Date.HasValue ? Model.CHK2_End_Date.Value.ToString("yyyy-MM-dd") : "")">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--알고리즘 반영 파라미터-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                            <col style="width:3%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="4">
+                                    Measure
+                                </td>
+                                <td>전압비</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_1">
+                                        <input type="radio" id="CHK2_Voltage_Ratio_1" name="CHK2_Voltage_Ratio" value="1" checked>
+                                        <span>≤±5%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_5">
+                                        <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5">
+                                        <span>>±5%</span>
+                                    </label>
+                                <td rowspan="4">-</td>
+                            </tr>
+                            <tr>
+                                <td>여자전류</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Excitation_Current_1">
+                                        <input type="radio" id="CHK2_Excitation_Current_1" name="CHK2_Excitation_Current" value="1" checked>
+                                        <span>20%↑</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Excitation_Current_5">
+                                        <input type="radio" id="CHK2_Excitation_Current_5" name="CHK2_Excitation_Current" value="5">
+                                        <span>100%↑</span>
+                                    </label>
+                            </tr>
+                            <tr>
+                                <td>단락전류</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Short_Current_1">
+                                        <input type="radio" id="CHK2_Short_Current_1" name="CHK2_Short_Current" value="1" checked>
+                                        <span>≤20%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Short_Current_5">
+                                        <input type="radio" id="CHK2_Short_Current_5" name="CHK2_Short_Current" value="5">
+                                        <span>>20%</span>
+                                    </label>
+                            </tr>
+                            <tr>
+                                <td>PD측정</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_PD_1">
+                                        <input type="radio" id="CHK2_PD_1" name="CHK2_PD" value="1" checked>
+                                        <span>NOT</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_PD_5">
+                                        <input type="radio" id="CHK2_PD_5" name="CHK2_PD" value="5">
+                                        <span>OCCUR</span>
+                                    </label>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateITRChk1() {
+            var form = document.getElementById("itrChk1UpdateForm");
+            var formData = new FormData(form);
+
+            // FormData 내용을 콘솔에 출력
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                url: '@Url.Action("ITRChk1Update", "ITRChk")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log("서버 응답:", response);
+                    if (response.IsSuccess) {
+                        alert("ITR 보통점검 정보가 수정되었습니다.");
+                        window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk",new { type = 1 })';
+                    } else {
+                        alert("ITR 보통점검 정보를 수정하지 못했습니다.: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("ITR 보통점검 정보 수정중 오류가 발생했습니다." + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

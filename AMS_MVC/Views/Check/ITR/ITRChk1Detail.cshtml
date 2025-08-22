@@ -33,7 +33,11 @@
                     </colgroup>
                     <tr>
                         <th>공사명</th>
-                        <td colspan="5">@Model.CHK1_Gongsa_Name</td>
+                        <td>@Model.CHK_Gongsa_Name</td>
+                        <th>제품명</th>
+                        <td>@ViewBag.Name</td>
+                        <th>시리얼번호</th>
+                        <td>@ViewBag.SerialNo</td>
                     </tr>
                     <tr>
                         <th>날씨</th>
@@ -228,11 +232,11 @@
     </div>
 }
 <script type="text/javascript">
-        function deleteGojang(itrCode, tblIdx) {
+        function deleteChk(itrCode, tblIdx) {
             if (confirm("정말 삭제하시겠습니까?")) {
                 $.ajax({
                     type: "POST",
-                    url: '@Url.Action("ITRChk1Delete", "ITRChk")',
+                    url: '@Url.Action("DeleteITRChk1", "ITRChk")',
                     data: JSON.stringify({ itrCode: itrCode, tblIdx: tblIdx }),
                     contentType: "application/json; charset=utf-8",
                     success: function (response) {

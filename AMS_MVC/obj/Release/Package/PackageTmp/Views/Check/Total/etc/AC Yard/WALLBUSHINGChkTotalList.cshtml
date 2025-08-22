@@ -44,6 +44,12 @@
 
                         $("#gridContainer").dxDataGrid({
                             dataSource: data,
+                            hoverStateEnabled: true,
+                            onRowPrepared: function (e) {
+                                if (e.rowType === "data") {
+                                    e.rowElement.css("cursor", "pointer");
+                                }
+                            },
                             columnFixing: { enabled: true },
                             columns: [
                                 { dataField: "RowNumber", caption: "순번", width: 80 },

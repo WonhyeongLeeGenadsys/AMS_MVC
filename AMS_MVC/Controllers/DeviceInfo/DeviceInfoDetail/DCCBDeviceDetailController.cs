@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetRiskMatrixByCode(dccbCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(dccbCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // DCCB 기본정보 조회
             var model = dccbBasicInfoRepo.GetDCCBBasicInfoByCode(dccbCode);

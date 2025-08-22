@@ -65,20 +65,6 @@ namespace AMS_MVC.Repositories
         }
 
         /// <summary>
-        /// 단일 코드 조회하기!!
-        /// </summary>
-        /// <param name="code"></param>
-        /// <returns></returns>
-        public Dictionary<string, int> GetRiskMatrixPofCofByCode(string code)
-        {
-            const string sql = @"
-            SELECT Cof AS X, PoF AS Y
-            FROM RISKMATRIX
-            WHERE CODE = @Code";
-            return GetRiskMatrixInternal(new[] { code });
-        }
-
-        /// <summary>
         /// 해당 VCB_CODE의 Riskmatrix 행 전체를 조회 (HI 등 추가 속성 포함)
         /// </summary>
         public Riskmatrix GetRiskMatrixByCode(string code)

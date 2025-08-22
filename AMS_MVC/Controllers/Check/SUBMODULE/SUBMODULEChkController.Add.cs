@@ -50,7 +50,7 @@ namespace AMS_MVC.Controllers.Check
 
                 var scoreCalculator = new SUBMODULEChkScoreCalculator();
                 var (hi, pofRaw) = scoreCalculator.CalculateHiPof(model, alpha: 1.00m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 result = submoduleChkRepository.CreateSUBMODULEChkRepo(model);
                 LogHelper.WriteLog("SUBMODULEChkAdd", $"[CreateSUBMODULEChkRepo] Success={result.IsSuccess}, Message={result.Message}");
@@ -61,24 +61,20 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    var cofModel = cofRepo.GetLatest(model.SUBMODULE_Code) ?? cofRepo.GetLatest("SUBMODULE");
+                    var cofModel = cofRepo.GetLatest("SUBMODULE");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
-                    if (pofPercent < 0m) pofPercent = 0m;
-                    if (pofPercent > 100m) pofPercent = 100m;
-
-                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
+                    decimal adjustedCof = Math.Round(baseCof * (pofRaw / 100m), 2);
 
                     Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.SUBMODULE_Code,
-                        (int)Math.Round(hi),
+                        (int)Math.Truncate(hi),
                         adjustedCof,
-                        pofPercent
+                        pofRaw
                     );
 
                     LogHelper.WriteLog("SUBMODULEChkAdd",
-                        $"[UpdateRiskMatrixHI] code={model.SUBMODULE_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.SUBMODULE_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofRaw}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
 
                     if (!updateResult.IsSuccess)
                     {

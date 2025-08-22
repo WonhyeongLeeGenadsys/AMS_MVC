@@ -21,7 +21,7 @@ function loadStrategy(url, selector, prefix) {
             devices.forEach(item => {
                 //const code = item[codeKey];
                 const hi = item.HI;
-                const life = item.Remain_Life;
+                const life = item.Remain_Life;``
                 const msg = getStrategyMessage(hi, life);
 
                 $container.append(

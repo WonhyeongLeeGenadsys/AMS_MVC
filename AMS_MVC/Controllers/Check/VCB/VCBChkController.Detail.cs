@@ -34,6 +34,10 @@ namespace AMS_MVC.Controllers.Check
                 return HttpNotFound("해당 보통점검 정보를 찾을 수 없습니다.");
             }
 
+            var basic = vcbBasicInfoRepository.GetVCBBasicInfoByCode(vcbCode);
+            ViewBag.Name = basic?.Name ?? "";
+            ViewBag.SerialNo = basic?.Serial_No ?? "";
+
             return View("~/Views/Check/VCB/VCBChkDetail.cshtml", detailRecord);
         }
 
@@ -55,24 +59,20 @@ namespace AMS_MVC.Controllers.Check
             return Json(new { success = true, data = result });
         }
 
-        // VCB 보통점검 삭제 (Ajax 요청)
+        // VCB 보통점검 삭제
         [HttpPost]
         public JsonResult DeleteVCBChk(string vcbCode, string tblIdx)
         {
-            if (string.IsNullOrEmpty(vcbCode))
-            {
-                return Json(new { success = false, message = "올바른 Tbl_Idx가 전달되지 않았습니다." });
-            }
+            if (string.IsNullOrWhiteSpace(vcbCode) || string.IsNullOrWhiteSpace(tblIdx))
+                return Json(new { success = false, message = "vcbCode 또는 tblIdx가 전달되지 않았습니다." });
 
             var result = vcbChkRepository.DeleteVCBChkInfoRepo(vcbCode, tblIdx);
-            if (result.IsSuccess)
+
+            return Json(new
             {
-                return Json(new { success = true, message = "VCB 보통점검 정보가 삭제되었습니다." });
-            }
-            else
-            {
-                return Json(new { success = false, message = "VCB 보통점검 정보 삭제 실패: " + result.Message });
-            }
+                success = result.IsSuccess,
+                message = result.Message
+            });
         }
     }
 }

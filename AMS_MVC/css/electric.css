@@ -1163,7 +1163,7 @@ footer {
 
 		.electric_content .content_group h1 {
 			position: relative;
-			z-index: 5;
+			z-index: 0;
 			display: flex;
 			justify-content: space-between;
 			margin-bottom: 20px;
@@ -2582,3 +2582,50 @@ dl.product_info {
 	width: 550px !important;
 	height: 260px !important;
 }
+
+/* 최근활동 전용: 4열 */
+.sub_flex.main4 {
+	display: flex;
+	gap: 0px;
+	flex-wrap: nowrap; /* 한 줄 고정 */
+	padding: 0px 0px 0;
+}
+
+	.sub_flex.main4 > li {
+		flex: 0 0 calc((100% - 3*10px)/4); /* 4등분 */
+		padding-right: 0;
+		margin-bottom: 0;
+		position: relative;
+		padding-right: 0px; /* 점선과 내용 간격 */
+	}
+		/* 건전도, riskmatrix 사이 점선 구분선 제거 */
+		.sub_flex.main4 > li::after {
+			display: none;
+		}
+
+	/* riskmatrix 절대위치 사용 안함(겹침 방지) */
+	.sub_flex.main4 .matrix_group {
+		position: relative;
+		top: 0;
+		left: 0;
+		width: 400px; 
+		height: 340px; 
+		margin: 0;
+	}
+
+	/* 배경 5x5  값 일일이 수정해야함... */ 
+	.sub_flex.main4 .chartContainer_bg {
+		position: absolute;
+		top: 8px; 
+		left: 68px; 
+		width: 313px; 
+		height: 187px;
+		z-index: 1;
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+		.sub_flex.main4 .chartContainer_bg li {
+			width: 20%;
+			height: 20%;
+		}

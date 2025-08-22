@@ -57,8 +57,8 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
 
                 var scoreCalc = new DCCABLEChkScoreCalculator();
-                var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 var upd = dccableChkRepository.UpdateDCCABLEChkInfoRepo(model);
                 if (!upd.IsSuccess)
@@ -68,7 +68,7 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    var cofModel = cofRepo.GetLatest(model.DCCABLE_Code) ?? cofRepo.GetLatest("DCCABLE");
+                    var cofModel = cofRepo.GetLatest("DCCABLE");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
                     decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
@@ -79,13 +79,13 @@ namespace AMS_MVC.Controllers.Check
 
                     var rm = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.DCCABLE_Code,
-                        (int)Math.Round(hi),
+                        (int)Math.Truncate(hi),
                         adjustedCof,
                         pofPercent
                     );
 
                     LogHelper.WriteLog("DCCABLEChkUpdate",
-                        $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.DCCABLE_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
 
                     if (!rm.IsSuccess)
                     {

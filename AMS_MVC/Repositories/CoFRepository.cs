@@ -230,15 +230,16 @@ INSERT INTO COF (
         public decimal GetTotalCofByPrefix(string prefix)
         {
             const string sql = @"
-    SELECT SUM(TOTAL_COF) AS TotalCof
-    FROM COF
-    WHERE CODE LIKE @Prefix";
+            SELECT TOP 1 TOTAL_COF
+            FROM COF
+            WHERE CODE LIKE @Prefix
+            ORDER BY TBL_GETDATE DESC, TBL_IDX DESC;";
 
             using (var db = new DBHelper())
             {
-                var result = db.Conn.QueryFirstOrDefault<decimal?>(sql, new { Prefix = prefix + "%" });
-                return result ?? 0m;
+                return db.Conn.QueryFirstOrDefault<decimal?>(sql, new { Prefix = prefix + "%" }) ?? 0m;
             }
         }
+
     } // 
 }

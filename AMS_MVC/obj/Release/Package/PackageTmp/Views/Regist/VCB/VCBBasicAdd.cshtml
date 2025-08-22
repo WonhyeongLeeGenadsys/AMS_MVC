@@ -126,7 +126,8 @@
                 success: function (response) {
                     console.log("서버 응답:", response);
                     if (response.success) {
-                        alert("VCB 기본정보가 등록되었습니다.: " + response.message);
+                        //alert("VCB 기본정보가 등록되었습니다.: " + response.message);
+                        alert("VCB 기본정보가 등록되었습니다.");
                         window.location.href = '@Url.Action("VCBBasicList", "VCBBasic")';
                     } else {
                         alert("VCB 기본정보 추가 실패: " + response.message);

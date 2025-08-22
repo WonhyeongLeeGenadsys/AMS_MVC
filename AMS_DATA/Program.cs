@@ -24,7 +24,7 @@ namespace AMS_DATA
 
         public static readonly IReadOnlyDictionary<string, string> ITR2 = new Dictionary<string, string>
         {
-            ["YHLU03/SPDC1$ST$PaDschAlm$stVal"] = nameof(ITRChk2.CHK2_PD),
+            ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = nameof(ITRChk2.CHK2_PD),
         };
     }
 
@@ -148,7 +148,9 @@ namespace AMS_DATA
                     todayITR1 = itr1Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
                     var cof1 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
-                    var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1, pof1);
+                    var cof1Change = cof1 * (pof1 / 100m);
+
+                    var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1Change, pof1);
                     Console.WriteLine($"[RISKMATRIX ITR1] Success={rm1.IsSuccess}, Msg={rm1.Message}");
                 }
                 else
@@ -162,6 +164,8 @@ namespace AMS_DATA
                     Console.WriteLine($"[UPDATED ITR1] Success={u1.IsSuccess}, Msg={u1.Message}");
 
                     var cof1 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
+                    var cof1Change = cof1 * (pof1 / 100m);
+
                     var rm1 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi1), cof1, pof1);
                     Console.WriteLine($"[RISKMATRIX ITR1] Success={rm1.IsSuccess}, Msg={rm1.Message}");
                 }
@@ -192,7 +196,9 @@ namespace AMS_DATA
                     todayITR2 = itr2Existing?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
                     var cof2 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
-                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2, pof2);
+                    var cof2Change = cof2 * (pof2 / 100m);
+
+                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2Change, pof2);
                     Console.WriteLine($"[RISKMATRIX ITR2] Success={rm2.IsSuccess}, Msg={rm2.Message}");
                 }
                 else
@@ -206,7 +212,9 @@ namespace AMS_DATA
                     Console.WriteLine($"[UPDATED ITR2] Success={u2.IsSuccess}, Msg={u2.Message}");
 
                     var cof2 = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
-                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2, pof2);
+                    var cof2Change = cof2 * (pof2 / 100m);
+
+                    var rm2 = riskRepo.UpdateRiskMatrixHI(ITRbasicInfo.ITR_Code, (int)Math.Truncate(hi2), cof2Change, pof2);
                     Console.WriteLine($"[RISKMATRIX ITR2] Success={rm2.IsSuccess}, Msg={rm2.Message}");
                 }
 
@@ -367,7 +375,7 @@ namespace AMS_DATA
                     continue;
                 }
 
-                if (kv.Key == "YHLU03/SPDC1$ST$PaDschAlm$stVal" && propName == nameof(ITRChk2.CHK2_PD))
+                if (kv.Key == "YHLU07/SPDC1$ST$PaDschAlm$stVal" && propName == nameof(ITRChk2.CHK2_PD))
                 {
                     int score = (kv.Value == 0f) ? 1 : 5;
                     prop.SetValue(model, score);

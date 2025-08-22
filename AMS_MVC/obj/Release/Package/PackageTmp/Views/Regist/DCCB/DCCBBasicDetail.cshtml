@@ -82,7 +82,7 @@
             success: function (response) {
                 if (response.success) {
                     alert("DCCB 기본정보가 삭제되었습니다.");
-                    window.location.href = "@Url.Action("Index", "DCCBBasic")";
+                    window.location.href = "@Url.Action("DCCBBasicList", "DCCBBasic")";
                 } else {
                     alert(response.message);
                 }

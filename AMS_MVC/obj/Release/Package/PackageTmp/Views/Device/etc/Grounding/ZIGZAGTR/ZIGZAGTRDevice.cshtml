@@ -217,9 +217,10 @@ $(function(){
                 $(document).ready(function () {
                     $.ajax({
                         type: "GET",
-                        url: "/ZIGZAGTRDevice/GetBasicInfoList",
+                        url: '@Url.Action("GetBasicInfoList", "ZIGZAGTRDevice")',
                         dataType: "json",
                         success: function (data) {
+                            console.log(data); // 데이터 확인
                             var $deviceList = $("#deviceList");
                             $deviceList.empty();
 
@@ -324,7 +325,7 @@ $(function(){
                     function fetchPriorityInfo() {
                         return $.ajax({
                             type: "POST",
-                            url: "/ZIGZAGTRDevice/GetPriorityZIGZAGTR",
+                            url: '@Url.Action("GetPriorityZIGZAGTR", "ZIGZAGTRDevice")',
                             contentType: "application/json; charset=utf-8",
                             dataType: "json"
                         });

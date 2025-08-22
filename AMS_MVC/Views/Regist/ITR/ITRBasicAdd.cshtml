@@ -120,7 +120,8 @@
                 processData: false,
                 contentType: false,
                 success: function (response) {
-                    alert("ITR 기본정보가 등록되었습니다.: " + response.message);
+                    //alert("ITR 기본정보가 등록되었습니다.: " + response.message);
+                    alert("InterfaceTR 기본정보가 등록되었습니다.");
                     window.location.href = "@Url.Action("ITRBasicList", "ITRBasic")";
                 },
                 error: function (xhr, status, error) {

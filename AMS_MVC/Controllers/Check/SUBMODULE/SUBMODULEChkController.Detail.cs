@@ -34,6 +34,10 @@ namespace AMS_MVC.Controllers.Check
                 return HttpNotFound("해당 보통점검 정보를 찾을 수 없습니다.");
             }
 
+            var basic = submoduleBasicInfoRepository.GetSUBMODULEBasicInfoByCode(submoduleCode);
+            ViewBag.Name = basic?.Name ?? "";
+            ViewBag.SerialNo = basic?.Serial_No ?? "";
+
             return View("~/Views/Check/SUBMODULE/SUBMODULEChkDetail.cshtml", detailRecord);
         }
 
@@ -59,20 +63,16 @@ namespace AMS_MVC.Controllers.Check
         [HttpPost]
         public JsonResult DeleteSUBMODULEChk(string submoduleCode, string tblIdx)
         {
-            if (string.IsNullOrEmpty(submoduleCode))
-            {
-                return Json(new { success = false, message = "올바른 Tbl_Idx가 전달되지 않았습니다." });
-            }
+            if (string.IsNullOrWhiteSpace(submoduleCode) || string.IsNullOrWhiteSpace(tblIdx))
+                return Json(new { success = false, message = "vcbCode 또는 tblIdx가 전달되지 않았습니다." });
 
             var result = submoduleChkRepository.DeleteSUBMODULEChkInfoRepo(submoduleCode, tblIdx);
-            if (result.IsSuccess)
+
+            return Json(new
             {
-                return Json(new { success = true, message = "SUBMODULE 보통점검 정보가 삭제되었습니다." });
-            }
-            else
-            {
-                return Json(new { success = false, message = "SUBMODULE 보통점검 정보 삭제 실패: " + result.Message });
-            }
+                success = result.IsSuccess,
+                message = result.Message
+            });
         }
     }
 }

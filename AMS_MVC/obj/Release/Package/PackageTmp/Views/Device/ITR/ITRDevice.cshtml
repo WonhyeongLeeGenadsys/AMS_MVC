@@ -24,11 +24,10 @@
         </div>
 
         <script>
-$(function(){
   var prefix = '@ViewData["Prefix"]';
 
   $.getJSON(
-    '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")',
+      '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")',
       { equipmentType: prefix }
   )
   .done(function(res){
@@ -41,7 +40,6 @@ $(function(){
     $('#strategyContainerMain')
       .append('<p class="error">전략 로드를 실패했습니다.</p>');
   });
-});
         </script>
         <!--//전략-->
         <!--건전도-->
@@ -168,6 +166,7 @@ $(function(){
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -427,8 +426,8 @@ $(function(){
                                 { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
                                 { dataField: "Operating_Date", caption: "운영일", alignment: "center", dataType: "date" },
                                 { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
-                                { dataField: "CoF", caption: "CoF", alignment: "center" },
-                                { dataField: "PoF", caption: "PoF", alignment: "center" },
+                                { dataField: "CoF", caption: "CoF($)", alignment: "center" },
+                                { dataField: "PoF", caption: "PoF(%)", alignment: "center" },
                                 {
                                     dataField: "HI",
                                     caption: "HI",
@@ -440,7 +439,8 @@ $(function(){
                                             2: 'priorityGood',
                                             3: 'priorityFair',
                                             4: 'priorityPoor',
-                                            5: 'priorityVerypoor'
+                                            5: 'priorityVerypoor',
+                                            0: 'priorityUndefined'
                                         };
                                         container.addClass(clsMap[info.value] || '');
                                         container.text(info.value);

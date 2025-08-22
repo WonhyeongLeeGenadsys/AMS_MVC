@@ -1,6 +1,5 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
-
 }
 
 @section LeftMenu {
@@ -10,8 +9,11 @@
 @section MainContent {
     <h1>
         종합정보
-        <a href="javascript:openPop('/Location/Index','900','600')" class="btn blue map tooltip" data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>
+        @*<a href="javascript:openPop('/Location/Index','900','600')"
+           class="btn blue map tooltip"
+           data-tooltip="전남 나주시 혁신산단5길 동수동 405-8">위치보기</a>*@  
     </h1>
+
     <ul class="tab_onedepth">
         <li class="tab_btn on" data-tab="con_box01" data-prefix="">5대 주요장비</li>
         <li class="tab_btn" data-tab="con_box02" data-prefix="AC">AC</li>
@@ -22,13 +24,12 @@
             <ul class="sub_flex main">
                 <li>
                     <h2>건전도</h2>
-
                     <div id="pieAll" class="chart_box"></div>
                 </li>
                 <li>
                     <h2>Risk Matrix</h2>
                     <div class="matrix_group">
-                        <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>
+                        <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>                        
                         <!--배경계단식으로 처리-->
                         <ul class="chartContainer_bg">
                             <li class="yellow"></li>
@@ -157,89 +158,86 @@
         </div>
 
         <script>
-  $(function(){
-    // 1) 최신 리스크 포인트(코드, HI) 가져오기
-    $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
-      .done(function(rawPoints){
-        // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
-        const buckets = rawPoints.reduce((acc, p) => {
-          const hi = p.hi;            // RiskmatrixController 에서 내려주는 hi 필드
-          if (!acc[hi]) {
-            acc[hi] = { hi, codes: [] };
-          }
-          acc[hi].codes.push(p.name); // name 은 "VCB001" 같은 코드
-          return acc;
-        }, {});
-
-        // 3) dxPieChart용 배열로 변환
-        const ds = Object.values(buckets)
-          .map(b => ({
-            hi: b.hi,
-            state: b.hi + '등급',
-            value: b.codes.length,
-            codes: b.codes
-          }))
-          // 원하시면 등급 오름차순으로 정렬
-          .sort((a, b) => a.hi - b.hi);
-
-        // 4) 차트 초기화
-        $('#pieAll').dxPieChart({
-          type: 'doughnut',
-          dataSource: ds,
-          customizePoint: pt => ({ color: getHiColor(pt.data.hi) }),
-          series: [{
-            argumentField: 'state',
-            valueField: 'value',
-            label: {
-              visible: true,
-              connector: { visible: true },
-              customizeText: e => e.valueText + '대'
-            }
-          }],
-          legend: {
-            visible: true,
-            verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
-          },
-          size: { width: '100%', height: 300 },
-          innerRadius: 0.5,
-
-          // 5) 툴팁 켜고 내용 커스터마이징
-          tooltip: {
-            enabled: true,
-            customizeTooltip: function(info) {
-              const d = info.point.data;
-              return {
-                html: `
-                  <strong>${d.state}</strong><br/>
-                  대수: ${d.value}대<br/>
-                  장비: ${d.codes.join(', ')}
-                `
-              };
-            }
-          },
-
-          // 6) 클릭해도 툴팁이 떠 있도록
-          onPointClick: function(e) {
-            e.target.showTooltip();
-          }
-        });
-
-        // helper: HI 별 색상 매핑
-        function getHiColor(hi) {
-          switch (hi) {
-            case 1: return '#5B9F56';
-            case 2: return '#B4DEB1';
-            case 3: return '#EBCD1D';
-            case 4: return '#F18425';
-            case 5: return '#F05153';
-            default: return undefined;
-          }
+$(function () {
+  // 데이터 가져오기 및 차트 설정
+  $.getJSON('@Url.Action("GetRiskMapPoints", "TotalInfo")', { prefix: '' })
+    .done(function (rawPoints) {
+      // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
+      const buckets = rawPoints.reduce((acc, p) => {
+        const hi = p.hi;            // RiskmatrixController에서 내려주는 hi 필드
+        if (!acc[hi]) {
+          acc[hi] = { hi, codes: [] };
         }
-      })
-      .fail(err => console.error('GetRiskMapPoints 오류', err));
-  });
-        </script>
+        acc[hi].codes.push(p.name); // name은 "VCB001" 같은 코드
+        return acc;
+      }, {});
+
+      // 3) dxPieChart용 배열로 변환
+      const ds = Object.values(buckets)
+        .map(b => ({
+          hi: b.hi,
+          state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
+          value: b.codes.length,
+          codes: b.codes
+        }))
+        .sort((a, b) => a.hi - b.hi);  // 등급 오름차순으로 정렬
+
+      // 4) 차트 초기화
+      $('#pieAll').dxPieChart({
+        type: 'doughnut',
+        dataSource: ds,
+        customizePoint: pt => ({ color: getHiColor(pt.data.hi) }),
+        series: [{
+          argumentField: 'state',
+          valueField: 'value',
+          label: {
+            visible: true,
+            connector: { visible: true },
+            customizeText: e => e.valueText + '대'
+          }
+        }],
+        legend: {
+          visible: true,
+          verticalAlignment: 'bottom',
+          horizontalAlignment: 'center',
+          markerShape: 'circle',
+        },
+        size: { width: '100%', height: 300 },
+        innerRadius: 0.5,
+        tooltip: {
+          enabled: true,
+          customizeTooltip: function (info) {
+            const d = info.point.data;
+            const serialNumbersText = d.codes.length > 0 ? d.codes.join(', ') : '없음';
+            return {
+              html: `
+                <strong>${d.state}</strong><br/>
+                대수: ${d.value}대<br/>
+                장비: ${serialNumbersText}`
+            };
+          }
+        },
+        onPointClick: function (e) {
+          e.target.showTooltip();
+        }
+      });
+
+      // HI 별 색상 매핑
+      function getHiColor(hi) {
+        switch (hi) {
+          case 1: return '#5B9F56';
+          case 2: return '#B4DEB1';
+          case 3: return '#EBCD1D';
+          case 4: return '#F18425';
+          case 5: return '#F05153';
+          default: return '#888888';
+        }
+      }
+    })
+    .fail(function (err) {
+      console.error('GetRiskMapPoints 오류', err);
+    });
+});        </script>
 
         <!--//건전도-->
         <!--Risk Matrix-->
@@ -250,7 +248,6 @@
        const data = raw.map(p => ({
          x: p.x, y: p.y, name: p.name, group: p.group
        }));
-
 
        $("#chartContainerAll").dxChart({
          dataSource: data,
@@ -321,6 +318,7 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -368,7 +366,9 @@
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -400,13 +400,17 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
                         legend: {
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -447,7 +451,9 @@
                             visible: true,
                             verticalAlignment: "bottom",
                             horizontalAlignment: "center",
-                            orientation: "horizontal"
+                            orientation: "horizontal",
+                            markerShape: 'circle',
+
                         },
                         tooltip: { enabled: true }
                     });
@@ -466,11 +472,13 @@
                 $.getJSON(urlHist, { prefix: '' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);   // 시간 없애고 '일자'만 남김 ← 핵심 한 줄
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
+
 
                         callback();
                     })
@@ -495,7 +503,6 @@
 
             $('#' + target).addClass('on');
 
-            // lazy load Pof / Cof
             if (target === 'chart_line02' && !pofLoaded) {
             loadHistoryData(() => {
                 setupPofChart('chart_line02', historyData);
@@ -518,12 +525,14 @@
     <div class="box_wrap totalInfo_content" id="con_box02">
         <div class="con_box totalInfo">
             <ul class="sub_flex main">
+
                 <li>
                     <h2>건전도</h2>
 
                     <div id="pieAC" class="chart_box"></div>
                 </li>
                 <li>
+
                     <h2>Risk Matrix</h2>
                     <div class="matrix_group">
                         <div id="chartContainerAC" class="chart_box matrix" data-prefix="ac"></div>
@@ -575,12 +584,12 @@
                     <li class="tab_btn" data-tab="gridContainer03AC">점검일정</li>
                 </ul>
                 <!--그리드-->
-                <div id="gridContainerAC" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
+                <div id="gridContainerAC" class="grid_wrap totalInfo_content on" style="height: 500px;"></div>
                 <!--//그리드-->
 
-                <div id="gridContainer02AC" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+                <div id="gridContainer02AC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
 
-                <div id="gridContainer03AC" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+                <div id="gridContainer03AC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
             </div>
         </div>
 
@@ -603,7 +612,7 @@
         const ds = Object.values(buckets)
           .map(b => ({
             hi: b.hi,
-            state: b.hi + '등급',
+            state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
             value: b.codes.length,
             codes: b.codes
           }))
@@ -627,7 +636,9 @@
           legend: {
             visible: true,
             verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
+              horizontalAlignment: 'center',
+              markerShape: 'circle',
+
           },
           size: { width: '100%', height: 300 },
           innerRadius: 0.5,
@@ -661,7 +672,7 @@
             case 3: return '#EBCD1D';
             case 4: return '#F18425';
             case 5: return '#F05153';
-            default: return undefined;
+            default: return '#888888';
           }
         }
       })
@@ -749,6 +760,7 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
            },
 
            size: { width:400, height: 300 },
@@ -792,7 +804,11 @@
                             endOnTick: false,
                             max: 5
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -823,9 +839,13 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -861,7 +881,10 @@
                             endOnTick: false,
                             label: { customizeText: e => e.valueText + "$" }
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -879,10 +902,11 @@
                 $.getJSON(urlHist, { prefix: 'AC' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);  
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
 
                         callback();
@@ -971,6 +995,7 @@
                     </div>
                 </li>
                 <li>
+
                     <ul class="tab_twodepth tab_active">
                         <li class="tab_btn on" data-tab="chart_line01DC">건전도 이력</li>
                         <li class="tab_btn" data-tab="chart_line02DC">Pof 이력</li>
@@ -988,12 +1013,12 @@
                     <li class="tab_btn" data-tab="gridContainer03DC">점검일정</li>
                 </ul>
                 <!--그리드-->
-                <div id="gridContainerDC" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
+                <div id="gridContainerDC" class="grid_wrap totalInfo_content on" style="height: 500px;"></div>
                 <!--//그리드-->
 
-                <div id="gridContainer02DC" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+                <div id="gridContainer02DC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
 
-                <div id="gridContainer03DC" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
+                <div id="gridContainer03DC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
             </div>
         </div>
 
@@ -1016,7 +1041,7 @@
         const ds = Object.values(buckets)
           .map(b => ({
             hi: b.hi,
-            state: b.hi + '등급',
+            state: b.hi === 0 ? '등급 미정' : b.hi + '등급',
             value: b.codes.length,
             codes: b.codes
           }))
@@ -1040,7 +1065,9 @@
           legend: {
             visible: true,
             verticalAlignment: 'bottom',
-            horizontalAlignment: 'center'
+              horizontalAlignment: 'center',
+              markerShape: 'circle',
+
           },
           size: { width: '100%', height: 300 },
           innerRadius: 0.5,
@@ -1074,14 +1101,13 @@
             case 3: return '#EBCD1D';
             case 4: return '#F18425';
             case 5: return '#F05153';
-            default: return undefined;
+            default: return '#888888';
           }
         }
       })
       .fail(err => console.error('GetRiskMapPoints 오류', err));
   });
         </script>
-
         <!--//건전도-->
         <!--Risk Matrix-->
         <script>
@@ -1091,7 +1117,6 @@
        const data = raw.map(p => ({
          x: p.x, y: p.y, name: p.name, group: p.group
        }));
-
 
        $("#chartContainerDC").dxChart({
          dataSource: data,
@@ -1162,6 +1187,8 @@
                visible: true, position: "bottom",
                verticalAlignment: 'bottom',
                horizontalAlignment: 'center',
+               markerShape: 'circle',
+
            },
 
            size: { width:400, height: 300 },
@@ -1205,7 +1232,10 @@
                             endOnTick: false,
                             max: 5
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1236,9 +1266,13 @@
                             title: "PoF (%)",
                             visualRange: { startValue: 0, endValue: 100 },
                             tickInterval: 20,
+                            endOnTick: false,
                             max: 100
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1274,7 +1308,10 @@
                             endOnTick: false,
                             label: { customizeText: e => e.valueText + "$" }
                         },
-                        legend: { visible: true, position: "bottom" },
+                        legend: {
+                            visible: true, position: "bottom",
+                            markerShape: 'circle',
+                        },
                         tooltip: { enabled: true }
                     });
                 }
@@ -1292,10 +1329,11 @@
                 $.getJSON(urlHist, { prefix: 'DC' })
                     .done(data => {
                         historyData = data
-                            .map(d => ({
-                                ...d,
-                                time: new Date(d.time) // ISO 8601 써 뒀다면 new Date(d.time) OK
-                            }))
+                            .map(d => {
+                                const t = new Date(d.time);
+                                t.setHours(0, 0, 0, 0);   // 시간 없애고 '일자'만 남김 ← 핵심 한 줄
+                                return { ...d, time: t };
+                            })
                             .sort((a, b) => a.time - b.time);
 
                         callback();
@@ -1387,7 +1425,8 @@
                                     2: 'priorityGood',
                                     3: 'priorityFair',
                                     4: 'priorityPoor',
-                                    5: 'priorityVerypoor'
+                                    5: 'priorityVerypoor',
+                                    0: 'priorityUndefined'
                                 }[e.value];
                                 if (cls) e.cellElement.addClass(cls);
                             }
@@ -1407,7 +1446,7 @@
                                         'font-weight': 'medium'
                                     });
                                 }
-                                // DueDate 강조(빨간색)
+                                // DueDate
                                 if (e.column.dataField === 'DueDate') {
                                     e.cellElement.css({
                                         color: 'red',
@@ -1415,7 +1454,6 @@
                                     });
                                 }
                             }
-                            
                         }
                     },
                     columns: columns
@@ -1427,7 +1465,7 @@
                 const suf = SUFFIX[prefix];
                 $.post(URLS.PRIORITY)
                     .done(data => {
-                        // 1) AC탭, DC탭 필터링 
+                        // 1) AC탭, DC탭 필터링
                         let filtered = data;
                         if (prefix === 'AC') {
                             filtered = data.filter(d => d.Sort === 'AC');
@@ -1467,7 +1505,7 @@
 
             function loadHistory(prefix) {
                 const suf = SUFFIX[prefix];
-                $.post(URLS.GOJANG)   
+                $.post(URLS.GOJANG)
                     .done(raw => {
                         let ds = raw;
                         if (prefix === 'AC') {
@@ -1623,9 +1661,62 @@
                 if (target.startsWith('gridContainer03')) loadSchedule(prefix);
             });
 
-            //  초기엔 5대 주요장비 우선순위만
+            //  처음 로딩할 때 5대 주요장비 우선순위만
             loadPriority('');
-        });
+
+setInterval(() => {
+  // 1) pie 데이터 재조회
+  $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+    .done(rawPoints => {
+      var buckets = rawPoints.reduce((a,p) => {
+        a[p.hi] = a[p.hi]||{hi:p.hi,codes:[]};
+        a[p.hi].codes.push(p.name);
+        return a;
+      }, {});
+      var ds = Object.values(buckets).map(b=>({
+        state: b.hi+'등급', value: b.codes.length, codes: b.codes, hi: b.hi
+      }));
+      var pie = $('#pieAll').data('dxPieChart');
+      if (pie) pie.option('dataSource', ds);
+    });
+
+  // 2) risk matrix 재조회
+  $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+    .done(raw => {
+      var data = raw.map(p=>({x:p.x,y:p.y,name:p.name,group:p.group}));
+      var rm = $('#chartContainerAll').data('dxChart');
+      if (rm) rm.option('dataSource', data);
+    });
+
+  // 3) 이력 차트 재조회 (생성된 차트만 업데이트)
+  $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
+      .done(hist => {
+          hist = hist.map(d => {
+              const t = new Date(d.time);
+              t.setHours(0, 0, 0, 0);   
+              return { ...d, time: t };
+          });
+        
+      const hiChart  = $('#chart_line01').data('dxChart');
+      const pofChart = $('#chart_line02').data('dxChart');
+      const cofChart = $('#chart_line03').data('dxChart');
+
+      if (hiChart)  hiChart.option('dataSource', hist);
+      if (pofChart) pofChart.option('dataSource', hist);
+      if (cofChart) cofChart.option('dataSource', hist);
+    });
+
+  // 4) 우선순위 그리드 재조회
+  $.post('@Url.Action("GetPriorityInfo","TotalInfo")')
+    .done(dataGrid => {
+      var grid = $('#gridContainer').data('dxDataGrid');
+      if (grid) grid.option('dataSource', dataGrid);
+    });
+
+}, 10000);
+
+
+    });
     </script>
 }
 

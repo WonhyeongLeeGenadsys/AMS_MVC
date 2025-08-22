@@ -22,10 +22,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(itrCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(itrCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // ITR 기본정보 조회
             var model = itrBasicInfoRepo.GetITRBasicInfoByITRCode(itrCode);

@@ -61,8 +61,8 @@ namespace AMS_MVC.Controllers.Check
                 //model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
 
                 var scoreCalc = new ITRChkScoreCalculator();
-                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 // 3) DB 수정
                 var upd = _chk1Repo.UpdateITRChk1InfoRepo(model);
@@ -151,8 +151,8 @@ namespace AMS_MVC.Controllers.Check
                 //model.FoldingFunction = _scoreCalc.CalculateFoldingFunction(model);
 
                 var scoreCalc = new ITRChkScoreCalculator();
-                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                var (hi, pof) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 // 3) DB 수정
                 var upd = _chk2Repo.UpdateITRChk2InfoRepo(model);

@@ -8,10 +8,12 @@
 }
 
 @section MainContent {
-    <h1>PT 유지보수: @ViewBag.Name, @ViewBag.SerialNo</h1>
+    <h1>PT 유지보수</h1>
 
     <div class="con_box">
         <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
             <div class="btn_area top right">
                 <a href="@Url.Action("PTMaintenanceAdd", "PTMaintenance", new { PT_Code = ptCode })" class="btn add blue">추가</a>
             </div>

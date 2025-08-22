@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(tankCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(tankCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // TANK 기본정보 조회
             var model = tankBasicInfoRepo.GetTANKBasicInfoByCode(tankCode);

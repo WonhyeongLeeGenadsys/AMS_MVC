@@ -110,7 +110,6 @@
                             <col style="width:8%">
                             <col style="width:6%">
                             <col>
-                            <col style="width:3%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -119,7 +118,6 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -144,7 +142,6 @@
                                         <span>>0.3</span>
                                     </label>
                                 </td>
-                                <td rowspan="2">-</td>
                             </tr>
                             <tr>
                                 <td>
@@ -178,7 +175,6 @@
                             <col style="width:8%">
                             <col style="width:6%">
                             <col>
-                            <col style="width:3%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -187,7 +183,6 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -207,7 +202,6 @@
                                         <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5">
                                         <span>>±5%</span>
                                     </label>
-                                <td rowspan="4">-</td>
                             </tr>
                             <tr>
                                 <td>여자전류</td>
@@ -268,13 +262,10 @@
             var form = document.getElementById("itrChkForm");
             var formData = new FormData(form);
 
-            // 1) ITR_Code가 hidden인 경우(이미 URL에 있었음) => 바로 진행
-            // 2) ITR_Code가 드롭다운인 경우 => 선택 체크
             var itrCodeDropdown = document.getElementById("ITR_Code");
             if (itrCodeDropdown) {
-                // 사용자가 "ITR를 선택하세요."(기본값) 또는 빈 값("")을 선택한 경우 확인
                 if (!itrCodeDropdown.value) {
-                    alert("ITR를 선택하세요.");
+                    alert("InterfaceTR를 선택하세요.");
                     return;
                 }
             }
@@ -293,15 +284,15 @@
             success: function (response) {
                 console.log("서버 응답:", response);
                 if (response.IsSuccess) {
-                    alert("ITR 정밀점검 정보가 저장되었습니다.");
+                    alert("InterfaceTR 정밀점검 정보가 저장되었습니다.");
                     window.location.href = '@Url.Action("ITRChkTotalList", "ITRChk", new { type = 2 } )';
                 } else {
-                    alert("ITR 정밀점검 정보를 추가하지 못했습니다.: " + response.message);
+                    alert("InterfaceTR 정밀점검 정보를 추가하지 못했습니다.: " + response.message);
                 }
             },
             error: function (xhr, status, error) {
                 console.error("오류 발생:", xhr.responseText || status, error);
-                alert("ITR 정밀점검 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+                alert("InterfaceTR 정밀점검 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
             }
         });
     }

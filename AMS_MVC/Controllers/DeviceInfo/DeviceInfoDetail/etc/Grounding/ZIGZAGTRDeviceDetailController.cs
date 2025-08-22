@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(zigzagtrCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(zigzagtrCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // ZIGZAGTR 기본정보 조회
             var model = zigzagtrBasicInfoRepo.GetZIGZAGTRBasicInfoByCode(zigzagtrCode);

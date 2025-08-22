@@ -88,7 +88,8 @@ $('.btn_menu').click(function () {
 
 // 팝업
 function openPop(url, w, h) {
-    window.open(url, "openpopup", "width=" + w + ", height=" + h + ", top=10, left=10");
+    const win = window.open(url, "openpopup", "width=" + w + ",height=" + h + ",top=10,left=10");
+    if (!win) window.open(url, "_blank");
 }
 
 // 파일 업로드

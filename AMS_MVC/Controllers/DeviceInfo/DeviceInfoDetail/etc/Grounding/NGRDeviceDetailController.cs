@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(ngrCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(ngrCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // NGR 기본정보 조회
             var model = ngrBasicInfoRepo.GetNGRBasicInfoByCode(ngrCode);

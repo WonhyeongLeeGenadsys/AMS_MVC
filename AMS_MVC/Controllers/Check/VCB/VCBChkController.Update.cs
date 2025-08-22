@@ -57,8 +57,8 @@ namespace AMS_MVC.Controllers.Check
                     model.CHK_Tbl_GetDate = DateTime.Now;
 
                 var scoreCalc = new VCBChkScoreCalculator();
-                var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 0.99m);
-                model.FoldingFunction = (int)Math.Round(hi);
+                var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha:1.00m);
+                model.FoldingFunction = (int)Math.Truncate(hi);
 
                 var upd = vcbChkRepository.UpdateVCBChkInfoRepo(model);
                 if (!upd.IsSuccess)
@@ -68,7 +68,7 @@ namespace AMS_MVC.Controllers.Check
                 }
                 else
                 {
-                    var cofModel = cofRepo.GetLatest(model.VCB_Code) ?? cofRepo.GetLatest("VCB");
+                    var cofModel = cofRepo.GetLatest("VCB");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
                     decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
@@ -79,13 +79,13 @@ namespace AMS_MVC.Controllers.Check
 
                     var rm = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.VCB_Code,
-                        (int)Math.Round(hi),
+                        (int)Math.Truncate(hi),
                         adjustedCof,
                         pofPercent
                     );
 
                     LogHelper.WriteLog("VCBChkUpdate",
-                        $"[UpdateRiskMatrixHI] code={model.VCB_Code}, hi={(int)Math.Round(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.VCB_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
 
                     if (!rm.IsSuccess)
                     {

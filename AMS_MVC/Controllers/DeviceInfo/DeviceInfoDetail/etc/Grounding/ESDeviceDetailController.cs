@@ -23,10 +23,8 @@ namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
             var riskMatrixRepo = new RiskmatrixRepository();
 
             var hiDict = riskMatrixRepo.GetLatestRiskMatrixByCode(esCode);
-            var matrixDict = riskMatrixRepo.GetRiskMatrixPofCofByCode(esCode);
 
             ViewBag.HIDict = hiDict;
-            ViewBag.RiskMatrixDict = matrixDict;
 
             // ES 기본정보 조회
             var model = esBasicInfoRepo.GetESBasicInfoByCode(esCode);

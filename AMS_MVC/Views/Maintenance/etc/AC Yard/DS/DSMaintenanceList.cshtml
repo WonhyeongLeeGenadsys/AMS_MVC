@@ -8,10 +8,12 @@
 }
 
 @section MainContent {
-    <h1>DS 유지보수: @ViewBag.Name, @ViewBag.SerialNo</h1>
+    <h1>DS 유지보수</h1>
 
     <div class="con_box">
         <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
             <div class="btn_area top right">
                 <a href="@Url.Action("DSMaintenanceAdd", "DSMaintenance", new { DS_Code = dsCode })" class="btn add blue">추가</a>
             </div>
