@@ -5,14 +5,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\publish</_PublishTargetUrl>
-    <History>True|2025-08-22T09:03:20.8390776Z;True|2025-07-22T17:14:13.6437450+09:00;True|2025-07-18T17:57:18.8586039+09:00;True|2025-07-07T18:17:07.6085702+09:00;True|2025-07-03T16:16:20.2137252+09:00;True|2025-06-20T14:05:31.5569305+09:00;True|2025-06-20T14:03:50.7715630+09:00;True|2025-04-25T18:03:28.5103563+09:00;True|2025-04-22T15:31:24.2435243+09:00;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
+    <History>True|2025-08-25T00:12:58.9846602Z;True|2025-08-22T18:03:20.8390776+09:00;True|2025-07-22T17:14:13.6437450+09:00;True|2025-07-18T17:57:18.8586039+09:00;True|2025-07-07T18:17:07.6085702+09:00;True|2025-07-03T16:16:20.2137252+09:00;True|2025-06-20T14:05:31.5569305+09:00;True|2025-06-20T14:03:50.7715630+09:00;True|2025-04-25T18:03:28.5103563+09:00;True|2025-04-22T15:31:24.2435243+09:00;True|2025-04-22T15:29:18.4090558+09:00;True|2025-04-22T15:09:54.8169670+09:00;True|2025-04-22T14:58:33.1434595+09:00;True|2025-03-07T08:58:53.1316449+09:00;True|2025-03-06T18:41:54.6338969+09:00;True|2025-03-06T18:40:49.1132325+09:00;True|2025-03-06T17:27:45.3977386+09:00;True|2025-03-06T17:27:05.5652287+09:00;True|2025-03-06T17:08:26.7131380+09:00;</History>
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AMS_MVC.dll">
-      <publishTime>08/22/2025 18:03:20</publishTime>
+      <publishTime>08/25/2025 09:12:58</publishTime>
     </File>
     <File Include="bin/AMS_MVC.pdb">
-      <publishTime>08/22/2025 18:03:20</publishTime>
+      <publishTime>08/25/2025 09:12:58</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>05/12/2025 17:46:10</publishTime>
@@ -270,10 +270,10 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:11</publishTime>
     </File>
     <File Include="bin/Web.Common.dll">
-      <publishTime>08/22/2025 18:03:19</publishTime>
+      <publishTime>08/22/2025 18:27:13</publishTime>
     </File>
     <File Include="bin/Web.Common.pdb">
-      <publishTime>08/22/2025 18:03:19</publishTime>
+      <publishTime>08/22/2025 18:27:13</publishTime>
     </File>
     <File Include="bin/WebGrease.dll">
       <publishTime>05/12/2025 17:46:11</publishTime>
@@ -1962,7 +1962,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:09</publishTime>
     </File>
     <File Include="Views/TotalInfo/Index.cshtml">
-      <publishTime>08/22/2025 17:36:41</publishTime>
+      <publishTime>08/22/2025 18:13:57</publishTime>
     </File>
     <File Include="Views/TotalInfo/IndexBackup.cshtml">
       <publishTime>07/02/2025 09:26:42</publishTime>
@@ -1980,7 +1980,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>05/12/2025 17:46:09</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/03/2025 16:16:19</publishTime>
+      <publishTime>08/25/2025 09:12:58</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -47,16 +47,20 @@ namespace AMS_DATA
 
             // InfluxDB 설정
             const string url = "http://192.168.0.24:8086";
+            //const string url = "http://127.0.0.1:8086";
             const string token = "cOPC3HVD8zxxSWUs2go2zWaVx7NAVEjVoX3cCAKzLc_QZJeUFoCJxvYjS8dKynP5s37jsYsfjA0baQLFKpE64Q==";
             const string org = "mvdc";
             const string bucket = "AMS";
 
             var client = InfluxDBClientFactory.Create(url, token);
+
             var chkRepo = new VCBChkRepository();
             var itr1Repo = new ITRChk1Repository();
             var itr2Repo = new ITRChk2Repository();
+
             var riskRepo = new RiskmatrixRepository();
             var cofRepo = new CoFRepository();
+
             var itrCalc = new ITRChkScoreCalculator();
 
             // 기존 CHK 모두 로드

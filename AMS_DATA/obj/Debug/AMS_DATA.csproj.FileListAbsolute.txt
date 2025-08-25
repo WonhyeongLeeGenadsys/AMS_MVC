@@ -99,3 +99,10 @@ D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\System.Web.WebPages.resources.dll
 D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\System.Web.WebPages.Razor.resources.dll
 D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\System.Web.Razor.resources.dll
 D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\System.Web.WebPages.Deployment.resources.dll
+D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\AMS_DATA.exe.manifest
+D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\AMS_DATA.application
+D:\project\AMS\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.exe.manifest
+D:\project\AMS\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.application
+D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.resources.dll
+D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.resources.dll
+D:\project\AMS\AMS_MVC\AMS_DATA\bin\Debug\ko\Microsoft.VisualStudio.TestPlatform.TestFramework.resources.dll
