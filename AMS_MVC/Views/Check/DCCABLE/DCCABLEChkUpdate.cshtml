@@ -105,7 +105,6 @@
                             <col style="width:8%">
                             <col style="width:8%">
                             <col>
-                            <col style="width:2%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -114,7 +113,6 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -127,27 +125,26 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Partial_Discharge_1">
-                                        <input type="radio" id="CHK_Partial_Discharge_1" name="CHK_Partial_Discharge" value="1" checked>
+                                        <input type="radio" id="CHK_Partial_Discharge_1" name="CHK_Partial_Discharge" value="1" @(Model.CHK_Partial_Discharge == 1 ? "checked" : "")>
                                         <span>10pC이하</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Partial_Discharge_2">
-                                        <input type="radio" id="CHK_Partial_Discharge_2" name="CHK_Partial_Discharge" value="2">
+                                        <input type="radio" id="CHK_Partial_Discharge_2" name="CHK_Partial_Discharge" value="2" @(Model.CHK_Partial_Discharge == 2 ? "checked" : "")>
                                         <span>10pC~25pC</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Partial_Discharge_3">
-                                        <input type="radio" id="CHK_Partial_Discharge_3" name="CHK_Partial_Discharge" value="3">
+                                        <input type="radio" id="CHK_Partial_Discharge_3" name="CHK_Partial_Discharge" value="3" @(Model.CHK_Partial_Discharge == 3 ? "checked" : "")>
                                         <span>25pC~50pC</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Partial_Discharge_4">
-                                        <input type="radio" id="CHK_Partial_Discharge_4" name="CHK_Partial_Discharge" value="4">
+                                        <input type="radio" id="CHK_Partial_Discharge_4" name="CHK_Partial_Discharge" value="4" @(Model.CHK_Partial_Discharge == 4 ? "checked" : "")>
                                         <span>50pC~100pC</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Partial_Discharge_5">
-                                        <input type="radio" id="CHK_Partial_Discharge_5" name="CHK_Partial_Discharge" value="5">
+                                        <input type="radio" id="CHK_Partial_Discharge_5" name="CHK_Partial_Discharge" value="5" @(Model.CHK_Partial_Discharge == 5 ? "checked" : "")>
                                         <span>100pC초과</span>
                                     </label>
                                 </td>
-                                <td rowspan="3">-</td>
                             </tr>
                             <tr>
                                 <td>
@@ -157,23 +154,23 @@
                                 <td>1PU = 공칭 전압</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Rated_Voltage_1">
-                                        <input type="radio" id="CHK_Rated_Voltage_1" name="CHK_Rated_Voltage" value="1" checked>
+                                        <input type="radio" id="CHK_Rated_Voltage_1" name="CHK_Rated_Voltage" value="1" @(Model.CHK_Rated_Voltage == 1 ? "checked" : "")>
                                         <span>PU±2.5%이내</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Rated_Voltage_2">
-                                        <input type="radio" id="CHK_Rated_Voltage_2" name="CHK_Rated_Voltage" value="2">
+                                        <input type="radio" id="CHK_Rated_Voltage_2" name="CHK_Rated_Voltage" value="2" @(Model.CHK_Rated_Voltage == 2 ? "checked" : "")>
                                         <span>PU±5%이내</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Rated_Voltage_3">
-                                        <input type="radio" id="CHK_Rated_Voltage_3" name="CHK_Rated_Voltage" value="3">
+                                        <input type="radio" id="CHK_Rated_Voltage_3" name="CHK_Rated_Voltage" value="3" @(Model.CHK_Rated_Voltage == 3 ? "checked" : "")>
                                         <span>PU±7.5%이내</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Rated_Voltage_4">
-                                        <input type="radio" id="CHK_Rated_Voltage_4" name="CHK_Rated_Voltage" value="4">
+                                        <input type="radio" id="CHK_Rated_Voltage_4" name="CHK_Rated_Voltage" value="4" @(Model.CHK_Rated_Voltage == 4 ? "checked" : "")>
                                         <span>PU±10%이내</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Rated_Voltage_5">
-                                        <input type="radio" id="CHK_Rated_Voltage_5" name="CHK_Rated_Voltage" value="5">
+                                        <input type="radio" id="CHK_Rated_Voltage_5" name="CHK_Rated_Voltage" value="5" @(Model.CHK_Rated_Voltage == 5 ? "checked" : "")>
                                         <span>PU±10%초과</span>
                                     </label>
                                 </td>
@@ -186,23 +183,23 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Tan_Delta_1">
-                                        <input type="radio" id="CHK_Tan_Delta_1" name="CHK_Tan_Delta" value="1" checked>
+                                        <input type="radio" id="CHK_Tan_Delta_1" name="CHK_Tan_Delta" value="1" @(Model.CHK_Tan_Delta == 1 ? "checked" : "")>
                                         <span>0.001이하</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Tan_Delta_2">
-                                        <input type="radio" id="CHK_Tan_Delta_2" name="CHK_Tan_Delta" value="2">
+                                        <input type="radio" id="CHK_Tan_Delta_2" name="CHK_Tan_Delta" value="2" @(Model.CHK_Tan_Delta == 2 ? "checked" : "")>
                                         <span>0.001~0.004</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Tan_Delta_3">
-                                        <input type="radio" id="CHK_Tan_Delta_3" name="CHK_Tan_Delta" value="3">
+                                        <input type="radio" id="CHK_Tan_Delta_3" name="CHK_Tan_Delta" value="3" @(Model.CHK_Tan_Delta == 3 ? "checked" : "")>
                                         <span>0.004~0.008</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Tan_Delta_4">
-                                        <input type="radio" id="CHK_Tan_Delta_4" name="CHK_Tan_Delta" value="4">
+                                        <input type="radio" id="CHK_Tan_Delta_4" name="CHK_Tan_Delta" value="4" @(Model.CHK_Tan_Delta == 4 ? "checked" : "")>
                                         <span>0.008~0.01</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Tan_Delta_5">
-                                        <input type="radio" id="CHK_Tan_Delta_5" name="CHK_Tan_Delta" value="5">
+                                        <input type="radio" id="CHK_Tan_Delta_5" name="CHK_Tan_Delta" value="5" @(Model.CHK_Tan_Delta == 5 ? "checked" : "")>
                                         <span>0.01초과</span>
                                     </label>
                                 </td>
@@ -216,27 +213,26 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Resistance_1">
-                                        <input type="radio" id="CHK_Resistance_1" name="CHK_Resistance" value="1" checked>
+                                        <input type="radio" id="CHK_Resistance_1" name="CHK_Resistance" value="1" @(Model.CHK_Resistance == 1 ? "checked" : "")>
                                         <span>10GΩ이상</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Resistance_2">
-                                        <input type="radio" id="CHK_Resistance_2" name="CHK_Resistance" value="2">
+                                        <input type="radio" id="CHK_Resistance_2" name="CHK_Resistance" value="2" @(Model.CHK_Resistance == 2 ? "checked" : "")>
                                         <span>5GΩ~10GΩ</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Resistance_3">
-                                        <input type="radio" id="CHK_Resistance_3" name="CHK_Resistance" value="3">
+                                        <input type="radio" id="CHK_Resistance_3" name="CHK_Resistance" value="3" @(Model.CHK_Resistance == 3 ? "checked" : "")>
                                         <span>1GΩ~5GΩ</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Resistance_4">
-                                        <input type="radio" id="CHK_Resistance_4" name="CHK_Resistance" value="4">
+                                        <input type="radio" id="CHK_Resistance_4" name="CHK_Resistance" value="4" @(Model.CHK_Resistance == 4 ? "checked" : "")>
                                         <span>500MΩ~1000MΩ</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK_Resistance_5">
-                                        <input type="radio" id="CHK_Resistance_5" name="CHK_Resistance" value="5">
+                                        <input type="radio" id="CHK_Resistance_5" name="CHK_Resistance" value="5" @(Model.CHK_Resistance == 5 ? "checked" : "")>
                                         <span>500MΩ이하</span>
                                     </label>
                                 </td>
-                                <td rowspan="1">-</td>
                             </tr>
 
                             <tr>
@@ -247,28 +243,27 @@
                                 <td></td>
                                 <td></td>
                                 <td>
-                                    <label class="ty_rdo" for="CHK_TDR">
-                                        <input type="radio" id="CHK_TDR" name="CHK_TDR" value="1" checked>
+                                    <label class="ty_rdo" for="CHK_TDR_1">
+                                        <input type="radio" id="CHK_TDR_1" name="CHK_TDR" value="1" @(Model.CHK_TDR == 1 ? "checked" : "")>
                                         <span>PU 5%이내</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_TDR">
-                                        <input type="radio" id="CHK_TDR" name="CHK_TDR" value="2">
+                                    <label class="ty_rdo" for="CHK_TDR_2">
+                                        <input type="radio" id="CHK_TDR_2" name="CHK_TDR" value="2" @(Model.CHK_TDR == 2 ? "checked" : "")>
                                         <span>PU 5~7.5%</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_TDR">
-                                        <input type="radio" id="CHK_TDR" name="CHK_TDR" value="3">
+                                    <label class="ty_rdo" for="CHK_TDR_3">
+                                        <input type="radio" id="CHK_TDR_3" name="CHK_TDR" value="3" @(Model.CHK_TDR == 3 ? "checked" : "")>
                                         <span>PU 7.5~10%</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_TDR">
-                                        <input type="radio" id="CHK_TDR" name="CHK_TDR" value="4">
+                                    <label class="ty_rdo" for="CHK_TDR_4">
+                                        <input type="radio" id="CHK_TDR_4" name="CHK_TDR" value="4" @(Model.CHK_TDR == 4 ? "checked" : "")>
                                         <span>PU 10~15%</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_TDR">
-                                        <input type="radio" id="CHK_TDR" name="CHK_TDR" value="5">
+                                    <label class="ty_rdo" for="CHK_TDR_5">
+                                        <input type="radio" id="CHK_TDR_5" name="CHK_TDR" value="5" @(Model.CHK_TDR == 5 ? "checked" : "")>
                                         <span>PU 15%초과</span>
                                     </label>
                                 </td>
-                                <td rowspan="1">-</td>
                             </tr>
 
                         </tbody>

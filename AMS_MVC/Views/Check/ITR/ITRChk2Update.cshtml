@@ -103,7 +103,6 @@
                             <col style="width:8%">
                             <col style="width:6%">
                             <col>
-                            <col style="width:3%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -112,7 +111,71 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    Oil Quality
+                                </td>
+                                <td>전산가</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Computerized_Price_1">
+                                        <input type="radio" id="CHK2_Computerized_Price_1" name="CHK2_Computerized_Price" value="1" @(Model.CHK2_Computerized_Price == 1 ? "checked" : "")>
+                                        <span>≤0.1</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Computerized_Price_3">
+                                        <input type="radio" id="CHK2_Computerized_Price_3" name="CHK2_Computerized_Price" value="3" @(Model.CHK2_Computerized_Price == 3 ? "checked" : "")>
+                                        <span>≤0.3</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Computerized_Price_5">
+                                        <input type="radio" id="CHK2_Computerized_Price_5" name="CHK2_Computerized_Price" value="5" @(Model.CHK2_Computerized_Price == 5 ? "checked" : "")>
+                                        <span>>0.3</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    수분함량
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Water_Content_1">
+                                        <input type="radio" id="CHK2_Water_Content_1" name="CHK2_Water_Content" value="1" @(Model.CHK2_Water_Content == 1 ? "checked" : "")>
+                                        <span><40</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Water_Content_3">
+                                        <input type="radio" id="CHK2_Water_Content_3" name="CHK2_Water_Content" value="3" @(Model.CHK2_Water_Content == 3 ? "checked" : "")>
+                                        <span>≤50</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK2_Water_Content_5">
+                                        <input type="radio" id="CHK2_Water_Content_5" name="CHK2_Water_Content" value="5" @(Model.CHK2_Water_Content == 5 ? "checked" : "")>
+                                        <span>>50</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,14 +188,13 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Voltage_Ratio_1">
-                                        <input type="radio" id="CHK2_Voltage_Ratio_1" name="CHK2_Voltage_Ratio" value="1" checked>
+                                        <input type="radio" id="CHK2_Voltage_Ratio_1" name="CHK2_Voltage_Ratio" value="1" @(Model.CHK2_Voltage_Ratio == 1 ? "checked" : "")>
                                         <span>≤±5%</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK2_Voltage_Ratio_5">
-                                        <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5">
+                                        <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5" @(Model.CHK2_Voltage_Ratio == 5 ? "checked" : "")>
                                         <span>>±5%</span>
                                     </label>
-                                <td rowspan="4">-</td>
                             </tr>
                             <tr>
                                 <td>여자전류</td>
@@ -140,11 +202,11 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Excitation_Current_1">
-                                        <input type="radio" id="CHK2_Excitation_Current_1" name="CHK2_Excitation_Current" value="1" checked>
+                                        <input type="radio" id="CHK2_Excitation_Current_1" name="CHK2_Excitation_Current" value="1" @(Model.CHK2_Excitation_Current == 1 ? "checked" : "")>
                                         <span>20%↑</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK2_Excitation_Current_5">
-                                        <input type="radio" id="CHK2_Excitation_Current_5" name="CHK2_Excitation_Current" value="5">
+                                        <input type="radio" id="CHK2_Excitation_Current_5" name="CHK2_Excitation_Current" value="5" @(Model.CHK2_Excitation_Current == 5 ? "checked" : "")>
                                         <span>100%↑</span>
                                     </label>
                             </tr>
@@ -154,11 +216,11 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Short_Current_1">
-                                        <input type="radio" id="CHK2_Short_Current_1" name="CHK2_Short_Current" value="1" checked>
+                                        <input type="radio" id="CHK2_Short_Current_1" name="CHK2_Short_Current" value="1" @(Model.CHK2_Short_Current == 1 ? "checked" : "")>
                                         <span>≤20%</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK2_Short_Current_5">
-                                        <input type="radio" id="CHK2_Short_Current_5" name="CHK2_Short_Current" value="5">
+                                        <input type="radio" id="CHK2_Short_Current_5" name="CHK2_Short_Current" value="5" @(Model.CHK2_Short_Current == 5 ? "checked" : "")>
                                         <span>>20%</span>
                                     </label>
                             </tr>
@@ -168,11 +230,11 @@
                                 <td></td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_PD_1">
-                                        <input type="radio" id="CHK2_PD_1" name="CHK2_PD" value="1" checked>
+                                        <input type="radio" id="CHK2_PD_1" name="CHK2_PD" value="1" @(Model.CHK2_PD == 1 ? "checked" : "")>
                                         <span>NOT</span>
                                     </label>
                                     <label class="ty_rdo" for="CHK2_PD_5">
-                                        <input type="radio" id="CHK2_PD_5" name="CHK2_PD" value="5">
+                                        <input type="radio" id="CHK2_PD_5" name="CHK2_PD" value="5" @(Model.CHK2_PD == 5 ? "checked" : "")>
                                         <span>OCCUR</span>
                                     </label>
                             </tr>
