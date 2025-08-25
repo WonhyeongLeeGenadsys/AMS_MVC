@@ -1,10 +1,9 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Repositories;
-using AMS_MVC.Services;
+﻿
 using System.Linq;
 using System.Web.Mvc;
+using Web.Common;
 
-namespace AMS_MVC.Controllers
+namespace AMS_MVC
 {
     public class SettingController : Controller
     {

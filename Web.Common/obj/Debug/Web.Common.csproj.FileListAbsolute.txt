@@ -25,3 +25,13 @@ D:\project\ams\AMS_MVC\Web.Common\bin\Debug\Web.Common.pdb
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CoreCompileInputs.cache
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.dll
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.pdb
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\Dapper.dll
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\Microsoft.Bcl.AsyncInterfaces.dll
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\Dapper.xml
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\Microsoft.Bcl.AsyncInterfaces.xml
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
+D:\project\AMS\AMS_MVC\Web.Common\bin\Debug\System.Threading.Tasks.Extensions.xml
+D:\project\AMS\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CopyComplete
+D:\project\AMS\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.AssemblyReference.cache

@@ -1,14 +1,13 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Utlity;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Web.Common.Log;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.Maintenance.DCCABLE
-{
+namespace AMS_MVC
+{ 
     public partial class DCCABLEMaintenanceController : Controller
     {
         public ActionResult DCCABLEMaintenanceAdd(string DCCABLE_Code)

@@ -1,15 +1,15 @@
-﻿@model AMS_MVC.Models.ITRBasicInfo
+﻿@model Web.Common.ITRBasicInfo
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 1) 보통점검 데이터
-    var chk1List = ViewBag.ITRChk1List as List<AMS_MVC.Models.ITRChk1>;
+    var chk1List = ViewBag.ITRChk1List as List<Web.Common.ITRChk1>;
     var lastChk11 = chk1List != null && chk1List.Any()
                    ? chk1List.OrderByDescending(c => c.CHK1_Tbl_GetDate).First()
                    : null;
 
     // 2) 정밀점검 데이터
-    var chk2List = ViewBag.ITRChk2List as List<AMS_MVC.Models.ITRChk2>;
+    var chk2List = ViewBag.ITRChk2List as List<Web.Common.ITRChk2>;
     var lastChk12 = chk2List != null && chk2List.Any()
                    ? chk2List.OrderByDescending(c => c.CHK2_Tbl_GetDate).First()
                    : null;

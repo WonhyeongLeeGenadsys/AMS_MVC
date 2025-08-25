@@ -2,7 +2,7 @@
 using System.IO;
 using System.Web;
 
-namespace Web.Common.Utlity
+namespace Web.Common
 {
     public class FileUploader
     {

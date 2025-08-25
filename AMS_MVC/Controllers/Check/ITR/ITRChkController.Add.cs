@@ -3,12 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
-using AMS_MVC.Models;
-using AMS_MVC.Services;
-using AMS_MVC.Utlity;
-using Web.Common.Log;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.Check
+namespace AMS_MVC
 {
     public partial class ITRChkController
     {

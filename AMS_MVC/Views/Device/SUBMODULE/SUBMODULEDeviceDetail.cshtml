@@ -1,10 +1,10 @@
-﻿@model AMS_MVC.Models.SUBMODULEBasicInfo
+﻿@model Web.Common.SUBMODULEBasicInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
-    var allChkData = ViewBag.SUBMODULEChkList as List<AMS_MVC.Models.SUBMODULEChk>;
+    var allChkData = ViewBag.SUBMODULEChkList as List<Web.Common.SUBMODULEChk>;
     var lastChk = allChkData != null && allChkData.Any()
                   ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
                   : null;
