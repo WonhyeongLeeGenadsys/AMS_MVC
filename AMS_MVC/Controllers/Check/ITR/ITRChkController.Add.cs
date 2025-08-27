@@ -57,7 +57,7 @@ namespace AMS_MVC
                 if (!result.IsSuccess)
                     return Json(new Result(false) { Message = "ITR 보통점검 추가 실패: " + result.Message });
 
-                // 최신 정밀점검 가져와 합산 계산 시도
+                // 최신 정밀점검 가져와 합산 계산하기
                 _chk2Repo.GetLatestITRChk2ByITRCode(model.ITR_Code, out var list2);
                 var latest2 = list2?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
@@ -75,6 +75,7 @@ namespace AMS_MVC
                 decimal adjustedCof = Math.Round(baseCof * (pofFinal / 100m), 2);
 
                 var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, adjustedCof, pofFinal);
+
                 if (!upd.IsSuccess)
                     return Json(new Result(false) { Message = "RiskMatrix 업데이트 실패: " + upd.Message });
 
@@ -103,7 +104,7 @@ namespace AMS_MVC
                 if (!result.IsSuccess)
                     return Json(new Result(false) { Message = "ITR 정밀점검 추가 실패: " + result.Message });
 
-                // 최신 보통점검 가져와 합산 계산 시도
+                // 최신 보통점검 가져와 합산 계산하기
                 _chk1Repo.GetLatestITRChk1ByITRCode(model.ITR_Code, out var list1);
                 var latest1 = list1?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
@@ -121,6 +122,7 @@ namespace AMS_MVC
                 decimal adjustedCof = Math.Round(baseCof * (pofFinal / 100m), 2);
 
                 var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, adjustedCof, pofFinal);
+
                 if (!upd.IsSuccess)
                     return Json(new Result(false) { Message = "RiskMatrix 업데이트 실패: " + upd.Message });
 

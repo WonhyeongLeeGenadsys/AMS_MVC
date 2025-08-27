@@ -1,5 +1,5 @@
-﻿@model AMS_MVC.Models.DCCABLEBasicInfo
-@using Web.Common.Utlity
+﻿@model Web.Common.DCCABLEBasicInfo
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -73,6 +73,7 @@
     function deleteDCCABLEBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("DC Cable 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteDCCABLEBasicInfo", "DCCABLEBasic")",

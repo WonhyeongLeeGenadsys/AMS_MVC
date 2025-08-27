@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,8 +96,7 @@
                             <td>애자(애관)의 균열 및 오손 여부 점검/청소</td>
                             <td>균열·오손 없고 청결 상태 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
 
                         @*접속 점검*@
@@ -108,8 +105,7 @@
                             <td>접속부 볼트 조임 상태</td>
                             <td>풀림 없이 견고히 체결</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
 
                         @*기초 점검*@
@@ -118,8 +114,7 @@
                             <td>가대 및 기초 볼트 조임 상태</td>
                             <td>기초 볼트 풀림 및 균열 없을 것</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                         @*부속장치 점검*@
@@ -128,8 +123,7 @@
                             <td>부속장치 동작 상태 점검 및 청소</td>
                             <td>이상 없음 / 청결 상태 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="4"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
 
                         @*기능 시험*@
@@ -138,26 +132,25 @@
                             <td>절연저항 측정</td>
                             <td>기기별 기준 이상</td>
                             <td>MΩ</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="4"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
                         <tr>
                             <td>절연열화(Doble) 측정</td>
                             <td>기기별 기준 이내</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_2)</td>
+                            <td>@(Model.CHK_5_2_Text)</td>
                         </tr>
                         <tr>
                             <td>동작 카운터 점검</td>
                             <td>정상 동작 상태</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_3)</td>
+                            <td>@(Model.CHK_5_3_Text)</td>
                         </tr>
                         <tr>
                             <td>누설전류 측정</td>
                             <td>기기별 기준 이내</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_4)</td>
+                            <td>@(Model.CHK_5_4_Text)</td>
                         </tr>
 
                     </tbody>
@@ -165,11 +158,12 @@
             </div>
 
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(laCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("LA 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("LAChkDelete", "LAChk")',
@@ -189,7 +183,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

@@ -1,6 +1,5 @@
 ﻿@model Web.Common.CTBasicInfo
-@using Web.Common.Utlity
-
+@using Web.Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -72,6 +71,7 @@
     function deleteCTBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("CT 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteCTBasicInfo", "CTBasic")",

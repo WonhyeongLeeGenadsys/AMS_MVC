@@ -1,5 +1,5 @@
-﻿@model AMS_MVC.Models.SUBMODULEBasicInfo
-@using Web.Common.Utlity
+﻿@model Web.Common.SUBMODULEBasicInfo
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,6 +72,8 @@
     <script>
     function deleteSUBMODULEBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
+
+        if (!confirm("Sub Module 기본정보를 삭제하시겠습니까?")) return;
 
         $.ajax({
             type: "POST",

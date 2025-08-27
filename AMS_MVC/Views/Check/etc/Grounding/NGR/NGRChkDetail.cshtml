@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,20 +95,19 @@
                             <td>외함 온도 상승 및 이음 여부</td>
                             <td>운휴 전 상태에서 이상 무</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="3"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td>부싱 균열 및 오손 확인/청소</td>
                             <td>균열 및 오손 없을 것/오염 시 청소</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_2)</td>
+                            <td>@(Model.CHK_1_2_Text)</td>
                         </tr>
                         <tr>
                             <td>절연유 누유 여부</td>
                             <td>누유 흔적 없을 것</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_3)</td>
+                            <td>@(Model.CHK_1_3_Text)</td>
                         </tr>
 
 
@@ -119,14 +116,13 @@
                             <td>접지선 점검</td>
                             <td>누유 흔적 없을 것</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td>각 연결부 볼트 조임</td>
                             <td>풀림 없이 견고히 체결</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_2)</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
                         </tr>
 
 
@@ -135,8 +131,7 @@
                             <td>호흡기 상태/절연저항 측정 등</td>
                             <td>실리카겔 변색 없고 절연저항 양호</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                     </tbody>
@@ -144,11 +139,12 @@
             </div>
 
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(ngrCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("NGR 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("NGRChkDelete", "NGRChk")',
@@ -168,7 +164,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

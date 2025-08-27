@@ -1,16 +1,12 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace AMS_MVC
 {
-
     public partial class TotalInfoController : Controller
     {
-
         [HttpGet]
         public ActionResult Recent()
         {
@@ -21,51 +17,65 @@ namespace AMS_MVC
         [HttpGet]
         public JsonResult GetRecentActivity(string prefix = "")
         {
-            var allHist = _riskRepo.GetRiskMatrixHistory(prefix)
-                            .GroupBy(r => r.Code)
-                            .ToDictionary(
-                                g => g.Key,
-                                g => g.OrderBy(r => r.LastTime).ToList()
-                            );
+            // 모든 이력 가져옴 (Code 별 그룹화)
+            var historyByCode = _riskRepo.GetRiskMatrixHistory(prefix)
+                .GroupBy(r => r.Code)
+                .ToDictionary(g => g.Key, g => g.OrderBy(r => r.LastTime).ToList());
 
-            var withChanges = allHist
-                .Select(kv =>
+            var result = new List<object>();
+
+            //  Code 별로 Before/After 비교
+            foreach (var kv in historyByCode)
+            {
+                var code = kv.Key;
+                var records = kv.Value;
+
+                if (records.Count == 0)
+                    continue;
+
+                var before = records.Count >= 2 ? records[records.Count - 2] : records[0];
+                var after = records[records.Count - 1];
+
+                //wjs
+                var beforeObj = new
                 {
-                    var list = kv.Value;
-                    var before = list.Count >= 2 ? list[list.Count - 2] : list[0];
-                    var after = list[list.Count - 1];
+                    Cof = before.Cof,
+                    Pof = before.Pof,
+                    Hi = int.Parse(before.HI)
+                };
 
-                    var beforeObj = new { Cof = before.Cof, Pof = before.Pof, Hi = int.Parse(before.HI) };
-                    var afterObj = new { Cof = after.Cof, Pof = after.Pof, Hi = int.Parse(after.HI) };
+                //후
+                var afterObj = new
+                {
+                    Cof = after.Cof,
+                    Pof = after.Pof,
+                    Hi = int.Parse(after.HI)
+                };
 
-                    var hasChanged =
-                        beforeObj.Hi != afterObj.Hi ||
-                        beforeObj.Cof != afterObj.Cof ||
-                        beforeObj.Pof != afterObj.Pof;
+                // 변화가 있는 경우만 저장
+                bool hasChanged = beforeObj.Cof != afterObj.Cof ||
+                                  beforeObj.Pof != afterObj.Pof ||
+                                  beforeObj.Hi != afterObj.Hi;
 
-                    return new
+                if (hasChanged)
+                {
+                    result.Add(new
                     {
-                        Code = kv.Key,
+                        Code = code,
                         Before = beforeObj,
                         After = afterObj,
                         BeforeTime = before.LastTime,
-                        AfterTime = after.LastTime,
-                        HasChanged = hasChanged
-                    };
-                })
-                .Where(x => x.HasChanged)
-                .OrderByDescending(x => x.AfterTime)
-                .Select(x => new
-                {
-                    Code = x.Code,
-                    Before = x.Before,
-                    After = x.After,
-                    BeforeTime = x.BeforeTime, 
-            AfterTime = x.AfterTime
-                })
+                        AfterTime = after.LastTime
+                    });
+                }
+            }
+
+            // 최신순 정렬
+            var sorted = result
+                .OrderByDescending(x => ((dynamic)x).AfterTime)
                 .ToList();
 
-            return Json(withChanges, JsonRequestBehavior.AllowGet);
+            return Json(sorted, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -3,11 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
+using AMS_DATA;
 using InfluxDB.Client;
 using InfluxDB.Client.Api.Domain;
-using AMS_MVC.Models;
-using AMS_MVC.Repositories;
-using AMS_MVC.Services;
+
 using NodaTime.Extensions;
 using Web.Common;
 
@@ -27,7 +26,10 @@ namespace AMS_DATA
         {
             ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = nameof(ITRChk2.CHK2_PD),
         };
-    }
+    }        
+}
+
+
 
     class Program
     {
@@ -411,4 +413,4 @@ namespace AMS_DATA
             prop.SetValue(target, val);
         }
     }
-}
+

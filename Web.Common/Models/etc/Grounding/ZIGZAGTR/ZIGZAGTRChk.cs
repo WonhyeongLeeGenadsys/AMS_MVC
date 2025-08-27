@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Web.Common
 {
@@ -21,7 +18,6 @@ namespace Web.Common
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
 
-
         //
         public string CHK_1_1 { get; set; } // 변압기 본체, 냉각 장치, 단자함 파손/부식/변형/누유 확인
         public string CHK_2_1 { get; set; } // 절연 저항 및 부분 방전 측정
@@ -37,6 +33,26 @@ namespace Web.Common
         //
         public string CHK_Writer { get; set; } // 작성자         
         public DateTime CHK_Tbl_GetDate { get; set; }
+        
+        private string ToStatusText(string value)
+        {
+            switch (value)
+            {
+                case "1": return "정상";
+                case "5": return "이상";
+                default: return "-";
+            }
+        }
 
+        public string CHK_1_1_Text => ToStatusText(CHK_1_1);
+        public string CHK_2_1_Text => ToStatusText(CHK_2_1);
+        public string CHK_3_1_Text => ToStatusText(CHK_3_1);
+        public string CHK_4_1_Text => ToStatusText(CHK_4_1);
+        public string CHK_5_1_Text => ToStatusText(CHK_5_1);
+        public string CHK_6_1_Text => ToStatusText(CHK_6_1);
+        public string CHK_7_1_Text => ToStatusText(CHK_7_1);
+        public string CHK_8_1_Text => ToStatusText(CHK_8_1);
+        public string CHK_9_1_Text => ToStatusText(CHK_9_1);
+        public string CHK_10_1_Text => ToStatusText(CHK_10_1);
     }
 }

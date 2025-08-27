@@ -216,22 +216,41 @@ ORDER BY b.TBL_IDX;
         public Result DeleteITRBasicInfoRepo(string tblIdx)
         {
             Result res = new Result(true);
+
             try
             {
-                using(DBHelper dbHelper = new DBHelper())
+                using (DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "DELETE FROM ITR_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    // 1) 먼저 ITR_CODE 조회
+                    const string getCodeQuery = "SELECT ITR_CODE FROM ITR_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    var itrCode = dbHelper.Conn.QueryFirstOrDefault<string>(getCodeQuery, new { Tbl_Idx = tblIdx });
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { Tbl_Idx = tblIdx });
+                    if (string.IsNullOrEmpty(itrCode))
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteITRBasicInfoRepo 실패: 해당 Tbl_Idx의 장비를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(ITR_BASICINFO)", res.Message);
+                        return res;
+                    }
+
+                    // 2) ITR_BASICINFO 삭제
+                    const string deleteBasicQuery = "DELETE FROM ITR_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteBasicQuery, new { Tbl_Idx = tblIdx });
+
                     if (affectedRows > 0)
                     {
-                        res.Message = "DeleteInterfaceTrBasicInfoRepo 성공: ITRBasicInfo Tbl_Idx: " + tblIdx;
+                        // 3) RISKMATRIX에서 해당 CODE 모든 행 삭제
+                        const string deleteRiskQuery = "DELETE FROM RISKMATRIX WHERE CODE = @ITR_Code";
+                        int riskDeleted = dbHelper.Conn.Execute(deleteRiskQuery, new { ITR_Code = itrCode });
+
+                        res.Message = $"DeleteITRBasicInfoRepo 성공: Tbl_Idx={tblIdx}, ITR_CODE={itrCode}, " +
+                                      $"RISKMATRIX {riskDeleted}건 삭제됨";
                         LogHelper.WriteLog("DB(ITR_BASICINFO)", res.Message);
                     }
                     else
                     {
                         res.IsSuccess = false;
-                        res.Message = "DeleteInterfaceTrBasicInfoRepo 실패: 해당 Tbl_Idx를 찾을 수 없습니다.";
+                        res.Message = "DeleteITRBasicInfoRepo 실패: 해당 Tbl_Idx를 찾을 수 없습니다.";
                         LogHelper.WriteLog("DB(ITR_BASICINFO)", res.Message);
                     }
                 }
@@ -239,9 +258,10 @@ ORDER BY b.TBL_IDX;
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "DeleteInterfaceTrBasicInfoRepo 실패: " + ex.Message + "\n" + ex.StackTrace;
+                res.Message = "DeleteITRBasicInfoRepo 오류: " + ex.Message + "\n" + ex.StackTrace;
                 LogHelper.WriteLog("DB(ITR_BASICINFO)", res.Message);
             }
+
             return res;
         }
     }

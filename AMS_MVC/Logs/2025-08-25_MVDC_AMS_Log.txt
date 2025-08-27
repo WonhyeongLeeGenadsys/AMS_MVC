@@ -142,3 +142,71 @@
 |2025-08-25 18:29:54  |   VCBChkController.List  |   GetVCBChkListData 실행   |
 |2025-08-25 18:29:54  |   vcbCode 조회 :   |   VCB001   |
 |2025-08-25 18:29:54  |   VCBChkController.List  |   조회된 데이터: 1건   |
+|2025-08-25 18:40:14  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-08-25 18:40:14  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:14  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:14  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-08-25 18:40:20  |   ARMREACTORBasicController.List  |   GetARMREACTORListData 실행   |
+|2025-08-25 18:40:20  |   armreactorBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-25 18:40:20  |   DB(ARMREACTOR_BASICINFO)  |   GetAllARMREACTORBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:20  |   ARMREACTORBasicController.List  |   ARMREACTOR 데이터 로드 성공   |
+|2025-08-25 18:40:23  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:43  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-08-25 18:40:43  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:43  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2025-08-25 18:40:47  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2025-08-25 18:40:47  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:47  |   VCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2025-08-25 18:40:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:54  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-08-25 18:40:54  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:54  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-08-25 18:40:54  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:55  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-08-25 18:40:55  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:55  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-08-25 18:40:56  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:57  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:57  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:40:59  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:40:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:41:00  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-08-25 18:41:00  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:41:00  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:41:00  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-08-25 18:41:01  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:41:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:41:32  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-08-25 18:41:32  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:41:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:41:32  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2025-08-25 18:43:50  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-08-25 18:43:50  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:43:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:50  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2025-08-25 18:43:51  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:43:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:52  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2025-08-25 18:43:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:43:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:52  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2025-08-25 18:43:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-08-25 18:43:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:56  |   dcctBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-25 18:43:56  |   DB(DCCT_BASICINFO)  |   GetAllDCCTBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:57  |   armreactorBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-25 18:43:57  |   DB(ARMREACTOR_BASICINFO)  |   GetAllARMREACTORBasicInfoRepo 동작 성공   |
+|2025-08-25 18:43:59  |   saBasicInfo Data  |   총 0 건 조회됨   |
+|2025-08-25 18:43:59  |   DB(SA_BASICINFO)  |   GetAllSABasicInfoRepo 동작 성공   |

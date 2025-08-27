@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Web.Common
 {
@@ -21,7 +18,9 @@ namespace Web.Common
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
 
-        //
+        // --------------------
+        // 점검 항목
+        // --------------------
         public string CHK_1_1 { get; set; } // 탱크 표면 및 연결 부위 누유, 부식, 손상 여부 확인
         public string CHK_1_2 { get; set; } // 밸브 및 계측기 상태 점검
         public string CHK_2_1 { get; set; } // 압력, 온도 정상 범위 작동 여부 확인
@@ -29,9 +28,24 @@ namespace Web.Common
         public string CHK_3_1 { get; set; } // 안전밸브, 방폭 장치 작동 상태 확인
         public string CHK_4_1 { get; set; } // 위험 물질 및 화재 위험 요인 여부 확인
 
-        //
         public string CHK_Writer { get; set; } // 작성자
         public DateTime CHK_Tbl_GetDate { get; set; }
 
+        private string ToStatusText(string value)
+        {
+            switch (value)
+            {
+                case "1": return "정상";
+                case "5": return "이상";
+                default: return "-";
+            }
+        }
+
+        public string CHK_1_1_Text => ToStatusText(CHK_1_1);
+        public string CHK_1_2_Text => ToStatusText(CHK_1_2);
+        public string CHK_2_1_Text => ToStatusText(CHK_2_1);
+        public string CHK_2_2_Text => ToStatusText(CHK_2_2);
+        public string CHK_3_1_Text => ToStatusText(CHK_3_1);
+        public string CHK_4_1_Text => ToStatusText(CHK_4_1);
     }
 }

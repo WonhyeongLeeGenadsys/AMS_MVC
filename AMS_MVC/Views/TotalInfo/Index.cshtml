@@ -1490,13 +1490,42 @@ $(function () {
                                 { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
                                 { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
                                 { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
-                                { dataField: 'CoF', caption: 'CoF($)', alignment: 'center' },
-                                { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center' },
+                                { dataField: 'HI', caption: 'HI', alignment: 'center', dataType: 'number' },
+
                                 {
-                                    dataField: 'HI',
-                                    caption: 'HI',
+                                    dataField: 'PoF',
+                                    caption: 'PoF(%)',
                                     alignment: 'center',
-                                    dataType: 'number'
+                                    dataType: 'number',
+                                    cellTemplate: function (container, options) {
+                                        $("<div>")
+                                            .text(options.value)
+                                            .css("font-weight", "bold")
+                                            .appendTo(container);
+                                    }
+                                },
+                                {
+                                    dataField: 'CoF',
+                                    caption: 'CoF($)',
+                                    alignment: 'center',
+                                    dataType: 'number',
+                                    cellTemplate: function (container, options) {
+                                        $("<div>")
+                                            .text(options.value)
+                                            .css("font-weight", "bold")
+                                            .appendTo(container);
+                                    }
+                                },
+                                {
+                                    caption: 'PoF*CoF ($)',
+                                    alignment: 'center',
+                                    dataType: 'number',
+
+                                    calculateCellValue: function (rowData) {
+                                        var result = (rowData.PoF || 0) * (rowData.CoF || 0);
+                                        return result;
+                                    },
+                                    format: { type: "fixedPoint", precision: 2 } 
                                 }
                             ]
                         );

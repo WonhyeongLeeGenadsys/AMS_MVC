@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -96,91 +95,82 @@
                             <td>변압기 본체, 냉각 장치, 단자함 파손/부식/변형/누유 확인</td>
                             <td>이상 없음 (파손, 부식, 누유 등 무)</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">절연 점검</td>
                             <td>절연 저항 및 부분 방전 측정</td>
                             <td>절연 기준 이상 및 부분방전 없음</td>
                             <td>MΩ/pC</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">접지 점검</td>
                             <td>접지 저항 측정 및 접지선 연결 상태 확인</td>
                             <td>10Ω 이하, 접속 양호</td>
                             <td>Ω</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">온도 점검</td>
                             <td>본체, 권선, 오일 온도 측정 및 과열 여부 확인</td>
                             <td>설계 온도 이하 유지</td>
                             <td>℃</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">소음 점검</td>
                             <td>이상 소음 유무 확인</td>
                             <td>이상 소음 없을 것</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">오일 점검</td>
                             <td>절연유 레벨, 색상, 절연 내력 확인 (유입식)</td>
                             <td>레벨 정상, 색상 변화 없음, 내력 기준 이상</td>
                             <td>-</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">권선 점검</td>
                             <td>1차 및 2차 권선 저항 측정</td>
                             <td>권선 저항 기준 일치</td>
                             <td>-</td>
-                            <td>@(Model.CHK_7_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_7_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">임피던스 측정</td>
                             <td>임피던스 전압, 단락 전류 측정</td>
                             <td>정격 임피던스 및 전류 기준 부합</td>
                             <td>% / A</td>
-                            <td>@(Model.CHK_8_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_8_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">온도 상승 측정</td>
                             <td>운전 중 권선 온도 상승률 측정</td>
                             <td>과도한 온도 상승 없음</td>
                             <td>℃</td>
-                            <td>@(Model.CHK_9_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_9_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">기타 점검</td>
                             <td>보호장치, 냉각장치, 부싱 상태 점검</td>
                             <td>정상 작동 및 외관 이상 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_10_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_10_1_Text)</td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(zigzagtrCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Zig-Zag TR 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("ZIGZAGTRChkDelete", "ZIGZAGTRChk")',
@@ -200,7 +190,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

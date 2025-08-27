@@ -226,17 +226,35 @@ ORDER BY b.TBL_IDX;
         public Result DeleteSUBMODULEBasicInfoRepo(string tblIdx)
         {
             Result res = new Result(true);
+
             try
             {
-                using(DBHelper dbHelper = new DBHelper())
+                using (DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "DELETE FROM SUBMODULE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    // 1) 먼저 SUBMODULE_CODE 조회
+                    const string getCodeQuery = "SELECT SUBMODULE_CODE FROM SUBMODULE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    var submoduleCode = dbHelper.Conn.QueryFirstOrDefault<string>(getCodeQuery, new { Tbl_Idx = tblIdx });
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { Tbl_Idx = tblIdx });
+                    if (string.IsNullOrEmpty(submoduleCode))
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteSUBMODULEBasicInfoRepo 실패: 해당 Tbl_Idx의 장비를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(SUBMODULE_BASICINFO)", res.Message);
+                        return res;
+                    }
+
+                    // 2) SUBMODULE_BASICINFO 삭제
+                    const string deleteBasicQuery = "DELETE FROM SUBMODULE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteBasicQuery, new { Tbl_Idx = tblIdx });
 
                     if (affectedRows > 0)
                     {
-                        res.Message = "DeleteSUBMODULEBasicInfoRepo 성공: SUBMODULEBasicInfo Tbl_Idx: " + tblIdx;
+                        // 3) RISKMATRIX에서 해당 CODE 모든 행 삭제
+                        const string deleteRiskQuery = "DELETE FROM RISKMATRIX WHERE CODE = @SUBMODULE_Code";
+                        int riskDeleted = dbHelper.Conn.Execute(deleteRiskQuery, new { SUBMODULE_Code = submoduleCode });
+
+                        res.Message = $"DeleteSUBMODULEBasicInfoRepo 성공: Tbl_Idx={tblIdx}, SUBMODULE_CODE={submoduleCode}, " +
+                                      $"RISKMATRIX {riskDeleted}건 삭제됨";
                         LogHelper.WriteLog("DB(SUBMODULE_BASICINFO)", res.Message);
                     }
                     else
@@ -246,15 +264,14 @@ ORDER BY b.TBL_IDX;
                         LogHelper.WriteLog("DB(SUBMODULE_BASICINFO)", res.Message);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "DeleteSUBMODULEBasicInfoRepo 실패: " + ex.Message + "\n" + ex.StackTrace;
+                res.Message = "DeleteSUBMODULEBasicInfoRepo 오류: " + ex.Message + "\n" + ex.StackTrace;
                 LogHelper.WriteLog("DB(SUBMODULE_BASICINFO)", res.Message);
             }
+
             return res;
         }
     }

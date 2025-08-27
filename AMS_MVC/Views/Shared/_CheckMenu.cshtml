@@ -22,19 +22,28 @@
     </li>
     <!-- Interface TR 메뉴 -->
     <li class="has-sub @(activeMenu == "InterfaceTR" ? "active" : "")" data-menu="InterfaceTR">
-        <a href="@Url.Action("ITRChk1TotalList", "ITRChk1")" class="@(activeMenu == "InterfaceTR" ? "active" : "")">Interface TR</a>
+        <a href="@Url.Action("ITRChkTotalList", "ITRChk", new { type = 1 })" class="@(activeMenu == "InterfaceTR" ? "active" : "")">
+            Interface TR
+        </a>
         <ul class="two_depth">
             <li class="@(activeSub == "ITRRegular" ? "active" : "")">
-                <a href="@Url.Action("ITRChk1TotalList", "ITRChk1")" class="@(activeSub == "ITRRegular" ? "active" : "")">보통점검</a>
+                <a href="@Url.Action("ITRChkTotalList", "ITRChk", new { type = 1 })" class="@(activeSub == "ITRRegular" ? "active" : "")">
+                    보통점검
+                </a>
             </li>
             <li class="@(activeSub == "ITRPrecision" ? "active" : "")">
-                <a href="@Url.Action("ITRChk2TotalList", "ITRChk2")" class="@(activeSub == "ITRPrecision" ? "active" : "")">정밀점검</a>
+                <a href="@Url.Action("ITRChkTotalList", "ITRChk", new { type = 2 })" class="@(activeSub == "ITRPrecision" ? "active" : "")">
+                    정밀점검
+                </a>
             </li>
             @*<li class="@(activeSub == "ITRPrevention" ? "active" : "")">
-                    <a href="@Url.Action("Prevention", "ITRChk")" class="@(activeSub == "ITRPrevention" ? "active" : "")">예방진단</a>
+                    <a href="@Url.Action("Prevention", "ITRChk")" class="@(activeSub == "ITRPrevention" ? "active" : "")">
+                        예방진단
+                    </a>
                 </li>*@
         </ul>
     </li>
+
     <!-- SUB MODULE 메뉴 -->
     <li class="has-sub @(activeMenu == "SUBMODULE" ? "active" : "")" data-menu="SUBMODULE">
         <a href="@Url.Action("SUBMODULEChkTotalList", "SUBMODULEChk")" class="@(activeMenu == "SUBMODULE" ? "active" : "")">SUBMODULE</a>
@@ -69,13 +78,39 @@
                 <a href="@Url.Action("DCCABLEChkTotalList", "DCCABLEChk")" class="@(activeSub == "DCCABLERegular" ? "active" : "")">보통점검</a>
             </li>
             @*<li class="@(activeSub == "DCCABLEPrevention" ? "active" : "")">
-                <a href="@Url.Action("DCCABLEChkTotalList", "DCCABLEChk", new { type = "prevention" })" class="@(activeSub == "DCCABLEPrevention" ? "active" : "")">예방진단</a>
-            </li>*@
+                    <a href="@Url.Action("DCCABLEChkTotalList", "DCCABLEChk", new { type = "prevention" })" class="@(activeSub == "DCCABLEPrevention" ? "active" : "")">예방진단</a>
+                </li>*@
+        </ul>
+    </li>
+
+    <!-- SA 메뉴 -->
+    <li class="has-sub @(activeMenu == "SA" ? "active" : "")" data-menu="SA">
+        <a href="@Url.Action("SAChkTotalList", "SAChk")" class="@(activeMenu == "SA" ? "active" : "")">SA</a>
+        <ul class="two_depth">
+            <li class="@(activeSub == "SARegular" ? "active" : "")">
+                <a href="@Url.Action("SAChkTotalList", "SAChk")" class="@(activeSub == "SARegular" ? "active" : "")">보통점검</a>
+            </li>
+            @*<li class="@(activeSub == "DCCABLEPrevention" ? "active" : "")">
+                    <a href="@Url.Action("SAChkTotalList", "SAChk", new { type = "prevention" })" class="@(activeSub == "SAPrevention" ? "active" : "")">예방진단</a>
+                </li>*@
+        </ul>
+    </li>
+
+    <!--DCCT 메뉴 -->
+    <li class="has-sub @(activeMenu == "DCCT" ? "active" : "")" data-menu="DCCT">
+        <a href="@Url.Action("DCCTChkTotalList", "DCCTChk")" class="@(activeMenu == "DCCT" ? "active" : "")">DCCT</a>
+        <ul class="two_depth">
+            <li class="@(activeSub == "DCCTRegular" ? "active" : "")">
+                <a href="@Url.Action("DCCTChkTotalList", "DCCTChk")" class="@(activeSub == "DCCTRegular" ? "active" : "")">보통점검</a>
+            </li>
+            @*<li class="@(activeSub == "DCCTPrevention" ? "active" : "")">
+                    <a href="@Url.Action("DCCTChkTotalList", "DCCTChk", new { type = "prevention" })" class="@(activeSub == "DCCTPrevention" ? "active" : "")">예방진단</a>
+                </li>*@
         </ul>
     </li>
 
     <li class="has-sub @(activeMenu == "ARMREACTOR" ? "active" : "")" data-menu="ARMREACTOR">
-        <a href="@Url.Action("ARMREACTORChkTotalList", "ARMREACTORChk")" class="@(activeMenu == "ARMREACTOR" ? "active" : "")">SA</a>
+        <a href="@Url.Action("ARMREACTORChkTotalList", "ARMREACTORChk")" class="@(activeMenu == "ARMREACTOR" ? "active" : "")">ARMREACTOR</a>
         <ul class="two_depth">
             <li class="@(activeSub == "ARMREACTORRegular" ? "active" : "")">
                 <a href="@Url.Action("ARMREACTORChkTotalList", "ARMREACTORChk")" class="@(activeSub == "ARMREACTORRegular" ? "active" : "")">보통점검</a>

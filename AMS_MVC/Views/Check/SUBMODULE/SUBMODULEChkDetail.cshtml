@@ -1,4 +1,5 @@
 ﻿@model Web.Common.SUBMODULEChk
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +20,7 @@
                 <p>
                     <a href="javascript:void(0);" class="btn red del"
                        onclick="deleteChk('@submoduleCode', '@tblIdx');">삭제</a>
-                    
+
                     <a href="@Url.Action("SUBMODULEChkUpdate", "SUBMODULEChk", new { submoduleCode = submoduleCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
@@ -93,8 +94,8 @@
                             <th>Parameters</th>
                             <th>한전기준</th>
                             <th>단위</th>
-                            <th>판정기준 및 score</th>
-                            <th>가중치</th>
+                            <th>판정기준</th>
+                            <th>등급</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,38 +104,49 @@
                             <td>C-E 전압</td>
                             <td></td>
                             <td>1PU = 제조사 권장값</td>
-                            <td>@(Model.CHK_CE_Voltage)</td>
-                            <td rowspan="6"></td>
+                            <td>@(Model.CE_VoltageText)</td>
+                            @Html.HiCell((int)Model.CHK_CE_Voltage)
+
                         </tr>
                         <tr>
                             <td>G 전압</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_G_Voltage)</td>
+                            <td>@(Model.G_VoltageText)</td>
+                            @Html.HiCell((int)Model.CHK_G_Voltage)
+
                         </tr>
                         <tr>
                             <td>On 전압</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_On_Resistance)</td>
+                            <td>@(Model.OnResistanceText)</td>
+                            @Html.HiCell((int)Model.CHK_On_Resistance)
+
                         </tr>
                         <tr>
                             <td>열 저항</td>
                             <td></td>
                             <td>1PU = 제조사 권장값</td>
-                            <td>@(Model.CHK_Thermal_Resistance)</td>
+                            <td>@(Model.ThermalResistanceText)</td>
+                            @Html.HiCell((int)Model.CHK_Thermal_Resistance)
+
                         </tr>
                         <tr>
                             <td>C 전류</td>
                             <td></td>
                             <td>1PU = 정격 스위칭 시간</td>
-                            <td>@(Model.CHK_C_Current)</td>
+                            <td>@(Model.C_CurrentText)</td>
+                            @Html.HiCell((int)Model.CHK_C_Current)
+
                         </tr>
                         <tr>
                             <td>On/Off 전류</td>
                             <td></td>
                             <td>1PU = 정격 스위칭 시간</td>
-                            <td>@(Model.CHK_OnOff_Time)</td>
+                            <td>@(Model.OnOffTimeText)</td>
+                            @Html.HiCell((int)Model.CHK_OnOff_Time)
+
                         </tr>
 
                         <tr>
@@ -142,26 +154,33 @@
                             <td>절연저항</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Insulation_Resistance) </td>
-                            <td rowspan="4"></td>
+                            <td>@(Model.InsulationResistanceText) </td>
+                            @Html.HiCell((int)Model.CHK_Insulation_Resistance)
+
                         </tr>
                         <tr>
                             <td>ESR</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_ESR)</td>
+                            <td>@(Model.ESRText)</td>
+                            @Html.HiCell((int)Model.CHK_ESR)
+
                         </tr>
                         <tr>
                             <td>커패시턴스</td>
                             <td></td>
                             <td>1PU = 제조사 권장값</td>
-                            <td>@(Model.CHK_Capacitance)</td>
+                            <td>@(Model.CapacitanceText)</td>
+                            @Html.HiCell((int)Model.CHK_Capacitance)
+
                         </tr>
                         <tr>
                             <td>온도</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Temperature)</td>
+                            <td>@(Model.TemperatureText)</td>
+                            @Html.HiCell((int)Model.CHK_Temperature)
+
                         </tr>
                     </tbody>
                 </table>
@@ -169,14 +188,15 @@
         </div>
     </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
   function deleteChk(submoduleCode, tblIdx) {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+      if (!confirm("Sub Module 보통점검 정보를 삭제하시겠습니까?")) return;
 
     $.ajax({
       type: "POST",
       url: '@Url.Action("DeleteSUBMODULEChk", "SUBMODULEChk")',
-      data: { submoduleCode: submoduleCode, tblIdx: tblIdx }, 
+      data: { submoduleCode: submoduleCode, tblIdx: tblIdx },
       success: function (response) {
         if (response.success) {
             alert("SUBMODULE 보통점검 정보가 삭제되었습니다.");
@@ -191,6 +211,6 @@
       }
     });
   }
-</script>
-
+    </script>
+}
 

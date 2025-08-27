@@ -1,6 +1,5 @@
 ﻿@model Web.Common.DCCTBasicInfo
-@using Web.Common.Utlity
-
+@using Web.Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -72,6 +71,7 @@
     function deleteDCCTBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("DCCT 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteDCCTBasicInfo", "DCCTBasic")",

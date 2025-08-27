@@ -1,5 +1,5 @@
 ﻿@model Web.Common.BYPASSVALVEBasicInfo
-@using Web.Common.Utlity
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,6 +72,7 @@
     function deleteBYPASSVALVEBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("Bypass Valve 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteBYPASSVALVEBasicInfo", "BYPASSVALVEBasic")",

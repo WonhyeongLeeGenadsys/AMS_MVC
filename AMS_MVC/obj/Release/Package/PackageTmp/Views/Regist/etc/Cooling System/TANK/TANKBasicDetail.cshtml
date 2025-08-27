@@ -1,6 +1,5 @@
-﻿@model AMS_MVC.Models.TANKBasicInfo
-@using Web.Common.Utlity
-
+﻿@model Web.Common.TANKBasicInfo
+@using Web.Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -72,6 +71,7 @@
     function deleteTANKBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("Tank 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteTANKBasicInfo", "TANKBasic")",

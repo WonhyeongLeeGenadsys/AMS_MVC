@@ -16,3 +16,12 @@ D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.AssemblyReferenc
 D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CoreCompileInputs.cache
 D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.dll
 D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.pdb
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Dapper.dll
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Microsoft.Bcl.AsyncInterfaces.dll
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Runtime.CompilerServices.Unsafe.dll
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Threading.Tasks.Extensions.dll
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Dapper.xml
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
+D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Threading.Tasks.Extensions.xml
+D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CopyComplete

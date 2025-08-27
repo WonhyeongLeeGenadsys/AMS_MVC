@@ -212,17 +212,35 @@ namespace Web.Common
         public Result DeleteDCCABLEBasicInfoRepo(string tblIdx)
         {
             Result res = new Result(true);
+
             try
             {
-                using(DBHelper dbHelper = new DBHelper())
+                using (DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "DELETE FROM DCCABLE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    // 1) 먼저 DCCABLE_CODE 조회
+                    const string getCodeQuery = "SELECT DCCABLE_CODE FROM DCCABLE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    var dccableCode = dbHelper.Conn.QueryFirstOrDefault<string>(getCodeQuery, new { Tbl_Idx = tblIdx });
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { Tbl_Idx = tblIdx });
+                    if (string.IsNullOrEmpty(dccableCode))
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteDCCABLEBasicInfoRepo 실패: 해당 Tbl_Idx의 장비를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
+                        return res;
+                    }
+
+                    // 2) DCCABLE_BASICINFO 삭제
+                    const string deleteBasicQuery = "DELETE FROM DCCABLE_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteBasicQuery, new { Tbl_Idx = tblIdx });
 
                     if (affectedRows > 0)
                     {
-                        res.Message = "DeleteDCCABLEBasicInfoRepo 성공: DCCABLEBasicInfo Tbl_Idx: " + tblIdx;
+                        // 3) RISKMATRIX에서 해당 CODE 모든 행 삭제
+                        const string deleteRiskQuery = "DELETE FROM RISKMATRIX WHERE CODE = @DCCABLE_Code";
+                        int riskDeleted = dbHelper.Conn.Execute(deleteRiskQuery, new { DCCABLE_Code = dccableCode });
+
+                        res.Message = $"DeleteDCCABLEBasicInfoRepo 성공: Tbl_Idx={tblIdx}, DCCABLE_CODE={dccableCode}, " +
+                                      $"RISKMATRIX {riskDeleted}건 삭제됨";
                         LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
                     }
                     else
@@ -232,15 +250,14 @@ namespace Web.Common
                         LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "DeleteDCCABLECBBasicInfoRepo 실패: " + ex.Message + "\n" + ex.StackTrace;
+                res.Message = "DeleteDCCABLEBasicInfoRepo 오류: " + ex.Message + "\n" + ex.StackTrace;
                 LogHelper.WriteLog("DB(DCCABLE_BASICINFO)", res.Message);
             }
+
             return res;
         }
     }

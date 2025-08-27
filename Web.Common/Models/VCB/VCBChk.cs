@@ -217,8 +217,9 @@ namespace Web.Common
             {
                 switch ((int)CHK_OpenCloseTime)
                 {
-                    case 1: return "≤ 20%";
-                    case 3: return "5% ~ 10%";
+                    case 1: return "≤ 2%";
+                    case 3: return "2% ~ 5%";
+                    case 4: return "5% ~ 10%";
                     case 5: return "> 10%";
                     default: return "-";
                 }

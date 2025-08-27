@@ -297,6 +297,27 @@ namespace Web.Common
         }
 
         // DCCB 보통점검 데이터 삭제
+        //public Result DeleteDCCBChkInfoRepo(string dccbCode, string tblIdx)
+        //{
+        //    Result res = new Result(true);
+
+        //    try
+        //    {
+        //        using (DBHelper dbHelper = new DBHelper())
+        //        {
+        //            const string query = "DELETE FROM DCCB_CHK WHERE DCCB_CODE = @DCCB_Code AND TBL_IDX = @Tbl_Idx";
+
+        //            int affectedRows = dbHelper.Conn.Execute(query, new { DCCB_Code = dccbCode, Tbl_Idx = tblIdx });
+        //            res.Message = affectedRows > 0 ? "DCCB 보통점검 데이터 삭제 성공" : "DCCB 보통점검 데이터 삭제 실패";
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        res.IsSuccess = false;
+        //        res.Message = $"DeleteDCCBChkInfoRepo 실패: {ex.Message}";
+        //    }
+        //    return res;
+        //}
         public Result DeleteDCCBChkInfoRepo(string dccbCode, string tblIdx)
         {
             Result res = new Result(true);
@@ -305,10 +326,39 @@ namespace Web.Common
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM DCCB_CHK WHERE DCCB_CODE = @DCCB_Code AND TBL_IDX = @Tbl_Idx";
+                    // 1) DCCB_CHK 삭제
+                    const string deleteQuery = @"
+                DELETE FROM DCCB_CHK 
+                WHERE DCCB_CODE = @DCCB_Code AND TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteQuery, new { DCCB_Code = dccbCode, Tbl_Idx = tblIdx });
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { DCCB_Code = dccbCode, Tbl_Idx = tblIdx });
-                    res.Message = affectedRows > 0 ? "DCCB 보통점검 데이터 삭제 성공" : "DCCB 보통점검 데이터 삭제 실패";
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "DCCB 보통점검 데이터 삭제 성공";
+
+                        // 2) RISKMATRIX 최신 행의 HI, POF 초기화
+                        const string updateRisk = @"
+                    UPDATE RISKMATRIX
+                    SET HI = 0,
+                        POF = 0
+                    WHERE CODE = @DCCB_Code
+                      AND LASTTIME = (
+                          SELECT MAX(LASTTIME) 
+                          FROM RISKMATRIX 
+                          WHERE CODE = @DCCB_Code
+                      )";
+                        int riskUpdated = dbHelper.Conn.Execute(updateRisk, new { DCCB_Code = dccbCode });
+
+                        if (riskUpdated > 0)
+                            res.Message += " + RISKMATRIX 최신 HI/PoF 초기화";
+                        else
+                            res.Message += " + RISKMATRIX 업데이트 없음";
+                    }
+                    else
+                    {
+                        res.Message = "DCCB 보통점검 데이터 삭제 실패";
+                        res.IsSuccess = false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -316,7 +366,9 @@ namespace Web.Common
                 res.IsSuccess = false;
                 res.Message = $"DeleteDCCBChkInfoRepo 실패: {ex.Message}";
             }
+
             return res;
         }
+
     }
 }

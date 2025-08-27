@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.SUBMODULEChk
+﻿@model Web.Common.SUBMODULEChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +19,7 @@
                 <p>
                     <a href="javascript:void(0);" class="btn red del"
                        onclick="deleteChk('@submoduleCode', '@tblIdx');">삭제</a>
-                    
+
                     <a href="@Url.Action("SUBMODULEChkUpdate", "SUBMODULEChk", new { submoduleCode = submoduleCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
@@ -169,14 +169,15 @@
         </div>
     </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
   function deleteChk(submoduleCode, tblIdx) {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+      if (!confirm("Sub Module 보통점검 정보를 삭제하시겠습니까?")) return;
 
     $.ajax({
       type: "POST",
       url: '@Url.Action("DeleteSUBMODULEChk", "SUBMODULEChk")',
-      data: { submoduleCode: submoduleCode, tblIdx: tblIdx }, 
+      data: { submoduleCode: submoduleCode, tblIdx: tblIdx },
       success: function (response) {
         if (response.success) {
             alert("SUBMODULE 보통점검 정보가 삭제되었습니다.");
@@ -191,6 +192,6 @@
       }
     });
   }
-</script>
-
+    </script>
+}
 

@@ -234,7 +234,7 @@ WHERE ITR_CODE = @ITR_Code
             return res;
         }
 
-        // VCB 보통점검 데이터 삭제
+        // ITR 정밀점검 데이터 삭제
         public Result DeleteITRChk2InfoRepo(string itrCode, string tblIdx)
         {
             Result res = new Result(true);

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace Web.Common
 {
@@ -21,7 +18,7 @@ namespace Web.Common
         public DateTime? CHK_Start_Date { get; set; }
         public DateTime? CHK_End_Date { get; set; }
 
-        //
+        // 점검 항목
         public string CHK_1_1 { get; set; } // 부싱의 균열 및 오손 여부 확인/청소
         public string CHK_1_2 { get; set; } // 절연유 누유 여부 확인
         public string CHK_1_3 { get; set; } // 절연 열화 진단
@@ -29,8 +26,25 @@ namespace Web.Common
         public string CHK_2_2 { get; set; } // 유중 가스 분석
         public string CHK_2_3 { get; set; } // 수분 측정
 
-        //
         public string CHK_Writer { get; set; } // 작성자     
         public DateTime CHK_Tbl_GetDate { get; set; }
+
+
+        private string ToStatusText(string value)
+        {
+            switch (value)
+            {
+                case "1": return "정상";
+                case "5": return "이상";
+                default: return "-";
+            }
+        }
+
+        public string CHK_1_1_Text => ToStatusText(CHK_1_1);
+        public string CHK_1_2_Text => ToStatusText(CHK_1_2);
+        public string CHK_1_3_Text => ToStatusText(CHK_1_3);
+        public string CHK_2_1_Text => ToStatusText(CHK_2_1);
+        public string CHK_2_2_Text => ToStatusText(CHK_2_2);
+        public string CHK_2_3_Text => ToStatusText(CHK_2_3);
     }
 }

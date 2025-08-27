@@ -235,16 +235,35 @@ ORDER BY b.TBL_IDX;
         public Result DeleteVCBBasicInfoRepo(string tblIdx)
         {
             Result res = new Result(true);
+
             try
             {
                 using (DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "DELETE FROM VCB_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
-                    int affectedRows = dbHelper.Conn.Execute(query, new { Tbl_Idx = tblIdx });
+                    // 1) 먼저 VCB_CODE 조회
+                    const string getCodeQuery = "SELECT VCB_CODE FROM VCB_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    var vcbCode = dbHelper.Conn.QueryFirstOrDefault<string>(getCodeQuery, new { Tbl_Idx = tblIdx });
+
+                    if (string.IsNullOrEmpty(vcbCode))
+                    {
+                        res.IsSuccess = false;
+                        res.Message = "DeleteVCBBasicInfoRepo 실패: 해당 Tbl_Idx의 장비를 찾을 수 없습니다.";
+                        LogHelper.WriteLog("DB(VCB_BASICINFO)", res.Message);
+                        return res;
+                    }
+
+                    // 2) VCB_BASICINFO 삭제
+                    const string deleteBasicQuery = "DELETE FROM VCB_BASICINFO WHERE TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteBasicQuery, new { Tbl_Idx = tblIdx });
 
                     if (affectedRows > 0)
                     {
-                        res.Message = "DeleteVCBBasicInfoRepo 성공: VCBBasicInfo Tbl_Idx: " + tblIdx;
+                        // 3) RISKMATRIX에서 해당 CODE 모든 행 삭제
+                        const string deleteRiskQuery = "DELETE FROM RISKMATRIX WHERE CODE = @VCB_Code";
+                        int riskDeleted = dbHelper.Conn.Execute(deleteRiskQuery, new { VCB_Code = vcbCode });
+
+                        res.Message = $"DeleteVCBBasicInfoRepo 성공: Tbl_Idx={tblIdx}, VCB_CODE={vcbCode}, " +
+                                      $"RISKMATRIX {riskDeleted}건 삭제됨";
                         LogHelper.WriteLog("DB(VCB_BASICINFO)", res.Message);
                     }
                     else
@@ -258,9 +277,10 @@ ORDER BY b.TBL_IDX;
             catch (Exception ex)
             {
                 res.IsSuccess = false;
-                res.Message = "DeleteVCBBasicInfoRepo 실패: " + ex.Message + "\n" + ex.StackTrace;
+                res.Message = "DeleteVCBBasicInfoRepo 오류: " + ex.Message + "\n" + ex.StackTrace;
                 LogHelper.WriteLog("DB(VCB_BASICINFO)", res.Message);
             }
+
             return res;
         }
     }

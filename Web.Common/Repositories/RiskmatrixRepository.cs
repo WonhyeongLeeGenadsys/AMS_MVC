@@ -395,36 +395,49 @@ namespace Web.Common
         /// </summary>
         public IEnumerable<Riskmatrix> GetRiskMatrixHistory(string prefix = null)
         {
-            string[] codePrefixes;
-            if (string.IsNullOrEmpty(prefix))
-                codePrefixes = new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
-            else if (prefix == "AC")
-                codePrefixes = new[] { "VCB", "ITR" };
-            else if (prefix == "DC")
-                codePrefixes = new[] { "DCCB", "DCCABLE", "SUBMODULE" };
-            else
-                codePrefixes = new[] { prefix };
+            string[] codePrefixes = GetCodePrefixes(prefix);
 
-            var clauses = codePrefixes
+            var whereClauses = codePrefixes
                 .Select((p, i) => $"CODE LIKE @p{i}")
                 .ToArray();
-            var sql = $@"
-            SELECT
-                CODE,
-                LASTTIME,
-                HI,
-                POF,
-                COF
-            FROM RISKMATRIX
-            WHERE {string.Join(" OR ", clauses)}
-            ORDER BY CODE, LASTTIME";
+
+            string sql = $@"
+        SELECT
+            CODE,
+            LASTTIME,
+            HI,
+            POF,
+            COF
+        FROM RISKMATRIX
+        WHERE {string.Join(" OR ", whereClauses)}
+        ORDER BY CODE, LASTTIME";
 
             var dp = new DynamicParameters();
             for (int i = 0; i < codePrefixes.Length; i++)
+            {
                 dp.Add($"p{i}", codePrefixes[i] + "%");
+            }
 
             using (var db = new DBHelper())
+            {
                 return db.Conn.Query<Riskmatrix>(sql, dp);
+            }
+        }
+
+        private string[] GetCodePrefixes(string prefix)
+        {
+            if (string.IsNullOrEmpty(prefix))
+                return new[] { "VCB", "ITR", "DCCB", "DCCABLE", "SUBMODULE" };
+
+            switch (prefix)
+            {
+                case "AC":
+                    return new[] { "VCB", "ITR" };
+                case "DC":
+                    return new[] { "DCCB", "DCCABLE", "SUBMODULE" };
+                default:
+                    return new[] { prefix };
+            }
         }
     }
 }

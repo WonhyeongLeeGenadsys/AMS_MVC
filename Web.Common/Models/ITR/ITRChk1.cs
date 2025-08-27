@@ -217,7 +217,7 @@ namespace Web.Common
                 }
             }
         }
-        public string SFAText
+        public string SFRAText
         {
             get
             {

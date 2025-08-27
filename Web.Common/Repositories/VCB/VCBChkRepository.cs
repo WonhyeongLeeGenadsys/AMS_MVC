@@ -362,12 +362,41 @@ namespace Web.Common
 
             try
             {
-                using(DBHelper dbHelper = new DBHelper())
+                using (DBHelper dbHelper = new DBHelper())
                 {
-                    const string query = "DELETE FROM VCB_CHK WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                    // 1) VCB_CHK 삭제
+                    const string deleteQuery = @"
+                DELETE FROM VCB_CHK 
+                WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
+                    int affectedRows = dbHelper.Conn.Execute(deleteQuery, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx });
 
-                    int affectedRows = dbHelper.Conn.Execute(query, new { VCB_Code = vcbCode, Tbl_Idx = tblIdx });
-                    res.Message = affectedRows > 0 ? "VCB 보통점검 데이터 삭제 성공" : "VCB 보통점검 데이터 삭제 실패";
+                    if (affectedRows > 0)
+                    {
+                        res.Message = "VCB 보통점검 데이터 삭제 성공";
+
+                        // 2) RISKMATRIX 최신 행의 HI, POF 초기화
+                        const string updateRisk = @"
+                    UPDATE RISKMATRIX
+                    SET HI = 0,
+                        POF = 0
+                    WHERE CODE = @VCB_Code
+                      AND LASTTIME = (
+                          SELECT MAX(LASTTIME) 
+                          FROM RISKMATRIX 
+                          WHERE CODE = @VCB_Code
+                      )";
+                        int riskUpdated = dbHelper.Conn.Execute(updateRisk, new { VCB_Code = vcbCode });
+
+                        if (riskUpdated > 0)
+                            res.Message += " + RISKMATRIX 최신 HI/PoF 초기화";
+                        else
+                            res.Message += " + RISKMATRIX 업데이트 없음";
+                    }
+                    else
+                    {
+                        res.Message = "VCB 보통점검 데이터 삭제 실패";
+                        res.IsSuccess = false;
+                    }
                 }
             }
             catch (Exception ex)
@@ -375,7 +404,10 @@ namespace Web.Common
                 res.IsSuccess = false;
                 res.Message = $"DeleteVCBChkInfoRepo 실패: {ex.Message}";
             }
+
             return res;
         }
+
+
     }
 }
