@@ -58,6 +58,7 @@ namespace Web.Common
         public float CHK_OpenCloseTime { get; set; }
         public float CHK_VisualCheck { get; set; }
         public int FoldingFunction { get; set; }
+        public DateTime? CHK_Update_Time { get; set; }
         //
         public DateTime CHK_Tbl_GetDate { get; set; }
 

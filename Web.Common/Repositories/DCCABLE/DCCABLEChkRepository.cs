@@ -263,6 +263,7 @@ namespace Web.Common
                     CHK_TAN_DELTA = @CHK_Tan_Delta,
                     CHK_RESISTANCE = @CHK_Resistance,
                     CHK_TDR = @CHK_TDR,
+                    CHK_UPDATE_TIME = GETDATE(),
                     FOLDINGFUNCTION = @FoldingFunction
                     
                 WHERE DCCABLE_CODE = @DCCABLE_Code AND TBL_IDX = @Tbl_Idx";

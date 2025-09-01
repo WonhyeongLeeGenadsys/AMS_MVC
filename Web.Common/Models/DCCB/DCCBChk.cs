@@ -32,6 +32,8 @@ namespace Web.Common
         public float CHK_OnOff_Time { get; set; }      // T_on,off
 
         public int FoldingFunction { get; set; }
+        public DateTime? CHK_Update_Time { get; set; }
+
         public DateTime CHK_Tbl_GetDate { get; set; }
 
         public string MainCircuitInsulationStrengthText

@@ -39,11 +39,14 @@ namespace AMS_DATA
             var basicRepo = new VCBBasicInfoRepository();
             var ITRBasicRepo = new ITRBasicInfoRepository();
 
-            var latestCode = basicRepo.GetLatestVCBCode();
-            var ITRLatestCode = ITRBasicRepo.GetLatestITRCode();
 
-            var basicInfo = basicRepo.GetVCBBasicInfoByCode(latestCode);
-            var ITRbasicInfo = ITRBasicRepo.GetITRBasicInfoByITRCode(ITRLatestCode);
+            // 기본 정보에서 최근 생성된 기본 정보의 코드
+            //var latestCode = basicRepo.GetLatestVCBCode();
+            //var ITRLatestCode = ITRBasicRepo.GetLatestITRCode();
+
+            // 고정으로 "VCB001"
+            var basicInfo = basicRepo.GetVCBBasicInfoByCode("VCB001");
+            var ITRbasicInfo = ITRBasicRepo.GetITRBasicInfoByITRCode("ITR001");
 
             Console.WriteLine($"▶ 처리할 VCB_CODE: {basicInfo.VCB_Code}, Serial: {basicInfo.Serial_No}\n");
             Console.WriteLine($"▶ 처리할 ITR_CODE: {ITRbasicInfo.ITR_Code}, Serial: {ITRbasicInfo.Serial_No}\n");

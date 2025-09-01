@@ -1,0 +1,32 @@
+|2025-09-01 10:09:37  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-09-01 10:09:37  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-09-01 10:09:37  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-09-01 10:09:37  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-09-01 10:09:45  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2025-09-01 10:09:45  |   vcbCode 조회 :   |   VCB001   |
+|2025-09-01 10:09:45  |   VCBChkController.List  |   조회된 데이터: 2건   |
+|2025-09-01 10:09:46  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-09-01 10:09:46  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-09-01 10:09:46  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-09-01 10:09:46  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-09-01 10:09:48  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-09-01 10:09:48  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-09-01 10:09:48  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-09-01 10:09:48  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-09-01 10:09:49  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-09-01 10:09:56  |   DB(DCCB_BASICINFO)  |   CreateDCCBBasicInfoRepo 성공: DCCB Serial_No: 1   |
+|2025-09-01 10:09:57  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2025-09-01 10:09:57  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-09-01 10:09:57  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-09-01 10:09:57  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2025-09-01 10:10:08  |   DCCBChkController.List  |   GetDCCBChkListData 실행   |
+|2025-09-01 10:10:08  |   dccbCode 조회 :   |   DCCB001   |
+|2025-09-01 10:10:08  |   DCCBChkController.List  |   조회된 데이터: 0건   |
+|2025-09-01 10:10:08  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-09-01 10:10:08  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-09-01 10:10:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-09-01 10:10:19  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2025-09-01 10:10:19  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=5, baseCof=5651.211040025, pof%=100, adjustedCof=5651.21, ok=True   |
+|2025-09-01 10:10:20  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-09-01 10:10:20  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-09-01 10:10:20  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |

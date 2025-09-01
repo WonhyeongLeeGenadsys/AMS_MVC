@@ -339,6 +339,7 @@ namespace Web.Common
                     CHK_OPERATIONCOUNT = @CHK_OperationCount,
                     CHK_OPENCLOSETIME = @CHK_OpenCloseTime,
                     CHK_VISUALCHECK = @CHK_VisualCheck,
+                    CHK_UPDATE_TIME = GETDATE(),
                     FOLDINGFUNCTION = @FoldingFunction                
                  WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";
 

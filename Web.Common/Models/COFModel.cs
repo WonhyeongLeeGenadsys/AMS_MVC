@@ -11,7 +11,10 @@ namespace Web.Common
         public decimal Power_Failure_Time { get; set; }             // 정전 시간 (h)
         public decimal Power_Failure_Cost { get; set; }             // 정전 비용 (원/kWh 등)
         public decimal Probability_Of_Power_Failure { get; set; }   // 정전 발생 확률 (%)
-        public decimal Capacity { get; set; }                       // 용량 (kW)
+
+        public decimal Capacity { get; set; }                       // 용량 (kW) (고객 정전 비용)
+        public decimal? Capacity_SystemLoss { get; set; }            // 계통 손실 비용 용량(DC Cable) 전용
+
         public decimal Power_Factor { get; set; }                   // 역률 (%)
         public decimal Coefficient { get; set; }                    // 계수 (추가 계산용, 예: 손실계수 등)
 

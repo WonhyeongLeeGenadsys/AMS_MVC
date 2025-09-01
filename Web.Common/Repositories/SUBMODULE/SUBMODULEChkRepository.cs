@@ -280,6 +280,7 @@ namespace Web.Common
                     CHK_ESR = @CHK_ESR,
                     CHK_CAPACITANCE = @CHK_Capacitance,
                     CHK_TEMPERATURE = @CHK_Temperature,
+                    CHK_UPDATE_TIME = GETDATE(),
                     FOLDINGFUNCTION = @FoldingFunction
 
                 WHERE SUBMODULE_CODE = @SUBMODULE_Code AND TBL_IDX = @Tbl_Idx";

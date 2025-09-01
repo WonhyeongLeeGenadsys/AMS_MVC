@@ -95,16 +95,15 @@ namespace AMS_MVC
         [HttpPost]
         public ActionResult GetTotalVCBChkListData()
         {
-            // 1) 전체 점검 데이터 조회
+            //  전체 점검 데이터 조회
             var repoResult = vcbChkRepository.GetTotalVCBChk(out var vcbChks);
             if (!repoResult.IsSuccess)
                 return Json(new { success = false, message = repoResult.Message });
 
-            // 2) VCB 기본정보 전체 조회 → 코드별 매핑용 딕셔너리 생성
+            //  VCB 기본정보 전체 조회 → 코드별 매핑용 딕셔너리 생성
             vcbBasicInfoRepository.GetAllVCBBasicInfoRepo(out var basics);
             var basicMap = basics.ToDictionary(b => b.VCB_Code, b => b);
 
-            // 3) JSON 응답용 객체에 Name, Serial_No 및 모든 CHK_* 필드를 한 번에 담기
             var formatted = vcbChks.Select(item =>
             {
                 basicMap.TryGetValue(item.VCB_Code, out var basic);

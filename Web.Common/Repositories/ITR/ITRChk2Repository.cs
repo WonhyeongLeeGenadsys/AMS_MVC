@@ -215,7 +215,8 @@ SET
     CHK2_SHORT_CURRENT       = @CHK2_Short_Current,
     CHK2_VOLTAGE_RATIO       = @CHK2_Voltage_Ratio,
     CHK2_PD                  = @CHK2_PD,
-    CHK2_WRITER              = @CHK2_Writer
+    CHK2_WRITER              = @CHK2_Writer,
+    CHK_UPDATE_TIME          = GETDATE(),
 WHERE ITR_CODE = @ITR_Code
   AND TBL_IDX   = @Tbl_Idx";
 

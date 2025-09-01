@@ -17,6 +17,7 @@ SELECT TOP 1
     POWER_FAILURE_COST                 AS Power_Failure_Cost,
     PROBABILITY_OF_POWER_FAILURE       AS Probability_Of_Power_Failure,
     CAPACITY                           AS Capacity,
+    CAPACITY_SYSTEMLOSS                AS Capacity_SystemLoss,
     POWER_FACTOR                       AS Power_Factor,
     COEFFICIENT                        AS Coefficient,
     AVERAGE_UTILIZATION_RATE           AS Average_Utilization_Rate,
@@ -70,6 +71,7 @@ UPDATE COF SET
     POWER_FAILURE_COST                  = @Power_Failure_Cost,
     PROBABILITY_OF_POWER_FAILURE        = @Probability_Of_Power_Failure,
     CAPACITY                            = @Capacity,
+    CAPACITY_SYSTEMLOSS                 = @Capacity_SystemLoss,    
     POWER_FACTOR                        = @Power_Factor,
     COEFFICIENT                         = @Coefficient,
     AVERAGE_UTILIZATION_RATE            = @Average_Utilization_Rate,
@@ -102,14 +104,13 @@ WHERE TBL_IDX = @Tbl_Idx;
 ";
                 using (var db = new DBHelper())
                 {
-                    // 주의: 뷰에서 HiddenFor로 넘어온 m.Tbl_Idx를 쓰되,
-                    // 안전하게 오늘자 최신행을 타깃으로 강제하려면 아래처럼 latest를 사용할 수도 있습니다.
                     db.Conn.Execute(updateSql, new
                     {
                         m.Power_Failure_Time,
                         m.Power_Failure_Cost,
                         m.Probability_Of_Power_Failure,
                         m.Capacity,
+                        m.Capacity_SystemLoss,
                         m.Power_Factor,
                         m.Coefficient,
                         m.Average_Utilization_Rate,
@@ -156,6 +157,7 @@ INSERT INTO COF (
     POWER_FAILURE_COST,
     PROBABILITY_OF_POWER_FAILURE,
     CAPACITY,
+    CAPACITY_SYSTEMLOSS,
     POWER_FACTOR,
     COEFFICIENT,
     AVERAGE_UTILIZATION_RATE,
@@ -190,6 +192,7 @@ INSERT INTO COF (
     @Power_Failure_Cost,
     @Probability_Of_Power_Failure,
     @Capacity,
+    @Capacity_SystemLoss,
     @Power_Factor,
     @Coefficient,
     @Average_Utilization_Rate,

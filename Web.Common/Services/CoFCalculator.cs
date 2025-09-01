@@ -78,7 +78,7 @@ namespace Web.Common
             // (2) 계통 손실 비용 
             decimal denom = (SQRT3 * m.Rated_Voltage);
             m.System_Loss_Cost =
-               ((m.Capacity * 1000m) / denom)
+               (((m.Capacity_SystemLoss ?? m.Capacity) * 1000m) / denom) //DCCABLE 용량 필드 2개 때문에 만약 계통 손실 비용 전용 "용량" 필드가 없다면 "공통 용량" nullable 처리!!!
               * (m.Average_Utilization_Rate / 100m)
               * m.Track_Length
               * m.Facility_Recovery_Time
@@ -88,12 +88,19 @@ namespace Web.Common
             m.Facility_Recovery_Cost =
                 (m.Equipment_Unit_Price + (m.Facility_Contracting_Cost * m.Emergency_Construction_Surcharge_Rate)) * ((m.Replacement_Probability / 100m)* m.Power_Failure_Time);
 
-            // (4) 전력 판매 수익 손실
-            m.Loss_Of_Profit =
-                (m.Capacity * (m.Average_Utilization_Rate / 100m) * m.Power_Failure_Time)
-              * m.Average_Electricity_Sales_Cost
-              * (m.Probability_Of_Power_Failure / 100m)
-              * 1000m;
+            // (4) 전력 판매 수익 손실 (DC Cable 평균 이용률 있어서 결과값 나오면 안됨!!)
+            if(m.Code == "DCCABLE")
+            {
+                m.Loss_Of_Profit = 0;
+            }
+            else
+            {
+                m.Loss_Of_Profit = (m.Capacity * (m.Average_Utilization_Rate / 100m) 
+                * m.Power_Failure_Time)
+                * m.Average_Electricity_Sales_Cost
+                * (m.Probability_Of_Power_Failure / 100m)
+                * 1000m;
+            }
 
             // (5) 안전사고 보상
             m.Safety_Accident_Compensation_1 =

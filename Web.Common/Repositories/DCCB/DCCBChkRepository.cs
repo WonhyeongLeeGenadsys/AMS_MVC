@@ -279,6 +279,7 @@ namespace Web.Common
                     CHK_THERMAL_RESISTANCE = @CHK_Thermal_Resistance,
                     CHK_C_CURRENT = @CHK_C_Current,
                     CHK_ONOFF_TIME = @CHK_OnOff_Time,
+                    CHK_UPDATE_TIME = GETDATE(),
                     FOLDINGFUNCTION = @FoldingFunction
 
                 WHERE DCCB_CODE = @DCCB_Code AND TBL_IDX = @Tbl_Idx";

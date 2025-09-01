@@ -13,5 +13,6 @@ namespace Web.Common
         public decimal Pof { get; set; }
         public string HI { get; set; }
         public DateTime LastTime { get; set; }
+        //public DateTime UpdateTime { get; set; }        
     }
 }

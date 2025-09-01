@@ -30,7 +30,8 @@ namespace Web.Common
         public int CHK2_PD { get; set; } // 부분 방전
         public int FoldingFunction { get; set; }
 
-        // 작성자·날짜
+        public DateTime? CHK_Update_Time { get; set; }
+
         public string CHK2_Writer { get; set; }
         public DateTime CHK2_Tbl_GetDate { get; set; }
 

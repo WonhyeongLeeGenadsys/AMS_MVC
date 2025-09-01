@@ -21,6 +21,7 @@ namespace AMS_MVC
         {
             ViewBag.MenuType = "Check";
             ViewBag.ActiveMenu = "InterfaceTR";
+
             _companyRepo = new CompanyRepository();
             _basicRepo = new ITRBasicInfoRepository();
             _chk1Repo = new ITRChk1Repository();
