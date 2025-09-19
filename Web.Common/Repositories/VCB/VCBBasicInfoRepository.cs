@@ -35,8 +35,6 @@ namespace Web.Common
             }
         }
 
-
-
         /// <summary>
         /// VCB 기본정보 전체 불러오기
         /// </summary>
@@ -81,28 +79,28 @@ namespace Web.Common
                 {
                     // 각 CODE별로 LASTTIME 기준 최신 행만 뽑아서 JOIN
                     var query = @"
-SELECT 
-    b.TBL_IDX, 
-    b.VCB_Code, 
-    b.Serial_No, 
-    b.Install_Date, 
-    b.Operating_Date, 
-    r_latest.HI
-FROM VCB_BASICINFO b
-LEFT JOIN (
-    SELECT CODE, HI
-    FROM (
-        SELECT 
-            CODE, 
-            HI,
-            ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
-        FROM RISKMATRIX
-    ) t
-    WHERE t.rn = 1
-) r_latest
-    ON b.VCB_Code = r_latest.CODE
-ORDER BY b.TBL_IDX;
-";
+                    SELECT 
+                        b.TBL_IDX, 
+                        b.VCB_Code, 
+                        b.Serial_No, 
+                        b.Install_Date, 
+                        b.Operating_Date, 
+                        r_latest.HI
+                    FROM VCB_BASICINFO b
+                    LEFT JOIN (
+                        SELECT CODE, HI
+                        FROM (
+                            SELECT 
+                                CODE, 
+                                HI,
+                                ROW_NUMBER() OVER(PARTITION BY CODE ORDER BY LASTTIME DESC) AS rn
+                            FROM RISKMATRIX
+                        ) t
+                        WHERE t.rn = 1
+                    ) r_latest
+                        ON b.VCB_Code = r_latest.CODE
+                    ORDER BY b.TBL_IDX;
+                    ";
 
                     vcbInfoWithRisk = dbHelper.Conn.Query(query).AsList();
                 }
@@ -129,12 +127,12 @@ ORDER BY b.TBL_IDX;
                         {
                             // VCB_BASICINFO 테이블에 데이터 삽입
                             var queryBasicInfo = @"
-                INSERT INTO VCB_BASICINFO (VCB_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
+                            INSERT INTO VCB_BASICINFO (VCB_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                              INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, 
                                              IS_DIAGNOSTICS, IS_HEALTH, WRITER) 
-                VALUES (@VCB_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
-                        @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-                        @Is_Health, @Writer)";
+                            VALUES (@VCB_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
+                                    @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
+                                    @Is_Health, @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newVCBBasicInfo, transaction);
 
@@ -142,10 +140,9 @@ ORDER BY b.TBL_IDX;
                             {
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
-                    INSERT INTO RISKMATRIX (CODE, COF, POF) 
-                    VALUES (@VCB_Code, @DefaultCof, @DefaultPof)";
+                                INSERT INTO RISKMATRIX (CODE, COF, POF,LASTTIME) 
+                                VALUES (@VCB_Code, @DefaultCof, @DefaultPof, GETDATE())";
 
-                                // 초기 COF와 POF 값은 기본값으로 설정 (필요시 변경)
                                 var riskMatrixData = new
                                 {
                                     VCB_Code = newVCBBasicInfo.VCB_Code,
@@ -193,23 +190,23 @@ ORDER BY b.TBL_IDX;
                 {
                     // VCB_CODE를 기준으로 업데이트
                     var query = @"
-            UPDATE VCB_BASICINFO
-            SET 
-                NAME = @Name, 
-                INSTALL_DATE = @Install_Date, 
-                OPERATING_DATE = @Operating_Date, 
-                PRICE = @Price, 
-                INSTALL_PLACE = @Install_Place, 
-                CAPACITY = @Capacity, 
-                RATED_V = @Rated_V, 
-                RATED_A = @Rated_A, 
-                MAKE_COMPANY = @Make_Company, 
-                MAKE_NO = @Make_No, 
-                PHOTO = @Photo, 
-                IS_DIAGNOSTICS = @Is_Diagnostics, 
-                IS_HEALTH = @Is_Health, 
-                WRITER = @Writer
-            WHERE VCB_CODE = @VCB_Code";
+                    UPDATE VCB_BASICINFO
+                    SET 
+                        NAME = @Name, 
+                        INSTALL_DATE = @Install_Date, 
+                        OPERATING_DATE = @Operating_Date, 
+                        PRICE = @Price, 
+                        INSTALL_PLACE = @Install_Place, 
+                        CAPACITY = @Capacity, 
+                        RATED_V = @Rated_V, 
+                        RATED_A = @Rated_A, 
+                        MAKE_COMPANY = @Make_Company, 
+                        MAKE_NO = @Make_No, 
+                        PHOTO = @Photo, 
+                        IS_DIAGNOSTICS = @Is_Diagnostics, 
+                        IS_HEALTH = @Is_Health, 
+                        WRITER = @Writer
+                    WHERE VCB_CODE = @VCB_Code";
 
                     int affectedRows = dbHelper.Conn.Execute(query, vcbBasicInfo);
                     if (affectedRows > 0)

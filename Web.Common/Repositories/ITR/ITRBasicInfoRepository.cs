@@ -138,8 +138,8 @@ ORDER BY b.TBL_IDX;
                             {
                                 //RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
-                            INSERT INTO RISKMATRIX (CODE, COF, POF)
-                            VALUES (@ITR_Code, @DefaultCof, @DefaultPof)";
+                            INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME)
+                            VALUES (@ITR_Code, @DefaultCof, @DefaultPof, GETDATE())";
 
                                 var riskMatrixData = new
                                 {

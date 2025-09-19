@@ -248,96 +248,6 @@ namespace Web.Common
             }
         }
 
-        //public Result UpdateRiskMatrixHI(string code, int newHI, decimal newCof, decimal newPof)
-        //{
-        //    var res = new Result(true);
-        //    try
-        //    {
-        //        using (var db = new DBHelper())
-        //        using (var conn = db.Conn)
-        //        {
-        //            // 1) TBL_IDX, HI, Pof, LASTTIME 모두 가져오기
-        //            const string selectSql = @"
-        //            SELECT TOP 1 
-        //                TBL_IDX,
-        //                HI,
-        //                Cof,
-        //                Pof,
-        //                LASTTIME
-        //            FROM RISKMATRIX
-        //            WHERE CODE = @Code
-        //            ORDER BY 
-        //            CASE WHEN LASTTIME IS NULL THEN 0 ELSE 1 END DESC,  -- NULL은 가장 먼저
-        //            LASTTIME DESC";
-        //            var latest = conn.QueryFirstOrDefault<(int TblIdx, int? HI, string Cof, string Pof, DateTime? LASTTIME)>(
-        //                selectSql, new { Code = code });
-
-        //            var today = DateTime.Today;
-        //            string cofText = newCof.ToString("F2");
-        //            string pofText = newPof.ToString("F6"); // 소수점 6자리
-
-        //            if (latest.TblIdx != 0 && latest.LASTTIME == null)
-        //            {
-        //                //  초기 BASICINFO 생성 때 들어간 행 
-        //                const string updateInitialSql = @"
-        //                UPDATE RISKMATRIX                                                                        
-        //                    SET HI      = @HI,
-        //                        Cof     = @Cof,
-        //                        Pof     = @Pof,
-        //                        LASTTIME = GETDATE()
-        //                WHERE TBL_IDX = @TblIdx";
-        //                conn.Execute(updateInitialSql, new
-        //                {
-        //                    TblIdx = latest.TblIdx,
-        //                    HI = newHI,
-        //                    Cof = cofText,
-        //                    Pof = pofText
-        //                });
-        //                res.Message = $"[{code}] 초기 행 업데이트 (HI={newHI}, Cof = {cofText}, PoF={pofText})";
-        //            }
-        //            else if (latest.LASTTIME.HasValue && latest.LASTTIME.Value.Date == today)
-        //            {
-        //                // 같은 날 이미 업데이트된 행
-        //                const string updateTodaySql = @"
-        //                UPDATE RISKMATRIX
-        //                    SET HI      = @HI,
-        //                    Cof     = @Cof,
-        //                    Pof     = @Pof,
-        //                    LASTTIME = GETDATE()
-        //                WHERE TBL_IDX = @TblIdx";
-        //                conn.Execute(updateTodaySql, new
-        //                {
-        //                    TblIdx = latest.TblIdx,
-        //                    HI = newHI,
-        //                    Cof = cofText,
-        //                    Pof = pofText
-        //                });
-        //                res.Message = $"[{code}] 오늘({today:yyyy-MM-dd}) 행 업데이트 (HI={newHI}, CoF = {cofText}, PoF={pofText})";
-        //            }
-        //            else
-        //            {
-        //                // 새로운 날짜면 INSERT
-        //                const string insertSql = @"
-        //                INSERT INTO RISKMATRIX (CODE, HI, Cof, Pof, LASTTIME)
-        //                VALUES (@Code, @HI, @Cof, @Pof, GETDATE())";
-        //                conn.Execute(insertSql, new
-        //                {
-        //                    Code = code,
-        //                    HI = newHI,
-        //                    Cof = cofText,
-        //                    Pof = pofText
-        //                });
-        //                res.Message = $"[{code}] 새 날짜({today:yyyy-MM-dd}) 행 추가 (HI={newHI}, Cof = {cofText}, PoF={pofText})";
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        res.IsSuccess = false;
-        //        res.Message = "RiskMatrix HI·PoF 업데이트 오류: " + ex.Message;
-        //    }
-        //    return res;
-        //}
         public Result UpdateRiskMatrixHI(string code, int newHI, decimal newCof, decimal newPof)
         {
             var res = new Result(true);
@@ -351,9 +261,10 @@ namespace Web.Common
                 SELECT TOP 1 
                     TBL_IDX,
                     HI,
-                    Cof,
-                    Pof,
+                    COF,
+                    POF,
                     LASTTIME,
+                    UPDATETIME
                 FROM RISKMATRIX
                 WHERE CODE = @Code
                 ORDER BY 
@@ -372,8 +283,9 @@ namespace Web.Common
                         const string updateSql = @"
                     UPDATE RISKMATRIX
                         SET HI         = @HI,
-                            Cof        = @Cof,
-                            Pof        = @Pof,
+                            COF        = @Cof,
+                            POF        = @Pof,
+                            UPDATETIME   = GETDATE()
                     WHERE TBL_IDX = @TblIdx";
 
                         conn.Execute(updateSql, new
@@ -500,6 +412,44 @@ namespace Web.Common
                     return new[] { "DCCB", "DCCABLE", "SUBMODULE" };
                 default:
                     return new[] { prefix };
+            }
+        }
+
+        /// <summary>
+        /// 오늘자 UPSERT:
+        ///  - 행이 있으면 전달된 값으로 UPDATE (null은 기존값 유지)
+        ///  - 행이 없으면 0 기본값으로 INSERT 후 값 반영
+        /// </summary>
+        public void UpsertToday(string code, int? hi = null, decimal? cof = null, decimal? pof = null)
+        {
+            using (var db = new DBHelper())
+            {
+                const string sql = @"
+                IF EXISTS (
+                    SELECT 1 FROM RISKMATRIX
+                    WHERE CODE = @CODE AND CONVERT(date, LASTTIME) = CONVERT(date, GETDATE())
+                )
+                BEGIN
+                    UPDATE RISKMATRIX
+                    SET HI  = CASE WHEN @HI  IS NULL THEN HI  ELSE @HI  END,
+                        COF = CASE WHEN @COF IS NULL THEN COF ELSE @COF END,
+                        POF = CASE WHEN @POF IS NULL THEN POF ELSE @POF END,
+                        UPDATETIME = GETDATE()
+                    WHERE CODE = @CODE
+                        AND CONVERT(date, LASTTIME) = CONVERT(date, GETDATE());
+                END
+                ELSE
+                BEGIN
+                    INSERT INTO RISKMATRIX (CODE, HI, COF, POF, LASTTIME)
+                    VALUES (
+                        @CODE,
+                        ISNULL(@HI,  0),
+                        ISNULL(@COF, 0),
+                        ISNULL(@POF, 0),
+                        GETDATE()
+                    );
+                END";
+                db.Conn.Execute(sql, new { CODE = code, HI = hi, COF = cof, POF = pof });
             }
         }
     }

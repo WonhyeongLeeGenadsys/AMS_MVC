@@ -146,8 +146,8 @@ ORDER BY b.TBL_IDX;
                             {
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
-                    INSERT INTO RISKMATRIX (CODE, COF, POF) 
-                    VALUES (@SUBMODULE_Code, @DefaultCof, @DefaultPof)";
+                    INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME) 
+                    VALUES (@SUBMODULE_Code, @DefaultCof, @DefaultPof, GETDATE())";
 
                                 // 초기 COF와 POF 값은 기본값으로 설정 (변경해야됨)
                                 var riskMatrixData = new

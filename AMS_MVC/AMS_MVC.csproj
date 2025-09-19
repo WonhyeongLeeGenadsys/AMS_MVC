@@ -617,6 +617,9 @@
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.List.cs" />
     <Compile Include="Controllers\Regist\VCBBasic\VCBBasicController.Detail.cs" />
     <Compile Include="Controllers\Setting\SettingController.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.PofTab.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.CofTab.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.HITab.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Recent.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Battery.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.cs" />
@@ -1197,6 +1200,9 @@
     <Content Include="Views\TotalInfo\Index.cshtml" />
     <Content Include="Views\TotalInfo\Recent.cshtml" />
     <Content Include="Views\Check\ITR\ITRChk2Update.cshtml" />
+    <Content Include="Views\TotalInfo\HITab.cshtml" />
+    <Content Include="Views\TotalInfo\PofTab.cshtml" />
+    <Content Include="Views\TotalInfo\CofTab.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

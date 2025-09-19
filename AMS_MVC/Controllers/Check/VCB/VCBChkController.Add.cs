@@ -35,6 +35,43 @@ namespace AMS_MVC
             return View("~/Views/Check/VCB/VCBChkAdd.cshtml");
         }
 
+        //public ActionResult VCBChkAdd(string VCB_Code)
+        //{
+        //    var basicInfo = vcbBasicInfoRepository.GetVCBBasicInfoByCode(VCB_Code);
+
+        //    List<VCBBasicInfo> vcbs;
+        //    var res = vcbBasicInfoRepository.GetAllVCBBasicInfoRepo(out vcbs);
+        //    ViewBag.VCBs = new SelectList(vcbs, "VCB_Code", "SERIAL_NO", VCB_Code);
+
+        //    ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
+        //    ViewBag.VCB_Code = VCB_Code;
+
+        //    var companies = new List<Company>();
+        //    if (companyRepository.GetAllCompanies(out companies).IsSuccess && companies != null)
+        //    {
+        //        ViewBag.Companies = companies;
+        //    }
+        //    else
+        //    {
+        //        ViewBag.Companies = new List<Company>();
+        //        ViewBag.ErrorMessage = "제작사 정보를 불러올 수 없습니다.";
+        //    }
+
+        //    VCBChk model;
+        //    if (!string.IsNullOrWhiteSpace(VCB_Code))
+        //    {
+        //        vcbChkRepository.GetLatestVCBChkByVCBCode(VCB_Code, out var latestOneList);
+        //        model = latestOneList?.FirstOrDefault() ?? new VCBChk { VCB_Code = VCB_Code };
+        //    }
+        //    else
+        //    {
+        //        model = new VCBChk();
+        //    }
+
+        //    return View("~/Views/Check/VCB/VCBChkAdd.cshtml", model);
+        //}
+
+
         [HttpPost]
         public ActionResult VCBChkAdd(VCBChk model)
         {

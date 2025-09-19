@@ -58,7 +58,7 @@ namespace AMS_MVC
                 var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
                 model.FoldingFunction = (int)Math.Truncate(hi);
 
-                var upd = submoduleChkRepository.UpdateSUBMODULEChkInfoRepo(model);
+                var upd = submoduleChkRepository.UpdateSUBMODULEChkRepo(model);
                 if (!upd.IsSuccess)
                 {
                     result.IsSuccess = false;

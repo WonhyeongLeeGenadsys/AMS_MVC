@@ -236,7 +236,7 @@ namespace Web.Common
         }
 
         // DCCABLE 보통점검 데이터 업데이트
-        public Result UpdateDCCABLEChkInfoRepo(DCCABLEChk dccableChk)
+        public Result UpdateDCCABLEChkRepo(DCCABLEChk dccableChk)
         {
             Result res = new Result(true);
 

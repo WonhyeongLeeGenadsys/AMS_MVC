@@ -230,7 +230,7 @@ SET
     CHK1_HV_TV        = @CHK1_HV_TV,
     CHK1_LV_TV        = @CHK1_LV_TV,
     CHK1_Writer       = @CHK1_Writer,
-    CHK_UPDATE_TIME = GETDATE(),
+    CHK1_UPDATE_TIME  = GETDATE(),
 WHERE ITR_CODE = @ITR_Code AND Tbl_Idx = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk1);

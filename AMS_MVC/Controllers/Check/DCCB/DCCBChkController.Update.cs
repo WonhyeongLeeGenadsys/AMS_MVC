@@ -58,7 +58,7 @@ namespace AMS_MVC
                 var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
                 model.FoldingFunction = (int)Math.Truncate(hi);
 
-                var upd = dccbChkRepository.UpdateDCCBChkInfoRepo(model);
+                var upd = dccbChkRepository.UpdateDCCBChkRepo(model);
                 if (!upd.IsSuccess)
                 {
                     result.IsSuccess = false;

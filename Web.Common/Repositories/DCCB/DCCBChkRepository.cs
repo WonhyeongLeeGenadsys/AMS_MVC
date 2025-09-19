@@ -247,7 +247,7 @@ namespace Web.Common
         }
 
         // DCCB 보통점검 데이터 업데이트
-        public Result UpdateDCCBChkInfoRepo(DCCBChk dccbChk)
+        public Result UpdateDCCBChkRepo(DCCBChk dccbChk)
         {
             Result res = new Result(true);
 

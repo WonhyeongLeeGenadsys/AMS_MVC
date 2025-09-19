@@ -248,7 +248,7 @@ namespace Web.Common
         }
 
         // SUBMODULE 보통점검 데이터 업데이트
-        public Result UpdateSUBMODULEChkInfoRepo(SUBMODULEChk submoduleChk)
+        public Result UpdateSUBMODULEChkRepo(SUBMODULEChk submoduleChk)
         {
             Result res = new Result(true);
 
