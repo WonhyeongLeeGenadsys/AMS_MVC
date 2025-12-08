@@ -78,15 +78,22 @@
 
                                 // HI 컬럼 배경색 지정
                                 onCellPrepared: function (e) {
-                                    if (e.rowType === 'data' && e.column.dataField === 'HI') {
-                                        switch (e.value) {
-                                            case 1: e.cellElement.addClass('priorityVerygood'); break;
-                                            case 2: e.cellElement.addClass('priorityGood'); break;
-                                            case 3: e.cellElement.addClass('priorityFair'); break;
-                                            case 4: e.cellElement.addClass('priorityPoor'); break;
-                                            case 5: e.cellElement.addClass('priorityVerypoor'); break;
-                                        }
-                                    }
+                                    if (e.rowType !== 'data' || e.column.dataField !== 'HI') return;
+
+                                    // 기존 클래스 제거
+                                    e.cellElement.removeClass(
+                                        'priorityVerygood priorityGood priorityFair priorityPoor priorityVerypoor priorityUndefined'
+                                    );
+
+                                    const hi = Number(e.value);
+                                    let cls = 'priorityUndefined';
+                                    if (hi === 1) cls = 'priorityVerygood';
+                                    else if (hi === 2) cls = 'priorityGood';
+                                    else if (hi === 3) cls = 'priorityFair';
+                                    else if (hi === 4) cls = 'priorityPoor';
+                                    else if (hi === 5) cls = 'priorityVerypoor';
+
+                                    e.cellElement.addClass(cls);
                                 },
 
                                 columns: [
@@ -101,9 +108,32 @@
                                     { dataField: 'Install_Place', caption: '설치장소', alignment: 'center', width: 100 },
                                     { dataField: 'Price', caption: '구입비용(원)', alignment: 'center', width: 120 },
                                     { dataField: 'Make_Company', caption: '제작사', alignment: 'center', width: 120 },
-                                    { dataField: 'CoF', caption: 'CoF', alignment: 'center', width: 100 },
+                                    {
+                                        dataField: 'HI', caption: 'HI', alignment: 'center', cellTemplate: function (container, options) {
+                                            $("<div>")
+                                                .text(options.value)
+                                                .css("font-weight", "bold")
+                                                .appendTo(container);
+                                        }, width: 150 },
                                     { dataField: 'PoF', caption: 'PoF', alignment: 'center', width: 100 },
-                                    { dataField: 'HI', caption: 'HI', alignment: 'center', width: 100 }
+                                    { dataField: 'CoF', caption: 'CoF', alignment: 'center', width: 100 },
+                                    {
+                                        caption: 'PoF*CoF ($)',
+                                        alignment: 'center',
+                                        dataType: 'number',
+                                        cellTemplate: function (container, options) {
+                                            $("<div>")
+                                                .text(options.value)
+                                                .css("font-weight", "bold")
+                                                .appendTo(container);
+                                        },
+                                        calculateCellValue: function (rowData) {
+                                            var result = (rowData.PoF || 0) * (rowData.CoF || 0);
+                                            return result;
+                                        },
+                                        format: { type: "fixedPoint", precision: 2 }
+                                    }
+
                                 ],
                                 scrolling: { columnRenderingMode: 'virtual' },
                                 showBorders: false

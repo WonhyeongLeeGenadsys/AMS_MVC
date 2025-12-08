@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,8 +94,7 @@
                             <td>내부 점검 및 청소</td>
                             <td>이물질 제거 및 이음 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -105,8 +102,7 @@
                             <td>수동/부동/균등 충전 및 전압 측정</td>
                             <td>정상 충전상태 및 전압 기준 부합</td>
                             <td>V</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -114,8 +110,7 @@
                             <td>Drop Ry 동작 시험</td>
                             <td>정상 동작 시 확인음 및 동작표시 확인</td>
                             <td>kV</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -123,8 +118,7 @@
                             <td>표시 시험 (LED, LCD 등)</td>
                             <td>정확한 상태 표시 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -132,8 +126,7 @@
                             <td>절연저항 측정</td>
                             <td>정상 기준치 이상 (예: 1MΩ 이상)</td>
                             <td>MΩ</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -141,8 +134,7 @@
                             <td>계기 오차 시험</td>
                             <td>허용 오차 범위 이내</td>
                             <td>%</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -150,8 +142,7 @@
                             <td>계전기 시험</td>
                             <td>계전기 설정값 및 동작 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_7_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_7_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -159,8 +150,7 @@
                             <td>AC 입력 및 충전기 절체 기능 점검</td>
                             <td>정상 절체 및 AC 입력 상태 확인</td>
                             <td>kV</td>
-                            <td>@(Model.CHK_8_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_8_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -168,8 +158,7 @@
                             <td>DC 출력 전압의 리플 함유율 측정 (필요시)</td>
                             <td>허용치 이내 (예: 2% 이하)</td>
                             <td>%</td>
-                            <td>@(Model.CHK_9_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_9_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -177,8 +166,7 @@
                             <td>노-휴즈 브레이커(NFB) 동작 체크</td>
                             <td>정상 차단 동작 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_10_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_10_1_Text)</td>
                         </tr>
 
                     </tbody>

@@ -28,23 +28,23 @@ namespace Web.Common
         public int CHK1_CO2 { get; set; }
 
         // 절연 손상/노후도
-        public int CHK1_Dielectric_Strength { get; set; }
-        public int CHK1_Remain_Life { get; set; }
-        public int CHK1_Age { get; set; }
-        public int CHK1_Gojang_History { get; set; }
+        public int CHK1_Dielectric_Strength { get; set; } //절연유 내압
+        public int CHK1_Remain_Life { get; set; } // 잔여수명
+        public int CHK1_Age { get; set; } //나이
+        public int CHK1_Gojang_History { get; set; } //고장이력
 
         // 절연진동/기계적 시험
-        public int CHK1_Doble { get; set; }
-        public int CHK1_SFRA { get; set; }
+        public int CHK1_Doble { get; set; } // Doble
+        public int CHK1_SFRA { get; set; } //SFRA
 
         // 절연저항
-        public int CHK1_HV_E { get; set; }
-        public int CHK1_LV_E { get; set; }
-        public int CHK1_TV_E { get; set; }
-        public int CHK1_HV_LV { get; set; }
-        public int CHK1_HV_TV { get; set; }
-        public int CHK1_LV_TV { get; set; }
-        public int FoldingFunction { get; set; }
+        public int CHK1_HV_E { get; set; } // HV_E
+        public int CHK1_LV_E { get; set; } // LV_E
+        public int CHK1_TV_E { get; set; } // TV_E
+        public int CHK1_HV_LV { get; set; }// HV_LV
+        public int CHK1_HV_TV { get; set; } // HV_TV
+        public int CHK1_LV_TV { get; set; } // LV_TV
+        public int FoldingFunction { get; set; } 
         public DateTime? CHK_Update_Time { get; set; }
 
         public string CHK1_Writer { get; set; }

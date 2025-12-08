@@ -2629,3 +2629,8 @@ dl.product_info {
 			width: 20%;
 			height: 20%;
 		}
+
+.urgent {
+	color: red;
+	font-weight: bold;
+}

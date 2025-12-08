@@ -1,4 +1,5 @@
 ﻿@model Web.Common.DCCABLEChk
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -93,8 +94,8 @@
                             <th>Parameters</th>
                             <th>한전기준</th>
                             <th>단위</th>
-                            <th>판정기준 및 score</th>
-                            <th>가중치</th>
+                            <th>판정기준</th>
+                            <th>등급</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -103,20 +104,25 @@
                             <td>부분방전</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Partial_Discharge)</td>
-                            <td rowspan="3"></td>
+                            <td>@(Model.PartialDischargeText)</td>
+                            @Html.HiCell((int)Model.CHK_Partial_Discharge)
+
                         </tr>
                         <tr>
                             <td>공칭전압</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Rated_Voltage)</td>
+                            <td>@(Model.RatedVoltageText)</td>
+                            @Html.HiCell((int)Model.CHK_Rated_Voltage)
+
                         </tr>
                         <tr>
                             <td>Ten Delta</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Tan_Delta)</td>
+                            <td>@(Model.TanDeltaText)</td>
+                            @Html.HiCell((int)Model.CHK_Tan_Delta)
+
                         </tr>
 
                         <tr>
@@ -124,8 +130,9 @@
                             <td>저항</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_Resistance) </td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.ResistanceText) </td>
+                            @Html.HiCell((int)Model.CHK_Resistance)
+
                         </tr>
 
                         <tr>
@@ -133,8 +140,9 @@
                             <td>TDR</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_TDR) </td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.TDRText) </td>
+                            @Html.HiCell((int)Model.CHK_TDR)
+
                         </tr>
                     </tbody>
                 </table>
@@ -144,7 +152,7 @@
     </div>
 }
 @section Scripts {
-<script type="text/javascript">
+    <script type="text/javascript">
   function deleteChk(dccableCode, tblIdx) {
       if (!confirm("DC Cable 보통점검 정보를 삭제하시겠습니까?")) return;
 
@@ -166,6 +174,6 @@
       }
     });
   }
-</script>
-    }
+    </script>
+}
 

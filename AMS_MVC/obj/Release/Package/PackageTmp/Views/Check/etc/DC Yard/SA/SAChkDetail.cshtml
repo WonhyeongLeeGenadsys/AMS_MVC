@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,8 +94,7 @@
                             <td>도면 일치 여부, 접지선 접속 및 노후 상태, 설치 상태 확인</td>
                             <td>도면 일치, 접지선 이상 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -105,8 +102,7 @@
                             <td>접지 저항 측정 및 기준값 이내 여부 확인</td>
                             <td>접지 저항 기준치 이하 (예: 10Ω 이하)</td>
                             <td>Ω</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -114,8 +110,7 @@
                             <td>절연 저항 측정 (전선 및 기기 절연 성능 확인)</td>
                             <td>절연 저항 기준 이상 (예: 1MΩ 이상)</td>
                             <td>MΩ</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -123,8 +118,7 @@
                             <td>절연 내력 시험 (고전압 인가)</td>
                             <td>절연 파괴 없음</td>
                             <td>kV</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -132,8 +126,7 @@
                             <td>보호 계전기 동작 시험 (과전류, 과전압 등)</td>
                             <td>정상 동작 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -141,8 +134,7 @@
                             <td>절연유 내압 및 산가 시험 (유입 변압기)</td>
                             <td>기준치 만족 (내압 및 산가)</td>
                             <td>kV, mgKOH/g</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -150,8 +142,7 @@
                             <td>차단기 개폐 동작 및 차단 성능 확인</td>
                             <td>정상 개폐 동작 및 차단</td>
                             <td>-</td>
-                            <td>@(Model.CHK_7_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_7_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -159,8 +150,7 @@
                             <td>발전기 출력 및 성능 운전 시험</td>
                             <td>정격 출력 및 기능 이상 없음</td>
                             <td>kW</td>
-                            <td>@(Model.CHK_8_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_8_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -168,8 +158,7 @@
                             <td>전기설비 외관, 작동, 기능 일상 점검</td>
                             <td>이상 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_9_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_9_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -177,8 +166,7 @@
                             <td>누전 차단기 동작 확인</td>
                             <td>정상 동작 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_10_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_10_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -186,8 +174,7 @@
                             <td>전원 차단 및 안전 수칙 준수 여부 확인</td>
                             <td>안전 수칙 준수</td>
                             <td>-</td>
-                            <td>@(Model.CHK_11_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_11_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -195,8 +182,7 @@
                             <td>점검 결과 기록 및 보관</td>
                             <td>기록 유지 및 이력 추적 가능</td>
                             <td>-</td>
-                            <td>@(Model.CHK_12_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_12_1_Text)</td>
                         </tr>
 
                     </tbody>

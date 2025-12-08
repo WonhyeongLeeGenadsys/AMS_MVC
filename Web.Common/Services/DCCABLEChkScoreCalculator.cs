@@ -19,6 +19,14 @@ namespace Web.Common
                
             };
 
+            LogHelper.WriteLog("DCCABLEChkScore",
+                 $"[InputData]:  " +
+                 $"부분방전(PD)={(int)chk.CHK_Partial_Discharge}, " +
+                 $"공칭전압(PU)={(int)chk.CHK_Rated_Voltage}, " +
+                 $"Tan Delta={(int)chk.CHK_Tan_Delta}, " +
+                 $"저항 측정(Ω)={(int)chk.CHK_Resistance}, " +
+                 $"시간영역 반사(PU)={(int)chk.CHK_TDR}");
+
             int maxGrade = scores.Max();
             int frequency = scores.Count(s => s == maxGrade);
             return HiPofTable.GetHiPof(maxGrade, frequency, alpha);
