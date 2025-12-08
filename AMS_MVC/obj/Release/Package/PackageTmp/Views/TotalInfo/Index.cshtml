@@ -88,7 +88,7 @@
             <!--차년도 유지보수 대상-->
             <!-- con_box01 안에 단 한 번만! -->
             <div class="guide_txt_wrap">
-                <h2>차년도<br />유지보수 대상</h2>
+                <h2>유지보수 의사결정</h2>
                 <ul>
                     <li id="strategyAll">로딩 중...</li>
                     <li id="strategyAC">로딩 중...</li>
@@ -121,7 +121,7 @@
                     const worstAC  = Math.max(...acPoints.map(p => p.hi));
                     const prefixAC = acPoints.find(p => p.hi === worstAC).group;
                     const actionAC = worstAC >= 4
-                    ? '긴급 유지보수 권장됩니다.'
+                        ? '<span class="urgent">(긴급) 2025년 12월</span>에 유지보수 권장됩니다.'
                     : worstAC === 3
                     ? '유지보수 계획이 권장됩니다.'
                     : '정상 운영 가능합니다.';
@@ -138,7 +138,7 @@
                     const worstDC  = Math.max(...dcPoints.map(p => p.hi));
                     const prefixDC = dcPoints.find(p => p.hi === worstDC).group;
                     const actionDC = worstDC >= 4
-                    ? '긴급 유지보수 권장됩니다.'
+                        ? '<span class="urgent">(긴급) 2025년 12월</span>에 유지보수 권장됩니다.'  
                     : worstDC === 3
                     ? '유지보수 계획이 권장됩니다.'
                     : '정상 운영 가능합니다.';
@@ -1743,7 +1743,6 @@ setInterval(() => {
     });
 
 }, 10000);
-
 
     });
     </script>

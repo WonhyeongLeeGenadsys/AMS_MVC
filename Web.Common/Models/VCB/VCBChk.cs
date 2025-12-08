@@ -45,18 +45,18 @@ namespace Web.Common
         public string CHK_Writer { get; set; } // 작성자 
 
         // 실제 알고리즘 사용 변수
-        public float CHK_ContactWearPercent { get; set; }
-        public float CHK_VacuumLeakCurrent { get; set; }
-        public float CHK_ContactResistance { get; set; }
-        public float CHK_InsulationResistance { get; set; }
-        public float CHK_HotSpot { get; set; }
-        public float CHK_PdPatternValue { get; set; }
-        public float CHK_MotorCurrent { get; set; }
-        public float CHK_AccumShortCircuitCurrent { get; set; }
-        public float CHK_ShortCircuitCount { get; set; }
-        public float CHK_OperationCount { get; set; }
-        public float CHK_OpenCloseTime { get; set; }
-        public float CHK_VisualCheck { get; set; }
+        public float CHK_ContactWearPercent { get; set; } // 접점 소모량
+        public float CHK_VacuumLeakCurrent { get; set; } // 진공(누설전류)
+        public float CHK_ContactResistance { get; set; } //접촉저항
+        public float CHK_InsulationResistance { get; set; } //절연저항
+        public float CHK_HotSpot { get; set; } //핫스팟
+        public float CHK_PdPatternValue { get; set; } // PD 패턴 및 성장
+        public float CHK_MotorCurrent { get; set; } //구동모터 전류
+        public float CHK_AccumShortCircuitCurrent { get; set; } //누적 단락전류량
+        public float CHK_ShortCircuitCount { get; set; } //단락 전류
+        public float CHK_OperationCount { get; set; } //동작 횟수
+        public float CHK_OpenCloseTime { get; set; } //개폐 시간
+        public float CHK_VisualCheck { get; set; } //외관 점검
         public int FoldingFunction { get; set; }
         public DateTime? CHK_Update_Time { get; set; }
         //

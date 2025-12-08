@@ -1,0 +1,111 @@
+|2025-12-08 14:14:35  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-08 14:14:35  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:14:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:14:35  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-08 14:14:38  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 14:14:42  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-08 14:14:42  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:14:42  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:14:42  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-08 14:14:45  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:14:45  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:14:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:14:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:14:50  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:14:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:14:50  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 14:15:31  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=True, Message=VCB_CHK 등록 성공   |
+|2025-12-08 14:15:31  |   VCBChkAdd  |   [UpdateRiskMatrixHI] code=VCB001, hi=5, baseCof=8589.562040025, pof%=100, adjustedCof=8589.56, ok=True   |
+|2025-12-08 14:15:32  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:15:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:18:02  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:18:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:18:04  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:18:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:18:04  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:18:04  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 14:18:24  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 14:18:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 15:58:20  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-08 15:58:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 15:58:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 15:58:20  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-08 15:58:23  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 15:58:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:24:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 16:24:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:24:55  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-08 16:24:55  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-08 16:28:38  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-08 16:28:38  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 16:28:38  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:28:38  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-08 16:28:42  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2025-12-08 16:28:42  |   vcbCode 조회 :   |   VCB001   |
+|2025-12-08 16:28:42  |   VCBChkController.List  |   조회된 데이터: 2건   |
+|2025-12-08 16:28:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 16:28:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:28:44  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:29:06  |   VCBChkScore  |   [InputData]:  접점 소모량=5, 진공(누설전류)=5, 접촉저항=4, 절연저항=4, 핫스팟=1, PD 패턴 및 성장=5, 구동모터 전류=4, 누적 단락전류량=4, 단락 전류=4, 동작 횟수=1, 개폐 시간=1, 외관 점검=1   |
+|2025-12-08 16:29:06  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=True, Message=VCB_CHK 등록 성공   |
+|2025-12-08 16:29:06  |   VCBChkAdd  |   [UpdateRiskMatrixHI] code=VCB001, hi=5, baseCof=8589.562040025, pof%=100, adjustedCof=8589.56, ok=True   |
+|2025-12-08 16:29:08  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 16:29:08  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:30:05  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-08 16:30:05  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-08 16:30:07  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-08 16:30:07  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-08 16:30:07  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:30:49  |   ITRChkScore  |   [ITRChk1 Input] H2=4, C2H2=1, C2H4=3, CH4=2, C2H6=2, CO=2, CO2=1, 절연내력=1, 경년=1, 고장이력=1, Doble=2, SFRA=3, HV_E=1, LV_E=1, TV_E=5, HV_LV=5, HV_TV=1, LV_TV=5   |
+|2025-12-08 16:30:49  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=4, C2H2=1, C2H4=3, CH4=2, C2H6=2, CO=2, CO2=1, 절연내력=1, 경년=1, 고장=1, Doble=2, SFRA=3, HV_E=1, LV_E=1, TV_E=5, HV_LV=5, HV_TV=1, LV_TV=5
+[ITRChk2] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2025-12-08 16:30:50  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-08 16:30:50  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-08 16:31:16  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:31:16  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:31:17  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:31:17  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:31:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:32:01  |   SUBMODULEChkScore  |   [InputData]:  V_ce=1, V_g=2, R_on=2, R_th=4, I_c=5, T_on,off=4, 절연저항=3, ESR=2, 커패시턴스=1, 온도=2   |
+|2025-12-08 16:32:01  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2025-12-08 16:32:01  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=5, baseCof=19798.975686637, pof%=100, adjustedCof=19798.98, ok=True   |
+|2025-12-08 16:32:02  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:32:02  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:32:37  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:34:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-08 16:34:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:36:01  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:36:01  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:36:05  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:36:05  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:36:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:36:37  |   SUBMODULEChkScore  |   [InputData]:  V_ce=1, V_g=2, R_on=3, R_th=4, I_c=5, T_on,off=4, 절연저항=2, ESR=1, 커패시턴스=2, 온도=3   |
+|2025-12-08 16:36:38  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2025-12-08 16:36:38  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=5, baseCof=19798.975686637, pof%=100, adjustedCof=19798.98, ok=True   |
+|2025-12-08 16:36:39  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-08 16:36:39  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:08  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-12-08 16:37:08  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-08 16:37:08  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:09  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-08 16:37:09  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:09  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:37:37  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 기밀 시험=3, 기계적 동작 시험 (속도)=3, 보조/제어회로 시험 (응답시간)=4, V_ce=5, V_g=4, R_on=3, I_c=1, T_on,off=3   |
+|2025-12-08 16:37:37  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2025-12-08 16:37:37  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=5, baseCof=5651.211040025, pof%=100, adjustedCof=5651.21, ok=True   |
+|2025-12-08 16:37:38  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-12-08 16:37:38  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-08 16:37:38  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:59  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-12-08 16:37:59  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-08 16:37:59  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:59  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-08 16:37:59  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-08 16:37:59  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-08 16:38:22  |   DCCABLEChkScore  |   [InputData]:  부분방전(PD)=1, 공칭전압(PU)=2, Tan Delta=3, 저항 측정(Ω)=4, 시간영역 반사(PU)=5   |
+|2025-12-08 16:38:22  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2025-12-08 16:38:22  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=5, baseCof=9944.454417010, pof%=100, adjustedCof=9944.45, ok=True   |
+|2025-12-08 16:38:23  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-12-08 16:38:23  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-08 16:38:23  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |

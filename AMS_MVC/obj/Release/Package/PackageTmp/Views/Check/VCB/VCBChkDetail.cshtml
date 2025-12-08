@@ -1,4 +1,5 @@
 ﻿@model Web.Common.VCBChk
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -83,7 +84,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -91,8 +91,8 @@
                             <th>Parameters</th>
                             <th>한전기준</th>
                             <th>단위</th>
-                            <th>판정기준 및 score</th>
-                            <th>가중치</th>
+                            <th>판정기준</th>
+                            <th>등급</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,32 +101,43 @@
                             <td>접점 소모량</td>
                             <td></td>
                             <td>mm</td>
-                            <td>@(Model.CHK_ContactWearPercent)</td>
-                            <td rowspan="6"></td>
+                            <td>
+                                @(Model.ContactWearPercentText)
+                            </td>
+                            @Html.HiCell((int)Model.CHK_ContactWearPercent)
+
                         </tr>
                         <tr>
                             <td>진공(누설전류)</td>
                             <td></td>
                             <td>mA</td>
-                            <td>@(Model.CHK_VacuumLeakCurrent)</td>
+                            <td>@(Model.VacuumLeakCurrentText)</td>
+                            @Html.HiCell((int)Model.CHK_VacuumLeakCurrent)
+
                         </tr>
                         <tr>
                             <td>접촉저항</td>
                             <td></td>
                             <td>초기값 대비</td>
-                            <td>@(Model.CHK_ContactResistance)</td>
+                            <td>@(Model.ContactResistanceText)</td>
+                            @Html.HiCell((int)Model.CHK_ContactResistance)
+
                         </tr>
                         <tr>
                             <td>절연저항</td>
                             <td></td>
                             <td>MΩ</td>
-                            <td>@(Model.CHK_InsulationResistance)</td>
+                            <td>@(Model.InsulationResistanceText)</td>
+                            @Html.HiCell((int)Model.CHK_InsulationResistance)
+
                         </tr>
                         <tr>
                             <td>핫스팟</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_HotSpot)</td>
+                            <td>@(Model.HotSpotText)</td>
+                            @Html.HiCell((int)Model.CHK_HotSpot)
+
                         </tr>
                         <tr>
                             <td>
@@ -134,15 +145,18 @@
                             </td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_PdPatternValue)</td>
+                            <td>@(Model.PdPatternValueText)</td>
+                            @Html.HiCell((int)Model.CHK_PdPatternValue)
+
                         </tr>
                         <tr>
                             <td rowspan="1">구동모터</td>
                             <td>구동모터 전류</td>
                             <td></td>
                             <td>초기값 대비</td>
-                            <td>@(Model.CHK_MotorCurrent) </td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.MotorCurrentText)</td>
+                            @Html.HiCell((int)Model.CHK_MotorCurrent)
+
                         </tr>
 
                         <tr>
@@ -151,8 +165,9 @@
                             <td>
                             </td>
                             <td>설계 한계치</td>
-                            <td>@(Model.CHK_AccumShortCircuitCurrent)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.AccumShortCircuitCurrentText)</td>
+                            @Html.HiCell((int)Model.CHK_AccumShortCircuitCurrent)
+
                         </tr>
                         <tr>
                             <td rowspan="5">기타</td>
@@ -162,8 +177,9 @@
                             <td>
                                 설계 한계치
                             </td>
-                            <td>@(Model.CHK_ShortCircuitCount)</td>
-                            <td rowspan="5"></td>
+                            <td>@(Model.ShortCircuitCountText)</td>
+                            @Html.HiCell((int)Model.CHK_ShortCircuitCount)
+
                         </tr>
                         <tr>
                             <td>
@@ -171,7 +187,9 @@
                             </td>
                             <td></td>
                             <td>설계 한계치</td>
-                            <td>@(Model.CHK_OperationCount)</td>
+                            <td>@(Model.OperationCountText)</td>
+                            @Html.HiCell((int)Model.CHK_OperationCount)
+
                         </tr>
                         <tr>
                             <td>
@@ -179,7 +197,9 @@
                             </td>
                             <td></td>
                             <td>초기값 대비</td>
-                            <td>@(Model.CHK_OpenCloseTime)</td>
+                            <td>@(Model.OpenCloseTimeText)</td>
+                            @Html.HiCell((int)Model.CHK_OpenCloseTime)
+
                         </tr>
                         <tr>
                             <td>
@@ -187,7 +207,9 @@
                             </td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK_VisualCheck)</td>
+                            <td>@(Model.VisualCheckText)</td>
+                            @Html.HiCell((int)Model.CHK_VisualCheck)
+
                         </tr>
                     </tbody>
                 </table>

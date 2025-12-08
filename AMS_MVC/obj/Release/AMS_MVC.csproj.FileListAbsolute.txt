@@ -364,3 +364,4 @@ D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.CoreCompileInputs.cach
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.CopyComplete
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.dll
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.pdb
+D:\project\AMS\AMS_MVC\AMS_MVC\bin\Web.Common.dll.config
