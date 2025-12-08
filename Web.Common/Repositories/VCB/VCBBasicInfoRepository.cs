@@ -67,6 +67,7 @@ namespace Web.Common
             return res;
         }
 
+
         //VCB Device페이지에서 '설비들' 표시하기 위해 사용 Basic 모델과 RiskMatrix HI 불러옴
         public Result GetAllVCBBasicInfoWithRiskMatrixRepo(out List<dynamic> vcbInfoWithRisk)
         {

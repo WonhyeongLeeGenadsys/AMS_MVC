@@ -14,8 +14,9 @@ namespace AMS_DATA
         public static readonly Dictionary<string, string> ADDR_TO_CODE =
             new Dictionary<string, string>()
             {
-                ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = "ITR001",
-                ["YHLU07/SPDC2$ST$PaDschAlm$stVal"] = "ITR002",
+                ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = "ITR001",// 정밀점검 PD 측정값(1)
+                ["YHLU07/SPDC2$ST$PaDschAlm$stVal"] = "ITR002",  // 정밀점검 PD 측정값(2)
+                //온도값 추가 예정
             };
     }
 
@@ -38,7 +39,6 @@ namespace AMS_DATA
 
         static async Task Main(string[] args)
         {
-            // 보통점검 레포
             var vcbChkRepo = new VCBChkRepository();
             var itr1ChkRepo = new ITRChk1Repository();
             var itr2ChkRepo = new ITRChk2Repository();
@@ -46,7 +46,6 @@ namespace AMS_DATA
             var dccableChkRepo = new DCCABLEChkRepository();
             var submoduleChkRepo = new SUBMODULEChkRepository();
 
-            // RM/계산기/CoF
             var riskRepo = new RiskmatrixRepository();
             var cofRepo = new CoFRepository();
             var itrCalc = new ITRChkScoreCalculator();
@@ -78,7 +77,7 @@ namespace AMS_DATA
 
                         if (code.StartsWith("ITR"))
                         {
-                            // ITR: 신호 있을 때만 HI/PoF 계산하여 오늘자 RM Upsert (보통점검 이력 필요)
+                            // ITR: 신호 있을 때만 HI/PoF 계산하여 오늘자 RM Upsert (보통점검 이력이 존재한다면!)
                             if (HasChk(code, itr1ChkRepo, itr2ChkRepo))
                             {
                                 LogInfo($"ITR 처리 시작: {code}, value={value}");
@@ -166,7 +165,7 @@ namespace AMS_DATA
                         continue;
 
                     if (!AddrCodeMap.ADDR_TO_CODE.TryGetValue(addr, out var code))
-                        continue; // 매핑 안 된 주소는 패스
+                        continue; // 매핑 안 된 주소는 패스함!
                     mapped++;
 
                     var valStr = rec.GetValue()?.ToString();
