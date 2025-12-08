@@ -1,5 +1,5 @@
-﻿@model AMS_MVC.Models.VCBBasicInfo
-@using Web.Common.Utlity
+﻿@model Web.Common.VCBBasicInfo
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -71,6 +71,7 @@
     <script>
     function deleteVCBBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
+        if (!confirm("VCB 기본정보를 삭제하시겠습니까?")) return;
 
         $.ajax({
             type: "POST",

@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.DCCABLEChk
+﻿@model Web.Common.DCCABLEChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -19,7 +19,7 @@
                 <p>
                     <a href="javascript:void(0);" class="btn red del"
                        onclick="deleteChk('@dccableCode', '@tblIdx');">삭제</a>
-                    
+
                     <a href="@Url.Action("DCCABLEChkUpdate", "DCCABLEChk", new { dccableCode = dccableCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
                 </p>
             </div>
@@ -143,9 +143,10 @@
         </div>
     </div>
 }
+@section Scripts {
 <script type="text/javascript">
   function deleteChk(dccableCode, tblIdx) {
-    if (!confirm("정말 삭제하시겠습니까?")) return;
+      if (!confirm("DC Cable 보통점검 정보를 삭제하시겠습니까?")) return;
 
     $.ajax({
       type: "POST",
@@ -166,5 +167,5 @@
     });
   }
 </script>
-
+    }
 

@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
 
-namespace AMS_MVC.Database
+namespace Web.Common
 {
     public class DBHelper : IDisposable
     {

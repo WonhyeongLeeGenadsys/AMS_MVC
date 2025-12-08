@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.DSChk
+﻿@model Web.Common.DSChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,8 +96,7 @@
                             <td>개폐 동작 상태 확인</td>
                             <td>정상 개폐 동작 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
 
                         @*내부 점검*@
@@ -108,8 +105,7 @@
                             <td>조작기구함 내 청소 및 볼트 조임</td>
                             <td>이물질 제거 및 체결 상태 양호</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
 
                         @*접속부 점검*@
@@ -118,8 +114,7 @@
                             <td>접속부 마모 상태 점검 및 청소</td>
                             <td>접속 단자 마모 및 손상 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                         @*절연물 점검*@
@@ -128,8 +123,7 @@
                             <td>애자 균열, 오손 여부 점검 및 청소</td>
                             <td>균열 및 오염 없을 것, 청소 완료</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
 
                         @*기계 결합부*@
@@ -138,8 +132,7 @@
                             <td>각 연결부 볼트 조임</td>
                             <td>볼트 풀림 없이 견고히 체결</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
 
 
@@ -149,8 +142,7 @@
                             <td>각종 시험 (절연시험, 동작시험 등)</td>
                             <td>시험 결과 기준치 만족</td>
                             <td>-</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
 
                         @*윤활 상태*@
@@ -159,19 +151,19 @@
                             <td>기어부의 그리스 제거 및 재도포</td>
                             <td>정상 윤활 상태 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_7_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_7_1_Text)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(dsCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("DS 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("DSChkDelete", "DSChk")',
@@ -191,7 +183,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

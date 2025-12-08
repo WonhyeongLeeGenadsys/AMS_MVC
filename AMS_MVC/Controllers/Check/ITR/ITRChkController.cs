@@ -2,13 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Web.Mvc;
-using AMS_MVC.Models;
-using AMS_MVC.Repositories;
-using Web.Common.Log;
-using AMS_MVC.Utlity;
-using AMS_MVC.Services;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.Check
+namespace AMS_MVC
 {
     public partial class ITRChkController : Controller
     {
@@ -25,6 +21,7 @@ namespace AMS_MVC.Controllers.Check
         {
             ViewBag.MenuType = "Check";
             ViewBag.ActiveMenu = "InterfaceTR";
+
             _companyRepo = new CompanyRepository();
             _basicRepo = new ITRBasicInfoRepository();
             _chk1Repo = new ITRChk1Repository();

@@ -1,14 +1,12 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Services;
-using AMS_MVC.Utlity;
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Web.Common.Log;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.Check
+namespace AMS_MVC
 {
     public partial class DCCABLEChkController : Controller
     {
@@ -60,7 +58,7 @@ namespace AMS_MVC.Controllers.Check
                 var (hi, pofRaw) = scoreCalc.CalculateHiPof(model, alpha: 1.00m);
                 model.FoldingFunction = (int)Math.Truncate(hi);
 
-                var upd = dccableChkRepository.UpdateDCCABLEChkInfoRepo(model);
+                var upd = dccableChkRepository.UpdateDCCABLEChkRepo(model);
                 if (!upd.IsSuccess)
                 {
                     result.IsSuccess = false;

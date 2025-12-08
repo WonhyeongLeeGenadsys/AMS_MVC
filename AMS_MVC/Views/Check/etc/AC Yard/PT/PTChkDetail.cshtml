@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.PTChk
+﻿@model Web.Common.PTChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -96,22 +94,20 @@
                             <td>애관부 균열 및 오손 여부 점검/청소</td>
                             <td>균열·오손 없고 청결 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="2">접속 점검</td>
                             <td>1차 단자부 볼트 조임</td>
                             <td>풀림 없이 견고히 체결</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td>2차 단자함 내부 점검 및 볼트 조임</td>
                             <td>이상 없음 및 조임 상태 양호</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_2)</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -119,8 +115,7 @@
                             <td>절연저항 / 절연열화 측정 / 포화시험</td>
                             <td>기기 기준치 만족</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -128,14 +123,13 @@
                             <td>콘덴서형 전압변성기 보호캡 점검</td>
                             <td>보호캡 손상 및 탈락 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
                         <tr>
                             <td>호흡기 상태 점검</td>
                             <td>실리카겔 변색 없고 건조 상태</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_2)</td>
+                            <td>@(Model.CHK_4_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -143,8 +137,7 @@
                             <td>케이블 고정부 청소 및 이완 여부 점검</td>
                             <td>이완·오염 없고 고정 상태 양호</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -152,8 +145,7 @@
                             <td>접지선 접속부 조임 상태 점검</td>
                             <td>볼트 풀림 없이 견고히 체결</td>
                             <td>-</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
 
                         <tr>
@@ -161,19 +153,19 @@
                             <td>Oil Level 점검</td>
                             <td>적정 유위 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_7_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_7_1_Text)</td>
                         </tr>
 
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(ptCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("PT 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("PTChkDelete", "PTChk")',
@@ -193,7 +185,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

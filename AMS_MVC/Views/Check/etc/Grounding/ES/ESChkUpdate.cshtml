@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.ESChk
+﻿@model Web.Common.ESChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -103,7 +103,6 @@
                             <col style="width:8%">
                             <col style="width:6%">
                             <col>
-                            <col style="width:3%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -112,7 +111,6 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -125,15 +123,14 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_1_1_1">
-                                        <input type="radio" id="chk_1_1_1" name="chk_1_1" checked>
+                                        <input type="radio" id="chk_1_1_1" name="CHK_1_1" value="1" @(Model.CHK_1_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_1_1_2">
-                                        <input type="radio" id="chk_1_1_2" name="chk_1_1">
+                                        <input type="radio" id="chk_1_1_2" name="CHK_1_1" value="5" @(Model.CHK_1_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="4">-</td>
                             </tr>
                             <tr>
                                 <td>냉각 팬 및 통풍구 막힘 여부 확인</td>
@@ -141,11 +138,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_1_2_1">
-                                        <input type="radio" id="chk_1_2_1" name="chk_1_2" checked>
+                                        <input type="radio" id="chk_1_2_1" name="CHK_1_2" value="1" @(Model.CHK_1_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_1_2_2">
-                                        <input type="radio" id="chk_1_2_2" name="chk_1_2">
+                                        <input type="radio" id="chk_1_2_2" name="CHK_1_2" value="5" @(Model.CHK_1_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -156,11 +153,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_1_3_1">
-                                        <input type="radio" id="chk_1_3_1" name="chk_1_3" checked>
+                                        <input type="radio" id="chk_1_3_1" name="CHK_1_3" value="1" @(Model.CHK_1_3 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_1_3_2">
-                                        <input type="radio" id="chk_1_3_2" name="chk_1_3">
+                                        <input type="radio" id="chk_1_3_2" name="CHK_1_3" value="5" @(Model.CHK_1_3 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -171,11 +168,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_1_4_1">
-                                        <input type="radio" id="chk_1_4_1" name="chk_1_4" checked>
+                                        <input type="radio" id="chk_1_4_1" name="CHK_1_4" value="1" @(Model.CHK_1_4 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_1_4_2">
-                                        <input type="radio" id="chk_1_4_2" name="chk_1_4">
+                                        <input type="radio" id="chk_1_4_2" name="CHK_1_4" value="5" @(Model.CHK_1_4 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -190,15 +187,13 @@
                                 <td>V/A/Ω</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_2_1_1">
-                                        <input type="radio" id="chk_2_1_1" name="chk_2_1" checked>
+                                        <input type="radio" id="chk_2_1_1" name="CHK_2_1" value="1" @(Model.CHK_2_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_2_1_2">
-                                        <input type="radio" id="chk_2_1_2" name="chk_2_1">
-                                        <span>이상(5)</span>
+                                        <input type="radio" id="chk_2_1_2" name="CHK_2_1" value="5" @(Model.CHK_2_1 == 5 ? "checked" : "")>
                                     </label>
                                 </td>
-                                <td rowspan="3">-</td>
                             </tr>
                             <tr>
                                 <td>절연 저항 측정 및 정상 범위 확인</td>
@@ -206,11 +201,11 @@
                                 <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_2_2_1">
-                                        <input type="radio" id="chk_2_2_1" name="chk_2_2" checked>
+                                        <input type="radio" id="chk_2_2_1" name="CHK_2_2" value="1" @(Model.CHK_2_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_2_2_2">
-                                        <input type="radio" id="chk_2_2_2" name="chk_2_2">
+                                        <input type="radio" id="chk_2_2_2" name="CHK_2_2" value="5"@(Model.CHK_2_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -221,11 +216,11 @@
                                 <td>V/mΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_2_3_1">
-                                        <input type="radio" id="chk_2_3_1" name="chk_2_3" checked>
+                                        <input type="radio" id="chk_2_3_1" name="CHK_2_3" value="1" @(Model.CHK_7_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_2_3_2">
-                                        <input type="radio" id="chk_2_3_2" name="chk_2_3">
+                                        <input type="radio" id="chk_2_3_2" name="CHK_2_3" value="5" @(Model.CHK_7_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -240,15 +235,14 @@
                                 <td>℃/%</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_3_1_1">
-                                        <input type="radio" id="chk_3_1_1" name="chk_3_1" checked>
+                                        <input type="radio" id="chk_3_1_1" name="CHK_3_1" value="1" @(Model.CHK_3_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_3_1_2">
-                                        <input type="radio" id="chk_3_1_2" name="chk_3_1">
+                                        <input type="radio" id="chk_3_1_2" name="u" value="5" @(Model.CHK_3_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="2">-</td>
                             </tr>
                             <tr>
                                 <td>온도 센서 및 습도 센서 작동 확인</td>
@@ -256,11 +250,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_3_2_1">
-                                        <input type="radio" id="chk_3_2_1" name="chk_3_2" checked>
+                                        <input type="radio" id="chk_3_2_1" name="CHK_3_2" value="1" @(Model.CHK_3_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_3_2_2">
-                                        <input type="radio" id="chk_3_2_2" name="chk_3_2">
+                                        <input type="radio" id="chk_3_2_2" name="CHK_3_2" value="5" @(Model.CHK_3_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -276,15 +270,14 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_4_1_1">
-                                        <input type="radio" id="chk_4_1_1" name="chk_4_1" checked>
+                                        <input type="radio" id="chk_4_1_1" name="CHK_4_1" value="1" @(Model.CHK_4_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_4_1_2">
-                                        <input type="radio" id="chk_4_1_2" name="chk_4_1">
+                                        <input type="radio" id="chk_4_1_2" name="CHK_4_1" value="5" @(Model.CHK_4_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="3">-</td>
                             </tr>
                             <tr>
                                 <td>원격 제어 기능 점검</td>
@@ -292,11 +285,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_4_2_1">
-                                        <input type="radio" id="chk_4_2_1" name="chk_4_2" checked>
+                                        <input type="radio" id="chk_4_2_1" name="CHK_4_2" value="1" @(Model.CHK_4_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_4_2_2">
-                                        <input type="radio" id="chk_4_2_2" name="chk_4_2">
+                                        <input type="radio" id="chk_4_2_2" name="CHK_4_2" value="5" @(Model.CHK_4_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -307,11 +300,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_4_3_1">
-                                        <input type="radio" id="chk_4_3_1" name="chk_4_3" checked>
+                                        <input type="radio" id="chk_4_3_1" name="CHK_4_3" value="1" @(Model.CHK_4_3 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_4_3_2">
-                                        <input type="radio" id="chk_4_3_2" name="chk_4_3">
+                                        <input type="radio" id="chk_4_3_2" name="CHK_4_3" value="5" @(Model.CHK_4_3 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -327,15 +320,14 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_5_1_1">
-                                        <input type="radio" id="chk_5_1_1" name="chk_5_1" checked>
+                                        <input type="radio" id="chk_5_1_1" name="CHK_5_1" value="1" @(Model.CHK_5_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_5_1_2">
-                                        <input type="radio" id="chk_5_1_2" name="chk_5_1">
+                                        <input type="radio" id="chk_5_1_2" name="CHK_5_1" value="5" @(Model.CHK_5_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="2">-</td>
                             </tr>
                             <tr>
                                 <td>먼지 및 이물질 축적 여부 확인</td>
@@ -343,11 +335,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_5_2_1">
-                                        <input type="radio" id="chk_5_2_1" name="chk_5_2" checked>
+                                        <input type="radio" id="chk_5_2_1" name="CHK_5_2" value="1" @(Model.CHK_5_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_5_2_2">
-                                        <input type="radio" id="chk_5_2_2" name="chk_5_2">
+                                        <input type="radio" id="chk_5_2_2" name="CHK_5_2" value="5" @(Model.CHK_5_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -363,15 +355,14 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_6_1_1">
-                                        <input type="radio" id="chk_6_1_1" name="chk_6_1" checked>
+                                        <input type="radio" id="chk_6_1_1" name="CHK_6_1" value="1" @(Model.CHK_6_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_6_1_2">
-                                        <input type="radio" id="chk_6_1_2" name="chk_6_1">
+                                        <input type="radio" id="chk_6_1_2" name="CHK_6_1" value="5" @(Model.CHK_6_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="2">-</td>
                             </tr>
                             <tr>
                                 <td>독립형: 배터리 충/방전 상태 및 수명 점검</td>
@@ -379,11 +370,11 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_6_2_1">
-                                        <input type="radio" id="chk_6_2_1" name="chk_6_2" checked>
+                                        <input type="radio" id="chk_6_2_1" name="CHK_6_2" value="1" @(Model.CHK_6_2 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_6_2_2">
-                                        <input type="radio" id="chk_6_2_2" name="chk_6_2">
+                                        <input type="radio" id="chk_6_2_2" name="CHK_6_2" value="5" @(Model.CHK_6_2 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
@@ -399,15 +390,14 @@
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="chk_7_1_1">
-                                        <input type="radio" id="chk_7_1_1" name="chk_7_1" checked>
+                                        <input type="radio" id="chk_7_1_1" name="CHK_7_1" value="1" @(Model.CHK_7_1 == 1 ? "checked" : "")>
                                         <span>정상(1)</span>
                                     </label>
                                     <label class="ty_rdo" for="chk_7_1_2">
-                                        <input type="radio" id="chk_7_1_2" name="chk_7_1">
+                                        <input type="radio" id="chk_7_1_2" name="CHK_7_1" value="5" @(Model.CHK_7_1 == 5 ? "checked" : "")>
                                         <span>이상(5)</span>
                                     </label>
                                 </td>
-                                <td rowspan="1">-</td>
                             </tr>
                     </table>
                 </div>

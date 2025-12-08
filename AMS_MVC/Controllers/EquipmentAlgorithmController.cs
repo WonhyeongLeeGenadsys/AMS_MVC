@@ -1,12 +1,11 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Repositories;
-using LaModule;  // LaAlgorithm
+﻿
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Web.Common;
 
-namespace AMS_MVC.Controllers
+namespace AMS_MVC
 {
     public class EquipmentAlgorithmController : Controller
     {

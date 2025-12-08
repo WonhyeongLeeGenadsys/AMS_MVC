@@ -1,10 +1,10 @@
-﻿@model AMS_MVC.Models.DSBasicInfo
+﻿@model Web.Common.DSBasicInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
-    var allChkData = ViewBag.DSChkList as List<AMS_MVC.Models.DSChk>;
+    var allChkData = ViewBag.DSChkList as List<Web.Common.DSChk>;
     var lastChk = allChkData != null && allChkData.Any()
                   ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
                   : null;

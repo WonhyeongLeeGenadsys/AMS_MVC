@@ -1,9 +1,9 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Repositories;
+﻿
 using System.Collections.Generic;
 using System.Web.Mvc;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.DeviceInfo.DeviceInfoDetail
+namespace AMS_MVC
 {
     public class ESDeviceDetailController : Controller
     {

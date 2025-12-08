@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.TANKChk
+﻿@model Web.Common.TANKChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -87,7 +87,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,14 +96,13 @@
                             <td>탱크 표면 및 연결 부위 누유, 부식, 손상 여부 확인</td>
                             <td>이상 없음 (누유/부식/손상 무)</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td>밸브 및 계측기 상태 점검</td>
                             <td>밸브 작동 및 계측 상태 양호</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_2)</td>
+                            <td>@(Model.CHK_1_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -112,14 +110,13 @@
                             <td>압력, 온도 정상 범위 작동 여부 확인</td>
                             <td>압력/온도 설계 범위 내 유지</td>
                             <td>kg/cm², ℃</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td>유량 정상 작동 여부 확인</td>
                             <td>정상 유량 유지</td>
                             <td>m³/h</td>
-                            <td>@(Model.CHK_2_2)</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -127,26 +124,25 @@
                             <td>안전밸브, 방폭 장치 작동 상태 확인</td>
                             <td>정상 작동 확인 (점검 및 시험 포함)</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">주변 환경 점검</td>
                             <td>위험 물질 및 화재 위험 요인 여부 확인</td>
                             <td>위험 요소 없음 (청결 유지)</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(tankCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Pump 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("TANKChkDelete", "TANKChk")',
@@ -166,7 +162,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.BYPASSVALVEChk
+﻿@model Web.Common.BYPASSVALVEChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -79,7 +79,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -88,7 +87,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,51 +96,47 @@
                             <td>밸브 주변 누유, 손상, 부식 여부 확인</td>
                             <td>누유/부식/손상 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">작동 점검</td>
                             <td>밸브 개폐 작동 상태 확인</td>
                             <td>정상 작동 및 개폐 상태 확인</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">압력 점검</td>
                             <td>밸브 개폐 압력 측정 및 설계 사양 부합 여부 확인</td>
                             <td>설계 사양 내 압력 유지</td>
                             <td>-</td>/
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">필터 점검</td>
                             <td>바이패스 경로 필터 막힘 여부 점검</td>
                             <td>필터 막힘 없을 것</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">정비 이력</td>
                             <td>정비 이력 및 교체 주기 확인</td>
                             <td>정기 정비 이력 확보 및 필요 시 정비 실시</td>
                             <td>-</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(bypassvalveCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Bypass Valve 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("BYPASSVALVEChkDelete", "BYPASSVALVEChk")',
@@ -162,7 +156,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

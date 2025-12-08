@@ -1,5 +1,4 @@
-﻿using AMS_MVC.Models;
-using AMS_MVC.Repositories;
+﻿
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -7,9 +6,9 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Web.Common.Log;
+using Web.Common;
 
-namespace AMS_MVC.Controllers
+namespace AMS_MVC
 {
     public partial class PTBasicController : Controller
     {

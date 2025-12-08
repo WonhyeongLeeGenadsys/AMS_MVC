@@ -173,7 +173,6 @@ document.querySelectorAll('.tab_twodepth').forEach(tabGroup => {
 });
 
 $(document).ready(function () {
-    // …기존 메뉴 활성화 코드…
 
     // 1-depth 탭 클릭 처리
     $('.tab_onedepth .tab_btn').on('click', function () {
@@ -182,7 +181,7 @@ $(document).ready(function () {
         $(this).addClass('on');
 
         // 2) 해당 컨텐츠 보이기
-        var targetId = $(this).data('tab');  // ex: "con_box02"
+        var targetId = $(this).data('tab');  
         $('.box_wrap.totalInfo_content').removeClass('on');
         $('#' + targetId).addClass('on');
 

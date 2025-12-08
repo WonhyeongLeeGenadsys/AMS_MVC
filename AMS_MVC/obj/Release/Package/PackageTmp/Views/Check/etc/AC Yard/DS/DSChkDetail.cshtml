@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.DSChk
+﻿@model Web.Common.DSChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -167,11 +167,12 @@
             </div>
 
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(dsCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("DS 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("DSChkDelete", "DSChk")',
@@ -191,7 +192,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

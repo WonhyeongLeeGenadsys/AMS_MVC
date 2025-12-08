@@ -1,6 +1,5 @@
-﻿@model AMS_MVC.Models.ARMREACTORBasicInfo
-@using Web.Common.Utlity
-
+﻿@model Web.Common.ARMREACTORBasicInfo
+@using Web.Common
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -71,6 +70,8 @@
     <script>
     function deleteARMREACTORBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
+
+        if (!confirm("Arm Reactor 기본정보를 삭제하시겠습니까?")) return;
 
         $.ajax({
             type: "POST",

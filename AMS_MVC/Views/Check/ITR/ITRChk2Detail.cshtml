@@ -1,4 +1,5 @@
-﻿@model AMS_MVC.Models.ITRChk2
+﻿@model Web.Common.ITRChk2
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +12,7 @@
 }
 
 @section MainContent {
-    <h1>ITR 정밀점검 상세 정보</h1>
+    <h1>Interface TR 정밀점검 상세 정보</h1>
 
     <div class="con_box">
         <div class="content_warp">
@@ -83,7 +84,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -91,8 +91,8 @@
                             <th>Parameters</th>
                             <th>한전기준</th>
                             <th>단위</th>
-                            <th>판정기준 및 score</th>
-                            <th>가중치</th>
+                            <th>판정기준</th>
+                            <th>등급</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -101,14 +101,17 @@
                             <td>H2</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_Computerized_Price)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CompPriceText)</td>
+                            @Html.HiCell((int)Model.CHK2_Computerized_Price)
+
                         </tr>
                         <tr>
                             <td>수분함량</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_Water_Content)</td>
+                            <td>@(Model.WaterContentText)</td>
+                            @Html.HiCell((int)Model.CHK2_Water_Content)
+
                         </tr>
 
                         <tr>
@@ -116,26 +119,33 @@
                             <td>전압비</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_Voltage_Ratio) </td>
-                            <td rowspan="4"></td>
+                            <td>@(Model.VoltageRatioText) </td>
+                            @Html.HiCell((int)Model.CHK2_Voltage_Ratio)
+
                         </tr>
                         <tr>
                             <td>여자전류</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_Excitation_Current)</td>
+                            <td>@(Model.ExcitationCurrentText)</td>
+                            @Html.HiCell((int)Model.CHK2_Excitation_Current)
+
                         </tr>
                         <tr>
                             <td>단락전류</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_Short_Current)</td>
+                            <td>@(Model.ShortCurrentText)</td>
+                            @Html.HiCell((int)Model.CHK2_Short_Current)
+
                         </tr>
                         <tr>
                             <td>PD측정</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK2_PD)</td>
+                            <td>@(Model.PDText)</td>
+                            @Html.HiCell((int)Model.CHK2_PD)
+
                         </tr>
                     </tbody>
                 </table>
@@ -144,9 +154,10 @@
         </div>
     </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteChk(itrCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Interface TR 정밀점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("DeleteITRChk2", "ITRChk")',
@@ -166,7 +177,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+}
 

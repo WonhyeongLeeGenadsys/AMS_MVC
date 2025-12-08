@@ -1,10 +1,10 @@
-﻿@model AMS_MVC.Models.BYPASSVALVEBasicInfo
+﻿@model Web.Common.BYPASSVALVEBasicInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
-    var allChkData = ViewBag.BYPASSVALVEChkList as List<AMS_MVC.Models.BYPASSVALVEChk>;
+    var allChkData = ViewBag.BYPASSVALVEChkList as List<Web.Common.BYPASSVALVEChk>;
     var lastChk = allChkData != null && allChkData.Any()
                   ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
                   : null;

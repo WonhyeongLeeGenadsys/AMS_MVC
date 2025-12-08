@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.ITRChk1
+﻿@model Web.Common.ITRChk1
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -37,21 +37,21 @@
                         <tr>
                             <th>공사명</th>
                             <td colspan="5">
-                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name" value="@Model.CHK1_Gongsa_Name">
+                                <input type="text" id="chk1_gongsa_name" name="chk1_gongsa_name" value="@Model.CHK1_Gongsa_Name">
                             </td>
                         </tr>
                         <tr>
                             <th>날씨</th>
                             <td>
-                                <input type="text" id="chk_weather" name="chk_weather" value="@Model.CHK1_Weather">
+                                <input type="text" id="chk1_weather" name="chk1_weather" value="@Model.CHK1_Weather">
                             </td>
                             <th>기온</th>
                             <td>
-                                <input type="text" id="chk_temp" name="chk_temp" value="@Model.CHK1_Temp"> <span>°C</span>
+                                <input type="text" id="chk1_temp" name="chk1_temp" value="@Model.CHK1_Temp"> <span>°C</span>
                             </td>
                             <th>습도</th>
                             <td>
-                                <input type="text" id="chk_hum" name="chk_hum" value="@Model.CHK1_Hum"> <span>%</span>
+                                <input type="text" id="chk1_hum" name="chk1_hum" value="@Model.CHK1_Hum"> <span>%</span>
                             </td>
                         </tr>
                         <tr>
@@ -61,21 +61,21 @@
                             </td>
                             <th>점검자</th>
                             <td>
-                                <input type="text" id="chk_worker" name="chk_worker" value="@Model.CHK1_Worker">
+                                <input type="text" id="chk1_worker" name="chk1_worker" value="@Model.CHK1_Worker">
                             </td>
                             <th>감독자</th>
                             <td>
-                                <input type="text" id="chk_manager" name="chk_manager" value="@Model.CHK1_Manager">
+                                <input type="text" id="chk1_manager" name="chk1_manager" value="@Model.CHK1_Manager">
                             </td>
                         </tr>
                         <tr>
                             <th>급전번호</th>
                             <td>
-                                <input type="text" id="chk_urgent_no" name="chk_urgent_no" value="@Model.CHK1_Urgent_No">
+                                <input type="text" id="chk1_urgent_no" name="chk1_urgent_no" value="@Model.CHK1_Urgent_No">
                             </td>
                             <th>형식</th>
                             <td>
-                                <input type="text" id="chk_type" name="chk_type" value="@Model.CHK1_Type">
+                                <input type="text" id="chk1_type" name="chk1_type" value="@Model.CHK1_Type">
                             </td>
                             <th></th>
                             <td></td>
@@ -83,11 +83,11 @@
                         <tr>
                             <th>점검 시작일</th>
                             <td>
-                                <input type="date" id="chk_start_date" name="chk_start_date" value="@(Model.CHK1_Start_Date.HasValue ? Model.CHK1_Start_Date.Value.ToString("yyyy-MM-dd") : "")">
+                                <input type="date" id="chk1_start_date" name="chk1_start_date" value="@(Model.CHK1_Start_Date.HasValue ? Model.CHK1_Start_Date.Value.ToString("yyyy-MM-dd") : "")">
                             </td>
                             <th>점검 종료일</th>
                             <td>
-                                <input type="date" id="chk_end_date" name="chk_end_date" value="@(Model.CHK1_End_Date.HasValue ? Model.CHK1_End_Date.Value.ToString("yyyy-MM-dd") : "")">
+                                <input type="date" id="chk1_end_date" name="chk1_end_date" value="@(Model.CHK1_End_Date.HasValue ? Model.CHK1_End_Date.Value.ToString("yyyy-MM-dd") : "")">
                             </td>
                             <th></th>
                             <td></td>
@@ -103,7 +103,6 @@
                             <col style="width:8%">
                             <col style="width:6%">
                             <col>
-                            <col style="width:3%">
                         </colgroup>
                         <thead>
                             <tr>
@@ -112,310 +111,525 @@
                                 <th>한전기준</th>
                                 <th>단위</th>
                                 <th>판정기준 및 score</th>
-                                <th>가중치</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="7">
+                                    DGA
+                                </td>
+                                <td>H2</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_H2_1">
+                                        <input type="radio" id="CHK1_H2_1" name="CHK1_H2" value="1" @(Model.CHK1_H2 == 1 ? "checked" : "")>
+                                        <span>≤200</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_H2_2">
+                                        <input type="radio" id="CHK1_H2_2" name="CHK1_H2" value="2" @(Model.CHK1_H2 == 2 ? "checked" : "")>
+                                        <span>≤400</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_H2_3">
+                                        <input type="radio" id="CHK1_H2_3" name="CHK1_H2" value="3" @(Model.CHK1_H2 == 3 ? "checked" : "")>
+                                        <span>≤800</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_H2_4">
+                                        <input type="radio" id="CHK1_H2_4" name="CHK1_H2" value="4" @(Model.CHK1_H2 == 4 ? "checked" : "")>
+                                        <span>>800</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    C2H2
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H2_1">
+                                        <input type="radio" id="CHK1_C2H2_1" name="CHK1_C2H2" value="1" @(Model.CHK1_C2H2 == 1 ? "checked" : "")>
+                                        <span>≤10</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H2_2">
+                                        <input type="radio" id="CHK1_C2H2_2" name="CHK1_C2H2" value="2" @(Model.CHK1_C2H2 == 2 ? "checked" : "")>
+                                        <span>≤20</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H2_3">
+                                        <input type="radio" id="CHK1_C2H2_3" name="CHK1_C2H2" value="3" @(Model.CHK1_C2H2 == 3 ? "checked" : "")>
+                                        <span>≤60</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H2_4">
+                                        <input type="radio" id="CHK1_C2H2_4" name="CHK1_C2H2" value="4" @(Model.CHK1_C2H2 == 4 ? "checked" : "")>
+                                        <span>≤120</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H2_5">
+                                        <input type="radio" id="CHK1_C2H2_5" name="CHK1_C2H2" value="5" @(Model.CHK1_C2H2 == 5 ? "checked" : "")>
+                                        <span>>120</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    C2H4
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H4_1">
+                                        <input type="radio" id="CHK1_C2H4_1" name="CHK1_C2H4" value="1" @(Model.CHK1_C2H4 == 1 ? "checked" : "")>
+                                        <span>≤100</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H4_2">
+                                        <input type="radio" id="CHK1_C2H4_2" name="CHK1_C2H4" value="2" @(Model.CHK1_C2H4 == 2 ? "checked" : "")>
+                                        <span>≤200</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H4_3">
+                                        <input type="radio" id="CHK1_C2H4_3" name="CHK1_C2H4" value="3" @(Model.CHK1_C2H4 == 3 ? "checked" : "")>
+                                        <span>≤500</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H4_4">
+                                        <input type="radio" id="CHK1_C2H4_4" name="CHK1_C2H4" value="4" @(Model.CHK1_C2H4 == 4 ? "checked" : "")>
+                                        <span>>500</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    CH4
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CH4_1">
+                                        <input type="radio" id="CHK1_CH4_1" name="CHK1_CH4" value="1" @(Model.CHK1_CH4 == 1 ? "checked" : "")>
+                                        <span>≤150</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CH4_2">
+                                        <input type="radio" id="CHK1_CH4_2" name="CHK1_CH4" value="2" @(Model.CHK1_CH4 == 2 ? "checked" : "")>
+                                        <span>≤250</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CH4_3">
+                                        <input type="radio" id="CHK1_CH4_3" name="CHK1_CH4" value="3" @(Model.CHK1_CH4 == 3 ? "checked" : "")>
+                                        <span>≤750</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CH4_4">
+                                        <input type="radio" id="CHK1_CH4_4" name="CHK1_CH4" value="4" @(Model.CHK1_CH4 == 4 ? "checked" : "")>
+                                        <span>>750</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    C2H6
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H6_1">
+                                        <input type="radio" id="CHK1_C2H6_1" name="CHK1_C2H6" value="1" @(Model.CHK1_C2H6 == 1 ? "checked" : "")>
+                                        <span>≤200</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H6_2">
+                                        <input type="radio" id="CHK1_C2H6_2" name="CHK1_C2H6" value="2" @(Model.CHK1_C2H6 == 2 ? "checked" : "")>
+                                        <span>≤350</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H6_3">
+                                        <input type="radio" id="CHK1_C2H6_3" name="CHK1_C2H6" value="3" @(Model.CHK1_C2H6 == 3 ? "checked" : "")>
+                                        <span>≤750</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_C2H6_4">
+                                        <input type="radio" id="CHK1_C2H6_4" name="CHK1_C2H6" value="4" @(Model.CHK1_C2H6 == 4 ? "checked" : "")>
+                                        <span>>750</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    CO
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CO_1">
+                                        <input type="radio" id="CHK1_CO_1" name="CHK1_CO" value="1" @(Model.CHK1_CO == 1 ? "checked" : "")>
+                                        <span>≤800</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CO_2">
+                                        <input type="radio" id="CHK1_CO_2" name="CHK1_CO" value="2" @(Model.CHK1_CO == 2 ? "checked" : "")>
+                                        <span>≤1200</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CO_3">
+                                        <input type="radio" id="CHK1_CO_3" name="CHK1_CO" value="3" @(Model.CHK1_CO == 3 ? "checked" : "")>
+                                        <span>>1200</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    CO2
+                                </td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CO2_1">
+                                        <input type="radio" id="CHK1_CO2_1" name="CHK1_CO2" value="1" @(Model.CHK1_CO2 == 1 ? "checked" : "")>
+                                        <span>≤800</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CO2_2">
+                                        <input type="radio" id="CHK1_CO2_2" name="CHK1_CO2" value="2" @(Model.CHK1_CO2 == 2 ? "checked" : "")>
+                                        <span>≤1200</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_CO2_3">
+                                        <input type="radio" id="CHK1_CO2_3" name="CHK1_CO2" value="3" @(Model.CHK1_CO2 == 3 ? "checked" : "")>
+                                        <span>>1200</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    History
+                                </td>
+                                <td>고장이력</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Gojang_History_1">
+                                        <input type="radio" id="CHK1_Gojang_History_1" name="CHK1_Gojang_History" value="1" @(Model.CHK1_Gojang_History == 1 ? "checked" : "")>
+                                        <span>NOT</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Gojang_History_5">
+                                        <input type="radio" id="CHK1_Gojang_History_5" name="CHK1_Gojang_History" value="5" @(Model.CHK1_Gojang_History == 5 ? "checked" : "")>
+                                        <span>OCCUR</span>
+                                    </label>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    Oil Quality
+                                </td>
+                                <td>절연유 내압</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_1">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_1" name="CHK1_Dielectric_Strength" value="1" @(Model.CHK1_Dielectric_Strength == 1 ? "checked" : "")>
+                                        <span>>40</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_3">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_3" name="CHK1_Dielectric_Strength" value="3" @(Model.CHK1_Dielectric_Strength == 3 ? "checked" : "")>
+                                        <span>≤30</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Dielectric_Strength_5">
+                                        <input type="radio" id="CHK1_Dielectric_Strength_5" name="CHK1_Dielectric_Strength" value="5" @(Model.CHK1_Dielectric_Strength == 5 ? "checked" : "")>
+                                        <span><30</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    Age
+                                </td>
+                                <td>나이</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Age_1">
+                                        <input type="radio" id="CHK1_Age_1" name="CHK1_Age" value="1" @(Model.CHK1_Age == 1 ? "checked" : "")>
+                                        <span>≤20%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_2">
+                                        <input type="radio" id="CHK1_Age_2" name="CHK1_Age" value="2" @(Model.CHK1_Age == 2 ? "checked" : "")>
+                                        <span>≤40%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_3">
+                                        <input type="radio" id="CHK1_Age_3" name="CHK1_Age" value="3" @(Model.CHK1_Age == 3 ? "checked" : "")>
+                                        <span>≤60%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_4">
+                                        <input type="radio" id="CHK1_Age_4" name="CHK1_Age" value="4" @(Model.CHK1_Age == 4 ? "checked" : "")>
+                                        <span>≤80%</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Age_5">
+                                        <input type="radio" id="CHK1_Age_5" name="CHK1_Age" value="5" @(Model.CHK1_Age == 5 ? "checked" : "")>
+                                        <span>>80%</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            @*<tr>
+
+                        <td>잔여수명</td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                            <label class="ty_rdo" for="CHK1_Remain_Life_1">
+                                <input type="radio" id="CHK1_Remain_Life_1" name="CHK1_Remain_Life" value="1" checked>
+                                <span>≥20</span>
+                            </label>
+                            <label class="ty_rdo" for="CHK1_Remain_Life_2">
+                                <input type="radio" id="CHK1_Remain_Life_2" name="CHK1_Remain_Life" value="2">
+                                <span>≥10</span>
+                            </label>
+                            <label class="ty_rdo" for="CHK1_Remain_Life_3">
+                                <input type="radio" id="CHK1_Remain_Life_3" name="CHK1_Remain_Life" value="3">
+                                <span>≥5</span>
+                            </label>
+                            <label class="ty_rdo" for="CHK1_Remain_Life_4">
+                                <input type="radio" id="CHK1_Remain_Life_4" name="CHK1_Remain_Life" value="4">
+                                <span>≥3</span>
+                            </label>
+                            <label class="ty_rdo" for="CHK1_Remain_Life_5">
+                                <input type="radio" id="CHK1_Remain_Life_5" name="CHK1_Remain_Life" value="5">
+                                <span>≥1</span>
+                            </label>
+                        </td>
+                    </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    Measure
+                                </td>
+                                <td>Doble</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Doble_1">
+                                        <input type="radio" id="CHK1_Doble_1" name="CHK1_Doble" value="1" @(Model.CHK1_Doble == 1 ? "checked" : "")>
+                                        <span>Good</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_2">
+                                        <input type="radio" id="CHK1_Doble_2" name="CHK1_Doble" value="2" @(Model.CHK1_Doble == 2 ? "checked" : "")>
+                                        <span>Observe</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_3">
+                                        <input type="radio" id="CHK1_Doble_3" name="CHK1_Doble" value="3" @(Model.CHK1_Doble == 3 ? "checked" : "")>
+                                        <span>Careful</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_Doble_4">
+                                        <input type="radio" id="CHK1_Doble_4" name="CHK1_Doble" value="4" @(Model.CHK1_Doble == 4 ? "checked" : "")>
+                                        <span>Poor</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>SFRA</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_SFRA_1">
+                                        <input type="radio" id="CHK1_SFRA_1" name="CHK1_SFRA" value="1" @(Model.CHK1_SFRA == 1 ? "checked" : "")>
+                                        <span>≥20</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_SFRA_3">
+                                        <input type="radio" id="CHK1_SFRA_3" name="CHK1_SFRA" value="3" @(Model.CHK1_SFRA == 3 ? "checked" : "")>
+                                        <span>≥10</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_SFRA_5">
+                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_SFRA" value="5" @(Model.CHK1_SFRA == 5 ? "checked" : "")>
+                                        <span>≥5</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td rowspan="6">
-                                    차단부
-                                </td>
-                                <td>접점 소모량</td>
-                                <td></td>
-                                <td>mm</td>
-                                <td>
-                                    <label class="ty_rdo" for="chkContactWearPercent_1">
-                                        <input type="radio" id="chkContactWearPercent_1" name="CHK1_ContactWearPercent" value="1" checked>
-                                        <span>2 미만</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactWearPercent_3">
-                                        <input type="radio" id="chkContactWearPercent_3" name="CHK1_ContactWearPercent" value="3">
-                                        <span>2~3</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactWearPercent_5">
-                                        <input type="radio" id="chkContactWearPercent_5" name="CHK1_ContactWearPercent" value="5">
-                                        <span>3 초과</span>
-                                    </label>
-                                </td>
-                                <td rowspan="6">-</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    진공(누설전류)
-                                </td>
-                                <td></td>
-                                <td>mA</td>
-                                <td>
-                                    <label class="ty_rdo" for="chkVacuumLeakCurrent_1">
-                                        <input type="radio" id="chkVacuumLeakCurrent_1" name="CHK1_VacuumLeakCurrent" value="1" checked>
-                                        <span>0.1 미만</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkVacuumLeakCurrent_3">
-                                        <input type="radio" id="chkVacuumLeakCurrent_3" name="CHK1_VacuumLeakCurrent" value="3">
-                                        <span>0.1~0.2</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkVacuumLeakCurrent_5">
-                                        <input type="radio" id="chkVacuumLeakCurrent_5" name="CHK1_VacuumLeakCurrent" value="5">
-                                        <span>0.3 초과</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    접촉저항
-                                </td>
-                                <td></td>
-                                <td>초기값 대비</td>
-                                <td>
-                                    <label class="ty_rdo" for="chkContactResistance_1">
-                                        <input type="radio" id="chkContactResistance_1" name="CHK1_ContactResistance" value="1" checked>
-                                        <span><=5%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactResistance_3">
-                                        <input type="radio" id="chkContactResistance_3" name="CHK1_ContactResistance" value="3">
-                                        <span>5%~10%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactResistance_4">
-                                        <input type="radio" id="chkContactResistance_4" name="CHK1_ContactResistance" value="4">
-                                        <span>10%~20%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactResistance_5">
-                                        <input type="radio" id="chkContactResistance_5" name="CHK1_ContactResistance" value="5">
-                                        <span>>20%</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
                                     절연저항
                                 </td>
+                                <td>HV-E</td>
                                 <td></td>
-                                <td>MΩ</td>
-                                <td>
-                                    <label class="ty_rdo" for="chkInsulationResistance_1">
-                                        <input type="radio" id="chkInsulationResistance_1" name="CHK1_InsulationResistance" value="1" checked>
-                                        <span>500 이상</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_2">
-                                        <input type="radio" id="chkInsulationResistance_2" name="CHK1_InsulationResistance" value="2">
-                                        <span>400~500</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_3">
-                                        <input type="radio" id="chkInsulationResistance_3" name="CHK1_InsulationResistance" value="3">
-                                        <span>300~400</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_4">
-                                        <input type="radio" id="chkInsulationResistance_4" name="CHK1_InsulationResistance" value="4">
-                                        <span>200~300</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_5">
-                                        <input type="radio" id="chkInsulationResistance_5" name="CHK1_InsulationResistance" value="5">
-                                        <span>200 미만</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    핫스팟
-                                </td>
                                 <td></td>
-                                <td>-</td>
                                 <td>
-                                    <label class="ty_rdo" for="HotSpot_1">
-                                        <input type="radio" id="HotSpot_1" name="CHK1_HotSpot" value="1" checked>
-                                        <span>없음</span>
+                                    <label class="ty_rdo" for="CHK1_HV_E_1">
+                                        <input type="radio" id="CHK1_HV_E_1" name="CHK1_HV_E" value="1" @(Model.CHK1_HV_E == 1 ? "checked" : "")>
+                                        <span>≥1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="HotSpot_5">
-                                        <input type="radio" id="HotSpot_5" name="CHK1_HotSpot" value="5">
-                                        <span>발견</span>
+                                    <label class="ty_rdo" for="CHK1_HV_E_5">
+                                        <input type="radio" id="CHK1_HV_E_5" name="CHK1_HV_E" value="5" @(Model.CHK1_HV_E == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
                                     </label>
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    PD 패턴 및 성장
-                                </td>
+                                <td>LV-E</td>
                                 <td></td>
-                                <td>-</td>
-                                <td>
-                                    <label class="ty_rdo" for="PdPatternValue_1">
-                                        <input type="radio" id="PdPatternValue_1" name="CHK1_PdPatternValue" value="1" checked>
-                                        <span>없음</span>
-                                    </label>
-                                    <label class="ty_rdo" for="PdPatternValue_4">
-                                        <input type="radio" id="PdPatternValue_4" name="CHK1_PdPatternValue" value="4">
-                                        <span>있음(성장X)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="PdPatternValue_5">
-                                        <input type="radio" id="PdPatternValue_5" name="CHK1_PdPatternValue" value="5">
-                                        <span>있음</span>
-                                    </label>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td rowspan="1">구동모터</td>
-                                <td>구동모터 전류</td>
                                 <td></td>
-                                <td>초기값 대비</td>
                                 <td>
-                                    <label class="ty_rdo" for="MotorCurrent_1">
-                                        <input type="radio" id="MotorCurrent_1" name="CHK1_MotorCurrent" value="1" checked>
-                                        <span><= 2%</span>
+                                    <label class="ty_rdo" for="CHK1_LV_E_1">
+                                        <input type="radio" id="CHK1_LV_E_1" name="CHK1_LV_E" value="1" @(Model.CHK1_LV_E == 1 ? "checked" : "")>
+                                        <span>≥1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="MotorCurrent_3">
-                                        <input type="radio" id="MotorCurrent_3" name="CHK1_MotorCurrent" value="3">
-                                        <span>2% ~ 5%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="MotorCurrent_4">
-                                        <input type="radio" id="MotorCurrent_4" name="CHK1_MotorCurrent" value="4">
-                                        <span>5% ~ 10%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="MotorCurrent_5">
-                                        <input type="radio" id="MotorCurrent_5" name="CHK1_MotorCurrent" value="5">
-                                        <span>> 10%</span>
-                                    </label>
-                                </td>
-                                <td rowspan="1">-</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="1">누적단락전류</td>
-                                <td>누적 단락전류량</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
-                                <td>
-                                    <label class="ty_rdo" for="accumSCC_1">
-                                        <input type="radio" id="accumSCC_1" name="CHK1_AccumShortCircuitCurrent" value="1" checked>
-                                        <span><= 20%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_2">
-                                        <input type="radio" id="accumSCC_2" name="CHK1_AccumShortCircuitCurrent" value="2">
-                                        <span>20% ~ 40%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_3">
-                                        <input type="radio" id="accumSCC_3" name="CHK1_AccumShortCircuitCurrent" value="3">
-                                        <span>40% ~ 70%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_4">
-                                        <input type="radio" id="accumSCC_4" name="CHK1_AccumShortCircuitCurrent" value="4">
-                                        <span>70% ~ 100%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_5">
-                                        <input type="radio" id="accumSCC_5" name="CHK1_AccumShortCircuitCurrent" value="5">
-                                        <span>> Limit</span>
-                                    </label>
-                                </td>
-                                <td rowspan="1">-</td>
-                            </tr>
-
-                            <!-- 2) 단락전류 -->
-                            <tr>
-                                <td rowspan="5">기타</td>
-                                <td>단락전류</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
-                                <td>
-                                    <label class="ty_rdo" for="shortCC_1">
-                                        <input type="radio" id="shortCC_1" name="CHK1_ShortCircuitCount" value="1" checked>
-                                        <span><= 20%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="shortCC_2">
-                                        <input type="radio" id="shortCC_2" name="CHK1_ShortCircuitCount" value="2">
-                                        <span>20% ~ 40%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="shortCC_3">
-                                        <input type="radio" id="shortCC_3" name="CHK1_ShortCircuitCount" value="3">
-                                        <span>40% ~ 70%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="shortCC_4">
-                                        <input type="radio" id="shortCC_4" name="CHK1_ShortCircuitCount" value="4">
-                                        <span>70% ~ 100%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="shortCC_5">
-                                        <input type="radio" id="shortCC_5" name="CHK1_ShortCircuitCount" value="5">
-                                        <span>> Limit</span>
-                                    </label>
-                                </td>
-                                <td rowspan="5">-</td>
-                            </tr>
-
-                            <!-- 3) 동작 횟수 -->
-                            <tr>
-                                <td>동작 횟수</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
-                                <td>
-                                    <label class="ty_rdo" for="operCount_1">
-                                        <input type="radio" id="operCount_1" name="CHK1_OperationCount" value="1" checked>
-                                        <span><= 20%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="operCount_2">
-                                        <input type="radio" id="operCount_2" name="CHK1_OperationCount" value="2">
-                                        <span>20% ~ 40%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="operCount_3">
-                                        <input type="radio" id="operCount_3" name="CHK1_OperationCount" value="3">
-                                        <span>40% ~ 70%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="operCount_4">
-                                        <input type="radio" id="operCount_4" name="CHK1_OperationCount" value="4">
-                                        <span>70% ~ 100%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="operCount_5">
-                                        <input type="radio" id="operCount_5" name="CHK1_OperationCount" value="5">
-                                        <span>> Limit</span>
+                                    <label class="ty_rdo" for="CHK1_LV_E_5">
+                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_LV_E" value="5" @(Model.CHK1_LV_E == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
                                     </label>
                                 </td>
                             </tr>
-
-                            <!-- 4) 개폐 시간 -->
                             <tr>
-                                <td>개폐 시간</td>
-                                <td>-</td>
-                                <td>초기값 대비</td>
+                                <td>TV-E</td>
+                                <td></td>
+                                <td></td>
                                 <td>
-                                    <label class="ty_rdo" for="openCloseTime_1">
-                                        <input type="radio" id="openCloseTime_1" name="CHK1_OpenCloseTime" value="1" checked>
-                                        <span><= 20%</span>
+                                    <label class="ty_rdo" for="CHK1_TV_E_1">
+                                        <input type="radio" id="CHK1_TV_E_1" name="CHK1_TV_E" value="1" @(Model.CHK1_TV_E == 1 ? "checked" : "")>
+                                        <span>≥1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="openCloseTime_3">
-                                        <input type="radio" id="openCloseTime_3" name="CHK1_OpenCloseTime" value="3">
-                                        <span>40% ~ 70%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="openCloseTime_4">
-                                        <input type="radio" id="openCloseTime_4" name="CHK1_OpenCloseTime" value="4">
-                                        <span>70% ~ 100%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="openCloseTime_5">
-                                        <input type="radio" id="openCloseTime_5" name="CHK1_OpenCloseTime" value="5">
-                                        <span>> Limit</span>
+                                    <label class="ty_rdo" for="CHK1_TV_E_5">
+                                        <input type="radio" id="CHK1_TV_E_5" name="CHK1_TV_E" value="5" @(Model.CHK1_TV_E == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
                                     </label>
                                 </td>
                             </tr>
-
-                            <!-- 5) 외관 점검 -->
                             <tr>
-                                <td>외관 점검</td>
-                                <td>-</td>
-                                <td>-</td>
+                                <td>HV-LV</td>
+                                <td></td>
+                                <td></td>
                                 <td>
-                                    <label class="ty_rdo" for="visualCheck_1">
-                                        <input type="radio" id="visualCheck_1" name="CHK1_VisualCheck" value="1" checked>
-                                        <span>오염, 부식, 균열 없음</span>
+                                    <label class="ty_rdo" for="CHK1_HV_LV_1">
+                                        <input type="radio" id="CHK1_HV_LV_1" name="CHK1_HV_LV" value="1" @(Model.CHK1_HV_LV == 1 ? "checked" : "")>
+                                        <span>≥1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="visualCheck_3">
-                                        <input type="radio" id="visualCheck_3" name="CHK1_VisualCheck" value="3">
-                                        <span>오염, 부식, 미약한 균열 발생</span>
+                                    <label class="ty_rdo" for="CHK1_HV_LV_5">
+                                        <input type="radio" id="CHK1_HV_LV_5" name="CHK1_HV_LV" value="5" @(Model.CHK1_HV_LV == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="visualCheck_4">
-                                        <input type="radio" id="visualCheck_4" name="CHK1_VisualCheck" value="4">
-                                        <span>오염, 부식이 축적</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>HV-TV</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_TV_1">
+                                        <input type="radio" id="CHK1_HV_TV_1" name="CHK1_HV_TV" value="1" @(Model.CHK1_HV_TV == 1 ? "checked" : "" )>
+                                        <span>≥1000MΩ</span>
                                     </label>
-                                    <label class="ty_rdo" for="visualCheck_5">
-                                        <input type="radio" id="visualCheck_5" name="CHK1_VisualCheck" value="5">
-                                        <span>오염, 부식, 균열이 성능에 영향</span>
+                                    <label class="ty_rdo" for="CHK1_HV_TV_5">
+                                        <input type="radio" id="CHK1_HV_TV_5" name="CHK1_HV_TV" value="5" @(Model.CHK1_HV_TV == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
                                     </label>
-
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>LV-TV</td>
+                                <td></td>
+                                <td></td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_LV_TV_1">
+                                        <input type="radio" id="CHK1_LV_TV_1" name="CHK1_LV_TV" value="1" @(Model.CHK1_LV_TV == 1 ? "checked" : "")>
+                                        <span>≥1000MΩ</span>
+                                    </label>
+                                    <label class="ty_rdo" for="CHK1_LV_TV_5">
+                                        <input type="radio" id="CHK1_LV_TV_5" name="CHK1_LV_TV" value="5" @(Model.CHK1_LV_TV == 5 ? "checked" : "")>
+                                        <span><1000MΩ</span>
+                                    </label>
                                 </td>
                             </tr>
                         </tbody>

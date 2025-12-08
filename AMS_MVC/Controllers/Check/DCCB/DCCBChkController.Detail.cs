@@ -1,12 +1,11 @@
-﻿using AMS_MVC.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using Web.Common.Log;
+using Web.Common;
 
-namespace AMS_MVC.Controllers.Check
+namespace AMS_MVC
 {
     public partial class DCCBChkController : Controller
     {
@@ -61,10 +60,10 @@ namespace AMS_MVC.Controllers.Check
 
         // DCCB 보통점검 삭제 (Ajax 요청)
         [HttpPost]
-        public JsonResult DeleteVCBChk(string dccbCode, string tblIdx)
+        public JsonResult DeleteDCCBChk(string dccbCode, string tblIdx)
         {
             if (string.IsNullOrWhiteSpace(dccbCode) || string.IsNullOrWhiteSpace(tblIdx))
-                return Json(new { success = false, message = "vcbCode 또는 tblIdx가 전달되지 않았습니다." });
+                return Json(new { success = false, message = "dccbCode 또는 tblIdx가 전달되지 않았습니다." });
 
             var result = dccbChkRepository.DeleteDCCBChkInfoRepo(dccbCode, tblIdx);
 

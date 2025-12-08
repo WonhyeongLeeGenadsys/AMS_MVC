@@ -1,13 +1,12 @@
-﻿using AMS_MVC.Database;
-using AMS_MVC.Models;
-using AMS_MVC.Repositories;
+﻿
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Mvc;
+using Web.Common;
 
-namespace AMS_MVC.Controllers
+namespace AMS_MVC
 {
     public class WALLBUSHINGDeviceController : Controller
     {

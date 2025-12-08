@@ -1,4 +1,5 @@
-﻿@model AMS_MVC.Models.ITRChk1
+﻿@model Web.Common.ITRChk1
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +12,7 @@
 }
 
 @section MainContent {
-    <h1>ITR 보통점검 상세 정보</h1>
+    <h1>Interfcae TR 보통점검 상세 정보</h1>
 
     <div class="con_box">
         <div class="content_warp">
@@ -33,7 +34,7 @@
                     </colgroup>
                     <tr>
                         <th>공사명</th>
-                        <td>@Model.CHK_Gongsa_Name</td>
+                        <td>@Model.CHK1_Gongsa_Name</td>
                         <th>제품명</th>
                         <td>@ViewBag.Name</td>
                         <th>시리얼번호</th>
@@ -82,7 +83,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -90,8 +90,8 @@
                             <th>Parameters</th>
                             <th>한전기준</th>
                             <th>단위</th>
-                            <th>판정기준 및 score</th>
-                            <th>가중치</th>
+                            <th>판정기준</th>
+                            <th>등급</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -100,52 +100,66 @@
                             <td>H2</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_H2)</td>
-                            <td rowspan="7"></td>
+                            <td>@(Model.H2Text)</td>
+                            @Html.HiCell((int)Model.CHK1_H2)
+
                         </tr>
                         <tr>
                             <td>C2H2</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_C2H2)</td>
+                            <td>@(Model.C2H2Text)</td>
+                            @Html.HiCell((int)Model.CHK1_C2H2)
+
                         </tr>
                         <tr>
                             <td>C2H4</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_C2H4)</td>
+                            <td>@(Model.C2H4Text)</td>
+                            @Html.HiCell((int)Model.CHK1_C2H4)
+
                         </tr>
                         <tr>
                             <td>CH4</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_CH4)</td>
+                            <td>@(Model.CH4Text)</td>
+                            @Html.HiCell((int)Model.CHK1_CH4)
+
                         </tr>
                         <tr>
                             <td>C2H6</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_C2H6)</td>
+                            <td>@(Model.C2H6Text)</td>
+                            @Html.HiCell((int)Model.CHK1_C2H6)
+
                         </tr>
                         <tr>
                             <td>CO</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_CO)</td>
+                            <td>@(Model.COText)</td>
+                            @Html.HiCell((int)Model.CHK1_CO)
+
                         </tr>
                         <tr>
                             <td>CO2</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_CO2)</td>
+                            <td>@(Model.CO2Text)</td>
+                            @Html.HiCell((int)Model.CHK1_CO2)
+
                         </tr>
                         <tr>
                             <td rowspan="1">History</td>
                             <td>고장이력</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_Gojang_History) </td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.GojangHistoryText) </td>
+                            @Html.HiCell((int)Model.CHK1_Gojang_History)
+
                         </tr>
 
                         <tr>
@@ -153,87 +167,105 @@
                             <td>절연유 내압</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_Dielectric_Strength) </td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.DielectricStrengthText) </td>
+                            @Html.HiCell((int)Model.CHK1_Dielectric_Strength)
+
                         </tr>
 
                         <tr>
-                            <td rowspan="2">Age</td>
+                            <td rowspan="1">Age</td>
                             <td>나이</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.CHK1_Age) </td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.AgeText) </td>
+                            @Html.HiCell((int)Model.CHK1_Age)
+
                         </tr>
-                        <tr>
+                        @*<tr>
                             <td>잔여수명</td>
                             <td></td>
                             <td></td>
+                            <td>@(Model.RemainLifeText)</td>
                             <td>@(Model.CHK1_Remain_Life)</td>
-                        </tr>
+                        </tr>*@
 
-                        <tr>
-                            <td rowspan="2">Measure</td>
-                            <td>Doble</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_Doble) </td>
-                            <td rowspan="2"></td>
-                        </tr>
-                        <tr>
-                            <td>SFRA</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_SFRA)</td>
-                        </tr>
+                    <tr>
+                        <td rowspan="2">Measure</td>
+                        <td>Doble</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.DobleText) </td>
+                        @Html.HiCell((int)Model.CHK1_Doble)
 
-                        <tr>
-                            <td rowspan="6">절연저항</td>
-                            <td>HV-E</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_HV_E) </td>
-                            <td rowspan="6"></td>
-                        </tr>
-                        <tr>
-                            <td>LV-E</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_LV_E)</td>
-                        </tr>
-                        <tr>
-                            <td>TV-E</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_TV_E)</td>
-                        </tr>
-                        <tr>
-                            <td>HV-LV</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_HV_LV)</td>
-                        </tr>
-                        <tr>
-                            <td>HV-TV</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_HV_TV)</td>
-                        </tr>
-                        <tr>
-                            <td>LV-TV</td>
-                            <td></td>
-                            <td></td>
-                            <td>@(Model.CHK1_LV_TV)</td>
-                        </tr>
+                    </tr>
+                    <tr>
+                        <td>SFRA</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.SFRAText)</td>
+                        @Html.HiCell((int)Model.CHK1_SFRA)
+
+                    </tr>
+
+                    <tr>
+                        <td rowspan="6">절연저항</td>
+                        <td>HV-E</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.HVEText) </td>
+                        @Html.HiCell((int)Model.CHK1_HV_E)
+
+                    </tr>
+                    <tr>
+                        <td>LV-E</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.LVEText)</td>
+                        @Html.HiCell((int)Model.CHK1_LV_E)
+
+                    </tr>
+                    <tr>
+                        <td>TV-E</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.TVEText)</td>
+                        @Html.HiCell((int)Model.CHK1_TV_E)
+
+                    </tr>
+                    <tr>
+                        <td>HV-LV</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.HVLVText)</td>
+                        @Html.HiCell((int)Model.CHK1_HV_LV)
+
+                    </tr>
+                    <tr>
+                        <td>HV-TV</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.HVTVText)</td>
+                        @Html.HiCell((int)Model.CHK1_HV_TV)
+
+                    </tr>
+                    <tr>
+                        <td>LV-TV</td>
+                        <td></td>
+                        <td></td>
+                        <td>@(Model.LTVText)</td>
+                        @Html.HiCell((int)Model.CHK1_LV_TV)
+
+                    </tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteChk(itrCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Interface TR 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("DeleteITRChk1", "ITRChk")',
@@ -253,7 +285,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+}
 

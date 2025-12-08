@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.PUMPChk
+﻿@model Web.Common.PUMPChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -78,7 +78,6 @@
                         <col style="width:12%">
                         <col style="width:8%">
                         <col>
-                        <col style="width:6%">
                     </colgroup>
                     <thead>
                         <tr>
@@ -87,7 +86,6 @@
                             <th>한전기준</th>
                             <th>단위</th>
                             <th>판정기준 및 score</th>
-                            <th>가중치</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -97,14 +95,13 @@
                             <td>펌프 본체, 연결부, 베이스 부식/손상/누수 여부 확인</td>
                             <td>부식, 손상 및 누수 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_1_1_Text)</td>
                         </tr>
                         <tr>
                             <td>모터 표면의 부식 및 손상 확인</td>
                             <td>표면 손상 및 부식 없음</td>
                             <td>-</td>
-                            <td>@(Model.CHK_1_2)</td>
+                            <td>@(Model.CHK_1_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -112,14 +109,13 @@
                             <td>정상 작동 여부 및 이상 소음, 진동 확인</td>
                             <td>이상 소음 및 진동 없음, 정상 작동</td>
                             <td>-</td>
-                            <td>@(Model.CHK_2_1)</td>
-                            <td rowspan="2"></td>
+                            <td>@(Model.CHK_2_1_Text)</td>
                         </tr>
                         <tr>
                             <td>흡입/토출 유량 및 압력, 탱크 내 액위 확인</td>
                             <td>설계 유량 및 압력 범위 유지</td>
                             <td>m³/h, kg/cm²</td>
-                            <td>@(Model.CHK_2_2)</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
                         </tr>
 
                         <tr>
@@ -127,43 +123,40 @@
                             <td>제어반 수동 기동 후 전체 계통 정상 여부 확인</td>
                             <td>기동 후 제어반 및 계통 정상 작동</td>
                             <td>-</td>
-                            <td>@(Model.CHK_3_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_3_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">부속품 점검</td>
                             <td>밸브, 필터, 압력계 등 부속품 작동 상태 점검</td>
                             <td>모든 부속품 정상 동작</td>
                             <td>-</td>
-                            <td>@(Model.CHK_4_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_4_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">유량/압력 측정</td>
                             <td>흡입/토출 유량 및 압력 측정</td>
                             <td>설계 값과 일치 (기록 필수)</td>
                             <td>m³/h, kg/cm²</td>
-                            <td>@(Model.CHK_5_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_5_1_Text)</td>
                         </tr>
                         <tr>
                             <td rowspan="1">점검 기록</td>
                             <td>점검 주기 및 결과 기록, 상태 변화 추적</td>
                             <td>정기 점검 및 결과 기록 유지</td>
                             <td>-</td>
-                            <td>@(Model.CHK_6_1)</td>
-                            <td rowspan="1"></td>
+                            <td>@(Model.CHK_6_1_Text)</td>
                         </tr>
 
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 }
-<script type="text/javascript">
+@section Scripts {
+    <script type="text/javascript">
         function deleteGojang(pumpCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Pump 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("PUMPChkDelete", "PUMPChk")',
@@ -183,7 +176,6 @@
                     }
                 });
             }
-        }
-</script>
-
+    </script>
+    }
 

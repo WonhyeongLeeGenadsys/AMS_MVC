@@ -1,5 +1,5 @@
-﻿@model AMS_MVC.Models.ZIGZAGTRBasicInfo
-@using Web.Common.Utlity
+﻿@model Web.Common.ZIGZAGTRBasicInfo
+@using Web.Common
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -72,6 +72,7 @@
     function deleteZIGZAGTRBasicInfo() {
         var tblIdx = "@Model.Tbl_Idx";
 
+        if (!confirm("Zig-Zag TR 기본정보를 삭제하시겠습니까?")) return;
         $.ajax({
             type: "POST",
             url: "@Url.Action("DeleteZIGZAGTRBasicInfo", "ZIGZAGTRBasic")",

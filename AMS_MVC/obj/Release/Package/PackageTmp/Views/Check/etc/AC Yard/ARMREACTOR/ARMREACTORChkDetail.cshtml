@@ -1,4 +1,4 @@
-﻿@model AMS_MVC.Models.ARMREACTORChk
+﻿@model Web.Common.ARMREACTORChk
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -222,13 +222,14 @@
                         </tr>
                     </tbody>
                 </table>
-                </div>
             </div>
         </div>
+    </div>
 }
+@section Scripts {
 <script type="text/javascript">
         function deleteGojang(armreactorCode, tblIdx) {
-            if (confirm("정말 삭제하시겠습니까?")) {
+            if (!confirm("Arm Reactor 보통점검 정보를 삭제하시겠습니까?")) return;
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("ARMREACTORChkDelete", "ARMREACTORChk")',
@@ -248,7 +249,6 @@
                     }
                 });
             }
-        }
 </script>
-
+    }
 

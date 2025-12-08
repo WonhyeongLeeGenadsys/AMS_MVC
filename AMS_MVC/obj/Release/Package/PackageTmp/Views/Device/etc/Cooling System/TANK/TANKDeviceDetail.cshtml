@@ -1,10 +1,10 @@
-﻿@model AMS_MVC.Models.TANKBasicInfo
+﻿@model Web.Common.TANKBasicInfo
 
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
-    var allChkData = ViewBag.TANKChkList as List<AMS_MVC.Models.TANKChk>;
+    var allChkData = ViewBag.TANKChkList as List<Web.Common.TANKChk>;
     var lastChk = allChkData != null && allChkData.Any()
                   ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
                   : null;
