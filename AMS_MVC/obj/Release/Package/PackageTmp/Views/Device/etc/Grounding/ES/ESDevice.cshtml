@@ -612,9 +612,9 @@ $(function(){
               : row.Status
             },
             { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
-            { dataField: "Start",      caption: "시작일",    dataType: "date", alignment: "center" },
-            { dataField: "End",        caption: "종료일",    dataType: "date", alignment: "center" },
-            { dataField: "DueDate",    caption: "정기점검일",dataType: "date", alignment: "center" }
+              { dataField: "Start", caption: "시작일", dataType: "date", alignment: "center", format: 'yy.MM.dd' },
+              { dataField: "End", caption: "종료일", dataType: "date", alignment: "center", format: 'yy.MM.dd' },
+              { dataField: "DueDate", caption: "정기점검일", dataType: "date", alignment: "center", format: 'yy.MM.dd' }
           ]
         });
       })

@@ -138,3 +138,57 @@
 |2025-12-09 13:10:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
 |2025-12-09 13:10:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
 |2025-12-09 13:10:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:21  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:21  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:24  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:24  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:25  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:27  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:27  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:36  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:36  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:39  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:39  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:47  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-09 15:44:47  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:47  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-09 15:44:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:49  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:49  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:44:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:49  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:49  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:44:55  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:44:55  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:01  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:45:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:03  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:03  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:05  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:05  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:08  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:08  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:11  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:11  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:17  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 15:45:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:18  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:18  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:19  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:19  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 15:45:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-09 15:45:49  |   ITRChkScore  |   [ITRChk2 Input] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2025-12-09 15:45:50  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-09 15:45:50  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-09 18:07:56  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-09 18:07:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |

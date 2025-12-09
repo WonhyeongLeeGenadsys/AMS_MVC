@@ -66,4 +66,3 @@ D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CoreCompileInputs.
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.CopyComplete
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.dll
 D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.pdb
-D:\project\ams\AMS_MVC\Web.Common\obj\Debug\Web.Common.csproj.AssemblyReference.cache

@@ -534,14 +534,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Web.Common.dll" size="1192960">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="Web.Common.dll" size="1197056">
       <assemblyIdentity name="Web.Common" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha256" />
-        <dsig:DigestValue>tr0vITSnP0LsCA9dYfNUzIWej6m7//ohxI/zEdpT+UY=</dsig:DigestValue>
+        <dsig:DigestValue>O43doG+Yv9FITk517DFmUxrycvQHsiuv0TINYPk33Sc=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

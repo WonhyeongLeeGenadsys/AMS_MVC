@@ -1203,6 +1203,9 @@
     <Content Include="Views\TotalInfo\HITab.cshtml" />
     <Content Include="Views\TotalInfo\PofTab.cshtml" />
     <Content Include="Views\TotalInfo\CofTab.cshtml" />
+    <Content Include="Views\TotalInfo\_TotalInfoAll.cshtml" />
+    <Content Include="Views\TotalInfo\_TotalInfoAC.cshtml" />
+    <Content Include="Views\TotalInfo\_TotalInfoDC.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
