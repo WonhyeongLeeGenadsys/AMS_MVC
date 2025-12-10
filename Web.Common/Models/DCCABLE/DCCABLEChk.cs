@@ -20,9 +20,9 @@ namespace Web.Common
         public string CHK_Writer { get; set; }
 
         public float CHK_Partial_Discharge { get; set; }   // 부분방전 (PD)
-        public float CHK_Rated_Voltage { get; set; }   // 공칭전압 (PU)
+        public float CHK_Rated_Voltage { get; set; }   // 내전압
         public float CHK_Tan_Delta { get; set; }   // Tan Delta
-        public float CHK_Resistance { get; set; }   // 저항 측정 (Ω)
+        public float CHK_Resistance { get; set; }   // 절연 저항
         public float CHK_TDR { get; set; }   // 시간영역 반사 (PU)
 
         public int FoldingFunction { get; set; }

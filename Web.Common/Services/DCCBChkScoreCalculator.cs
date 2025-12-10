@@ -12,9 +12,10 @@ namespace Web.Common
             int[] scores = new int[]
             {
                 (int)chk.CHK_MainCircuit_InsulationStrength,
-                (int)chk.CHK_LeakTest,
+                (int)chk.CHK_MCPD,
                 (int)chk.CHK_MechanicalOperation,
-                (int)chk.CHK_AuxControlCircuit,
+                (int)chk.CHK_MVA,
+                (int)chk.CHK_RACR,
                 (int)chk.CHK_CE_Voltage,
                 (int)chk.CHK_G_Voltage,
                 (int)chk.CHK_On_Resistance,
@@ -25,10 +26,11 @@ namespace Web.Common
 
             LogHelper.WriteLog("DCCBChkScore",
                  $"[InputData]:  " +
-                 $"주 회로 절연내력 시험={(int)chk.CHK_MainCircuit_InsulationStrength}, " +
-                 $"기밀 시험={(int)chk.CHK_MechanicalOperation}, " +
+                 $"주 회로 절연내력={(int)chk.CHK_MainCircuit_InsulationStrength}, " +
+                 $"주 회로 부분방전={(int)chk.CHK_MCPD}, " +
                  $"기계적 동작 시험 (속도)={(int)chk.CHK_MechanicalOperation}, " +
-                 $"보조/제어회로 시험 (응답시간)={(int)chk.CHK_AuxControlCircuit}, " +
+                 $"기계부 진동/가속도={(int)chk.CHK_MVA}, " +
+                 $"릴레이 보조접점 저항={(int)chk.CHK_RACR}, " +
                  $"V_ce={(int)chk.CHK_CE_Voltage}, " +
                  $"V_g={(int)chk.CHK_G_Voltage}, " +
                  $"R_on={(int)chk.CHK_On_Resistance}, " +

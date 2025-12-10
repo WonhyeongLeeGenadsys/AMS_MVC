@@ -1,0 +1,234 @@
+|2025-12-10 09:56:09  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-10 09:56:09  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 09:56:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 09:56:09  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-10 09:56:23  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 09:56:25  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-10 09:56:25  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 09:56:25  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 09:56:25  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-10 09:56:26  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2025-12-10 09:56:26  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 09:56:26  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 09:56:26  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2025-12-10 09:56:27  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 09:56:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 09:56:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 09:56:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 09:56:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:02:31  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 10:02:31  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 10:02:32  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 10:02:32  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 10:02:32  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:04:54  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 10:04:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 10:04:55  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 10:04:55  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 10:04:55  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:05:28  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 10:05:28  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 10:05:29  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 10:05:29  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 10:05:30  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 10:05:30  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 10:05:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:08:54  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 10:08:54  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 10:08:55  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 10:08:55  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 10:08:55  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:09:14  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-12-10 10:09:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 10:09:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 10:09:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 10:09:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 10:09:14  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:09:28  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-12-10 10:09:28  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-10 10:09:28  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-10 10:09:29  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-10 10:09:29  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-10 10:09:29  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 10:11:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 10:11:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 11:20:03  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 11:20:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 11:20:07  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 11:20:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 11:20:07  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 11:20:07  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 11:20:07  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 12:02:45  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 12:02:45  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 12:03:01  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 12:03:01  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 12:03:01  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:06:02  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:06:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:06:03  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:06:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:06:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:07:51  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:07:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:07:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:07:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:07:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:22:18  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:22:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:22:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:22:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:22:19  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:22:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:22:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:22:48  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:23:40  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:23:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:23:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:26:03  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:26:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:26:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:52:14  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 13:52:14  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 13:52:14  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:52:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 13:52:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 13:52:17  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 13:52:17  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 13:52:17  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 13:59:32  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 13:59:32  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 13:59:32  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:01:47  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:01:47  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:01:47  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:03:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:03:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:03:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:04:36  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:04:36  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:04:36  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:05:52  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:05:52  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:05:52  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:05:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:05:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:05:54  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:05:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:05:54  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:06:51  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:06:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:06:51  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:07:03  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:07:03  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:07:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:07:13  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:07:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:07:13  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:07:40  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:07:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:07:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:07:58  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 14:07:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 14:07:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:22:04  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:22:04  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:22:04  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:22:04  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:22:05  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:22:05  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:22:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:22:40  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:22:40  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:22:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:23:11  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:23:11  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:23:11  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:23:42  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:23:42  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:23:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:23:50  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:23:50  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:23:50  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:24:18  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:24:18  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:24:18  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:24:25  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:24:25  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:24:25  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 14:32:23  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2025-12-10 14:32:23  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2025-12-10 14:32:25  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 14:32:25  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 14:32:26  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 14:32:26  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 14:32:26  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 15:59:30  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 15:59:30  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 15:59:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:00:02  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 16:00:02  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:00:02  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:33:13  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 16:33:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:33:14  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-12-10 16:33:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:33:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:33:15  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:33:15  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:33:15  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:33:54  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:33:54  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:33:54  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:05  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:05  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:08  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:08  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:09  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:09  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:09  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:30  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:30  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:42  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:42  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:34:49  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:34:49  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:34:49  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:45:40  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:45:40  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:45:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:45:42  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2025-12-10 16:45:42  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-10 16:45:42  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:45:43  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2025-12-10 16:45:43  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:45:43  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:48:30  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2025-12-10 16:48:30  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:48:30  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:48:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:48:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:48:31  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:50:44  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2025-12-10 16:50:44  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:50:44  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:50:46  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 16:50:46  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:50:47  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 16:50:47  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:50:47  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:50:55  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 16:50:55  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:50:55  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:51:03  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2025-12-10 16:51:03  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2025-12-10 16:51:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2025-12-10 16:54:56  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 16:54:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:54:58  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2025-12-10 16:54:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2025-12-10 16:54:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |

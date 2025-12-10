@@ -104,314 +104,273 @@
                 <div class="table_list_app">
                     <table>
                         <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
+                            <col style="width:5%">
+                            <col style="width:11%">
+                            <col style="width:4%">
+                            <col style="width:15%">
+                            <col style="width:2%">
                             <col>
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
+                                <th rowspan="2">하위설비</th>
+                                <th rowspan="2">입력 파라미터</th>
+                                <th rowspan="2">단위</th>
+                                <th colspan="5">판단기준</th>
+                                <th rowspan="2">비고</th>
+                            </tr>
+                            <tr>
+                                <th>Very Good</th>
+                                <th>Good</th>
+                                <th>Fair</th>
+                                <th>Poor</th>
+                                <th>Very Poor</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <tr>
-                                <td rowspan="6">
+                                <td rowspan="5">
                                     IGBT
                                 </td>
                                 <td>C-E 전압</td>
-                                <td></td>
-                                <td>1PU = 제조사 권장값</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_CE_Voltage_1">
                                         <input type="radio" id="CHK_CE_Voltage_1" name="CHK_CE_Voltage" value="1" checked>
-                                        <span>0.9~1.0PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_CE_Voltage_2">
-                                        <input type="radio" id="CHK_CE_Voltage_2" name="CHK_CE_Voltage" value="2">
-                                        <span>1.0~1.1PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_CE_Voltage_3">
-                                        <input type="radio" id="CHK_CE_Voltage_3" name="CHK_CE_Voltage" value="3">
-                                        <span>1.1~1.2PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_CE_Voltage_4">
-                                        <input type="radio" id="CHK_CE_Voltage_4" name="CHK_CE_Voltage" value="4">
-                                        <span>1.2~1.25PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_CE_Voltage_5">
-                                        <input type="radio" id="CHK_CE_Voltage_5" name="CHK_CE_Voltage" value="5">
-                                        <span>1.25PU 초과</span>
+                                        <span>1.0 이하</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_3">
+                                        <input type="radio" id="CHK_CE_Voltage_3" name="CHK_CE_Voltage" value="3">
+                                        <span>1.0~1.2</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_4">
+                                        <input type="radio" id="CHK_CE_Voltage_4" name="CHK_CE_Voltage" value="4">
+                                        <span>1.2~1.25</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_CE_Voltage_5">
+                                        <input type="radio" id="CHK_CE_Voltage_5" name="CHK_CE_Voltage" value="5">
+                                        <span>1.25 초과</span>
+                                    </label>
+                                </td>
+                                
+                                <td>1 P.U = 제조사 권장값</td>
                             </tr>
                             <tr>
                                 <td>
-                                    G 전압
+                                    G 전압(Vg)
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_G_Voltage_1">
                                         <input type="radio" id="CHK_G_Voltage_1" name="CHK_G_Voltage" value="1" checked>
-                                        <span>0~0.5V</span>
+                                        <span>1.0 이하</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_G_Voltage_2">
-                                        <input type="radio" id="CHK_G_Voltage_2" name="CHK_G_Voltage" value="2">
-                                        <span>0.5~1.0V</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_G_Voltage_3">
                                         <input type="radio" id="CHK_G_Voltage_3" name="CHK_G_Voltage" value="3">
-                                        <span>1~3V</span>
+                                        <span>1.0~1.5</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_G_Voltage_4">
-                                        <input type="radio" id="CHK_G_Voltage_4" name="CHK_G_Voltage" value="4">
-                                        <span>3~5V</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_G_Voltage_5">
                                         <input type="radio" id="CHK_G_Voltage_5" name="CHK_G_Voltage" value="5">
-                                        <span>5V 초과</span>
+                                        <span>1.5 초과</span>
                                     </label>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    On 전압
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="CHK_On_Resistance_1">
-                                        <input type="radio" id="CHK_On_Resistance_1" name="CHK_On_Resistance" value="1" checked>
-                                        <span>0.9~1.0PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_On_Resistance_2">
-                                        <input type="radio" id="CHK_On_Resistance_2" name="CHK_On_Resistance" value="2">
-                                        <span>1.0~1.1PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_On_Resistance_3">
-                                        <input type="radio" id="CHK_On_Resistance_3" name="CHK_On_Resistance" value="3">
-                                        <span>1.1~1.2PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_On_Resistance_4">
-                                        <input type="radio" id="CHK_On_Resistance_4" name="CHK_On_Resistance" value="4">
-                                        <span>1.2~1.25PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_On_Resistance_5">
-                                        <input type="radio" id="CHK_On_Resistance_5" name="CHK_On_Resistance" value="5">
-                                        <span>1.25PU 초과</span>
-                                    </label>
-                                </td>
+                                <td>1 P.U = 초기값</td>
                             </tr>
 
                             <tr>
                                 <td>
-                                    열 저항
+                                    열 저항(Rth)
                                 </td>
-                                <td></td>
-                                <td>1PU = 제조사 권장값</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Thermal_Resistance_1">
                                         <input type="radio" id="CHK_Thermal_Resistance_1" name="CHK_Thermal_Resistance" value="1" checked>
-                                        <span>0.9~1.0PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_2">
-                                        <input type="radio" id="CHK_Thermal_Resistance_2" name="CHK_Thermal_Resistance" value="2">
-                                        <span>1.0~1.1PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_3">
-                                        <input type="radio" id="CHK_Thermal_Resistance_3" name="CHK_Thermal_Resistance" value="3">
-                                        <span>1.1~1.2PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_4">
-                                        <input type="radio" id="CHK_Thermal_Resistance_4" name="CHK_Thermal_Resistance" value="4">
-                                        <span>1.2~1.25PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_5">
-                                        <input type="radio" id="CHK_Thermal_Resistance_5" name="CHK_Thermal_Resistance" value="5">
-                                        <span>1.25PU 초과</span>
+                                        <span>1.0 이하</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_3">
+                                        <input type="radio" id="CHK_Thermal_Resistance_3" name="CHK_Thermal_Resistance" value="3">
+                                        <span>1.0~1.2</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_4">
+                                        <input type="radio" id="CHK_Thermal_Resistance_4" name="CHK_Thermal_Resistance" value="4">
+                                        <span>1.2~1.25</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Thermal_Resistance_5">
+                                        <input type="radio" id="CHK_Thermal_Resistance_5" name="CHK_Thermal_Resistance" value="5">
+                                        <span>1.25 초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 제조사 권장값</td>
                             </tr>
 
                             <tr>
                                 <td>
-                                    C 전류
+                                    C 전류(Ic)
                                 </td>
-                                <td></td>
-                                <td>1PU = 정격 스위칭 시간</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_C_Current_1">
                                         <input type="radio" id="CHK_C_Current_1" name="CHK_C_Current" value="1" checked>
-                                        <span>0.9~1.0PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_C_Current_2">
-                                        <input type="radio" id="CHK_C_Current_2" name="CHK_C_Current" value="2">
-                                        <span>1.0~1.1PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_C_Current_3">
-                                        <input type="radio" id="CHK_C_Current_3" name="CHK_C_Current" value="3">
-                                        <span>1.1~1.2PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_C_Current_4">
-                                        <input type="radio" id="CHK_C_Current_4" name="CHK_C_Current" value="4">
-                                        <span>1.2~1.25PU</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_C_Current_5">
-                                        <input type="radio" id="CHK_C_Current_5" name="CHK_C_Current" value="5">
-                                        <span>1.25PU 초과</span>
+                                        <span>1.0 이하</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_C_Current_3">
+                                        <input type="radio" id="CHK_C_Current_3" name="CHK_C_Current" value="3">
+                                        <span>1.0~1.2</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_C_Current_4">
+                                        <input type="radio" id="CHK_C_Current_4" name="CHK_C_Current" value="4">
+                                        <span>1.2~1.25</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_C_Current_5">
+                                        <input type="radio" id="CHK_C_Current_5" name="CHK_C_Current" value="5">
+                                        <span>1.25 초과</span>
+                                    </label>
+                                </td>
+                                <td> 1 P.U 정격 콜렉터 전류</td>
                             </tr>
 
                             <tr>
                                 <td>
-                                    On/Off 전류
+                                    On/Off 전류(Ton, Toff)
                                 </td>
-                                <td></td>
-                                <td>1PU = 정격 스위칭 시간</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_OnOff_Time_1">
                                         <input type="radio" id="CHK_OnOff_Time_1" name="CHK_OnOff_Time" value="1" checked>
-                                        <span>0.9~1.0PU</span>
+                                        <span>1.0 이하</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_OnOff_Time_2">
-                                        <input type="radio" id="CHK_OnOff_Time_2" name="CHK_OnOff_Time" value="2">
-                                        <span>1.0~1.1PU</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_OnOff_Time_3">
                                         <input type="radio" id="CHK_OnOff_Time_3" name="CHK_OnOff_Time" value="3">
-                                        <span>1.1~1.2PU</span>
+                                        <span>1.0~1.2</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_OnOff_Time_4">
                                         <input type="radio" id="CHK_OnOff_Time_4" name="CHK_OnOff_Time" value="4">
-                                        <span>1.2~1.25PU</span>
+                                        <span>1.2~1.25</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_OnOff_Time_5">
                                         <input type="radio" id="CHK_OnOff_Time_5" name="CHK_OnOff_Time" value="5">
-                                        <span>1.25PU 초과</span>
+                                        <span>1.25 초과</span>
                                     </label>
                                 </td>
+                                <td>1 P.U = 정격 스위칭 시간</td>
                             </tr>
 
                             <tr>
-                                <td rowspan="4">
+                                <td rowspan="3">
                                     커패시터
                                 </td>
-                                <td>절연저항</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_1">
-                                        <input type="radio" id="CHK_Insulation_Resistance_1" name="CHK_Insulation_Resistance" value="1" checked>
-                                        <span>500MΩ이상</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_2">
-                                        <input type="radio" id="CHK_Insulation_Resistance_2" name="CHK_Insulation_Resistance" value="2">
-                                        <span>400MΩ~500MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_3">
-                                        <input type="radio" id="CHK_Insulation_Resistance_3" name="CHK_Insulation_Resistance" value="3">
-                                        <span>200MΩ~300MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_4">
-                                        <input type="radio" id="CHK_Insulation_Resistance_4" name="CHK_Insulation_Resistance" value="4">
-                                        <span>100MΩ~200MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Insulation_Resistance_5">
-                                        <input type="radio" id="CHK_Insulation_Resistance_5" name="CHK_Insulation_Resistance" value="5">
-                                        <span>100MΩ미만</span>
-                                    </label>
-                                </td>
-                            </tr>
-
-                            <tr>
                                 <td>ESR</td>
-                                <td></td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_ESR_1">
                                         <input type="radio" id="CHK_ESR_1" name="CHK_ESR" value="1" checked>
                                         <span>초기값 대비 1.1배</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_ESR_2">
-                                        <input type="radio" id="CHK_ESR_2" name="CHK_ESR" value="2">
-                                        <span>초기값 대비 1.25배</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_ESR_3">
                                         <input type="radio" id="CHK_ESR_3" name="CHK_ESR" value="3">
                                         <span>초기값 대비 1.5배</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK_ESR_4">
-                                        <input type="radio" id="CHK_ESR_4" name="CHK_ESR" value="4">
-                                        <span>초기값 대비 1.75배</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK_TDR_5">
                                         <input type="radio" id="CHK_TDR_5" name="CHK_TDR" value="5">
                                         <span>초기값 대비 2배 초과</span>
                                     </label>
                                 </td>
+                                <td>-</td>
                             </tr>
 
                             <tr>
                                 <td>커패시턴스</td>
-                                <td></td>
-                                <td>1PU = 제조사 권장값</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Capacitance_1">
                                         <input type="radio" id="CHK_Capacitance_1" name="CHK_Capacitance" value="1" checked>
-                                        <span>PU±2.5%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Capacitance_2">
-                                        <input type="radio" id="CHK_Capacitance_2" name="CHK_Capacitance" value="2">
-                                        <span>PU±5%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Capacitance_3">
-                                        <input type="radio" id="CHK_Capacitance_3" name="CHK_Capacitance" value="3">
-                                        <span>PU±7.5%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Capacitance_4">
-                                        <input type="radio" id="CHK_Capacitance_4" name="CHK_Capacitance" value="4">
-                                        <span>PU±10%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Capacitance_5">
-                                        <input type="radio" id="CHK_Capacitance_5" name="CHK_Capacitance" value="5">
-                                        <span>PU±10%초과</span>
+                                        <span>±5%이내</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Capacitance_3">
+                                        <input type="radio" id="CHK_Capacitance_3" name="CHK_Capacitance" value="3">
+                                        <span>±10%이내</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Capacitance_5">
+                                        <input type="radio" id="CHK_Capacitance_5" name="CHK_Capacitance" value="5">
+                                        <span>±10%초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 제조사 권장값</td>
                             </tr>
 
                             <tr>
                                 <td>온도</td>
-                                <td></td>
-                                <td></td>
+                                <td>℃</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK_Temperature_1">
                                         <input type="radio" id="CHK_Temperature_1" name="CHK_Temperature" value="1" checked>
-                                        <span>권장온도 80%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Temperature_2">
-                                        <input type="radio" id="CHK_Temperature_2" name="CHK_Temperature" value="2">
-                                        <span>권장온도 85%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Temperature_3">
-                                        <input type="radio" id="CHK_Temperature_3" name="CHK_Temperature" value="3">
-                                        <span>권장온도 95%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Temperature_4">
-                                        <input type="radio" id="CHK_Temperature_4" name="CHK_Temperature" value="4">
-                                        <span>권장온도 100%이내</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK_Temperature_5">
-                                        <input type="radio" id="CHK_Temperature_5" name="CHK_Temperature" value="5">
-                                        <span>권장온도 초과</span>
+                                        <span>90%이내</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK_Temperature_3">
+                                        <input type="radio" id="CHK_Temperature_3" name="CHK_Temperature" value="3">
+                                        <span>100%이내</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+
+                                    <label class="ty_rdo" for="CHK_Temperature_5">
+                                        <input type="radio" id="CHK_Temperature_5" name="CHK_Temperature" value="5">
+                                        <span>100% 초과</span>
+                                    </label>
+                                </td>
+
+                                <td>권장온도 기준</td>
                             </tr>
 
                         </tbody>

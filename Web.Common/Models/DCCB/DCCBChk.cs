@@ -19,10 +19,11 @@ namespace Web.Common
         public DateTime? CHK_End_Date { get; set; }
         public string CHK_Writer { get; set; }
 
-        public float CHK_MainCircuit_InsulationStrength { get; set; }  // 주 회로 절연내력 시험
-        public float CHK_LeakTest { get; set; }                        // 기밀 시험
-        public float CHK_MechanicalOperation { get; set; }             // 기계적 동작 시험 (속도)
-        public float CHK_AuxControlCircuit { get; set; }               // 보조/제어회로 시험 (응답시간)
+        public float CHK_MainCircuit_InsulationStrength { get; set; }  // 주 회로 절연내력
+        public float CHK_MCPD { get; set; } // 주 회로 부분방전
+        public float CHK_MechanicalOperation { get; set; } // 기계적 동작 시험 (속도)
+        public float CHK_MVA { get; set; } // 기계부 진동/가속도
+        public float CHK_RACR { get; set; } // 릴레이 보조접점 저항
 
         public float CHK_CE_Voltage { get; set; }      // V_ce
         public float CHK_G_Voltage { get; set; }       // V_g
@@ -52,11 +53,11 @@ namespace Web.Common
             }
         }
 
-        public string LeakTestText
+        public string CHK_MCPDText
         {
             get
             {
-                switch ((int)CHK_LeakTest)
+                switch ((int)CHK_MCPD)
                 {
                     case 1: return "초기값 0.5% 이하";
                     case 2: return "초기값 0.5 ~ 0.7%";
@@ -84,11 +85,26 @@ namespace Web.Common
             }
         }
 
-        public string AuxControlCircuitText
+        public string CHK_MVAText
         {
             get
             {
-                switch ((int)CHK_AuxControlCircuit)
+                switch ((int)CHK_MVA)
+                {
+                    case 1: return "PU ±2.5% 이내";
+                    case 2: return "PU ±5% 이내";
+                    case 3: return "PU ±7.5% 이내";
+                    case 4: return "PU ±10% 이내";
+                    case 5: return "PU ±10% 초과";
+                    default: return "-";
+                }
+            }
+        }
+        public string CHK_RACRText
+        {
+            get
+            {
+                switch ((int)CHK_RACR)
                 {
                     case 1: return "PU ±2.5% 이내";
                     case 2: return "PU ±5% 이내";
