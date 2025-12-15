@@ -44,8 +44,14 @@
             const historyLoaded = { '': false, AC: false, DC: false };
             const scheduleLoaded = { '': false, AC: false, DC: false };
 
+            function usdToEokKrw(usd) {
+                if (!usdKrwRate || !usd) return 0;
+
+                return (Number(usd) * Number(usdKrwRate)) / 100000000;
+            }
             //  공통 그리드 렌더 함수
             function renderGrid(selector, data, columns) {
+
                 $(selector).dxDataGrid({
                     dataSource: data,
                     showBorders: true,
@@ -306,86 +312,83 @@
 
             function loadDM(prefix) {
                 const suf = SUFFIX[prefix];
-                const today = new Date();
-                $.getJSON(URLS.SCHEDULE, { year: today.getFullYear(), month: today.getMonth() + 1 })
-                    .done(raw => {
-                        // 1) prefix 필터
-                        let ds = raw;
-                        if (prefix === 'AC') {
-                            ds = raw.filter(r => r.Code.startsWith('VCB') || r.Code.startsWith('ITR'));
-                        } else if (prefix === 'DC') {
-                            ds = raw.filter(r => ['DCCB', 'DCCABLE', 'SUBMODULE'].some(pr => r.Code.startsWith(pr)));
-                        }
 
-                        // 2) 각 코드별로 가장 마지막(가장 큰 DueDate) 행만 남기기
-                        //    DueDate 계산도 미리 해 둘 것
-                        const withDue = ds.map(r => {
-                            const start = new Date(r.Start);
-                            const due = new Date(start);
-                            due.setFullYear(due.getFullYear() + 3);
-                            return { ...r, DueDate: due };
+                loadUsdKrwRate().always(() => {
+
+                    $.post(URLS.PRIORITY)
+                        .done(data => {
+                            let filtered = data;
+                            if (prefix === 'AC') filtered = data.filter(d => d.Sort === 'AC');
+                            else if (prefix === 'DC') filtered = data.filter(d => d.Sort === 'DC');
+
+                            filtered = filtered.map((item, idx) => ({
+                                ...item,
+                                Priority: idx + 1
+                            }));
+
+                            renderGrid(
+                                '#gridContainer04' + suf,
+                                filtered,
+                                [
+                                    { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                    { dataField: 'Sort', caption: '유형', alignment: 'center' },
+                                    { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                    { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                    { dataField: 'HI', caption: 'HI', alignment: 'center', dataType: 'number' },
+
+                                    {
+                                        dataField: 'PoF',
+                                        caption: 'PoF(%)',
+                                        alignment: 'center',
+                                        dataType: 'number',
+                                        cellTemplate: function (container, options) {
+                                            $("<div>").text(options.value).css("font-weight", "bold").appendTo(container);
+                                        }
+                                    },
+
+                                    {
+                                        dataField: 'CoF',
+                                        caption: 'CoF(억원)',
+                                        alignment: 'center',
+                                        calculateCellValue: function (row) {
+                                            return usdToEokKrw(row.CoF); 
+                                        },
+                                        format: { type: "fixedPoint", precision: 2 }
+                                    },
+
+                                    {
+                                        caption: 'PoF*CoF (억원)',
+                                        alignment: 'center',
+                                        calculateCellValue: function (row) {
+                                            const cofEok = usdToEokKrw(row.CoF);
+                                            return (Number(row.PoF || 0) * Number(cofEok || 0));
+                                        },
+                                        format: { type: "fixedPoint", precision: 2 }
+                                    },
+
+                                    {
+                                        caption: '의사결정(DM)',
+                                        alignment: 'center',
+                                        cellTemplate: function (container, options) {
+                                            const cofEok = usdToEokKrw(options.data.CoF);
+                                            const score = Number(options.data.PoF || 0) * Number(cofEok || 0);
+
+                                            const dm = getDMDecision(score);
+
+                                            $('<div>')
+                                                .text(dm.text)
+                                                .css({
+                                                    color: dm.color,
+                                                    'font-weight': 'bold'
+                                                })
+                                                .appendTo(container);
+                                        }
+                                    }
+
+                                ]
+                            );
                         });
-                        const latestByCode = Object.values(
-                            withDue.reduce((acc, item) => {
-                                const prev = acc[item.Code];
-                                if (!prev || item.DueDate > prev.DueDate) {
-                                    acc[item.Code] = item;
-                                }
-                                return acc;
-                            }, {})
-                        );
-
-                        // 3) 정렬 & Priority 재부여
-                        const dataSource = latestByCode
-                            .sort((a, b) => a.DueDate - b.DueDate)
-                            .map((r, i) => ({ ...r, Priority: i + 1 }));
-
-                        renderGrid(
-                            '#gridContainer04' + suf,
-                            dataSource,
-                            [
-                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
-                                {
-                                    caption: '점검유형',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        return row.Status === 'confirmed'
-                                            ? '보통점검'
-                                            : row.Status === 'risk'
-                                                ? '정밀점검'
-                                                : row.Status;
-                                    }
-                                },
-                                {
-                                    caption: '구분',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        const code = (row.Code || '').toUpperCase();
-                                        if (code.startsWith('VCB') || code.startsWith('ITR')) {
-                                            return 'AC';
-                                        }
-                                        if (code.startsWith('DCCB')
-                                            || code.startsWith('DCCABLE')
-                                            || code.startsWith('SUBMODULE')) {
-                                            return 'DC';
-                                        }
-                                        return '';
-                                    }
-                                },
-                                { dataField: 'Type', caption: '설비명', alignment: 'center' },
-                                { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
-                                { dataField: 'Start', caption: '시작일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
-                                { dataField: 'End', caption: '종료일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
-                                {
-                                    dataField: 'DueDate',
-                                    caption: '정기점검일',
-                                    dataType: 'date',
-                                    alignment: 'center',
-                                    format: 'yy.MM.dd'
-                                }
-                            ]
-                        );
-                    });
+                });
             }
 
             //  1-depth 탭 클릭 처리: 우선순위만 초기 로드

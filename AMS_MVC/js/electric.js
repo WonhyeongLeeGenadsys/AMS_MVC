@@ -187,3 +187,33 @@ $(document).ready(function () {
 
     });
 });
+
+// 현재 달러 환율 API 원화(억원)값 적용
+let usdKrwRate = 0;
+
+function loadUsdKrwRate() {
+    const url = document.body.getAttribute('data-usdkrw-url'); 
+
+    return $.getJSON(url)
+        .done(r => {
+            usdKrwRate = r.rate || 0;
+            console.log('USD/KRW:', usdKrwRate);
+        })
+        .fail(xhr => {
+            usdKrwRate = 0;
+            console.error('환율 로드 실패', xhr.status, xhr.responseText);
+        });
+}
+
+//의사결정 탭에서 POF*COF값에 대한 값 
+function getDMDecision(value) {
+    if (value >= 50) return { text: '긴급 유지보수', color: 'red' };
+    if (value >= 40) return { text: '즉시 교체', color: 'orange' };
+    if (value >= 30) return { text: '예방 정비', color: 'gold' };
+    if (value >= 20) return { text: '정기 점검', color: '#b4deb1' };
+    if (value >= 10) return { text: '지속 감시', color: '#2e8b57' };
+    return { text: '-', color: '#999' };
+}
+
+
+

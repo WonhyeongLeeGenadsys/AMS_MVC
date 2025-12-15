@@ -105,788 +105,385 @@
                 <div class="table_list_app">
                     <table>
                         <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
+                            <col style="width:5%">
                             <col style="width:8%">
-                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:15%">
+                            <col style="width:2%">
                             <col>
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
+                                <th rowspan="2">하위설비</th>
+                                <th rowspan="2">입력 파라미터</th>
+                                <th rowspan="2">단위</th>
+                                <th colspan="5">판단기준</th>
+                                <th rowspan="2">비고</th>
+                            </tr>
+                            <tr>
+                                <th>Very Good</th>
+                                <th>Good</th>
+                                <th>Fair</th>
+                                <th>Poor</th>
+                                <th>Very Poor</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <tr>
                                 <td rowspan="6">
                                     차단부
                                 </td>
                                 <td>접점 소모량</td>
-                                <td></td>
                                 <td>mm</td>
                                 <td>
                                     <label class="ty_rdo" for="chkContactWearPercent_1">
                                         <input type="radio" id="chkContactWearPercent_1" name="CHK_ContactWearPercent" value="1" checked>
                                         <span>2 미만</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkContactWearPercent_3">
                                         <input type="radio" id="chkContactWearPercent_3" name="CHK_ContactWearPercent" value="3">
                                         <span>2~3</span>
                                     </label>
+                                </td>                                                             
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkContactWearPercent_5">
                                         <input type="radio" id="chkContactWearPercent_5" name="CHK_ContactWearPercent" value="5">
                                         <span>3 초과</span>
                                     </label>
                                 </td>
+
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                    진공(누설전류)
+                                    진공도(누설전류)
                                 </td>
-                                <td></td>
                                 <td>mA</td>
                                 <td>
                                     <label class="ty_rdo" for="chkVacuumLeakCurrent_1">
                                         <input type="radio" id="chkVacuumLeakCurrent_1" name="CHK_VacuumLeakCurrent" value="1" checked>
                                         <span>0.1 미만</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkVacuumLeakCurrent_3">
                                         <input type="radio" id="chkVacuumLeakCurrent_3" name="CHK_VacuumLeakCurrent" value="3">
-                                        <span>0.1~0.2</span>
+                                        <span>0.1~0.3</span>
                                     </label>
+                                </td>                                    
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkVacuumLeakCurrent_5">
                                         <input type="radio" id="chkVacuumLeakCurrent_5" name="CHK_VacuumLeakCurrent" value="5">
                                         <span>0.3 초과</span>
                                     </label>
                                 </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                    접촉저항
+                                    핫스팟
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="HotSpot_1">
+                                        <input type="radio" id="HotSpot_1" name="CHK_HotSpot" value="1" checked>
+                                        <span>미발견</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="HotSpot_5">
+                                        <input type="radio" id="HotSpot_5" name="CHK_HotSpot" value="5">
+                                        <span>발견</span>
+                                    </label>
                                 </td>
                                 <td></td>
-                                <td>초기값 대비</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    PD 패턴 및 성장
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="PdPatternValue_1">
+                                        <input type="radio" id="PdPatternValue_1" name="CHK_PdPatternValue" value="1" checked>
+                                        <span>미발견</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="PdPatternValue_4">
+                                        <input type="radio" id="PdPatternValue_4" name="CHK_PdPatternValue" value="4">
+                                        <span>패턴만 발견</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="PdPatternValue_5">
+                                        <input type="radio" id="PdPatternValue_5" name="CHK_PdPatternValue" value="5">
+                                        <span>패턴 성장</span>
+                                    </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>동작 횟수</td>
+                                <td>P.U</td>
+                                <td>
+                                    <label class="ty_rdo" for="operCount_1">
+                                        <input type="radio" id="operCount_1" name="CHK_OperationCount" value="1" checked>
+                                        <span>0.05 미만</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="operCount_2">
+                                        <input type="radio" id="operCount_2" name="CHK_OperationCount" value="2">
+                                        <span>0.05~0.1</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="operCount_3">
+                                        <input type="radio" id="operCount_3" name="CHK_OperationCount" value="3">
+                                        <span>0.1~0.5</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="operCount_4">
+                                        <input type="radio" id="operCount_4" name="CHK_OperationCount" value="4">
+                                        <span>0.5~1.0</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="operCount_5">
+                                        <input type="radio" id="operCount_5" name="CHK_OperationCount" value="5">
+                                        <span>1.0초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 설계 한계치</td>
+                            </tr>
+                            <tr>
+                                <td>개폐 시간</td>
+                                <td>P.U</td>
+                                <td>
+                                    <label class="ty_rdo" for="openCloseTime_1">
+                                        <input type="radio" id="openCloseTime_1" name="CHK_OpenCloseTime" value="1" checked>
+                                        <span>1.0 이하</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="openCloseTime_3">
+                                        <input type="radio" id="openCloseTime_3" name="CHK_OpenCloseTime" value="3">
+                                        <span>1.0~1.25</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="openCloseTime_4">
+                                        <input type="radio" id="openCloseTime_4" name="CHK_OpenCloseTime" value="4">
+                                        <span>1.25~1.5</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="openCloseTime_5">
+                                        <input type="radio" id="openCloseTime_5" name="CHK_OpenCloseTime" value="5">
+                                        <span>1.5 초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 초기 개폐 시간</td>
+                            </tr>
+                            @*차단부 여기까지*@
+                            <tr>
+                                <td rowspan="2">주회로</td>
+                                <td>
+                                    주회로 접촉저항
+                                </td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="chkContactResistance_1">
                                         <input type="radio" id="chkContactResistance_1" name="CHK_ContactResistance" value="1" checked>
-                                        <span>≤5%</span>
+                                        <span>1.05 미만</span>
                                     </label>
+                                    </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkContactResistance_3">
                                         <input type="radio" id="chkContactResistance_3" name="CHK_ContactResistance" value="3">
-                                        <span>5%~10%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactResistance_4">
-                                        <input type="radio" id="chkContactResistance_4" name="CHK_ContactResistance" value="4">
-                                        <span>10%~20%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkContactResistance_5">
-                                        <input type="radio" id="chkContactResistance_5" name="CHK_ContactResistance" value="5">
-                                        <span>>20%</span>
+                                        <span>1.05~1.1</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="chkContactResistance_4">
+                                        <input type="radio" id="chkContactResistance_4" name="CHK_ContactResistance" value="4">
+                                        <span>1.1~1.2</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="chkContactResistance_5">
+                                        <input type="radio" id="chkContactResistance_5" name="CHK_ContactResistance" value="5">
+                                        <span>1.2 초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 초기 접촉저항</td>
                             </tr>
                             <tr>
                                 <td>
-                                    절연저항
+                                    주회로 절연저항
                                 </td>
-                                <td></td>
                                 <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="chkInsulationResistance_1">
                                         <input type="radio" id="chkInsulationResistance_1" name="CHK_InsulationResistance" value="1" checked>
                                         <span>500 이상</span>
                                     </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_2">
-                                        <input type="radio" id="chkInsulationResistance_2" name="CHK_InsulationResistance" value="2">
-                                        <span>400~500</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_3">
-                                        <input type="radio" id="chkInsulationResistance_3" name="CHK_InsulationResistance" value="3">
-                                        <span>300~400</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chkInsulationResistance_4">
-                                        <input type="radio" id="chkInsulationResistance_4" name="CHK_InsulationResistance" value="4">
-                                        <span>200~300</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="chkInsulationResistance_5">
                                         <input type="radio" id="chkInsulationResistance_5" name="CHK_InsulationResistance" value="5">
-                                        <span>200 미만</span>
+                                        <span>500 미만</span>
                                     </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    핫스팟
                                 </td>
                                 <td></td>
-                                <td>-</td>
-                                <td>
-                                    <label class="ty_rdo" for="HotSpot_1">
-                                        <input type="radio" id="HotSpot_1" name="CHK_HotSpot" value="1" checked>
-                                        <span>없음</span>
-                                    </label>
-                                    <label class="ty_rdo" for="HotSpot_5">
-                                        <input type="radio" id="HotSpot_5" name="CHK_HotSpot" value="5">
-                                        <span>발견</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    PD 패턴 및 성장
-                                </td>
-                                <td></td>
-                                <td>-</td>
-                                <td>
-                                    <label class="ty_rdo" for="PdPatternValue_1">
-                                        <input type="radio" id="PdPatternValue_1" name="CHK_PdPatternValue" value="1" checked>
-                                        <span>없음</span>
-                                    </label>
-                                    <label class="ty_rdo" for="PdPatternValue_4">
-                                        <input type="radio" id="PdPatternValue_4" name="CHK_PdPatternValue" value="4">
-                                        <span>있음(성장X)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="PdPatternValue_5">
-                                        <input type="radio" id="PdPatternValue_5" name="CHK_PdPatternValue" value="5">
-                                        <span>있음</span>
-                                    </label>
-                                </td>
                             </tr>
 
                             <tr>
-                                <td rowspan="1">구동모터</td>
+                                <td rowspan="1">모터</td>
                                 <td>구동모터 전류</td>
-                                <td></td>
-                                <td>초기값 대비</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="MotorCurrent_1">
                                         <input type="radio" id="MotorCurrent_1" name="CHK_MotorCurrent" value="1" checked>
-                                        <span>≤2%</span>
+                                        <span>1.02 미만</span>
                                     </label>
+                                    </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="MotorCurrent_3">
                                         <input type="radio" id="MotorCurrent_3" name="CHK_MotorCurrent" value="3">
-                                        <span>2%~5%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="MotorCurrent_4">
-                                        <input type="radio" id="MotorCurrent_4" name="CHK_MotorCurrent" value="4">
-                                        <span>5%~10%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="MotorCurrent_5">
-                                        <input type="radio" id="MotorCurrent_5" name="CHK_MotorCurrent" value="5">
-                                        <span>>10%</span>
+                                        <span>1.02~1.05</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="MotorCurrent_4">
+                                        <input type="radio" id="MotorCurrent_4" name="CHK_MotorCurrent" value="4">
+                                        <span>1.05~1.1</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="MotorCurrent_5">
+                                        <input type="radio" id="MotorCurrent_5" name="CHK_MotorCurrent" value="5">
+                                        <span>1.1 초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 초기 모터전류</td>
                             </tr>
                             <tr>
-                                <td rowspan="1">누적단락전류</td>
+                                <td rowspan="3">기타</td>
                                 <td>누적 단락전류량</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="accumSCC_1">
                                         <input type="radio" id="accumSCC_1" name="CHK_AccumShortCircuitCurrent" value="1" checked>
-                                        <span>≤20%</span>
+                                        <span>0.5 이하</span>
                                     </label>
-                                    <label class="ty_rdo" for="accumSCC_2">
-                                        <input type="radio" id="accumSCC_2" name="CHK_AccumShortCircuitCurrent" value="2">
-                                        <span>20%~40%</span>
-                                    </label>
+                                    </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="accumSCC_3">
                                         <input type="radio" id="accumSCC_3" name="CHK_AccumShortCircuitCurrent" value="3">
-                                        <span>40%~70%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_4">
-                                        <input type="radio" id="accumSCC_4" name="CHK_AccumShortCircuitCurrent" value="4">
-                                        <span>70%~100%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="accumSCC_5">
-                                        <input type="radio" id="accumSCC_5" name="CHK_AccumShortCircuitCurrent" value="5">
-                                        <span>>Limit</span>
+                                        <span>0.5~0.75</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="accumSCC_4">
+                                        <input type="radio" id="accumSCC_4" name="CHK_AccumShortCircuitCurrent" value="4">
+                                        <span>0.75~1.0</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="accumSCC_5">
+                                        <input type="radio" id="accumSCC_5" name="CHK_AccumShortCircuitCurrent" value="5">
+                                        <span>1.0 초과</span>
+                                    </label>
+                                </td>
+
+                                <td>1 P.U = 설계한계치</td>
                             </tr>
 
-                            <!-- 2) 단락전류 -->
                             <tr>
-                                <td rowspan="5">기타</td>
-                                <td>단락전류</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
+                                <td>누적 단락전류 횟수</td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="shortCC_1">
                                         <input type="radio" id="shortCC_1" name="CHK_ShortCircuitCount" value="1" checked>
-                                        <span>≤20%</span>
+                                        <span>0.5 이하</span>
                                     </label>
-                                    <label class="ty_rdo" for="shortCC_2">
-                                        <input type="radio" id="shortCC_2" name="CHK_ShortCircuitCount" value="2">
-                                        <span>20%~40%</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="shortCC_3">
                                         <input type="radio" id="shortCC_3" name="CHK_ShortCircuitCount" value="3">
-                                        <span>40%~70%</span>
+                                        <span>0.5~0.75</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="shortCC_4">
                                         <input type="radio" id="shortCC_4" name="CHK_ShortCircuitCount" value="4">
-                                        <span>70%~100%</span>
+                                        <span>0.75~1.0</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="shortCC_5">
                                         <input type="radio" id="shortCC_5" name="CHK_ShortCircuitCount" value="5">
-                                        <span>>Limit</span>
+                                        <span>1.0 초과</span>
                                     </label>
                                 </td>
+                                <td>1 P.U = 설계한계치</td>
                             </tr>
-
-                            <!-- 3) 동작 횟수 -->
-                            <tr>
-                                <td>동작 횟수</td>
-                                <td>-</td>
-                                <td>설계 한계치</td>
-                                <td>
-                                    <label class="ty_rdo" for="operCount_1">
-                                        <input type="radio" id="operCount_1" name="CHK_OperationCount" value="1" checked>
-                                        <span>≤20%</span>
-                                    </label>
-
-                                    <label class="ty_rdo" for="operCount_2">
-                                        <input type="radio" id="operCount_2" name="CHK_OperationCount" value="2">
-                                        <span>20%~40%</span>
-                                    </label>
-
-                                    <label class="ty_rdo" for="operCount_3">
-                                        <input type="radio" id="operCount_3" name="CHK_OperationCount" value="3">
-                                        <span>40%~70%</span>
-                                    </label>
-
-                                    <label class="ty_rdo" for="operCount_4">
-                                        <input type="radio" id="operCount_4" name="CHK_OperationCount" value="4">
-                                        <span>70%~100%</span>
-                                    </label>
-
-                                    <label class="ty_rdo" for="operCount_5">
-                                        <input type="radio" id="operCount_5" name="CHK_OperationCount" value="5">
-                                        <span>>Limit</span>
-                                    </label>
-
-                                </td>
-                            </tr>
-
-                            <!-- 4) 개폐 시간 -->
-                            <tr>
-                                <td>개폐 시간</td>
-                                <td>-</td>
-                                <td>초기값 대비</td>
-                                <td>
-                                    <label class="ty_rdo" for="openCloseTime_1">
-                                        <input type="radio" id="openCloseTime_1" name="CHK_OpenCloseTime" value="1" checked>
-                                        <span>≤2%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="openCloseTime_3">
-                                        <input type="radio" id="openCloseTime_3" name="CHK_OpenCloseTime" value="3">
-                                        <span>2%~5%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="openCloseTime_4">
-                                        <input type="radio" id="openCloseTime_4" name="CHK_OpenCloseTime" value="4">
-                                        <span>5%~10%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="openCloseTime_5">
-                                        <input type="radio" id="openCloseTime_5" name="CHK_OpenCloseTime" value="5">
-                                        <span>>10%</span>
-                                    </label>
-                                </td>
-                            </tr>
-
-                            <!-- 5) 외관 점검 -->
                             <tr>
                                 <td>외관 점검</td>
-                                <td>-</td>
                                 <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="visualCheck_1">
                                         <input type="radio" id="visualCheck_1" name="CHK_VisualCheck" value="1" checked>
                                         <span>오염, 부식, 균열 없음</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="visualCheck_3">
                                         <input type="radio" id="visualCheck_3" name="CHK_VisualCheck" value="3">
-                                        <span>오염, 부식, 미약한 균열 발생</span>
+                                        <span>미약 발생</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="visualCheck_4">
                                         <input type="radio" id="visualCheck_4" name="CHK_VisualCheck" value="4">
-                                        <span>오염, 부식이 축적</span>
+                                        <span>축적됨</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="visualCheck_5">
                                         <input type="radio" id="visualCheck_5" name="CHK_VisualCheck" value="5">
-                                        <span>오염, 부식, 균열이 성능에 영향</span>
-                                    </label>
-
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <!--리스트형 입력테이블-->
-                <!--<div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:15%">
-                            <col style="width:15%">
-                            <col style="width:12%">
-                            <col style="width:8%">
-                            <col>
-                            <col style="width:6%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="4">
-                                    일반육안점검
-                                </td>
-                                <td>개폐표시기 정위치</td>
-                                <td></td>
-                                <td></td>
-                                <td>-->
-                @*개폐표시기 정위치*@
-                <!--<label class="ty_rdo" for="chk_loc_normal">
-                                        <input type="radio" id="chk_loc_normal" name="chk_loc" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_loc_abnormal">
-                                        <input type="radio" id="chk_loc_abnormal" name="chk_loc">
-                                        <span>이상(5)</span>
+                                        <span>성능에 영향</span>
                                     </label>
                                 </td>
-                                <td rowspan="4">7</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    축세표시 정위치(Charge, Discharge)
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_chuk_loc_normal">
-                                        <input type="radio" id="chk_chuk_loc_normal" name="chk_chuk_loc" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_chuk_loc_abnormal">
-                                        <input type="radio" id="chk_chuk_loc_abnormal" name="chk_chuk_loc">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    주 전도부 단자의 연결상태
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_con_status_normal">
-                                        <input type="radio" id="chk_con_status_normal" name="chk_con_status" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_con_status_abnormal">
-                                        <input type="radio" id="chk_con_status_abnormal" name="chk_con_status">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    각종Bolt-Nut의 이완여부
-                                </td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_bolt_nut_status_normal">
-                                        <input type="radio" id="chk_bolt_nut_status_normal" name="chk_bolt_nut_status" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_bolt_nut_status_abnormal">
-                                        <input type="radio" id="chk_bolt_nut_status_abnormal" name="chk_bolt_nut_status">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">Vacumm Interrupt 점검</td>
-                                <td>접점 마모량</td>
-                                <td>소모량 3mm이하</td>
-                                <td>mm</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_contact_volume_up">
-                                        <input type="radio" id="chk_contact_volume_up" name="chk_contact_volume" checked>
-                                        <span>12mm이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_contact_volume_down">
-                                        <input type="radio" id="chk_contact_volume_down" name="chk_contact_volume">
-                                        <span>3mm이하(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="2">9</td>
-                            </tr>
-                            <tr>
-                                <td>진공도 측정(VI누설전류측정)</td>
-                                <td>내전압:50kV   누설전류:0.3mA 이하</td>
-                                <td>mA</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_vacuum_degree_down">
-                                        <input type="radio" id="chk_vacuum_degree_down" name="chk_vacuum_degree" checked>
-                                        <span>0.3mA이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_vacuum_degree_up">
-                                        <input type="radio" id="chk_vacuum_degree_up" name="chk_vacuum_degree">
-                                        <span>0.3mA이상(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>보조시스템 기능 점검</td>
-                                <td>Coil전류</td>
-                                <td></td>
-                                <td>
-                                    A
-                                </td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_coil_a_down">
-                                        <input type="radio" id="chk_coil_a_down" name="chk_coil_a" checked>
-                                        <span>투입:1A이하/트립:1A이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_coil_a_up">
-                                        <input type="radio" id="chk_coil_a_up" name="chk_coil_a">
-                                        <span>투입:1A이상/트립:1A이상(5)</span>
-                                    </label>
-                                </td>
-                                <td>8</td>
-                            </tr>
-                            <tr>
-                                <td>접촉저항 점검</td>
-                                <td>접촉저항</td>
-                                <td></td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_contact_r_down">
-                                        <input type="radio" id="chk_contact_r_down" name="chk_contact_r" checked>
-                                        <span>50uΩ 이하(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_contact_r_up">
-                                        <input type="radio" id="chk_contact_r_up" name="chk_contact_r">
-                                        <span>50uΩ 이상(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="3">9</td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">절연저항 점검</td>
-                                <td>
-                                    절연저항(주회로)
-                                </td>
-                                <td></td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_main_circuit_up">
-                                        <input type="radio" id="chk_main_circuit_up" name="chk_main_circuit" checked>
-                                        <span>500uΩ 이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_main_circuit_down">
-                                        <input type="radio" id="chk_main_circuit_down" name="chk_main_circuit">
-                                        <span>500uΩ 미만(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>절연저항(제어회로)</td>
-                                <td>1000V 메거로 500MΩ 이상</td>
-                                <td>Ω</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_control_circuit_up">
-                                        <input type="radio" id="chk_control_circuit_up" name="chk_control_circuit" checked>
-                                        <span>2uΩ 이상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_control_circuit_down">
-                                        <input type="radio" id="chk_control_circuit_down" name="chk_control_circuit">
-                                        <span>2uΩ 미만(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="6">동작 타이밍 점검</td>
-                                <td>무부하 투입시간</td>
-                                <td>70ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_input_time_in">
-                                        <input type="radio" id="chk_input_time_in" name="chk_input_time" checked>
-                                        <span>65ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_input_time_over">
-                                        <input type="radio" id="chk_input_time_over" name="chk_input_time">
-                                        <span>65ms 초과(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="6">10</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    무부하 개극시간
-                                </td>
-                                <td>
-                                    35ms이내
-                                </td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_open_time_in">
-                                        <input type="radio" id="chk_open_time_in" name="chk_open_time" checked>
-                                        <span>40ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_open_time_over">
-                                        <input type="radio" id="chk_open_time_over" name="chk_open_time">
-                                        <span>40ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    3상 개극시 개극차
-                                </td>
-                                <td>
-                                    6ms이내
-                                </td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_3_phase_open_gap_in">
-                                        <input type="radio" id="chk_3_phase_open_gap_in" name="chk_3_phase_open_gap" checked>
-                                        <span>6ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_3_phase_open_gap_over">
-                                        <input type="radio" id="chk_3_phase_open_gap_over" name="chk_3_phase_open_gap">
-                                        <span>6ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Chattering 시간</td>
-                                <td>6ms이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_chattering_time_in">
-                                        <input type="radio" id="chk_chattering_time_in" name="chk_chattering_time" checked>
-                                        <span>6ms 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_chattering_time_over">
-                                        <input type="radio" id="chk_chattering_time_over" name="chk_chattering_time">
-                                        <span>6ms 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>O-C-O</td>
-                                <td>동작책무 이내</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_o_c_o_in">
-                                        <input type="radio" id="chk_o_c_o_in" name="chk_o_c_o" checked>
-                                        <span>동작책무 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_o_c_o_over">
-                                        <input type="radio" id="chk_o_c_o_over" name="chk_o_c_o">
-                                        <span>동작책무 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>축세조작 시간</td>
-                                <td>12sec 이하</td>
-                                <td>S</td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_operate_time_in">
-                                        <input type="radio" id="chk_operate_time_in" name="chk_operate_time" checked>
-                                        <span>3~5s 이내(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_operate_time_over">
-                                        <input type="radio" id="chk_operate_time_over" name="chk_operate_time">
-                                        <span>5s 초과(5)</span>
-                                    </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td rowspan="2">정기 육안 점검</td>
-                                <td>개폐 조작시험</td>
-                                <td>
-                                    개폐표시기,축세표시기<br>
-                                    도수계정상 동작여부 점검(5회)
-                                </td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="chk_oc_test_normal">
-                                        <input type="radio" id="chk_oc_test_normal" name="chk_oc_test" checked>
-                                        <span>정상(0)</span>
-                                    </label>
-                                    <label class="ty_rdo" for="chk_oc_test_abnormal">
-                                        <input type="radio" id="chk_oc_test_abnormal" name="chk_oc_test">
-                                        <span>이상(5)</span>
-                                    </label>
-                                </td>
-                                <td rowspan="2">7</td>
-                            </tr>
-                            <tr>
-                                <td>투입 Spring Charget 표시기</td>
-                                <td>상태별 정위치</td>
-                                <td></td>
                                 <td></td>
                             </tr>
                         </tbody>
                     </table>
-                </div>-->
-                <!--//리스트형 입력테이블-->
-                <!--리스트형 입력테이블-->
-                @*<div class="table_list_app">
-                        <table>
-                            <colgroup>
-                                <col style="width:15%">
-                                <col style="width:20%">
-                                <col style="width:8%">
-                                <col>
-                                <col style="width:6%">
-                            </colgroup>
-                            <thead>
-                                <tr>
-                                    <th>구분</th>
-                                    <th>Parameters</th>
-                                    <th>단위</th>
-                                    <th>판정기준 및 score</th>
-                                    <th>가중치</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td rowspan="2">기계적 및 전기적 작동 이력</td>
-                                    <td>VCB 기계적 동작횟수</td>
-                                    <td>횟수</td>
-                                    <td>
-                                        <label class="ty_rdo" for="chk_vcb_count_01">
-                                            <input type="radio" id="chk_vcb_count_01" name="chk_vcb_count" checked>
-                                            <span>9,000회 미만(0)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_vcb_count_02">
-                                            <input type="radio" id="chk_vcb_count_02" name="chk_vcb_count">
-                                            <span>9,000회~10,000회 미만(3)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_vcb_count_03">
-                                            <input type="radio" id="chk_vcb_count_03" name="chk_vcb_count">
-                                            <span>10,000회 초과(5)</span>
-                                        </label>
-                                    </td>
-                                    <td rowspan="2">15</td>
-                                </tr>
-                                <tr>
-                                    <td>단락 고장 차단 횟수</td>
-                                    <td>횟수</td>
-                                    <td>
-                                        <label class="ty_rdo" for="chk_cutoff_count_01">
-                                            <input type="radio" id="chk_cutoff_count_01" name="chk_cutoff_count" checked>
-                                            <span>50회 미만(0)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_cutoff_count_02">
-                                            <input type="radio" id="chk_cutoff_count_02" name="chk_cutoff_count">
-                                            <span>50회~100회 미만(3)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_cutoff_count_03">
-                                            <input type="radio" id="chk_cutoff_count_03" name="chk_cutoff_count">
-                                            <span>100회 초과(5)</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td rowspan="2">부하 및 단락 전류 비율 이력</td>
-                                    <td>정격 차단 전류에 대한 부하전류 비율</td>
-                                    <td>%</td>
-                                    <td>
-                                        <label class="ty_rdo" for="chk_a_rate_01">
-                                            <input type="radio" id="chk_a_rate_01" name="chk_a_rate" checked>
-                                            <span>0.8% 미만(0)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_a_rate_02">
-                                            <input type="radio" id="chk_a_rate_02" name="chk_a_rate">
-                                            <span>0.8%~100% 미만(3)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_a_rate_03">
-                                            <input type="radio" id="chk_a_rate_03" name="chk_a_rate">
-                                            <span>100% 초과(5)</span>
-                                        </label>
-                                    </td>
-                                    <td rowspan="2">20</td>
-                                </tr>
-                                <tr>
-                                    <td>정격 차단 전류에 대한 단락전류 비율</td>
-                                    <td>%</td>
-                                    <td>
-                                        <label class="ty_rdo" for="chk_short_a_rate_01">
-                                            <input type="radio" id="chk_short_a_rate_01" name="chk_short_a_rate" checked>
-                                            <span>0.8% 미만(0)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_short_a_rate_02">
-                                            <input type="radio" id="chk_short_a_rate_02" name="chk_short_a_rate">
-                                            <span>0.8%~100% 미만(3)</span>
-                                        </label>
-                                        <label class="ty_rdo" for="chk_short_a_rate_03">
-                                            <input type="radio" id="chk_short_a_rate_03" name="chk_short_a_rate">
-                                            <span>100% 초과(5)</span>
-                                        </label>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>*@
-                <!--//리스트형 입력테이블-->
-                <!--리스트형 입력테이블-->
-                <!--<div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col>
-                            <col style="width:12%">
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                                <th>가중치</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>VCB 통계 수명</td>
-                                <td>사용기간수</td>
-                                <td>년</td>
-                                <td>
-                                    <div class="flex">
-                                        <input type="text">-->
-                @*<input type="text">
-                    <input type="text">*@
-                <!--</div>
-                                </td>
-                                <td>30</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
+                </div>                
             </form>
         </div>
     </div>
