@@ -176,6 +176,13 @@
     <Compile Include="Models\ITR\ITRChk2.cs" />
     <Compile Include="Models\ITR\ITRFailureHistory.cs" />
     <Compile Include="Models\ITR\ITRMaintenanceHistory.cs" />
+    <Compile Include="Models\SPARE\InventoryInfo.cs" />
+    <Compile Include="Models\SPARE\SpareAssetMapInfo.cs" />
+    <Compile Include="Models\SPARE\ProcurementInfo.cs" />
+    <Compile Include="Models\SPARE\CostManagementInfo.cs" />
+    <Compile Include="Models\SPARE\SPAREPartInfo.cs" />
+    <Compile Include="Repositories\SPARE\SPAREDashboardInfoRepository.cs" />
+    <Compile Include="Repositories\SPARE\SPAREBasicInfoRepository.cs" />
     <Compile Include="Services\LaModule.cs" />
     <Compile Include="Models\PriorityInfo.cs" />
     <Compile Include="Models\Riskmatrix.cs" />

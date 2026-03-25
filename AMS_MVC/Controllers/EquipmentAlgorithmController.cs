@@ -9,33 +9,33 @@ namespace AMS_MVC
 {
     public class EquipmentAlgorithmController : Controller
     {
-        private EquipmentWeibullRepository _weibullRepo = new EquipmentWeibullRepository();
+        private readonly EquipmentWeibullRepository _weibullRepo = new EquipmentWeibullRepository();
 
         // 기존 5대
-        private VCBBasicInfoRepository _vcbRepo = new VCBBasicInfoRepository();
-        private DCCBBasicInfoRepository _dccbRepo = new DCCBBasicInfoRepository();
-        private DCCABLEBasicInfoRepository _dccableRepo = new DCCABLEBasicInfoRepository();
-        private ITRBasicInfoRepository _itrRepo = new ITRBasicInfoRepository();
-        private SUBMODULEBasicInfoRepository _submoduleRepo = new SUBMODULEBasicInfoRepository();
+        private readonly VCBBasicInfoRepository _vcbRepo = new VCBBasicInfoRepository();
+        private readonly DCCBBasicInfoRepository _dccbRepo = new DCCBBasicInfoRepository();
+        private readonly DCCABLEBasicInfoRepository _dccableRepo = new DCCABLEBasicInfoRepository();
+        private readonly ITRBasicInfoRepository _itrRepo = new ITRBasicInfoRepository();
+        private readonly SUBMODULEBasicInfoRepository _submoduleRepo = new SUBMODULEBasicInfoRepository();
 
         // 추가 15대
-        private SABasicInfoRepository _saRepo = new SABasicInfoRepository();
-        private DCCTBasicInfoRepository _dcctRepo = new DCCTBasicInfoRepository();
-        private ARMREACTORBasicInfoRepository _armReactorRepo = new ARMREACTORBasicInfoRepository();
-        private WALLBUSHINGBasicInfoRepository _wallBushingRepo = new WALLBUSHINGBasicInfoRepository();
-        private PTBasicInfoRepository _ptRepo = new PTBasicInfoRepository();
-        private CTBasicInfoRepository _ctRepo = new CTBasicInfoRepository();
-        private LABasicInfoRepository _laRepo = new LABasicInfoRepository();
-        private DSBasicInfoRepository _dsRepo = new DSBasicInfoRepository();
-        private TANKBasicInfoRepository _tankRepo = new TANKBasicInfoRepository();
-        private HEATEXCHANGERBasicInfoRepository _heatExchangerRepo = new HEATEXCHANGERBasicInfoRepository();
-        private BYPASSVALVEBasicInfoRepository _bypassValveRepo = new BYPASSVALVEBasicInfoRepository();
-        private PUMPBasicInfoRepository _pumpRepo = new PUMPBasicInfoRepository();
-        private ZIGZAGTRBasicInfoRepository _zigZagTRRepo = new ZIGZAGTRBasicInfoRepository();
-        private ESBasicInfoRepository _esRepo = new ESBasicInfoRepository();
-        private NGRBasicInfoRepository _ngrRepo = new NGRBasicInfoRepository();
+        private readonly SABasicInfoRepository _saRepo = new SABasicInfoRepository();
+        private readonly DCCTBasicInfoRepository _dcctRepo = new DCCTBasicInfoRepository();
+        private readonly ARMREACTORBasicInfoRepository _armReactorRepo = new ARMREACTORBasicInfoRepository();
+        private readonly WALLBUSHINGBasicInfoRepository _wallBushingRepo = new WALLBUSHINGBasicInfoRepository();
+        private readonly PTBasicInfoRepository _ptRepo = new PTBasicInfoRepository();
+        private readonly CTBasicInfoRepository _ctRepo = new CTBasicInfoRepository();
+        private readonly LABasicInfoRepository _laRepo = new LABasicInfoRepository();
+        private readonly DSBasicInfoRepository _dsRepo = new DSBasicInfoRepository();
+        private readonly TANKBasicInfoRepository _tankRepo = new TANKBasicInfoRepository();
+        private readonly HEATEXCHANGERBasicInfoRepository _heatExchangerRepo = new HEATEXCHANGERBasicInfoRepository();
+        private readonly BYPASSVALVEBasicInfoRepository _bypassValveRepo = new BYPASSVALVEBasicInfoRepository();
+        private readonly PUMPBasicInfoRepository _pumpRepo = new PUMPBasicInfoRepository();
+        private readonly ZIGZAGTRBasicInfoRepository _zigZagTRRepo = new ZIGZAGTRBasicInfoRepository();
+        private readonly ESBasicInfoRepository _esRepo = new ESBasicInfoRepository();
+        private readonly NGRBasicInfoRepository _ngrRepo = new NGRBasicInfoRepository();
 
-        private RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
+        private readonly RiskmatrixRepository _riskmatrixRepo = new RiskmatrixRepository();
 
         private (List<dynamic> basicList, List<double> usageYears)
         GetBasicInfoAndUsage(string equipmentType)

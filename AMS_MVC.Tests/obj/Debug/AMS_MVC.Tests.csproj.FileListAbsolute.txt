@@ -45,7 +45,7 @@ D:\project\ams\AMS_MVC\AMS_MVC.Tests\bin\Debug\ko\System.Web.Razor.resources.dll
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\bin\Debug\ko\System.Web.WebPages.Deployment.resources.dll
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.csproj.AssemblyReference.cache
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.csproj.CoreCompileInputs.cache
-D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.csproj.CopyComplete
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.dll
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.pdb
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\bin\Debug\Web.Common.dll.config
+D:\project\AMS\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC..7BB92E29.Up2Date

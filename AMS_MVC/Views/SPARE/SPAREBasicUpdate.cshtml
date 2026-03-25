@@ -1,0 +1,119 @@
+﻿@model Web.Common.SPAREPartInfo
+@using Web.Common
+@using System.Collections.Generic
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var inventory = ViewBag.Inventory as InventoryInfo;
+    var assetTypeIds = ViewBag.AssetTypeIds as List<int>;
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 정보 수정</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p class="mrR10">
+                    <a href="@Url.Action("SpareBasicDetail", "SpareBasic", new { spareId = Model.SPARE_ID })" class="btn gray cancel">취소</a>
+                </p>
+                <p>
+                    <a href="javascript:void(0)" class="btn blue app" onclick="updateSpareBasicInfo()">적용</a>
+                </p>
+            </div>
+
+            <form id="spareUpdateForm" method="post">
+                <input type="hidden" name="SPARE_ID" value="@Model.SPARE_ID" />
+
+                <div class="table_app">
+                    <table>
+                        <tr>
+                            <th>부품번호</th>
+                            <td><input type="text" name="PART_NUMBER" value="@Model.PART_NUMBER" required></td>
+                            <th>부품명</th>
+                            <td><input type="text" name="PART_NAME" value="@Model.PART_NAME" required></td>
+                        </tr>
+                        <tr>
+                            <th>중요도 등급</th>
+                            <td>
+                                <select name="CRITICALITY_GRADE">
+                                    <option value="A" @(Model.CRITICALITY_GRADE == "A" ? "selected" : "")>A</option>
+                                    <option value="B" @(Model.CRITICALITY_GRADE == "B" ? "selected" : "")>B</option>
+                                    <option value="C" @(Model.CRITICALITY_GRADE == "C" ? "selected" : "")>C</option>
+                                    <option value="D" @(Model.CRITICALITY_GRADE == "D" ? "selected" : "")>D</option>
+                                </select>
+                            </td>
+                            <th>단가</th>
+                            <td><input type="text" name="UNIT_PRICE" value="@Model.UNIT_PRICE" data-type="number"><span>원</span></td>
+                        </tr>
+                        <tr>
+                            <th>리드타임</th>
+                            <td><input type="text" name="LEAD_TIME_DAYS" value="@Model.LEAD_TIME_DAYS" data-type="number"><span>일</span></td>
+                            <th>사용 여부</th>
+                            <td>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="true" @(Model.IS_ACTIVE.HasValue && Model.IS_ACTIVE.Value ? "checked" : "")><span>사용</span>
+                                </label>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="false" @(!Model.IS_ACTIVE.HasValue || !Model.IS_ACTIVE.Value ? "checked" : "")><span>미사용</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연결 설비유형</th>
+                            <td colspan="3">
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="1" @(assetTypeIds != null && assetTypeIds.Contains(1) ? "checked" : "")><span>VCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="2" @(assetTypeIds != null && assetTypeIds.Contains(2) ? "checked" : "")><span>DCCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="3" @(assetTypeIds != null && assetTypeIds.Contains(3) ? "checked" : "")><span>SUBMODULE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="4" @(assetTypeIds != null && assetTypeIds.Contains(4) ? "checked" : "")><span>DCCABLE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="5" @(assetTypeIds != null && assetTypeIds.Contains(5) ? "checked" : "")><span>INTERFACETR</span></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>현재재고</th>
+                            <td><input type="text" name="current_qty" value="@(inventory != null ? inventory.CURRENT_QTY.ToString() : "0")" data-type="number"></td>
+                            <th>안전재고</th>
+                            <td><input type="text" name="safety_stock" value="@(inventory != null ? inventory.SAFETY_STOCK.ToString() : "0")" data-type="number"></td>
+                        </tr>
+                        <tr>
+                            <th>EOQ</th>
+                            <td><input type="text" name="eoq" value="@(inventory != null && inventory.EOQ.HasValue ? inventory.EOQ.Value.ToString() : "")" data-type="number"></td>
+                            <th>재주문점</th>
+                            <td><input type="text" name="reorder_point" value="@(inventory != null && inventory.REORDER_POINT.HasValue ? inventory.REORDER_POINT.Value.ToString() : "")" data-type="number"></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateSpareBasicInfo() {
+            var form = document.getElementById("spareUpdateForm");
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '@Url.Action("UpdateSpareBasicInfo", "SpareBasic")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("예비품 정보가 수정되었습니다.");
+                        window.location.href = '@Url.Action("SpareBasicDetail", "SpareBasic", new { spareId = Model.SPARE_ID })';
+                    } else {
+                        alert("수정 실패: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    alert("수정 중 오류가 발생했습니다: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

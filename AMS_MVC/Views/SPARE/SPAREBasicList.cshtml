@@ -1,0 +1,80 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 기본정보 목록</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("SpareBasicAdd", "SpareBasic")" class="btn add blue">추가</a>
+            </div>
+
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            loadSpareData();
+        });
+
+        function loadSpareData() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSpareListData", "SpareBasic")',
+                contentType: "application/json; charset=utf-8",
+                success: function (response) {
+                    if (response.success === false) {
+                        console.error("예비품 데이터 로드 실패: " + response.message);
+                        return;
+                    }
+
+                    let data = response.data.map((item, index, arr) => {
+                        item.RowNumber = arr.length - index;
+                        return item;
+                    });
+
+                    $("#gridContainer").dxDataGrid({
+                        dataSource: data,
+                        hoverStateEnabled: true,
+                        onRowPrepared: function (e) {
+                            if (e.rowType === "data") {
+                                e.rowElement.css("cursor", "pointer");
+                            }
+                        },
+                        columnFixing: { enabled: true },
+                        columns: [
+                            { dataField: "RowNumber", caption: "순번", width: 80, alignment: "center" },
+                            { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                            { dataField: "PART_NAME", caption: "부품명", alignment: "center" },
+                            { dataField: "CRITICALITY_GRADE", caption: "중요도", alignment: "center", width: 100 },
+                            { dataField: "UNIT_PRICE", caption: "단가", alignment: "right", width: 120 },
+                            { dataField: "CURRENT_QTY", caption: "현재재고", alignment: "center", width: 100 },
+                            { dataField: "LEAD_TIME_DAYS", caption: "리드타임", alignment: "center", width: 100 },
+                            { dataField: "IS_ACTIVE", caption: "사용여부", alignment: "center", width: 100 },
+                            { dataField: "CREATED_AT", caption: "등록일", alignment: "center", width: 100 }
+                        ],
+                        showBorders: true,
+                        searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                        filterRow: { visible: true, applyFilter: "auto" },
+                        headerFilter: { visible: true },
+                        loadPanel: { enabled: true },
+                        onRowClick: function (e) {
+                            const spareId = e.data.SPARE_ID;
+                            location.href = '@Url.Action("SpareBasicDetail", "SpareBasic")' + '?spareId=' + encodeURIComponent(spareId);
+                        }
+                    });
+                },
+                error: function (xhr, status, error) {
+                    console.error("데이터 로드 중 오류", error);
+                }
+            });
+        }
+    </script>
+}

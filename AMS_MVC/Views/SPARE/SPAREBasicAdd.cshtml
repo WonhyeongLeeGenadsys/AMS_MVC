@@ -1,0 +1,132 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 정보 추가</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0)" class="btn blue app" onclick="createSpareBasicInfo()">적용</a>
+                </p>
+            </div>
+
+            <form id="spareForm" method="post">
+                <div class="table_app">
+                    <table>
+                        <tr>
+                            <th>부품번호</th>
+                            <td><input type="text" name="PART_NUMBER" required></td>
+                            <th>부품명</th>
+                            <td><input type="text" name="PART_NAME" required></td>
+                        </tr>
+                        <tr>
+                            <th>중요도 등급</th>
+                            <td>
+                                <select name="CRITICALITY_GRADE">
+                                    <option value="A">A</option>
+                                    <option value="B">B</option>
+                                    <option value="C">C</option>
+                                    <option value="D">D</option>
+                                </select>
+                            </td>
+                            <th>단가</th>
+                            <td><input type="text" name="UNIT_PRICE" data-type="number"><span>원</span></td>
+                        </tr>
+                        <tr>
+                            <th>리드타임</th>
+                            <td><input type="text" name="LEAD_TIME_DAYS" data-type="number"><span>일</span></td>
+                            <th>사용 여부</th>
+                            <td>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="true" checked><span>사용</span>
+                                </label>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="false"><span>미사용</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>연결 설비유형</th>
+                            <td colspan="3">
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="1"><span>VCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="2"><span>DCCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="3"><span>SUBMODULE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="4"><span>DCCABLE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="5"><span>INTERFACETR</span></label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>현재재고</th>
+                            <td><input type="text" name="current_qty" value="0" data-type="number"></td>
+                            <th>안전재고</th>
+                            <td><input type="text" name="safety_stock" value="0" data-type="number"></td>
+                        </tr>
+                        <tr>
+                            <th>EOQ</th>
+                            <td><input type="text" name="eoq" data-type="number"></td>
+                            <th>재주문점</th>
+                            <td><input type="text" name="reorder_point" data-type="number"></td>
+                        </tr>
+                        <tr>
+                            <th>초기 발주수량</th>
+                            <td><input type="text" name="order_qty" data-type="number"></td>
+                            <th>발주단가</th>
+                            <td><input type="text" name="unit_cost" data-type="number"></td>
+                        </tr>
+                        <tr>
+                            <th>발주일</th>
+                            <td><input type="date" name="order_date"></td>
+                            <th>상태</th>
+                            <td><input type="text" name="status"></td>
+                        </tr>
+                        <tr>
+                            <th>공급사</th>
+                            <td><input type="text" name="supplier"></td>
+                            <th>회계연도</th>
+                            <td><input type="text" name="fiscal_year" data-type="number"></td>
+                        </tr>
+                        <tr>
+                            <th>예산금액</th>
+                            <td><input type="text" name="budget_amount" data-type="number"></td>
+                            <th>실제금액</th>
+                            <td><input type="text" name="actual_amount" data-type="number"></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function createSpareBasicInfo() {
+            var form = document.getElementById("spareForm");
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '@Url.Action("SpareBasicAdd", "SpareBasic")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("예비품 정보가 등록되었습니다.");
+                        window.location.href = '@Url.Action("SpareBasicList", "SpareBasic")';
+                    } else {
+                        alert("등록 실패: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    alert("오류 발생: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

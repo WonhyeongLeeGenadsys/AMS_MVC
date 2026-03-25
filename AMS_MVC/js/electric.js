@@ -27,6 +27,10 @@ $(document).ready(function () {
         case 'Maintenance': // 유지보수
             $('#gnb_06').addClass('on');
             break;
+
+        case 'SPARE': // 예비품
+            $('#gnb_07').addClass('on');
+            break;
         default:
             break;
     }
@@ -69,6 +73,10 @@ $(document).ready(function () {
                 $(this).addClass('on');
             }
             else if (currentPage.includes("SUBSTATION") && linkPage.includes("SUBSTATION")) {
+                $(this).addClass('on');
+            }
+
+            else if (currentPage.includes("SPARE") && linkPage.includes("SPARE")) {
                 $(this).addClass('on');
             }
         });

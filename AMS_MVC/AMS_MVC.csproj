@@ -592,6 +592,11 @@
     <Compile Include="Controllers\Regist\etc\Grounding\ZIGZAGTR\ZIGZAGTRBasicController.Update.cs" />
     <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.Update.cs" />
     <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.cs" />
+    <Compile Include="Controllers\SPARE\SPAREBasicController.Update.cs" />
+    <Compile Include="Controllers\SPARE\SPAREBasicController.Detail.cs" />
+    <Compile Include="Controllers\SPARE\SPAREBasicController.List.cs" />
+    <Compile Include="Controllers\SPARE\SPAREBasicController.Add.cs" />
+    <Compile Include="Controllers\SPARE\SPAREBasicController.cs" />
     <Compile Include="Controllers\TotalInfo\LocationController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\Regist\ITRBasic\ITRBasicController.List.cs" />
@@ -1206,6 +1211,12 @@
     <Content Include="Views\TotalInfo\_TotalInfoAll.cshtml" />
     <Content Include="Views\TotalInfo\_TotalInfoAC.cshtml" />
     <Content Include="Views\TotalInfo\_TotalInfoDC.cshtml" />
+    <Content Include="Views\Shared\DeviceInfo\_RegistMenu.cshtml" />
+    <Content Include="Views\Shared\_SPAREMenu.cshtml" />
+    <Content Include="Views\SPARE\SPAREBasicAdd.cshtml" />
+    <Content Include="Views\SPARE\SPAREBasicDetail.cshtml" />
+    <Content Include="Views\SPARE\SPAREBasicList.cshtml" />
+    <Content Include="Views\SPARE\SPAREBasicUpdate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
