@@ -181,7 +181,7 @@
     <Compile Include="Models\SPARE\ProcurementInfo.cs" />
     <Compile Include="Models\SPARE\CostManagementInfo.cs" />
     <Compile Include="Models\SPARE\SPAREPartInfo.cs" />
-    <Compile Include="Repositories\SPARE\SPAREDashboardInfoRepository.cs" />
+    <Compile Include="Repositories\SPARE\SPAREDashboardRepository.cs" />
     <Compile Include="Repositories\SPARE\SPAREBasicInfoRepository.cs" />
     <Compile Include="Services\LaModule.cs" />
     <Compile Include="Models\PriorityInfo.cs" />

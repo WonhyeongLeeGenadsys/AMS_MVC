@@ -84,7 +84,7 @@
                             <td colspan="3">
                                 @if (assetTypeIds != null && assetTypeIds.Count > 0)
                                 {
-                                    @string.Join(", ", assetTypeIds.Select(getAssetTypeName))
+                                    @(string.Join(", ", assetTypeIds.Select(getAssetTypeName)))
                                 }
                                 else
                                 {

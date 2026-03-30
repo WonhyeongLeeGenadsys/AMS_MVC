@@ -1,0 +1,219 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 비용계획</h1>
+
+    <div class="con_box">
+        <div class="content_warp spare-costplan-dashboard">
+
+            <div class="costplan-chart-row">
+                <div class="costplan-chart-box">
+                    <div class="costplan-chart-header">
+                        <h2>설비 유형별 예비품 비용</h2>
+                    </div>
+                    <div id="assetCostPieChart" class="costplan-chart-area"></div>
+                </div>
+
+                <div class="costplan-chart-box">
+                    <div class="costplan-chart-header">
+                        <h2>3개년 조달 예산</h2>
+                    </div>
+                    <div id="yearlyBudgetChart" class="costplan-chart-area"></div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .spare-costplan-dashboard {
+            padding-top: 10px;
+        }
+
+        .costplan-chart-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+        }
+
+        .costplan-chart-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px 16px 16px 16px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .costplan-chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+            .costplan-chart-header h2 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+            .costplan-chart-header span {
+                font-size: 11px;
+                color: #3E6BC0;
+                font-weight: 700;
+            }
+
+        .costplan-chart-area {
+            height: 320px;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            initCostPlanCharts();
+            loadCostPlanData();
+        });
+
+        function initCostPlanCharts() {
+            $("#assetCostPieChart").dxPieChart({
+                type: "pie",
+                palette: ["#E74C3C", "#27AE60", "#4A90E2", "#8E44AD", "#17A589", "#F39C12"],
+                dataSource: [],
+                legend: {
+                    visible: true,
+                    orientation: "vertical",
+                    horizontalAlignment: "left",
+                    verticalAlignment: "bottom"
+                },
+                series: [{
+                    argumentField: "ASSET_TYPE_NAME",
+                    valueField: "TOTAL_COST",
+                    label: {
+                        visible: true,
+                        connector: { visible: true },
+                        customizeText: function (arg) {
+                            return arg.argumentText + "\n" + arg.percentText;
+                        }
+                    }
+                }],
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip: function (arg) {
+                        return {
+                            text: arg.argumentText + "<br/>" + formatWon(arg.value)
+                        };
+                    }
+                }
+            });
+
+            $("#yearlyBudgetChart").dxChart({
+                dataSource: [],
+                commonSeriesSettings: {
+                    argumentField: "FISCAL_YEAR_TEXT",
+                    type: "stackedBar",
+                    ignoreEmptyPoints: false
+                },
+                series: [
+                    { valueField: "D", name: "D-LOW" },
+                    { valueField: "C", name: "C-MEDIUM" },
+                    { valueField: "B", name: "B-HIGH" },
+                    { valueField: "A", name: "A-CRITICAL" }
+                ],
+                legend: {
+                    verticalAlignment: "top",
+                    horizontalAlignment: "center"
+                },
+                argumentAxis: {
+                    type: "discrete"
+                },
+                valueAxis: {
+                    title: "예산 (원)",
+                    label: {
+                        customizeText: function (arg) {
+                            return Number(arg.value || 0).toLocaleString() + "원";
+                        }
+                    }
+                },
+                tooltip: {
+                    enabled: true,
+                    customizeTooltip: function (arg) {
+                        return {
+                            text: arg.seriesName + "<br/>" +
+                                arg.argumentText + "년<br/>" +
+                                formatWon(arg.value)
+                        };
+                    }
+                }
+            });
+        }
+
+        function loadCostPlanData() {
+            const currentYear = new Date().getFullYear();
+
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSPARECostPlanData", "SpareDashboard")',
+                data: {
+                    assetTypeId: null,
+                    fiscalYear: currentYear
+                },
+                success: function (response) {
+                    console.log("cost plan response:", response);
+
+                    if (!response || !response.success) {
+                        alert("비용계획 데이터를 불러오지 못했습니다.");
+                        return;
+                    }
+
+                    renderCostPlan(response);
+                },
+                error: function (xhr) {
+                    console.log("AJAX ERROR:", xhr.responseText);
+                    alert("오류 발생: " + xhr.responseText);
+                }
+            });
+        }
+
+        function renderCostPlan(data) {
+            const assetCostRows = Array.isArray(data.assetCostRows) ? data.assetCostRows : [];
+            const yearlyBudgetRows = Array.isArray(data.yearlyBudgetRows) ? data.yearlyBudgetRows : [];
+
+            const pieData = assetCostRows.map(x => ({
+                ASSET_TYPE_NAME: x.ASSET_TYPE_NAME,
+                TOTAL_COST: Number(x.TOTAL_COST || 0)
+            }));
+
+            const budgetData = yearlyBudgetRows.map(x => ({
+                FISCAL_YEAR: x.FISCAL_YEAR,
+                FISCAL_YEAR_TEXT: String(x.FISCAL_YEAR),
+                A: Number(x.A || 0),
+                B: Number(x.B || 0),
+                C: Number(x.C || 0),
+                D: Number(x.D || 0)
+            }));
+
+            console.log("pieData:", pieData);
+            console.log("budgetData:", budgetData);
+
+            const pieChart = $("#assetCostPieChart").dxPieChart("instance");
+            if (pieChart) {
+                pieChart.option("dataSource", pieData);
+            }
+
+            const budgetChart = $("#yearlyBudgetChart").dxChart("instance");
+            if (budgetChart) {
+                budgetChart.option("dataSource", budgetData);
+            }
+        }
+
+        function formatWon(value) {
+            const v = Number(value || 0);
+            return v.toLocaleString() + "원";
+        }
+    </script>
+}

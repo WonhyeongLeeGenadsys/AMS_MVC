@@ -1,12 +1,14 @@
 ﻿
 <h1>예비품</h1>
 <ul>
-    <li><a href="@Url.Action("VCBBasicList", "VCBBasic")">종합현황</a></li>
-    <li><a href="@Url.Action("ITRBasicList", "ITRBasic")">기본정보R</a></li>
-    <li><a href="@Url.Action("SUBMODULEBasicList", "SUBMODULEBasic")">재고관리</a></li>
-    <li><a href="@Url.Action("DCCBBasicList", "DCCBBasic")">발주관리</a></li>
-    <li><a href="@Url.Action("DCCABLEBasicList", "DCCABLEBasic")">재고정책</a></li>
+    <li><a href="@Url.Action("SPAREOverview", "SPAREDashboard")">종합현황</a></li>
 
+    <li><a href="@Url.Action("SPAREBasicList", "SPAREBasic")">기본정보</a></li>
+
+    <li><a href="@Url.Action("SPAREInventoryStatus", "SPAREDashboard")">재고현황</a></li>
+    <li><a href="@Url.Action("SPAREProcurementStatus", "SPAREDashboard")">발주관리</a></li>
+    <li><a href="@Url.Action("SPARECostPlan", "SPAREDashboard")">비용계획</a></li>
+    <li><a href="@Url.Action("SPAREPolicy", "SPAREDashboard")">재고정책</a></li>
 </ul>
 
 
