@@ -6,7 +6,7 @@ namespace AMS_MVC
 {
     public class UserAccountController : Controller
     {
-        private UserAccountRepository repo = new UserAccountRepository();
+        private readonly UserAccountRepository repo = new UserAccountRepository();
 
         public ActionResult GetUserById(string id)
         {

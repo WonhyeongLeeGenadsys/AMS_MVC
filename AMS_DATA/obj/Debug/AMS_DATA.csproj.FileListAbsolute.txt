@@ -87,8 +87,8 @@ D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.csproj.AssemblyReference.cach
 D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.csproj.CoreCompileInputs.cache
 D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.exe.manifest
 D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.application
-D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.csproj.CopyComplete
 D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.exe
 D:\project\ams\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.pdb
 D:\project\ams\AMS_MVC\AMS_DATA\bin\Debug\CsvHelper.dll
 D:\project\ams\AMS_MVC\AMS_DATA\bin\Debug\CsvHelper.xml
+D:\project\AMS\AMS_MVC\AMS_DATA\obj\Debug\AMS_DATA.csproj.Up2Date

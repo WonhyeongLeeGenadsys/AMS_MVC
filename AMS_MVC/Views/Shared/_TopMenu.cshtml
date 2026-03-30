@@ -192,6 +192,21 @@
                 </ul>
             </div>
         </li>
+
+                <!-- 예비품 -->
+        <li>
+            <a href="@Url.Action("SPAREBasicList", "SPAREBasic")" class="btn_gnb" id="gnb_07">예비품</a>
+            <div class="lnb_group">
+                <ul>
+                    <li><a href="@Url.Action("SPAREOverView", "SPAREDashboard")"><strong class="tag-blue">종합현황</strong></a></li>
+                    <li><a href="@Url.Action("SPAREBasicList", "SPAREBasic")">기본정보</a></li>
+                    <li><a href="@Url.Action("SPAREInventoryStatus", "SPAREDashboard")">재고현황</a></li>
+                    <li><a href="@Url.Action("SPAREProcurementStatus",        "SPAREDashboard")">발주관리</a></li>
+                    <li><a href="@Url.Action("SPARECostPlan",        "SPAREDashboard")">비용계획</a></li>
+                    <li><a href="@Url.Action("SPAREPolicy",      "SPAREDashboard")">재고정책</a></li>
+                </ul>
+            </div>
+        </li>
     </ul>
 
     <!-- 사용자 정보 -->

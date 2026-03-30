@@ -105,145 +105,168 @@
                 <div class="table_list_app">
                     <table>
                         <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
+                            <col style="width:5%">
                             <col style="width:8%">
-                            <col style="width:6%">
+                            <col style="width:4%">
+                            <col style="width:30%">
+                            <col style="width:2%">
                             <col>
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
+                                <th rowspan="2">하위설비</th>
+                                <th rowspan="2">입력 파라미터</th>
+                                <th rowspan="2">단위</th>
+                                <th colspan="5">판단기준</th>
+                                <th rowspan="2">비고</th>
+                            </tr>
+                            <tr>
+                                <th>Very Good</th>
+                                <th>Good</th>
+                                <th>Fair</th>
+                                <th>Poor</th>
+                                <th>Very Poor</th>
                             </tr>
                         </thead>
+
                         <tbody>
                             <tr>
                                 <td rowspan="2">
                                     Oil Quality
                                 </td>
                                 <td>전산가</td>
-                                <td></td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Computerized_Price_1">
                                         <input type="radio" id="CHK2_Computerized_Price_1" name="CHK2_Computerized_Price" value="1" checked>
-                                        <span>≤0.1</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK2_Computerized_Price_3">
-                                        <input type="radio" id="CHK2_Computerized_Price_3" name="CHK2_Computerized_Price" value="3">
-                                        <span>≤0.3</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK2_Computerized_Price_5">
-                                        <input type="radio" id="CHK2_Computerized_Price_5" name="CHK2_Computerized_Price" value="5">
-                                        <span>>0.3</span>
+                                        <span>0.1 이하</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Computerized_Price_3">
+                                        <input type="radio" id="CHK2_Computerized_Price_3" name="CHK2_Computerized_Price" value="3">
+                                        <span>0.1~0.3</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Computerized_Price_5">
+                                        <input type="radio" id="CHK2_Computerized_Price_5" name="CHK2_Computerized_Price" value="5">
+                                        <span>0.3 초과</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
-                                    수분함량
+                                    수분
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Water_Content_1">
                                         <input type="radio" id="CHK2_Water_Content_1" name="CHK2_Water_Content" value="1" checked>
-                                        <span><40</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK2_Water_Content_3">
-                                        <input type="radio" id="CHK2_Water_Content_3" name="CHK2_Water_Content" value="3">
-                                        <span>≤50</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK2_Water_Content_5">
-                                        <input type="radio" id="CHK2_Water_Content_5" name="CHK2_Water_Content" value="5">
-                                        <span>>50</span>
+                                        <span>40 미만</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Water_Content_3">
+                                        <input type="radio" id="CHK2_Water_Content_3" name="CHK2_Water_Content" value="3">
+                                        <span>40~50</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Water_Content_5">
+                                        <input type="radio" id="CHK2_Water_Content_5" name="CHK2_Water_Content" value="5">
+                                        <span>50 초과</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td rowspan="4">
                                     Measure
                                 </td>
-                                <td>전압비</td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_1">
-                                        <input type="radio" id="CHK2_Voltage_Ratio_1" name="CHK2_Voltage_Ratio" value="1" checked>
-                                        <span>≤±5%</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_5">
-                                        <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5">
-                                        <span>>±5%</span>
-                                    </label>
-                            </tr>
-                            <tr>
                                 <td>여자전류</td>
-                                <td></td>
-                                <td></td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Excitation_Current_1">
                                         <input type="radio" id="CHK2_Excitation_Current_1" name="CHK2_Excitation_Current" value="1" checked>
-                                        <span>20%↑</span>
+                                        <span>0.2 이상</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK2_Excitation_Current_5">
                                         <input type="radio" id="CHK2_Excitation_Current_5" name="CHK2_Excitation_Current" value="5">
-                                        <span>100%↑</span>
+                                        <span>1.0 초과</span>
                                     </label>
+                                </td>
+                                <td>1 P.U = 정격 여자전류</td>
                             </tr>
                             <tr>
                                 <td>단락전류</td>
-                                <td></td>
-                                <td></td>
+                                <td>P.U</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_Short_Current_1">
                                         <input type="radio" id="CHK2_Short_Current_1" name="CHK2_Short_Current" value="1" checked>
-                                        <span>≤20%</span>
+                                        <span>0.2 이상</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK2_Short_Current_5">
                                         <input type="radio" id="CHK2_Short_Current_5" name="CHK2_Short_Current" value="5">
-                                        <span>>20%</span>
+                                        <span>1.0 초과</span>
                                     </label>
+                                </td>
+                                <td>1 P.U = 정격 단락전류</td>
                             </tr>
                             <tr>
                                 <td>PD측정</td>
-                                <td></td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK2_PD_1">
                                         <input type="radio" id="CHK2_PD_1" name="CHK2_PD" value="1" checked>
-                                        <span>NOT</span>
+                                        <span>미발견</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK2_PD_5">
                                         <input type="radio" id="CHK2_PD_5" name="CHK2_PD" value="5">
-                                        <span>OCCUR</span>
+                                        <span>발견</span>
                                     </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>전압비</td>
+                                <td>P.U</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_1">
+                                        <input type="radio" id="CHK2_Voltage_Ratio_1" name="CHK2_Voltage_Ratio" value="1" checked>
+                                        <span>±5% 이하</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK2_Voltage_Ratio_5">
+                                        <input type="radio" id="CHK2_Voltage_Ratio_5" name="CHK2_Voltage_Ratio" value="5">
+                                        <span>±5% 초과</span>
+                                    </label>
+                                </td>
+                                <td>1 P.U = 초기값</td>
                             </tr>
                         </tbody>
                     </table>
