@@ -42,7 +42,7 @@ namespace AMS_MVC
         [HttpGet]
         public ActionResult SPAREInventoryStatus()
         {
-            return View("~/Views/SPARE/SPAREInventoryStatus.cshtml");
+            return View("~/Views/SPARE/Inventory/SPAREInventoryStatus.cshtml");
         }
 
         [HttpPost]
@@ -67,7 +67,7 @@ namespace AMS_MVC
         [HttpGet]
         public ActionResult SPAREProcurementStatus()
         {
-            return View("~/Views/SPARE/SPAREProcurementStatus.cshtml");
+            return View("~/Views/SPARE/Procurement/SPAREProcurementStatus.cshtml");
         }
 
         [HttpPost]
@@ -92,7 +92,7 @@ namespace AMS_MVC
         [HttpGet]
         public ActionResult SPARECostPlan()
         {
-            return View("~/Views/SPARE/SPARECostPlan.cshtml");
+            return View("~/Views/SPARE/Cost/SPARECostPlan.cshtml");
         }
 
         [HttpPost]
@@ -117,7 +117,7 @@ namespace AMS_MVC
         [HttpGet]
         public ActionResult SPAREPolicy()
         {
-            return View("~/Views/SPARE/SPAREPolicy.cshtml");
+            return View("~/Views/SPARE/Inventory/SPAREPolicy.cshtml");
         }
 
         [HttpPost]

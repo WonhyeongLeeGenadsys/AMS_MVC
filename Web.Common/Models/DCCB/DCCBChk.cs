@@ -19,15 +19,14 @@ namespace Web.Common
         public DateTime? CHK_End_Date { get; set; }
         public string CHK_Writer { get; set; }
 
-        public float CHK_MainCircuit_InsulationStrength { get; set; }  // 주 회로 절연내력 시험
-        public float CHK_LeakTest { get; set; }                        // 기밀 시험
-        public float CHK_MechanicalOperation { get; set; }             // 기계적 동작 시험 (속도)
-        public float CHK_AuxControlCircuit { get; set; }               // 보조/제어회로 시험 (응답시간)
+        public float CHK_MainCircuit_InsulationStrength { get; set; }    // 주회로 절연내력
+        public float CHK_MainCircuit_PD { get; set; }                    // 주회로 부분방전
+        public float CHK_Machine_Part_Operation_Time { get; set; }       // 기계부 동작시간
+        public float CHK_Mechanical_Vibration_acceleration { get; set; } // 기계부 진동/가속도
+        public float CHK_Relay_Auxiliary_Contact_Resistance { get; set; }// 릴레이 보조접점 저항
 
         public float CHK_CE_Voltage { get; set; }      // V_ce
         public float CHK_G_Voltage { get; set; }       // V_g
-        public float CHK_On_Resistance { get; set; }   // R_on
-        public float CHK_Thermal_Resistance { get; set; } // R_th
         public float CHK_C_Current { get; set; }       // I_c
         public float CHK_OnOff_Time { get; set; }      // T_on,off
 
@@ -42,59 +41,68 @@ namespace Web.Common
             {
                 switch ((int)CHK_MainCircuit_InsulationStrength)
                 {
-                    case 1: return "≥ 1.0 PU";
-                    case 2: return "0.9 ~ 1.0 PU";
-                    case 3: return "0.8 ~ 0.9 PU";
-                    case 4: return "0.7 ~ 0.8 PU";
-                    case 5: return "< 0.7 PU";
+                    case 1: return "200 이상";
+                    case 5: return "200 미만";
                     default: return "-";
                 }
             }
         }
 
-        public string LeakTestText
+        public string MainCircuitPDText
         {
             get
             {
-                switch ((int)CHK_LeakTest)
+                switch ((int)CHK_MainCircuit_PD)
                 {
-                    case 1: return "초기값 0.5% 이하";
-                    case 2: return "초기값 0.5 ~ 0.7%";
-                    case 3: return "초기값 0.7 ~ 0.85%";
-                    case 4: return "초기값 0.85 ~ 1.0%";
-                    case 5: return "초기값 1.0% 초과";
+                    case 1: return "미검출";
+                    case 3: return "0 ~ 5 pC";
+                    case 4: return "5 ~ 10 pC";
+                    case 5: return "10 pC 초과";
                     default: return "-";
                 }
             }
         }
 
-        public string MechanicalOperationText
+        public string MachinePartOperationTimeText
         {
             get
             {
-                switch ((int)CHK_MechanicalOperation)
+                switch ((int)CHK_Machine_Part_Operation_Time)
                 {
-                    case 1: return "PU ±2.5% 이내";
-                    case 2: return "PU ±5% 이내";
-                    case 3: return "PU ±7.5% 이내";
-                    case 4: return "PU ±10% 이내";
-                    case 5: return "PU ±10% 초과";
+                    case 1: return "1.0 P.U 이내";
+                    case 3: return "1.0 ~ 1.25 P.U";
+                    case 4: return "1.25 ~ 1.5 P.U";
+                    case 5: return "1.5 P.U 초과";
                     default: return "-";
                 }
             }
         }
 
-        public string AuxControlCircuitText
+        public string MechanicalVibrationAccelerationText
         {
             get
             {
-                switch ((int)CHK_AuxControlCircuit)
+                switch ((int)CHK_Mechanical_Vibration_acceleration)
                 {
-                    case 1: return "PU ±2.5% 이내";
-                    case 2: return "PU ±5% 이내";
-                    case 3: return "PU ±7.5% 이내";
-                    case 4: return "PU ±10% 이내";
-                    case 5: return "PU ±10% 초과";
+                    case 1: return "1.1 P.U 이내";
+                    case 3: return "1.1 ~ 1.5 P.U";
+                    case 4: return "1.5 ~ 2.0 P.U";
+                    case 5: return "2.0 P.U 초과";
+                    default: return "-";
+                }
+            }
+        }
+
+        public string RelayAuxiliaryContactResistanceText
+        {
+            get
+            {
+                switch ((int)CHK_Relay_Auxiliary_Contact_Resistance)
+                {
+                    case 1: return "1.0 P.U 이내";
+                    case 3: return "1.0 ~ 1.25 P.U";
+                    case 4: return "1.25 ~ 1.5 P.U";
+                    case 5: return "1.5 P.U 초과";
                     default: return "-";
                 }
             }
@@ -106,11 +114,10 @@ namespace Web.Common
             {
                 switch ((int)CHK_CE_Voltage)
                 {
-                    case 1: return "0.9 ~ 1.0 PU";
-                    case 2: return "1.0 ~ 1.1 PU";
-                    case 3: return "1.1 ~ 1.2 PU";
+                    case 1: return "1.0 P.U 이하";
+                    case 3: return "1.0 ~ 1.2 P.U";
                     case 4: return "1.2 ~ 1.25 PU";
-                    case 5: return "> 1.25 PU";
+                    case 5: return "1.25 P.U 초과";
                     default: return "-";
                 }
             }
@@ -122,43 +129,9 @@ namespace Web.Common
             {
                 switch ((int)CHK_G_Voltage)
                 {
-                    case 1: return "0 ~ 0.5 V";
-                    case 2: return "0.5 ~ 1.0 V";
-                    case 3: return "1 ~ 3 V";
-                    case 4: return "3 ~ 5 V";
-                    case 5: return "> 5 V";
-                    default: return "-";
-                }
-            }
-        }
-
-        public string OnResistanceText
-        {
-            get
-            {
-                switch ((int)CHK_On_Resistance)
-                {
-                    case 1: return "0.9 ~ 1.0 PU";
-                    case 2: return "1.0 ~ 1.1 PU";
-                    case 3: return "1.1 ~ 1.2 PU";
-                    case 4: return "1.2 ~ 1.25 PU";
-                    case 5: return "> 1.25 PU";
-                    default: return "-";
-                }
-            }
-        }
-
-        public string ThermalResistanceText
-        {
-            get
-            {
-                switch ((int)CHK_Thermal_Resistance)
-                {
-                    case 1: return "0.9 ~ 1.0 PU";
-                    case 2: return "1.0 ~ 1.1 PU";
-                    case 3: return "1.1 ~ 1.2 PU";
-                    case 4: return "1.2 ~ 1.25 PU";
-                    case 5: return "> 1.25 PU";
+                    case 1: return "1.0 P.U 이하";
+                    case 3: return "1.0 ~ 1.5 P.U";
+                    case 5: return "1.5 P.U 초과";
                     default: return "-";
                 }
             }
@@ -170,11 +143,10 @@ namespace Web.Common
             {
                 switch ((int)CHK_C_Current)
                 {
-                    case 1: return "0.9 ~ 1.0 PU";
-                    case 2: return "1.0 ~ 1.1 PU";
-                    case 3: return "1.1 ~ 1.2 PU";
+                    case 1: return "1.0 P.U 이하";
+                    case 3: return "1.0 ~ 1.2 P.U";
                     case 4: return "1.2 ~ 1.25 PU";
-                    case 5: return "> 1.25 PU";
+                    case 5: return "1.25 P.U 초과";
                     default: return "-";
                 }
             }
@@ -186,11 +158,10 @@ namespace Web.Common
             {
                 switch ((int)CHK_OnOff_Time)
                 {
-                    case 1: return "0.9 ~ 1.0 PU";
-                    case 2: return "1.0 ~ 1.1 PU";
-                    case 3: return "1.1 ~ 1.2 PU";
+                    case 1: return "1.0 P.U 이하";
+                    case 3: return "1.0 ~ 1.2 P.U";
                     case 4: return "1.2 ~ 1.25 PU";
-                    case 5: return "> 1.25 PU";
+                    case 5: return "1.25 P.U 초과";
                     default: return "-";
                 }
             }

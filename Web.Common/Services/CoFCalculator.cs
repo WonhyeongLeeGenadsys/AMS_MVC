@@ -75,21 +75,45 @@ namespace Web.Common
               * m.Capacity
               * m.Probability_Of_Power_Failure / 100m;
 
-            // (2) 계통 손실 비용 
-            decimal denom = (SQRT3 * m.Rated_Voltage);
-            m.System_Loss_Cost =
-               (((m.Capacity_SystemLoss ?? m.Capacity) * 1000m) / denom) //DCCABLE 용량 필드 2개 때문에 만약 계통 손실 비용 전용 "용량" 필드가 없다면 "공통 용량" nullable 처리!!!
-              * (m.Average_Utilization_Rate / 100m)
-              * m.Track_Length
-              * m.Facility_Recovery_Time
-              * m.Average_Electricity_Sales_Cost;
+            // (2) 계통 손실 비용
+            // 원본 검증 데이터 기준: ITR, SUBMODULE, DCCABLE만 계산 대상이다.
+            decimal systemLossCapacity = m.Capacity_SystemLoss ?? m.Capacity;
+            bool usesSystemLoss =
+                m.Code == "ITR" ||
+                m.Code == "SUBMODULE" ||
+                m.Code == "DCCABLE";
+            bool hasSystemLossInputs =
+                systemLossCapacity != 0m &&
+                m.Average_Utilization_Rate != 0m &&
+                m.Track_Length != 0m &&
+                m.Facility_Recovery_Time != 0m &&
+                m.Average_Electricity_Sales_Cost != 0m;
+
+            if (!usesSystemLoss || !hasSystemLossInputs)
+            {
+                m.System_Loss_Cost = 0m;
+            }
+            else
+            {
+                if (m.Rated_Voltage <= 0m)
+                    throw new InvalidOperationException("계통 손실 비용 계산을 위해 정격 전압(kV)을 0보다 크게 입력해 주세요.");
+
+                decimal denom = SQRT3 * m.Rated_Voltage;
+                m.System_Loss_Cost =
+                   ((systemLossCapacity * 1000m) / denom)
+                  * (m.Average_Utilization_Rate / 100m)
+                  * m.Track_Length
+                  * m.Facility_Recovery_Time
+                  * m.Average_Electricity_Sales_Cost;
+            }
 
             // (3) 설비 복구 비용
             m.Facility_Recovery_Cost =
                 (m.Equipment_Unit_Price + (m.Facility_Contracting_Cost * m.Emergency_Construction_Surcharge_Rate)) * ((m.Replacement_Probability / 100m)* m.Power_Failure_Time);
 
-            // (4) 전력 판매 수익 손실 (DC Cable 평균 이용률 있어서 결과값 나오면 안됨!!)
-            if(m.Code == "DCCABLE")
+            // (4) 전력 판매 수익 손실
+            // 원본 검증 데이터 기준: ITR, SUBMODULE만 계산 대상이다.
+            if (m.Code != "ITR" && m.Code != "SUBMODULE")
             {
                 m.Loss_Of_Profit = 0;
             }

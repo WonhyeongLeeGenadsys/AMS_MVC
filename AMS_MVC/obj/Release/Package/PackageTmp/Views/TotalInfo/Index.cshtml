@@ -31,7 +31,8 @@
             const URLS = {
                 PRIORITY: '/TotalInfo/GetPriorityInfo',
                 GOJANG: '/TotalInfo/GetGojangList',
-                SCHEDULE: '/TotalInfo/GetScheduleData'
+                SCHEDULE: '/TotalInfo/GetScheduleData',
+                DM: '/TotalInfo/GetDMDecisionInfo'
             };
 
             const SUFFIX = {
@@ -161,7 +162,7 @@
                                     alignment: 'center',
                                     dataType: 'number',
                                     calculateCellValue: function (rowData) {
-                                        var result = (rowData.PoF || 0) * (rowData.CoF || 0);
+                                        var result = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
                                         return result;
                                     },
                                     format: { type: "fixedPoint", precision: 2 }
@@ -306,86 +307,72 @@
 
             function loadDM(prefix) {
                 const suf = SUFFIX[prefix];
-                const today = new Date();
-                $.getJSON(URLS.SCHEDULE, { year: today.getFullYear(), month: today.getMonth() + 1 })
-                    .done(raw => {
-                        // 1) prefix 필터
-                        let ds = raw;
-                        if (prefix === 'AC') {
-                            ds = raw.filter(r => r.Code.startsWith('VCB') || r.Code.startsWith('ITR'));
-                        } else if (prefix === 'DC') {
-                            ds = raw.filter(r => ['DCCB', 'DCCABLE', 'SUBMODULE'].some(pr => r.Code.startsWith(pr)));
+                const krwCell = function (container, options) {
+                    const value = Number(options.value);
+                    $('<div>')
+                        .text(Number.isFinite(value) ? value.toLocaleString('ko-KR') : '-')
+                        .appendTo(container);
+                };
+
+                $.getJSON(URLS.DM, { prefix: prefix })
+                    .done(result => {
+                        if (!result || result.success === false) {
+                            console.error('GetDMDecisionInfo 오류', result && (result.details || result.error));
+                            return;
                         }
-
-                        // 2) 각 코드별로 가장 마지막(가장 큰 DueDate) 행만 남기기
-                        //    DueDate 계산도 미리 해 둘 것
-                        const withDue = ds.map(r => {
-                            const start = new Date(r.Start);
-                            const due = new Date(start);
-                            due.setFullYear(due.getFullYear() + 3);
-                            return { ...r, DueDate: due };
-                        });
-                        const latestByCode = Object.values(
-                            withDue.reduce((acc, item) => {
-                                const prev = acc[item.Code];
-                                if (!prev || item.DueDate > prev.DueDate) {
-                                    acc[item.Code] = item;
-                                }
-                                return acc;
-                            }, {})
-                        );
-
-                        // 3) 정렬 & Priority 재부여
-                        const dataSource = latestByCode
-                            .sort((a, b) => a.DueDate - b.DueDate)
-                            .map((r, i) => ({ ...r, Priority: i + 1 }));
 
                         renderGrid(
                             '#gridContainer04' + suf,
-                            dataSource,
+                            result.rows || [],
                             [
-                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
-                                {
-                                    caption: '점검유형',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        return row.Status === 'confirmed'
-                                            ? '보통점검'
-                                            : row.Status === 'risk'
-                                                ? '정밀점검'
-                                                : row.Status;
-                                    }
-                                },
-                                {
-                                    caption: '구분',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        const code = (row.Code || '').toUpperCase();
-                                        if (code.startsWith('VCB') || code.startsWith('ITR')) {
-                                            return 'AC';
-                                        }
-                                        if (code.startsWith('DCCB')
-                                            || code.startsWith('DCCABLE')
-                                            || code.startsWith('SUBMODULE')) {
-                                            return 'DC';
-                                        }
-                                        return '';
-                                    }
-                                },
-                                { dataField: 'Type', caption: '설비명', alignment: 'center' },
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center', width: 70 },
+                                { dataField: 'Sort', caption: '구분', alignment: 'center', width: 50 },
+                                { dataField: 'ProductName', caption: '설비명(제품명)', alignment: 'center', width: 200 },
                                 { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
-                                { dataField: 'Start', caption: '시작일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
-                                { dataField: 'End', caption: '종료일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
+                                { dataField: 'HI', caption: 'HI', alignment: 'center', dataType: 'number' },
+                                { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 2 } },
+                                { dataField: 'ReplacementCost', caption: '교체비(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'CoF', caption: 'CoF(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'Risk', caption: 'Risk(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'NPV', caption: 'NPV(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'ROI', caption: 'ROI(%)', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 2 } },
                                 {
-                                    dataField: 'DueDate',
-                                    caption: '정기점검일',
-                                    dataType: 'date',
+                                    dataField: 'RUL',
+                                    caption: 'RUL(년)',
                                     alignment: 'center',
-                                    format: 'yy.MM.dd'
-                                }
+                                    dataType: 'number',
+                                    cellTemplate: function (container, options) {
+                                        $('<div>')
+                                            .text(options.value == null ? '산정불가' : Number(options.value).toFixed(2))
+                                            .appendTo(container);
+                                    }
+                                },
+                                {
+                                    dataField: 'Decision',
+                                    caption: '의사결정',
+                                    alignment: 'center',
+                                    cellTemplate: function (container, options) {
+                                        const colors = {
+                                            '즉시 교체': '#d32f2f',
+                                            '긴급 유지보수': '#ef6c00',
+                                            '예방 유지보수': '#c9a000',
+                                            '정기점검': '#1976d2',
+                                            '계속 감시': '#2e7d32',
+                                            '데이터 확인 필요': '#666666'
+                                        };
+                                        $('<strong>')
+                                            .text(options.value || '')
+                                            .css('color', colors[options.value] || '#333333')
+                                            .appendTo(container);
+                                    }
+                                },
+                                { dataField: 'Urgency', caption: '긴급도', alignment: 'center' },
+                                { dataField: 'RecommendedAction', caption: '권장시기', alignment: 'center' },
+                                { dataField: 'DMScore', caption: '우선순위 점수', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 4 } }
                             ]
                         );
-                    });
+                    })
+                    .fail(err => console.error('GetDMDecisionInfo 호출 실패', err));
             }
 
             //  1-depth 탭 클릭 처리: 우선순위만 초기 로드

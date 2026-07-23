@@ -324,16 +324,20 @@ $(function(){
                                         <td>@lastChk.CHK_MainCircuit_InsulationStrength</td>
                                     </tr>
                                     <tr>
-                                        <td>기밀시험</td>
-                                        <td>@lastChk.CHK_LeakTest</td>
+                                        <td>주 회로 부분방전</td>
+                                        <td>@lastChk.CHK_MainCircuit_PD</td>
                                     </tr>
                                     <tr>
-                                        <td>기계적 동작</td>
-                                        <td>@lastChk.CHK_MechanicalOperation</td>
+                                        <td>기계부 동작시간</td>
+                                        <td>@lastChk.CHK_Machine_Part_Operation_Time</td>
                                     </tr>
                                     <tr>
-                                        <td>보조 및 제어회로</td>
-                                        <td>@lastChk.CHK_AuxControlCircuit</td>
+                                        <td>기계부 진동/가속도</td>
+                                        <td>@lastChk.CHK_Mechanical_Vibration_acceleration</td>
+                                    </tr>
+                                    <tr>
+                                        <td>릴레이 보조접점 저항</td>
+                                        <td>@lastChk.CHK_Relay_Auxiliary_Contact_Resistance</td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -361,14 +365,6 @@ $(function(){
                                     <tr>
                                         <td>G 전압</td>
                                         <td>@lastChk.CHK_G_Voltage</td>
-                                    </tr>
-                                    <tr>
-                                        <td>On 저항</td>
-                                        <td>@lastChk.CHK_On_Resistance</td>
-                                    </tr>
-                                    <tr>
-                                        <td>열 저항</td>
-                                        <td>@lastChk.CHK_Thermal_Resistance</td>
                                     </tr>
                                     <tr>
                                         <td>C 전류</td>

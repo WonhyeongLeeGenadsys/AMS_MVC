@@ -72,9 +72,8 @@ namespace AMS_MVC
 
                 var cofModel = cofRepo.GetLatest("ITR");
                 decimal baseCof = cofModel?.Total_Cof ?? 0m;
-                decimal adjustedCof = Math.Round(baseCof * (pofFinal / 100m), 2);
 
-                var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, adjustedCof, pofFinal);
+                var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, baseCof, pofFinal);
 
                 if (!upd.IsSuccess)
                     return Json(new Result(false) { Message = "RiskMatrix 업데이트 실패: " + upd.Message });
@@ -119,9 +118,8 @@ namespace AMS_MVC
 
                 var cofModel = cofRepo.GetLatest("ITR");
                 decimal baseCof = cofModel?.Total_Cof ?? 0m;
-                decimal adjustedCof = Math.Round(baseCof * (pofFinal / 100m), 2);
 
-                var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, adjustedCof, pofFinal);
+                var upd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hiFinal, baseCof, pofFinal);
 
                 if (!upd.IsSuccess)
                     return Json(new Result(false) { Message = "RiskMatrix 업데이트 실패: " + upd.Message });

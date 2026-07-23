@@ -75,18 +75,32 @@ namespace AMS_MVC
                 return View(model);
             }
 
-            // 계산
-            calculator.Calculate(model);
+            try
+            {
+                // 계산
+                calculator.Calculate(model);
 
-            // 저장 (오늘 날짜와 다르면 INSERT, 같으면 UPDATE)
-            cofRepo.SaveOrUpdate(model);
+                // 저장 (오늘 날짜와 다르면 INSERT, 같으면 UPDATE)
+                cofRepo.SaveOrUpdate(model);
 
-            // 리스크매트릭스 반영
-            var riskRepo = new RiskmatrixRepository();
-            riskRepo.UpdateCoFByPrefix(model.Code, model.Total_Cof);
+                // 리스크매트릭스에는 고장확률을 적용하지 않은 기본 CoF를 반영한다.
+                var riskRepo = new RiskmatrixRepository();
+                riskRepo.UpdateCoFByPrefix(model.Code, model.Total_Cof);
 
-            //  최신값 화면으로
-            return RedirectToAction(nameof(CofInfo), new { code = model.Code });
+                // 최신값 화면으로
+                return RedirectToAction(nameof(CofInfo), new { code = model.Code });
+            }
+            catch (System.InvalidOperationException ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+                return View(model);
+            }
+            catch (System.Exception ex)
+            {
+                LogHelper.WriteLog("Setting(CofInfo)", ex.ToString());
+                ModelState.AddModelError("", "CoF 정보를 저장하는 중 오류가 발생했습니다. 입력값을 확인해 주세요.");
+                return View(model);
+            }
         }
 
         [HttpGet]

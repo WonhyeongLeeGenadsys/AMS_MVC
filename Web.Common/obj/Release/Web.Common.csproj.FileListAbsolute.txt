@@ -24,7 +24,6 @@ D:\project\ams\AMS_MVC\Web.Common\bin\Release\Dapper.xml
 D:\project\ams\AMS_MVC\Web.Common\bin\Release\Microsoft.Bcl.AsyncInterfaces.xml
 D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Runtime.CompilerServices.Unsafe.xml
 D:\project\ams\AMS_MVC\Web.Common\bin\Release\System.Threading.Tasks.Extensions.xml
-D:\project\ams\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.CopyComplete
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\Web.Common.dll.config
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\Microsoft.Extensions.Logging.Abstractions.dll
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\Microsoft.Web.Infrastructure.dll
@@ -57,3 +56,4 @@ D:\project\AMS\AMS_MVC\Web.Common\bin\Release\ko\System.Web.Razor.resources.dll
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\ko\System.Web.WebPages.resources.dll
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\ko\System.Web.WebPages.Deployment.resources.dll
 D:\project\AMS\AMS_MVC\Web.Common\bin\Release\ko\System.Web.WebPages.Razor.resources.dll
+D:\project\AMS\AMS_MVC\Web.Common\obj\Release\Web.Common.csproj.Up2Date

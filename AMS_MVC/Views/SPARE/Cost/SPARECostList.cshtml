@@ -1,0 +1,67 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 비용계획 목록</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("SPARECostAdd", "SPARECost")" class="btn add blue">추가</a>
+            </div>
+
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            loadCostList();
+        });
+
+        function loadCostList() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetCostListData", "SPARECost")',
+                success: function (response) {
+                    if (!response.success) {
+                        alert(response.message);
+                        return;
+                    }
+
+                    $("#gridContainer").dxDataGrid({
+                        dataSource: response.data,
+                        showBorders: true,
+                        hoverStateEnabled: true,
+                        searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                        columns: [
+                            { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                            { dataField: "PART_NAME", caption: "부품명", alignment: "center" },
+                            { dataField: "FISCAL_YEAR", caption: "회계연도", alignment: "center", width: 100 },
+                            { dataField: "BUDGET_AMOUNT", caption: "예산금액", alignment: "right", width: 120, format: "#,##0" },
+                            { dataField: "ACTUAL_AMOUNT", caption: "실제금액", alignment: "right", width: 120, format: "#,##0" },
+                            { dataField: "UPDATED_AT", caption: "수정일", alignment: "center", width: 120 },
+                            {
+                                caption: "관리",
+                                alignment: "center",
+                                width: 100,
+                                cellTemplate: function (container, options) {
+                                    $("<a>")
+                                        .addClass("btn blue")
+                                        .text("수정")
+                                        .attr("href", '@Url.Action("SPARECostUpdate", "SPARECost")' + '?costId=' + options.data.COST_ID)
+                                        .appendTo(container);
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+        }
+    </script>
+}

@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using InfluxDB.Client;
@@ -14,10 +16,55 @@ namespace AMS_DATA
         public static readonly Dictionary<string, string> ADDR_TO_CODE =
             new Dictionary<string, string>()
             {
-                ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = "ITR001",// 정밀점검 PD 측정값(1)
-                ["YHLU07/SPDC2$ST$PaDschAlm$stVal"] = "ITR002",  // 정밀점검 PD 측정값(2)
-                //온도값 추가 예정
+                // AC 차단기
+                ["YHLU07/SPDC1$ST$PaDschAlm$stVal"] = "VCB001",
+                ["YHLU07/SPDC2$ST$PaDschAlm$stVal"] = "VCB001",
+
+                // AC 변압기
+                ["YHLU06/SPDC1$ST$PaDschAlm$stVal"] = "ITR001",
+                ["YHLU06/SPDC2$ST$PaDschAlm$stVal"] = "ITR001",
+                ["YHLU06/SPDC3$ST$PaDschAlm$stVal"] = "ITR002",
+                ["YHLU06/SPDC4$ST$PaDschAlm$stVal"] = "ITR002",
+
+                // DC 차단기
+                ["YHLU01/SPDC1$ST$PaDschAlm$stVal"] = "DCCB001",
+                ["YHLU01/SPDC2$ST$PaDschAlm$stVal"] = "DCCB001",
+
+                // DC 접속재(DC Cable)
+                ["YHLU04/SPDC1$ST$PaDschAlm$stVal"] = "DCCABLE001",
+                ["YHLU04/SPDC2$ST$PaDschAlm$stVal"] = "DCCABLE001",
+
+                // DC 변압기(Submodule)
+                ["YHLU02/SPDC1$ST$PaDschAlm$stVal"] = "SUBMODULE001",
+                ["YHLU02/SPDC2$ST$PaDschAlm$stVal"] = "SUBMODULE001",
+
+                // 온도 센서
+                ["YHLU07/WTSTMP1$MX$Tmp$mag$f"] = "VCB001",
+                ["YHLU07/WTSTMP2$MX$Tmp$mag$f"] = "VCB001",
+                ["YHLU06/ITSTMP1$MX$Tmp$mag$f"] = "ITR001",
+                ["YHLU06/ITSTMP2$MX$Tmp$mag$f"] = "ITR001",
+                ["YHLU06/ITSTMP3$MX$Tmp$mag$f"] = "ITR002",
+                ["YHLU06/ITSTMP4$MX$Tmp$mag$f"] = "ITR002",
             };
+
+        // 온도
+        public static readonly HashSet<string> TEMPERATURE_ADDRS = new HashSet<string>(StringComparer.Ordinal)
+            {
+                "YHLU07/WTSTMP1$MX$Tmp$mag$f",
+                "YHLU07/WTSTMP2$MX$Tmp$mag$f",
+
+                "YHLU06/ITSTMP1$MX$Tmp$mag$f",
+                "YHLU06/ITSTMP2$MX$Tmp$mag$f",
+
+                "YHLU06/ITSTMP3$MX$Tmp$mag$f",
+                "YHLU06/ITSTMP4$MX$Tmp$mag$f",
+            };
+    }
+
+    enum SignalKind
+    {
+        PartialDischarge,
+        Temperature
     }
 
     class SignalHit
@@ -25,20 +72,62 @@ namespace AMS_DATA
         public string Addr;
         public string Code;
         public float Value;
+        public SignalKind Kind;
     }
 
     class Program
     {
-        static void LogInfo(string msg) => Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [INFO]  {msg}");
-        static void LogWarn(string msg) => Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [WARN]  {msg}");
+        private static readonly object ConsoleLock = new object();
+
+        static void WriteLog(string level, ConsoleColor color, string msg)
+        {
+            lock (ConsoleLock)
+            {
+                var originalColor = Console.ForegroundColor;
+                if (!Console.IsOutputRedirected)
+                    Console.ForegroundColor = color;
+
+                Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [{level,-7}] {msg}");
+
+                if (!Console.IsOutputRedirected)
+                    Console.ForegroundColor = originalColor;
+            }
+        }
+
+        static void LogInfo(string msg) => WriteLog("INFO", ConsoleColor.Gray, msg);
+        static void LogData(string msg) => WriteLog("SENSOR", ConsoleColor.Cyan, msg);
+        static void LogSuccess(string msg) => WriteLog("SUCCESS", ConsoleColor.Green, msg);
+        static void LogWarn(string msg) => WriteLog("WARN", ConsoleColor.Yellow, msg);
         static void LogError(string msg, Exception ex = null)
         {
-            Console.WriteLine($"[{DateTime.Now:HH:mm:ss}] [ERROR] {msg}");
-            if (ex != null) Console.WriteLine(ex.ToString());
+            WriteLog("ERROR", ConsoleColor.Red, msg);
+            if (ex != null)
+                WriteLog("ERROR", ConsoleColor.DarkRed, ex.ToString());
+        }
+
+        static void LogSection(string title)
+        {
+            lock (ConsoleLock)
+            {
+                var originalColor = Console.ForegroundColor;
+                if (!Console.IsOutputRedirected)
+                    Console.ForegroundColor = ConsoleColor.White;
+
+                Console.WriteLine();
+                Console.WriteLine(new string('=', 110));
+                Console.WriteLine($"  {title}");
+                Console.WriteLine(new string('=', 110));
+
+                if (!Console.IsOutputRedirected)
+                    Console.ForegroundColor = originalColor;
+            }
         }
 
         static async Task Main(string[] args)
         {
+            Console.OutputEncoding = Encoding.UTF8;
+            try { Console.Title = "AMS InfluxDB 센서 수집 및 HI 계산"; } catch { }
+
             var vcbChkRepo = new VCBChkRepository();
             var itr1ChkRepo = new ITRChk1Repository();
             var itr2ChkRepo = new ITRChk2Repository();
@@ -48,13 +137,20 @@ namespace AMS_DATA
 
             var riskRepo = new RiskmatrixRepository();
             var cofRepo = new CoFRepository();
+            var vcbCalc = new VCBChkScoreCalculator();
             var itrCalc = new ITRChkScoreCalculator();
+            var dccbCalc = new DCCBChkScoreCalculator();
+            var dccableCalc = new DCCABLEChkScoreCalculator();
 
             string url = ConfigurationManager.AppSettings["InfluxUrl"];          
             string token = ConfigurationManager.AppSettings["InfluxToken"];      
-            string org = ConfigurationManager.AppSettings["InfluxOrg"] ?? "mvdc";
+            string org = ConfigurationManager.AppSettings["InfluxOrg"] ?? "Genadsys";
             string bucket = ConfigurationManager.AppSettings["InfluxBucket"] ?? "AMS";
             var client = InfluxDBClientFactory.Create(url, token);
+
+            LogSection("AMS_DATA 시작");
+            LogInfo($"Influx URL={url}, ORG={org}, BUCKET={bucket}");
+            LogInfo($"주소 매핑={AddrCodeMap.ADDR_TO_CODE.Count}개, 수집 주기=10초, 조회 범위=최근 15초");
 
             // 자정 1회 처리 마커
             DateTime lastDailyProcessed = DateTime.MinValue.Date;
@@ -63,45 +159,108 @@ namespace AMS_DATA
             {
                 try
                 {
-                    bool itrHandledThisLoop = false;
-
-                    LogInfo("Influx 수집 시작");
+                    LogSection($"Influx 수집 주기 시작 | {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
                     var hits = await FetchSignalsWithCodes(client, org, bucket);
-                    LogInfo($"Influx 수집 완료: {hits.Count} 개");
+                    LogInfo($"매핑·파싱 완료 신호: {hits.Count}개");
+
+                    if (hits.Count == 0)
+                        LogWarn("이번 주기에 처리할 매핑 신호가 없습니다.");
 
                     // 신호 들어온 code별 처리
-                    foreach (var grp in hits.GroupBy(h => h.Code))
+                    foreach (var grp in hits.GroupBy(h => h.Code).OrderBy(g => g.Key))
                     {
                         var code = grp.Key;
-                        var value = grp.First().Value;
+                        var pdHits = grp.Where(h => h.Kind == SignalKind.PartialDischarge).ToList();
+                        var temperatureHits = grp.Where(h => h.Kind == SignalKind.Temperature).ToList();
+
+                        LogSection($"장비 처리 | {code}");
+                        foreach (var hit in grp.OrderBy(h => h.Kind).ThenBy(h => h.Addr))
+                        {
+                            LogData($"{GetSignalKindText(hit.Kind),-8} | 값={FormatValue(hit.Value),8} | {hit.Addr}");
+                        }
+
+                        // 동일 장비의 PD 센서 중 하나라도 경보이면 해당 장비 경보로 처리한다.
+                        float? pdValue = pdHits.Any() ? pdHits.Max(h => h.Value) : (float?)null;
+                        int? pdGrade = pdValue.HasValue
+                            ? GetPartialDischargeGrade(pdValue.Value)
+                            : (int?)null;
+
+                        if (pdGrade.HasValue)
+                        {
+                            LogInfo($"부분방전 집계 | 센서={pdHits.Count}개, 최대값={FormatValue(pdValue.Value)}, HI 입력등급={pdGrade.Value}");
+                        }
+                        else
+                        {
+                            LogInfo("부분방전 신호 없음 | 기존 점검값 유지");
+                        }
+
+                        var temperatureSensors = temperatureHits
+                            .GroupBy(h => h.Addr)
+                            .Select(g => new { Addr = g.Key, Value = g.Last().Value })
+                            .OrderBy(x => x.Addr)
+                            .ToList();
+
+                        float? temperatureDifference = null;
+                        int? temperatureGrade = null;
+
+                        if (temperatureSensors.Count >= 2)
+                        {
+                            temperatureDifference = temperatureSensors.Max(x => x.Value) - temperatureSensors.Min(x => x.Value);
+                            temperatureGrade = GetTemperatureGrade(temperatureDifference.Value);
+                            var valuesText = string.Join(", ", temperatureSensors.Select(x => $"{x.Addr}={FormatValue(x.Value)}℃"));
+                            LogInfo($"온도 편차 계산 | {valuesText} | 편차={FormatValue(temperatureDifference.Value)}℃, HI 입력등급={temperatureGrade.Value}");
+                        }
+                        else if (temperatureSensors.Count == 1)
+                        {
+                            LogWarn($"온도 센서 1개만 수집 | 주소={temperatureSensors[0].Addr}, 값={FormatValue(temperatureSensors[0].Value)}℃ | 편차 등급 계산 불가, 기존 점검값 유지");
+                        }
+                        else
+                        {
+                            LogInfo("온도 신호 없음 | 기존 점검값 유지");
+                        }
 
                         if (code.StartsWith("ITR"))
                         {
                             // ITR: 신호 있을 때만 HI/PoF 계산하여 오늘자 RM Upsert (보통점검 이력이 존재한다면!)
                             if (HasChk(code, itr1ChkRepo, itr2ChkRepo))
                             {
-                                LogInfo($"ITR 처리 시작: {code}, value={value}");
-                                UpdateItrRiskOnly(itr1ChkRepo, itr2ChkRepo, itrCalc, cofRepo, riskRepo, code, value);
-                                LogInfo($"ITR 처리 끝: {code}");
-                                LogInfo($"-------------------------------------------------------------------------------------------------");
-                                itrHandledThisLoop = true;
+                                UpdateItrRiskFromSensors(itr1ChkRepo, itr2ChkRepo, itrCalc, cofRepo, riskRepo, code, pdGrade, temperatureGrade);
                             }
                             else
                             {
-                                LogWarn($"ITR 보통점검 없음 → 스킵: {code}");
+                                LogWarn($"ITR 점검 데이터 없음 | 센서 HI 반영 스킵: {code}");
                             }
                         }
                         else
                         {
-                            // 4종: 보통점검 이력 + 최신 RM이 있을 경우 오늘자로 복사/Upsert
                             if (HasChk(code, vcbChkRepo, dccbChkRepo, dccableChkRepo, submoduleChkRepo))
                             {
-                                LogInfo($"4종 RM 오늘자 보장(복사) 시도: {code}");
-                                CopyLatestRiskToTodayIfNeeded(riskRepo, code);
+                                if (code.StartsWith("VCB") && (pdGrade.HasValue || temperatureGrade.HasValue))
+                                {
+                                    UpdateVcbRiskFromSensors(vcbChkRepo, vcbCalc, cofRepo, riskRepo, code, pdGrade, temperatureGrade);
+                                }
+                                else if (code.StartsWith("DCCB") && pdGrade.HasValue)
+                                {
+                                    UpdateDccbRiskFromSensor(dccbChkRepo, dccbCalc, cofRepo, riskRepo, code, pdGrade.Value);
+                                }
+                                else if (code.StartsWith("DCCABLE") && pdGrade.HasValue)
+                                {
+                                    UpdateDccableRiskFromSensor(dccableChkRepo, dccableCalc, cofRepo, riskRepo, code, pdGrade.Value);
+                                }
+                                else
+                                {
+                                    if (code.StartsWith("SUBMODULE") && pdGrade.HasValue)
+                                    {
+                                        LogWarn("SUBMODULE 부분방전 신호 수집됨 | Health Index 기준표와 현재 모델에 PD 평가항목이 없어 HI에는 반영하지 않음");
+                                    }
+
+                                    LogInfo($"센서로 변경할 HI 평가항목 없음 | 최신 RiskMatrix 오늘자 복사: {code}");
+                                    CopyLatestRiskToTodayIfNeeded(riskRepo, code);
+                                }
                             }
                             else
                             {
-                                LogWarn($"4종 보통점검 없음 → 스킵: {code}");
+                                LogWarn($"보통점검 데이터 없음 | 센서 HI 반영 스킵: {code}");
                             }
                         }
                     }
@@ -126,6 +285,8 @@ namespace AMS_DATA
                             vcbChkRepo, dccbChkRepo, dccableChkRepo, submoduleChkRepo
                         );
                     }
+
+                    LogSuccess($"Influx 수집 주기 완료 | 처리 장비={hits.Select(h => h.Code).Distinct().Count()}대, 처리 신호={hits.Count}개");
                 }
                 catch (Exception ex)
                 {
@@ -137,12 +298,12 @@ namespace AMS_DATA
             }
         }
 
-        // Influx에서 신호 읽어 주소 --> (코드, 값)으로 반환 (매핑되지 않은 주소는 무시)
+        // Influx에서 신호를 읽고, 모든 수신값을 콘솔에 표시한 뒤 주소 --> (코드, 값)으로 매핑한다.
         static async Task<List<SignalHit>> FetchSignalsWithCodes(InfluxDBClient client, string org, string bucket)
         {
             var flux = $@"
             from(bucket: ""{bucket}"")
-              |> range(start: -5s)
+              |> range(start: -15s)
               |> filter(fn: (r) => r._field == ""value"")
               |> last()";
 
@@ -156,26 +317,57 @@ namespace AMS_DATA
                 foreach (var rec in tables.SelectMany(t => t.Records))
                 {
                     total++;
+                    var rawValue = rec.GetValue();
+                    var valueText = rawValue?.ToString() ?? "null";
+                    var timeText = rec.Values.TryGetValue("_time", out var timeObj) && timeObj != null
+                        ? timeObj.ToString()
+                        : "시간없음";
 
                     if (!rec.Values.TryGetValue("ADDR", out var addrObj) || addrObj == null)
+                    {
+                        LogWarn($"Influx 원본 #{total:000} | ADDR 없음 | 값={valueText} | 시간={timeText}");
                         continue;
+                    }
 
                     var addr = addrObj.ToString();
                     if (string.IsNullOrWhiteSpace(addr))
+                    {
+                        LogWarn($"Influx 원본 #{total:000} | ADDR 빈값 | 값={valueText} | 시간={timeText}");
                         continue;
+                    }
 
                     if (!AddrCodeMap.ADDR_TO_CODE.TryGetValue(addr, out var code))
-                        continue; // 매핑 안 된 주소는 패스함!
+                    {
+                        LogData($"Influx 원본 #{total:000} | 미매핑 | 값={valueText,-10} | {addr} | 시간={timeText}");
+                        continue;
+                    }
                     mapped++;
 
-                    var valStr = rec.GetValue()?.ToString();
-                    if (float.TryParse(valStr, out var v))
+                    var valStr = rawValue?.ToString();
+                    bool parsedValue = float.TryParse(
+                        valStr,
+                        NumberStyles.Float | NumberStyles.AllowThousands,
+                        CultureInfo.InvariantCulture,
+                        out var v);
+
+                    if (!parsedValue)
+                        parsedValue = float.TryParse(valStr, out v);
+
+                    if (parsedValue)
                     {
-                        result.Add(new SignalHit { Addr = addr, Code = code, Value = v });
+                        var kind = AddrCodeMap.TEMPERATURE_ADDRS.Contains(addr)
+                            ? SignalKind.Temperature
+                            : SignalKind.PartialDischarge;
+                        result.Add(new SignalHit { Addr = addr, Code = code, Value = v, Kind = kind });
                         parsed++;
+                        LogData($"Influx 원본 #{total:000} | 매핑됨 | {code,-14} | {GetSignalKindText(kind),-8} | 값={FormatValue(v),8} | {addr} | 시간={timeText}");
+                    }
+                    else
+                    {
+                        LogWarn($"Influx 원본 #{total:000} | 숫자 변환 실패 | {code} | 값={valueText} | {addr} | 시간={timeText}");
                     }
                 }
-                LogInfo($"Flux 결과 처리: total={total}, mapped={mapped}, parsed={parsed}");
+                LogInfo($"Flux 결과 요약 | 전체={total}개, 주소매핑={mapped}개, 숫자변환={parsed}개, 미매핑/제외={total - parsed}개");
             }
             catch (Exception ex)
             {
@@ -183,6 +375,30 @@ namespace AMS_DATA
             }
 
             return result;
+        }
+
+        static string GetSignalKindText(SignalKind kind)
+        {
+            return kind == SignalKind.Temperature ? "온도" : "부분방전";
+        }
+
+        static string FormatValue(float value)
+        {
+            return value.ToString("0.###", CultureInfo.InvariantCulture);
+        }
+
+        // 현재 주소는 부분방전 크기값이 아니라 경보 상태값(stVal)이므로 정상=1등급, 경보=5등급으로 변환한다.
+        static int GetPartialDischargeGrade(float pdAlarmValue)
+        {
+            return Math.Abs(pdAlarmValue) < 0.000001f ? 1 : 5;
+        }
+
+        // HI 모듈 기준: 유사 부위 온도 편차 <3℃=1등급, 3~15℃=2등급, >15℃=4등급
+        static int GetTemperatureGrade(float temperatureDifference)
+        {
+            if (temperatureDifference < 3f) return 1;
+            if (temperatureDifference <= 15f) return 2;
+            return 4;
         }
 
         //  보통점검 존재 여부
@@ -225,15 +441,17 @@ namespace AMS_DATA
             return false;
         }
 
-        // ITR: 신호(PD) 반영해서 HI/PoF 계산 --> RiskMatrix 오늘자 Upsert
-        static void UpdateItrRiskOnly(
+        // 센서값은 최신 점검 객체의 해당 평가항목에 계산용으로 반영한다.
+        // 수동 점검 원본 행은 덮어쓰지 않고, 계산된 HI/PoF만 오늘자 RiskMatrix에 저장한다.
+        static void UpdateItrRiskFromSensors(
             ITRChk1Repository itr1Repo,
             ITRChk2Repository itr2Repo,
             ITRChkScoreCalculator itrCalc,
             CoFRepository cofRepo,
             RiskmatrixRepository riskRepo,
             string itrCode,
-            float pdRaw)
+            int? pdGrade,
+            int? temperatureGrade)
         {
             itr1Repo.GetLatestITRChk1ByITRCode(itrCode, out var l1);
             itr2Repo.GetLatestITRChk2ByITRCode(itrCode, out var l2);
@@ -244,15 +462,132 @@ namespace AMS_DATA
 
             var t1 = latest1 ?? new ITRChk1();
             var t2 = latest2 ?? new ITRChk2();
+            int previousPdGrade = t2.CHK2_PD;
+            int previousTemperatureGrade = t1.CHK1_Thermal_Temperature;
 
-            // PD: 0 → 1등급, 아니면 5등급
-            t2.CHK2_PD = (pdRaw == 0f) ? 1 : 5;
+            if (pdGrade.HasValue)
+                t2.CHK2_PD = pdGrade.Value;
+
+            if (temperatureGrade.HasValue)
+                t1.CHK1_Thermal_Temperature = temperatureGrade.Value;
+
+            LogInfo($"ITR 센서 파라미터 적용 | 부분방전 {previousPdGrade} → {t2.CHK2_PD}, 열화상·온도 {previousTemperatureGrade} → {t1.CHK1_Thermal_Temperature}");
 
             var (hi, pof) = itrCalc.CalculateHiPofCombined(t1, t2, 1.0m);
             var cof = Math.Round(cofRepo.GetTotalCofByPrefix("ITR"), 2);
 
-            LogInfo($"UpsertToday(ITR): code={itrCode}, HI={(int)Math.Truncate(hi)}, CoF={cof}, PoF={pof}");
-            riskRepo.UpsertToday(itrCode, (int)Math.Truncate(hi), cof, pof);
+            UpsertCalculatedRisk(riskRepo, itrCode, "ITR", hi, cof, pof);
+        }
+
+        static void UpdateVcbRiskFromSensors(
+            VCBChkRepository vcbRepo,
+            VCBChkScoreCalculator vcbCalc,
+            CoFRepository cofRepo,
+            RiskmatrixRepository riskRepo,
+            string vcbCode,
+            int? pdGrade,
+            int? temperatureGrade)
+        {
+            vcbRepo.GetLatestVCBChkByVCBCode(vcbCode, out var list);
+            var latest = list?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+            if (latest == null)
+            {
+                LogWarn($"VCB 보통점검 없음 | 센서 HI 반영 스킵: {vcbCode}");
+                return;
+            }
+
+            int previousPdGrade = (int)latest.CHK_PdPatternValue;
+            int previousTemperatureGrade = (int)latest.CHK_ThermalTemperature;
+
+            if (pdGrade.HasValue)
+                latest.CHK_PdPatternValue = pdGrade.Value;
+
+            if (temperatureGrade.HasValue)
+                latest.CHK_ThermalTemperature = temperatureGrade.Value;
+
+            LogInfo($"VCB 센서 파라미터 적용 | PD 패턴·성장 {previousPdGrade} → {(int)latest.CHK_PdPatternValue}, 열화상·온도 {previousTemperatureGrade} → {(int)latest.CHK_ThermalTemperature}");
+
+            var (hi, pof) = vcbCalc.CalculateHiPof(latest, 1.0m);
+            var cof = Math.Round(cofRepo.GetTotalCofByPrefix("VCB"), 2);
+
+            UpsertCalculatedRisk(riskRepo, vcbCode, "VCB", hi, cof, pof);
+        }
+
+        static void UpdateDccbRiskFromSensor(
+            DCCBChkRepository dccbRepo,
+            DCCBChkScoreCalculator dccbCalc,
+            CoFRepository cofRepo,
+            RiskmatrixRepository riskRepo,
+            string dccbCode,
+            int pdGrade)
+        {
+            dccbRepo.GetLatestDCCBChkByDCCBCode(dccbCode, out var list);
+            var latest = list?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+            if (latest == null)
+            {
+                LogWarn($"DCCB 보통점검 없음 | 센서 HI 반영 스킵: {dccbCode}");
+                return;
+            }
+
+            int previousPdGrade = (int)latest.CHK_MainCircuit_PD;
+            latest.CHK_MainCircuit_PD = pdGrade;
+            LogInfo($"DCCB 센서 파라미터 적용 | 주회로 부분방전 {previousPdGrade} → {(int)latest.CHK_MainCircuit_PD}");
+
+            var (hi, pof) = dccbCalc.CalculateHiPof(latest, 1.0m);
+            var cof = Math.Round(cofRepo.GetTotalCofByPrefix("DCCB"), 2);
+
+            UpsertCalculatedRisk(riskRepo, dccbCode, "DCCB", hi, cof, pof);
+        }
+
+        static void UpdateDccableRiskFromSensor(
+            DCCABLEChkRepository dccableRepo,
+            DCCABLEChkScoreCalculator dccableCalc,
+            CoFRepository cofRepo,
+            RiskmatrixRepository riskRepo,
+            string dccableCode,
+            int pdGrade)
+        {
+            dccableRepo.GetLatestDCCABLEChkByDCCABLECode(dccableCode, out var list);
+            var latest = list?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+            if (latest == null)
+            {
+                LogWarn($"DC Cable 보통점검 없음 | 센서 HI 반영 스킵: {dccableCode}");
+                return;
+            }
+
+            int previousPdGrade = (int)latest.CHK_Partial_Discharge;
+            latest.CHK_Partial_Discharge = pdGrade;
+            LogInfo($"DC Cable 센서 파라미터 적용 | 부분방전(PD) {previousPdGrade} → {(int)latest.CHK_Partial_Discharge}");
+
+            var (hi, pof) = dccableCalc.CalculateHiPof(latest, 1.0m);
+            var cof = Math.Round(cofRepo.GetTotalCofByPrefix("DCCABLE"), 2);
+
+            UpsertCalculatedRisk(riskRepo, dccableCode, "DC Cable", hi, cof, pof);
+        }
+
+        static void UpsertCalculatedRisk(
+            RiskmatrixRepository riskRepo,
+            string code,
+            string equipmentName,
+            decimal hi,
+            decimal cof,
+            decimal pof)
+        {
+            int newHi = (int)Math.Truncate(hi);
+            var previous = riskRepo.GetLatestRiskMatrixByCode(code);
+            string previousHi = previous?.HI ?? "없음";
+
+            LogInfo($"{equipmentName} HI 계산 결과 | CODE={code} | HI {previousHi} → {newHi} | PoF={pof:F6}% | CoF={cof:F2}");
+
+            try
+            {
+                riskRepo.UpsertToday(code, newHi, cof, pof);
+                LogSuccess($"RiskMatrix 오늘자 반영 완료 | CODE={code}, HI={newHi}, PoF={pof:F6}%, CoF={cof:F2}");
+            }
+            catch (Exception ex)
+            {
+                LogError($"RiskMatrix 오늘자 반영 실패 | CODE={code}", ex);
+            }
         }
 
         // 최신 RM을 오늘자 날짜로 복사 (최신행 없으면 return)

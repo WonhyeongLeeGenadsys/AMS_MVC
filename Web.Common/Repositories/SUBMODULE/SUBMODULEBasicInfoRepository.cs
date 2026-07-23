@@ -144,6 +144,9 @@ ORDER BY b.TBL_IDX;
 
                             if (affectedRowsBasicInfo > 0)
                             {
+                                decimal defaultCof = new CoFRepository()
+                                    .GetTotalCofByPrefix(conn, "SUBMODULE", transaction);
+
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
                     INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME) 
@@ -153,8 +156,8 @@ ORDER BY b.TBL_IDX;
                                 var riskMatrixData = new
                                 {
                                     SUBMODULE_Code = newSUBMODULEBasicInfo.SUBMODULE_Code,
-                                    DefaultCof = "0",
-                                    DefaultPof = "0"
+                                    DefaultCof = defaultCof,
+                                    DefaultPof = 0m
                                 };
 
                                 int affectedRowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);

@@ -1,6 +1,7 @@
 ﻿
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -79,6 +80,7 @@ namespace AMS_MVC
                     item.Code,
                     item.Serial_No,
                     item.Name,
+                    item.ProductName,
                     Install_Date = item.Install_Date.ToString("yy.MM.dd"),
                     Operating_Date = item.Operating_Date.ToString("yy.MM.dd"),
                     item.UsagePeriod,
@@ -213,6 +215,338 @@ namespace AMS_MVC
                 .ToList();
 
             return Json(list, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
+        /// 최신 HI/PoF와 설비별 Weibull 정보를 숭실대 원본 DM의 CoF/NPV 공식에 연결해
+        /// 유지보수 의사결정 결과를 반환한다. DB 저장 없이 조회 시점에 계산한다.
+        /// </summary>
+        [HttpGet]
+        public JsonResult GetDMDecisionInfo(string prefix = "")
+        {
+            try
+            {
+                var priorityRepo = new PriorityInfoRepository();
+                var weibullRepo = new EquipmentWeibullRepository();
+                var equipmentWeibulls = weibullRepo.GetAll();
+
+                var allCandidates = priorityRepo.GetPriorityInfo()
+                    .Select(item => BuildDmCandidate(item, equipmentWeibulls))
+                    .ToList();
+
+                string normalizedPrefix = (prefix ?? "").Trim().ToUpperInvariant();
+                IEnumerable<DmCandidate> filtered = allCandidates;
+                if (normalizedPrefix == "AC" || normalizedPrefix == "DC")
+                {
+                    filtered = filtered.Where(x => x.Sort == normalizedPrefix);
+                }
+
+                var candidates = filtered.ToList();
+                double maxRisk = candidates.Any() ? candidates.Max(x => x.Risk) : 0d;
+                double maxNpv = candidates.Any() ? candidates.Max(x => x.NpvValue) : 0d;
+                foreach (var candidate in candidates)
+                {
+                    candidate.DMScore = CalculateDmScore(candidate, maxRisk, maxNpv);
+                }
+
+                var ordered = candidates
+                    .OrderByDescending(x => x.DMScore)
+                    .ThenByDescending(x => x.Risk)
+                    .ThenBy(x => x.RULYears ?? double.MaxValue)
+                    .ToList();
+
+                var rows = ordered.Select(item => new
+                {
+                    Priority = item.Severity == 0
+                        ? (int?)null
+                        : 1 + ordered.Count(x => x.Severity > 0 && x.DMScore > item.DMScore),
+                    item.Sort,
+                    item.Code,
+                    Serial_No = item.SerialNo,
+                    item.Name,
+                    item.ProductName,
+                    item.AssetType,
+                    item.HI,
+                    PoF = Math.Round(item.PoFRatio * 100d, 2),
+                    ReplacementCost = Math.Round(item.ReplacementCost, 0),
+                    CoF = Math.Round(item.CoF, 0),
+                    Risk = Math.Round(item.Risk, 0),
+                    NPV = Math.Round(item.NpvValue, 0),
+                    ROI = Math.Round(item.RoiPct, 2),
+                    RUL = item.RULYears.HasValue
+                        ? (double?)Math.Round(item.RULYears.Value, 2)
+                        : null,
+                    item.Decision,
+                    item.Urgency,
+                    item.RecommendedAction,
+                    DMScore = Math.Round(item.DMScore, 4)
+                }).ToList();
+
+                var summary = new
+                {
+                    Total = ordered.Count,
+                    ReplaceImmediate = ordered.Count(x => x.Severity == 5),
+                    UrgentMaintenance = ordered.Count(x => x.Severity == 4),
+                    PreventiveMaintenance = ordered.Count(x => x.Severity == 3),
+                    ScheduledInspection = ordered.Count(x => x.Severity == 2),
+                    ContinueMonitoring = ordered.Count(x => x.Severity == 1),
+                    DataRequired = ordered.Count(x => x.Severity == 0),
+                    TopCode = ordered.Any() ? ordered[0].Code : "",
+                    TopName = ordered.Any() ? ordered[0].ProductName : "",
+                    TopDecision = ordered.Any() ? ordered[0].Decision : "",
+                    TopAction = ordered.Any() ? ordered[0].RecommendedAction : "",
+                    TopNPV = ordered.Any() ? Math.Round(ordered[0].NpvValue, 0) : 0d,
+                    TopROI = ordered.Any() ? Math.Round(ordered[0].RoiPct, 2) : 0d
+                };
+
+                return Json(new { success = true, rows, summary }, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                LogHelper.WriteLog("TotalInfoController", $"GetDMDecisionInfo Error: {ex.Message}");
+                return Json(new
+                {
+                    success = false,
+                    error = "의사결정 데이터를 계산하는 중 오류가 발생했습니다.",
+                    details = ex.Message
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        private static DmCandidate BuildDmCandidate(
+            PriorityInfo item,
+            IEnumerable<EquipmentWeibull> equipmentWeibulls)
+        {
+            double pofRaw;
+            int hi;
+            bool hasPof = TryParseDouble(item.PoF, out pofRaw);
+            bool hasHi = int.TryParse(item.HI, out hi) && hi >= 1 && hi <= 5;
+
+            double pofRatio = hasPof
+                ? Clamp(pofRaw > 1d ? pofRaw / 100d : pofRaw, 0d, 1d)
+                : 0d;
+            string equipmentKey = GetEquipmentKey(item.Code, item.Name);
+            var lifeModel = equipmentWeibulls.FirstOrDefault(x =>
+                string.Equals(x.EquipmentName, equipmentKey, StringComparison.OrdinalIgnoreCase));
+
+            double? rulYears = CalculateRulYears(lifeModel, hasPof ? (double?)pofRatio : null, item.UsagePeriod);
+            var economicResult = new OriginalDmCalculator().Calculate(
+                equipmentKey,
+                pofRatio,
+                item.UsagePeriod);
+
+            var candidate = new DmCandidate
+            {
+                Sort = item.Sort,
+                Code = item.Code,
+                SerialNo = item.Serial_No,
+                Name = item.Name,
+                ProductName = string.IsNullOrWhiteSpace(item.ProductName) ? item.Name : item.ProductName,
+                AssetType = economicResult.AssetType,
+                HI = hasHi ? hi : 0,
+                PoFRatio = pofRatio,
+                ReplacementCost = economicResult.ReplacementCost,
+                CoF = economicResult.CofTotal,
+                Risk = hasPof ? economicResult.Risk : 0d,
+                NpvValue = economicResult.NpvValue,
+                RoiPct = economicResult.RoiPct,
+                RULYears = rulYears
+            };
+
+            SetDecision(candidate, hasHi && hasPof);
+            return candidate;
+        }
+
+        private static void SetDecision(DmCandidate candidate, bool hasRequiredRiskData)
+        {
+            if (!hasRequiredRiskData)
+            {
+                candidate.Severity = 0;
+                candidate.Decision = "데이터 확인 필요";
+                candidate.Urgency = "확인 필요";
+                candidate.RecommendedAction = "HI·PoF 산정 필요";
+                return;
+            }
+
+            bool hasRul = candidate.RULYears.HasValue;
+            double rul = candidate.RULYears.GetValueOrDefault(double.MaxValue);
+
+            if ((candidate.PoFRatio > 0.8d && candidate.CoF > 2000000000d)
+                || candidate.HI >= 5
+                || (hasRul && rul < 0.5d))
+            {
+                candidate.Severity = 5;
+                candidate.Decision = "즉시 교체";
+                candidate.Urgency = "매우 높음";
+                candidate.RecommendedAction = "즉시";
+            }
+            else if ((candidate.PoFRatio > 0.6d && candidate.CoF > 1000000000d)
+                || candidate.HI >= 4
+                || (hasRul && rul < 1d))
+            {
+                candidate.Severity = 4;
+                candidate.Decision = "긴급 유지보수";
+                candidate.Urgency = "높음";
+                candidate.RecommendedAction = "1~3개월";
+            }
+            else if ((candidate.PoFRatio > 0.4d && candidate.CoF > 500000000d)
+                || candidate.HI >= 3
+                || (hasRul && rul < 2d))
+            {
+                candidate.Severity = 3;
+                candidate.Decision = "예방 유지보수";
+                candidate.Urgency = "보통";
+                candidate.RecommendedAction = "6~12개월";
+            }
+            else if (candidate.PoFRatio > 0.2d
+                || candidate.HI >= 2
+                || (hasRul && rul < 3d))
+            {
+                candidate.Severity = 2;
+                candidate.Decision = "정기점검";
+                candidate.Urgency = "낮음";
+                candidate.RecommendedAction = "12~24개월";
+            }
+            else
+            {
+                candidate.Severity = 1;
+                candidate.Decision = "계속 감시";
+                candidate.Urgency = "관찰";
+                candidate.RecommendedAction = "24~36개월";
+            }
+
+            // 원본 Value Framework: 즉시 교체라도 ROI가 10% 미만이면 한 단계 하향한다.
+            if (candidate.RoiPct < 10d && candidate.Severity == 5)
+            {
+                candidate.Severity = 4;
+                candidate.Decision = "긴급 유지보수";
+                candidate.Urgency = "높음";
+                candidate.RecommendedAction = "1~3개월";
+            }
+        }
+
+        private static double CalculateDmScore(DmCandidate candidate, double maxRisk, double maxNpv)
+        {
+            if (candidate.Severity == 0)
+            {
+                return 0d;
+            }
+
+            double riskNorm = maxRisk > 0d ? candidate.Risk / maxRisk : 0d;
+            double npvNorm = maxNpv > 0d ? candidate.NpvValue / maxNpv : 0d;
+            double urgencyNorm;
+            switch (candidate.Severity)
+            {
+                case 5:
+                    urgencyNorm = 1.0d;
+                    break;
+                case 4:
+                    urgencyNorm = 0.8d;
+                    break;
+                case 3:
+                    urgencyNorm = 0.5d;
+                    break;
+                case 2:
+                    urgencyNorm = 0.3d;
+                    break;
+                default:
+                    urgencyNorm = 0.1d;
+                    break;
+            }
+
+            // 원본: Risk 50% + NPV 30% + Urgency 20% (0~1 정규화 점수)
+            return (riskNorm * 0.5d) + (npvNorm * 0.3d) + (urgencyNorm * 0.2d);
+        }
+
+        private static double? CalculateRulYears(EquipmentWeibull lifeModel, double? currentPof, int usageYears)
+        {
+            if (lifeModel == null)
+            {
+                return null;
+            }
+
+            const double targetPof = 0.95d;
+            double currentAge;
+            double targetAge;
+
+            if (lifeModel.ShapeParam.HasValue && lifeModel.ShapeParam.Value > 0d
+                && lifeModel.ScaleParam.HasValue && lifeModel.ScaleParam.Value > 0d)
+            {
+                double shape = lifeModel.ShapeParam.Value;
+                double scale = lifeModel.ScaleParam.Value;
+                targetAge = scale * Math.Pow(-Math.Log(1d - targetPof), 1d / shape);
+                currentAge = currentPof.HasValue
+                    ? scale * Math.Pow(-Math.Log(Math.Max(1d - currentPof.Value, 0.000001d)), 1d / shape)
+                    : Math.Max(0d, usageYears);
+            }
+            else if (lifeModel.FailureRate.HasValue && lifeModel.FailureRate.Value > 0d)
+            {
+                double failureRate = lifeModel.FailureRate.Value;
+                targetAge = -Math.Log(1d - targetPof) / failureRate;
+                currentAge = currentPof.HasValue
+                    ? -Math.Log(Math.Max(1d - currentPof.Value, 0.000001d)) / failureRate
+                    : Math.Max(0d, usageYears);
+            }
+            else
+            {
+                return null;
+            }
+
+            return Math.Max(0d, targetAge - currentAge);
+        }
+
+        private static string GetEquipmentKey(string code, string name)
+        {
+            string normalizedCode = (code ?? "").ToUpperInvariant();
+            if (normalizedCode.StartsWith("DCCABLE")) return "DCCABLE";
+            if (normalizedCode.StartsWith("SUBMODULE")) return "SUBMODULE";
+            if (normalizedCode.StartsWith("DCCB")) return "DCCB";
+            if (normalizedCode.StartsWith("ITR")) return "ITR";
+            if (normalizedCode.StartsWith("VCB")) return "VCB";
+
+            string normalizedName = (name ?? "")
+                .Replace(" ", "")
+                .Replace("-", "")
+                .ToUpperInvariant();
+            if (normalizedName.Contains("DCCABLE")) return "DCCABLE";
+            if (normalizedName.Contains("SUBMODULE")) return "SUBMODULE";
+            if (normalizedName.Contains("DCCB")) return "DCCB";
+            if (normalizedName.Contains("INTERFACETR") || normalizedName.Contains("ITR")) return "ITR";
+            return "VCB";
+        }
+
+        private static bool TryParseDouble(string value, out double result)
+        {
+            return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out result)
+                || double.TryParse(value, NumberStyles.Any, CultureInfo.CurrentCulture, out result);
+        }
+
+        private static double Clamp(double value, double minimum, double maximum)
+        {
+            return Math.Max(minimum, Math.Min(maximum, value));
+        }
+
+        private sealed class DmCandidate
+        {
+            public string Sort { get; set; }
+            public string Code { get; set; }
+            public string SerialNo { get; set; }
+            public string Name { get; set; }
+            public string ProductName { get; set; }
+            public string AssetType { get; set; }
+            public int HI { get; set; }
+            public double PoFRatio { get; set; }
+            public double ReplacementCost { get; set; }
+            public double CoF { get; set; }
+            public double Risk { get; set; }
+            public double NpvValue { get; set; }
+            public double RoiPct { get; set; }
+            public double? RULYears { get; set; }
+            public int Severity { get; set; }
+            public string Decision { get; set; }
+            public string Urgency { get; set; }
+            public string RecommendedAction { get; set; }
+            public double DMScore { get; set; }
         }
 
     }

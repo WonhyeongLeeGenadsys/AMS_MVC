@@ -27,6 +27,11 @@ $(document).ready(function () {
         case 'Maintenance': // 유지보수
             $('#gnb_06').addClass('on');
             break;
+
+        case 'SPARE': // 예비품
+            $('#gnb_07').addClass('on');
+            break;
+
         default:
             break;
     }
@@ -36,23 +41,18 @@ $(document).ready(function () {
 
     // 레프트 메뉴 활성화 함수 (VCB, ITR 등을 포함하여 비교)
     function activateMenuItem() {
-        // 현재 페이지의 파일명 추출 (ex: "VCBList" || "ITRBasicList")
         const currentPage = location.pathname.split('/').pop().split('.')[0];
 
         $('.menu_group a').each(function () {
-            // 각 링크의 파일명 추출
             const href = $(this).attr("href");
             const linkPage = href.split('/').pop().split('.')[0];
 
-            // 정확히 일치하면 'on' 클래스 추가
             if (currentPage === linkPage) {
                 $(this).addClass('on');
             }
-            // "VCB"가 포함시
             else if (currentPage.includes("VCB") && linkPage.includes("VCB")) {
                 $(this).addClass('on');
             }
-            // "ITR"가 포함시
             else if (currentPage.includes("ITR") && linkPage.includes("ITR")) {
                 $(this).addClass('on');
             }
@@ -71,6 +71,7 @@ $(document).ready(function () {
             else if (currentPage.includes("SUBSTATION") && linkPage.includes("SUBSTATION")) {
                 $(this).addClass('on');
             }
+
         });
     }
 });

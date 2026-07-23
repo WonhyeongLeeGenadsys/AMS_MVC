@@ -1,0 +1,272 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 재고정책</h1>
+
+    <div class="con_box">
+        <div class="content_warp spare-policy-dashboard">
+
+            <div class="policy-box">
+                <div class="policy-header">
+                    <div class="policy-title-wrap">
+                        <h2>재고 정책 요약 (Top 20)</h2>
+                    </div>
+
+                    <div class="policy-filter-wrap">
+                        <select id="policyTypeFilter">
+                            <option value="ALL">정책 전체</option>
+                            <option value="EOQ">EOQ</option>
+                            <option value="ROP">ROP</option>
+                            <option value="Min-Max">Min-Max</option>
+                        </select>
+
+                        <select id="assetTypeFilter">
+                            <option value="">장비유형 전체</option>
+                            <option value="1">VCB</option>
+                            <option value="2">DCCB</option>
+                            <option value="3">SUBMODULE</option>
+                            <option value="4">DCCABLE</option>
+                            <option value="5">Interface TR</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="policyGrid" class="grid_wrap"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .spare-policy-dashboard {
+            padding-top: 10px;
+        }
+
+        .policy-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 12px 16px 16px 16px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .policy-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .policy-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+            .policy-title-wrap h2 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+            .policy-title-wrap span {
+                font-size: 11px;
+                color: #3E6BC0;
+                font-weight: 700;
+            }
+
+        .policy-filter-wrap {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+            .policy-filter-wrap select {
+                min-width: 120px;
+                height: 32px;
+            }
+
+        .grade-badge {
+            display: inline-block;
+            min-width: 76px;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 10px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .grade-CRITICAL {
+            background: #FCE2E0;
+            color: #E74C3C;
+        }
+
+        .grade-HIGH {
+            background: #FDEBD0;
+            color: #F39C12;
+        }
+
+        .grade-MEDIUM {
+            background: #D5F5E3;
+            color: #27AE60;
+        }
+
+        .grade-LOW {
+            background: #E8F1FB;
+            color: #4A90E2;
+        }
+
+        .policy-badge {
+            display: inline-block;
+            min-width: 56px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+            background: #EEF5FF;
+            color: #4A90E2;
+            border: 1px solid #CFE0FB;
+        }
+    </style>
+
+    <script>
+        $(document).ready(function () {
+            initPolicyGrid();
+            loadPolicyData();
+
+            $("#policyTypeFilter, #assetTypeFilter").on("change", function () {
+                loadPolicyData();
+            });
+        });
+
+        function loadPolicyData() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSPAREPolicyData", "SpareDashboard")',
+                data: {
+                    assetTypeId: $("#assetTypeFilter").val() || null,
+                    policyType: $("#policyTypeFilter").val()
+                },
+                success: function (response) {
+                    console.log("policy response:", response);
+
+                    if (!response || !response.success) {
+                        alert("재고정책 데이터를 불러오지 못했습니다.");
+                        return;
+                    }
+
+                    renderPolicyData(response);
+                },
+                error: function (xhr) {
+                    console.log("AJAX ERROR:", xhr.responseText);
+                    alert("오류 발생: " + xhr.responseText);
+                }
+            });
+        }
+
+        function renderPolicyData(data) {
+            const rows = Array.isArray(data.rows) ? data.rows : [];
+            const grid = $("#policyGrid").dxDataGrid("instance");
+
+            if (grid) {
+                grid.option("dataSource", rows);
+            }
+        }
+
+        function initPolicyGrid() {
+            $("#policyGrid").dxDataGrid({
+                dataSource: [],
+                keyExpr: "SPARE_ID",
+                showBorders: false,
+                hoverStateEnabled: true,
+                rowAlternationEnabled: false,
+                columnAutoWidth: true,
+                searchPanel: {
+                    visible: false
+                },
+                paging: {
+                    enabled: false
+                },
+                sorting: {
+                    mode: "none"
+                },
+                columns: [
+                    {
+                        dataField: "PART_NAME",
+                        caption: "부품명",
+                        alignment: "left"
+                    },
+                    {
+                        dataField: "ASSET_TYPE_NAME",
+                        caption: "장비유형",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "CRITICALITY_GRADE",
+                        caption: "중요도",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            const grade = options.value || "";
+                            $("<span>")
+                                .addClass("grade-badge grade-" + grade)
+                                .text(grade)
+                                .appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "EOQ",
+                        caption: "EOQ",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "SAFETY_STOCK",
+                        caption: "안전재고",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "ROP",
+                        caption: "ROP",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "MIN",
+                        caption: "Min",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "MAX",
+                        caption: "Max",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "STOCK_POLICY",
+                        caption: "재고 정책",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            $("<span>")
+                                .addClass("policy-badge")
+                                .text(options.value || "")
+                                .appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "STOCK_AMOUNT",
+                        caption: "재고금액(원)",
+                        alignment: "right",
+                        format: "#,##0"
+                    }
+                ]
+            });
+        }
+    </script>
+}

@@ -1,0 +1,76 @@
+SET XACT_ABORT ON;
+BEGIN TRANSACTION;
+
+IF EXISTS
+(
+    SELECT 1
+    FROM sys.check_constraints
+    WHERE parent_object_id = OBJECT_ID('dbo.TB_SPARE_PART')
+      AND name = 'CK_TB_SPARE_PART_CRITICALITY_GRADE'
+)
+BEGIN
+    ALTER TABLE dbo.TB_SPARE_PART
+        DROP CONSTRAINT CK_TB_SPARE_PART_CRITICALITY_GRADE;
+END;
+
+ALTER TABLE dbo.TB_SPARE_PART
+    ALTER COLUMN CRITICALITY_GRADE VARCHAR(10) NULL;
+
+UPDATE dbo.TB_SPARE_PART
+SET CRITICALITY_GRADE = CASE UPPER(LTRIM(RTRIM(CRITICALITY_GRADE)))
+    WHEN 'A' THEN 'CRITICAL'
+    WHEN 'B' THEN 'HIGH'
+    WHEN 'C' THEN 'MEDIUM'
+    WHEN 'D' THEN 'LOW'
+    ELSE UPPER(LTRIM(RTRIM(CRITICALITY_GRADE)))
+END
+WHERE CRITICALITY_GRADE IS NOT NULL;
+
+ALTER TABLE dbo.TB_SPARE_PART WITH CHECK
+    ADD CONSTRAINT CK_TB_SPARE_PART_CRITICALITY_GRADE
+    CHECK (CRITICALITY_GRADE IN ('CRITICAL', 'HIGH', 'MEDIUM', 'LOW'));
+
+DECLARE @ConstraintName SYSNAME;
+DECLARE @Sql NVARCHAR(MAX);
+
+IF COL_LENGTH('dbo.TB_SPARE_PART', 'QUANTITY_PER_ASSET') IS NOT NULL
+BEGIN
+    SELECT @ConstraintName = DC.name
+    FROM sys.default_constraints DC
+    INNER JOIN sys.columns C
+        ON C.object_id = DC.parent_object_id
+       AND C.column_id = DC.parent_column_id
+    WHERE DC.parent_object_id = OBJECT_ID('dbo.TB_SPARE_PART')
+      AND C.name = 'QUANTITY_PER_ASSET';
+
+    IF @ConstraintName IS NOT NULL
+    BEGIN
+        SET @Sql = N'ALTER TABLE dbo.TB_SPARE_PART DROP CONSTRAINT ' + QUOTENAME(@ConstraintName) + N';';
+        EXEC sys.sp_executesql @Sql;
+    END;
+
+    ALTER TABLE dbo.TB_SPARE_PART DROP COLUMN QUANTITY_PER_ASSET;
+END;
+
+SET @ConstraintName = NULL;
+
+IF COL_LENGTH('dbo.TB_SPARE_PART', 'UNIT_NAME') IS NOT NULL
+BEGIN
+    SELECT @ConstraintName = DC.name
+    FROM sys.default_constraints DC
+    INNER JOIN sys.columns C
+        ON C.object_id = DC.parent_object_id
+       AND C.column_id = DC.parent_column_id
+    WHERE DC.parent_object_id = OBJECT_ID('dbo.TB_SPARE_PART')
+      AND C.name = 'UNIT_NAME';
+
+    IF @ConstraintName IS NOT NULL
+    BEGIN
+        SET @Sql = N'ALTER TABLE dbo.TB_SPARE_PART DROP CONSTRAINT ' + QUOTENAME(@ConstraintName) + N';';
+        EXEC sys.sp_executesql @Sql;
+    END;
+
+    ALTER TABLE dbo.TB_SPARE_PART DROP COLUMN UNIT_NAME;
+END;
+
+COMMIT TRANSACTION;

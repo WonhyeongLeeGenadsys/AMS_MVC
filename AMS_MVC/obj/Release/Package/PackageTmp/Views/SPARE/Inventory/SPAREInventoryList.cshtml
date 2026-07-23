@@ -1,0 +1,64 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 재고관리 목록</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            loadInventoryList();
+        });
+
+        function loadInventoryList() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetInventoryListData", "SPAREInventory")',
+                success: function (response) {
+                    if (!response.success) {
+                        alert(response.message);
+                        return;
+                    }
+
+                    $("#gridContainer").dxDataGrid({
+                        dataSource: response.data,
+                        showBorders: true,
+                        hoverStateEnabled: true,
+                        searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                        columns: [
+                            { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                            { dataField: "PART_NAME", caption: "부품명", alignment: "center" },
+                            { dataField: "CRITICALITY_GRADE", caption: "중요도", alignment: "center", width: 90 },
+                            { dataField: "CURRENT_QTY", caption: "현재재고", alignment: "center", width: 100 },
+                            { dataField: "SAFETY_STOCK", caption: "안전재고", alignment: "center", width: 100 },
+                            { dataField: "EOQ", caption: "EOQ", alignment: "center", width: 100 },
+                            { dataField: "REORDER_POINT", caption: "재주문점", alignment: "center", width: 100 },
+                            {
+                                caption: "관리",
+                                alignment: "center",
+                                width: 100,
+                                cellTemplate: function (container, options) {
+                                    $("<a>")
+                                        .addClass("btn blue")
+                                        .text("수정")
+                                        .attr("href", '@Url.Action("SPAREInventoryEdit", "SPAREInventory")' + '?spareId=' + options.data.SPARE_ID)
+                                        .appendTo(container);
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+        }
+    </script>
+}

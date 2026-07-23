@@ -361,7 +361,7 @@ D:\project\ams\AMS_MVC\AMS_MVC\bin\ko\System.Web.WebPages.Deployment.resources.d
 D:\project\ams\AMS_MVC\AMS_MVC\bin\ko\System.Web.WebPages.Razor.resources.dll
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.AssemblyReference.cache
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.CoreCompileInputs.cache
-D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.CopyComplete
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.dll
 D:\project\ams\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.pdb
 D:\project\AMS\AMS_MVC\AMS_MVC\bin\Web.Common.dll.config
+D:\project\AMS\AMS_MVC\AMS_MVC\obj\Release\AMS_MVC.csproj.Up2Date

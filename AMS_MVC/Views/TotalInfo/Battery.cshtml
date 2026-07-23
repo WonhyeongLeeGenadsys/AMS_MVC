@@ -128,7 +128,7 @@
                                                 .appendTo(container);
                                         },
                                         calculateCellValue: function (rowData) {
-                                            var result = (rowData.PoF || 0) * (rowData.CoF || 0);
+                                            var result = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
                                             return result;
                                         },
                                         format: { type: "fixedPoint", precision: 2 }

@@ -1,0 +1,752 @@
+|2026-07-14 10:53:02  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 10:53:02  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 10:53:02  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 10:53:02  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 11:07:34  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 11:07:34  |   vcbBasicInfo Data  |   총 0 건 조회됨   |
+|2026-07-14 11:07:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 11:07:34  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 11:07:40  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 11:07:40  |   vcbBasicInfo Data  |   총 0 건 조회됨   |
+|2026-07-14 11:07:40  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 11:07:40  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 11:07:45  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 11:07:47  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 11:07:47  |   vcbBasicInfo Data  |   총 0 건 조회됨   |
+|2026-07-14 11:07:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 11:07:47  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:10:53  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:33:42  |   DB(VCB_BASICINFO)  |   CreateVCBBasicInfoRepo 성공: VCB Serial_No: 0000001   |
+|2026-07-14 13:33:43  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 13:33:43  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:33:43  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:33:43  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:33:45  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:33:45  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:33:45  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:33:45  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:33:46  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:34:18  |   DB(ITR_BASICINFO)  |   CreateInterfaceTrBasicInfoRepo 성공: ITR Serial_No: 0000001   |
+|2026-07-14 13:34:19  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:34:19  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:34:19  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:34:19  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:34:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:34:48  |   DB(ITR_BASICINFO)  |   CreateInterfaceTrBasicInfoRepo 성공: ITR Serial_No: 000002   |
+|2026-07-14 13:34:49  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:34:49  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:34:49  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:34:49  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:34:53  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:35:05  |   DB(ITR_BASICINFO)  |   UpdateInterfaceTrBasicInfoRepo 성공 SERIAL_NO: 0000001   |
+|2026-07-14 13:35:52  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:35:52  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:35:52  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:35:52  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:36:09  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:36:09  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:36:09  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:36:09  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:40:04  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:40:28  |   DB(SUBMODULE_BASICINFO)  |   CreateSUBMODULEBasicInfoRepo 성공: SUBMODULE Serial_No: 000001   |
+|2026-07-14 13:40:29  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:40:29  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:40:29  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:40:29  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:40:30  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:40:30  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:40:30  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:40:30  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:40:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:40:53  |   DB(DCCB_BASICINFO)  |   CreateDCCBBasicInfoRepo 성공: DCCB Serial_No: 000001   |
+|2026-07-14 13:40:54  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:40:54  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:40:54  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:40:54  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:40:55  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2026-07-14 13:40:55  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 13:40:55  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:40:55  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2026-07-14 13:40:56  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:41:15  |   DB(DCCABLE_BASICINFO)  |   CreateDCCABLEBasicInfoRepo 성공: DCCABLE Serial_No: 000001   |
+|2026-07-14 13:41:16  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2026-07-14 13:41:16  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 13:41:16  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:41:16  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2026-07-14 13:42:44  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 13:42:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:42:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:44  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:42:44  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:42:44  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:42:44  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:44  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:42:45  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:42:45  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:42:45  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:45  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:42:45  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:45  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:45  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:45  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:46  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2026-07-14 13:42:46  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 13:42:46  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:46  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2026-07-14 13:42:46  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:46  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:46  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:46  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:47  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:42:47  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:42:47  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:47  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:42:47  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 13:42:47  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:42:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:47  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:42:48  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:42:48  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:42:48  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:48  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:42:49  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:42:49  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:42:49  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:49  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:42:49  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:49  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:49  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:49  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:49  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:49  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:49  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:49  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:50  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2026-07-14 13:42:50  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 13:42:50  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:50  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2026-07-14 13:42:50  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:50  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:50  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:50  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:50  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 13:42:50  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 13:42:50  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:50  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 13:42:51  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:42:51  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:42:51  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:51  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:42:51  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:42:51  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:42:51  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:51  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:42:52  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 13:42:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:42:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:52  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:42:52  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 13:42:52  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:42:52  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:52  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 13:42:53  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 13:42:53  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 13:42:53  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:53  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 13:42:53  |   DCCABLEBasicController.List  |   GetDCCABLEListData 실행   |
+|2026-07-14 13:42:53  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 13:42:53  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 13:42:53  |   DCCABLEBasicController.List  |   DCCABLE 데이터 로드 성공   |
+|2026-07-14 13:43:00  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:43:00  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:43:06  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:43:06  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:43:09  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:43:09  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:43:26  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:43:26  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:43:34  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:43:34  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:47:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:47:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:47:57  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 13:47:57  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 13:48:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:48:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:48:24  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 13:48:24  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:48:24  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:48:24  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 13:48:27  |   VCBChkController.List  |   GetVCBChkListData 실행   |
+|2026-07-14 13:48:27  |   vcbCode 조회 :   |   VCB001   |
+|2026-07-14 13:48:27  |   VCBChkController.List  |   조회된 데이터: 0건   |
+|2026-07-14 13:48:30  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:48:30  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:48:30  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:49:24  |   VCBChkScore  |   [InputData]:  접점 소모량=1, 진공(누설전류)=1, 접촉저항=1, 절연저항=1, 핫스팟=1, PD 패턴 및 성장=1, 구동모터 전류=1, 누적 단락전류량=1, 단락 전류=1, 동작 횟수=1, 개폐 시간=1, 외관 점검=1, 열화상 및 온도=1   |
+|2026-07-14 13:49:24  |   DB(VCB_CHK)  |   저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:49:24  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:49:30  |   VCBChkScore  |   [InputData]:  접점 소모량=1, 진공(누설전류)=1, 접촉저항=1, 절연저항=1, 핫스팟=1, PD 패턴 및 성장=1, 구동모터 전류=1, 누적 단락전류량=1, 단락 전류=1, 동작 횟수=1, 개폐 시간=1, 외관 점검=1, 열화상 및 온도=1   |
+|2026-07-14 13:49:30  |   DB(VCB_CHK)  |   저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:49:30  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:49:41  |   VCBChkScore  |   [InputData]:  접점 소모량=1, 진공(누설전류)=1, 접촉저항=1, 절연저항=1, 핫스팟=1, PD 패턴 및 성장=1, 구동모터 전류=1, 누적 단락전류량=1, 단락 전류=1, 동작 횟수=1, 개폐 시간=1, 외관 점검=1, 열화상 및 온도=1   |
+|2026-07-14 13:49:41  |   DB(VCB_CHK)  |   저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:49:41  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_THERMALTEMPERATURE'이(가) 잘못되었습니다.   |
+|2026-07-14 13:52:52  |   VCBChkScore  |   [InputData]:  접점 소모량=1, 진공(누설전류)=1, 접촉저항=1, 절연저항=1, 핫스팟=1, PD 패턴 및 성장=1, 구동모터 전류=1, 누적 단락전류량=1, 단락 전류=1, 동작 횟수=1, 개폐 시간=1, 외관 점검=1, 열화상 및 온도=1   |
+|2026-07-14 13:52:52  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=True, Message=VCB_CHK 등록 성공   |
+|2026-07-14 13:52:52  |   VCBChkAdd  |   [UpdateRiskMatrixHI] code=VCB001, hi=1, baseCof=8589.562040025, pof%=0.0000, adjustedCof=0, ok=True   |
+|2026-07-14 13:52:53  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:52:53  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:53:47  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:53:47  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:53:47  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:54:19  |   VCBChkScore  |   [InputData]:  접점 소모량=3, 진공(누설전류)=3, 접촉저항=3, 절연저항=1, 핫스팟=1, PD 패턴 및 성장=1, 구동모터 전류=3, 누적 단락전류량=3, 단락 전류=3, 동작 횟수=3, 개폐 시간=3, 외관 점검=3, 열화상 및 온도=1   |
+|2026-07-14 13:54:19  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=True, Message=VCB_CHK 등록 성공   |
+|2026-07-14 13:54:19  |   VCBChkAdd  |   [UpdateRiskMatrixHI] code=VCB001, hi=3, baseCof=8589.562040025, pof%=13.8000, adjustedCof=1185.36, ok=True   |
+|2026-07-14 13:54:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:54:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:54:20  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:54:20  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:54:20  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:54:55  |   VCBChkScore  |   [InputData]:  접점 소모량=5, 진공(누설전류)=5, 접촉저항=5, 절연저항=5, 핫스팟=5, PD 패턴 및 성장=5, 구동모터 전류=5, 누적 단락전류량=5, 단락 전류=5, 동작 횟수=5, 개폐 시간=5, 외관 점검=5, 열화상 및 온도=1   |
+|2026-07-14 13:54:55  |   VCBChkAdd  |   [CreateVCBChkRepo] Success=True, Message=VCB_CHK 등록 성공   |
+|2026-07-14 13:54:55  |   VCBChkAdd  |   [UpdateRiskMatrixHI] code=VCB001, hi=5, baseCof=8589.562040025, pof%=100, adjustedCof=8589.56, ok=True   |
+|2026-07-14 13:54:56  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 13:54:56  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 13:54:58  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:54:58  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:54:58  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:54:58  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:54:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:59:03  |   ITRChkScore  |   [ITRChk1 Input] H2=1, C2H2=1, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=1, 경년=1, 고장이력=0, Doble=1, SFRA=1, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1   |
+|2026-07-14 13:59:04  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:59:04  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:59:05  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:59:05  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:59:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:59:31  |   ITRChkScore  |   [ITRChk1 Input] H2=3, C2H2=3, C2H4=3, CH4=3, C2H6=3, CO=3, CO2=3, 절연내력=3, 경년=3, 고장이력=0, Doble=3, SFRA=3, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1   |
+|2026-07-14 13:59:32  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:59:32  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:59:33  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 13:59:33  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 13:59:33  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 13:59:59  |   ITRChkScore  |   [ITRChk1 Input] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장이력=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=4   |
+|2026-07-14 14:00:00  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:00:00  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:00:01  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:00:01  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:00:03  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:00:03  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:00:03  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:18:44  |   ITRChkScore  |   [ITRChk2 Input] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:18:46  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:18:46  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:18:47  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:18:47  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:18:47  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:18:51  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:18:51  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:01  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:01  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:06  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:06  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:08  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:08  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:13  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:13  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:14  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:14  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:16  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:16  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:18  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:18  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:18  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:19:22  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:22  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:23  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 14:19:23  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:27  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 14:19:27  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:27  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:19:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 14:19:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:32  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 14:19:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:36  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:36  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:36  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:36  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:46  |   SUBMODULEBasicController.List  |   GetSUBMODULEListData 실행   |
+|2026-07-14 14:19:46  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:19:46  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:46  |   SUBMODULEBasicController.List  |   SUBMODULE 데이터 로드 성공   |
+|2026-07-14 14:19:47  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:47  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:47  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:47  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:49  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:49  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:49  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:49  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:50  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:50  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:50  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:50  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:52  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:52  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:52  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:52  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:55  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:55  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:55  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:55  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:19:57  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:19:57  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:19:57  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:19:57  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:20:00  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:20:00  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:20:00  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:20:00  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:20:02  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:20:02  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:20:02  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:20:02  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:20:04  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:20:04  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:20:04  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:20:24  |   ITRChkScore  |   [ITRChk2 Input] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:20:24  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=4
+[ITRChk2] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:20:25  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:20:25  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:06  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:06  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:06  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:21:35  |   ITRChkScore  |   [ITRChk2 Input] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 14:21:35  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=4
+[ITRChk2] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 14:21:35  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:35  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:38  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:38  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:46  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:46  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:49  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:49  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:53  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:21:53  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:21:53  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:21:53  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:22:06  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:06  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:06  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:22:32  |   ITRChkScore  |   [ITRChk2 Input] 가격=3, 수분=3, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:22:32  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=4
+[ITRChk2] 가격=3, 수분=3, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:22:33  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:33  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:35  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:35  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:37  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:37  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:39  |   ITRBasicController.List  |   GetITRListData 실행   |
+|2026-07-14 14:22:39  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:39  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:39  |   ITRBasicController.List  |   ITR 데이터 로드 성공   |
+|2026-07-14 14:22:42  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:22:42  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:22:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:23:01  |   ITRChkScore  |   [ITRChk1 Input] H2=1, C2H2=1, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=1, 경년=1, 고장이력=0, Doble=1, SFRA=1, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1   |
+|2026-07-14 14:23:01  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=1, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=1, 경년=1, 고장=0, Doble=1, SFRA=1, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1
+[ITRChk2] 가격=1, 수분=1, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:23:02  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:23:02  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:23:06  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:23:06  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:23:11  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:23:11  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:23:11  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:23:38  |   ITRChkScore  |   [ITRChk2 Input] 가격=3, 수분=3, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:23:38  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=1, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=1, 경년=1, 고장=0, Doble=1, SFRA=1, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1
+[ITRChk2] 가격=3, 수분=3, Furfural=0, 여자전류=1, 단락전류=1, 권수전압비=1, PD=1   |
+|2026-07-14 14:23:39  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:23:39  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:23:41  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:23:41  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:23:41  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:24:04  |   ITRChkScore  |   [ITRChk2 Input] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 14:24:04  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=1, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=1, 경년=1, 고장=0, Doble=1, SFRA=1, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1
+[ITRChk2] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 14:24:05  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 14:24:05  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 14:24:07  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:24:07  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:24:08  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:24:08  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:24:08  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:24:38  |   SUBMODULEChkScore  |   [InputData]:  V_ce=1, V_g=1, R_on=0, R_th=1, I_c=1, T_on,off=1, 절연저항=0, ESR=1, 커패시턴스=1, 온도=1   |
+|2026-07-14 14:24:38  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2026-07-14 14:24:38  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=1, baseCof=19798.975686637, pof%=0.0000, adjustedCof=0, ok=True   |
+|2026-07-14 14:24:39  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:24:39  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:24:40  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:24:40  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:24:40  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:25:09  |   SUBMODULEChkScore  |   [InputData]:  V_ce=4, V_g=1, R_on=0, R_th=4, I_c=4, T_on,off=4, 절연저항=0, ESR=3, 커패시턴스=3, 온도=3   |
+|2026-07-14 14:25:09  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2026-07-14 14:25:09  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=4, baseCof=19798.975686637, pof%=85.5944, adjustedCof=16946.81, ok=True   |
+|2026-07-14 14:25:10  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:25:10  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:25:11  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:25:11  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:25:11  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:25:39  |   SUBMODULEChkScore  |   [InputData]:  V_ce=5, V_g=5, R_on=0, R_th=5, I_c=5, T_on,off=5, 절연저항=0, ESR=1, 커패시턴스=5, 온도=5   |
+|2026-07-14 14:25:39  |   SUBMODULEChkAdd  |   [CreateSUBMODULEChkRepo] Success=True, Message=SUBMODULE_CHK 등록 성공   |
+|2026-07-14 14:25:39  |   SUBMODULEChkAdd  |   [UpdateRiskMatrixHI] code=SUBMODULE001, hi=5, baseCof=19798.975686637, pof%=100, adjustedCof=19798.98, ok=True   |
+|2026-07-14 14:25:40  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 14:25:40  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 14:25:41  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 14:25:41  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 14:25:41  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:28:16  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 14:28:16  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 14:28:16  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 14:28:39  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 기밀 시험=1, 기계적 동작 시험 (속도)=1, 보조/제어회로 시험 (응답시간)=0, V_ce=1, V_g=1, R_on=0, I_c=1, T_on,off=1   |
+|2026-07-14 14:28:39  |   DB(DCCB_CHK)  |   저장 오류: 열 이름 'CHK_LEAKTEST'이(가) 잘못되었습니다.
+열 이름 'CHK_AUXCONTROLCIRCUIT'이(가) 잘못되었습니다.   |
+|2026-07-14 14:28:39  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_LEAKTEST'이(가) 잘못되었습니다.
+열 이름 'CHK_AUXCONTROLCIRCUIT'이(가) 잘못되었습니다.   |
+|2026-07-14 14:29:45  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 기밀 시험=1, 기계적 동작 시험 (속도)=1, 보조/제어회로 시험 (응답시간)=0, V_ce=1, V_g=1, R_on=0, I_c=1, T_on,off=1   |
+|2026-07-14 14:29:45  |   DB(DCCB_CHK)  |   저장 오류: 열 이름 'CHK_LEAKTEST'이(가) 잘못되었습니다.
+열 이름 'CHK_AUXCONTROLCIRCUIT'이(가) 잘못되었습니다.   |
+|2026-07-14 14:29:45  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_LEAKTEST'이(가) 잘못되었습니다.
+열 이름 'CHK_AUXCONTROLCIRCUIT'이(가) 잘못되었습니다.   |
+|2026-07-14 15:09:59  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 15:09:59  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:09:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:09:59  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 15:10:01  |   DCCBBasicController.List  |   GetDCCBListData 실행   |
+|2026-07-14 15:10:01  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:10:01  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:10:01  |   DCCBBasicController.List  |   DCCB 데이터 로드 성공   |
+|2026-07-14 15:10:05  |   DCCBChkController.List  |   GetDCCBChkListData 실행   |
+|2026-07-14 15:10:05  |   dccbCode 조회 :   |   DCCB001   |
+|2026-07-14 15:10:05  |   DCCBChkController.List  |   조회된 데이터: 0건   |
+|2026-07-14 15:10:07  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:10:07  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:10:07  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:10:29  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 주 회로 부분방전=1, 기계부 동작시간=1, 기계부 진동/가속도=1, 릴레이 보조접점 저항=1, V_ce=1, V_g=1, I_c=1, T_on,off=1   |
+|2026-07-14 15:10:29  |   DB(DCCB_CHK)  |   저장 오류: 열 이름 'CHK_MACHINE_PART_OPERATION_TIME'이(가) 잘못되었습니다.   |
+|2026-07-14 15:10:29  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=False, Message=저장 오류: 열 이름 'CHK_MACHINE_PART_OPERATION_TIME'이(가) 잘못되었습니다.   |
+|2026-07-14 15:11:36  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 주 회로 부분방전=1, 기계부 동작시간=1, 기계부 진동/가속도=1, 릴레이 보조접점 저항=1, V_ce=1, V_g=1, I_c=1, T_on,off=1   |
+|2026-07-14 15:11:36  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2026-07-14 15:11:36  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=1, baseCof=5651.211040025, pof%=0.0000, adjustedCof=0, ok=True   |
+|2026-07-14 15:11:38  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:11:38  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:11:38  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:13:57  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:13:57  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:13:57  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:14:25  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=1, 주 회로 부분방전=3, 기계부 동작시간=3, 기계부 진동/가속도=3, 릴레이 보조접점 저항=3, V_ce=3, V_g=3, I_c=3, T_on,off=3   |
+|2026-07-14 15:14:25  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2026-07-14 15:14:25  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=3, baseCof=5651.211040025, pof%=13.8000, adjustedCof=779.87, ok=True   |
+|2026-07-14 15:14:26  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:14:26  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:14:26  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:28  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2026-07-14 15:14:28  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:14:28  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:30  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:14:30  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:14:30  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:31  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:14:31  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:31  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:14:56  |   DCCBChkScore  |   [InputData]:  주 회로 절연내력 시험=5, 주 회로 부분방전=5, 기계부 동작시간=5, 기계부 진동/가속도=5, 릴레이 보조접점 저항=5, V_ce=5, V_g=5, I_c=5, T_on,off=5   |
+|2026-07-14 15:14:56  |   DCCBChkAdd  |   [CreateDCCBChkRepo] Success=True, Message=DCCB_CHK 등록 성공   |
+|2026-07-14 15:14:56  |   DCCBChkAdd  |   [UpdateRiskMatrixHI] code=DCCB001, hi=5, baseCof=5651.211040025, pof%=100, adjustedCof=5651.21, ok=True   |
+|2026-07-14 15:14:56  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:14:56  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:14:56  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:57  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2026-07-14 15:14:57  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:14:57  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:58  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:14:58  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:14:58  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:16:02  |   DCCABLEChkScore  |   [InputData]:  부분방전(PD)=1, 공칭전압(PU)=1, Tan Delta=1, 저항 측정(Ω)=1, 시간영역 반사(PU)=1   |
+|2026-07-14 15:16:02  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2026-07-14 15:16:02  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=1, baseCof=9944.454417010, pof%=0.0000, adjustedCof=0, ok=True   |
+|2026-07-14 15:16:03  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2026-07-14 15:16:03  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:16:03  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:16:05  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:16:05  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:16:05  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:16:34  |   DCCABLEChkScore  |   [InputData]:  부분방전(PD)=3, 공칭전압(PU)=3, Tan Delta=3, 저항 측정(Ω)=1, 시간영역 반사(PU)=3   |
+|2026-07-14 15:16:34  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2026-07-14 15:16:34  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=3, baseCof=9944.454417010, pof%=3.8494, adjustedCof=382.80, ok=True   |
+|2026-07-14 15:16:35  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2026-07-14 15:16:35  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:16:35  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:16:36  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:16:36  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:16:36  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:16:57  |   DCCABLEChkScore  |   [InputData]:  부분방전(PD)=5, 공칭전압(PU)=5, Tan Delta=5, 저항 측정(Ω)=5, 시간영역 반사(PU)=5   |
+|2026-07-14 15:16:57  |   DCCABLEChkAdd  |   [CreateDCCABLEChkRepo] Success=True, Message=DCCABLE_CHK 등록 성공   |
+|2026-07-14 15:16:57  |   DCCABLEChkAdd  |   [UpdateRiskMatrixHI] code=DCCABLE001, hi=5, baseCof=9944.454417010, pof%=100, adjustedCof=9944.45, ok=True   |
+|2026-07-14 15:16:58  |   TotalDCCABLEChkController.List  |   GetTotalDCCABLEChkListData 실행   |
+|2026-07-14 15:16:58  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-07-14 15:16:58  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:17:32  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:17:32  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:17:34  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:17:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:13  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:15  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 15:18:15  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:15  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 15:18:16  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:16  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:17  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2026-07-14 15:18:17  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:17  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2026-07-14 15:18:17  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:17  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:18  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2026-07-14 15:18:18  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:18  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:18  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2026-07-14 15:18:19  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2026-07-14 15:18:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:19  |   VCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2026-07-14 15:18:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 15:18:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 15:18:45  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:45  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:18:48  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:18:48  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:05  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:19:05  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:12  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:19:12  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:15  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:19:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:19:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:20  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:19:20  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:27  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:19:27  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:31  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:19:31  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:19:33  |   submoduleBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.SUBMODULEBasicInfo]   |
+|2026-07-14 15:19:33  |   DB(SUBMODULE_BASICINFO  |   GetAllSUBMODULEBasicInfoRepo 동작 성공   |
+|2026-07-14 15:20:12  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:20:12  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:20:12  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:20:14  |   TotalDCCBChkController.List  |   GetTotalDCCBChkListData 실행   |
+|2026-07-14 15:20:14  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-07-14 15:20:14  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:20:50  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 15:20:50  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:20:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:20:50  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 15:20:51  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:20:51  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:20:54  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 15:20:54  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 15:21:02  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:21:02  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:21:07  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:21:07  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:21:11  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:21:11  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:21:51  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:21:51  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:21:51  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:22:16  |   ITRChkScore  |   [ITRChk1 Input] H2=3, C2H2=3, C2H4=3, CH4=3, C2H6=3, CO=3, CO2=3, 절연내력=3, 경년=3, 고장이력=0, Doble=3, SFRA=3, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1   |
+|2026-07-14 15:22:16  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=3, C2H2=3, C2H4=3, CH4=3, C2H6=3, CO=3, CO2=3, 절연내력=3, 경년=3, 고장=0, Doble=3, SFRA=3, HV_E=1, LV_E=1, TV_E=1, HV_LV=1, HV_TV=1, LV_TV=1, 열화상 및 온도=1
+[ITRChk2] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 15:22:17  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:22:17  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:22:21  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:22:21  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 15:22:21  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-07-14 15:22:46  |   ITRChkScore  |   [ITRChk1 Input] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장이력=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=1   |
+|2026-07-14 15:22:46  |   ITRChkScore  |   [Combined Input]
+[ITRChk1] H2=1, C2H2=5, C2H4=1, CH4=1, C2H6=1, CO=1, CO2=1, 절연내력=5, 경년=5, 고장=0, Doble=1, SFRA=5, HV_E=5, LV_E=5, TV_E=5, HV_LV=5, HV_TV=5, LV_TV=5, 열화상 및 온도=1
+[ITRChk2] 가격=5, 수분=5, Furfural=0, 여자전류=5, 단락전류=5, 권수전압비=5, PD=5   |
+|2026-07-14 15:22:47  |   InterfaceTrBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.ITRBasicInfo]   |
+|2026-07-14 15:22:47  |   DB(ITR_BASICINFO  |   GetAllInterfaceTrBasicInfoRepo 동작 성공   |
+|2026-07-14 16:07:25  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:07:25  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:07:43  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:07:43  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:07:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:07:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:07:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:07:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:35:59  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2026-07-14 16:35:59  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 16:35:59  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 16:35:59  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2026-07-14 16:36:02  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:36:02  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:37:34  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 16:37:34  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 16:50:34  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-07-14 16:50:34  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-14 16:50:34  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-14 16:50:34  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-07-14 17:00:58  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:00:58  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:08:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:08:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:22:16  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:22:16  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:29:53  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:29:53  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:29:59  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:29:59  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:33:42  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:33:42  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:33:57  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:33:57  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:34:18  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:34:18  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:34:22  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:34:22  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:35:33  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:35:33  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:35:38  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:35:38  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:35:39  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:35:39  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:35:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:35:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:39:16  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:39:17  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:39:17  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:39:17  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 17:39:18  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 17:39:18  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:04:48  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:04:48  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:04:57  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:04:57  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:04:59  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:04:59  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:05:14  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:05:14  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:05:22  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:05:22  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:06:43  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:06:43  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:06:49  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:06:49  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:19  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:19  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:32  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:32  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:36  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:36  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:49  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:49  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:07:52  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:07:52  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:08:51  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:08:51  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:08:54  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:08:54  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:08:56  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:08:56  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:08:57  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:08:57  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:09:00  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:09:00  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:09:04  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:09:04  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:32:10  |   DB(TB_SPARE_PART)  |   예비품 사용중지 성공: SPARE_ID=4   |
+|2026-07-14 18:38:55  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:38:55  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:39:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:39:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:39:33  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:39:33  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:39:38  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:39:38  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:41:32  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:41:32  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:41:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:41:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:41:48  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:41:48  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:41:51  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:41:51  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:52:59  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:52:59  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:53:43  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:53:43  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:53:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:53:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:54:16  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:54:16  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:54:51  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:54:51  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:56:02  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:56:02  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:56:04  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:56:04  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:56:10  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:56:10  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:56:48  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:56:48  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:57:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:57:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:59:23  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:59:23  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:59:37  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:59:37  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 18:59:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 18:59:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:00:22  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:00:22  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:00:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:00:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:00:31  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:00:31  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:00:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:00:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:01:23  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:01:23  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:01:24  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:01:24  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:01:26  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:01:26  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:01:57  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:01:57  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:03:35  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:03:35  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:03:38  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:03:38  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:03:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:03:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:03:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:03:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-14 19:11:50  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-14 19:11:50  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |

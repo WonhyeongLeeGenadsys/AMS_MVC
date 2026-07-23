@@ -256,6 +256,14 @@
                             @Html.HiCell((int)Model.CHK1_LV_TV)
 
                         </tr>
+                        <tr>
+                            <td>열화상</td>
+                            <td>열화상 및 온도</td>
+                            <td>유사 부위 온도 편차</td>
+                            <td>℃</td>
+                            <td>@(Model.ThermalTemperatureText)</td>
+                            @Html.HiCell((int)Model.CHK1_Thermal_Temperature)
+                        </tr>
                     </tbody>
                 </table>
             </div>

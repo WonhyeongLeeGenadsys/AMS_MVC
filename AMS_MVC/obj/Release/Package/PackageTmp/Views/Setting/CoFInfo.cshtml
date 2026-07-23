@@ -29,6 +29,7 @@
 
         @Html.HiddenFor(m => m.Tbl_Idx)
         @Html.HiddenFor(m => m.Code)
+        @Html.ValidationSummary(false, "", new { @class = "validation-summary-errors" })
 
         <div class="con_box">
             <div class="content_warp">

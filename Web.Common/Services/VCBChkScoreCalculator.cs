@@ -21,7 +21,8 @@ namespace Web.Common
                 (int)chk.CHK_ShortCircuitCount,
                 (int)chk.CHK_OperationCount,
                 (int)chk.CHK_OpenCloseTime,
-                (int)chk.CHK_VisualCheck
+                (int)chk.CHK_VisualCheck,
+                (int)chk.CHK_ThermalTemperature
             };
 
             LogHelper.WriteLog("VCBChkScore",
@@ -37,7 +38,8 @@ namespace Web.Common
                  $"단락 전류={(int)chk.CHK_ShortCircuitCount}, " +
                  $"동작 횟수={(int)chk.CHK_OperationCount}, " +
                  $"개폐 시간={(int)chk.CHK_OpenCloseTime}, " +
-                 $"외관 점검={(int)chk.CHK_VisualCheck}");
+                 $"외관 점검={(int)chk.CHK_VisualCheck}, " +
+                 $"열화상 및 온도={(int)chk.CHK_ThermalTemperature}");
 
             int maxGrade = scores.Max(); // Max 값이 HI 값 
             int frequency = scores.Count(s => s == maxGrade); // Max값으로 빈도수 찾아서 해당하는 Pof값 반환

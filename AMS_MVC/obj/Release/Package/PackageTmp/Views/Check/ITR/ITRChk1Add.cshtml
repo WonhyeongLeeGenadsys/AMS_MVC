@@ -105,539 +105,535 @@
                 <div class="table_list_app">
                     <table>
                         <colgroup>
+                            <col style="width:5%">
                             <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
+                            <col style="width:5%">
                             <col style="width:6%">
                             <col>
                         </colgroup>
                         <thead>
                             <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
+                                <th rowspan="2">하위설비</th>
+                                <th rowspan="2">입력 파라미터</th>
+                                <th rowspan="2">단위</th>
+                                <th colspan="5">판단기준</th>
+                                <th rowspan="2">비고</th>
+                            </tr>
+                            <tr>
+                                <th>Very Good</th>
+                                <th>Good</th>
+                                <th>Fair</th>
+                                <th>Poor</th>
+                                <th>Very Poor</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr>
                                 <td rowspan="7">
-                                    DGA
+                                    DGA검사
                                 </td>
                                 <td>H2</td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_H2_1">
                                         <input type="radio" id="CHK1_H2_1" name="CHK1_H2" value="1" checked>
-                                        <span>≤200</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_2">
-                                        <input type="radio" id="CHK1_H2_2" name="CHK1_H2" value="2">
-                                        <span>≤400</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_3">
-                                        <input type="radio" id="CHK1_H2_3" name="CHK1_H2" value="3">
-                                        <span>≤800</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_H2_4">
-                                        <input type="radio" id="CHK1_H2_4" name="CHK1_H2" value="4">
-                                        <span>>800</span>
+                                        <span>100 이하</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_H2_2">
+                                        <input type="radio" id="CHK1_H2_2" name="CHK1_H2" value="2">
+                                        <span>100~300</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_H2_3">
+                                        <input type="radio" id="CHK1_H2_3" name="CHK1_H2" value="3">
+                                        <span>300~700</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_H2_4">
+                                        <input type="radio" id="CHK1_H2_4" name="CHK1_H2" value="4">
+                                        <span>700 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     C2H2
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_C2H2_1">
                                         <input type="radio" id="CHK1_C2H2_1" name="CHK1_C2H2" value="1" checked>
-                                        <span>≤10</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H2_2">
-                                        <input type="radio" id="CHK1_C2H2_2" name="CHK1_C2H2" value="2">
-                                        <span>≤20</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H2_3">
-                                        <input type="radio" id="CHK1_C2H2_3" name="CHK1_C2H2" value="3">
-                                        <span>≤60</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H2_4">
-                                        <input type="radio" id="CHK1_C2H2_4" name="CHK1_C2H2" value="4">
-                                        <span>≤120</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H2_5">
-                                        <input type="radio" id="CHK1_C2H2_5" name="CHK1_C2H2" value="5">
-                                        <span>>120</span>
+                                        <span>미검출</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H2_2">
+                                        <input type="radio" id="CHK1_C2H2_2" name="CHK1_C2H2" value="2">
+                                        <span>0~1</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H2_3">
+                                        <input type="radio" id="CHK1_C2H2_3" name="CHK1_C2H2" value="3">
+                                        <span>1~9</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H2_4">
+                                        <input type="radio" id="CHK1_C2H2_4" name="CHK1_C2H2" value="4">
+                                        <span>9~35</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H2_5">
+                                        <input type="radio" id="CHK1_C2H2_5" name="CHK1_C2H2" value="5">
+                                        <span>35 초과</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     C2H4
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_C2H4_1">
                                         <input type="radio" id="CHK1_C2H4_1" name="CHK1_C2H4" value="1" checked>
-                                        <span>≤100</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H4_2">
-                                        <input type="radio" id="CHK1_C2H4_2" name="CHK1_C2H4" value="2">
-                                        <span>≤200</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H4_3">
-                                        <input type="radio" id="CHK1_C2H4_3" name="CHK1_C2H4" value="3">
-                                        <span>≤500</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H4_4">
-                                        <input type="radio" id="CHK1_C2H4_4" name="CHK1_C2H4" value="4">
-                                        <span>>500</span>
+                                        <span>50 이하</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H4_2">
+                                        <input type="radio" id="CHK1_C2H4_2" name="CHK1_C2H4" value="2">
+                                        <span>50~100</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H4_3">
+                                        <input type="radio" id="CHK1_C2H4_3" name="CHK1_C2H4" value="3">
+                                        <span>100~200</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H4_4">
+                                        <input type="radio" id="CHK1_C2H4_4" name="CHK1_C2H4" value="4">
+                                        <span>200 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     CH4
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_CH4_1">
                                         <input type="radio" id="CHK1_CH4_1" name="CHK1_CH4" value="1" checked>
-                                        <span>≤150</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_CH4_2">
-                                        <input type="radio" id="CHK1_CH4_2" name="CHK1_CH4" value="2">
-                                        <span>≤250</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_CH4_3">
-                                        <input type="radio" id="CHK1_CH4_3" name="CHK1_CH4" value="3">
-                                        <span>≤750</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_CH4_4">
-                                        <input type="radio" id="CHK1_CH4_4" name="CHK1_CH4" value="4">
-                                        <span>>750</span>
+                                        <span>120 이하</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CH4_2">
+                                        <input type="radio" id="CHK1_CH4_2" name="CHK1_CH4" value="2">
+                                        <span>120~400</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CH4_3">
+                                        <input type="radio" id="CHK1_CH4_3" name="CHK1_CH4" value="3">
+                                        <span>400~1000</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CH4_4">
+                                        <input type="radio" id="CHK1_CH4_4" name="CHK1_CH4" value="4">
+                                        <span>1000 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     C2H6
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_C2H6_1">
                                         <input type="radio" id="CHK1_C2H6_1" name="CHK1_C2H6" value="1" checked>
-                                        <span>≤200</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H6_2">
-                                        <input type="radio" id="CHK1_C2H6_2" name="CHK1_C2H6" value="2">
-                                        <span>≤350</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H6_3">
-                                        <input type="radio" id="CHK1_C2H6_3" name="CHK1_C2H6" value="3">
-                                        <span>≤750</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_C2H6_4">
-                                        <input type="radio" id="CHK1_C2H6_4" name="CHK1_C2H6" value="4">
-                                        <span>>750</span>
+                                        <span>65 이하</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H6_2">
+                                        <input type="radio" id="CHK1_C2H6_2" name="CHK1_C2H6" value="2">
+                                        <span>65~100</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H6_3">
+                                        <input type="radio" id="CHK1_C2H6_3" name="CHK1_C2H6" value="3">
+                                        <span>100~200</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_C2H6_4">
+                                        <input type="radio" id="CHK1_C2H6_4" name="CHK1_C2H6" value="4">
+                                        <span>200 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     CO
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_CO_1">
                                         <input type="radio" id="CHK1_CO_1" name="CHK1_CO" value="1" checked>
-                                        <span>≤800</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_CO_2">
-                                        <input type="radio" id="CHK1_CO_2" name="CHK1_CO" value="2">
-                                        <span>≤1200</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_CO_3">
-                                        <input type="radio" id="CHK1_CO_3" name="CHK1_CO" value="3">
-                                        <span>>1200</span>
+                                        <span>350 이하</span>
                                     </label>
                                 </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CO_2">
+                                        <input type="radio" id="CHK1_CO_2" name="CHK1_CO" value="2">
+                                        <span>350~570</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CO_3">
+                                        <input type="radio" id="CHK1_CO_3" name="CHK1_CO" value="3">
+                                        <span>570~1400</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_CO_4">
+                                        <input type="radio" id="CHK1_CO_4" name="CHK1_CO" value="4">
+                                        <span>1400 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>
                                     CO2
                                 </td>
-                                <td></td>
-                                <td></td>
+                                <td>ppm</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_CO2_1">
                                         <input type="radio" id="CHK1_CO2_1" name="CHK1_CO2" value="1" checked>
-                                        <span>≤800</span>
+                                        <span>2500 이하</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_CO2_2">
                                         <input type="radio" id="CHK1_CO2_2" name="CHK1_CO2" value="2">
-                                        <span>≤1200</span>
+                                        <span>2400~4000</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_CO2_3">
                                         <input type="radio" id="CHK1_CO2_3" name="CHK1_CO2" value="3">
-                                        <span>>1200</span>
+                                        <span>4000~10000</span>
                                     </label>
                                 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td rowspan="1">
-                                    History
-                                </td>
-                                <td>고장이력</td>
-                                <td></td>
-                                <td></td>
                                 <td>
-                                    <label class="ty_rdo" for="CHK1_Gojang_History_1">
-                                        <input type="radio" id="CHK1_Gojang_History_1" name="CHK1_Gojang_History" value="1" checked>
-                                        <span>NOT</span>
+                                    <label class="ty_rdo" for="CHK1_CO2_4">
+                                        <input type="radio" id="CHK1_CO2_4" name="CHK1_CO2" value="4">
+                                        <span>10000 초과</span>
                                     </label>
-                                    <label class="ty_rdo" for="CHK1_Gojang_History_5">
-                                        <input type="radio" id="CHK1_Gojang_History_5" name="CHK1_Gojang_History" value="5">
-                                        <span>OCCUR</span>
-                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                            @*DGA 검사 여기까지*@
                             <tr>
                                 <td rowspan="1">
                                     Oil Quality
                                 </td>
                                 <td>절연유 내압</td>
-                                <td></td>
-                                <td></td>
+                                <td>kV</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_Dielectric_Strength_1">
                                         <input type="radio" id="CHK1_Dielectric_Strength_1" name="CHK1_Dielectric_Strength" value="1" checked>
-                                        <span>>40</span>
+                                        <span>0.1 이하</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Dielectric_Strength_3">
                                         <input type="radio" id="CHK1_Dielectric_Strength_3" name="CHK1_Dielectric_Strength" value="3">
-                                        <span>≤30</span>
+                                        <span>0.1~0.3</span>
                                     </label>
+                                </td>
+                                <td>-</td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Dielectric_Strength_5">
                                         <input type="radio" id="CHK1_Dielectric_Strength_5" name="CHK1_Dielectric_Strength" value="5">
-                                        <span><30</span>
+                                        <span>30 미만</span>
                                     </label>
                                 </td>
+                                <td></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                            @*Oil Quality 여기까지*@
                             <tr>
                                 <td rowspan="1">
-                                    Age
+                                    절연지
                                 </td>
-                                <td>나이</td>
-                                <td></td>
-                                <td></td>
+                                <td>절연지 수명손실</td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_Age_1">
                                         <input type="radio" id="CHK1_Age_1" name="CHK1_Age" value="1" checked>
-                                        <span>≤20%</span>
+                                        <span>20 이상</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Age_2">
                                         <input type="radio" id="CHK1_Age_2" name="CHK1_Age" value="2">
-                                        <span>≤40%</span>
+                                        <span>10~20</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Age_3">
                                         <input type="radio" id="CHK1_Age_3" name="CHK1_Age" value="3">
-                                        <span>≤60%</span>
+                                        <span>5~10</span>
                                     </label>
+                                </td>
+                                <td>
+
                                     <label class="ty_rdo" for="CHK1_Age_4">
                                         <input type="radio" id="CHK1_Age_4" name="CHK1_Age" value="4">
-                                        <span>≤80%</span>
+                                        <span>3~5</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Age_5">
                                         <input type="radio" id="CHK1_Age_5" name="CHK1_Age" value="5">
-                                        <span>>80%</span>
+                                        <span>1 이하</span>
                                     </label>
                                 </td>
-                            </tr>
-                            @*<tr>
-
-                                <td>잔여수명</td>
                                 <td></td>
-                                <td></td>
-                                <td>
-                                    <label class="ty_rdo" for="CHK1_Remain_Life_1">
-                                        <input type="radio" id="CHK1_Remain_Life_1" name="CHK1_Remain_Life" value="1" checked>
-                                        <span>≥20</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_Remain_Life_2">
-                                        <input type="radio" id="CHK1_Remain_Life_2" name="CHK1_Remain_Life" value="2">
-                                        <span>≥10</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_Remain_Life_3">
-                                        <input type="radio" id="CHK1_Remain_Life_3" name="CHK1_Remain_Life" value="3">
-                                        <span>≥5</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_Remain_Life_4">
-                                        <input type="radio" id="CHK1_Remain_Life_4" name="CHK1_Remain_Life" value="4">
-                                        <span>≥3</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_Remain_Life_5">
-                                        <input type="radio" id="CHK1_Remain_Life_5" name="CHK1_Remain_Life" value="5">
-                                        <span>≥1</span>
-                                    </label>
-                                </td>
-                            </tr>*@
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
                             </tr>
-                        </thead>
-                        <tbody>
+                            @*절연지 여기까지*@
                             <tr>
                                 <td rowspan="2">
                                     Measure
                                 </td>
                                 <td>Doble</td>
-                                <td></td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_Doble_1">
                                         <input type="radio" id="CHK1_Doble_1" name="CHK1_Doble" value="1" checked>
                                         <span>Good</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Doble_2">
                                         <input type="radio" id="CHK1_Doble_2" name="CHK1_Doble" value="2">
                                         <span>Observe</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Doble_3">
                                         <input type="radio" id="CHK1_Doble_3" name="CHK1_Doble" value="3">
                                         <span>Careful</span>
                                     </label>
+                                </td>
+                                <td>
                                     <label class="ty_rdo" for="CHK1_Doble_4">
                                         <input type="radio" id="CHK1_Doble_4" name="CHK1_Doble" value="4">
                                         <span>Poor</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>SFRA</td>
-                                <td></td>
-                                <td></td>
+                                <td>-</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_SFRA_1">
                                         <input type="radio" id="CHK1_SFRA_1" name="CHK1_SFRA" value="1" checked>
-                                        <span>≥20</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_SFRA_3">
-                                        <input type="radio" id="CHK1_SFRA_3" name="CHK1_SFRA" value="3">
-                                        <span>≥10</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_SFRA_5">
-                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_SFRA" value="5">
-                                        <span>≥5</span>
+                                        <span>0.1 이하</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_SFRA_3">
+                                        <input type="radio" id="CHK1_SFRA_3" name="CHK1_SFRA" value="3">
+                                        <span>0.1~0.2</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_SFRA_5">
+                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_SFRA" value="5">
+                                        <span>0.2 초과</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div class="table_list_app">
-                    <table>
-                        <colgroup>
-                            <col style="width:10%">
-                            <col style="width:10%">
-                            <col style="width:8%">
-                            <col style="width:6%">
-                            <col>
-                        </colgroup>
-                        <thead>
-                            <tr>
-                                <th>구분</th>
-                                <th>Parameters</th>
-                                <th>한전기준</th>
-                                <th>단위</th>
-                                <th>판정기준 및 score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
                             <tr>
                                 <td rowspan="6">
                                     절연저항
                                 </td>
                                 <td>HV-E</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_HV_E_1">
                                         <input type="radio" id="CHK1_HV_E_1" name="CHK1_HV_E" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_HV_E_5">
-                                        <input type="radio" id="CHK1_HV_E_5" name="CHK1_HV_E" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_E_5">
+                                        <input type="radio" id="CHK1_HV_E_5" name="CHK1_HV_E" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>LV-E</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_LV_E_1">
                                         <input type="radio" id="CHK1_LV_E_1" name="CHK1_LV_E" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_LV_E_5">
-                                        <input type="radio" id="CHK1_SFRA_5" name="CHK1_LV_E" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_LV_E_5">
+                                        <input type="radio" id="CHK1_LV_E_5" name="CHK1_LV_E" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>TV-E</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_TV_E_1">
                                         <input type="radio" id="CHK1_TV_E_1" name="CHK1_TV_E" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_TV_E_5">
-                                        <input type="radio" id="CHK1_TV_E_5" name="CHK1_TV_E" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_TV_E_5">
+                                        <input type="radio" id="CHK1_TV_E_5" name="CHK1_TV_E" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>HV-LV</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_HV_LV_1">
                                         <input type="radio" id="CHK1_HV_LV_1" name="CHK1_HV_LV" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_HV_LV_5">
-                                        <input type="radio" id="CHK1_HV_LV_5" name="CHK1_HV_LV" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_LV_5">
+                                        <input type="radio" id="CHK1_HV_LV_5" name="CHK1_HV_LV" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>HV-TV</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_HV_TV_1">
                                         <input type="radio" id="CHK1_HV_TV_1" name="CHK1_HV_TV" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_HV_TV_5">
-                                        <input type="radio" id="CHK1_HV_TV_5" name="CHK1_HV_TV" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_HV_TV_5">
+                                        <input type="radio" id="CHK1_HV_TV_5" name="CHK1_HV_TV" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
                             </tr>
                             <tr>
                                 <td>LV-TV</td>
-                                <td></td>
-                                <td></td>
+                                <td>MΩ</td>
                                 <td>
                                     <label class="ty_rdo" for="CHK1_LV_TV_1">
                                         <input type="radio" id="CHK1_LV_TV_1" name="CHK1_LV_TV" value="1" checked>
-                                        <span>≥1000MΩ</span>
-                                    </label>
-                                    <label class="ty_rdo" for="CHK1_LV_TV_5">
-                                        <input type="radio" id="CHK1_LV_TV_5" name="CHK1_LV_TV" value="5">
-                                        <span><1000MΩ</span>
+                                        <span>1000 이상</span>
                                     </label>
                                 </td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_LV_TV_5">
+                                        <input type="radio" id="CHK1_LV_TV_5" name="CHK1_LV_TV" value="5">
+                                        <span>1000 미만</span>
+                                    </label>
+                                </td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>-</td>
+                                <td>열화상 및 온도</td>
+                                <td>℃</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Thermal_Temperature_1">
+                                        <input type="radio" id="CHK1_Thermal_Temperature_1" name="CHK1_Thermal_Temperature" value="1" checked>
+                                        <span>3 미만</span>
+                                    </label>
+                                </td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Thermal_Temperature_2">
+                                        <input type="radio" id="CHK1_Thermal_Temperature_2" name="CHK1_Thermal_Temperature" value="2">
+                                        <span>15 이하</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="CHK1_Thermal_Temperature_4">
+                                        <input type="radio" id="CHK1_Thermal_Temperature_4" name="CHK1_Thermal_Temperature" value="4">
+                                        <span>15 초과</span>
+                                    </label>
+                                </td>
+                                <td>-</td>
+                                <td>유사 부위 온도 편차</td>
                             </tr>
                         </tbody>
                     </table>

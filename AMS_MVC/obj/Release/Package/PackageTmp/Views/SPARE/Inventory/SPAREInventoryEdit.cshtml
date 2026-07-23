@@ -1,0 +1,70 @@
+﻿@model Web.Common.InventoryInfo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var sparePart = ViewBag.SparePart as Web.Common.SPAREPartInfo;
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 재고 등록/수정</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="javascript:void(0)" class="btn blue app" onclick="saveInventory()">저장</a>
+            </div>
+
+            <form id="inventoryForm">
+                <input type="hidden" name="SPARE_ID" value="@Model.SPARE_ID" />
+
+                <div class="table_app">
+                    <table>
+                        <tr>
+                            <th>부품번호</th>
+                            <td>@(sparePart?.PART_NUMBER ?? "")</td>
+                            <th>부품명</th>
+                            <td>@(sparePart?.PART_NAME ?? "")</td>
+                        </tr>
+                        <tr>
+                            <th>현재재고</th>
+                            <td><input type="text" name="CURRENT_QTY" value="@Model.CURRENT_QTY" data-type="number" /></td>
+                            <th>안전재고</th>
+                            <td><input type="text" name="SAFETY_STOCK" value="@Model.SAFETY_STOCK" data-type="number" /></td>
+                        </tr>
+                        <tr>
+                            <th>EOQ</th>
+                            <td><input type="text" name="EOQ" value="@Model.EOQ" data-type="number" /></td>
+                            <th>재주문점</th>
+                            <td><input type="text" name="REORDER_POINT" value="@Model.REORDER_POINT" data-type="number" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function saveInventory() {
+            var formData = new FormData(document.getElementById("inventoryForm"));
+
+            $.ajax({
+                url: '@Url.Action("SaveInventory", "SPAREInventory")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("재고 저장 성공");
+                        location.href = '@Url.Action("SPAREInventoryList", "SPAREInventory")';
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+    </script>
+}

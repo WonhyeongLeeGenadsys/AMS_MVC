@@ -69,10 +69,10 @@ namespace Web.Common
                         ISNULL(SUM(ISNULL(CS.TOTAL_BUDGET, 0)), 0) AS TOTAL_BUDGET,
                         ISNULL(SUM(ISNULL(S.UNIT_PRICE, 0) * ISNULL(I.CURRENT_QTY, 0)), 0) AS INVENTORY_VALUE,
                         ISNULL(AVG(CAST(NULLIF(S.LEAD_TIME_DAYS, 0) AS FLOAT)), 0) AS AVG_LEAD_TIME,
-                        SUM(CASE WHEN S.CRITICALITY_GRADE = 'A' THEN 1 ELSE 0 END) AS CRITICAL_COUNT,
+                        SUM(CASE WHEN S.CRITICALITY_GRADE = 'CRITICAL' THEN 1 ELSE 0 END) AS CRITICAL_COUNT,
                         SUM(
                             CASE
-                                WHEN S.CRITICALITY_GRADE = 'A'
+                                WHEN S.CRITICALITY_GRADE = 'CRITICAL'
                                  AND ISNULL(I.SAFETY_STOCK, 0) > ISNULL(I.CURRENT_QTY, 0)
                                 THEN 1 ELSE 0
                             END
@@ -87,7 +87,8 @@ namespace Web.Common
                         GROUP BY SPARE_ID
                     ) CS
                         ON S.SPARE_ID = CS.SPARE_ID
-                    WHERE (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (
                             @AssetTypeId IS NULL
                             OR EXISTS (
@@ -106,7 +107,8 @@ namespace Web.Common
                         S.CRITICALITY_GRADE,
                         COUNT(*) AS CNT
                     FROM TB_SPARE_PART S
-                    WHERE (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (
                             @AssetTypeId IS NULL
                             OR EXISTS (
@@ -117,7 +119,13 @@ namespace Web.Common
                             )
                       )
                     GROUP BY S.CRITICALITY_GRADE
-                    ORDER BY S.CRITICALITY_GRADE;";
+                    ORDER BY CASE S.CRITICALITY_GRADE
+                        WHEN 'CRITICAL' THEN 1
+                        WHEN 'HIGH' THEN 2
+                        WHEN 'MEDIUM' THEN 3
+                        WHEN 'LOW' THEN 4
+                        ELSE 5
+                    END;";
 
                 var criticalityData = dbHelper.Conn.Query<SpareCriticalityDto>(criticalitySql, param).ToList();
 
@@ -137,7 +145,8 @@ namespace Web.Common
                         ON S.SPARE_ID = I.SPARE_ID
                     LEFT JOIN TB_SPARE_ASSET_MAP M
                         ON S.SPARE_ID = M.SPARE_ID
-                    WHERE (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (@AssetTypeId IS NULL OR M.ASSET_TYPE_ID = @AssetTypeId)
                         
                     GROUP BY M.ASSET_TYPE_ID
@@ -152,7 +161,8 @@ namespace Web.Common
                     FROM TB_SPARE_PART S
                     LEFT JOIN TB_INVENTORY I
                         ON S.SPARE_ID = I.SPARE_ID
-                    WHERE ISNULL(I.SAFETY_STOCK, 0) > ISNULL(I.CURRENT_QTY, 0)
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND ISNULL(I.SAFETY_STOCK, 0) > ISNULL(I.CURRENT_QTY, 0)
                       AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (
                             @AssetTypeId IS NULL
@@ -175,7 +185,8 @@ namespace Web.Common
                     FROM TB_SPARE_PART S
                     LEFT JOIN TB_INVENTORY I
                         ON S.SPARE_ID = I.SPARE_ID
-                    WHERE ISNULL(S.LEAD_TIME_DAYS, 0) > 0
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND ISNULL(S.LEAD_TIME_DAYS, 0) > 0
                       AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (
                             @AssetTypeId IS NULL
@@ -209,7 +220,8 @@ namespace Web.Common
                     FROM TB_SPARE_PART S
                     LEFT JOIN TB_INVENTORY I
                         ON S.SPARE_ID = I.SPARE_ID
-                    WHERE (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
+                    WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+                      AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
                       AND (
                             @AssetTypeId IS NULL
                             OR EXISTS (
@@ -281,7 +293,8 @@ namespace Web.Common
                 GROUP BY SPARE_ID
             ) M1
                 ON S.SPARE_ID = M1.SPARE_ID
-            WHERE (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (@Criticality IS NULL OR S.CRITICALITY_GRADE = @Criticality)
               AND (
                     @AssetTypeId IS NULL
                     OR EXISTS (
@@ -302,11 +315,11 @@ namespace Web.Common
                         int unitPrice = (int)(x.UNIT_PRICE ?? 0);
 
                         string stockStatus;
-                        if (currentQty <= 0 || currentQty < safetyStock)
+                        if (currentQty < safetyStock)
                             stockStatus = "부족";
-                        else if (currentQty == rop)
+                        else if (rop > 0 && currentQty == rop)
                             stockStatus = "ROP 도달";
-                        else if (currentQty < rop)
+                        else if (rop > 0 && currentQty < rop)
                             stockStatus = "주의";
                         else
                             stockStatus = "정상";
@@ -336,9 +349,10 @@ namespace Web.Common
                 var kpi = new
                 {
                     SHORTAGE_COUNT = rows.Count(x => x.STOCK_STATUS == "부족"),
-                    REORDER_RECOMMEND_COUNT = rows.Count(x => x.CURRENT_QTY <= x.ROP),
+                    REORDER_RECOMMEND_COUNT = rows.Count(x => x.ROP > 0 && x.CURRENT_QTY <= x.ROP),
                     TOTAL_STOCK_COUNT = rows.Sum(x => x.CURRENT_QTY),
-                    CRITICAL_ALERT_COUNT = rows.Count(x => x.CRITICALITY_GRADE == "A" && x.CURRENT_QTY <= 2)
+                    NORMAL_COUNT = rows.Count(x => x.STOCK_STATUS == "정상"),
+                    CRITICAL_ALERT_COUNT = rows.Count(x => x.CRITICALITY_GRADE == "CRITICAL" && x.STOCK_STATUS == "부족")
                 };
 
                 return new
@@ -367,7 +381,8 @@ namespace Web.Common
             FROM TB_PROCUREMENT P
             INNER JOIN TB_SPARE_PART S
                 ON P.SPARE_ID = S.SPARE_ID
-            WHERE (@Status IS NULL OR P.STATUS = @Status)
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (@Status IS NULL OR P.STATUS = @Status)
               AND (
                     @AssetTypeId IS NULL
                     OR EXISTS (
@@ -404,7 +419,8 @@ namespace Web.Common
             FROM TB_PROCUREMENT P
             INNER JOIN TB_SPARE_PART S
                 ON P.SPARE_ID = S.SPARE_ID
-            WHERE (@Status IS NULL OR P.STATUS = @Status)
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (@Status IS NULL OR P.STATUS = @Status)
               AND (
                     @AssetTypeId IS NULL
                     OR EXISTS (
@@ -477,7 +493,8 @@ namespace Web.Common
                 ON S.SPARE_ID = I.SPARE_ID
             LEFT JOIN TB_SPARE_ASSET_MAP M
                 ON S.SPARE_ID = M.SPARE_ID
-            WHERE (@AssetTypeId IS NULL OR M.ASSET_TYPE_ID = @AssetTypeId)
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (@AssetTypeId IS NULL OR M.ASSET_TYPE_ID = @AssetTypeId)
             GROUP BY M.ASSET_TYPE_ID
             ORDER BY TOTAL_COST DESC;";
 
@@ -498,7 +515,8 @@ namespace Web.Common
             FROM TB_COST_MANAGEMENT C
             INNER JOIN TB_SPARE_PART S
                 ON C.SPARE_ID = S.SPARE_ID
-            WHERE (@FiscalYear IS NULL OR C.FISCAL_YEAR BETWEEN @FiscalYear - 2 AND @FiscalYear)
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (@FiscalYear IS NULL OR C.FISCAL_YEAR BETWEEN @FiscalYear - 2 AND @FiscalYear)
               AND (
                     @AssetTypeId IS NULL
                     OR EXISTS (
@@ -525,10 +543,10 @@ namespace Web.Common
                     .Select(g => new
                     {
                         FISCAL_YEAR = g.Key,
-                        A = g.Where(x => x.CRITICALITY_GRADE == "A").Sum(x => x.BUDGET_AMOUNT),
-                        B = g.Where(x => x.CRITICALITY_GRADE == "B").Sum(x => x.BUDGET_AMOUNT),
-                        C = g.Where(x => x.CRITICALITY_GRADE == "C").Sum(x => x.BUDGET_AMOUNT),
-                        D = g.Where(x => x.CRITICALITY_GRADE == "D").Sum(x => x.BUDGET_AMOUNT)
+                        CRITICAL = g.Where(x => x.CRITICALITY_GRADE == "CRITICAL").Sum(x => x.BUDGET_AMOUNT),
+                        HIGH = g.Where(x => x.CRITICALITY_GRADE == "HIGH").Sum(x => x.BUDGET_AMOUNT),
+                        MEDIUM = g.Where(x => x.CRITICALITY_GRADE == "MEDIUM").Sum(x => x.BUDGET_AMOUNT),
+                        LOW = g.Where(x => x.CRITICALITY_GRADE == "LOW").Sum(x => x.BUDGET_AMOUNT)
                     })
                     .OrderBy(x => x.FISCAL_YEAR)
                     .ToList();
@@ -580,7 +598,8 @@ namespace Web.Common
                 GROUP BY SPARE_ID
             ) M1
                 ON S.SPARE_ID = M1.SPARE_ID
-            WHERE (
+            WHERE ISNULL(S.IS_ACTIVE, 1) = 1
+              AND (
                     @AssetTypeId IS NULL
                     OR EXISTS (
                         SELECT 1

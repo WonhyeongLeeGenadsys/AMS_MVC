@@ -1,0 +1,113 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 기본정보 추가</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0)" class="btn blue app" onclick="createSpareBasicInfo()">적용</a>
+                </p>
+            </div>
+
+            <form id="spareForm" method="post">
+                <div class="table_app">
+                    <table>
+                        <tr>
+                            <th>부품번호</th>
+                            <td><input type="text" name="PART_NUMBER" required></td>
+                            <th>부품명</th>
+                            <td><input type="text" name="PART_NAME" required></td>
+                        </tr>
+                        <tr>
+                            <th>중요도 등급</th>
+                            <td>
+                                <select name="CRITICALITY_GRADE">
+                                    <option value="CRITICAL">CRITICAL - 핵심 부품</option>
+                                    <option value="HIGH">HIGH - 주요 부품</option>
+                                    <option value="MEDIUM">MEDIUM - 일반 부품</option>
+                                    <option value="LOW">LOW - 소모품</option>
+                                </select>
+                            </td>
+                            <th>단가</th>
+                            <td><input type="number" name="UNIT_PRICE" min="0" step="1" required><span>원</span></td>
+                        </tr>
+                        <tr>
+                            <th>납기일</th>
+                            <td><input type="number" name="LEAD_TIME_DAYS" min="0" step="1" required><span>일</span></td>
+                            <th>사용 여부</th>
+                            <td>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="true" checked><span>사용</span>
+                                </label>
+                                <label class="ty_rdo">
+                                    <input type="radio" name="IS_ACTIVE" value="false"><span>미사용</span>
+                                </label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>초기 현재재고</th>
+                            <td><input type="number" name="INITIAL_CURRENT_QTY" min="0" step="1" value="0" required></td>
+                            <th>초기 안전재고</th>
+                            <td><input type="number" name="INITIAL_SAFETY_STOCK" min="0" step="1" value="0" required></td>
+                        </tr>
+                        <tr>
+                            <th>연결 설비유형</th>
+                            <td colspan="3">
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="1"><span>VCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="2"><span>DCCB</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="3"><span>SUBMODULE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="4"><span>DCCABLE</span></label>
+                                <label class="ty_chk"><input type="checkbox" name="asset_type_ids" value="5"><span>INTERFACETR</span></label>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function createSpareBasicInfo() {
+            var form = document.getElementById("spareForm");
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if ($(form).find('input[name="asset_type_ids"]:checked').length === 0) {
+                alert("연결 설비유형을 한 개 이상 선택하세요.");
+                return;
+            }
+
+            var formData = new FormData(form);
+
+            $.ajax({
+                url: '@Url.Action("SPAREBasicAdd", "SPAREBasic")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("예비품 기본정보가 등록되었습니다.");
+                        window.location.href = '@Url.Action("SPAREBasicList", "SPAREBasic")';
+                    } else {
+                        alert("등록 실패: " + response.message);
+                    }
+                },
+                error: function (xhr) {
+                    alert("오류 발생: " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

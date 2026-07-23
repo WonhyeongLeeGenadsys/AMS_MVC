@@ -44,6 +44,7 @@ namespace Web.Common
         public int CHK1_HV_LV { get; set; }// HV_LV
         public int CHK1_HV_TV { get; set; } // HV_TV
         public int CHK1_LV_TV { get; set; } // LV_TV
+        public int CHK1_Thermal_Temperature { get; set; } // 열화상 및 온도(유사 부위 온도 편차)
         public int FoldingFunction { get; set; } 
         public DateTime? CHK_Update_Time { get; set; }
 
@@ -247,5 +248,19 @@ namespace Web.Common
         public string HVLVText => ResolveInsulation(CHK1_HV_LV);
         public string HVTVText => ResolveInsulation(CHK1_HV_TV);
         public string LTVText => ResolveInsulation(CHK1_LV_TV);
+
+        public string ThermalTemperatureText
+        {
+            get
+            {
+                switch (CHK1_Thermal_Temperature)
+                {
+                    case 1: return "3℃ 미만";
+                    case 2: return "15℃ 이하";
+                    case 4: return "15℃ 초과";
+                    default: return "-";
+                }
+            }
+        }
     }
 }

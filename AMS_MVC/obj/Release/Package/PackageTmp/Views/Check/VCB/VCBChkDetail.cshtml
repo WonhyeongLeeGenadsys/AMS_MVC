@@ -211,6 +211,13 @@
                             @Html.HiCell((int)Model.CHK_VisualCheck)
 
                         </tr>
+                        <tr>
+                            <td>열화상 및 온도</td>
+                            <td>유사 부위 온도 편차</td>
+                            <td>℃</td>
+                            <td>@(Model.ThermalTemperatureText)</td>
+                            @Html.HiCell((int)Model.CHK_ThermalTemperature)
+                        </tr>
                     </tbody>
                 </table>
             </div>

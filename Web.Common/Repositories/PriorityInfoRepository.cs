@@ -37,7 +37,8 @@ WITH LatestRisk AS (
 SELECT
     ROW_NUMBER() OVER (
         ORDER BY
-            CAST(lr.COF  AS DECIMAL(18,2)) * CAST(lr.POF AS DECIMAL(18,2)) DESC,
+            CAST(lr.COF AS DECIMAL(18,2))
+                * (CAST(lr.POF AS DECIMAL(18,6)) / 100.0) DESC,
             DATEDIFF(YEAR, {alias}.INSTALL_DATE, GETDATE()) DESC
     ) AS Priority,
     '{sortValue}'                  AS Sort,
@@ -107,6 +108,7 @@ LEFT JOIN LatestRisk lr
         {cfg.Alias}.{cfg.CodeField}         AS Code,
         {cfg.Alias}.SERIAL_NO               AS Serial_No,
         '{cfg.EntityName}'                  AS Name,
+        {cfg.Alias}.NAME                    AS ProductName,
         {cfg.Alias}.INSTALL_DATE            AS Install_Date,
         {cfg.Alias}.OPERATING_DATE          AS Operating_Date,
         DATEDIFF(YEAR, {cfg.Alias}.INSTALL_DATE, GETDATE()) AS UsagePeriod,
@@ -118,7 +120,8 @@ LEFT JOIN LatestRisk lr
         lr.COF,
         lr.POF,
         lr.HI,
-        CAST(lr.COF AS DECIMAL(18,2)) * CAST(lr.POF AS DECIMAL(18,2)) AS RiskScore
+        CAST(lr.COF AS DECIMAL(18,2))
+            * (CAST(lr.POF AS DECIMAL(18,6)) / 100.0) AS RiskScore
     FROM {cfg.Table} {cfg.Alias}
     LEFT JOIN LatestRisk lr
       ON {cfg.Alias}.{cfg.CodeField} = lr.CODE"
@@ -143,6 +146,7 @@ SELECT
     Code,
     Serial_No,
     Name,
+    ProductName,
     Install_Date,
     Operating_Date,
     UsagePeriod,

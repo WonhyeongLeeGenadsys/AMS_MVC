@@ -12,6 +12,7 @@ namespace Web.Common
         public string Code { get; set; }          // VCB_CODE 또는 ITR_CODE & ...
         public string Serial_No { get; set; }      // 시리얼 번호
         public string Name { get; set; }          // 이름
+        public string ProductName { get; set; }   // 기본정보에 입력된 실제 제품명
         public DateTime Install_Date { get; set; } // 설치일
         public DateTime Operating_Date { get; set; } // 운영일
         public int UsagePeriod { get; set; }      // 사용기간 (일수)

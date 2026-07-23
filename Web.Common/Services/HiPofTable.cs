@@ -11,49 +11,28 @@ namespace Web.Common
             {(1, 1), 1.00m},
 
             {(2, 1), 2.00m},
-            {(2, 2), 2.04m},
-            {(2, 3), 2.16m},
-            {(2, 4), 2.36m},
-            {(2, 5), 2.63m},
+            {(2, 2), 2.0396m},
+            {(2, 3), 2.1584m},
+            {(2, 4), 2.3564m},
+            {(2, 5), 2.6336m},
 
             {(3, 1), 3.00m},
-            {(3, 2), 3.04m},
-            {(3, 3), 3.16m},
-            {(3, 4), 3.36m},
-            {(3, 5), 3.63m},
+            {(3, 2), 3.0396m},
+            {(3, 3), 3.1584m},
+            {(3, 4), 3.3564m},
+            {(3, 5), 3.6336m},
 
             {(4, 1), 4.00m},
-            {(4, 2), 4.04m},
-            {(4, 3), 4.16m},
-            {(4, 4), 4.36m},
-            {(4, 5), 4.63m},
+            {(4, 2), 4.0396m},
+            {(4, 3), 4.1584m},
+            {(4, 4), 4.3564m},
+            {(4, 5), 4.6336m},
 
             {(5, 1), 5.00m},
             {(5, 2), 5.00m},  
             {(5, 3), 5.00m},  
             {(5, 4), 5.00m},  
             {(5, 5), 5.00m}  
-        };
-
-        private static readonly Dictionary<decimal, decimal> PofTable = new Dictionary<decimal, decimal>
-        {
-            { 1.00m, 0.0000m },
-            { 2.00m, 0.0045m },
-            { 2.04m, 0.0055m },
-            { 2.16m, 0.0100m },
-            { 2.36m, 0.0270m },
-            { 2.63m, 0.1078m },
-            { 3.00m, 0.6693m },
-            { 3.04m, 0.8146m },
-            { 3.16m, 1.4658m },
-            { 3.36m, 3.8494m },
-            { 3.63m, 13.8000m },
-            { 4.00m, 50.0000m },
-            { 4.04m, 54.9339m },
-            { 4.16m, 68.8261m },
-            { 4.36m, 85.5944m },
-            { 4.63m, 95.9612m },
-            { 5.00m, 100m }
         };
 
         public static (decimal HI, decimal PoF) GetHiPof(int maxGrade, int frequency, decimal alpha = 1.00m)
@@ -79,29 +58,18 @@ namespace Web.Common
                 hi = maxGrade;
             }
 
-            // 4) alpha 곱하고 가장 근접한 HI 값 찾은 뒤 PoF 조회
+            // 4) 원본 검증 데이터셋의 로지스틱 공식으로 PoF(%) 계산
             hi *= alpha;
-            var nearestHi = FindNearestHI(hi);
-            var pof = PofTable[nearestHi];
+            var pof = CalculatePofPercent(hi);
 
-            return (nearestHi, pof);
+            return (hi, pof);
         }
 
-        private static decimal FindNearestHI(decimal hi)
+        private static decimal CalculatePofPercent(decimal hi)
         {
-            decimal nearest = 1.00m;
-            decimal minDiff = decimal.MaxValue;
-
-            foreach (var key in PofTable.Keys)
-            {
-                var diff = System.Math.Abs(key - hi);
-                if (diff < minDiff)
-                {
-                    minDiff = diff;
-                    nearest = key;
-                }
-            }
-            return nearest;
+            double exponent = -5d * ((double)hi - 4d);
+            double probabilityRatio = 1d / (1d + Math.Exp(exponent));
+            return (decimal)(probabilityRatio * 100d);
         }
     }
 }

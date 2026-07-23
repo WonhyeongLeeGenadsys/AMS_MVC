@@ -139,6 +139,9 @@ namespace Web.Common
 
                             if (affectedRowsBasicInfo > 0)
                             {
+                                decimal defaultCof = new CoFRepository()
+                                    .GetTotalCofByPrefix(conn, "VCB", transaction);
+
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
                                 INSERT INTO RISKMATRIX (CODE, COF, POF,LASTTIME) 
@@ -147,8 +150,8 @@ namespace Web.Common
                                 var riskMatrixData = new
                                 {
                                     VCB_Code = newVCBBasicInfo.VCB_Code,
-                                    DefaultCof = "0",
-                                    DefaultPof = "0"
+                                    DefaultCof = defaultCof,
+                                    DefaultPof = 0m
                                 };
 
                                 int affectedRowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);

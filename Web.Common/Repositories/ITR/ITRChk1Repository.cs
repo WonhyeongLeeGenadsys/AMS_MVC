@@ -161,14 +161,14 @@ INSERT INTO ITR_CHK1 (
     CHK1_END_DATE, CHK1_H2, CHK1_C2H2, CHK1_C2H4, CHK1_CH4, CHK1_C2H6, CHK1_CO, CHK1_CO2,
     CHK1_DIELECTRIC_STRENGTH, CHK1_REMAIN_LIFE, CHK1_AGE, CHK1_GOJANG_HISTORY,
     CHK1_DOBLE, CHK1_SFRA, CHK1_HV_E, CHK1_LV_E, CHK1_TV_E, CHK1_HV_LV,
-    CHK1_HV_TV, CHK1_LV_TV, FOLDINGFUNCTION, CHK1_WRITER, CHK1_TBL_GETDATE
+    CHK1_HV_TV, CHK1_LV_TV, CHK1_THERMAL_TEMPERATURE, FOLDINGFUNCTION, CHK1_WRITER, CHK1_TBL_GETDATE
 ) VALUES (
     @ITR_Code, @CHK1_Gongsa_Name, @CHK1_Weather, @CHK1_Temp, @CHK1_Hum, @CHK1_Company,
     @CHK1_Worker, @CHK1_Manager, @CHK1_Urgent_No, @CHK1_Type, @CHK1_Start_Date,
     @CHK1_End_Date, @CHK1_H2, @CHK1_C2H2, @CHK1_C2H4, @CHK1_CH4, @CHK1_C2H6, @CHK1_CO, @CHK1_CO2,
     @CHK1_Dielectric_Strength, @CHK1_Remain_Life, @CHK1_Age, @CHK1_Gojang_History,
     @CHK1_Doble, @CHK1_SFRA, @CHK1_HV_E, @CHK1_LV_E, @CHK1_TV_E, @CHK1_HV_LV,
-    @CHK1_HV_TV, @CHK1_LV_TV, @FoldingFunction, @CHK1_Writer, @CHK1_Tbl_GetDate
+    @CHK1_HV_TV, @CHK1_LV_TV, @CHK1_Thermal_Temperature, @FoldingFunction, @CHK1_Writer, @CHK1_Tbl_GetDate
 )";
                     int affected = conn.Execute(query, itrChk1, tran);
                     if (affected <= 0)
@@ -226,11 +226,13 @@ SET
     CHK1_SFRA         = @CHK1_SFRA,
     CHK1_HV_E         = @CHK1_HV_E,
     CHK1_LV_E         = @CHK1_LV_E,
+    CHK1_TV_E         = @CHK1_TV_E,
     CHK1_HV_LV        = @CHK1_HV_LV,
     CHK1_HV_TV        = @CHK1_HV_TV,
     CHK1_LV_TV        = @CHK1_LV_TV,
+    CHK1_THERMAL_TEMPERATURE = @CHK1_Thermal_Temperature,
     CHK1_Writer       = @CHK1_Writer,
-    CHK1_UPDATE_TIME  = GETDATE(),
+    CHK1_UPDATE_TIME  = GETDATE()
 WHERE ITR_CODE = @ITR_Code AND Tbl_Idx = @Tbl_Idx";
 
                     int affectedRows = dbHelper.Conn.Execute(query, itrChk1);

@@ -69,21 +69,19 @@ namespace AMS_MVC
                     var cofModel = cofRepo.GetLatest("DCCB");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    decimal pofPercent = (pofRaw <= 1m) ? pofRaw * 100m : pofRaw;
+                    decimal pofPercent = pofRaw;
                     if (pofPercent < 0m) pofPercent = 0m;
                     if (pofPercent > 100m) pofPercent = 100m;
-
-                    decimal adjustedCof = Math.Round(baseCof * (pofPercent / 100m), 2);
 
                     var rm = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.DCCB_Code,
                         (int)Math.Truncate(hi),
-                        adjustedCof,
+                        baseCof,
                         pofPercent
                     );
 
                     LogHelper.WriteLog("DCCBChkUpdate",
-                        $"[UpdateRiskMatrixHI] code={model.DCCB_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofPercent}, adjustedCof={adjustedCof}, ok={rm.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.DCCB_Code}, hi={(int)Math.Truncate(hi)}, cof={baseCof}, pof%={pofPercent}, ok={rm.IsSuccess}");
 
                     if (!rm.IsSuccess)
                     {

@@ -182,80 +182,88 @@
 
                         </tr>
                         @*<tr>
-                            <td>잔여수명</td>
+                                <td>잔여수명</td>
+                                <td></td>
+                                <td></td>
+                                <td>@(Model.RemainLifeText)</td>
+                                <td>@(Model.CHK1_Remain_Life)</td>
+                            </tr>*@
+
+                        <tr>
+                            <td rowspan="2">Measure</td>
+                            <td>Doble</td>
                             <td></td>
                             <td></td>
-                            <td>@(Model.RemainLifeText)</td>
-                            <td>@(Model.CHK1_Remain_Life)</td>
-                        </tr>*@
+                            <td>@(Model.DobleText) </td>
+                            @Html.HiCell((int)Model.CHK1_Doble)
 
-                    <tr>
-                        <td rowspan="2">Measure</td>
-                        <td>Doble</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.DobleText) </td>
-                        @Html.HiCell((int)Model.CHK1_Doble)
+                        </tr>
+                        <tr>
+                            <td>SFRA</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.SFRAText)</td>
+                            @Html.HiCell((int)Model.CHK1_SFRA)
 
-                    </tr>
-                    <tr>
-                        <td>SFRA</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.SFRAText)</td>
-                        @Html.HiCell((int)Model.CHK1_SFRA)
+                        </tr>
 
-                    </tr>
+                        <tr>
+                            <td rowspan="6">절연저항</td>
+                            <td>HV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.HVEText) </td>
+                            @Html.HiCell((int)Model.CHK1_HV_E)
 
-                    <tr>
-                        <td rowspan="6">절연저항</td>
-                        <td>HV-E</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.HVEText) </td>
-                        @Html.HiCell((int)Model.CHK1_HV_E)
+                        </tr>
+                        <tr>
+                            <td>LV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.LVEText)</td>
+                            @Html.HiCell((int)Model.CHK1_LV_E)
 
-                    </tr>
-                    <tr>
-                        <td>LV-E</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.LVEText)</td>
-                        @Html.HiCell((int)Model.CHK1_LV_E)
+                        </tr>
+                        <tr>
+                            <td>TV-E</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.TVEText)</td>
+                            @Html.HiCell((int)Model.CHK1_TV_E)
 
-                    </tr>
-                    <tr>
-                        <td>TV-E</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.TVEText)</td>
-                        @Html.HiCell((int)Model.CHK1_TV_E)
+                        </tr>
+                        <tr>
+                            <td>HV-LV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.HVLVText)</td>
+                            @Html.HiCell((int)Model.CHK1_HV_LV)
 
-                    </tr>
-                    <tr>
-                        <td>HV-LV</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.HVLVText)</td>
-                        @Html.HiCell((int)Model.CHK1_HV_LV)
+                        </tr>
+                        <tr>
+                            <td>HV-TV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.HVTVText)</td>
+                            @Html.HiCell((int)Model.CHK1_HV_TV)
 
-                    </tr>
-                    <tr>
-                        <td>HV-TV</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.HVTVText)</td>
-                        @Html.HiCell((int)Model.CHK1_HV_TV)
+                        </tr>
+                        <tr>
+                            <td>LV-TV</td>
+                            <td></td>
+                            <td></td>
+                            <td>@(Model.LTVText)</td>
+                            @Html.HiCell((int)Model.CHK1_LV_TV)
 
-                    </tr>
-                    <tr>
-                        <td>LV-TV</td>
-                        <td></td>
-                        <td></td>
-                        <td>@(Model.LTVText)</td>
-                        @Html.HiCell((int)Model.CHK1_LV_TV)
-
-                    </tr>
+                        </tr>
+                        <tr>
+                            <td>열화상</td>
+                            <td>열화상 및 온도</td>
+                            <td>유사 부위 온도 편차</td>
+                            <td>℃</td>
+                            <td>@(Model.ThermalTemperatureText)</td>
+                            @Html.HiCell((int)Model.CHK1_Thermal_Temperature)
+                        </tr>
                     </tbody>
                 </table>
             </div>

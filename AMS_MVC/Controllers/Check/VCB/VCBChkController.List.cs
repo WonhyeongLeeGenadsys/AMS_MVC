@@ -169,6 +169,7 @@ namespace AMS_MVC
                     item.CHK_OperationCount,
                     item.CHK_OpenCloseTime,
                     item.CHK_VisualCheck,
+                    item.CHK_ThermalTemperature,
 
                     // 알고리즘 점수
                     item.FoldingFunction,

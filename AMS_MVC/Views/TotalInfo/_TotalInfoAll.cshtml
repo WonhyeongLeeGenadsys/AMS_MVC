@@ -85,60 +85,89 @@
     @*유지보수 스크립트*@
     <script>
         $(function () {
-            const urlPoints = '@Url.Action("GetRiskMapPoints","TotalInfo")';
-            const urlGroup = '@Url.Action("GetGroupStrategy","EquipmentAlgorithm")';
+            const urlDM = '@Url.Action("GetDMDecisionInfo","TotalInfo")';
+            const decisionStyles = {
+                '즉시 교체': { color: '#d32f2f', background: '#ffebee' },
+                '긴급 유지보수': { color: '#ef6c00', background: '#fff3e0' },
+                '예방 유지보수': { color: '#9a7b00', background: '#fffde7' },
+                '정기점검': { color: '#1976d2', background: '#e3f2fd' },
+                '계속 감시': { color: '#2e7d32', background: '#e8f5e9' },
+                '데이터 확인 필요': { color: '#666666', background: '#f2f2f2' }
+            };
 
-            $.getJSON(urlPoints, { prefix: '' })
-                .done(function (allPoints) {
-                    const totalCount = allPoints.length;
-                    const acPoints = allPoints.filter(p => p.group === 'VCB' || p.group === 'ITR');
-                    const dcPoints = allPoints.filter(p => ['DCCB', 'DCCABLE', 'SUBMODULE'].includes(p.group));
+            function appendText(target, text) {
+                target.append(document.createTextNode(text));
+            }
 
-                    // 전체 안내
-                    $('#strategyAll').html(
-                        `현재 변전소의 주요장비는 총
-                    <strong class="bold">${totalCount}</strong>대 중에서
-                    AC <strong class="bold">${acPoints.length}</strong>대,
-                    DC <strong class="bold">${dcPoints.length}</strong>대입니다.`
-                    );
+            function appendDecisionBadge(target, decision, count) {
+                const style = decisionStyles[decision] || decisionStyles['데이터 확인 필요'];
+                target.append(
+                    $('<strong>')
+                        .text(`${decision} ${count}대`)
+                        .css({
+                            color: style.color,
+                            backgroundColor: style.background,
+                            borderRadius: '4px',
+                            padding: '2px 6px'
+                        })
+                );
+            }
 
-                    // AC 전략
-                    $.getJSON(urlGroup, { equipmentType: 'AC' })
-                        .done(function () {
-                            const worstAC = Math.max(...acPoints.map(p => p.hi));
-                            const prefixAC = acPoints.find(p => p.hi === worstAC).group;
-                            const actionAC = worstAC >= 4
-                                ? '<span class="urgent">(긴급) 2025년 12월</span>에 유지보수 권장됩니다.'
-                                : worstAC === 3
-                                    ? '유지보수 계획이 권장됩니다.'
-                                    : '정상 운영 가능합니다.';
+            function loadStrategy(prefix, selector, label) {
+                $.getJSON(urlDM, { prefix: prefix })
+                    .done(function (result) {
+                        if (!result || result.success === false) {
+                            $(selector).text(label + ' 의사결정 데이터를 불러오지 못했습니다.');
+                            return;
+                        }
 
-                            $('#strategyAC').html(
-                                `AC <strong class="bold">${acPoints.length}</strong>대 중에서 현재 최저 등급은
-                ${prefixAC}
-                <strong class="grade-${worstAC}">${worstAC}</strong>등급이며 ${actionAC}`
-                            );
-
-                            // DC 전략
-                            $.getJSON(urlGroup, { equipmentType: 'DC' })
-                                .done(function () {
-                                    const worstDC = Math.max(...dcPoints.map(p => p.hi));
-                                    const prefixDC = dcPoints.find(p => p.hi === worstDC).group;
-                                    const actionDC = worstDC >= 4
-                                        ? '<span class="urgent">(긴급) 2025년 12월</span>에 유지보수 권장됩니다.'
-                                        : worstDC === 3
-                                            ? '유지보수 계획이 권장됩니다.'
-                                            : '정상 운영 가능합니다.';
-
-                                    $('#strategyDC').html(
-                                        `DC <strong class="bold">${dcPoints.length}</strong>대 중에서 현재 최저 등급은
-                    ${prefixDC}
-                    <strong class="grade-${worstDC}">${worstDC}</strong>등급이며 ${actionDC}`
-                                    );
-                                });
+                        const s = result.summary;
+                        const target = $(selector).empty();
+                        appendText(target, `${label} ${s.Total}대: `);
+                        const decisions = [
+                            { name: '즉시 교체', count: s.ReplaceImmediate },
+                            { name: '긴급 유지보수', count: s.UrgentMaintenance },
+                            { name: '예방 유지보수', count: s.PreventiveMaintenance },
+                            { name: '정기점검', count: s.ScheduledInspection },
+                            { name: '계속 감시', count: s.ContinueMonitoring },
+                            { name: '데이터 확인 필요', count: s.DataRequired }
+                        ].filter(function (item) {
+                            return Number(item.count) > 0;
                         });
-                })
-                .fail(err => console.error('GetRiskMapPoints 오류', err));
+
+                        decisions.forEach(function (item, index) {
+                            if (index > 0) appendText(target, ', ');
+                            appendDecisionBadge(target, item.name, item.count);
+                        });
+
+                        if (decisions.length === 0) {
+                            appendText(target, '해당 없음');
+                        }
+
+                        if (s.TopName || s.TopCode) {
+                            const style = decisionStyles[s.TopDecision] || decisionStyles['데이터 확인 필요'];
+                            appendText(target, '. 최우선: ');
+                            target.append(
+                                $('<strong>')
+                                    .text(`${s.TopName || s.TopCode} - ${s.TopDecision} (${s.TopAction})`)
+                                    .css({
+                                        color: style.color,
+                                        backgroundColor: style.background,
+                                        borderRadius: '4px',
+                                        padding: '2px 6px'
+                                    })
+                            );
+                        }
+                        appendText(target, '.');
+                    })
+                    .fail(function () {
+                        $(selector).text(label + ' 의사결정 데이터를 불러오지 못했습니다.');
+                    });
+            }
+
+            loadStrategy('', '#strategyAll', '전체');
+            loadStrategy('AC', '#strategyAC, #strategyACPanel', 'AC');
+            loadStrategy('DC', '#strategyDC, #strategyDCPanel', 'DC');
         });
     </script>
 

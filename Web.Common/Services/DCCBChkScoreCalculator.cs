@@ -12,13 +12,12 @@ namespace Web.Common
             int[] scores = new int[]
             {
                 (int)chk.CHK_MainCircuit_InsulationStrength,
-                (int)chk.CHK_LeakTest,
-                (int)chk.CHK_MechanicalOperation,
-                (int)chk.CHK_AuxControlCircuit,
+                (int)chk.CHK_MainCircuit_PD,
+                (int)chk.CHK_Machine_Part_Operation_Time,
+                (int)chk.CHK_Mechanical_Vibration_acceleration,
+                (int)chk.CHK_Relay_Auxiliary_Contact_Resistance,
                 (int)chk.CHK_CE_Voltage,
                 (int)chk.CHK_G_Voltage,
-                (int)chk.CHK_On_Resistance,
-                (int)chk.CHK_Thermal_Resistance,
                 (int)chk.CHK_C_Current,
                 (int)chk.CHK_OnOff_Time,
             };
@@ -26,12 +25,12 @@ namespace Web.Common
             LogHelper.WriteLog("DCCBChkScore",
                  $"[InputData]:  " +
                  $"주 회로 절연내력 시험={(int)chk.CHK_MainCircuit_InsulationStrength}, " +
-                 $"기밀 시험={(int)chk.CHK_MechanicalOperation}, " +
-                 $"기계적 동작 시험 (속도)={(int)chk.CHK_MechanicalOperation}, " +
-                 $"보조/제어회로 시험 (응답시간)={(int)chk.CHK_AuxControlCircuit}, " +
+                 $"주 회로 부분방전={(int)chk.CHK_MainCircuit_PD}, " +
+                 $"기계부 동작시간={(int)chk.CHK_Machine_Part_Operation_Time}, " +
+                 $"기계부 진동/가속도={(int)chk.CHK_Mechanical_Vibration_acceleration}, " +
+                 $"릴레이 보조접점 저항={(int)chk.CHK_Relay_Auxiliary_Contact_Resistance}, " +
                  $"V_ce={(int)chk.CHK_CE_Voltage}, " +
                  $"V_g={(int)chk.CHK_G_Voltage}, " +
-                 $"R_on={(int)chk.CHK_On_Resistance}, " +
                  $"I_c={(int)chk.CHK_C_Current}, " +
                  $"T_on,off={(int)chk.CHK_OnOff_Time}");
 
