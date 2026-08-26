@@ -49,3 +49,6 @@ D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.dll
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC.Tests.pdb
 D:\project\ams\AMS_MVC\AMS_MVC.Tests\bin\Debug\Web.Common.dll.config
 D:\project\AMS\AMS_MVC\AMS_MVC.Tests\obj\Debug\AMS_MVC..7BB92E29.Up2Date
+D:\project\AMS\AMS_MVC\AMS_MVC.Tests\bin\Debug\System.Threading.Tasks.Extensions.dll
+D:\project\AMS\AMS_MVC\AMS_MVC.Tests\bin\Debug\System.Runtime.CompilerServices.Unsafe.dll
+D:\project\AMS\AMS_MVC\AMS_MVC.Tests\bin\Debug\System.Threading.Tasks.Extensions.xml

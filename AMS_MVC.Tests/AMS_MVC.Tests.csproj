@@ -54,6 +54,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AmsV31CoreTests.cs" />
     <Compile Include="SUBMODULEChkScoreCalculatorTests.cs" />
     <Compile Include="DCCBChkScoreCalculatorTests.cs" />
     <Compile Include="DCCABLEChkScoreCalculatorTests.cs" />
@@ -69,6 +70,10 @@
     <ProjectReference Include="..\AMS_MVC\AMS_MVC.csproj">
       <Project>{a8fc0247-9717-4851-b19e-44796d021260}</Project>
       <Name>AMS_MVC</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Web.Common\Web.Common.csproj">
+      <Project>{F7976E28-56A6-410F-A084-B1D979F9D7EE}</Project>
+      <Name>Web.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />

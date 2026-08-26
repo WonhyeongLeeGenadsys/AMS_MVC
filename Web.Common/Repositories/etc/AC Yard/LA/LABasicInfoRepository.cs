@@ -89,7 +89,12 @@ namespace Web.Common
                     b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM LA_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.LA_Code = r.CODE
+                OUTER APPLY (
+                    SELECT TOP (1) r.HI
+                    FROM RISKMATRIX r
+                    WHERE r.CODE = b.LA_Code
+                    ORDER BY r.LASTTIME DESC
+                ) r
                 ORDER BY b.TBL_IDX";
                     
                     laInfoWithRisk = dbHelper.Conn.Query(query).AsList();

@@ -20,9 +20,667 @@
         <li class="tab_btn" data-tab="con_box03" data-prefix="DC">DC</li>
     </ul>
 
+    <script>
+        window.totalInfoDataHub = (function ($) {
+            const urls = {
+                risk: '@Url.Action("GetRiskMapPoints", "TotalInfo")',
+                history: '@Url.Action("GetHIPofCofHistory", "TotalInfo")',
+                dm: '@Url.Action("GetDMDecisionInfo", "TotalInfo")'
+            };
+            const entries = { risk: {}, history: {}, dm: {} };
+            let activePrefix = '';
+
+            function normalizePrefix(prefix) {
+                const value = String(prefix || '').toUpperCase();
+                return value === 'ALL' ? '' : value;
+            }
+
+            function start(kind, prefix, entry) {
+                if (!entry || entry.started) return;
+
+                entry.started = true;
+                loadUsdKrwRate().always(function () {
+                    $.getJSON(urls[kind], { prefix: prefix })
+                        .done(data => entry.deferred.resolve(data))
+                        .fail(xhr => {
+                            entry.deferred.reject(xhr);
+                            delete entries[kind][prefix];
+                        });
+                });
+            }
+
+            function request(kind, prefix) {
+                const key = normalizePrefix(prefix);
+                let entry = entries[kind][key];
+
+                if (!entry) {
+                    entry = entries[kind][key] = {
+                        deferred: $.Deferred(),
+                        started: false
+                    };
+                }
+
+                if (key === activePrefix) {
+                    start(kind, key, entry);
+                }
+
+                return entry.deferred.promise();
+            }
+
+            function activate(prefix) {
+                activePrefix = normalizePrefix(prefix);
+                start('risk', activePrefix, entries.risk[activePrefix]);
+                start('history', activePrefix, entries.history[activePrefix]);
+                start('dm', activePrefix, entries.dm[activePrefix]);
+            }
+
+            return {
+                activate: activate,
+                getRiskPoints: prefix => request('risk', prefix),
+                getHistory: prefix => request('history', prefix),
+                getDm: prefix => request('dm', prefix)
+            };
+        })(jQuery);
+    </script>
+
+    <script>
+        window.dmV31Lazy = (function ($) {
+            const loaders = Object.create(null);
+            const requested = Object.create(null);
+            const loaded = Object.create(null);
+
+            function run(name) {
+                requested[name] = true;
+                if (loaded[name] || !loaders[name]) return;
+
+                try {
+                    loaders[name]();
+                    loaded[name] = true;
+                } catch (error) {
+                    loaded[name] = false;
+                    console.error('DM 상세분석 초기화 실패:', name, error);
+                }
+            }
+
+            function register(name, loader) {
+                loaders[name] = loader;
+                if (requested[name]) run(name);
+            }
+
+            function activatePanel(panelId) {
+                if (panelId === 'dmV31Overview') run('decision');
+                if (panelId === 'dmV31Condition') {
+                    run('decision');
+                    run('advanced');
+                }
+                if (panelId === 'dmV31Economy') {
+                    run('decision');
+                    run('advanced');
+                }
+                if (panelId === 'dmV31Spare') run('spare');
+                if (panelId === 'dmV31Explain') run('advanced');
+            }
+
+            $(function () {
+                const dashboard = document.querySelector('.dm-v31-dashboard');
+                if (!dashboard) return;
+
+                if (!window.IntersectionObserver) {
+                    activatePanel('dmV31Overview');
+                    return;
+                }
+
+                const observer = new IntersectionObserver(function (entries) {
+                    if (!entries.some(entry => entry.isIntersecting)) return;
+                    observer.disconnect();
+                    activatePanel('dmV31Overview');
+                }, { rootMargin: '180px 0px' });
+
+                observer.observe(dashboard);
+            });
+
+            return {
+                register: register,
+                activatePanel: activatePanel
+            };
+        })(jQuery);
+    </script>
+
     @Html.Partial("_TotalInfoAll")
     @Html.Partial("_TotalInfoAC")
     @Html.Partial("_TotalInfoDC")
+
+    <style>
+        .cof-detail-wrap {
+            padding: 14px 18px 16px;
+            background: #f7faff;
+            border-top: 1px solid #d8e4f3;
+        }
+
+        .dm-equipment-detail-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            margin-bottom: 16px;
+            padding: 12px 14px;
+            border: 1px solid #cbdcf0;
+            border-radius: 8px;
+            background: #fff;
+            box-shadow: 0 2px 6px rgba(23, 59, 108, 0.06);
+        }
+
+        .dm-equipment-detail-summary {
+            min-width: 0;
+        }
+
+        .dm-equipment-detail-name {
+            display: block;
+            overflow: hidden;
+            margin-bottom: 5px;
+            color: #0b4f91;
+            font-size: 16px;
+            font-weight: 900;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .dm-equipment-detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px 14px;
+            color: #60758b;
+            font-size: 12px;
+        }
+
+        .dm-equipment-detail-meta span {
+            position: relative;
+        }
+
+        .dm-equipment-detail-meta span + span::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: -8px;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #9aabba;
+            transform: translateY(-50%);
+        }
+
+        .dm-equipment-detail-link {
+            display: inline-flex;
+            flex: 0 0 auto;
+            align-items: center;
+            justify-content: center;
+            min-width: 164px;
+            min-height: 36px;
+            padding: 0 15px;
+            border-radius: 6px;
+            background: #075cab;
+            color: #fff !important;
+            font-size: 13px;
+            font-weight: 800;
+            text-decoration: none !important;
+            transition: background-color .15s ease, transform .15s ease;
+        }
+
+        .dm-equipment-detail-link:hover,
+        .dm-equipment-detail-link:focus {
+            background: #004a8d;
+            color: #fff !important;
+            transform: translateY(-1px);
+        }
+
+        .dm-equipment-name-link {
+            color: #075cab !important;
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: #a9c9e7;
+            text-underline-offset: 3px;
+        }
+
+        .dm-equipment-name-link:hover,
+        .dm-equipment-name-link:focus {
+            color: #003f7d !important;
+            text-decoration-color: #003f7d;
+        }
+
+        .cof-detail-title {
+            margin-bottom: 10px;
+            color: #173b6c;
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .cof-detail-note + .dm-detail-section {
+            margin-top: 18px;
+            padding-top: 16px;
+            border-top: 1px dashed #cbd8e6;
+        }
+
+        .cof-detail-grid {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(130px, 1fr));
+            gap: 8px;
+        }
+
+        .cof-detail-item {
+            padding: 10px 12px;
+            border: 1px solid #dce5ef;
+            border-radius: 8px;
+            background: #fff;
+        }
+
+        .cof-detail-item.total {
+            border-color: #9fbce0;
+            background: #eaf3ff;
+        }
+
+        .cof-detail-label {
+            display: block;
+            margin-bottom: 5px;
+            color: #66788a;
+            font-size: 11px;
+        }
+
+        .cof-detail-value {
+            display: block;
+            color: #20344d;
+            font-size: 14px;
+            font-weight: 800;
+            text-align: right;
+        }
+
+        .cof-detail-note {
+            margin-top: 8px;
+            color: #718096;
+            font-size: 11px;
+        }
+
+        @@media (max-width: 900px) {
+            .dm-equipment-detail-head {
+                align-items: stretch;
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .dm-equipment-detail-name {
+                white-space: normal;
+            }
+
+            .dm-equipment-detail-link {
+                width: 100%;
+                box-sizing: border-box;
+            }
+        }
+
+        .dm-v31-dashboard {
+            margin: 22px 25px 0;
+            padding: 0 0 18px;
+            border: 0;
+            border-top: 1px solid #d8dee8;
+            border-radius: 0;
+            background: #fff;
+        }
+
+        .dm-v31-heading {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin: 0;
+            padding: 18px 0 14px;
+        }
+
+        .box_wrap .con_box .dm-v31-heading h2 {
+            justify-content: flex-start;
+            margin: 0 0 5px;
+            color: #0051a2;
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        .box_wrap .con_box .dm-v31-heading h2::before {
+            content: '';
+            display: inline-block;
+            width: 4px;
+            height: 18px;
+            margin-right: 9px;
+            border-radius: 2px;
+            background: #0051a2;
+            vertical-align: -2px;
+        }
+
+        .dm-v31-heading p {
+            margin: 0;
+            padding-left: 13px;
+            color: #6f7d8e;
+            font-size: 12px;
+        }
+
+        .dm-v31-method {
+            flex: 0 0 auto;
+            padding: 7px 11px;
+            border-radius: 16px;
+            background: #e7f3ee;
+            color: #147357;
+            font-size: 11px;
+            font-weight: 800;
+        }
+
+        .dm-v31-method.invalid {
+            background: #fff0f0;
+            color: #c0392b;
+        }
+
+        .dm-v31-heading-actions {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+
+        .dm-v31-download {
+            display: inline-flex;
+            align-items: center;
+            min-height: 30px;
+            padding: 0 12px;
+            border: 1px solid #0051a2;
+            border-radius: 15px;
+            background: #fff;
+            color: #0051a2;
+            font-size: 11px;
+            font-weight: 800;
+            text-decoration: none;
+        }
+
+        .dm-v31-download:hover,
+        .dm-v31-download:focus {
+            background: #0051a2;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .dm-v31-subheading {
+            margin: 0 0 12px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            background: #f2f6ff;
+        }
+
+        .dm-v31-subheading-action {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+        }
+
+        .box_wrap .con_box .dm-v31-subheading h2 {
+            justify-content: flex-start;
+            margin: 0 0 5px;
+            color: #0051a2;
+            font-size: 16px;
+            font-weight: 900;
+        }
+
+        .dm-v31-subheading p {
+            margin: 0;
+            color: #6b7d91;
+            font-size: 12px;
+        }
+
+        .dm-v31-kpis {
+            display: grid;
+            grid-template-columns: repeat(5, minmax(130px, 1fr));
+            gap: 0;
+            margin-bottom: 14px;
+            overflow: hidden;
+            border-radius: 8px;
+            background: #f2f6ff;
+        }
+
+        .dm-v31-kpi {
+            min-width: 0;
+            padding: 12px 14px;
+            border: 0;
+            border-right: 1px solid #aabbe6;
+            border-radius: 0;
+            background: transparent;
+        }
+
+        .dm-v31-kpi:nth-child(5n) {
+            border-right: 0;
+        }
+
+        .dm-v31-kpi:last-child {
+            border-right: 0;
+        }
+
+        .dm-v31-kpi span {
+            display: block;
+            color: #75879a;
+            font-size: 11px;
+        }
+
+        .dm-v31-kpi strong {
+            display: block;
+            margin-top: 5px;
+            color: #0051a2;
+            font-size: 16px;
+            text-align: right;
+            white-space: nowrap;
+        }
+
+        .dm-v31-tabs {
+            display: flex;
+            width: 100%;
+            max-width: 760px;
+            gap: 0;
+            margin: 0 0 18px;
+            padding: 0;
+            border: 0;
+            border-radius: 20px;
+            background: #ececec;
+            overflow-x: auto;
+            overflow-y: hidden;
+        }
+
+        .dm-v31-tab {
+            position: relative;
+            flex: 1 0 140px;
+            min-width: 140px;
+            height: 32px;
+            padding: 0 14px;
+            border: 0;
+            border-radius: 20px;
+            background: transparent;
+            color: #999;
+            font-size: 14px;
+            font-weight: 800;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: color .1s, background .1s;
+        }
+
+        .dm-v31-tab:hover {
+            background: #dfe8f2;
+            color: #0051a2;
+        }
+
+        .dm-v31-tab.is-active {
+            z-index: 1;
+            background: #0051a2;
+            color: #fff;
+        }
+
+        .dm-v31-tab.is-active::after {
+            display: none;
+        }
+
+        .dm-v31-tab-panels {
+            position: relative;
+        }
+
+        .dm-v31-tab-panel {
+            position: absolute;
+            top: 0;
+            left: -100000px;
+            width: 100%;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .dm-v31-tab-panel.is-active {
+            position: relative;
+            left: 0;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .dm-v31-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0;
+            overflow: hidden;
+            border-top: 1px solid #d8dee8;
+            border-bottom: 1px solid #d8dee8;
+        }
+
+        .dm-v31-chart-card {
+            min-width: 0;
+            padding: 17px 20px;
+            border: 0;
+            border-bottom: 1px solid #e2e6ec;
+            border-radius: 0;
+            background: #fff;
+        }
+
+        .dm-v31-chart-card:nth-child(even):not(.dm-v31-wide) {
+            border-left: 1px dashed #c9d2df;
+        }
+
+        .dm-v31-overview-grid .dm-v31-chart-card:nth-child(even):not(.dm-v31-wide) {
+            border-left: 0;
+        }
+
+        .dm-v31-overview-grid .dm-v31-chart-card:nth-child(odd):not(:first-child):not(.dm-v31-wide) {
+            border-left: 1px dashed #c9d2df;
+        }
+
+        .dm-v31-chart-card.dm-v31-wide {
+            grid-column: 1 / -1;
+            border-left: 0;
+        }
+
+        .dm-v31-chart-card h3 {
+            margin: 0 0 10px;
+            color: #111;
+            font-size: 15px;
+            font-weight: 900;
+        }
+
+        .dm-v31-chart-card h3::before {
+            content: '';
+            display: inline-block;
+            width: 3px;
+            height: 13px;
+            margin-right: 7px;
+            border-radius: 2px;
+            background: #0051a2;
+            vertical-align: -1px;
+        }
+
+        .dm-v31-chart-card > div {
+            height: 270px;
+        }
+
+        .dm-v31-chart-card.dm-v31-wide > div {
+            height: 300px;
+        }
+
+        .dm-v31-gauge-wrap {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 8px;
+        }
+
+        .dm-v31-gauge-wrap > div {
+            min-width: 0;
+            height: 260px;
+        }
+
+        .dm-v31-empty {
+            grid-column: 1 / -1;
+            padding: 18px;
+            border: 1px dashed #aabbe6;
+            border-radius: 8px;
+            background: #f2f6ff;
+            color: #7b8da2;
+            text-align: center;
+        }
+
+        @@media (max-width: 1200px) {
+            .cof-detail-grid {
+                grid-template-columns: repeat(3, minmax(130px, 1fr));
+            }
+
+            .dm-v31-kpis {
+                grid-template-columns: repeat(3, minmax(130px, 1fr));
+            }
+
+            .dm-v31-kpi:nth-child(5n) {
+                border-right: 1px solid #aabbe6;
+            }
+
+            .dm-v31-kpi:nth-child(3n),
+            .dm-v31-kpi:last-child {
+                border-right: 0;
+            }
+        }
+
+        @@media (max-width: 900px) {
+            .dm-v31-chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .dm-v31-chart-card:nth-child(n):not(.dm-v31-wide),
+            .dm-v31-overview-grid .dm-v31-chart-card:nth-child(n):not(.dm-v31-wide) {
+                border-left: 0;
+            }
+
+            .dm-v31-kpis {
+                grid-template-columns: repeat(2, minmax(130px, 1fr));
+            }
+
+            .dm-v31-kpi:nth-child(3n),
+            .dm-v31-kpi:nth-child(5n) {
+                border-right: 1px solid #aabbe6;
+            }
+
+            .dm-v31-kpi:nth-child(2n),
+            .dm-v31-kpi:last-child {
+                border-right: 0;
+            }
+
+            .dm-v31-heading,
+            .dm-v31-subheading-action {
+                align-items: flex-start;
+                flex-direction: column;
+            }
+
+            .dm-v31-heading-actions {
+                justify-content: flex-start;
+            }
+
+            .dm-v31-gauge-wrap {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+            }
+        }
+    </style>
 }
 
 @section Scripts {
@@ -31,7 +689,10 @@
             const URLS = {
                 PRIORITY: '/TotalInfo/GetPriorityInfo',
                 GOJANG: '/TotalInfo/GetGojangList',
-                SCHEDULE: '/TotalInfo/GetScheduleData'
+                SCHEDULE: '/TotalInfo/GetScheduleData',
+                DM: '/TotalInfo/GetDMDecisionInfo',
+                RISK: '@Url.Action("GetRiskMapPoints", "TotalInfo")',
+                HISTORY: '@Url.Action("GetHIPofCofHistory", "TotalInfo")'
             };
 
             const SUFFIX = {
@@ -40,13 +701,9 @@
                 'DC': 'DC'
             };
 
-            const tabLoaded = { '': true, AC: false, DC: false };
-            const historyLoaded = { '': false, AC: false, DC: false };
-            const scheduleLoaded = { '': false, AC: false, DC: false };
-
             //  공통 그리드 렌더 함수
-            function renderGrid(selector, data, columns) {
-                $(selector).dxDataGrid({
+            function renderGrid(selector, data, columns, additionalOptions) {
+                const gridOptions = {
                     dataSource: data,
                     showBorders: true,
                     sorting: { mode: 'multiple' },
@@ -98,7 +755,28 @@
                         }
                     },
                     columns: columns
-                });
+                };
+
+                if (additionalOptions) {
+                    Object.assign(gridOptions, additionalOptions);
+                }
+
+                $(selector).dxDataGrid(gridOptions);
+            }
+
+            function preparePriorityData(data, prefix) {
+                let filtered = Array.isArray(data) ? data : [];
+
+                if (prefix === 'AC') {
+                    filtered = filtered.filter(d => d.Sort === 'AC');
+                } else if (prefix === 'DC') {
+                    filtered = filtered.filter(d => d.Sort === 'DC');
+                }
+
+                return filtered.map((item, idx) => ({
+                    ...item,
+                    Priority: idx + 1
+                }));
             }
 
             //  각 그리드 로드 함수들
@@ -106,19 +784,7 @@
                 const suf = SUFFIX[prefix];
                 $.post(URLS.PRIORITY)
                     .done(data => {
-                        // 1) AC탭, DC탭 필터링
-                        let filtered = data;
-                        if (prefix === 'AC') {
-                            filtered = data.filter(d => d.Sort === 'AC');
-                        } else if (prefix === 'DC') {
-                            filtered = data.filter(d => d.Sort === 'DC');
-                        }
-
-                        // 2) 필터된 배열에 새로운 우선순위 부여하기
-                        filtered = filtered.map((item, idx) => ({
-                            ...item,
-                            Priority: idx + 1
-                        }));
+                        const filtered = preparePriorityData(data, prefix);
 
                         renderGrid(
                             '#gridContainer' + suf,
@@ -129,7 +795,7 @@
                                 { dataField: 'Name', caption: '설비명', alignment: 'center' },
                                 { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
                                 { dataField: 'Install_Date', caption: '설치일', alignment: 'center', dataType: 'date' },
-                                { dataField: 'Operating_Date', caption: '운영일', alignment: 'center', dataType: 'date' },
+                                { dataField: 'Operating_Date', caption: '가동일', alignment: 'center', dataType: 'date' },
                                 { dataField: 'UsagePeriod', caption: '사용기간(년)', alignment: 'center' },
                                 { dataField: 'HI', caption: 'HI', alignment: 'center', dataType: 'number' },
                                 {
@@ -139,32 +805,32 @@
                                     dataType: 'number',
                                     cellTemplate: function (container, options) {
                                         $("<div>")
-                                            .text(options.value)
+                                            .text(Number(options.value || 0).toLocaleString('ko-KR'))
                                             .css("font-weight", "bold")
                                             .appendTo(container);
                                     }
                                 },
                                 {
                                     dataField: 'CoF',
-                                    caption: 'CoF($)',
+                                    caption: 'CoF(원)',
                                     alignment: 'center',
                                     dataType: 'number',
                                     cellTemplate: function (container, options) {
                                         $("<div>")
-                                            .text(options.value)
+                                            .text(formatKrwFromUsd(options.value))
                                             .css("font-weight", "bold")
                                             .appendTo(container);
                                     }
                                 },
                                 {
-                                    caption: 'PoF*CoF ($)',
+                                    caption: 'Risk(원)',
                                     alignment: 'center',
                                     dataType: 'number',
                                     calculateCellValue: function (rowData) {
-                                        var result = (rowData.PoF || 0) * (rowData.CoF || 0);
-                                        return result;
+                                        var riskUsd = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
+                                        return Math.round(usdToKrw(riskUsd));
                                     },
-                                    format: { type: "fixedPoint", precision: 2 }
+                                    format: { type: "fixedPoint", precision: 0 }
                                 }
                             ]
                         );
@@ -222,37 +888,18 @@
 
             function loadSchedule(prefix) {
                 const suf = SUFFIX[prefix];
-                const today = new Date();
-                $.getJSON(URLS.SCHEDULE, { year: today.getFullYear(), month: today.getMonth() + 1 })
+                $.getJSON(URLS.SCHEDULE)
                     .done(raw => {
-                        // 1) prefix 필터
+                        // 서버에서 장비별 입력 주기로 계산한 향후 3개월 이내 일정을 받는다.
                         let ds = raw;
                         if (prefix === 'AC') {
-                            ds = raw.filter(r => r.Code.startsWith('VCB') || r.Code.startsWith('ITR'));
+                            ds = raw.filter(r => r.Category === 'AC');
                         } else if (prefix === 'DC') {
-                            ds = raw.filter(r => ['DCCB', 'DCCABLE', 'SUBMODULE'].some(pr => r.Code.startsWith(pr)));
+                            ds = raw.filter(r => r.Category === 'DC');
                         }
 
-                        // 2) 각 코드별로 가장 마지막(가장 큰 DueDate) 행만 남기기
-                        //    DueDate 계산도 미리 해 둘 것
-                        const withDue = ds.map(r => {
-                            const start = new Date(r.Start);
-                            const due = new Date(start);
-                            due.setFullYear(due.getFullYear() + 3);
-                            return { ...r, DueDate: due };
-                        });
-                        const latestByCode = Object.values(
-                            withDue.reduce((acc, item) => {
-                                const prev = acc[item.Code];
-                                if (!prev || item.DueDate > prev.DueDate) {
-                                    acc[item.Code] = item;
-                                }
-                                return acc;
-                            }, {})
-                        );
-
-                        // 3) 정렬 & Priority 재부여
-                        const dataSource = latestByCode
+                        const dataSource = ds
+                            .map(r => ({ ...r, DueDate: new Date(r.DueDate) }))
                             .sort((a, b) => a.DueDate - b.DueDate)
                             .map((r, i) => ({ ...r, Priority: i + 1 }));
 
@@ -265,30 +912,15 @@
                                     caption: '점검유형',
                                     alignment: 'center',
                                     calculateCellValue: function (row) {
-                                        return row.Status === 'confirmed'
-                                            ? '보통점검'
-                                            : row.Status === 'risk'
-                                                ? '정밀점검'
-                                                : row.Status;
+                                        return row.InspectionType || row.Status;
                                     }
                                 },
                                 {
+                                    dataField: 'Category',
                                     caption: '구분',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        const code = (row.Code || '').toUpperCase();
-                                        if (code.startsWith('VCB') || code.startsWith('ITR')) {
-                                            return 'AC';
-                                        }
-                                        if (code.startsWith('DCCB')
-                                            || code.startsWith('DCCABLE')
-                                            || code.startsWith('SUBMODULE')) {
-                                            return 'DC';
-                                        }
-                                        return '';
-                                    }
+                                    alignment: 'center'
                                 },
-                                { dataField: 'Type', caption: '설비명', alignment: 'center' },
+                                { dataField: 'EquipmentName', caption: '설비명', alignment: 'center' },
                                 { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
                                 { dataField: 'Start', caption: '시작일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
                                 { dataField: 'End', caption: '종료일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
@@ -299,93 +931,349 @@
                                     alignment: 'center',
                                     format: 'yy.MM.dd'
                                 }
-                            ]
+                            ],
+                            {
+                                onToolbarPreparing: function (e) {
+                                    e.toolbarOptions.items.unshift({
+                                        location: 'before',
+                                        template: function () {
+                                            return $('<span>')
+                                                .css({ color: '#666', 'font-weight': 600 })
+                                                .text('※ 오늘 기준 향후 3개월 이내의 점검일정만 표시됩니다.');
+                                        }
+                                    });
+                                }
+                            }
                         );
                     });
             }
 
             function loadDM(prefix) {
                 const suf = SUFFIX[prefix];
-                const today = new Date();
-                $.getJSON(URLS.SCHEDULE, { year: today.getFullYear(), month: today.getMonth() + 1 })
-                    .done(raw => {
-                        // 1) prefix 필터
-                        let ds = raw;
-                        if (prefix === 'AC') {
-                            ds = raw.filter(r => r.Code.startsWith('VCB') || r.Code.startsWith('ITR'));
-                        } else if (prefix === 'DC') {
-                            ds = raw.filter(r => ['DCCB', 'DCCABLE', 'SUBMODULE'].some(pr => r.Code.startsWith(pr)));
+                const krwCell = function (container, options) {
+                    const value = Number(options.value);
+                    $('<div>')
+                        .text(Number.isFinite(value) ? value.toLocaleString('ko-KR') : '-')
+                        .appendTo(container);
+                };
+                const usdAsKrwCell = function (container, options) {
+                    const value = Number(options.value);
+                    $('<div>')
+                        .text(Number.isFinite(value) ? formatKrwFromUsd(value) : '-')
+                        .appendTo(container);
+                };
+
+                const equipmentDetailRoutes = {
+                    VCB: {
+                        url: '@Url.Action("VCBDeviceDetail", "VCBDeviceDetail")',
+                        param: 'vcbCode',
+                        label: 'VCB'
+                    },
+                    TRANSFORMER: {
+                        url: '@Url.Action("ITRDeviceDetail", "ITRDeviceDetail")',
+                        param: 'itrCode',
+                        label: 'Interface TR'
+                    },
+                    ITR: {
+                        url: '@Url.Action("ITRDeviceDetail", "ITRDeviceDetail")',
+                        param: 'itrCode',
+                        label: 'Interface TR'
+                    },
+                    INTERFACETR: {
+                        url: '@Url.Action("ITRDeviceDetail", "ITRDeviceDetail")',
+                        param: 'itrCode',
+                        label: 'Interface TR'
+                    },
+                    INTERFACE_TR: {
+                        url: '@Url.Action("ITRDeviceDetail", "ITRDeviceDetail")',
+                        param: 'itrCode',
+                        label: 'Interface TR'
+                    },
+                    MMC_SUBMODULE: {
+                        url: '@Url.Action("SUBMODULEDeviceDetail", "SUBMODULEDeviceDetail")',
+                        param: 'submoduleCode',
+                        label: 'Sub Module'
+                    },
+                    SUBMODULE: {
+                        url: '@Url.Action("SUBMODULEDeviceDetail", "SUBMODULEDeviceDetail")',
+                        param: 'submoduleCode',
+                        label: 'Sub Module'
+                    },
+                    DC_BREAKER: {
+                        url: '@Url.Action("DCCBDeviceDetail", "DCCBDeviceDetail")',
+                        param: 'dccbCode',
+                        label: 'DCCB'
+                    },
+                    DCCB: {
+                        url: '@Url.Action("DCCBDeviceDetail", "DCCBDeviceDetail")',
+                        param: 'dccbCode',
+                        label: 'DCCB'
+                    },
+                    DC_CABLE: {
+                        url: '@Url.Action("DCCABLEDeviceDetail", "DCCABLEDeviceDetail")',
+                        param: 'dccableCode',
+                        label: 'DC Cable'
+                    },
+                    DCCABLE: {
+                        url: '@Url.Action("DCCABLEDeviceDetail", "DCCABLEDeviceDetail")',
+                        param: 'dccableCode',
+                        label: 'DC Cable'
+                    }
+                };
+
+                const getEquipmentDetailRoute = function (row) {
+                    const assetType = String(row.AssetType || '')
+                        .trim()
+                        .replace(/[\s-]+/g, '_')
+                        .toUpperCase();
+                    const code = String(row.Code || '').trim();
+                    const route = equipmentDetailRoutes[assetType];
+
+                    if (!route || !route.url || !code) {
+                        return null;
+                    }
+
+                    return {
+                        label: route.label,
+                        href: route.url + '?' + route.param + '=' + encodeURIComponent(code)
+                    };
+                };
+
+                const renderCofDetail = function (container, row) {
+                    const formatKrw = function (value) {
+                        const amount = Number(value);
+                        return Number.isFinite(amount)
+                            ? amount.toLocaleString('ko-KR') + '원'
+                            : '-';
+                    };
+                    const items = [
+                        { label: '재무 기여액(정규화)', value: row.CofFinancial },
+                        { label: '신뢰도 기여액(정규화)', value: row.CofReliability },
+                        { label: '안전 기여액(정규화)', value: row.CofSafety },
+                        { label: '환경 기여액(정규화)', value: row.CofEnvironmental },
+                        { label: 'DM 참고 CoF 합계', value: row.DmCofKrw, total: true }
+                    ];
+                    const title = (row.ProductName || row.Code || '장비') + ' DM 참고 CoF 상세(원)';
+                    const wrap = $('<div>').addClass('cof-detail-wrap').appendTo(container);
+                    const detailRoute = getEquipmentDetailRoute(row);
+                    const detailHead = $('<div>').addClass('dm-equipment-detail-head').appendTo(wrap);
+                    const detailSummary = $('<div>').addClass('dm-equipment-detail-summary').appendTo(detailHead);
+                    $('<strong>')
+                        .addClass('dm-equipment-detail-name')
+                        .text(row.ProductName || row.Name || row.Code || '장비 개별정보')
+                        .appendTo(detailSummary);
+                    const detailMeta = $('<div>').addClass('dm-equipment-detail-meta').appendTo(detailSummary);
+                    $('<span>')
+                        .text('설비유형 ' + (detailRoute ? detailRoute.label : (row.AssetType || '-')))
+                        .appendTo(detailMeta);
+                    $('<span>').text('설비코드 ' + (row.Code || '-')).appendTo(detailMeta);
+                    $('<span>').text('시리얼번호 ' + (row.Serial_No || '-')).appendTo(detailMeta);
+
+                    if (detailRoute) {
+                        $('<a>')
+                            .addClass('dm-equipment-detail-link')
+                            .attr({
+                                href: detailRoute.href,
+                                title: '설비 개별정보 화면으로 이동'
+                            })
+                            .text('설비 개별정보 보기 →')
+                            .appendTo(detailHead);
+                    }
+
+                    $('<div>').addClass('cof-detail-title').text(title).appendTo(wrap);
+                    const detailGrid = $('<div>').addClass('cof-detail-grid').appendTo(wrap);
+
+                    items.forEach(function (item) {
+                        const card = $('<div>')
+                            .addClass('cof-detail-item')
+                            .toggleClass('total', item.total === true)
+                            .appendTo(detailGrid);
+                        $('<span>').addClass('cof-detail-label').text(item.label).appendTo(card);
+                        $('<span>').addClass('cof-detail-value').text(formatKrw(item.value)).appendTo(card);
+                    });
+
+                    $('<div>')
+                        .addClass('cof-detail-note')
+                        .text('각 차원을 fleet min-max 정규화한 후 40%·30%·20%·10% 가중치를 적용하며 평균 금액 규모는 보존합니다.')
+                        .appendTo(wrap);
+
+                    const rawSection = $('<div>').addClass('dm-detail-section').appendTo(wrap);
+                    $('<div>').addClass('cof-detail-title').text('4D CoF 원시 영향도 및 신뢰도 세부').appendTo(rawSection);
+                    const rawItems = [
+                        { label: '재무 원시 영향도', value: row.RawCofFinancial },
+                        { label: '신뢰도 원시 영향도', value: row.RawCofReliability },
+                        { label: '안전 원시 영향도', value: row.RawCofSafety },
+                        { label: '환경 원시 영향도', value: row.RawCofEnvironmental },
+                        { label: 'CENS', value: row.CofCens },
+                        { label: 'SAIDI 패널티', value: row.CofSaidiPenalty },
+                        { label: 'SAIFI 패널티', value: row.CofSaifiPenalty },
+                        { label: '영향 고객 수', value: row.CustomersAffected, count: true },
+                        { label: 'SAIDI 기여도', value: row.SaidiContribution, metric: true },
+                        { label: 'SAIFI 기여도', value: row.SaifiContribution, metric: true }
+                    ];
+                    const rawGrid = $('<div>').addClass('cof-detail-grid').appendTo(rawSection);
+                    rawItems.forEach(function (item) {
+                        const card = $('<div>').addClass('cof-detail-item').appendTo(rawGrid);
+                        $('<span>').addClass('cof-detail-label').text(item.label).appendTo(card);
+                        const text = item.metric === true
+                            ? Number(item.value || 0).toFixed(6)
+                            : item.count === true
+                                ? Number(item.value || 0).toLocaleString('ko-KR') + '명'
+                                : formatKrw(item.value);
+                        $('<span>').addClass('cof-detail-value').text(text).appendTo(card);
+                    });
+
+                    const economicSection = $('<div>')
+                        .addClass('dm-detail-section')
+                        .appendTo(wrap);
+                    $('<div>')
+                        .addClass('cof-detail-title')
+                        .text((row.ProductName || row.Code || '장비') + ' NPV·ROI 상세')
+                        .appendTo(economicSection);
+
+                    const economicItems = [
+                        { label: '위험 경감액', value: row.RiskMitigation },
+                        { label: '연간 유지보수 절감액', value: row.AnnualMaintenanceSaving },
+                        { label: '연간 효율 개선 편익', value: row.AnnualEfficiencyBenefit },
+                        { label: '연간 편익 합계', value: row.AnnualBenefits },
+                        { label: '연간 편익 할인 현재가치', value: row.DiscountedAnnualBenefits },
+                        { label: '수명 연장 가치', value: row.ExtendedLifetimeValue },
+                        { label: '편익 현재가치', value: row.NpvBenefits },
+                        { label: '교체비', value: row.ReplacementCost },
+                        { label: '설치비', value: row.InstallationCost },
+                        { label: '폐기비', value: row.DisposalCost },
+                        { label: '초기 총비용', value: row.TotalCosts },
+                        { label: 'BCR', value: row.BCR, ratio: true, total: true },
+                        { label: 'NPV', value: row.NPV, total: true },
+                        { label: 'ROI', value: row.ROI, percent: true, total: true }
+                    ];
+                    const economicGrid = $('<div>')
+                        .addClass('cof-detail-grid')
+                        .appendTo(economicSection);
+
+                    economicItems.forEach(function (item) {
+                        const card = $('<div>')
+                            .addClass('cof-detail-item')
+                            .toggleClass('total', item.total === true)
+                            .appendTo(economicGrid);
+                        $('<span>').addClass('cof-detail-label').text(item.label).appendTo(card);
+                        $('<span>')
+                            .addClass('cof-detail-value')
+                            .text(item.percent === true
+                                ? Number(item.value || 0).toLocaleString('ko-KR', {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                }) + '%'
+                                : item.ratio === true
+                                    ? Number(item.value || 0).toFixed(3)
+                                    : formatKrw(item.value))
+                            .appendTo(card);
+                    });
+
+                    $('<div>')
+                        .addClass('cof-detail-note')
+                        .text(
+                            'BCR = 편익 현재가치 ÷ 비용 현재가치, NPV = 편익 현재가치 - 비용 현재가치 '
+                            + '(평가기간 ' + Number(row.EvaluationPeriodYears || 0) + '년, 할인율 '
+                            + Number(row.DiscountRate || 0).toFixed(2) + '%, 물가상승률 '
+                            + Number(row.InflationRate || 0).toFixed(2) + '%)')
+                        .appendTo(economicSection);
+                };
+
+                window.totalInfoDataHub.getDm(prefix)
+                    .done(result => {
+                        if (!result || result.success === false) {
+                            console.error('GetDMDecisionInfo 오류', result && (result.details || result.error));
+                            return;
                         }
-
-                        // 2) 각 코드별로 가장 마지막(가장 큰 DueDate) 행만 남기기
-                        //    DueDate 계산도 미리 해 둘 것
-                        const withDue = ds.map(r => {
-                            const start = new Date(r.Start);
-                            const due = new Date(start);
-                            due.setFullYear(due.getFullYear() + 3);
-                            return { ...r, DueDate: due };
-                        });
-                        const latestByCode = Object.values(
-                            withDue.reduce((acc, item) => {
-                                const prev = acc[item.Code];
-                                if (!prev || item.DueDate > prev.DueDate) {
-                                    acc[item.Code] = item;
-                                }
-                                return acc;
-                            }, {})
-                        );
-
-                        // 3) 정렬 & Priority 재부여
-                        const dataSource = latestByCode
-                            .sort((a, b) => a.DueDate - b.DueDate)
-                            .map((r, i) => ({ ...r, Priority: i + 1 }));
 
                         renderGrid(
                             '#gridContainer04' + suf,
-                            dataSource,
+                            result.rows || [],
                             [
-                                { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                { dataField: 'Priority', caption: '우선순위', alignment: 'center', width: 70 },
+                                { dataField: 'Sort', caption: '구분', alignment: 'center', width: 50 },
                                 {
-                                    caption: '점검유형',
+                                    dataField: 'ProductName',
+                                    caption: '설비명(제품명)',
                                     alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        return row.Status === 'confirmed'
-                                            ? '보통점검'
-                                            : row.Status === 'risk'
-                                                ? '정밀점검'
-                                                : row.Status;
+                                    width: 200,
+                                    cellTemplate: function (container, options) {
+                                        const row = options.data || {};
+                                        const detailRoute = getEquipmentDetailRoute(row);
+                                        const name = options.value || row.Name || row.Code || '-';
+
+                                        if (!detailRoute) {
+                                            $('<span>').text(name).appendTo(container);
+                                            return;
+                                        }
+
+                                        $('<a>')
+                                            .addClass('dm-equipment-name-link')
+                                            .attr({
+                                                href: detailRoute.href + '#dmEquipmentAnalysis',
+                                                title: name + ' 개별정보 및 DM 산출 상세 보기'
+                                            })
+                                            .text(name)
+                                            .appendTo(container);
                                     }
                                 },
-                                {
-                                    caption: '구분',
-                                    alignment: 'center',
-                                    calculateCellValue: function (row) {
-                                        const code = (row.Code || '').toUpperCase();
-                                        if (code.startsWith('VCB') || code.startsWith('ITR')) {
-                                            return 'AC';
-                                        }
-                                        if (code.startsWith('DCCB')
-                                            || code.startsWith('DCCABLE')
-                                            || code.startsWith('SUBMODULE')) {
-                                            return 'DC';
-                                        }
-                                        return '';
-                                    }
-                                },
-                                { dataField: 'Type', caption: '설비명', alignment: 'center' },
                                 { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
-                                { dataField: 'Start', caption: '시작일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
-                                { dataField: 'End', caption: '종료일', dataType: 'date', alignment: 'center', format: 'yy.MM.dd' },
+                                { dataField: 'HI', caption: 'HI', alignment: 'center', dataType: 'number' },
+                                { dataField: 'PoF', caption: 'PoF(%)', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 2 } },
+                                { dataField: 'ReplacementCost', caption: '교체비(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'CoF', caption: 'CoF(원)', alignment: 'right', dataType: 'number', cellTemplate: usdAsKrwCell },
+                                { dataField: 'Risk', caption: 'Risk(원)', alignment: 'right', dataType: 'number', cellTemplate: usdAsKrwCell },
+                                { dataField: 'NPV', caption: 'NPV(원)', alignment: 'right', dataType: 'number', cellTemplate: krwCell },
+                                { dataField: 'BCR', caption: 'BCR', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 3 } },
+                                { dataField: 'ROI', caption: 'ROI(%)', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 2 } },
                                 {
-                                    dataField: 'DueDate',
-                                    caption: '정기점검일',
-                                    dataType: 'date',
+                                    dataField: 'RUL',
+                                    caption: 'RUL(년)',
                                     alignment: 'center',
-                                    format: 'yy.MM.dd'
+                                    dataType: 'number',
+                                    cellTemplate: function (container, options) {
+                                        $('<div>')
+                                            .text(options.value == null ? '산정불가' : Number(options.value).toFixed(2))
+                                            .appendTo(container);
+                                    }
+                                },
+                                {
+                                    dataField: 'Decision',
+                                    caption: '의사결정',
+                                    alignment: 'center',
+                                    cellTemplate: function (container, options) {
+                                        const colors = {
+                                            '즉시 교체': '#d32f2f',
+                                            '긴급 유지보수': '#ef6c00',
+                                            '예방 유지보수': '#c9a000',
+                                            '정기점검': '#1976d2',
+                                            '계속 감시': '#2e7d32',
+                                            '데이터 확인 필요': '#666666'
+                                        };
+                                        $('<strong>')
+                                            .text(options.value || '')
+                                            .css('color', colors[options.value] || '#333333')
+                                            .appendTo(container);
+                                    }
+                                },
+                                { dataField: 'Urgency', caption: '긴급도', alignment: 'center' },
+                                { dataField: 'RecommendedAction', caption: '권장시기', alignment: 'center' },
+                                { dataField: 'TopsisScore', caption: 'TOPSIS 점수', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 4 } }
+                            ],
+                            {
+                                height: 360,
+                                masterDetail: {
+                                    enabled: true,
+                                    autoExpandAll: false,
+                                    template: function (container, options) {
+                                        renderCofDetail(container, options.data || {});
+                                    }
                                 }
-                            ]
+                            }
                         );
-                    });
+                    })
+                    .fail(err => console.error('GetDMDecisionInfo 호출 실패', err));
             }
 
             //  1-depth 탭 클릭 처리: 우선순위만 초기 로드
@@ -396,6 +1284,7 @@
                 $('.box_wrap.totalInfo_content').removeClass('on');
                 $('#' + $(this).data('tab')).addClass('on');
 
+                window.totalInfoDataHub.activate(prefix);
                 loadPriority(prefix);
                 // history, schedule 그리드는 2-depth 클릭 시 lazy-load
             });
@@ -413,63 +1302,99 @@
                 if (target.startsWith('gridContainer04')) loadDM(prefix);
             });
 
-            //  처음 로딩할 때 5대 주요장비 우선순위만
-            loadPriority('');
+            // 처음 로딩할 때 5대 주요장비 우선순위만
+            loadUsdKrwRate().always(function () {
+                loadPriority('');
+            });
 
-            // 주기적 새로고침
-            setInterval(() => {
-                // 1) pie 데이터 재조회
-                $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
+            // 활성 탭만 30초마다 새로고침하며, 숨겨진 브라우저 탭에서는 요청하지 않습니다.
+            const REFRESH_INTERVAL_MS = 30000;
+            let refreshInProgress = false;
+
+            function getActivePrefix() {
+                return $('.tab_onedepth .tab_btn.on').data('prefix') || '';
+            }
+
+            function refreshActiveTotalInfo() {
+                if (document.hidden || refreshInProgress) return;
+
+                const prefix = getActivePrefix();
+                const suffix = SUFFIX[prefix];
+                const chartSuffix = prefix || 'All';
+                refreshInProgress = true;
+
+                // Risk 포인트는 한 번만 조회해 건전도와 Risk Matrix가 함께 사용합니다.
+                const riskRequest = $.getJSON(URLS.RISK, { prefix: prefix })
                     .done(rawPoints => {
-                        var buckets = rawPoints.reduce((a, p) => {
-                            a[p.hi] = a[p.hi] || { hi: p.hi, codes: [] };
-                            a[p.hi].codes.push(p.name);
-                            return a;
+                        const points = Array.isArray(rawPoints) ? rawPoints : [];
+                        const buckets = points.reduce((acc, point) => {
+                            acc[point.hi] = acc[point.hi] || { hi: point.hi, codes: [] };
+                            acc[point.hi].codes.push(point.name);
+                            return acc;
                         }, {});
-                        var ds = Object.values(buckets).map(b => ({
-                            state: b.hi + '등급',
-                            value: b.codes.length,
-                            codes: b.codes,
-                            hi: b.hi
+                        const pieData = Object.values(buckets).map(bucket => ({
+                            state: bucket.hi + '등급',
+                            value: bucket.codes.length,
+                            codes: bucket.codes,
+                            hi: bucket.hi
                         }));
-                        var pie = $('#pieAll').data('dxPieChart');
-                        if (pie) pie.option('dataSource', ds);
-                    });
+                        const riskData = points.map(point => ({
+                            x: usdToEokKrw(point.x),
+                            y: Number(point.y || 0),
+                            name: point.name,
+                            group: point.group
+                        }));
+                        const pie = $('#pie' + chartSuffix).data('dxPieChart');
+                        const riskMatrix = $('#chartContainer' + chartSuffix).data('dxChart');
 
-                // 2) risk matrix 재조회
-                $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: '' })
-                    .done(raw => {
-                        var data = raw.map(p => ({ x: p.x, y: p.y, name: p.name, group: p.group }));
-                        var rm = $('#chartContainerAll').data('dxChart');
-                        if (rm) rm.option('dataSource', data);
-                    });
+                        if (pie) pie.option('dataSource', pieData);
+                        if (riskMatrix) {
+                            const maxCof = getRiskMatrixMaxEok(riskData);
+                            riskMatrix.option('dataSource', riskData);
+                            riskMatrix.option('argumentAxis.visualRange', { startValue: 0, endValue: maxCof });
+                            riskMatrix.option('argumentAxis.tickInterval', maxCof / 5);
+                        }
+                    })
+                    .fail(error => console.error('Risk 자동 새로고침 실패', error));
 
-                // 3) 이력 차트 재조회 (생성된 차트만 업데이트)
-                $.getJSON('@Url.Action("GetHIPofCofHistory","TotalInfo")', { prefix: '' })
-                    .done(hist => {
-                        hist = hist.map(d => {
-                            const t = new Date(d.time);
-                            t.setHours(0, 0, 0, 0);
-                            return { ...d, time: t };
+                const historyRequest = $.getJSON(URLS.HISTORY, { prefix: prefix })
+                    .done(rawHistory => {
+                        const history = (Array.isArray(rawHistory) ? rawHistory : []).map(item => {
+                            const time = new Date(item.time);
+                            time.setHours(0, 0, 0, 0);
+                            return { ...item, time: time, cof: usdToEokKrw(item.cof) };
                         });
+                        const hiChart = $('#chart_line01' + suffix).data('dxChart');
+                        const pofChart = $('#chart_line02' + suffix).data('dxChart');
+                        const cofChart = $('#chart_line03' + suffix).data('dxChart');
 
-                        const hiChart = $('#chart_line01').data('dxChart');
-                        const pofChart = $('#chart_line02').data('dxChart');
-                        const cofChart = $('#chart_line03').data('dxChart');
+                        if (hiChart) hiChart.option('dataSource', history);
+                        if (pofChart) pofChart.option('dataSource', history);
+                        if (cofChart) cofChart.option('dataSource', history);
+                    })
+                    .fail(error => console.error('이력 자동 새로고침 실패', error));
 
-                        if (hiChart) hiChart.option('dataSource', hist);
-                        if (pofChart) pofChart.option('dataSource', hist);
-                        if (cofChart) cofChart.option('dataSource', hist);
-                    });
+                const priorityRequest = $.post(URLS.PRIORITY)
+                    .done(rows => {
+                        const grid = $('#gridContainer' + suffix).data('dxDataGrid');
+                        if (grid) {
+                            grid.option('dataSource', preparePriorityData(rows, prefix));
+                        }
+                    })
+                    .fail(error => console.error('우선순위 자동 새로고침 실패', error));
 
-                // 4) 우선순위 그리드 재조회
-                $.post('@Url.Action("GetPriorityInfo","TotalInfo")')
-                    .done(dataGrid => {
-                        var grid = $('#gridContainer').data('dxDataGrid');
-                        if (grid) grid.option('dataSource', dataGrid);
-                    });
+                $.when(riskRequest, historyRequest, priorityRequest)
+                    .always(() => { refreshInProgress = false; });
+            }
 
-            }, 10000);
+            const refreshTimer = window.setInterval(refreshActiveTotalInfo, REFRESH_INTERVAL_MS);
+
+            $(document).on('visibilitychange.totalInfoRefresh', function () {
+                if (!document.hidden) {
+                    refreshActiveTotalInfo();
+                }
+            });
+
         });
     </script>
 }

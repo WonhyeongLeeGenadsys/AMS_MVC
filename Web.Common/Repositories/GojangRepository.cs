@@ -19,23 +19,23 @@ namespace Web.Common
             using (DBHelper dbHelper = new DBHelper())
             {
                 string query = $@"
-    SELECT
-        ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
-        {basicInfoAlias}.{codeField} AS Code,
-        '{entityName}' AS Name,
-        {basicInfoAlias}.SERIAL_NO AS Serial_No,
-        F.FAIL_WEATHER AS Weather,
-        F.FAIL_TEMP AS Temp,
-        F.FAIL_HUM AS Hum,
-        F.FAIL_REASON AS Reason,
-        F.FAIL_STATUS AS Status,
-        F.FAIL_PART AS Part,
-        F.FAIL_PERIOD AS Period,
-        F.FAIL_FINDER AS Finder,
-        F.FAIL_REPAIR_DATE AS Date
-    FROM {failureHistoryTable} F
-    LEFT JOIN {basicInfoTable} {basicInfoAlias} 
-           ON F.{codeField} = {basicInfoAlias}.{codeField}";
+                SELECT
+                    ROW_NUMBER() OVER (ORDER BY CAST(F.FAIL_PERIOD AS INT) DESC) AS Priority,
+                    {basicInfoAlias}.{codeField} AS Code,
+                    '{entityName}' AS Name,
+                    {basicInfoAlias}.SERIAL_NO AS Serial_No,
+                    F.FAIL_WEATHER AS Weather,
+                    F.FAIL_TEMP AS Temp,
+                    F.FAIL_HUM AS Hum,
+                    F.FAIL_REASON AS Reason,
+                    F.FAIL_STATUS AS Status,
+                    F.FAIL_PART AS Part,
+                    F.FAIL_PERIOD AS Period,
+                    F.FAIL_FINDER AS Finder,
+                    F.FAIL_REPAIR_DATE AS Date
+                FROM {failureHistoryTable} F
+                LEFT JOIN {basicInfoTable} {basicInfoAlias} 
+                       ON F.{codeField} = {basicInfoAlias}.{codeField}";
 
                 return dbHelper.Conn.Query(query).AsList();
             }

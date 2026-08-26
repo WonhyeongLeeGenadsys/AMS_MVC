@@ -61,17 +61,15 @@ namespace AMS_MVC
                     var cofModel = cofRepo.GetLatest("SUBMODULE");
                     decimal baseCof = cofModel?.Total_Cof ?? 0m;
 
-                    decimal adjustedCof = Math.Round(baseCof * (pofRaw / 100m), 2);
-
                     Result updateResult = riskMatrixRepository.UpdateRiskMatrixHI(
                         model.SUBMODULE_Code,
                         (int)Math.Truncate(hi),
-                        adjustedCof,
+                        baseCof,
                         pofRaw
                     );
 
                     LogHelper.WriteLog("SUBMODULEChkAdd",
-                        $"[UpdateRiskMatrixHI] code={model.SUBMODULE_Code}, hi={(int)Math.Truncate(hi)}, baseCof={baseCof}, pof%={pofRaw}, adjustedCof={adjustedCof}, ok={updateResult.IsSuccess}");
+                        $"[UpdateRiskMatrixHI] code={model.SUBMODULE_Code}, hi={(int)Math.Truncate(hi)}, cof={baseCof}, pof%={pofRaw}, ok={updateResult.IsSuccess}");
 
                     if (!updateResult.IsSuccess)
                     {

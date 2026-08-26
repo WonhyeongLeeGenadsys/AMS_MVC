@@ -54,7 +54,7 @@ namespace Web.Common
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "SELECT TBL_IDX, SUBMODULE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, WRITER, TBL_GETDATE FROM SUBMODULE_BASICINFO";
+                    var query = "SELECT TBL_IDX, SUBMODULE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER, TBL_GETDATE FROM SUBMODULE_BASICINFO";
                     submoduleBasicInfo = dbHelper.Conn.Query<SUBMODULEBasicInfo>(query).AsList();
 
                     LogHelper.WriteLog("submoduleBasicInfo Data", $"{submoduleBasicInfo}");
@@ -135,15 +135,21 @@ ORDER BY b.TBL_IDX;
                             var queryBasicInfo = @"
                 INSERT INTO SUBMODULE_BASICINFO (SUBMODULE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                 INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-                IS_HEALTH, WRITER) 
+                IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER)
                 VALUES (@SUBMODULE_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
                 @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-                @Is_Health, @Writer)";
+                @Is_Health,
+                CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END,
+                CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END,
+                @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newSUBMODULEBasicInfo, transaction);
 
                             if (affectedRowsBasicInfo > 0)
                             {
+                                decimal defaultCof = new CoFRepository()
+                                    .GetTotalCofByPrefix(conn, "SUBMODULE", transaction);
+
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
                     INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME) 
@@ -153,8 +159,8 @@ ORDER BY b.TBL_IDX;
                                 var riskMatrixData = new
                                 {
                                     SUBMODULE_Code = newSUBMODULEBasicInfo.SUBMODULE_Code,
-                                    DefaultCof = "0",
-                                    DefaultPof = "0"
+                                    DefaultCof = defaultCof,
+                                    DefaultPof = 0m
                                 };
 
                                 int affectedRowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);
@@ -197,7 +203,7 @@ ORDER BY b.TBL_IDX;
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "UPDATE SUBMODULE_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, WRITER=@Writer " +
+                    var query = "UPDATE SUBMODULE_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, REGULAR_INSPECTION_CYCLE_MONTHS=CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END, PRECISION_INSPECTION_CYCLE_MONTHS=CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END, WRITER=@Writer " +
             "WHERE SERIAL_NO = @Serial_No";
 
                     int affectedRows = dbHelper.Conn.Execute(query, submoduleBasicInfo);

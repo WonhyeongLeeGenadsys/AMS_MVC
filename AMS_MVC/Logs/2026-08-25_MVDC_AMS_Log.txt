@@ -1,0 +1,42 @@
+|2026-08-25 09:19:28  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:19:28  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 09:19:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:19:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 09:27:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:27:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 09:27:19  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:27:19  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 09:41:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:41:29  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 09:41:29  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 10:15:31  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 10:15:31  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 10:15:31  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 10:17:39  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 10:17:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 10:17:39  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 10:17:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:56:49  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 18:56:49  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:56:52  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 18:56:52  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:56:53  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-08-25 18:56:53  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-08-25 18:56:53  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-08-25 18:56:53  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:09  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 18:58:09  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:10  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-25 18:58:10  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:19  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-08-25 18:58:19  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:20  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-08-25 18:58:20  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:54  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-08-25 18:58:54  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-08-25 18:58:57  |   dccableBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCABLEBasicInfo]   |
+|2026-08-25 18:58:57  |   DB(DCCABLE_BASICINFO  |   GetAllDCCABLEBasicInfoRepo 동작 성공   |
+|2026-08-25 18:59:03  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-08-25 18:59:03  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |
+|2026-08-25 18:59:05  |   dccbBasicInfo Data  |   System.Collections.Generic.List`1[Web.Common.DCCBBasicInfo]   |
+|2026-08-25 18:59:05  |   DB(DCCB_BASICINFO  |   GetAllDCCBBasicInfoRepo 동작 성공   |

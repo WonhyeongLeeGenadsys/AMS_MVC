@@ -11,7 +11,26 @@ namespace Web.Common
         public int? SAFETY_STOCK { get; set; }
         public int? EOQ { get; set; }
         public int? REORDER_POINT { get; set; }
+        public int? MIN_STOCK { get; set; }
+        public int? MAX_STOCK { get; set; }
+        public string POLICY_TYPE { get; set; }
         public DateTime? LAST_UPDATED { get; set; }
         public DateTime? TBL_GETDATE { get; set; }
+    }
+
+    public class InventoryListInfo
+    {
+        public int SPARE_ID { get; set; }
+        public string PART_NUMBER { get; set; }
+        public string PART_NAME { get; set; }
+        public string CRITICALITY_GRADE { get; set; }
+        public int CURRENT_QTY { get; set; }
+        public int SAFETY_STOCK { get; set; }
+        public int EOQ { get; set; }
+        public int REORDER_POINT { get; set; }
+        public int MIN_STOCK { get; set; }
+        public int MAX_STOCK { get; set; }
+        public string POLICY_TYPE { get; set; }
+        public DateTime? LAST_UPDATED { get; set; }
     }
 }

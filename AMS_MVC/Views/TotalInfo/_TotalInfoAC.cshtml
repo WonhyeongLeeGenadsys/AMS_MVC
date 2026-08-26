@@ -56,6 +56,7 @@
                 <li class="tab_btn on" data-tab="gridContainerAC">우선순위</li>
                 <li class="tab_btn" data-tab="gridContainer02AC">고장이력</li>
                 <li class="tab_btn" data-tab="gridContainer03AC">점검일정</li>
+                <li class="tab_btn" data-tab="gridContainer04AC">의사결정(DM)</li>
             </ul>
             <!--그리드-->
             <div id="gridContainerAC" class="grid_wrap totalInfo_content on" style="height: 500px;"></div>
@@ -64,6 +65,15 @@
             <div id="gridContainer02AC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
 
             <div id="gridContainer03AC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
+
+            <div id="gridContainer04AC" class="grid_wrap totalInfo_content" style="height: 500px;"></div>
+        </div>
+
+        <div class="guide_txt_wrap">
+            <h2>유지보수 의사결정</h2>
+            <ul>
+                <li id="strategyACPanel">로딩 중...</li>
+            </ul>
         </div>
     </div>
 
@@ -71,7 +81,7 @@
     <script>
         $(function () {
             // 1) 최신 리스크 포인트(코드, HI) 가져오기
-            $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'AC' })
+            window.totalInfoDataHub.getRiskPoints('AC')
                 .done(function (rawPoints) {
                     // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
                     const buckets = rawPoints.reduce((acc, p) => {
@@ -152,11 +162,12 @@
     <!-- Risk Matrix AC -->
     <script>
         $(function () {
-            $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'AC' })
+            window.totalInfoDataHub.getRiskPoints('AC')
                 .done(function (raw) {
                     const data = raw.map(p => ({
-                        x: p.x, y: p.y, name: p.name, group: p.group
+                        x: usdToEokKrw(p.x), y: p.y, name: p.name, group: p.group
                     }));
+                    const maxCof = getRiskMatrixMaxEok(data);
 
                     $("#chartContainerAC").dxChart({
                         dataSource: data,
@@ -172,17 +183,17 @@
                         },
                         seriesTemplate: { nameField: "group" },
                         argumentAxis: {
-                            visualRange: { startValue: 0, endValue: 40000 },
+                            visualRange: { startValue: 0, endValue: maxCof },
                             valueMarginsEnabled: false,
-                            tickInterval: 8000,
+                            tickInterval: maxCof / 5,
                             grid: {
                                 visible: true,
                                 opacity: 0.5,
                                 color: '#ffffff',
                                 width: 1
                             },
-                            title: { text: "CoF ($)" },
-                            label: { customizeText: e => e.value.toLocaleString() }
+                            title: { text: "CoF (억원)" },
+                            label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                         },
                         valueAxis: {
                             visualRange: { startValue: 0, endValue: 100 },
@@ -190,7 +201,7 @@
                             valueMarginsEnabled: false,
                             tickInterval: 20,
                             min: 0,
-                            max: 5,
+                            max: 100,
                             grid: {
                                 visible: true,
                                 opacity: 0.5,
@@ -208,14 +219,14 @@
                                 return {
                                     html:
                                         `<strong>${d.name}</strong><br/>
-                CoF: ${d.x.toLocaleString()}$<br/>
+                CoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원<br/>
                 PoF: ${d.y.toFixed(2)}%`
                                 };
                             }
                         },
                         onPointClick(e) {
                             const d = e.target.originalData;
-                            alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+                            alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원\nPoF: ${d.y.toFixed(2)}%`);
                         },
                         legend: {
                             visible: true, position: "bottom",
@@ -308,8 +319,10 @@
 
         // AC 용: CoF 이력
         function setupCofChart(containerId, history) {
+            const cofHistory = (history || []).map(item => ({ ...item, cof: usdToEokKrw(item.cof) }));
+            const maxCof = getRiskMatrixMaxEok(cofHistory.map(item => ({ x: item.cof })));
             $("#" + containerId).dxChart({
-                dataSource: history,
+                dataSource: cofHistory,
                 commonSeriesSettings: {
                     type: "line",
                     argumentField: "time",
@@ -329,11 +342,11 @@
                     title: { text: "날짜" }
                 },
                 valueAxis: {
-                    title: "CoF",
-                    visualRange: { startValue: 8000, endValue: 40000 },
-                    tickInterval: 8000,
+                    title: "CoF (억원)",
+                    visualRange: { startValue: 0, endValue: maxCof },
+                    tickInterval: maxCof / 5,
                     endOnTick: false,
-                    label: { customizeText: e => e.valueText + "$" }
+                    label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                 },
                 legend: {
                     visible: true, position: "bottom",
@@ -346,7 +359,6 @@
 
     <script>
         $(function () {
-            const urlHist = '@Url.Action("GetHIPofCofHistory","TotalInfo")';
             let historyData = null;
             let histLoaded = false, pofLoaded = false, cofLoaded = false;
 
@@ -354,7 +366,7 @@
             function loadHistoryData(callback) {
                 if (historyData) return callback();
 
-                $.getJSON(urlHist, { prefix: 'AC' })
+                window.totalInfoDataHub.getHistory('AC')
                     .done(data => {
                         historyData = data
                             .map(d => {

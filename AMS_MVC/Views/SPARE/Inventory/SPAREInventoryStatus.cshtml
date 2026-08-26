@@ -1,0 +1,470 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 재고현황</h1>
+
+    <div class="con_box">
+        <div class="content_warp spare-inventory-dashboard">
+
+            <div class="inventory-kpi-row">
+                <div class="inventory-kpi-card red">
+                    <div class="kpi-title">재고 부족</div>
+                    <div class="kpi-value" id="kpiShortageCount">0개</div>
+                    <div class="kpi-desc danger">즉시 발주 필요</div>
+                </div>
+
+                <div class="inventory-kpi-card orange">
+                    <div class="kpi-title">재주문점 근접</div>
+                    <div class="kpi-value" id="kpiReorderCount">0개</div>
+                    <div class="kpi-desc">ROP 이하</div>
+                </div>
+
+                <div class="inventory-kpi-card green">
+                    <div class="kpi-title">재고 정상</div>
+                    <div class="kpi-value" id="kpiTotalStock">0개</div>
+                    <div class="kpi-desc">안전재고 이상</div>
+                </div>
+
+                <div class="inventory-kpi-card blue">
+                    <div class="kpi-title">필수 경보품</div>
+                    <div class="kpi-value" id="kpiCriticalAlert">0건</div>
+                    <div class="kpi-desc">중요품목 저재고</div>
+                </div>
+            </div>
+
+            <div class="inventory-list-box">
+                <div class="inventory-list-header">
+                    <h2>재고 현황 목록</h2>
+
+                    <div class="inventory-filter-box">
+                        <label class="ty_chk">
+                            <input type="checkbox" id="chkShortageOnly" />
+                            <span>부족만 보기</span>
+                        </label>
+
+                        <label class="ty_chk">
+                            <input type="checkbox" id="chkRopOnly" />
+                            <span>ROP 이하만</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div id="inventoryGrid" class="grid_wrap"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <style>
+        .spare-inventory-dashboard {
+            padding-top: 10px;
+        }
+
+        .inventory-kpi-row {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+
+        .inventory-kpi-card {
+            background: #fff;
+            border-radius: 10px;
+            padding: 14px 16px 12px 16px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+            border-top: 4px solid #ccc;
+            min-height: 90px;
+        }
+
+            .inventory-kpi-card.red {
+                border-top-color: #E74C3C;
+            }
+
+            .inventory-kpi-card.orange {
+                border-top-color: #F39C12;
+            }
+
+            .inventory-kpi-card.green {
+                border-top-color: #27AE60;
+            }
+
+            .inventory-kpi-card.blue {
+                border-top-color: #4A90E2;
+            }
+
+            .inventory-kpi-card .kpi-title {
+                font-size: 13px;
+                color: #666;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+
+            .inventory-kpi-card .kpi-value {
+                font-size: 32px;
+                line-height: 1;
+                font-weight: 900;
+                color: #222;
+                margin-bottom: 8px;
+            }
+
+            .inventory-kpi-card .kpi-desc {
+                font-size: 11px;
+                color: #999;
+                font-weight: 700;
+            }
+
+                .inventory-kpi-card .kpi-desc.danger {
+                    color: #E74C3C;
+                }
+
+        .inventory-list-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 10px 14px 14px 14px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .inventory-list-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+            .inventory-list-header h2 {
+                margin: 0;
+                font-size: 16px;
+                font-weight: 800;
+            }
+
+        .inventory-filter-box {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            min-width: 64px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 800;
+            text-align: center;
+        }
+
+            .stock-badge.shortage {
+                background: #FFE6E5;
+                color: #E74C3C;
+                border: 1px solid #F3B5B2;
+            }
+
+            .stock-badge.warning {
+                background: #FFF1D8;
+                color: #F39C12;
+                border: 1px solid #F4C56A;
+            }
+
+            .stock-badge.rop {
+                background: #FFF1D8;
+                color: #F39C12;
+                border: 1px solid #F4C56A;
+            }
+
+            .stock-badge.normal {
+                background: #E6F7EC;
+                color: #27AE60;
+                border: 1px solid #A9DFC0;
+            }
+
+        .grade-badge {
+            display: inline-block;
+            min-width: 76px;
+            height: 28px;
+            line-height: 28px;
+            padding: 0 10px;
+            border-radius: 14px;
+            box-sizing: border-box;
+            white-space: nowrap;
+            font-size: 11px;
+            font-weight: 900;
+            text-align: center;
+        }
+
+        .grade-CRITICAL {
+            background: #FCE2E0;
+            color: #E74C3C;
+        }
+
+        .grade-HIGH {
+            background: #FDEBD0;
+            color: #F39C12;
+        }
+
+        .grade-MEDIUM {
+            background: #D5F5E3;
+            color: #27AE60;
+        }
+
+        .grade-LOW {
+            background: #E8F1FB;
+            color: #4A90E2;
+        }
+
+        .stock-bar-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            height: 20px;
+        }
+
+        .stock-bar-bg {
+            position: relative;
+            width: 80px;
+            height: 6px;
+            background: #E5E7EB;
+            border-radius: 5px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .stock-bar-fill {
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            border-radius: 5px;
+        }
+
+            .stock-bar-fill.shortage {
+                background: #E74C3C;
+            }
+
+            .stock-bar-fill.warning {
+                background: #F39C12;
+            }
+
+            .stock-bar-fill.normal {
+                background: #27AE60;
+            }
+
+        .stock-bar-text {
+            display: inline-flex;
+            align-items: center;
+            height: 20px;
+            font-size: 12px;
+            line-height: 1;
+            color: #666;
+            min-width: 36px;
+        }
+    </style>
+
+    <script>
+        let inventoryRawRows = [];
+
+        $(document).ready(function () {
+            initInventoryGrid();
+            loadInventoryStatus();
+
+            $("#chkShortageOnly, #chkRopOnly").on("change", function () {
+                applyInventoryFilter();
+            });
+        });
+
+        function loadInventoryStatus() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSPAREInventoryStatusData", "SpareDashboard")',
+                data: {
+                    assetTypeId: null,
+                    criticality: null
+                },
+                success: function (response) {
+                    console.log("inventory response:", response);
+
+                    if (!response || !response.success) {
+                        alert("재고현황 데이터를 불러오지 못했습니다.");
+                        return;
+                    }
+
+                    renderInventoryStatus(response);
+                },
+                error: function (xhr) {
+                    console.log("AJAX ERROR:", xhr.responseText);
+                    alert("오류 발생: " + xhr.responseText);
+                }
+            });
+        }
+
+        function renderInventoryStatus(data) {
+            const kpi = data.kpi || {};
+            inventoryRawRows = Array.isArray(data.rows) ? data.rows : [];
+
+            $("#kpiShortageCount").text((kpi.SHORTAGE_COUNT || 0) + "개");
+            $("#kpiReorderCount").text((kpi.REORDER_RECOMMEND_COUNT || 0) + "개");
+            $("#kpiTotalStock").text((kpi.NORMAL_COUNT || 0) + "개");
+            $("#kpiCriticalAlert").text((kpi.CRITICAL_ALERT_COUNT || 0) + "건");
+
+            applyInventoryFilter();
+        }
+
+        function applyInventoryFilter() {
+            let rows = [...inventoryRawRows];
+
+            const shortageOnly = $("#chkShortageOnly").is(":checked");
+            const ropOnly = $("#chkRopOnly").is(":checked");
+
+            if (shortageOnly) {
+                rows = rows.filter(x => x.STOCK_STATUS === "부족");
+            }
+
+            if (ropOnly) {
+                rows = rows.filter(x => x.ROP > 0 && x.CURRENT_QTY <= x.ROP);
+            }
+
+            const grid = $("#inventoryGrid").dxDataGrid("instance");
+            if (grid) {
+                grid.option("dataSource", rows);
+            }
+        }
+
+        function initInventoryGrid() {
+            $("#inventoryGrid").dxDataGrid({
+                dataSource: [],
+                keyExpr: "SPARE_ID",
+                showBorders: false,
+                hoverStateEnabled: true,
+                rowAlternationEnabled: false,
+                columnAutoWidth: true,
+                searchPanel: {
+                    visible: false
+                },
+                paging: {
+                    enabled: false
+                },
+                sorting: {
+                    mode: "none"
+                },
+                columns: [
+                    {
+                        dataField: "PART_NUMBER",
+                        caption: "부품번호",
+                        alignment: "left"
+                    },
+                    {
+                        dataField: "PART_NAME",
+                        caption: "부품명",
+                        alignment: "left"
+                    },
+                    {
+                        dataField: "ASSET_TYPE_NAME",
+                        caption: "장비유형",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "CRITICALITY_GRADE",
+                        caption: "중요도",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            const grade = options.value || "";
+                            $("<span>")
+                                .addClass("grade-badge grade-" + grade)
+                                .text(grade)
+                                .appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "CURRENT_QTY",
+                        caption: "현재재고",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            const v = Number(options.value || 0);
+                            const color = options.data.STOCK_STATUS === "부족" ? "#E74C3C" : "#333";
+                            $("<span>").css({
+                                color: color,
+                                fontWeight: "800"
+                            }).text(v).appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "SAFETY_STOCK",
+                        caption: "안전재고",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "ROP",
+                        caption: "ROP",
+                        alignment: "center"
+                    },
+                    {
+                        dataField: "STOCK_STATUS",
+                        caption: "재고 상태",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            const status = options.value || "";
+                            let cls = "normal";
+                            if (status === "부족") cls = "shortage";
+                            else if (status === "주의") cls = "warning";
+                            else if (status === "ROP 도달") cls = "rop";
+
+                            $("<span>")
+                                .addClass("stock-badge " + cls)
+                                .text(status)
+                                .appendTo(container);
+                        }
+                    },
+                    {
+                        caption: "재고 바",
+                        alignment: "center",
+                        cellTemplate: function (container, options) {
+                            const current = Number(options.data.BAR_CURRENT || 0);
+                            const max = Number(options.data.BAR_MAX || 1);
+                            const percent = Math.max(0, Math.min(100, (current / max) * 100));
+
+                            let cls = "normal";
+                            if (options.data.STOCK_STATUS === "부족") cls = "shortage";
+                            else if (options.data.STOCK_STATUS === "주의" || options.data.STOCK_STATUS === "ROP 도달") cls = "warning";
+
+                            const wrap = $("<div>").addClass("stock-bar-wrap");
+                            const bg = $("<div>").addClass("stock-bar-bg");
+                            const fill = $("<div>")
+                                .addClass("stock-bar-fill " + cls)
+                                .css("width", percent + "%");
+
+                            bg.append(fill);
+                            wrap.append(bg);
+                            wrap.append($("<span>").addClass("stock-bar-text").text(current + "/" + max));
+                            wrap.appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "STOCK_AMOUNT",
+                        caption: "재고금액(원)",
+                        alignment: "right",
+                        format: "#,##0"
+                    },
+                    {
+                        caption: "관리",
+                        alignment: "center",
+                        width: 130,
+                        cellTemplate: function (container, options) {
+                            var url = '@Url.Action("SPAREInventoryEdit", "SPAREInventory")' + '?spareId=' + encodeURIComponent(options.data.SPARE_ID);
+                            $("<a>")
+                                .attr("href", url)
+                                .addClass("btn gray")
+                                .text("수정")
+                                .appendTo(container);
+                        }
+                    }
+                ]
+            });
+        }
+    </script>
+}

@@ -107,6 +107,7 @@ $(function () {
         return isNaN(ticks) ? null : new Date(ticks);
     }
 
+    loadUsdKrwRate().always(function () {
     $.getJSON('@Url.Action("GetRecentActivity","TotalInfo")')
         .done(function (data) {
             const beforeCnt = {}, afterCnt = {};
@@ -153,11 +154,12 @@ $(function () {
 
             [['Before', 'matrixBefore'], ['After', 'matrixAfter']].forEach(([stage, id]) => {
                 const pts = data.map(d => ({
-                    x: stage === 'Before' ? +d.Before.Cof : +d.After.Cof,
+                    x: usdToEokKrw(stage === 'Before' ? d.Before.Cof : d.After.Cof),
                     y: stage === 'Before' ? +d.Before.Pof : +d.After.Pof,
                     name: d.Code
                 }));
 
+                const maxCof = getRiskMatrixMaxEok(pts);
                 $('#' + id).dxChart({
                     dataSource: pts,
                     commonSeriesSettings: { type: 'scatter', argumentField: 'x', valueField: 'y', point: { size: 10 } },
@@ -165,12 +167,12 @@ $(function () {
                     border: { visible: false },
                     seriesTemplate: { nameField: 'name' },
                     argumentAxis: {
-                        visualRange: { startValue: 0, endValue: 40000 },
+                        visualRange: { startValue: 0, endValue: maxCof },
                         valueMarginsEnabled: false,
-                        tickInterval: 8000,
+                        tickInterval: maxCof / 5,
                         grid: { visible: true, opacity: 0.5, color: '#ffffff', width: 1 },
-                        title: { text: 'CoF ($)' },
-                        label: { customizeText: e => e.value.toLocaleString() }
+                        title: { text: 'CoF (억원)' },
+                        label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                     },
                     valueAxis: {
                         visualRange: { startValue: 0, endValue: 100 },
@@ -185,7 +187,7 @@ $(function () {
                         enabled: true, location: 'edge',
                         customizeTooltip: i => {
                             const d = i.point.data;
-                            return { html: `<strong>${d.name}</strong><br/>CoF: ${d.x.toLocaleString()}$<br/>PoF: ${d.y.toFixed(2)}%` };
+                            return { html: `<strong>${d.name}</strong><br/>CoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원<br/>PoF: ${d.y.toFixed(2)}%` };
                         }
                     },
                     legend: { visible: true, position: 'bottom', verticalAlignment: 'bottom', horizontalAlignment: 'center', markerShape: 'circle' },
@@ -199,8 +201,8 @@ $(function () {
                     Code: d.Code,
                     Before_HI: d.Before.Hi,
                     After_HI: d.After.Hi,
-                    Before_CoF: d.Before.Cof,
-                    After_CoF: d.After.Cof,
+                    Before_CoF: Math.round(usdToKrw(d.Before.Cof)),
+                    After_CoF: Math.round(usdToKrw(d.After.Cof)),
                     Before_PoF: d.Before.Pof / 100,
                     After_PoF: d.After.Pof / 100,
                     BeforeTime: parseMsDate(d.BeforeTime),
@@ -223,8 +225,8 @@ $(function () {
                     { dataField: 'AfterTime', caption: 'After 시점', alignment: 'center', dataType: 'datetime', format: 'yyyy-MM-dd HH:mm', sortOrder: 'desc' },
                     { dataField: 'Before_HI', caption: 'Before HI', alignment: 'center', dataType: 'number' },
                     { dataField: 'After_HI', caption: 'After HI', alignment: 'center', dataType: 'number' },
-                    { dataField: 'Before_CoF', caption: 'Before CoF($)', alignment: 'center', format: { type: 'fixedPoint', precision: 2 } },
-                    { dataField: 'After_CoF', caption: 'After CoF($)', alignment: 'center', format: { type: 'fixedPoint', precision: 2 } },
+                    { dataField: 'Before_CoF', caption: 'Before CoF(원)', alignment: 'center', format: { type: 'fixedPoint', precision: 0 } },
+                    { dataField: 'After_CoF', caption: 'After CoF(원)', alignment: 'center', format: { type: 'fixedPoint', precision: 0 } },
                     { dataField: 'Before_PoF', caption: 'Before PoF(%)', alignment: 'center', format: { type: 'percent', precision: 2 } },
                     { dataField: 'After_PoF', caption: 'After PoF(%)', alignment: 'center', format: { type: 'percent', precision: 2 } }
                 ],
@@ -264,6 +266,7 @@ $(function () {
             });
         })
         .fail(err => console.error('GetRecentActivity 오류', err));
+    });
 });
     </script>
 }

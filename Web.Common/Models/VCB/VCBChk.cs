@@ -57,6 +57,7 @@ namespace Web.Common
         public float CHK_OperationCount { get; set; } //동작 횟수
         public float CHK_OpenCloseTime { get; set; } //개폐 시간
         public float CHK_VisualCheck { get; set; } //외관 점검
+        public float CHK_ThermalTemperature { get; set; } // 열화상 및 온도(유사 부위 온도 편차)
         public int FoldingFunction { get; set; }
         public DateTime? CHK_Update_Time { get; set; }
         //
@@ -237,6 +238,20 @@ namespace Web.Common
                     case 3: return "오염, 부식, 미약한 균열 발생";
                     case 4: return "오염, 부식이 축적";
                     case 5: return "오염, 부식, 균열이 성능에 영향";
+                    default: return "-";
+                }
+            }
+        }
+
+        public string ThermalTemperatureText
+        {
+            get
+            {
+                switch ((int)CHK_ThermalTemperature)
+                {
+                    case 1: return "3℃ 미만";
+                    case 2: return "15℃ 이하";
+                    case 4: return "15℃ 초과";
                     default: return "-";
                 }
             }

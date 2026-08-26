@@ -37,7 +37,7 @@
                     success: function (response) {
 
                         let data = response
-                            .sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate))
+                            .sort((a, b) => Number(b.Tbl_Idx) - Number(a.Tbl_Idx))
                             .map((item, index, arr) => {
                                 item.RowNumber = arr.length - index;
                                 return item;

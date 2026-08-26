@@ -70,23 +70,38 @@ namespace AMS_MVC
                 }
                 else
                 {
-                    // 4) 반대 검사(정밀) 최신 점수 조회
-                    var other = _chk2Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi2 = other.HasValue
-                        ? Math.Max(model.FoldingFunction, other.Value)
-                        : model.FoldingFunction;
+                    // 4) 최신 정밀점검과 합산하여 최종 HI/PoF 계산
+                    _chk2Repo.GetLatestITRChk2ByITRCode(model.ITR_Code, out var list2);
+                    var latest2 = list2?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
-                    // 5) RiskMatrix HI 업데이트
-                    //var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi2, pof);
-                    //if (!riskUpd.IsSuccess)
-                    //{
-                    //    result.IsSuccess = false;
-                    //    result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
-                    //}
-                    //else
-                    //{
-                    //    result.Message = "ITR 보통점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
-                    //}
+                    decimal hiFinalDec, pofFinal;
+                    if (latest2 != null)
+                        (hiFinalDec, pofFinal) = scoreCalc.CalculateHiPofCombined(model, latest2, 1.00m);
+                    else
+                        (hiFinalDec, pofFinal) = (hi, pof);
+
+                    int hiFinal = (int)Math.Truncate(hiFinalDec);
+                    pofFinal = Math.Min(100m, Math.Max(0m, pofFinal));
+
+                    var cofModel = cofRepo.GetLatest("ITR");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
+
+                    // 5) RiskMatrix에는 기본 CoF와 최종 PoF를 각각 저장
+                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(
+                        model.ITR_Code,
+                        hiFinal,
+                        baseCof,
+                        pofFinal);
+
+                    if (!riskUpd.IsSuccess)
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "수정은 성공했으나 RiskMatrix 갱신에 실패했습니다: " + riskUpd.Message;
+                    }
+                    else
+                    {
+                        result.Message = "ITR 보통점검 수정 및 RiskMatrix 반영이 완료되었습니다.";
+                    }
                 }
             }
             catch (Exception ex)
@@ -160,23 +175,38 @@ namespace AMS_MVC
                 }
                 else
                 {
-                    // 4) 반대 검사(보통) 최신 점수 조회
-                    var other = _chk1Repo.GetLatestFoldingFunction(model.ITR_Code);
-                    int hi1 = other.HasValue
-                        ? Math.Max(model.FoldingFunction, other.Value)
-                        : model.FoldingFunction;
+                    // 4) 최신 보통점검과 합산하여 최종 HI/PoF 계산
+                    _chk1Repo.GetLatestITRChk1ByITRCode(model.ITR_Code, out var list1);
+                    var latest1 = list1?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
 
-                    // 5) RiskMatrix HI 업데이트
-                    //var riskUpd = _riskRepo.UpdateRiskMatrixHI(model.ITR_Code, hi1, pof);
-                    //if (!riskUpd.IsSuccess)
-                    //{
-                    //    result.IsSuccess = false;
-                    //    result.Message = "수정은 성공했으나 RiskMatrix HI 갱신에 실패했습니다: " + riskUpd.Message;
-                    //}
-                    //else
-                    //{
-                    //    result.Message = "ITR 정밀점검 수정 및 RiskMatrix HI 갱신이 완료되었습니다.";
-                    //}
+                    decimal hiFinalDec, pofFinal;
+                    if (latest1 != null)
+                        (hiFinalDec, pofFinal) = scoreCalc.CalculateHiPofCombined(latest1, model, 1.00m);
+                    else
+                        (hiFinalDec, pofFinal) = (hi, pof);
+
+                    int hiFinal = (int)Math.Truncate(hiFinalDec);
+                    pofFinal = Math.Min(100m, Math.Max(0m, pofFinal));
+
+                    var cofModel = cofRepo.GetLatest("ITR");
+                    decimal baseCof = cofModel?.Total_Cof ?? 0m;
+
+                    // 5) RiskMatrix에는 기본 CoF와 최종 PoF를 각각 저장
+                    var riskUpd = _riskRepo.UpdateRiskMatrixHI(
+                        model.ITR_Code,
+                        hiFinal,
+                        baseCof,
+                        pofFinal);
+
+                    if (!riskUpd.IsSuccess)
+                    {
+                        result.IsSuccess = false;
+                        result.Message = "수정은 성공했으나 RiskMatrix 갱신에 실패했습니다: " + riskUpd.Message;
+                    }
+                    else
+                    {
+                        result.Message = "ITR 정밀점검 수정 및 RiskMatrix 반영이 완료되었습니다.";
+                    }
                 }
             }
             catch (Exception ex)

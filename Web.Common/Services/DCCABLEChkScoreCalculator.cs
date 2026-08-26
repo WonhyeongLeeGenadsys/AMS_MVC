@@ -6,7 +6,7 @@ namespace Web.Common
 {
     public class DCCABLEChkScoreCalculator
     {
-        public(decimal HI, decimal PoF) CalculateHiPof(DCCABLEChk chk, decimal alpha = 1.00m)        
+        public(decimal HI, decimal PoF) CalculateHiPof(DCCABLEChk chk, decimal alpha = 0.99m)        
         {
 
             int[] scores = new int[]
@@ -29,7 +29,7 @@ namespace Web.Common
 
             int maxGrade = scores.Max();
             int frequency = scores.Count(s => s == maxGrade);
-            return HiPofTable.GetHiPof(maxGrade, frequency, alpha);
+            return HiPofTable.GetHiPof(maxGrade, frequency, "DCCABLE", alpha);
         }
     }
 }

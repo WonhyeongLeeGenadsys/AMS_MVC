@@ -48,7 +48,7 @@ namespace Web.Common
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "SELECT TBL_IDX, ITR_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, CONSTANT, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, WRITER FROM ITR_BASICINFO";
+                    var query = "SELECT TBL_IDX, ITR_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, CONSTANT, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER FROM ITR_BASICINFO";
                     interfaceTrBasicInfo = dbHelper.Conn.Query<ITRBasicInfo>(query).AsList();
 
                     LogHelper.WriteLog("InterfaceTrBasicInfo Data", $"{interfaceTrBasicInfo}");
@@ -127,15 +127,21 @@ ORDER BY b.TBL_IDX;
                             var queryITRBasicInfo = @"
               INSERT INTO ITR_BASICINFO (ITR_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
               INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-              IS_HEALTH, WRITER) 
+              IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER)
               VALUES (@ITR_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
               @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-              @Is_Health, @Writer)";
+              @Is_Health,
+              CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END,
+              CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END,
+              @Writer)";
 
                             int affectedRowsITRBasicInfo = dbHelper.Conn.Execute(queryITRBasicInfo, newITRBasicInfo, transaction);
 
                             if (affectedRowsITRBasicInfo > 0)
                             {
+                                decimal defaultCof = new CoFRepository()
+                                    .GetTotalCofByPrefix(conn, "ITR", transaction);
+
                                 //RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
                             INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME)
@@ -144,8 +150,8 @@ ORDER BY b.TBL_IDX;
                                 var riskMatrixData = new
                                 {
                                     ITR_Code = newITRBasicInfo.ITR_Code,
-                                    DefaultCof = "0",
-                                    DefaultPof = "0"
+                                    DefaultCof = defaultCof,
+                                    DefaultPof = 0m
                                 };
 
                                 int affetedFowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);
@@ -187,7 +193,7 @@ ORDER BY b.TBL_IDX;
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "UPDATE ITR_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, WRITER=@Writer " +
+                    var query = "UPDATE ITR_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, REGULAR_INSPECTION_CYCLE_MONTHS=CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END, PRECISION_INSPECTION_CYCLE_MONTHS=CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END, WRITER=@Writer " +
             "WHERE SERIAL_NO = @Serial_No";
 
                     int affectedRows = dbHelper.Conn.Execute(query, interfaceTrBasicInfo);

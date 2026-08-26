@@ -1,6 +1,7 @@
 ﻿
 using Dapper;
 using System;
+using System.Data;
 
 namespace Web.Common
 {
@@ -231,16 +232,27 @@ INSERT INTO COF (
 
         public decimal GetTotalCofByPrefix(string prefix)
         {
+            using (var db = new DBHelper())
+            {
+                return GetTotalCofByPrefix(db.Conn, prefix);
+            }
+        }
+
+        public decimal GetTotalCofByPrefix(
+            IDbConnection connection,
+            string prefix,
+            IDbTransaction transaction = null)
+        {
             const string sql = @"
             SELECT TOP 1 TOTAL_COF
             FROM COF
             WHERE CODE LIKE @Prefix
             ORDER BY TBL_GETDATE DESC, TBL_IDX DESC;";
 
-            using (var db = new DBHelper())
-            {
-                return db.Conn.QueryFirstOrDefault<decimal?>(sql, new { Prefix = prefix + "%" }) ?? 0m;
-            }
+            return connection.QueryFirstOrDefault<decimal?>(
+                sql,
+                new { Prefix = prefix + "%" },
+                transaction) ?? 0m;
         }
 
     } // 

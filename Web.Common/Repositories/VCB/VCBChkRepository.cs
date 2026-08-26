@@ -210,6 +210,7 @@ namespace Web.Common
                                     CHK_OPERATIONCOUNT,
                                     CHK_OPENCLOSETIME,
                                     CHK_VISUALCHECK,
+                                    CHK_THERMALTEMPERATURE,
                                     FOLDINGFUNCTION
                                 )
                                 VALUES (
@@ -260,6 +261,7 @@ namespace Web.Common
                                     @CHK_OperationCount,
                                     @CHK_OpenCloseTime,
                                     @CHK_VisualCheck,
+                                    @CHK_ThermalTemperature,
                                     @FoldingFunction
                                 )";
 
@@ -339,6 +341,7 @@ namespace Web.Common
                     CHK_OPERATIONCOUNT = @CHK_OperationCount,
                     CHK_OPENCLOSETIME = @CHK_OpenCloseTime,
                     CHK_VISUALCHECK = @CHK_VisualCheck,
+                    CHK_THERMALTEMPERATURE = @CHK_ThermalTemperature,
                     CHK_UPDATE_TIME = GETDATE(),
                     FOLDINGFUNCTION = @FoldingFunction                
                  WHERE VCB_CODE = @VCB_Code AND TBL_IDX = @Tbl_Idx";

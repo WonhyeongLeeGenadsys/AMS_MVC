@@ -111,6 +111,10 @@
     <Compile Include="Models\DCCB\DCCBFailureHistory.cs" />
     <Compile Include="Models\DCCB\DCCBMaintenanceHistory.cs" />
     <Compile Include="Models\EquipmentWeibull.cs" />
+    <Compile Include="Models\DmDecisionInfo.cs" />
+    <Compile Include="Models\CheckListSummaryInfo.cs" />
+    <Compile Include="Models\DmAdvancedAnalysisInfo.cs" />
+    <Compile Include="Models\DmEquipmentCostInfo.cs" />
     <Compile Include="Models\etc\AC Yard\ARMREACTOR\ARMREACTORBasicInfo.cs" />
     <Compile Include="Models\etc\AC Yard\ARMREACTOR\ARMREACTORChk.cs" />
     <Compile Include="Models\etc\AC Yard\ARMREACTOR\ARMREACTORFailureHistory.cs" />
@@ -177,6 +181,8 @@
     <Compile Include="Models\ITR\ITRFailureHistory.cs" />
     <Compile Include="Models\ITR\ITRMaintenanceHistory.cs" />
     <Compile Include="Models\SPARE\InventoryInfo.cs" />
+    <Compile Include="Models\SPARE\SpareDemandForecastInfo.cs" />
+    <Compile Include="Models\SPARE\SpareProcurementPlanInfo.cs" />
     <Compile Include="Models\SPARE\SpareAssetMapInfo.cs" />
     <Compile Include="Models\SPARE\ProcurementInfo.cs" />
     <Compile Include="Models\SPARE\CostManagementInfo.cs" />
@@ -208,6 +214,8 @@
     <Compile Include="Repositories\DCCB\DCCBMaintenanceRepository.cs" />
     <Compile Include="Repositories\EquipmentSearchRepository.cs" />
     <Compile Include="Repositories\EquipmentWeibullRepository.cs" />
+    <Compile Include="Repositories\CheckListSummaryRepository.cs" />
+    <Compile Include="Repositories\DmEquipmentCostRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\ARMREACTOR\ARMREACTORBasicInfoRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\ARMREACTOR\ARMREACTORChkRepository.cs" />
     <Compile Include="Repositories\etc\AC Yard\ARMREACTOR\ARMREACTORGojangRepository.cs" />
@@ -287,6 +295,14 @@
     <Compile Include="Repositories\VCB\VCBGojangRepository.cs" />
     <Compile Include="Repositories\VCB\VCBMaintenanceRepository.cs" />
     <Compile Include="Services\CoFCalculator.cs" />
+    <Compile Include="Services\AmsV31Config.cs" />
+    <Compile Include="Services\AmsV31DecisionMath.cs" />
+    <Compile Include="Services\OriginalDmCalculator.cs" />
+    <Compile Include="Services\DmDecisionService.cs" />
+    <Compile Include="Services\DmAdvancedAnalysisService.cs" />
+    <Compile Include="Services\SpareDemandForecastService.cs" />
+    <Compile Include="Services\SpareInventoryPolicyService.cs" />
+    <Compile Include="Services\SpareProcurementPlanService.cs" />
     <Compile Include="Services\DCCABLEChkScoreCalculator.cs" />
     <Compile Include="Services\DCCBChkScoreCalculator.cs" />
     <Compile Include="Services\HiPofTable.cs" />

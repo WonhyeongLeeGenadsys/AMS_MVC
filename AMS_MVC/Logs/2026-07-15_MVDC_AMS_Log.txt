@@ -1,0 +1,20 @@
+|2026-07-15 13:19:01  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 13:19:01  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 13:19:03  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 13:19:03  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 13:19:11  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 13:19:11  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 13:19:13  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 13:19:13  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 13:19:25  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 13:19:25  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 14:42:21  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 14:42:21  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 14:42:44  |   TotalVCBMaintenanceController.List  |   GetTotalVCBMaintenanceListData 실행   |
+|2026-07-15 14:42:44  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-07-15 14:42:44  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-07-15 14:42:44  |   VCBMaintenanceController.List  |   조회된 데이터: 0건   |
+|2026-07-15 14:43:07  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 14:43:07  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-07-15 14:55:23  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-07-15 14:55:23  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |

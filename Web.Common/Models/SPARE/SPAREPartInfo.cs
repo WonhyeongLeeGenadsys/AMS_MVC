@@ -11,6 +11,8 @@ namespace Web.Common
         public string CRITICALITY_GRADE { get; set; }
         public int? UNIT_PRICE { get; set; }
         public int? LEAD_TIME_DAYS { get; set; }
+        public string SUPPLIER { get; set; }
+        public string NOTES { get; set; }
         public bool? IS_ACTIVE { get; set; }
         public DateTime? CREATED_AT { get; set; }
         public DateTime? UPDATED_AT { get; set; }

@@ -54,7 +54,7 @@ namespace Web.Common
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "SELECT TBL_IDX, DCCABLE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, WRITER, TBL_GETDATE FROM DCCABLE_BASICINFO";
+                    var query = "SELECT TBL_IDX, DCCABLE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, IS_DIAGNOSTICS, IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER, TBL_GETDATE FROM DCCABLE_BASICINFO";
                     dccableBasicInfo = dbHelper.Conn.Query<DCCABLEBasicInfo>(query).AsList();
 
                     LogHelper.WriteLog("dccableBasicInfo Data", $"{dccableBasicInfo}");
@@ -91,7 +91,12 @@ namespace Web.Common
                     b.Operating_Date, 
                     r.HI
                 FROM DCCABLE_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.DCCABLE_Code = r.CODE
+                OUTER APPLY (
+                    SELECT TOP (1) r.HI
+                    FROM RISKMATRIX r
+                    WHERE r.CODE = b.DCCABLE_Code
+                    ORDER BY r.LASTTIME DESC
+                ) r
                 ORDER BY b.TBL_IDX";
 
                     dccableInfoWithRisk = dbHelper.Conn.Query(query).AsList();
@@ -121,15 +126,21 @@ namespace Web.Common
                             var queryBasicInfo = @"
                 INSERT INTO DCCABLE_BASICINFO (DCCABLE_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                 INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-                IS_HEALTH, WRITER) 
+                IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS, WRITER)
                 VALUES (@DCCABLE_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
                 @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-                @Is_Health, @Writer)";
+                @Is_Health,
+                CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END,
+                CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END,
+                @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newDCCABLEBasicInfo, transaction);
 
                             if (affectedRowsBasicInfo > 0)
                             {
+                                decimal defaultCof = new CoFRepository()
+                                    .GetTotalCofByPrefix(conn, "DCCABLE", transaction);
+
                                 // RISKMATRIX 테이블에 데이터 삽입
                                 var queryRiskMatrix = @"
                     INSERT INTO RISKMATRIX (CODE, COF, POF, LASTTIME) 
@@ -139,8 +150,8 @@ namespace Web.Common
                                 var riskMatrixData = new
                                 {
                                     DCCABLE_Code = newDCCABLEBasicInfo.DCCABLE_Code,
-                                    DefaultCof = "0",
-                                    DefaultPof = "0"
+                                    DefaultCof = defaultCof,
+                                    DefaultPof = 0m
                                 };
 
                                 int affectedRowsRiskMatrix = conn.Execute(queryRiskMatrix, riskMatrixData, transaction);
@@ -183,7 +194,7 @@ namespace Web.Common
             {
                 using(DBHelper dbHelper = new DBHelper())
                 {
-                    var query = "UPDATE DCCABLE_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, WRITER=@Writer " +
+                    var query = "UPDATE DCCABLE_BASICINFO SET NAME = @Name, INSTALL_DATE = @Install_Date, OPERATING_DATE = @Operating_Date, PRICE=@Price, INSTALL_PLACE=@Install_Place, CAPACITY=@Capacity, RATED_V=@Rated_V, RATED_A=@Rated_A, MAKE_COMPANY=@Make_Company, MAKE_NO=@Make_No, PHOTO=@Photo, IS_DIAGNOSTICS=@Is_Diagnostics, IS_HEALTH=@Is_Health, REGULAR_INSPECTION_CYCLE_MONTHS=CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END, PRECISION_INSPECTION_CYCLE_MONTHS=CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END, WRITER=@Writer " +
             "WHERE SERIAL_NO = @Serial_No";
 
                     int affectedRows = dbHelper.Conn.Execute(query, dccableBasicInfo);
