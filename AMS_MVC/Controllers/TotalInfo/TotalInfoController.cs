@@ -73,9 +73,11 @@ namespace AMS_MVC
                 var priorityRepo = new PriorityInfoRepository();
                 var priorityData = priorityRepo.GetPriorityInfo();
 
-                var formattedData = priorityData.Select(item => new
+                var formattedData = priorityData.Select(item =>
                 {
-                    item.Priority,
+                    return new
+                    {
+                    Priority = (int?)item.Priority,
                     item.Sort,
                     item.Code,
                     item.Serial_No,
@@ -89,9 +91,11 @@ namespace AMS_MVC
                     item.Rated_A,
                     item.Make_Company,
                     item.Writer,
+                    // 종합정보 기본값은 CoF 등록 시 RISKMATRIX에 저장된 목포대 값이다.
                     item.CoF,
                     item.PoF,
                     item.HI
+                    };
                 }).ToList();
 
                 return Json(formattedData);
@@ -165,35 +169,24 @@ namespace AMS_MVC
         [HttpGet]
         public JsonResult GetRiskMapPoints(string prefix = "all")
         {
-            var raw = _riskRepo.GetLatestRiskPoints();
             prefix = (prefix ?? "").ToLower();
-
-            IEnumerable<Riskmatrix> filtered;
-            if (prefix == "ac")
+            string dmPrefix = prefix == "ac" ? "AC" : prefix == "dc" ? "DC" : string.Empty;
+            IEnumerable<DmDecisionInfo> filtered = new DmDecisionService().GetDecisions(dmPrefix);
+            if (new[] { "vcb", "itr", "dccb", "dccable", "submodule" }.Contains(prefix))
             {
-                filtered = raw.Where(r => r.Code.StartsWith("VCB") || r.Code.StartsWith("ITR"));
-            }
-            else if (prefix == "dc")
-            {
-                filtered = raw.Where(r => r.Code.StartsWith("DCCB")
-                                      || r.Code.StartsWith("DCCABLE")
-                                      || r.Code.StartsWith("SUBMODULE"));
-            }
-            else if (new[] { "vcb", "itr", "dccb", "dccable", "submodule" }.Contains(prefix))
-            {
-                filtered = raw.Where(r => r.Code.StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
-            }
-            else
-            {
-                filtered = raw; // 전체 5대 장비 출력임
+                filtered = filtered.Where(r => r.Code != null
+                    && r.Code.StartsWith(prefix, StringComparison.OrdinalIgnoreCase));
             }
 
             var points = filtered.Select(r => new {
-                x = r.Cof,
-                y = r.Pof,
+                x = Math.Round(r.CoF, 2),
+                y = Math.Round(r.PoFRatio * 100d, 4),
                 name = r.Code,
-                hi = int.TryParse(r.HI, out int hiValue) ? hiValue : 0,
-                group = new string(r.Code.TakeWhile(c => !char.IsDigit(c)).ToArray())
+                hi = Math.Round(r.HI, 2),
+                group = r.EquipmentKey,
+                risk = Math.Round(r.Risk, 2),
+                bcr = Math.Round(r.Bcr, 3),
+                decision = r.Decision
             });
 
             return Json(points, JsonRequestBehavior.AllowGet);
@@ -226,59 +219,67 @@ namespace AMS_MVC
         {
             try
             {
-                var priorityRepo = new PriorityInfoRepository();
-                var weibullRepo = new EquipmentWeibullRepository();
-                var equipmentWeibulls = weibullRepo.GetAll();
-
-                var allCandidates = priorityRepo.GetPriorityInfo()
-                    .Select(item => BuildDmCandidate(item, equipmentWeibulls))
-                    .ToList();
-
-                string normalizedPrefix = (prefix ?? "").Trim().ToUpperInvariant();
-                IEnumerable<DmCandidate> filtered = allCandidates;
-                if (normalizedPrefix == "AC" || normalizedPrefix == "DC")
-                {
-                    filtered = filtered.Where(x => x.Sort == normalizedPrefix);
-                }
-
-                var candidates = filtered.ToList();
-                double maxRisk = candidates.Any() ? candidates.Max(x => x.Risk) : 0d;
-                double maxNpv = candidates.Any() ? candidates.Max(x => x.NpvValue) : 0d;
-                foreach (var candidate in candidates)
-                {
-                    candidate.DMScore = CalculateDmScore(candidate, maxRisk, maxNpv);
-                }
-
-                var ordered = candidates
-                    .OrderByDescending(x => x.DMScore)
-                    .ThenByDescending(x => x.Risk)
-                    .ThenBy(x => x.RULYears ?? double.MaxValue)
-                    .ToList();
+                var ordered = new DmDecisionService().GetDecisions(prefix);
 
                 var rows = ordered.Select(item => new
                 {
-                    Priority = item.Severity == 0
-                        ? (int?)null
-                        : 1 + ordered.Count(x => x.Severity > 0 && x.DMScore > item.DMScore),
+                    item.Priority,
                     item.Sort,
                     item.Code,
                     Serial_No = item.SerialNo,
                     item.Name,
                     item.ProductName,
                     item.AssetType,
+                    item.UsageYears,
                     item.HI,
                     PoF = Math.Round(item.PoFRatio * 100d, 2),
                     ReplacementCost = Math.Round(item.ReplacementCost, 0),
-                    CoF = Math.Round(item.CoF, 0),
-                    Risk = Math.Round(item.Risk, 0),
+                    CoF = Math.Round(item.CoF, 2),
+                    DmCofKrw = Math.Round(item.DmCofKrw, 0),
+                    CofTotalKrw = Math.Round(item.CofTotalKrw, 0),
+                    RawCofFinancial = Math.Round(item.RawCofFinancial, 0),
+                    RawCofReliability = Math.Round(item.RawCofReliability, 0),
+                    RawCofSafety = Math.Round(item.RawCofSafety, 0),
+                    RawCofEnvironmental = Math.Round(item.RawCofEnvironmental, 0),
+                    CofFinancial = Math.Round(item.CofFinancial, 0),
+                    CofReliability = Math.Round(item.CofReliability, 0),
+                    CofSafety = Math.Round(item.CofSafety, 0),
+                    CofEnvironmental = Math.Round(item.CofEnvironmental, 0),
+                    CofCens = Math.Round(item.CofCens, 0),
+                    CofSaidiPenalty = Math.Round(item.CofSaidiPenalty, 0),
+                    CofSaifiPenalty = Math.Round(item.CofSaifiPenalty, 0),
+                    SaidiContribution = Math.Round(item.SaidiContribution, 6),
+                    SaifiContribution = Math.Round(item.SaifiContribution, 6),
+                    CustomersAffected = Math.Round(item.CustomersAffected, 0),
+                    Risk = Math.Round(item.Risk, 2),
                     NPV = Math.Round(item.NpvValue, 0),
+                    NpvBenefits = Math.Round(item.NpvBenefits, 0),
+                    NpvCosts = Math.Round(item.NpvCosts, 0),
+                    BCR = Math.Round(item.Bcr, 3),
                     ROI = Math.Round(item.RoiPct, 2),
+                    RiskMitigation = Math.Round(item.RiskMitigation, 0),
+                    AnnualMaintenanceSaving = Math.Round(item.AnnualMaintenanceSaving, 0),
+                    AnnualEfficiencyBenefit = Math.Round(item.AnnualEfficiencyBenefit, 0),
+                    AnnualBenefits = Math.Round(item.AnnualBenefits, 0),
+                    TotalBenefits = Math.Round(item.TotalBenefits, 0),
+                    DiscountedAnnualBenefits = Math.Round(item.DiscountedAnnualBenefits, 0),
+                    ExtendedLifetimeValue = Math.Round(item.ExtendedLifetimeValue, 0),
+                    InstallationCost = Math.Round(item.InstallationCost, 0),
+                    DisposalCost = Math.Round(item.DisposalCost, 0),
+                    TotalCosts = Math.Round(item.TotalCosts, 0),
+                    DiscountRate = Math.Round(item.DiscountRatePct, 2),
+                    InflationRate = Math.Round(item.InflationRatePct, 2),
+                    item.EvaluationPeriodYears,
                     RUL = item.RULYears.HasValue
                         ? (double?)Math.Round(item.RULYears.Value, 2)
                         : null,
                     item.Decision,
                     item.Urgency,
                     item.RecommendedAction,
+                    Criticality = Math.Round(item.Criticality, 2),
+                    TopsisScore = Math.Round(item.TopsisScore, 4),
+                    item.TopsisRank,
+                    AhpConsistencyRatio = Math.Round(item.AhpConsistencyRatio, 4),
                     DMScore = Math.Round(item.DMScore, 4)
                 }).ToList();
 
@@ -296,7 +297,19 @@ namespace AMS_MVC
                     TopDecision = ordered.Any() ? ordered[0].Decision : "",
                     TopAction = ordered.Any() ? ordered[0].RecommendedAction : "",
                     TopNPV = ordered.Any() ? Math.Round(ordered[0].NpvValue, 0) : 0d,
-                    TopROI = ordered.Any() ? Math.Round(ordered[0].RoiPct, 2) : 0d
+                    TopROI = ordered.Any() ? Math.Round(ordered[0].RoiPct, 2) : 0d,
+                    AverageHI = ordered.Any() ? Math.Round(ordered.Average(x => x.HI), 2) : 0d,
+                    AveragePoF = ordered.Any() ? Math.Round(ordered.Average(x => x.PoFRatio) * 100d, 2) : 0d,
+                    AverageBCR = ordered.Any() ? Math.Round(ordered.Average(x => x.Bcr), 2) : 0d,
+                    TotalRisk = Math.Round(ordered.Sum(x => x.Risk), 0),
+                    TotalNPV = Math.Round(ordered.Sum(x => x.NpvValue), 0),
+                    SystemSAIDI = Math.Round(ordered.Sum(x => x.SaidiContribution), 4),
+                    SystemSAIFI = Math.Round(ordered.Sum(x => x.SaifiContribution), 4),
+                    SAIDITarget = 200d,
+                    SAIFITarget = 0.50d,
+                    AHPConsistencyRatio = ordered.Any()
+                        ? Math.Round(ordered[0].AhpConsistencyRatio, 4)
+                        : 0d
                 };
 
                 return Json(new { success = true, rows, summary }, JsonRequestBehavior.AllowGet);

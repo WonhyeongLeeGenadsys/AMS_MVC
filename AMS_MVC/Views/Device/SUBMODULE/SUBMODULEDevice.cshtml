@@ -90,11 +90,13 @@
 
         <script>
             $(function(){
+      loadUsdKrwRate().always(function () {
       $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'SUBMODULE' })
      .done(function(raw){
        const data = raw.map(p => ({
-         x: p.x, y: p.y, name: p.name, group: p.group
+         x: usdToEokKrw(p.x), y: p.y, name: p.name, group: p.group
        }));
+       const maxCof = getRiskMatrixMaxEok(data);
 
 
          $("#chartRiskSUBMODULE").dxChart({
@@ -112,17 +114,17 @@
 
            seriesTemplate: { nameField: "group" },
            argumentAxis: {
-               visualRange: { startValue: 0, endValue: 40000 },
+               visualRange: { startValue: 0, endValue: maxCof },
                valueMarginsEnabled: false, // 여백 제거
-               tickInterval: 8000,
+               tickInterval: maxCof / 5,
                grid: {
                    visible: true,
                    opacity: 0.5, /* 선을 더 연하게 */
                    color: '#ffffff', /* 선 색상 지정 */
                    width: 1 /* 선 두께 지정 */
                },
-               title: { text: "CoF ($)" },
-               label: { customizeText: e => e.value.toLocaleString() }
+               title: { text: "CoF (억원)" },
+               label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
            },
 
            valueAxis: {
@@ -153,14 +155,14 @@
              const d = info.point.data;
              return { html:
                `<strong>${d.name}</strong><br/>
-                CoF: ${d.x.toLocaleString()}$<br/>
+                 CoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원<br/>
                 PoF: ${d.y.toFixed(2)}%` };
              }
 
          },
          onPointClick(e) {
            const d = e.target.originalData;
-             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원\nPoF: ${d.y.toFixed(2)}%`);
          },
            legend: {
                visible: true, position: "bottom",
@@ -175,6 +177,7 @@
 
        });
      });
+      });
   });
         </script>
         <!--//risk matrix-->
@@ -425,9 +428,9 @@
                                 { dataField: "Name", caption: "설비명", alignment: "center" },
                                 { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
                                 { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
-                                { dataField: "Operating_Date", caption: "운영일", alignment: "center", dataType: "date" },
+                                { dataField: "Operating_Date", caption: "가동일", alignment: "center", dataType: "date" },
                                 { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
-                                { dataField: "CoF", caption: "CoF($)", alignment: "center" },
+                                { dataField: "CoF", caption: "CoF(원)", alignment: "center", cellTemplate: (container, options) => container.text(formatKrwFromUsd(options.value)) },
                                 { dataField: "PoF", caption: "PoF(%)", alignment: "center" },
                                 {
                                     dataField: "HI",
@@ -707,26 +710,27 @@ $(function(){
     var year  = today.getFullYear();
     var month = today.getMonth() + 1;
 
-    $.getJSON('@Url.Action("GetScheduleData","TotalInfo")', { year: year, month: month })
+    $.getJSON('@Url.Action("GetScheduleData","TotalInfo")')
       .done(function(res){
         // 1) VCB만 필터
         let vcbs = res.filter(r => r.Type === 'SUBMODULE');
 
-        // 2) DueDate 계산 (End + 3개월)
+        // 서버 계산값을 사용하고, 구버전 응답일 때만 종료일 + 3개월로 보완
         vcbs.forEach(item => {
-          if (item.End) {
+          if (!item.DueDate && item.End) {
             let d = new Date(item.End);
             d.setMonth(d.getMonth() + 3);
             item.DueDate = d.toISOString().slice(0,10);
           }
         });
 
-        // 3) 같은 Serial_No별로 최신 DueDate 항목만 남기기
+        // 같은 자산/점검유형별 최신 일정만 남기기
         let latestBySerial = Object.values(
           vcbs.reduce((acc, item) => {
-            let prev = acc[item.Serial_No];
+            const key = `${item.Serial_No || item.Code}|${item.InspectionType || item.Status}`;
+            let prev = acc[key];
             if (!prev || new Date(item.DueDate) > new Date(prev.DueDate)) {
-              acc[item.Serial_No] = item;
+              acc[key] = item;
             }
             return acc;
           }, {})
@@ -743,6 +747,17 @@ $(function(){
           showBorders: true,
           sorting: { mode: 'multiple' },
           scrolling: { columnRenderingMode: 'virtual' },
+
+          onToolbarPreparing: function(e) {
+            e.toolbarOptions.items.unshift({
+              location: 'before',
+              template: function() {
+                return $('<span>')
+                  .css({ color: '#666', 'font-weight': 600 })
+                  .text('※ 오늘 기준 향후 3개월 이내의 점검일정만 표시됩니다.');
+              }
+            });
+          },
 
           onCellPrepared: function(e) {
             if (e.rowType !== 'data') return;
@@ -774,13 +789,10 @@ $(function(){
                       return "DC";
                   }
             },
-            { dataField: "Type", caption: "설비명", alignment: "center" },
+            { dataField: "EquipmentName", caption: "설비명", alignment: "center" },
             {
               caption: "점검유형", alignment: "center",
-              calculateCellValue: row =>
-                row.Status === 'confirmed' ? '보통점검'
-              : row.Status === 'risk'      ? '정밀점검'
-              : row.Status
+              calculateCellValue: row => row.InspectionType || row.Status
             },
             { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
               { dataField: "Start", caption: "시작일", dataType: "date", alignment: "center", format: 'yy.MM.dd' },

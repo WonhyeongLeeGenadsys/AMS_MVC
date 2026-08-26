@@ -2,6 +2,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var sparePart = ViewBag.SparePart as Web.Common.SPAREPartInfo;
+    var inventoryWarning = ViewBag.InventoryWarning as string;
 }
 
 @section LeftMenu {
@@ -31,14 +32,20 @@
                         <tr>
                             <th>현재재고</th>
                             <td><input type="text" name="CURRENT_QTY" value="@Model.CURRENT_QTY" data-type="number" /></td>
-                            <th>안전재고</th>
-                            <td><input type="text" name="SAFETY_STOCK" value="@Model.SAFETY_STOCK" data-type="number" /></td>
+                            <th>안전재고(자동)</th>
+                            <td><input type="text" name="SAFETY_STOCK" value="@Model.SAFETY_STOCK" data-type="number" readonly /></td>
                         </tr>
                         <tr>
-                            <th>EOQ</th>
-                            <td><input type="text" name="EOQ" value="@Model.EOQ" data-type="number" /></td>
-                            <th>재주문점</th>
-                            <td><input type="text" name="REORDER_POINT" value="@Model.REORDER_POINT" data-type="number" /></td>
+                            <th>EOQ(자동)</th>
+                            <td><input type="text" name="EOQ" value="@Model.EOQ" data-type="number" readonly /></td>
+                            <th>재주문점(자동)</th>
+                            <td><input type="text" name="REORDER_POINT" value="@Model.REORDER_POINT" data-type="number" readonly /></td>
+                        </tr>
+                        <tr>
+                            <th>최소/최대재고(자동)</th>
+                            <td>@Model.MIN_STOCK / @Model.MAX_STOCK</td>
+                            <th>재고정책(자동)</th>
+                            <td>@Model.POLICY_TYPE</td>
                         </tr>
                     </table>
                 </div>
@@ -47,6 +54,13 @@
     </div>
 
     <script>
+        $(function () {
+            var warning = @Html.Raw(Json.Encode(inventoryWarning));
+            if (warning) {
+                alert(warning);
+            }
+        });
+
         function saveInventory() {
             var formData = new FormData(document.getElementById("inventoryForm"));
 
@@ -59,10 +73,19 @@
                 success: function (response) {
                     if (response.success) {
                         alert("재고 저장 성공");
-                        location.href = '@Url.Action("SPAREInventoryList", "SPAREInventory")';
+                        location.href = '@Url.Action("SPAREInventoryStatus", "SPAREDashboard")';
                     } else {
-                        alert(response.message);
+                        alert(response.message || "재고 저장에 실패했습니다.");
                     }
+                },
+                error: function (xhr) {
+                    var response = xhr.responseJSON;
+                    var message = response && response.message
+                        ? response.message
+                        : "재고 저장 중 서버 오류가 발생했습니다.";
+
+                    console.error("재고 저장 실패", xhr);
+                    alert(message);
                 }
             });
         }

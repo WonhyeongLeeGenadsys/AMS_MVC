@@ -25,7 +25,7 @@ namespace AMS_MVC
         private readonly DCCABLEChkRepository dccableRepo = new DCCABLEChkRepository();
         private readonly SUBMODULEChkRepository submoduleRepo = new SUBMODULEChkRepository();
         
-        public JsonResult GetScheduleData(int year, int month)
+        public JsonResult GetScheduleData(int? year = null, int? month = null)
         {
             List<VCBChk> vcbChecks;
             List<ITRChk1> itrChecks1;
@@ -41,77 +41,178 @@ namespace AMS_MVC
             dccableRepo.GetTotalDCCABLEChk(out dccableChecks);
             submoduleRepo.GetTotalSUBMODULEChk(out submoduleChecks);
 
-            var schedules = new List<dynamic>();
+            var schedules = new List<InspectionScheduleItem>();
+            var equipmentMetadata = new Dictionary<string, InspectionScheduleMetadata>(StringComparer.OrdinalIgnoreCase);
             
-            void AddRange<T>(IEnumerable<T> records, Func<T, DateTime?> getStart, Func<T, DateTime?> getEnd, string codeField, string type, string status)
+            void AddRange<T>(
+                IEnumerable<T> records,
+                Func<T, DateTime?> getStart,
+                Func<T, DateTime?> getEnd,
+                string codeField,
+                string type,
+                string inspectionType)
             {
-                foreach (var c in records)
+                foreach (var c in records ?? Enumerable.Empty<T>())
                 {
-                    var code = (string)c.GetType().GetProperty(codeField).GetValue(c);
-
-                    // 시리얼번호 가져오기
-                    string serial;
-                    switch (type)
+                    var codeProperty = c.GetType().GetProperty(codeField);
+                    var code = codeProperty?.GetValue(c) as string;
+                    if (string.IsNullOrWhiteSpace(code))
                     {
-                        case "VCB":
-                            serial = _vcbBasic.GetVCBBasicInfoByCode(code)?.Serial_No;
-                            break;
-                        case "ITR":
-                            serial = _itrBasic.GetITRBasicInfoByITRCode(code)?.Serial_No;
-                            break;
-                        case "DCCB":
-                            serial = _dccbBasic.GetDCCBBasicInfoByCode(code)?.Serial_No;
-                            break;
-                        case "DCCABLE":
-                            serial = _dccableBasic.GetDCCABLEBasicInfoByCode(code)?.Serial_No;
-                            break;
-                        case "SUBMODULE":
-                            serial = _subBasic.GetSUBMODULEBasicInfoByCode(code)?.Serial_No;
-                            break;
-                        default:
-                            serial = null;
-                            break;
+                        continue;
                     }
 
-                    var s = getStart(c);
-                    if (s.HasValue && s.Value.Year == year && s.Value.Month == month)
+                    var metadataKey = type + "|" + code;
+                    if (!equipmentMetadata.TryGetValue(metadataKey, out var metadata))
                     {
-                        var e = getEnd(c);
-                        schedules.Add(new
+                        string serial;
+                        string equipmentName;
+                        int regularCycleMonths;
+                        int precisionCycleMonths;
+                        switch (type)
                         {
-                            Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
-                            Serial_No = serial,
-                            Type = type,
-                            Start = s.Value.ToString("yyyy-MM-dd"),
-                            End = e?.ToString("yyyy-MM-dd"),
-                            Status = status
-                        });
+                            case "VCB":
+                                var vcb = _vcbBasic.GetVCBBasicInfoByCode(code);
+                                serial = vcb?.Serial_No;
+                                equipmentName = vcb?.Name;
+                                regularCycleMonths = GetCycleMonths(vcb?.Regular_Inspection_Cycle_Months, 3);
+                                precisionCycleMonths = GetCycleMonths(vcb?.Precision_Inspection_Cycle_Months, 12);
+                                break;
+                            case "ITR":
+                                var itr = _itrBasic.GetITRBasicInfoByITRCode(code);
+                                serial = itr?.Serial_No;
+                                equipmentName = itr?.Name;
+                                regularCycleMonths = GetCycleMonths(itr?.Regular_Inspection_Cycle_Months, 3);
+                                precisionCycleMonths = GetCycleMonths(itr?.Precision_Inspection_Cycle_Months, 12);
+                                break;
+                            case "DCCB":
+                                var dccb = _dccbBasic.GetDCCBBasicInfoByCode(code);
+                                serial = dccb?.Serial_No;
+                                equipmentName = dccb?.Name;
+                                regularCycleMonths = GetCycleMonths(dccb?.Regular_Inspection_Cycle_Months, 3);
+                                precisionCycleMonths = GetCycleMonths(dccb?.Precision_Inspection_Cycle_Months, 12);
+                                break;
+                            case "DCCABLE":
+                                var dccable = _dccableBasic.GetDCCABLEBasicInfoByCode(code);
+                                serial = dccable?.Serial_No;
+                                equipmentName = dccable?.Name;
+                                regularCycleMonths = GetCycleMonths(dccable?.Regular_Inspection_Cycle_Months, 3);
+                                precisionCycleMonths = GetCycleMonths(dccable?.Precision_Inspection_Cycle_Months, 12);
+                                break;
+                            case "SUBMODULE":
+                                var submodule = _subBasic.GetSUBMODULEBasicInfoByCode(code);
+                                serial = submodule?.Serial_No;
+                                equipmentName = submodule?.Name;
+                                regularCycleMonths = GetCycleMonths(submodule?.Regular_Inspection_Cycle_Months, 3);
+                                precisionCycleMonths = GetCycleMonths(submodule?.Precision_Inspection_Cycle_Months, 12);
+                                break;
+                            default:
+                                serial = null;
+                                equipmentName = null;
+                                regularCycleMonths = 3;
+                                precisionCycleMonths = 12;
+                                break;
+                        }
+
+                        metadata = new InspectionScheduleMetadata
+                        {
+                            SerialNo = serial,
+                            EquipmentName = equipmentName,
+                            RegularCycleMonths = regularCycleMonths,
+                            PrecisionCycleMonths = precisionCycleMonths
+                        };
+                        equipmentMetadata[metadataKey] = metadata;
                     }
-                    // overdue: End + 3개월 
-                    if (getEnd(c)?.AddMonths(3) is DateTime due
-                        && due.Year == year && due.Month == month)
+
+                    var start = getStart(c);
+                    var end = getEnd(c);
+                    var inspectionDate = end ?? start;
+                    if (!inspectionDate.HasValue)
                     {
-                        schedules.Add(new
-                        {
-                            Code = (string)c.GetType().GetProperty(codeField).GetValue(c),
-                            Serial_No = serial,
-                            Type = type,
-                            Start = due.ToString("yyyy-MM-dd"),
-                            End = (string)null,
-                            Status = "overdue"
-                        });
+                        continue;
                     }
+
+                    int cycleMonths = inspectionType == "정밀점검"
+                        ? metadata.PrecisionCycleMonths
+                        : metadata.RegularCycleMonths;
+                    var dueDate = inspectionDate.Value.AddMonths(cycleMonths);
+                    schedules.Add(new InspectionScheduleItem
+                    {
+                        Code = code,
+                        Serial_No = metadata.SerialNo,
+                        Type = type,
+                        EquipmentName = string.IsNullOrWhiteSpace(metadata.EquipmentName) ? type : metadata.EquipmentName,
+                        Category = type == "VCB" || type == "ITR" ? "AC" : "DC",
+                        InspectionType = inspectionType,
+                        Start = start?.ToString("yyyy-MM-dd"),
+                        End = end?.ToString("yyyy-MM-dd"),
+                        DueDate = dueDate.ToString("yyyy-MM-dd"),
+                        Status = inspectionType == "정밀점검" ? "risk" : "confirmed",
+                        ScheduleStatus = dueDate.Date < DateTime.Today ? "overdue" : "scheduled"
+                    });
                 }
             }
 
-            AddRange(vcbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "VCB_Code", "VCB", "confirmed");
-            AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "ITR", "confirmed");
-            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "ITR", "risk");
-            AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DCCB", "confirmed");
-            AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCABLE_Code", "DCCABLE", "confirmed");
-            AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SUBMODULE_Code", "SUBMODULE", "confirmed");
+            AddRange(vcbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "VCB_Code", "VCB", "보통점검");
+            AddRange(itrChecks1, x => x.CHK1_Start_Date, x => x.CHK1_End_Date, "ITR_Code", "ITR", "보통점검");
+            AddRange(itrChecks2, x => x.CHK2_Start_Date, x => x.CHK2_End_Date, "ITR_Code", "ITR", "정밀점검");
+            AddRange(dccbChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCB_Code", "DCCB", "보통점검");
+            AddRange(dccableChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "DCCABLE_Code", "DCCABLE", "보통점검");
+            AddRange(submoduleChecks, x => x.CHK_Start_Date, x => x.CHK_End_Date, "SUBMODULE_Code", "SUBMODULE", "보통점검");
 
-            return Json(schedules, JsonRequestBehavior.AllowGet);
+            // 일정 화면에는 자산/점검유형별 가장 최근 일정 중 오늘부터 3개월 이내의 항목만 표시한다.
+            DateTime today = DateTime.Today;
+            DateTime scheduleLimit = today.AddMonths(3);
+            var latestSchedules = schedules
+                .GroupBy(x => new { x.Code, x.InspectionType })
+                .Select(g => g.OrderByDescending(x => x.DueDate).First())
+                .Where(x =>
+                {
+                    DateTime dueDate;
+                    return DateTime.TryParse(x.DueDate, out dueDate)
+                        && dueDate.Date >= today
+                        && dueDate.Date <= scheduleLimit;
+                })
+                .OrderBy(x => x.DueDate)
+                .ThenBy(x => x.Code)
+                .Select((x, index) =>
+                {
+                    x.Priority = index + 1;
+                    return x;
+                })
+                .ToList();
+
+            return Json(latestSchedules, JsonRequestBehavior.AllowGet);
+        }
+
+        private static int GetCycleMonths(int? configuredMonths, int defaultMonths)
+        {
+            return configuredMonths.HasValue && configuredMonths.Value > 0
+                ? configuredMonths.Value
+                : defaultMonths;
+        }
+
+        private sealed class InspectionScheduleMetadata
+        {
+            public string SerialNo { get; set; }
+            public string EquipmentName { get; set; }
+            public int RegularCycleMonths { get; set; }
+            public int PrecisionCycleMonths { get; set; }
+        }
+
+        private sealed class InspectionScheduleItem
+        {
+            public int Priority { get; set; }
+            public string Code { get; set; }
+            public string Serial_No { get; set; }
+            public string Type { get; set; }
+            public string EquipmentName { get; set; }
+            public string Category { get; set; }
+            public string InspectionType { get; set; }
+            public string Start { get; set; }
+            public string End { get; set; }
+            public string DueDate { get; set; }
+            public string Status { get; set; }
+            public string ScheduleStatus { get; set; }
         }
 
         [HttpGet]

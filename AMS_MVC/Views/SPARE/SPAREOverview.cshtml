@@ -79,6 +79,22 @@
                 </div>
             </div>
 
+            <div class="spare-demand-box">
+                <div class="demand-header">
+                    <div>
+                        <h2>DM 기반 예비품 수요예측</h2>
+                        <p>필요수량 × 의사결정별 교체비율 × PoF × 납기 안전계수</p>
+                    </div>
+                    <div class="demand-summary">
+                        <span>예측 품목 <strong id="forecastPartCount">0</strong></span>
+                        <span>부족 품목 <strong id="forecastShortageCount">0</strong></span>
+                        <span>권장수량 <strong id="forecastRecommendedQty">0</strong></span>
+                        <span>예상비용 <strong id="forecastExpectedCost">0</strong></span>
+                    </div>
+                </div>
+                <div id="gridDemandForecast"></div>
+            </div>
+
         </div>
     </div>
 
@@ -200,12 +216,67 @@
             color: #333;
             pointer-events: none;
         }
+
+        .spare-demand-box {
+            background: #fff;
+            border-radius: 10px;
+            padding: 16px 18px 18px 18px;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
+
+        .demand-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 20px;
+            margin-bottom: 14px;
+        }
+
+            .demand-header h2 {
+                font-size: 17px;
+                font-weight: 800;
+                margin: 0 0 5px 0;
+            }
+
+            .demand-header p {
+                color: #777;
+                font-size: 12px;
+                margin: 0;
+            }
+
+        .demand-summary {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+            gap: 7px;
+        }
+
+            .demand-summary span {
+                background: #eef4ff;
+                border: 1px solid #d5e2f8;
+                border-radius: 14px;
+                color: #365a94;
+                font-size: 12px;
+                padding: 6px 10px;
+            }
+
+            .demand-summary strong {
+                color: #0f4b9b;
+                margin-left: 4px;
+            }
+
+        .forecast-shortage {
+            color: #e53935;
+            font-weight: 800;
+        }
     </style>
 
     <script>
         $(document).ready(function () {
             initCharts();
+            initDemandForecastGrid();
             loadSpareOverview();
+            loadDemandForecast();
         });
 
         function initCharts() {
@@ -305,6 +376,61 @@
             });
         }
 
+        function initDemandForecastGrid() {
+            $("#gridDemandForecast").dxDataGrid({
+                dataSource: [],
+                keyExpr: "SPARE_ID",
+                showBorders: true,
+                rowAlternationEnabled: true,
+                columnAutoWidth: true,
+                noDataText: "수요예측 대상 예비품이 없습니다.",
+                paging: { pageSize: 10 },
+                pager: {
+                    visible: true,
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50],
+                    showInfo: true
+                },
+                columns: [
+                    { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                    { dataField: "PART_NAME", caption: "부품명" },
+                    { dataField: "ASSET_TYPE_NAME", caption: "연결 설비", alignment: "center" },
+                    { dataField: "CRITICALITY_GRADE", caption: "중요도", alignment: "center" },
+                    { dataField: "AFFECTED_ASSET_COUNT", caption: "대상 장비", alignment: "center", format: "#,##0" },
+                    { dataField: "TOP_DECISION", caption: "최고 의사결정", alignment: "center" },
+                    { dataField: "CURRENT_QTY", caption: "현재재고", alignment: "center", format: "#,##0" },
+                    {
+                        dataField: "EXPECTED_DEMAND",
+                        caption: "예상수요",
+                        alignment: "right",
+                        format: { type: "fixedPoint", precision: 4 }
+                    },
+                    { dataField: "RECOMMENDED_QTY", caption: "권장수량", alignment: "center", format: "#,##0" },
+                    {
+                        dataField: "SHORTAGE_QTY",
+                        caption: "부족수량",
+                        alignment: "center",
+                        format: "#,##0",
+                        cellTemplate: function (container, options) {
+                            const value = Number(options.value || 0);
+                            $("<span>")
+                                .toggleClass("forecast-shortage", value > 0)
+                                .text(value.toLocaleString())
+                                .appendTo(container);
+                        }
+                    },
+                    {
+                        dataField: "EXPECTED_COST",
+                        caption: "예상비용(원)",
+                        alignment: "right",
+                        cellTemplate: function (container, options) {
+                            $("<span>").text(formatMoney(options.value)).appendTo(container);
+                        }
+                    }
+                ]
+            });
+        }
+
         function loadSpareOverview() {
     $.ajax({
         type: "POST",
@@ -329,6 +455,36 @@
         }
     });
 }
+
+        function loadDemandForecast() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetSPAREDemandForecastData", "SpareDashboard")',
+                data: {
+                    assetTypeId: null,
+                    criticality: null
+                },
+                success: function (response) {
+                    if (!response || !response.success) {
+                        console.error("예비품 수요예측 오류", response);
+                        return;
+                    }
+
+                    const summary = response.summary || {};
+                    const rows = Array.isArray(response.rows) ? response.rows : [];
+                    $("#forecastPartCount").text(Number(summary.FORECAST_PART_COUNT || 0).toLocaleString());
+                    $("#forecastShortageCount").text(Number(summary.SHORTAGE_PART_COUNT || 0).toLocaleString());
+                    $("#forecastRecommendedQty").text(Number(summary.TOTAL_RECOMMENDED_QTY || 0).toLocaleString());
+                    $("#forecastExpectedCost").text(formatUk(Number(summary.TOTAL_EXPECTED_COST || 0)));
+
+                    const grid = $("#gridDemandForecast").dxDataGrid("instance");
+                    if (grid) grid.option("dataSource", rows);
+                },
+                error: function (xhr) {
+                    console.error("예비품 수요예측 호출 실패", xhr.responseText);
+                }
+            });
+        }
 
         function renderOverview(data) {
             console.log("overview response:", data);

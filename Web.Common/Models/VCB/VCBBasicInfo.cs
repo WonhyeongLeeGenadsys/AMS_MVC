@@ -26,6 +26,8 @@ namespace Web.Common
         public string Photo { get; set; } // 제품 사진 
         public bool Is_Diagnostics { get; set; } // 예방진단 사용 여부 
         public bool Is_Health { get; set; } // 건전도 사용 여부 
+        public int Regular_Inspection_Cycle_Months { get; set; } = 3; // 보통점검 주기(개월)
+        public int Precision_Inspection_Cycle_Months { get; set; } = 12; // 정밀점검 주기(개월)
         public string Writer { get; set; } // 작성자 
         public DateTime Tbl_GetDate { get; set; } // 작성일 
     }

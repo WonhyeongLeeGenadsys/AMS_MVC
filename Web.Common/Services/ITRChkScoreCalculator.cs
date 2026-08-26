@@ -5,7 +5,7 @@ namespace Web.Common
     public class ITRChkScoreCalculator
     {
         // ITRChk1 전용
-        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk1 chk, decimal alpha = 1.00m)
+        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk1 chk, decimal alpha = 0.99m)
         {
             int[] s1 = GetScores(chk);
 
@@ -19,11 +19,11 @@ namespace Web.Common
             int max = s1.Max();
             int freq = s1.Count(v => v == max);
 
-            return HiPofTable.GetHiPof(max, freq, alpha);
+            return HiPofTable.GetHiPof(max, freq, "ITR", alpha);
         }
 
         // ITRChk2 전용
-        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk2 chk, decimal alpha = 1.00m)
+        public (decimal HI, decimal PoF) CalculateHiPof(ITRChk2 chk, decimal alpha = 0.99m)
         {
             int[] s2 = GetScores(chk);
 
@@ -35,12 +35,12 @@ namespace Web.Common
             int max = s2.Max();
             int freq = s2.Count(v => v == max);
 
-            return HiPofTable.GetHiPof(max, freq, alpha);
+            return HiPofTable.GetHiPof(max, freq, "ITR", alpha);
         }
 
 
         // ITRChk1 + ITRChk2 통합
-        public (decimal HI, decimal PoF) CalculateHiPofCombined(ITRChk1 c1, ITRChk2 c2, decimal alpha = 1.00m)
+        public (decimal HI, decimal PoF) CalculateHiPofCombined(ITRChk1 c1, ITRChk2 c2, decimal alpha = 0.99m)
         {
             int[] all = GetScores(c1).Concat(GetScores(c2)).ToArray();
 
@@ -56,7 +56,7 @@ namespace Web.Common
             int max = all.Max();
             int freq = all.Count(v => v == max);
 
-            return HiPofTable.GetHiPof(max, freq, alpha);
+            return HiPofTable.GetHiPof(max, freq, "ITR", alpha);
         }
 
         // 점수 Helper

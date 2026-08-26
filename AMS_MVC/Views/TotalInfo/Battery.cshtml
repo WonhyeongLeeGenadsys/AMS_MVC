@@ -58,6 +58,7 @@
                     return;
                 }
 
+                loadUsdKrwRate().always(function () {
                 $.ajax({
                     url: '@Url.Action("SearchBetweenDates", "TotalInfo")',
                     type: 'POST',
@@ -116,9 +117,9 @@
                                                 .appendTo(container);
                                         }, width: 150 },
                                     { dataField: 'PoF', caption: 'PoF', alignment: 'center', width: 100 },
-                                    { dataField: 'CoF', caption: 'CoF', alignment: 'center', width: 100 },
+                                    { dataField: 'CoF', caption: 'CoF(원)', alignment: 'center', width: 120, cellTemplate: (container, options) => container.text(formatKrwFromUsd(options.value)) },
                                     {
-                                        caption: 'PoF*CoF ($)',
+                                        caption: 'Risk(원)',
                                         alignment: 'center',
                                         dataType: 'number',
                                         cellTemplate: function (container, options) {
@@ -128,8 +129,8 @@
                                                 .appendTo(container);
                                         },
                                         calculateCellValue: function (rowData) {
-                                            var result = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
-                                            return result;
+                                            var riskUsd = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
+                                            return Math.round(usdToKrw(riskUsd));
                                         },
                                         format: { type: "fixedPoint", precision: 2 }
                                     }
@@ -145,6 +146,7 @@
                     error: function(xhr, status, err) {
                         alert("서버 오류 발생: " + err);
                     }
+                });
                 });
             });
         });

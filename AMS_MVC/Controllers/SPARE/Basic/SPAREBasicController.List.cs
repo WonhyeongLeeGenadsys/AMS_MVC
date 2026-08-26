@@ -35,6 +35,7 @@ namespace AMS_MVC
                             item.CRITICALITY_GRADE,
                             item.UNIT_PRICE,
                             item.LEAD_TIME_DAYS,
+                            item.SUPPLIER,
                             CURRENT_QTY = inventory != null ? inventory.CURRENT_QTY : 0,
                             IS_ACTIVE = item.IS_ACTIVE.HasValue && item.IS_ACTIVE.Value ? "사용" : "미사용",
                             CREATED_AT = item.CREATED_AT.HasValue ? item.CREATED_AT.Value.ToString("yy.MM.dd") : ""

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using Web.Common;
 
 namespace AMS_MVC
 {
@@ -13,8 +8,8 @@ namespace AMS_MVC
         {
             var basicInfo = dccableBasicInfoRepository.GetDCCABLEBasicInfoByCode(DCCABLE_Code);
             ViewBag.DCCABLECode = DCCABLE_Code;
-            ViewBag.SerialNo = basicInfo != null ? basicInfo.Serial_No : "";
-            ViewBag.Name = basicInfo != null ? basicInfo.Name : "";
+            ViewBag.SerialNo = basicInfo?.Serial_No ?? string.Empty;
+            ViewBag.Name = basicInfo?.Name ?? string.Empty;
             return View("~/Views/Check/DCCABLE/DCCABLEChkList.cshtml");
         }
 
@@ -26,106 +21,13 @@ namespace AMS_MVC
         [HttpPost]
         public ActionResult GetDCCABLEChkListData(string dccableCode)
         {
-            try
-            {
-                LogHelper.WriteLog("DCCABLEChkController.List", "GetDCCABLEChkListData 실행");
-                LogHelper.WriteLog("dccableCode 조회 : ",$"{dccableCode}");
-
-                List<DCCABLEChk> dccableChks = new List<DCCABLEChk>();
-                var repoResult = dccableChkRepository.GetDCCABLEChkByDCCABLECode(dccableCode, out dccableChks);
-                if (repoResult.IsSuccess)
-                {
-                    var formattedData = dccableChks.Select(item => new
-                    {
-                        item.Tbl_Idx,
-                        item.DCCABLE_Code,
-                        item.CHK_Gongsa_Name,
-                        item.CHK_Weather,
-                        item.CHK_Temp,
-                        item.CHK_Hum,
-                        item.CHK_Company,
-                        item.CHK_Worker,
-                        item.CHK_Manager,
-                        item.CHK_Urgent_No,
-                        item.CHK_Type,
-                        CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
-                        CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),                        
-                        item.CHK_Writer,
-                        item.CHK_Partial_Discharge,
-                        item.CHK_Rated_Voltage,
-                        item.CHK_Tan_Delta,
-                        item.CHK_Resistance,
-                        item.CHK_TDR,
-                    }).ToList();
-
-
-                    LogHelper.WriteLog("DCCABLEChkController.List", $"조회된 데이터: {dccableChks.Count}건");
-                    return Json(formattedData);
-                }
-                else
-                {
-                    LogHelper.WriteLog("DCCABLEChkController.List", "DCCABLE 보통점검 데이터 로드 실패");
-                    return Json(new { success = false, message = "DCCABLE 보통점검 데이터 로드 실패" });
-                }
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("DCCABLEChkController.List", $"GetDCCABLEListData 실패: {ex.Message}");
-                return Json(new { success = false, message = ex.Message });
-            }
+            return CheckListSummaryJson.Create("DCCABLE", dccableCode, "DCCABLE_Code");
         }
 
         [HttpPost]
         public ActionResult GetTotalDCCABLEChkListData()
         {
-            try
-            {
-                LogHelper.WriteLog("TotalDCCABLEChkController.List", "GetTotalDCCABLEChkListData 실행");
-
-                var repoResult = dccableChkRepository.GetTotalDCCABLEChk(out var dccableChks);
-                if (!repoResult.IsSuccess)
-                    return Json(new { success = false, message = repoResult.Message });
-
-                dccableBasicInfoRepository.GetAllDCCABLEBasicInfoRepo(out var basics);
-                var basicMap = basics.ToDictionary(b => b.DCCABLE_Code, b => b);
-
-                var formatted = dccableChks.Select(item =>
-                {
-                    basicMap.TryGetValue(item.DCCABLE_Code, out var basic);
-                    return new
-                    {
-                        item.Tbl_Idx,
-                        item.DCCABLE_Code,
-                        Name = basic?.Name ?? "",
-                        Serial_No = basic?.Serial_No ?? "",
-                        item.CHK_Gongsa_Name,
-                        item.CHK_Weather,
-                        item.CHK_Temp,
-                        item.CHK_Hum,
-                        item.CHK_Company,
-                        item.CHK_Worker,
-                        item.CHK_Manager,
-                        item.CHK_Urgent_No,
-                        item.CHK_Type,
-                        CHK_Start_Date = item.CHK_Start_Date?.ToString("yy.MM.dd"),
-                        CHK_End_Date = item.CHK_End_Date?.ToString("yy.MM.dd"),
-                        item.CHK_Writer,
-                        item.CHK_Partial_Discharge,
-                        item.CHK_Rated_Voltage,
-                        item.CHK_Tan_Delta,
-                        item.CHK_Resistance,
-                        item.CHK_TDR
-                    };
-                }).ToList();
-
-                return Json(formatted);
-            }
-            catch (Exception ex)
-            {
-                LogHelper.WriteLog("DCCABLEChkController.List", $"GetTotalDCCABLEListData 실패: {ex.Message}");
-                return Json(new { success = false, message = ex.Message });
-            }
+            return CheckListSummaryJson.Create("DCCABLE", null, "DCCABLE_Code");
         }
-
     }
 }

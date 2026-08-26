@@ -299,9 +299,11 @@
     <Compile Include="Controllers\DeviceInfo\etc\Grounding\ZIGZAGTRDeviceController.cs" />
     <Compile Include="Controllers\DeviceInfo\etc\Grounding\ESDeviceController.cs" />
     <Compile Include="Controllers\DeviceInfo\etc\Grounding\NGRDeviceController.cs" />
+    <Compile Include="Controllers\CommonController.cs" />
     <Compile Include="Controllers\EquipmentAlgorithmController.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Detail.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Update.cs" />
+    <Compile Include="Controllers\Check\CheckListSummaryJson.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.Add.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.cs" />
     <Compile Include="Controllers\Check\VCB\VCBChkController.List.cs" />
@@ -631,6 +633,7 @@
     <Compile Include="Controllers\TotalInfo\TotalInfoController.HITab.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Recent.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Battery.cs" />
+    <Compile Include="Controllers\TotalInfo\TotalInfoController.AdvancedDm.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.cs" />
     <Compile Include="Controllers\TotalInfo\TotalInfoController.Check.cs" />
     <Compile Include="Controllers\UserAccountController.cs" />
@@ -1217,6 +1220,7 @@
     <Content Include="Views\TotalInfo\_TotalInfoDC.cshtml" />
     <Content Include="Views\Shared\DeviceInfo\_RegistMenu.cshtml" />
     <Content Include="Views\Shared\_SPAREMenu.cshtml" />
+    <Content Include="Views\Shared\_DmEquipmentAnalysis.cshtml" />
     <Content Include="Views\SPARE\Basic\SPAREBasicAdd.cshtml" />
     <Content Include="Views\SPARE\Basic\SPAREBasicDetail.cshtml" />
     <Content Include="Views\SPARE\Basic\SPAREBasicList.cshtml" />

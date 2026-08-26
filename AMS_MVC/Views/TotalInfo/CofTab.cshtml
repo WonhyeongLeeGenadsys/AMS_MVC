@@ -7,7 +7,7 @@
 }
 
 @section MainContent {
-    <h1>CoF($) 전체 이력</h1>
+    <h1>CoF(원) 전체 이력</h1>
 
     <div class="con_box">
         <div class="content_warp">
@@ -21,13 +21,15 @@
         $(function () {
             const urlHist = '@Url.Action("GetHIPofCofHistory","TotalInfo")';
 
+            loadUsdKrwRate().always(function () {
             $.getJSON(urlHist, { prefix: '' })
                 .done(data => {
                     const history = data.map(d => {
                         const t = new Date(d.time);
                         t.setHours(0,0,0,0);
-                        return { ...d, time: t };
+                        return { ...d, time: t, cof: usdToEokKrw(d.cof) };
                     }).sort((a, b) => a.time - b.time);
+                    const maxCof = getRiskMatrixMaxEok(history.map(item => ({ x: item.cof })));
 
                     $("#cofBigChart").dxChart({
                         dataSource: history,
@@ -47,11 +49,11 @@
                             title: { text: "날짜" }
                         },
                         valueAxis: {
-                            title: "CoF ($)",
-                            visualRange: { startValue: 8000, endValue: 40000 },
-                            tickInterval: 8000,
+                            title: "CoF (억원)",
+                            visualRange: { startValue: 0, endValue: maxCof },
+                            tickInterval: maxCof / 5,
                             endOnTick: false,
-                            label: { customizeText: e => e.value.toLocaleString() + "$" }
+                            label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                         },
                         legend: {
                             visible: true,
@@ -67,7 +69,7 @@
                                 return { html:
                                   `<strong>${d.code}</strong><br/>
                                    날짜: ${DevExpress.localization.formatDate(d.time, "yy.MM.dd")}<br/>
-                                   CoF: ${Number(d.cof||0).toLocaleString()}$`
+                                   CoF: ${Number(d.cof||0).toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원`
                                 };
                             }
                         },
@@ -75,6 +77,7 @@
                     });
                 })
                 .fail(err => console.error('CofTab 오류', err));
+            });
         });
     </script>
 }

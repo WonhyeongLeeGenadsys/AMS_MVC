@@ -6,7 +6,7 @@ namespace Web.Common
 {
     public class VCBChkScoreCalculator
     {
-        public (decimal HI, decimal PoF) CalculateHiPof(VCBChk chk, decimal alpha = 1.00m) //alpha는 보정계수 0.99 고정
+        public (decimal HI, decimal PoF) CalculateHiPof(VCBChk chk, decimal alpha = 0.99m)
         {
             int[] scores = new[]
             {
@@ -44,7 +44,7 @@ namespace Web.Common
             int maxGrade = scores.Max(); // Max 값이 HI 값 
             int frequency = scores.Count(s => s == maxGrade); // Max값으로 빈도수 찾아서 해당하는 Pof값 반환
 
-            return HiPofTable.GetHiPof(maxGrade, frequency, alpha); 
+            return HiPofTable.GetHiPof(maxGrade, frequency, "VCB", alpha); 
         }
     }
 }

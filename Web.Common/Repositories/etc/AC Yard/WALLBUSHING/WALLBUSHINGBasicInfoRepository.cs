@@ -89,7 +89,12 @@ namespace Web.Common
                     b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM WALLBUSHING_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.WALLBUSHING_Code = r.CODE
+                OUTER APPLY (
+                    SELECT TOP (1) r.HI
+                    FROM RISKMATRIX r
+                    WHERE r.CODE = b.WALLBUSHING_Code
+                    ORDER BY r.LASTTIME DESC
+                ) r
                 ORDER BY b.TBL_IDX";
                     
                     wallbushingInfoWithRisk = dbHelper.Conn.Query(query).AsList();

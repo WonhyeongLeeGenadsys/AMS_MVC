@@ -21,9 +21,9 @@
                     <div class="policy-filter-wrap">
                         <select id="policyTypeFilter">
                             <option value="ALL">정책 전체</option>
-                            <option value="EOQ">EOQ</option>
-                            <option value="ROP">ROP</option>
-                            <option value="Min-Max">Min-Max</option>
+                            <option value="FIXED">FIXED</option>
+                            <option value="DYNAMIC">DYNAMIC</option>
+                            <option value="JIT">JIT</option>
                         </select>
 
                         <select id="assetTypeFilter">
@@ -240,12 +240,12 @@
                     },
                     {
                         dataField: "MIN",
-                        caption: "Min",
+                        caption: "최소재고",
                         alignment: "center"
                     },
                     {
                         dataField: "MAX",
-                        caption: "Max",
+                        caption: "최대재고",
                         alignment: "center"
                     },
                     {

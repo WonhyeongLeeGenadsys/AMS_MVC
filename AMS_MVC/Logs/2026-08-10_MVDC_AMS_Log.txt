@@ -1,0 +1,6 @@
+|2026-08-10 18:37:12  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-10 18:37:12  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-10 19:08:01  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-10 19:08:01  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-10 19:09:13  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-10 19:09:13  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |

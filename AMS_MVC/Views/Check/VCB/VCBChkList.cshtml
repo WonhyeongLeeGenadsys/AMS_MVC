@@ -41,8 +41,8 @@
                             return;
                         }
 
-                        // 작성일(Tbl_GetDate) 기준 내림차순 정렬
-                        let data = response.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+                        // 등록 순번(Tbl_Idx) 기준 내림차순 정렬
+                        let data = response.sort((a, b) => Number(b.Tbl_Idx) - Number(a.Tbl_Idx));
 
                         // 순번 매기기
                         data = data.map((item, index) => {

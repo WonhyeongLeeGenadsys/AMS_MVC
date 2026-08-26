@@ -18,6 +18,7 @@ namespace AMS_MVC
         public ActionResult SPAREBasicAdd(
             SPAREPartInfo model,
             List<int> asset_type_ids = null,
+            List<int> required_qtys = null,
             int? INITIAL_CURRENT_QTY = 0,
             int? INITIAL_SAFETY_STOCK = 0)
         {
@@ -44,22 +45,23 @@ namespace AMS_MVC
                 !INITIAL_SAFETY_STOCK.HasValue || INITIAL_SAFETY_STOCK.Value < 0)
                 return Json(new { success = false, message = "초기재고와 안전재고는 0 이상으로 입력하세요." });
 
-            var assetTypeIds = (asset_type_ids ?? new List<int>())
-                .Where(x => x >= 1 && x <= 5)
-                .Distinct()
-                .ToList();
-
-            if (assetTypeIds.Count == 0)
-                return Json(new { success = false, message = "연결 설비유형을 한 개 이상 선택하세요." });
+            if (!TryBuildAssetMaps(
+                asset_type_ids,
+                required_qtys,
+                out var assetMaps,
+                out var assetMapError))
+                return Json(new { success = false, message = assetMapError });
 
             model.PART_NUMBER = model.PART_NUMBER.Trim();
             model.PART_NAME = model.PART_NAME.Trim();
             model.CRITICALITY_GRADE = model.CRITICALITY_GRADE.Trim().ToUpperInvariant();
+            model.SUPPLIER = string.IsNullOrWhiteSpace(model.SUPPLIER) ? null : model.SUPPLIER.Trim();
+            model.NOTES = string.IsNullOrWhiteSpace(model.NOTES) ? null : model.NOTES.Trim();
             model.IS_ACTIVE = model.IS_ACTIVE ?? true;
 
             var result = spareBasicRepository.CreateSPAREBasicInfoRepo(
                 model,
-                assetTypeIds,
+                assetMaps,
                 new InventoryInfo
                 {
                     CURRENT_QTY = INITIAL_CURRENT_QTY.Value,

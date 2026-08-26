@@ -89,7 +89,12 @@ namespace Web.Common
                     b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM ARMREACTOR_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.ARMREACTOR_Code = r.CODE
+                OUTER APPLY (
+                    SELECT TOP (1) r.HI
+                    FROM RISKMATRIX r
+                    WHERE r.CODE = b.ARMREACTOR_Code
+                    ORDER BY r.LASTTIME DESC
+                ) r
                 ORDER BY b.TBL_IDX";
                     
                     armreactorInfoWithRisk = dbHelper.Conn.Query(query).AsList();

@@ -5,7 +5,7 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     var inventory = ViewBag.Inventory as InventoryInfo;
-    var assetTypeIds = ViewBag.AssetTypeIds as List<int>;
+    var assetMaps = ViewBag.AssetMaps as List<SpareAssetMapInfo>;
     var procurements = ViewBag.Procurements as List<ProcurementInfo>;
     var costs = ViewBag.Costs as List<CostManagementInfo>;
 
@@ -18,6 +18,14 @@
             case 3: return "SUBMODULE";
             case 4: return "DCCABLE";
             case 5: return "INTERFACETR";
+            case 6: return "CONVERTER";
+            case 7: return "CIRCUIT BREAKER";
+            case 8: return "CABLE";
+            case 9: return "SWITCHGEAR";
+            case 10: return "PROTECTION RELAY";
+            case 11: return "COOLING SYSTEM";
+            case 12: return "ENERGY STORAGE";
+            case 13: return "SCADA";
             default: return "UNKNOWN";
         }
     };
@@ -77,6 +85,12 @@
                             <td>@(Model.IS_ACTIVE.HasValue && Model.IS_ACTIVE.Value ? "사용" : "미사용")</td>
                         </tr>
                         <tr>
+                            <th>기본 공급사</th>
+                            <td>@(string.IsNullOrWhiteSpace(Model.SUPPLIER) ? "-" : Model.SUPPLIER)</td>
+                            <th>비고</th>
+                            <td>@(string.IsNullOrWhiteSpace(Model.NOTES) ? "-" : Model.NOTES)</td>
+                        </tr>
+                        <tr>
                             <th>현재재고</th>
                             <td>@(inventory != null ? inventory.CURRENT_QTY : 0)</td>
                             <th>안전재고</th>
@@ -89,11 +103,17 @@
                             <td>@(inventory != null ? inventory.REORDER_POINT : null)</td>
                         </tr>
                         <tr>
-                            <th>설비유형</th>
+                            <th>최소/최대재고</th>
+                            <td>@(inventory != null ? inventory.MIN_STOCK : null) / @(inventory != null ? inventory.MAX_STOCK : null)</td>
+                            <th>재고정책</th>
+                            <td>@(inventory != null ? inventory.POLICY_TYPE : null)</td>
+                        </tr>
+                        <tr>
+                            <th>설비유형 / 필요수량</th>
                             <td colspan="3">
-                                @if (assetTypeIds != null && assetTypeIds.Count > 0)
+                                @if (assetMaps != null && assetMaps.Count > 0)
                                 {
-                                    @(string.Join(", ", assetTypeIds.Select(getAssetTypeName)))
+                                    @(string.Join(", ", assetMaps.Select(x => getAssetTypeName(x.ASSET_TYPE_ID) + " " + x.REQUIRED_QTY + "개")))
                                 }
                                 else
                                 {

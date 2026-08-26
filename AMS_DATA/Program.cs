@@ -26,25 +26,25 @@ namespace AMS_DATA
                 ["YHLU06/SPDC3$ST$PaDschAlm$stVal"] = "ITR002",
                 ["YHLU06/SPDC4$ST$PaDschAlm$stVal"] = "ITR002",
 
-                // DC 차단기
+                // DC 차단기 acq, dcq 
                 ["YHLU01/SPDC1$ST$PaDschAlm$stVal"] = "DCCB001",
                 ["YHLU01/SPDC2$ST$PaDschAlm$stVal"] = "DCCB001",
+                 
+                // DC 접속재(DC Cable)  --> 유호에 없음 
+                //["YHLU04/SPDC1$ST$PaDschAlm$stVal"] = "DCCABLE001",
+                //["YHLU04/SPDC2$ST$PaDschAlm$stVal"] = "DCCABLE001",
 
-                // DC 접속재(DC Cable)
-                ["YHLU04/SPDC1$ST$PaDschAlm$stVal"] = "DCCABLE001",
-                ["YHLU04/SPDC2$ST$PaDschAlm$stVal"] = "DCCABLE001",
+                // DC 변압기(Submodule) --> 유호에 없음 
+                //["YHLU02/SPDC1$ST$PaDschAlm$stVal"] = "SUBMODULE001",
+                //["YHLU02/SPDC2$ST$PaDschAlm$stVal"] = "SUBMODULE001",
 
-                // DC 변압기(Submodule)
-                ["YHLU02/SPDC1$ST$PaDschAlm$stVal"] = "SUBMODULE001",
-                ["YHLU02/SPDC2$ST$PaDschAlm$stVal"] = "SUBMODULE001",
-
-                // 온도 센서
-                ["YHLU07/WTSTMP1$MX$Tmp$mag$f"] = "VCB001",
+                // 온도 센서 --> 부착된 센서 없음 
+                ["YHLU07/WTSTMP1$MX$Tmp$mag$f"] = "VCB001", 
                 ["YHLU07/WTSTMP2$MX$Tmp$mag$f"] = "VCB001",
                 ["YHLU06/ITSTMP1$MX$Tmp$mag$f"] = "ITR001",
                 ["YHLU06/ITSTMP2$MX$Tmp$mag$f"] = "ITR001",
                 ["YHLU06/ITSTMP3$MX$Tmp$mag$f"] = "ITR002",
-                ["YHLU06/ITSTMP4$MX$Tmp$mag$f"] = "ITR002",
+                ["YHLU06/ITSTMP4$MX$Tmp$mag$f"] = "ITR002",   
             };
 
         // 온도
@@ -523,6 +523,7 @@ namespace AMS_DATA
         {
             dccbRepo.GetLatestDCCBChkByDCCBCode(dccbCode, out var list);
             var latest = list?.OrderBy(x => x.Tbl_Idx).LastOrDefault();
+            
             if (latest == null)
             {
                 LogWarn($"DCCB 보통점검 없음 | 센서 HI 반영 스킵: {dccbCode}");

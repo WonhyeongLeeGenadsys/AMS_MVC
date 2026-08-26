@@ -58,6 +58,12 @@
                         </td>
                     </tr>
                     <tr>
+                        <th>보통점검 주기</th>
+                        <td>@(Model.Regular_Inspection_Cycle_Months > 0 ? Model.Regular_Inspection_Cycle_Months : 3)개월</td>
+                        <th>정밀점검 주기</th>
+                        <td>@(Model.Precision_Inspection_Cycle_Months > 0 ? Model.Precision_Inspection_Cycle_Months : 12)개월</td>
+                    </tr>
+                    <tr>
                         <th>예방진단 사용</th>
                         <td>@(Model.Is_Diagnostics ? "예" : "아니오")</td>
                         <th>건전도 사용</th>

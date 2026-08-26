@@ -7,10 +7,18 @@
 }
 
 @section MainContent {
-    <h1>예비품 비용계획</h1>
+    <h1>예비품 RUL 기반 3개년 조달계획</h1>
 
     <div class="con_box">
         <div class="content_warp spare-costplan-dashboard">
+
+            <div class="procurement-summary">
+                <span>계획기간 <strong id="planPeriod">-</strong></span>
+                <span>대상 품목 <strong id="planPartCount">0</strong>개</span>
+                <span>총 발주수량 <strong id="planOrderQty">0</strong>개</span>
+                <span>예상 발주비용 <strong id="planOrderCost">0원</strong></span>
+                <span>장기계획 장비 <strong id="planExcludedAssets">0</strong>대</span>
+            </div>
 
             <div class="costplan-chart-row">
                 <div class="costplan-chart-box">
@@ -22,10 +30,18 @@
 
                 <div class="costplan-chart-box">
                     <div class="costplan-chart-header">
-                        <h2>3개년 조달 예산</h2>
+                        <h2>RUL 기반 3개년 예상 발주비용</h2>
                     </div>
                     <div id="yearlyBudgetChart" class="costplan-chart-area"></div>
                 </div>
+            </div>
+
+            <div class="costplan-grid-box">
+                <div class="costplan-chart-header">
+                    <h2>연도별 조달 상세</h2>
+                    <span>RUL 3년 이상 장비는 장기계획으로 분류됩니다.</span>
+                </div>
+                <div id="procurementPlanGrid" class="grid_wrap"></div>
             </div>
 
         </div>
@@ -35,6 +51,23 @@
         .spare-costplan-dashboard {
             padding-top: 10px;
         }
+
+        .procurement-summary {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 24px;
+            margin-bottom: 14px;
+            padding: 13px 16px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+            font-size: 13px;
+        }
+
+            .procurement-summary strong {
+                color: #145DA0;
+                font-size: 15px;
+            }
 
         .costplan-chart-row {
             display: grid;
@@ -71,11 +104,20 @@
         .costplan-chart-area {
             height: 320px;
         }
+
+        .costplan-grid-box {
+            margin-top: 14px;
+            padding: 12px 16px 16px 16px;
+            border-radius: 10px;
+            background: #fff;
+            box-shadow: 2px 2px 4px rgba(0,0,0,0.08);
+        }
     </style>
 
     <script>
         $(document).ready(function () {
             initCostPlanCharts();
+            initProcurementPlanGrid();
             loadCostPlanData();
         });
 
@@ -152,6 +194,37 @@
             });
         }
 
+        function initProcurementPlanGrid() {
+            $("#procurementPlanGrid").dxDataGrid({
+                dataSource: [],
+                keyExpr: ["FISCAL_YEAR", "SPARE_ID"],
+                showBorders: true,
+                hoverStateEnabled: true,
+                rowAlternationEnabled: true,
+                columnAutoWidth: true,
+                paging: { pageSize: 20 },
+                pager: {
+                    visible: true,
+                    showPageSizeSelector: true,
+                    allowedPageSizes: [10, 20, 50],
+                    showInfo: true
+                },
+                columns: [
+                    { dataField: "FISCAL_YEAR", caption: "조달연도", alignment: "center" },
+                    { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                    { dataField: "PART_NAME", caption: "부품명" },
+                    { dataField: "ASSET_TYPE_NAME", caption: "설비유형", alignment: "center" },
+                    { dataField: "ASSET_CODES", caption: "대상 장비", minWidth: 140 },
+                    { dataField: "CRITICALITY_GRADE", caption: "중요도", alignment: "center" },
+                    { dataField: "MIN_RUL_YEARS", caption: "최소 RUL(년)", alignment: "right", format: { type: "fixedPoint", precision: 2 } },
+                    { dataField: "EXPECTED_DEMAND", caption: "예상수요", alignment: "right", format: { type: "fixedPoint", precision: 4 } },
+                    { dataField: "ORDER_QTY", caption: "권장 발주수량", alignment: "center", format: "#,##0" },
+                    { dataField: "UNIT_PRICE", caption: "단가(원)", alignment: "right", format: "#,##0" },
+                    { dataField: "ORDER_COST", caption: "예상 발주비용(원)", alignment: "right", format: "#,##0" }
+                ]
+            });
+        }
+
         function loadCostPlanData() {
             const currentYear = new Date().getFullYear();
 
@@ -182,6 +255,8 @@
         function renderCostPlan(data) {
             const assetCostRows = Array.isArray(data.assetCostRows) ? data.assetCostRows : [];
             const yearlyBudgetRows = Array.isArray(data.yearlyBudgetRows) ? data.yearlyBudgetRows : [];
+            const procurementRows = Array.isArray(data.procurementRows) ? data.procurementRows : [];
+            const summary = data.summary || {};
 
             const pieData = assetCostRows.map(x => ({
                 ASSET_TYPE_NAME: x.ASSET_TYPE_NAME,
@@ -197,6 +272,13 @@
                 LOW: Number(x.LOW || 0)
             }));
 
+            const baseYear = Number(summary.BASE_YEAR || new Date().getFullYear());
+            $("#planPeriod").text(baseYear + "~" + (baseYear + 2) + "년");
+            $("#planPartCount").text(Number(summary.TOTAL_PART_COUNT || 0).toLocaleString());
+            $("#planOrderQty").text(Number(summary.TOTAL_ORDER_QTY || 0).toLocaleString());
+            $("#planOrderCost").text(formatWon(summary.TOTAL_ORDER_COST));
+            $("#planExcludedAssets").text(Number(summary.EXCLUDED_ASSET_COUNT || 0).toLocaleString());
+
             console.log("pieData:", pieData);
             console.log("budgetData:", budgetData);
 
@@ -208,6 +290,11 @@
             const budgetChart = $("#yearlyBudgetChart").dxChart("instance");
             if (budgetChart) {
                 budgetChart.option("dataSource", budgetData);
+            }
+
+            const planGrid = $("#procurementPlanGrid").dxDataGrid("instance");
+            if (planGrid) {
+                planGrid.option("dataSource", procurementRows);
             }
         }
 

@@ -26,6 +26,8 @@ namespace Web.Common
                             CRITICALITY_GRADE,
                             UNIT_PRICE,
                             LEAD_TIME_DAYS,
+                            SUPPLIER,
+                            NOTES,
                             IS_ACTIVE,
                             CREATED_AT,
                             UPDATED_AT,
@@ -62,6 +64,8 @@ namespace Web.Common
                         CRITICALITY_GRADE,
                         UNIT_PRICE,
                         LEAD_TIME_DAYS,
+                        SUPPLIER,
+                        NOTES,
                         IS_ACTIVE,
                         CREATED_AT,
                         UPDATED_AT,
@@ -92,6 +96,9 @@ namespace Web.Common
                             SAFETY_STOCK,
                             EOQ,
                             REORDER_POINT,
+                            MIN_STOCK,
+                            MAX_STOCK,
+                            POLICY_TYPE,
                             LAST_UPDATED,
                             TBL_GETDATE
                         FROM TB_INVENTORY
@@ -110,10 +117,10 @@ namespace Web.Common
 
             return res;
         }
-        public Result GetInventoryListRepo(out List<dynamic> rows)
+        public Result GetInventoryListRepo(out List<InventoryListInfo> rows)
         {
             Result res = new Result(true);
-            rows = new List<dynamic>();
+            rows = new List<InventoryListInfo>();
 
             try
             {
@@ -129,13 +136,16 @@ namespace Web.Common
                     ISNULL(I.SAFETY_STOCK, 0) AS SAFETY_STOCK,
                     ISNULL(I.EOQ, 0) AS EOQ,
                     ISNULL(I.REORDER_POINT, 0) AS REORDER_POINT,
+                    ISNULL(I.MIN_STOCK, 0) AS MIN_STOCK,
+                    ISNULL(I.MAX_STOCK, 0) AS MAX_STOCK,
+                    ISNULL(I.POLICY_TYPE, '') AS POLICY_TYPE,
                     I.LAST_UPDATED
                 FROM TB_SPARE_PART S
                 LEFT JOIN TB_INVENTORY I
                     ON S.SPARE_ID = I.SPARE_ID
                 ORDER BY S.SPARE_ID DESC";
 
-                    rows = dbHelper.Conn.Query(query).ToList<dynamic>();
+                    rows = dbHelper.Conn.Query<InventoryListInfo>(query).ToList();
                     res.Message = "재고 목록 조회 성공";
                 }
             }
@@ -143,6 +153,7 @@ namespace Web.Common
             {
                 res.IsSuccess = false;
                 res.Message = "재고 목록 조회 실패: " + ex.Message;
+                LogHelper.WriteLog("DB(TB_INVENTORY)", res.Message + " / " + ex.StackTrace);
             }
 
             return res;
@@ -172,6 +183,45 @@ namespace Web.Common
             {
                 res.IsSuccess = false;
                 res.Message = "GetAssetTypeIdsBySPAREIdRepo 실패: " + ex.Message;
+                LogHelper.WriteLog("DB(TB_SPARE_ASSET_MAP)", res.Message + " / " + ex.StackTrace);
+            }
+
+            return res;
+        }
+
+        // 예비품별 설비유형 및 필요수량 조회
+        public Result GetAssetMapsBySPAREIdRepo(int spareId, out List<SpareAssetMapInfo> assetMaps)
+        {
+            Result res = new Result(true);
+            assetMaps = new List<SpareAssetMapInfo>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    var query = @"
+                        SELECT
+                            TBL_IDX,
+                            SPARE_ASSET_MAP_ID,
+                            SPARE_ID,
+                            ASSET_TYPE_ID,
+                            ISNULL(REQUIRED_QTY, 1) AS REQUIRED_QTY,
+                            CREATED_AT,
+                            TBL_GETDATE
+                        FROM TB_SPARE_ASSET_MAP
+                        WHERE SPARE_ID = @SPARE_ID
+                        ORDER BY ASSET_TYPE_ID";
+
+                    assetMaps = dbHelper.Conn.Query<SpareAssetMapInfo>(
+                        query,
+                        new { SPARE_ID = spareId }).AsList();
+                    res.Message = "GetAssetMapsBySPAREIdRepo 성공";
+                }
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "GetAssetMapsBySPAREIdRepo 실패: " + ex.Message;
                 LogHelper.WriteLog("DB(TB_SPARE_ASSET_MAP)", res.Message + " / " + ex.StackTrace);
             }
 
@@ -424,7 +474,7 @@ namespace Web.Common
         // 예비품 등록
         public Result CreateSPAREBasicInfoRepo(
             SPAREPartInfo sparePart,
-            List<int> assetTypeIds,
+            List<SpareAssetMapInfo> assetMaps,
             InventoryInfo initialInventory)
         {
             Result res = new Result(true);
@@ -452,12 +502,14 @@ namespace Web.Common
                 INSERT INTO TB_SPARE_PART
                 (
                     SPARE_ID, PART_NUMBER, PART_NAME, CRITICALITY_GRADE,
-                    UNIT_PRICE, LEAD_TIME_DAYS, IS_ACTIVE, CREATED_AT, UPDATED_AT
+                    UNIT_PRICE, LEAD_TIME_DAYS, SUPPLIER, NOTES,
+                    IS_ACTIVE, CREATED_AT, UPDATED_AT
                 )
                 VALUES
                 (
                     @SPARE_ID, @PART_NUMBER, @PART_NAME, @CRITICALITY_GRADE,
-                    @UNIT_PRICE, @LEAD_TIME_DAYS, @IS_ACTIVE, GETDATE(), NULL
+                    @UNIT_PRICE, @LEAD_TIME_DAYS, @SUPPLIER, @NOTES,
+                    @IS_ACTIVE, GETDATE(), NULL
                 )",
                         new
                         {
@@ -467,17 +519,25 @@ namespace Web.Common
                             CRITICALITY_GRADE = sparePart.CRITICALITY_GRADE,
                             UNIT_PRICE = sparePart.UNIT_PRICE,
                             LEAD_TIME_DAYS = sparePart.LEAD_TIME_DAYS,
+                            SUPPLIER = sparePart.SUPPLIER,
+                            NOTES = sparePart.NOTES,
                             IS_ACTIVE = sparePart.IS_ACTIVE
                         }, tx);
 
-                    foreach (var assetTypeId in (assetTypeIds ?? new List<int>()).Distinct())
+                    foreach (var assetMap in assetMaps ?? new List<SpareAssetMapInfo>())
                     {
                         conn.Execute(@"
                     INSERT INTO TB_SPARE_ASSET_MAP
-                    (SPARE_ASSET_MAP_ID, SPARE_ID, ASSET_TYPE_ID, CREATED_AT)
+                    (SPARE_ASSET_MAP_ID, SPARE_ID, ASSET_TYPE_ID, REQUIRED_QTY, CREATED_AT)
                     VALUES
-                    (NEXT VALUE FOR dbo.SEQ_SPARE_ASSET_MAP_ID, @SPARE_ID, @ASSET_TYPE_ID, GETDATE())",
-                            new { SPARE_ID = newSpareId, ASSET_TYPE_ID = assetTypeId }, tx);
+                    (NEXT VALUE FOR dbo.SEQ_SPARE_ASSET_MAP_ID, @SPARE_ID, @ASSET_TYPE_ID, @REQUIRED_QTY, GETDATE())",
+                            new
+                            {
+                                SPARE_ID = newSpareId,
+                                assetMap.ASSET_TYPE_ID,
+                                assetMap.REQUIRED_QTY
+                            },
+                            tx);
                     }
 
                     conn.Execute(@"
@@ -515,7 +575,7 @@ namespace Web.Common
         // 예비품 수정
         public Result UpdateSPAREBasicInfoRepo(
             SPAREPartInfo sparePart,
-            List<int> assetTypeIds)
+            List<SpareAssetMapInfo> assetMaps)
         {
             Result res = new Result(true);
 
@@ -543,6 +603,8 @@ namespace Web.Common
                     CRITICALITY_GRADE = @CRITICALITY_GRADE,
                     UNIT_PRICE = @UNIT_PRICE,
                     LEAD_TIME_DAYS = @LEAD_TIME_DAYS,
+                    SUPPLIER = @SUPPLIER,
+                    NOTES = @NOTES,
                     IS_ACTIVE = @IS_ACTIVE,
                     UPDATED_AT = GETDATE()
                 WHERE SPARE_ID = @SPARE_ID";
@@ -556,17 +618,18 @@ namespace Web.Common
                         new { SPARE_ID = sparePart.SPARE_ID },
                         transaction);
 
-                    foreach (var assetTypeId in (assetTypeIds ?? new List<int>()).Distinct())
+                    foreach (var assetMap in assetMaps ?? new List<SpareAssetMapInfo>())
                     {
                         conn.Execute(@"
                     INSERT INTO TB_SPARE_ASSET_MAP
-                    (SPARE_ASSET_MAP_ID, SPARE_ID, ASSET_TYPE_ID, CREATED_AT)
+                    (SPARE_ASSET_MAP_ID, SPARE_ID, ASSET_TYPE_ID, REQUIRED_QTY, CREATED_AT)
                     VALUES
-                    (NEXT VALUE FOR dbo.SEQ_SPARE_ASSET_MAP_ID, @SPARE_ID, @ASSET_TYPE_ID, GETDATE())",
+                    (NEXT VALUE FOR dbo.SEQ_SPARE_ASSET_MAP_ID, @SPARE_ID, @ASSET_TYPE_ID, @REQUIRED_QTY, GETDATE())",
                             new
                             {
                                 SPARE_ID = sparePart.SPARE_ID,
-                                ASSET_TYPE_ID = assetTypeId
+                                assetMap.ASSET_TYPE_ID,
+                                assetMap.REQUIRED_QTY
                             },
                             transaction);
                     }

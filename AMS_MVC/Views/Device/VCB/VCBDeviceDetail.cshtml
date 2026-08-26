@@ -187,15 +187,17 @@
             $(function () {
                     const code = '@Model.VCB_Code';
 
-
+      loadUsdKrwRate().always(function () {
       $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'vcb' })
      .done(function (allPoints) {
          // name 프로퍼티가 모델의 코드와 일치하는 포인트만
-         const point = allPoints.find(p => p.name === code);
-         if (!point) {
+         const sourcePoint = allPoints.find(p => p.name === code);
+         if (!sourcePoint) {
              console.warn("해당 장비의 포인트를 찾지 못했습니다:", code);
              return;
          }
+         const point = { ...sourcePoint, x: usdToEokKrw(sourcePoint.x) };
+         const maxCof = getRiskMatrixMaxEok([point]);
 
 
          $("#chartRiskVCB").dxChart({
@@ -213,17 +215,17 @@
 
              seriesTemplate: { nameField: "group" },
              argumentAxis: {
-                 visualRange: { startValue: 0, endValue: 40000 },
+                 visualRange: { startValue: 0, endValue: maxCof },
                  valueMarginsEnabled: false, // 여백 제거
-                 tickInterval: 8000,
+                 tickInterval: maxCof / 5,
                  grid: {
                      visible: true,
                      opacity: 0.5, /* 선을 더 연하게 */
                      color: '#ffffff', /* 선 색상 지정 */
                      width: 1 /* 선 두께 지정 */
                  },
-                 title: { text: "CoF ($)" },
-                 label: { customizeText: e => e.value.toLocaleString() }
+               title: { text: "CoF (억원)" },
+               label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
              },
 
              valueAxis: {
@@ -255,7 +257,7 @@
                      return {
                          html:
                              `<strong>${d.name}</strong><br/>
-                CoF: ${d.x.toLocaleString()}$<br/>
+                 CoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원<br/>
                 PoF: ${d.y.toFixed(2)}%`
                      };
                  }
@@ -263,7 +265,7 @@
              },
              onPointClick(e) {
                  const d = e.target.originalData;
-                 alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+             alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원\nPoF: ${d.y.toFixed(2)}%`);
              },
              legend: {
                  visible: true, position: "bottom",
@@ -277,6 +279,7 @@
          });      })
       .fail(function(err) {
         console.error("GetRiskMapPoints 호출 실패:", err);
+      });
       });
   });
         </script>
@@ -637,5 +640,6 @@
                 <p>보통점검 데이터가 없습니다.</p>
             }
         </div>
+        @Html.Partial("_DmEquipmentAnalysis", Model?.VCB_Code)
     </div>
 }

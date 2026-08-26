@@ -49,7 +49,8 @@ namespace Web.Common
                 {
                     var query = @"SELECT TBL_IDX, VCB_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                          INSTALL_PLACE, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, IS_DIAGNOSTICS, 
-                                         IS_HEALTH, WRITER, TBL_GETDATE 
+                                         IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS, PRECISION_INSPECTION_CYCLE_MONTHS,
+                                         WRITER, TBL_GETDATE
                                   FROM VCB_BASICINFO";
                     vcbBasicInfo = dbHelper.Conn.Query<VCBBasicInfo>(query).AsList();
 
@@ -130,10 +131,14 @@ namespace Web.Common
                             var queryBasicInfo = @"
                             INSERT INTO VCB_BASICINFO (VCB_CODE, SERIAL_NO, NAME, INSTALL_DATE, OPERATING_DATE, PRICE, 
                                              INSTALL_PLACE, CAPACITY, RATED_V, RATED_A, MAKE_COMPANY, MAKE_NO, PHOTO, 
-                                             IS_DIAGNOSTICS, IS_HEALTH, WRITER) 
+                                             IS_DIAGNOSTICS, IS_HEALTH, REGULAR_INSPECTION_CYCLE_MONTHS,
+                                             PRECISION_INSPECTION_CYCLE_MONTHS, WRITER)
                             VALUES (@VCB_Code, @Serial_No, @Name, @Install_Date, @Operating_Date, @Price, @Install_Place, 
                                     @Capacity, @Rated_V, @Rated_A, @Make_Company, @Make_No, @Photo, @Is_Diagnostics, 
-                                    @Is_Health, @Writer)";
+                                    @Is_Health,
+                                    CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END,
+                                    CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END,
+                                    @Writer)";
 
                             int affectedRowsBasicInfo = conn.Execute(queryBasicInfo, newVCBBasicInfo, transaction);
 
@@ -209,6 +214,8 @@ namespace Web.Common
                         PHOTO = @Photo, 
                         IS_DIAGNOSTICS = @Is_Diagnostics, 
                         IS_HEALTH = @Is_Health, 
+                        REGULAR_INSPECTION_CYCLE_MONTHS = CASE WHEN @Regular_Inspection_Cycle_Months > 0 THEN @Regular_Inspection_Cycle_Months ELSE 3 END,
+                        PRECISION_INSPECTION_CYCLE_MONTHS = CASE WHEN @Precision_Inspection_Cycle_Months > 0 THEN @Precision_Inspection_Cycle_Months ELSE 12 END,
                         WRITER = @Writer
                     WHERE VCB_CODE = @VCB_Code";
 

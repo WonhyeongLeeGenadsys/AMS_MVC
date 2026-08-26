@@ -89,7 +89,12 @@ namespace Web.Common
                     b.REMAIN_LIFE   AS Remain_Life,
                     r.HI
                 FROM PUMP_BASICINFO b
-                LEFT JOIN RISKMATRIX r ON b.PUMP_Code = r.CODE
+                OUTER APPLY (
+                    SELECT TOP (1) r.HI
+                    FROM RISKMATRIX r
+                    WHERE r.CODE = b.PUMP_Code
+                    ORDER BY r.LASTTIME DESC
+                ) r
                 ORDER BY b.TBL_IDX";
                     
                     pumpInfoWithRisk = dbHelper.Conn.Query(query).AsList();

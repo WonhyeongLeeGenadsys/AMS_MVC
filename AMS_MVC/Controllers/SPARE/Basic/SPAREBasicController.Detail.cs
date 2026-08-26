@@ -21,12 +21,12 @@ namespace AMS_MVC
             }
 
             spareBasicRepository.GetInventoryBySPAREIdRepo(spareId, out var inventory);
-            spareBasicRepository.GetAssetTypeIdsBySPAREIdRepo(spareId, out var assetTypeIds);
+            spareBasicRepository.GetAssetMapsBySPAREIdRepo(spareId, out var assetMaps);
             spareBasicRepository.GetProcurementBySPAREIdRepo(spareId, out var procurements);
             spareBasicRepository.GetCostManagementBySPAREIdRepo(spareId, out var costs);
 
             ViewBag.Inventory = inventory ?? new InventoryInfo();
-            ViewBag.AssetTypeIds = assetTypeIds ?? new List<int>();
+            ViewBag.AssetMaps = assetMaps ?? new List<SpareAssetMapInfo>();
             ViewBag.Procurements = procurements ?? new List<ProcurementInfo>();
             ViewBag.Costs = costs ?? new List<CostManagementInfo>();
 

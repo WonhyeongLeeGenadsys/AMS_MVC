@@ -10,33 +10,12 @@
                 <h2>Risk Matrix</h2>
                 <div class="matrix_group">
                     <div id="chartContainerAll" class="chart_box matrix" data-prefix="all"></div>
-                    <!--배경계단식으로 처리-->
                     <ul class="chartContainer_bg">
-                        <li class="yellow"></li>
-                        <li class="yellow"></li>
-                        <li class="orange"></li>
-                        <li class="orange"></li>
-                        <li class="orange"></li>
-                        <li class="green"></li>
-                        <li class="yellow"></li>
-                        <li class="yellow"></li>
-                        <li class="orange"></li>
-                        <li class="orange"></li>
-                        <li class="green"></li>
-                        <li class="green"></li>
-                        <li class="yellow"></li>
-                        <li class="yellow"></li>
-                        <li class="orange"></li>
-                        <li class="blue"></li>
-                        <li class="green"></li>
-                        <li class="green"></li>
-                        <li class="yellow"></li>
-                        <li class="yellow"></li>
-                        <li class="blue"></li>
-                        <li class="blue"></li>
-                        <li class="green"></li>
-                        <li class="green"></li>
-                        <li class="yellow"></li>
+                        <li class="yellow"></li><li class="yellow"></li><li class="orange"></li><li class="orange"></li><li class="orange"></li>
+                        <li class="green"></li><li class="yellow"></li><li class="yellow"></li><li class="orange"></li><li class="orange"></li>
+                        <li class="green"></li><li class="green"></li><li class="yellow"></li><li class="yellow"></li><li class="orange"></li>
+                        <li class="blue"></li><li class="green"></li><li class="green"></li><li class="yellow"></li><li class="yellow"></li>
+                        <li class="blue"></li><li class="blue"></li><li class="green"></li><li class="green"></li><li class="yellow"></li>
                     </ul>
                 </div>
             </li>
@@ -59,19 +38,12 @@
                 <li class="tab_btn" data-tab="gridContainer03">점검일정</li>
                 <li class="tab_btn" data-tab="gridContainer04">의사결정(DM)</li>
             </ul>
-            <!--그리드-->
             <div id="gridContainer" class="grid_wrap totalInfo_content on" style="height: 250px;"></div>
-            <!--//그리드-->
-
             <div id="gridContainer02" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
-
             <div id="gridContainer03" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
-
             <div id="gridContainer04" class="grid_wrap totalInfo_content" style="height: 250px;"></div>
         </div>
 
-        <!--차년도 유지보수 대상-->
-        <!-- con_box01 안에 단 한 번만! -->
         <div class="guide_txt_wrap">
             <h2>유지보수 의사결정</h2>
             <ul>
@@ -80,12 +52,115 @@
                 <li id="strategyDC">로딩 중...</li>
             </ul>
         </div>
+
+        <section class="dm-v31-dashboard" aria-label="MVDC AMS v3.1 의사결정 대시보드">
+            <div class="dm-v31-heading">
+                <div>
+                    <h2>DM 상세분석</h2>
+                    <p>유지보수 의사결정의 근거와 노후화, 경제성, 예비품 계획을 상세하게 확인합니다.</p>
+                </div>
+            </div>
+            <div class="dm-v31-tabs" role="tablist" aria-label="의사결정 분석 탭">
+                <button type="button" class="dm-v31-tab is-active" data-target="dmV31Overview" role="tab" aria-selected="true">종합·Risk</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Condition" role="tab" aria-selected="false">노후화·RUL</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Economy" role="tab" aria-selected="false">경제성·예산</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Spare" role="tab" aria-selected="false">예비품·조달</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Explain" role="tab" aria-selected="false">XAI·검증</button>
+            </div>
+            <div class="dm-v31-tab-panels">
+                <div id="dmV31Overview" class="dm-v31-tab-panel is-active" role="tabpanel">
+                    <div id="dmV31Kpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid dm-v31-overview-grid">
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>DM 우선대상 (Top 10)</h3><div id="dmTopRiskGrid"></div></article>
+                        <article class="dm-v31-chart-card"><h3>의사결정 분포</h3><div id="dmDecisionChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>계통 신뢰도 지수</h3><div id="dmReliabilityGauges" class="dm-v31-gauge-wrap"><div id="dmSaidiGauge"></div><div id="dmSaifiGauge"></div></div></article>
+                        <article class="dm-v31-chart-card"><h3>잔존수명 분포</h3><div id="dmRulChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>교체 우선순위</h3><div id="dmPriorityChart"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Condition" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading"><h2>설비 노후화·진단</h2><p>운영연수, HI, PoF, RUL과 예측 불확실성을 함께 확인합니다.</p></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>설비 노후화 (운영연수–HI)</h3><div id="dmAgingChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>HI–PoF 관계</h3><div id="dmHiPofChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>장비별 잔여수명(RUL)</h3><div id="dmRulAssetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>PoF 예측 궤적</h3><div id="dmPofTrajectoryChart"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>PoF·RUL 90% 신뢰구간</h3><div id="dmUncertaintyGrid"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Economy" class="dm-v31-tab-panel" role="tabpanel">
+                    <div id="dmAdvancedKpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>경제성 분석 (편익·비용·NPV)</h3><div id="dmEconomicChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>NPV 편익 구성</h3><div id="dmBenefitChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>위험 분해 (4D CoF)</h3><div id="dmCof4dChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>장비별 4D CoF</h3><div id="dmCofAssetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>최적 예산 배분</h3><div id="dmBudgetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>시나리오별 5개년 Fleet Risk</h3><div id="dmPredictionChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>다년 예산계획</h3><div id="dmMultiYearChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>경제성·PoF·RUL 민감도</h3><div id="dmSensitivityChart"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Spare" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading dm-v31-subheading-action">
+                        <div><h2>예비품 계획</h2><p>DM 결과와 BOM을 연결한 예상수요, 재고정책, 3개년 조달계획입니다.</p></div>
+                        <a class="dm-v31-download" href="@Url.Action("SPAREOverview", "SpareDashboard")">예비품 상세화면</a>
+                    </div>
+                    <div id="dmSpareKpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>예비품 예상수요 (Top 10)</h3><div id="dmSpareDemandChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>재고 정책 분포</h3><div id="dmInventoryPolicyChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>3개년 조달예산</h3><div id="dmProcurementChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>핵심 예비품</h3><div id="dmSpareGrid"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Explain" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading"><h2>의사결정 설명·검증</h2><p>주요 기여요인, 설비별 산정 근거와 입력 데이터 준비상태를 확인합니다.</p></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>의사결정 주요 영향요인</h3><div id="dmXaiChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>PoF·RUL 민감도</h3><div id="dmSensitivityExplainChart"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>장비별 의사결정 근거</h3><div id="dmExplanationGrid"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>고급 모듈 입력 준비상태</h3><div id="dmReadinessGrid"></div></article>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
+
+    <script>
+        $(function () {
+            function repaintDmPanel(panel) {
+                $(panel).find('[id]').each(function () {
+                    const target = $(this);
+                    ['dxChart', 'dxPieChart', 'dxCircularGauge', 'dxDataGrid'].some(function (plugin) {
+                        try {
+                            const instance = target[plugin]('instance');
+                            if (!instance) return false;
+                            if (typeof instance.render === 'function') instance.render();
+                            else if (typeof instance.repaint === 'function') instance.repaint();
+                            return true;
+                        } catch (e) {
+                            return false;
+                        }
+                    });
+                });
+            }
+
+            $('.dm-v31-tab').on('click', function () {
+                const targetId = $(this).data('target');
+                $('.dm-v31-tab').removeClass('is-active').attr('aria-selected', 'false');
+                $(this).addClass('is-active').attr('aria-selected', 'true');
+                $('.dm-v31-tab-panel').removeClass('is-active');
+                const panel = $('#' + targetId).addClass('is-active');
+                if (window.dmV31Lazy) window.dmV31Lazy.activatePanel(targetId);
+                window.setTimeout(function () { repaintDmPanel(panel); }, 0);
+            });
+        });
+    </script>
 
     @*유지보수 스크립트*@
     <script>
         $(function () {
-            const urlDM = '@Url.Action("GetDMDecisionInfo","TotalInfo")';
             const decisionStyles = {
                 '즉시 교체': { color: '#d32f2f', background: '#ffebee' },
                 '긴급 유지보수': { color: '#ef6c00', background: '#fff3e0' },
@@ -113,15 +188,46 @@
                 );
             }
 
+            function getStrategySummary(result, prefix) {
+                if (!prefix) return result.summary || {};
+
+                const rows = (result.rows || [])
+                    .filter(function (row) {
+                        return String(row.Sort || '').toUpperCase() === prefix;
+                    })
+                    .sort(function (a, b) {
+                        return Number(a.Priority || 0) - Number(b.Priority || 0);
+                    });
+                const top = rows[0] || {};
+                const count = function (decision) {
+                    return rows.filter(function (row) { return row.Decision === decision; }).length;
+                };
+
+                return {
+                    Total: rows.length,
+                    ReplaceImmediate: count('즉시 교체'),
+                    UrgentMaintenance: count('긴급 유지보수'),
+                    PreventiveMaintenance: count('예방 유지보수'),
+                    ScheduledInspection: count('정기점검'),
+                    ContinueMonitoring: count('계속 감시'),
+                    DataRequired: count('데이터 확인 필요'),
+                    TopCode: top.Code || '',
+                    TopName: top.ProductName || top.Name || '',
+                    TopDecision: top.Decision || '',
+                    TopAction: top.RecommendedAction || ''
+                };
+            }
+
             function loadStrategy(prefix, selector, label) {
-                $.getJSON(urlDM, { prefix: prefix })
+                // 전체 결과에 AC/DC 구분값이 모두 포함되므로 한 번만 계산해 세 요약에서 공유한다.
+                window.totalInfoDataHub.getDm('')
                     .done(function (result) {
                         if (!result || result.success === false) {
                             $(selector).text(label + ' 의사결정 데이터를 불러오지 못했습니다.');
                             return;
                         }
 
-                        const s = result.summary;
+                        const s = getStrategySummary(result, prefix);
                         const target = $(selector).empty();
                         appendText(target, `${label} ${s.Total}대: `);
                         const decisions = [
@@ -171,11 +277,554 @@
         });
     </script>
 
+    <script>
+        window.dmV31Lazy.register('advanced', function () {
+            const url = '@Url.Action("GetDMAdvancedAnalysis", "TotalInfo")';
+            const eok = value => Number(value || 0) / 100000000;
+            const fixed = (value, digits) => Number(value || 0).toLocaleString('ko-KR', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits
+            });
+            const actionName = action => ({
+                REPLACE: '교체',
+                MAINTAIN: '정비',
+                DO_NOTHING: '현 상태 유지'
+            }[action] || action);
+
+            loadUsdKrwRate().always(function () {
+            $.getJSON(url, { prefix: '' })
+                .done(function (response) {
+                    if (!response || response.success === false || !response.result) return;
+                    const result = response.result;
+                    const budget = result.Budget || {};
+                    const kpis = [
+                        ['연간 예산', fixed(eok(budget.TotalBudget), 1) + '억원'],
+                        ['최적 배분액', fixed(eok(budget.TotalCost), 2) + '억원'],
+                        ['예산 사용률', fixed(budget.UtilizationPct, 1) + '%'],
+                        ['교체 선정', fixed(budget.ReplaceCount, 0) + '대'],
+                        ['정비 선정', fixed(budget.MaintainCount, 0) + '대']
+                    ];
+                    const kpiTarget = $('#dmAdvancedKpis').empty();
+                    kpis.forEach(item => {
+                        $('<div>').addClass('dm-v31-kpi')
+                            .append($('<span>').text(item[0]))
+                            .append($('<strong>').text(item[1]))
+                            .appendTo(kpiTarget);
+                    });
+
+                    const budgetRows = (budget.Actions || [])
+                        .filter(row => row.Action !== 'DO_NOTHING')
+                        .map(row => ({
+                            name: row.ProductName || row.Code,
+                            action: actionName(row.Action),
+                            cost: eok(row.Cost),
+                            benefit: eok(row.Benefit)
+                        }));
+                    $('#dmBudgetChart').dxChart({
+                        dataSource: budgetRows,
+                        commonSeriesSettings: { type: 'bar', argumentField: 'name' },
+                        series: [
+                            { valueField: 'cost', name: '배분액' },
+                            { valueField: 'benefit', name: '예상 편익' }
+                        ],
+                        valueAxis: { title: { text: '금액(억원)' } },
+                        argumentAxis: { label: { overlappingBehavior: 'rotate', rotationAngle: 35 } },
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + e.point.data.action + '\n' + e.seriesName + ' ' + fixed(e.value, 2) + '억원' }) }
+                    });
+
+                    const predictionRows = (result.Predictions || []).map(row => ({
+                        year: String(row.CalendarYear),
+                        scenario: row.ScenarioName,
+                        risk: usdToEokKrw(row.FleetRisk),
+                        pof: Number(row.AveragePofPct || 0)
+                    }));
+                    $('#dmPredictionChart').dxChart({
+                        dataSource: predictionRows,
+                        commonSeriesSettings: { type: 'line', argumentField: 'year', valueField: 'risk', point: { visible: true } },
+                        seriesTemplate: { nameField: 'scenario' },
+                        valueAxis: { title: { text: 'Fleet Risk(억원)' } },
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: { enabled: true, customizeTooltip: e => ({ text: e.seriesName + '\n' + e.argumentText + '년 Risk ' + fixed(e.value, 3) + '억원\n평균 PoF ' + fixed(e.point.data.pof, 2) + '%' }) }
+                    });
+
+                    $('#dmPofTrajectoryChart').dxChart({
+                        dataSource: predictionRows,
+                        commonSeriesSettings: { type: 'line', argumentField: 'year', valueField: 'pof', point: { visible: true } },
+                        seriesTemplate: { nameField: 'scenario' },
+                        valueAxis: { visualRange: { startValue: 0, endValue: 100 }, title: { text: '평균 PoF(%)' } },
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: { enabled: true, customizeTooltip: e => ({ text: e.seriesName + '\n' + e.argumentText + '년 PoF ' + fixed(e.value, 2) + '%' }) }
+                    });
+
+                    const explanations = result.Explanations || [];
+                    const factorDefinitions = [
+                        ['PoF', 'PofContribution'],
+                        ['Risk', 'RiskContribution'],
+                        ['HI', 'HiContribution'],
+                        ['RUL', 'RulContribution'],
+                        ['중요도', 'CriticalityContribution'],
+                        ['BCR', 'BcrContribution']
+                    ];
+                    const factorRows = factorDefinitions.map(item => ({
+                        name: item[0],
+                        value: explanations.length
+                            ? explanations.reduce((sum, row) => sum + Math.abs(Number(row[item[1]] || 0)), 0) / explanations.length * 100
+                            : 0
+                    })).sort((a, b) => b.value - a.value);
+                    $('#dmXaiChart').dxChart({
+                        dataSource: factorRows,
+                        rotated: true,
+                        series: [{ type: 'bar', argumentField: 'name', valueField: 'value', name: '평균 기여도', label: { visible: true, customizeText: e => fixed(e.value, 1) + '%' } }],
+                        valueAxis: { title: { text: '평균 |기여도| (%)' } },
+                        legend: { visible: false },
+                        tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '%' }) }
+                    });
+
+                    $('#dmExplanationGrid').dxDataGrid({
+                        dataSource: explanations,
+                        showBorders: true,
+                        rowAlternationEnabled: true,
+                        paging: { pageSize: 5 },
+                        wordWrapEnabled: true,
+                        columns: [
+                            { dataField: 'ProductName', caption: '설비명', width: 120 },
+                            { dataField: 'Decision', caption: '의사결정', width: 95 },
+                            { dataField: 'TopFactor', caption: '최대 요인', width: 80 },
+                            { dataField: 'Explanation', caption: '산정 근거' }
+                        ]
+                    });
+
+                    const multiYearRows = (result.MultiYearPlan || []).map(row => ({
+                        year: String(row.CalendarYear),
+                        budget: eok(row.Budget),
+                        spent: eok(row.Spent),
+                        benefit: eok(row.RiskReduction),
+                        backlog: Number(row.UrgentBacklog || 0)
+                    }));
+                    $('#dmMultiYearChart').dxChart({
+                        dataSource: multiYearRows,
+                        commonSeriesSettings: { argumentField: 'year' },
+                        series: [
+                            { type: 'bar', valueField: 'spent', name: '집행액', axis: 'money' },
+                            { type: 'bar', valueField: 'benefit', name: '위험경감 편익', axis: 'money' },
+                            { type: 'line', valueField: 'backlog', name: '긴급 백로그', axis: 'count', point: { visible: true } }
+                        ],
+                        valueAxis: [
+                            { name: 'money', title: { text: '금액(억원)' } },
+                            { name: 'count', position: 'right', title: { text: '백로그(대)' }, allowDecimals: false }
+                        ],
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: { enabled: true, shared: true }
+                    });
+
+                    const sensitivityRows = (result.Sensitivity || []).map(row => ({
+                        name: row.ParameterName,
+                        pof: Number(row.AveragePofSwingPct || 0),
+                        rul: Number(row.AverageRulSwingYears || 0)
+                    }));
+                    const sensitivityOptions = {
+                        dataSource: sensitivityRows,
+                        rotated: true,
+                        commonSeriesSettings: { type: 'bar', argumentField: 'name' },
+                        series: [
+                            { valueField: 'pof', name: 'PoF 변동폭(%)', axis: 'pofAxis' },
+                            { valueField: 'rul', name: 'RUL 변동폭(년)', axis: 'rulAxis' }
+                        ],
+                        valueAxis: [
+                            { name: 'pofAxis', position: 'bottom', title: { text: 'PoF 변동폭(%)' } },
+                            { name: 'rulAxis', position: 'top', title: { text: 'RUL 변동폭(년)' } }
+                        ],
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: { enabled: true }
+                    };
+                    $('#dmSensitivityChart').dxChart(sensitivityOptions);
+                    $('#dmSensitivityExplainChart').dxChart($.extend(true, {}, sensitivityOptions));
+
+                    $('#dmUncertaintyGrid').dxDataGrid({
+                        dataSource: result.Uncertainty || [],
+                        showBorders: true,
+                        rowAlternationEnabled: true,
+                        paging: { pageSize: 5 },
+                        columns: [
+                            { dataField: 'ProductName', caption: '설비명', width: 135 },
+                            { dataField: 'PofMeanPct', caption: 'PoF 평균', format: { type: 'fixedPoint', precision: 2 } },
+                            { caption: 'PoF 90% CI', calculateCellValue: r => fixed(r.PofCiLowerPct, 2) + '~' + fixed(r.PofCiUpperPct, 2) + '%' },
+                            { dataField: 'RulMeanYears', caption: 'RUL 평균', format: { type: 'fixedPoint', precision: 2 } },
+                            { caption: 'RUL 90% CI', calculateCellValue: r => fixed(r.RulCiLowerYears, 2) + '~' + fixed(r.RulCiUpperYears, 2) + '년' }
+                        ]
+                    });
+
+                    $('#dmReadinessGrid').dxDataGrid({
+                        dataSource: result.InputReadiness || [],
+                        showBorders: true,
+                        rowAlternationEnabled: true,
+                        paging: { enabled: false },
+                        wordWrapEnabled: true,
+                        columns: [
+                            { dataField: 'Feature', caption: '기능', width: 150 },
+                            { dataField: 'Ready', caption: '상태', width: 75, calculateCellValue: r => r.Ready ? '사용 가능' : '입력 필요' },
+                            { dataField: 'Message', caption: '확인사항' }
+                        ]
+                    });
+                });
+            });
+        });
+    </script>
+
+    <script>
+        window.dmV31Lazy.register('spare', function () {
+            const demandUrl = '@Url.Action("GetSPAREDemandForecastData", "SpareDashboard")';
+            const planUrl = '@Url.Action("GetSPARECostPlanData", "SpareDashboard")';
+            const eok = value => Number(value || 0) / 100000000;
+            const fixed = (value, digits) => Number(value || 0).toLocaleString('ko-KR', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits
+            });
+
+            $.when(
+                $.ajax({ url: demandUrl, method: 'POST', dataType: 'json' }),
+                $.ajax({ url: planUrl, method: 'POST', dataType: 'json' })
+            ).done(function (demandArgs, planArgs) {
+                const demand = demandArgs[0] || {};
+                const plan = planArgs[0] || {};
+                if (demand.success === false || plan.success === false) {
+                    $('#dmSpareKpis').html('<div class="dm-v31-empty">예비품 계획 데이터를 불러오지 못했습니다.</div>');
+                    return;
+                }
+
+                const summary = demand.summary || {};
+                const planSummary = plan.summary || {};
+                const kpis = [
+                    ['등록 예비품', fixed(summary.TOTAL_PART_COUNT, 0) + '종'],
+                    ['수요 발생', fixed(summary.FORECAST_PART_COUNT, 0) + '종'],
+                    ['부족 예비품', fixed(summary.SHORTAGE_PART_COUNT, 0) + '종'],
+                    ['권장수량', fixed(summary.TOTAL_RECOMMENDED_QTY, 0) + '개'],
+                    ['3개년 조달비', fixed(eok(planSummary.TOTAL_ORDER_COST), 2) + '억원']
+                ];
+                const kpiTarget = $('#dmSpareKpis').empty();
+                kpis.forEach(item => {
+                    $('<div>').addClass('dm-v31-kpi')
+                        .append($('<span>').text(item[0]))
+                        .append($('<strong>').text(item[1]))
+                        .appendTo(kpiTarget);
+                });
+
+                const rows = demand.rows || [];
+                const demandRows = rows.slice().sort((a, b) => Number(b.EXPECTED_DEMAND || 0) - Number(a.EXPECTED_DEMAND || 0)).slice(0, 10);
+                $('#dmSpareDemandChart').dxChart({
+                    dataSource: demandRows,
+                    rotated: true,
+                    series: [{ type: 'bar', argumentField: 'PART_NAME', valueField: 'EXPECTED_DEMAND', name: '예상수요', label: { visible: true, format: { type: 'fixedPoint', precision: 2 } } }],
+                    valueAxis: { title: { text: '예상수요' } },
+                    legend: { visible: false },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n예상수요 ' + fixed(e.value, 3) + '\n권장 ' + fixed(e.point.data.RECOMMENDED_QTY, 0) + '개' }) }
+                });
+
+                const policyFor = grade => grade === 'CRITICAL' ? 'FIXED' : (grade === 'LOW' ? 'JIT' : 'DYNAMIC');
+                const policyCounts = rows.reduce((acc, row) => {
+                    const policy = policyFor(String(row.CRITICALITY_GRADE || '').toUpperCase());
+                    acc[policy] = (acc[policy] || 0) + 1;
+                    return acc;
+                }, { FIXED: 0, DYNAMIC: 0, JIT: 0 });
+                $('#dmInventoryPolicyChart').dxPieChart({
+                    type: 'doughnut',
+                    dataSource: Object.keys(policyCounts).map(name => ({ name: name, value: policyCounts[name] })),
+                    palette: ['#e74c3c', '#3498db', '#27ae60'],
+                    series: [{ argumentField: 'name', valueField: 'value', label: { visible: true, connector: { visible: true }, customizeText: e => e.argumentText + ' ' + e.valueText + '종' } }],
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true }
+                });
+
+                const yearlyRows = (plan.yearlyBudgetRows || []).map(row => ({
+                    year: String(row.FISCAL_YEAR),
+                    critical: eok(row.CRITICAL),
+                    high: eok(row.HIGH),
+                    medium: eok(row.MEDIUM),
+                    low: eok(row.LOW)
+                }));
+                $('#dmProcurementChart').dxChart({
+                    dataSource: yearlyRows,
+                    commonSeriesSettings: { type: 'stackedBar', argumentField: 'year' },
+                    series: [
+                        { valueField: 'critical', name: 'CRITICAL', color: '#e74c3c' },
+                        { valueField: 'high', name: 'HIGH', color: '#f39c12' },
+                        { valueField: 'medium', name: 'MEDIUM', color: '#3498db' },
+                        { valueField: 'low', name: 'LOW', color: '#27ae60' }
+                    ],
+                    valueAxis: { title: { text: '발주비(억원)' } },
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true, shared: true }
+                });
+
+                $('#dmSpareGrid').dxDataGrid({
+                    dataSource: rows.slice().sort((a, b) => Number(b.SHORTAGE_QTY || 0) - Number(a.SHORTAGE_QTY || 0)).slice(0, 12),
+                    showBorders: true,
+                    rowAlternationEnabled: true,
+                    paging: { pageSize: 6 },
+                    columns: [
+                        { dataField: 'PART_NAME', caption: '부품명', minWidth: 120 },
+                        { dataField: 'ASSET_TYPE_NAME', caption: '장비', width: 95 },
+                        { dataField: 'CRITICALITY_GRADE', caption: '중요도', width: 80 },
+                        { dataField: 'CURRENT_QTY', caption: '재고', width: 60 },
+                        { dataField: 'RECOMMENDED_QTY', caption: '권장', width: 60 },
+                        { dataField: 'SHORTAGE_QTY', caption: '부족', width: 60 },
+                        { caption: '예상비용(억원)', width: 105, calculateCellValue: r => eok(r.EXPECTED_COST), format: { type: 'fixedPoint', precision: 3 } }
+                    ]
+                });
+            }).fail(function () {
+                $('#dmSpareKpis').html('<div class="dm-v31-empty">예비품 계획 데이터를 불러오지 못했습니다.</div>');
+            });
+        });
+    </script>
+
+    <script>
+        window.dmV31Lazy.register('decision', function () {
+            const krwEok = value => Number(value || 0) / 100000000;
+            const assetTypeLabels = {
+                Transformer: 'Interface TR',
+                MMC_Submodule: 'Sub Module',
+                DC_Cable: 'DC Cable',
+                DC_Breaker: 'DCCB'
+            };
+            const assetTypeLabel = value => assetTypeLabels[value] || value || '-';
+            const assetLabel = row => row.ProductName || row.Code || assetTypeLabel(row.AssetType);
+            const fixed = (value, digits) => Number(value || 0).toLocaleString('ko-KR', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits
+            });
+
+            function renderKpis(rows, summary) {
+                // 표의 Risk(원)과 동일하게 장비별 원화 금액을 먼저 반올림한 뒤 합산한다.
+                // 달러 합계를 먼저 반올림하면 환율 적용 후 표 합계와 수백 원의 오차가 생길 수 있다.
+                const totalRiskKrw = (rows || []).reduce((sum, row) => {
+                    return sum + Math.round(usdToKrw(row.Risk));
+                }, 0);
+                const kpis = [
+                    ['분석 장비', fixed(summary.Total, 0) + '대'],
+                    ['평균 HI', fixed(summary.AverageHI, 2)],
+                    ['평균 PoF', fixed(summary.AveragePoF, 2) + '%'],
+                    ['총 Risk', fixed(totalRiskKrw, 0) + '원'],
+                    ['평균 BCR', fixed(summary.AverageBCR, 2)],
+                    ['총 NPV', fixed(krwEok(summary.TotalNPV), 2) + '억원'],
+                    ['SAIDI (분/고객·년)', fixed(summary.SystemSAIDI, 4)],
+                    ['SAIFI (회/고객·년)', fixed(summary.SystemSAIFI, 4)],
+                    ['AHP 일관성비율', fixed(summary.AHPConsistencyRatio, 4)]
+                ];
+                const target = $('#dmV31Kpis').empty();
+                kpis.forEach(item => {
+                    $('<div>').addClass('dm-v31-kpi')
+                        .append($('<span>').text(item[0]))
+                        .append($('<strong>').text(item[1]))
+                        .appendTo(target);
+                });
+
+            }
+
+            function renderCharts(rows, summary) {
+                const decisionOrder = ['즉시 교체', '긴급 유지보수', '예방 유지보수', '정기점검', '계속 감시', '데이터 확인 필요'];
+                const decisionColors = {
+                    '즉시 교체': '#e53935',
+                    '긴급 유지보수': '#fb8c00',
+                    '예방 유지보수': '#fbc02d',
+                    '정기점검': '#1e88e5',
+                    '계속 감시': '#43a047',
+                    '데이터 확인 필요': '#9e9e9e'
+                };
+
+                const topRiskRows = rows.slice().sort((a, b) => Number(a.TopsisRank || 0) - Number(b.TopsisRank || 0)).slice(0, 10);
+                $('#dmTopRiskGrid').dxDataGrid({
+                    dataSource: topRiskRows,
+                    showBorders: true,
+                    rowAlternationEnabled: true,
+                    paging: { enabled: false },
+                    columns: [
+                        { dataField: 'TopsisRank', caption: '순위', width: 55, alignment: 'center' },
+                        { caption: '설비명', calculateCellValue: r => assetLabel(r), minWidth: 125 },
+                        { dataField: 'AssetType', caption: '유형', width: 105, calculateCellValue: r => assetTypeLabel(r.AssetType) },
+                        { dataField: 'HI', caption: 'HI', width: 65, format: { type: 'fixedPoint', precision: 2 } },
+                        { dataField: 'PoF', caption: 'PoF(%)', width: 75, format: { type: 'fixedPoint', precision: 2 } },
+                        { dataField: 'Risk', caption: 'Risk(원)', width: 115, calculateCellValue: r => Math.round(usdToKrw(r.Risk)), format: { type: 'fixedPoint', precision: 0 } },
+                        { dataField: 'RUL', caption: 'RUL(년)', width: 75, format: { type: 'fixedPoint', precision: 2 } },
+                        { dataField: 'Decision', caption: '의사결정', width: 105 }
+                    ],
+                    onRowPrepared: e => {
+                        if (e.rowType === 'data' && e.data.Decision === '즉시 교체') e.rowElement.css('backgroundColor', '#fff1f1');
+                    }
+                });
+
+                const decisionData = decisionOrder.map(name => ({
+                    name: name,
+                    value: rows.filter(row => row.Decision === name).length
+                })).filter(item => item.value > 0);
+                $('#dmDecisionChart').dxPieChart({
+                    type: 'doughnut',
+                    dataSource: decisionData,
+                    palette: decisionOrder.map(name => decisionColors[name]),
+                    series: [{ argumentField: 'name', valueField: 'value', label: { visible: true, connector: { visible: true }, customizeText: e => e.argumentText + ' ' + e.valueText + '대' } }],
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true }
+                });
+
+                const priorityData = rows.slice().sort((a, b) => Number(a.TopsisRank) - Number(b.TopsisRank)).slice(0, 10)
+                    .map(row => ({ name: assetLabel(row), score: Number(row.TopsisScore || 0), decision: row.Decision, color: decisionColors[row.Decision] }));
+                $('#dmPriorityChart').dxChart({
+                    dataSource: priorityData,
+                    rotated: true,
+                    series: [{ type: 'bar', argumentField: 'name', valueField: 'score', name: 'TOPSIS', label: { visible: true, format: { type: 'fixedPoint', precision: 3 } } }],
+                    valueAxis: { visualRange: { startValue: 0, endValue: 1 }, title: { text: 'TOPSIS 점수' } },
+                    legend: { visible: false },
+                    customizePoint: e => ({ color: e.data.color }),
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\nTOPSIS: ' + e.value.toFixed(4) + '\n' + e.point.data.decision }) }
+                });
+
+                const agingData = rows.map(row => ({ age: Number(row.UsageYears || 0), hi: Number(row.HI || 0), name: assetLabel(row), group: assetTypeLabel(row.AssetType) }));
+                $('#dmAgingChart').dxChart({
+                    dataSource: agingData,
+                    commonSeriesSettings: { type: 'scatter', argumentField: 'age', valueField: 'hi', point: { size: 10 } },
+                    seriesTemplate: { nameField: 'group' },
+                    argumentAxis: { title: { text: '운영연수(년)' }, min: 0 },
+                    valueAxis: { visualRange: { startValue: 1, endValue: 5 }, title: { text: '건강지수(HI)' }, tickInterval: 1 },
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.point.data.name + '\n운영 ' + fixed(e.argument, 0) + '년 · HI ' + fixed(e.value, 2) }) }
+                });
+
+                const hiPofData = rows.map(row => ({ hi: Number(row.HI), pof: Number(row.PoF), name: assetLabel(row), group: assetTypeLabel(row.AssetType) }));
+                $('#dmHiPofChart').dxChart({
+                    dataSource: hiPofData,
+                    commonSeriesSettings: { type: 'scatter', argumentField: 'hi', valueField: 'pof', point: { size: 10 } },
+                    seriesTemplate: { nameField: 'group' },
+                    argumentAxis: { visualRange: { startValue: 1, endValue: 5 }, title: { text: 'HI' }, tickInterval: 1 },
+                    valueAxis: { visualRange: { startValue: 0, endValue: 100 }, title: { text: 'PoF(%)' } },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.point.data.name + '\nHI ' + fixed(e.argument, 2) + ' · PoF ' + fixed(e.value, 2) + '%' }) }
+                });
+
+                const cofData = rows.map(row => ({
+                    name: assetLabel(row),
+                    financial: krwEok(row.CofFinancial),
+                    reliability: krwEok(row.CofReliability),
+                    safety: krwEok(row.CofSafety),
+                    environmental: krwEok(row.CofEnvironmental)
+                }));
+                const cofComposition = [
+                    { name: '금융', value: cofData.reduce((sum, row) => sum + row.financial, 0) },
+                    { name: '신뢰도', value: cofData.reduce((sum, row) => sum + row.reliability, 0) },
+                    { name: '안전', value: cofData.reduce((sum, row) => sum + row.safety, 0) },
+                    { name: '환경', value: cofData.reduce((sum, row) => sum + row.environmental, 0) }
+                ];
+                $('#dmCof4dChart').dxPieChart({
+                    type: 'doughnut',
+                    dataSource: cofComposition,
+                    palette: ['#2980b9', '#27ae60', '#e67e22', '#16a085'],
+                    series: [{ argumentField: 'name', valueField: 'value', label: { visible: true, connector: { visible: true }, customizeText: e => e.argumentText + ' ' + fixed(e.percent * 100, 1) + '%' } }],
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '억원' }) }
+                });
+                $('#dmCofAssetChart').dxChart({
+                    dataSource: cofData,
+                    commonSeriesSettings: { type: 'stackedBar', argumentField: 'name' },
+                    series: [
+                        { valueField: 'financial', name: '금융' },
+                        { valueField: 'reliability', name: '신뢰도' },
+                        { valueField: 'safety', name: '안전' },
+                        { valueField: 'environmental', name: '환경' }
+                    ],
+                    valueAxis: { title: { text: 'CoF(억원)' } },
+                    argumentAxis: { label: { overlappingBehavior: 'rotate', rotationAngle: 35 } },
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true, shared: true }
+                });
+
+                const economicOverview = [
+                    { name: '위험 경감', value: krwEok(rows.reduce((sum, row) => sum + Number(row.RiskMitigation || 0), 0)), color: '#27ae60' },
+                    { name: '운영 편익', value: krwEok(rows.reduce((sum, row) => sum + Number(row.DiscountedAnnualBenefits || 0), 0)), color: '#3498db' },
+                    { name: '수명 연장', value: krwEok(rows.reduce((sum, row) => sum + Number(row.ExtendedLifetimeValue || 0), 0)), color: '#f39c12' },
+                    { name: '총 비용', value: -krwEok(rows.reduce((sum, row) => sum + Number(row.NpvCosts || 0), 0)), color: '#e74c3c' },
+                    { name: 'NPV', value: krwEok(rows.reduce((sum, row) => sum + Number(row.NPV || 0), 0)), color: '#1768ad' }
+                ];
+                $('#dmEconomicChart').dxChart({
+                    dataSource: economicOverview,
+                    series: [{ type: 'bar', argumentField: 'name', valueField: 'value', name: '금액', label: { visible: true, customizeText: e => fixed(e.value, 1) } }],
+                    valueAxis: { title: { text: '금액(억원)' }, constantLines: [{ value: 0, color: '#8997a8', width: 1 }] },
+                    legend: { visible: false },
+                    customizePoint: e => ({ color: e.data.color }),
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '억원' }) }
+                });
+
+                const benefitData = economicOverview.slice(0, 3).map(row => ({ name: row.name, value: Math.max(0, row.value) }));
+                $('#dmBenefitChart').dxPieChart({
+                    type: 'doughnut',
+                    dataSource: benefitData,
+                    palette: ['#e74c3c', '#27ae60', '#f39c12'],
+                    series: [{ argumentField: 'name', valueField: 'value', label: { visible: true, connector: { visible: true }, customizeText: e => e.argumentText + ' ' + fixed(e.percent * 100, 1) + '%' } }],
+                    legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '억원' }) }
+                });
+
+                const rulRows = rows.map(row => ({ name: assetLabel(row), value: Number(row.RUL || 0), decision: row.Decision }));
+                const rulBins = [
+                    { name: '1년 미만', min: -Infinity, max: 1 },
+                    { name: '1~3년', min: 1, max: 3 },
+                    { name: '3~5년', min: 3, max: 5 },
+                    { name: '5~10년', min: 5, max: 10 },
+                    { name: '10년 이상', min: 10, max: Infinity }
+                ].map(bin => ({ name: bin.name, count: rulRows.filter(row => row.value >= bin.min && row.value < bin.max).length }));
+                $('#dmRulChart').dxChart({
+                    dataSource: rulBins,
+                    series: [{ type: 'bar', argumentField: 'name', valueField: 'count', name: '자산 수' }],
+                    valueAxis: { allowDecimals: false, title: { text: '자산 수' } },
+                    legend: { visible: false },
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + e.valueText + '대' }) }
+                });
+                $('#dmRulAssetChart').dxChart({
+                    dataSource: rulRows,
+                    series: [{ type: 'bar', argumentField: 'name', valueField: 'value', name: 'RUL' }],
+                    valueAxis: { title: { text: '잔여수명(년)' } },
+                    argumentAxis: { label: { overlappingBehavior: 'rotate', rotationAngle: 35 } },
+                    legend: { visible: false },
+                    customizePoint: e => ({ color: decisionColors[e.data.decision] || '#1768ad' }),
+                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '년' }) }
+                });
+
+                function renderReliabilityGauge(selector, name, actual, target) {
+                    const endValue = Math.max(target * 1.35, actual * 1.15, 1);
+                    $(selector).dxCircularGauge({
+                        geometry: { startAngle: 180, endAngle: 0 },
+                        scale: { startValue: 0, endValue: endValue, tickInterval: endValue / 4, label: { format: { type: 'fixedPoint', precision: name === 'SAIDI' ? 0 : 2 } } },
+                        rangeContainer: {
+                            width: 14,
+                            ranges: [
+                                { startValue: 0, endValue: target * 0.8, color: '#8bc34a' },
+                                { startValue: target * 0.8, endValue: target, color: '#fbc02d' },
+                                { startValue: target, endValue: endValue, color: '#ef5350' }
+                            ]
+                        },
+                        value: actual,
+                        valueIndicator: { color: actual <= target ? '#1768ad' : '#d32f2f' },
+                        title: { text: name + ' ' + fixed(actual, name === 'SAIDI' ? 2 : 4) + ' / 목표 ' + fixed(target, name === 'SAIDI' ? 0 : 2), font: { size: 12 } },
+                        tooltip: { enabled: true }
+                    });
+                }
+                renderReliabilityGauge('#dmSaidiGauge', 'SAIDI', Number(summary.SystemSAIDI || 0), Number(summary.SAIDITarget || 200));
+                renderReliabilityGauge('#dmSaifiGauge', 'SAIFI', Number(summary.SystemSAIFI || 0), Number(summary.SAIFITarget || 0.5));
+            }
+
+            loadUsdKrwRate().always(function () {
+            window.totalInfoDataHub.getDm('')
+                .done(result => {
+                    if (!result || result.success === false) return;
+                    renderKpis(result.rows || [], result.summary || {});
+                    renderCharts(result.rows || [], result.summary || {});
+                });
+            });
+        });
+    </script>
+
     @*건전도 파이 스크립트*@
     <script>
         $(function () {
             // 데이터 가져오기 및 차트 설정
-            $.getJSON('@Url.Action("GetRiskMapPoints", "TotalInfo")', { prefix: '' })
+            window.totalInfoDataHub.getRiskPoints('')
                 .done(function (rawPoints) {
                     // 2) HI 별로 묶어서 대수(count)와 장비 리스트(codes) 계산
                     const buckets = rawPoints.reduce((acc, p) => {
@@ -258,11 +907,12 @@
     <!-- Risk Matrix (전체) -->
     <script>
         $(function () {
-            $.getJSON('@Url.Action("GetRiskMapPoints","TotalInfo")', { prefix: 'all' })
+            window.totalInfoDataHub.getRiskPoints('')
                 .done(function (raw) {
                     const data = raw.map(p => ({
-                        x: p.x, y: p.y, name: p.name, group: p.group
+                        x: usdToEokKrw(p.x), y: p.y, name: p.name, group: p.group
                     }));
+                    const maxCof = getRiskMatrixMaxEok(data);
 
                     $("#chartContainerAll").dxChart({
                         dataSource: data,
@@ -278,17 +928,17 @@
                         },
                         seriesTemplate: { nameField: "group" },
                         argumentAxis: {
-                            visualRange: { startValue: 0, endValue: 40000 },
+                            visualRange: { startValue: 0, endValue: maxCof },
                             valueMarginsEnabled: false, // 여백 제거
-                            tickInterval: 8000,
+                            tickInterval: maxCof / 5,
                             grid: {
                                 visible: true,
                                 opacity: 0.5,
                                 color: '#ffffff',
                                 width: 1
                             },
-                            title: { text: "CoF ($)" },
-                            label: { customizeText: e => e.value.toLocaleString() }
+                            title: { text: "CoF (억원)" },
+                            label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                         },
                         valueAxis: {
                             // 0~100% 딱 고정
@@ -297,7 +947,7 @@
                             valueMarginsEnabled: false, // 여백 제거
                             tickInterval: 20,
                             min: 0,
-                            max: 5,
+                            max: 100,
                             grid: {
                                 visible: true,
                                 opacity: 0.5,
@@ -315,14 +965,14 @@
                                 return {
                                     html:
                                         `<strong>${d.name}</strong><br/>
-                CoF: ${d.x.toLocaleString()}$<br/>
+                CoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원<br/>
                 PoF: ${d.y.toFixed(2)}%`
                                 };
                             }
                         },
                         onPointClick(e) {
                             const d = e.target.originalData;
-                            alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString()}$\nPoF: ${d.y.toFixed(2)}%`);
+                            alert(`코드: ${d.name}\nCoF: ${d.x.toLocaleString('ko-KR', { maximumFractionDigits: 3 })}억원\nPoF: ${d.y.toFixed(2)}%`);
                         },
                         legend: {
                             visible: true, position: "bottom",
@@ -421,8 +1071,10 @@
 
         // 전체(all) 용: CoF 이력
         function setupCofChart(containerId, history) {
+            const cofHistory = (history || []).map(item => ({ ...item, cof: usdToEokKrw(item.cof) }));
+            const maxCof = getRiskMatrixMaxEok(cofHistory.map(item => ({ x: item.cof })));
             $("#" + containerId).dxChart({
-                dataSource: history,
+                dataSource: cofHistory,
                 commonSeriesSettings: {
                     type: "line",
                     argumentField: "time",
@@ -442,11 +1094,11 @@
                     title: { text: "날짜" }
                 },
                 valueAxis: {
-                    title: "CoF",
-                    visualRange: { startValue: 8000, endValue: 40000 },
-                    tickInterval: 8000,
+                    title: "CoF (억원)",
+                    visualRange: { startValue: 0, endValue: maxCof },
+                    tickInterval: maxCof / 5,
                     endOnTick: false,
-                    label: { customizeText: e => e.valueText + "$" }
+                    label: { customizeText: e => Number(e.value).toLocaleString('ko-KR', { maximumFractionDigits: 2 }) }
                 },
                 legend: {
                     visible: true,
@@ -462,7 +1114,6 @@
 
     <script>
         $(function () {
-            const urlHist = '@Url.Action("GetHIPofCofHistory","TotalInfo")';
             let historyData = null;
             let histLoaded = false, pofLoaded = false, cofLoaded = false;
 
@@ -470,7 +1121,7 @@
             function loadHistoryData(callback) {
                 if (historyData) return callback();
 
-                $.getJSON(urlHist, { prefix: '' })
+                window.totalInfoDataHub.getHistory('')
                     .done(data => {
                         historyData = data
                             .map(d => {

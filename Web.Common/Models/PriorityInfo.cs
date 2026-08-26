@@ -14,7 +14,7 @@ namespace Web.Common
         public string Name { get; set; }          // 이름
         public string ProductName { get; set; }   // 기본정보에 입력된 실제 제품명
         public DateTime Install_Date { get; set; } // 설치일
-        public DateTime Operating_Date { get; set; } // 운영일
+        public DateTime Operating_Date { get; set; } // 가동일
         public int UsagePeriod { get; set; }      // 사용기간 (일수)
         public float Price { get; set; }        // 가격
         public float Rated_V { get; set; } // 정격 전압
