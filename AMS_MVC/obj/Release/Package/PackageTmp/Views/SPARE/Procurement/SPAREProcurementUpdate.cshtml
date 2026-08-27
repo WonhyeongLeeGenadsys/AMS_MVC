@@ -1,0 +1,68 @@
+﻿@model Web.Common.ProcurementInfo
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 발주 수정</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="javascript:void(0)" class="btn blue app" onclick="updateProcurement()">저장</a>
+            </div>
+
+            <form id="procurementForm">
+                <input type="hidden" name="PROC_ID" value="@Model.PROC_ID" />
+                <input type="hidden" name="SPARE_ID" value="@Model.SPARE_ID" />
+
+                <div class="table_app">
+                    <table>
+                        <tr>
+                            <th>발주수량</th>
+                            <td><input type="text" name="ORDER_QTY" value="@Model.ORDER_QTY" data-type="number" /></td>
+                            <th>발주단가</th>
+                            <td><input type="text" name="UNIT_COST" value="@Model.UNIT_COST" data-type="number" /></td>
+                        </tr>
+                        <tr>
+                            <th>발주일</th>
+                            <td><input type="date" name="ORDER_DATE" value="@(Model.ORDER_DATE.HasValue ? Model.ORDER_DATE.Value.ToString("yyyy-MM-dd") : "")" /></td>
+                            <th>상태</th>
+                            <td><input type="text" name="STATUS" value="@Model.STATUS" /></td>
+                        </tr>
+                        <tr>
+                            <th>공급사</th>
+                            <td colspan="3"><input type="text" name="SUPPLIER" value="@Model.SUPPLIER" /></td>
+                        </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateProcurement() {
+            var formData = new FormData(document.getElementById("procurementForm"));
+
+            $.ajax({
+                url: '@Url.Action("UpdateProcurement", "SPAREProcurement")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    if (response.success) {
+                        alert("발주 수정 성공");
+                        location.href = '@Url.Action("SPAREProcurementList", "SPAREProcurement")';
+                    } else {
+                        alert(response.message);
+                    }
+                }
+            });
+        }
+    </script>
+}

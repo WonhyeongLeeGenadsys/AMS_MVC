@@ -1,0 +1,203 @@
+﻿@model Web.Common.DCCTChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var dcctCode = Request.QueryString["dcctCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>DCCT 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@dcctCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("DCCTChkUpdate", "DCCTChk", new { dcctCode = dcctCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="dcctChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="1">내부 점검</td>
+                            <td>내부 점검 및 청소</td>
+                            <td>이물질 제거 및 이음 없음</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">충전 상태 점검</td>
+                            <td>수동/부동/균등 충전 및 전압 측정</td>
+                            <td>정상 충전상태 및 전압 기준 부합</td>
+                            <td>V</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">동작 시험</td>
+                            <td>Drop Ry 동작 시험</td>
+                            <td>정상 동작 시 확인음 및 동작표시 확인</td>
+                            <td>kV</td>
+                            <td>@(Model.CHK_3_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">표시 기능</td>
+                            <td>표시 시험 (LED, LCD 등)</td>
+                            <td>정확한 상태 표시 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_4_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">절연 상태</td>
+                            <td>절연저항 측정</td>
+                            <td>정상 기준치 이상 (예: 1MΩ 이상)</td>
+                            <td>MΩ</td>
+                            <td>@(Model.CHK_5_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">계측 정확도</td>
+                            <td>계기 오차 시험</td>
+                            <td>허용 오차 범위 이내</td>
+                            <td>%</td>
+                            <td>@(Model.CHK_6_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">보호 계전기</td>
+                            <td>계전기 시험</td>
+                            <td>계전기 설정값 및 동작 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_7_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">입력 전원 기능</td>
+                            <td>AC 입력 및 충전기 절체 기능 점검</td>
+                            <td>정상 절체 및 AC 입력 상태 확인</td>
+                            <td>kV</td>
+                            <td>@(Model.CHK_8_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">출력 전압 상태</td>
+                            <td>DC 출력 전압의 리플 함유율 측정 (필요시)</td>
+                            <td>허용치 이내 (예: 2% 이하)</td>
+                            <td>%</td>
+                            <td>@(Model.CHK_9_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">보호 장치</td>
+                            <td>노-휴즈 브레이커(NFB) 동작 체크</td>
+                            <td>정상 차단 동작 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_10_1_Text)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(dcctCode, tblIdx) {
+            if (!confirm("DCCT 보통점검 정보를 삭제하시겠습니까?")) return;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("DCCTChkDelete", "DCCTChk")',
+                    data: JSON.stringify({ dcctCode: dcctCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("DCCT 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("DCCTChkTotalList", "DCCTChk")';
+                        } else {
+                            alert("DCCT 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+

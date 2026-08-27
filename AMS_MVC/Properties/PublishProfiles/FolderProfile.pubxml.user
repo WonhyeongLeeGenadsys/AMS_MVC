@@ -5,15 +5,15 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <_PublishTargetUrl>D:\publish</_PublishTargetUrl>
-    <History>True|2026-08-26T02:57:25.0424473Z||;True|2026-08-26T11:56:59.6209739+09:00||;True|2026-08-25T10:24:23.9693531+09:00||;True|2026-08-25T10:22:07.3851678+09:00||;True|2026-08-25T10:18:47.7942272+09:00||;True|2026-08-25T09:05:43.7284877+09:00||;True|2026-08-25T08:59:28.3603662+09:00||;True|2026-08-24T16:29:30.4588210+09:00||;True|2026-08-24T16:20:24.2695032+09:00||;True|2026-08-24T16:20:10.7470045+09:00||;True|2026-08-24T10:22:12.2661233+09:00||;True|2026-08-24T10:22:02.7069377+09:00||;True|2026-08-24T10:21:53.1357909+09:00||;True|2026-08-24T10:19:31.4854377+09:00||;True|2026-08-24T09:28:10.9125585+09:00||;True|2026-08-24T09:22:49.2943055+09:00||;True|2026-08-24T09:20:37.4931701+09:00||;True|2026-08-24T09:06:19.4035206+09:00||;True|2026-07-20T17:18:05.9902808+09:00||;True|2026-07-20T16:50:26.8015988+09:00||;True|2026-07-20T16:35:48.4900999+09:00||;True|2026-07-20T14:44:03.1863523+09:00||;True|2026-07-16T08:58:04.7224302+09:00||;True|2025-12-09T15:47:26.0720077+09:00||;True|2025-12-08T14:48:08.0660225+09:00||;True|2025-12-08T14:44:11.9920064+09:00||;True|2025-08-26T13:47:17.3407395+09:00||;True|2025-08-26T13:46:57.1728017+09:00||;True|2025-08-26T10:39:47.6838231+09:00||;True|2025-08-26T10:26:03.2187250+09:00||;True|2025-08-26T09:35:23.9820039+09:00||;True|2025-08-26T09:35:15.6133845+09:00||;True|2025-08-26T09:33:55.8823415+09:00||;True|2025-08-26T09:33:35.3510083+09:00||;True|2025-08-26T09:33:16.1802749+09:00||;True|2025-08-25T09:12:58.9846602+09:00||;True|2025-08-22T18:03:20.8390776+09:00||;True|2025-07-22T17:14:13.6437450+09:00||;True|2025-07-18T17:57:18.8586039+09:00||;True|2025-07-07T18:17:07.6085702+09:00||;True|2025-07-03T16:16:20.2137252+09:00||;True|2025-06-20T14:05:31.5569305+09:00||;True|2025-06-20T14:03:50.7715630+09:00||;True|2025-04-25T18:03:28.5103563+09:00||;True|2025-04-22T15:31:24.2435243+09:00||;True|2025-04-22T15:29:18.4090558+09:00||;True|2025-04-22T15:09:54.8169670+09:00||;True|2025-04-22T14:58:33.1434595+09:00||;True|2025-03-07T08:58:53.1316449+09:00||;True|2025-03-06T18:41:54.6338969+09:00||;True|2025-03-06T18:40:49.1132325+09:00||;True|2025-03-06T17:27:45.3977386+09:00||;True|2025-03-06T17:27:05.5652287+09:00||;True|2025-03-06T17:08:26.7131380+09:00||;</History>
+    <History>True|2026-08-27T02:08:27.7426437Z||;True|2026-08-27T09:05:34.3019037+09:00||;True|2026-08-26T17:09:34.1139138+09:00||;True|2026-08-26T17:07:36.5286386+09:00||;True|2026-08-26T11:57:25.0424473+09:00||;True|2026-08-26T11:56:59.6209739+09:00||;True|2026-08-25T10:24:23.9693531+09:00||;True|2026-08-25T10:22:07.3851678+09:00||;True|2026-08-25T10:18:47.7942272+09:00||;True|2026-08-25T09:05:43.7284877+09:00||;True|2026-08-25T08:59:28.3603662+09:00||;True|2026-08-24T16:29:30.4588210+09:00||;True|2026-08-24T16:20:24.2695032+09:00||;True|2026-08-24T16:20:10.7470045+09:00||;True|2026-08-24T10:22:12.2661233+09:00||;True|2026-08-24T10:22:02.7069377+09:00||;True|2026-08-24T10:21:53.1357909+09:00||;True|2026-08-24T10:19:31.4854377+09:00||;True|2026-08-24T09:28:10.9125585+09:00||;True|2026-08-24T09:22:49.2943055+09:00||;True|2026-08-24T09:20:37.4931701+09:00||;True|2026-08-24T09:06:19.4035206+09:00||;True|2026-07-20T17:18:05.9902808+09:00||;True|2026-07-20T16:50:26.8015988+09:00||;True|2026-07-20T16:35:48.4900999+09:00||;True|2026-07-20T14:44:03.1863523+09:00||;True|2026-07-16T08:58:04.7224302+09:00||;True|2025-12-09T15:47:26.0720077+09:00||;True|2025-12-08T14:48:08.0660225+09:00||;True|2025-12-08T14:44:11.9920064+09:00||;True|2025-08-26T13:47:17.3407395+09:00||;True|2025-08-26T13:46:57.1728017+09:00||;True|2025-08-26T10:39:47.6838231+09:00||;True|2025-08-26T10:26:03.2187250+09:00||;True|2025-08-26T09:35:23.9820039+09:00||;True|2025-08-26T09:35:15.6133845+09:00||;True|2025-08-26T09:33:55.8823415+09:00||;True|2025-08-26T09:33:35.3510083+09:00||;True|2025-08-26T09:33:16.1802749+09:00||;True|2025-08-25T09:12:58.9846602+09:00||;True|2025-08-22T18:03:20.8390776+09:00||;True|2025-07-22T17:14:13.6437450+09:00||;True|2025-07-18T17:57:18.8586039+09:00||;True|2025-07-07T18:17:07.6085702+09:00||;True|2025-07-03T16:16:20.2137252+09:00||;True|2025-06-20T14:05:31.5569305+09:00||;True|2025-06-20T14:03:50.7715630+09:00||;True|2025-04-25T18:03:28.5103563+09:00||;True|2025-04-22T15:31:24.2435243+09:00||;True|2025-04-22T15:29:18.4090558+09:00||;True|2025-04-22T15:09:54.8169670+09:00||;True|2025-04-22T14:58:33.1434595+09:00||;True|2025-03-07T08:58:53.1316449+09:00||;True|2025-03-06T18:41:54.6338969+09:00||;True|2025-03-06T18:40:49.1132325+09:00||;True|2025-03-06T17:27:45.3977386+09:00||;True|2025-03-06T17:27:05.5652287+09:00||;True|2025-03-06T17:08:26.7131380+09:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/AMS_MVC.dll">
-      <publishTime>08/26/2026 09:50:20</publishTime>
+      <publishTime>08/26/2026 16:16:51</publishTime>
     </File>
     <File Include="bin/AMS_MVC.pdb">
-      <publishTime>08/26/2026 09:50:20</publishTime>
+      <publishTime>08/26/2026 16:16:51</publishTime>
     </File>
     <File Include="bin/Antlr3.Runtime.dll">
       <publishTime>03/25/2026 10:23:54</publishTime>
@@ -310,7 +310,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:52</publishTime>
     </File>
     <File Include="css/electric.css">
-      <publishTime>08/26/2026 11:23:47</publishTime>
+      <publishTime>08/26/2026 17:51:56</publishTime>
     </File>
     <File Include="favicon.ico">
       <publishTime>03/25/2026 10:23:53</publishTime>
@@ -922,16 +922,16 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/24/2026 17:52:08</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDevice.cshtml">
-      <publishTime>08/25/2026 19:29:13</publishTime>
+      <publishTime>08/26/2026 17:56:43</publishTime>
     </File>
     <File Include="Views/Device/DCCABLE/DCCABLEDeviceDetail.cshtml">
-      <publishTime>08/24/2026 18:59:46</publishTime>
+      <publishTime>08/26/2026 16:06:06</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDevice.cshtml">
-      <publishTime>08/25/2026 19:29:12</publishTime>
+      <publishTime>08/26/2026 17:56:43</publishTime>
     </File>
     <File Include="Views/Device/DCCB/DCCBDeviceDetail.cshtml">
-      <publishTime>08/24/2026 18:59:45</publishTime>
+      <publishTime>08/26/2026 16:06:04</publishTime>
     </File>
     <File Include="Views/Device/etc/AC Yard/ARMREACTOR/ARMREACTORDevice.cshtml">
       <publishTime>08/25/2026 09:10:57</publishTime>
@@ -1024,25 +1024,25 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:52</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDevice.cshtml">
-      <publishTime>08/25/2026 19:29:11</publishTime>
+      <publishTime>08/26/2026 17:56:41</publishTime>
     </File>
     <File Include="Views/Device/ITR/ITRDeviceDetail.cshtml">
-      <publishTime>08/24/2026 18:59:44</publishTime>
+      <publishTime>08/26/2026 16:06:03</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDevice.cshtml">
-      <publishTime>08/25/2026 19:29:14</publishTime>
+      <publishTime>08/26/2026 17:56:42</publishTime>
     </File>
     <File Include="Views/Device/SUBMODULE/SUBMODULEDeviceDetail.cshtml">
-      <publishTime>08/24/2026 18:59:47</publishTime>
+      <publishTime>08/26/2026 16:06:02</publishTime>
     </File>
     <File Include="Views/Device/VCB/ScheduleDetail.cshtml">
       <publishTime>06/25/2025 14:13:38</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDevice.cshtml">
-      <publishTime>08/25/2026 19:29:11</publishTime>
+      <publishTime>08/26/2026 17:56:41</publishTime>
     </File>
     <File Include="Views/Device/VCB/VCBDeviceDetail.cshtml">
-      <publishTime>08/24/2026 18:59:43</publishTime>
+      <publishTime>08/26/2026 16:06:01</publishTime>
     </File>
     <File Include="Views/Gojang/DCCABLE/DCCABLEGojangAdd.cshtml">
       <publishTime>03/25/2026 10:23:52</publishTime>
@@ -1935,11 +1935,14 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
     <File Include="Views/Shared/_DeviceInfoMenu.cshtml">
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
+    <File Include="Views/Shared/_DmEquipmentAnalysis.cshtml">
+      <publishTime>08/26/2026 16:24:29</publishTime>
+    </File>
     <File Include="Views/Shared/_GojangMenu.cshtml">
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
     <File Include="Views/Shared/_Layout.cshtml">
-      <publishTime>08/26/2026 11:23:48</publishTime>
+      <publishTime>08/26/2026 17:56:44</publishTime>
     </File>
     <File Include="Views/Shared/_LeftMenu.cshtml">
       <publishTime>03/25/2026 10:23:53</publishTime>
@@ -1963,7 +1966,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
     <File Include="Views/SPARE/Basic/SPAREBasicAdd.cshtml">
-      <publishTime>08/13/2026 14:08:03</publishTime>
+      <publishTime>08/26/2026 15:34:00</publishTime>
     </File>
     <File Include="Views/SPARE/Basic/SPAREBasicDetail.cshtml">
       <publishTime>08/13/2026 14:08:01</publishTime>
@@ -1972,7 +1975,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>08/13/2026 10:57:46</publishTime>
     </File>
     <File Include="Views/SPARE/Basic/SPAREBasicUpdate.cshtml">
-      <publishTime>08/13/2026 14:08:02</publishTime>
+      <publishTime>08/26/2026 15:33:59</publishTime>
     </File>
     <File Include="Views/SPARE/Cost/SPARECostAdd.cshtml">
       <publishTime>07/14/2026 19:05:20</publishTime>
@@ -1987,7 +1990,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>04/03/2026 11:20:08</publishTime>
     </File>
     <File Include="Views/SPARE/Inventory/SPAREInventoryEdit.cshtml">
-      <publishTime>08/24/2026 16:27:46</publishTime>
+      <publishTime>08/26/2026 14:16:12</publishTime>
     </File>
     <File Include="Views/SPARE/Inventory/SPAREInventoryList.cshtml">
       <publishTime>08/24/2026 16:26:12</publishTime>
@@ -2029,7 +2032,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
     <File Include="Views/TotalInfo/Index.cshtml">
-      <publishTime>08/26/2026 10:35:06</publishTime>
+      <publishTime>08/27/2026 11:01:49</publishTime>
     </File>
     <File Include="Views/TotalInfo/IndexBackup.cshtml">
       <publishTime>07/02/2025 09:26:42</publishTime>
@@ -2044,13 +2047,13 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
     <File Include="Views/TotalInfo/_TotalInfoAC.cshtml">
-      <publishTime>08/24/2026 18:57:10</publishTime>
+      <publishTime>08/26/2026 18:03:03</publishTime>
     </File>
     <File Include="Views/TotalInfo/_TotalInfoAll.cshtml">
-      <publishTime>08/26/2026 10:46:38</publishTime>
+      <publishTime>08/27/2026 11:01:49</publishTime>
     </File>
     <File Include="Views/TotalInfo/_TotalInfoDC.cshtml">
-      <publishTime>08/24/2026 18:57:11</publishTime>
+      <publishTime>08/26/2026 18:03:04</publishTime>
     </File>
     <File Include="Views/Web.config">
       <publishTime>03/25/2026 10:23:53</publishTime>
@@ -2059,7 +2062,7 @@ https://go.microsoft.com/fwlink/?LinkID=208121.
       <publishTime>03/25/2026 10:23:53</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>08/26/2026 11:57:24</publishTime>
+      <publishTime>08/27/2026 11:08:27</publishTime>
     </File>
   </ItemGroup>
 </Project>

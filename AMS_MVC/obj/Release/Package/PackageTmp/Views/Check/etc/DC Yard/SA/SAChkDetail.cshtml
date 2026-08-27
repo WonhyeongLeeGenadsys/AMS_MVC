@@ -1,0 +1,220 @@
+﻿@model Web.Common.SAChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var saCode = Request.QueryString["saCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>SA 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@saCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("SAChkUpdate", "SAChk", new { saCode = saCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="saChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="1">외관 점검</td>
+                            <td>도면 일치 여부, 접지선 접속 및 노후 상태, 설치 상태 확인</td>
+                            <td>도면 일치, 접지선 이상 없음</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">접지 점검</td>
+                            <td>접지 저항 측정 및 기준값 이내 여부 확인</td>
+                            <td>접지 저항 기준치 이하 (예: 10Ω 이하)</td>
+                            <td>Ω</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">절연 측정</td>
+                            <td>절연 저항 측정 (전선 및 기기 절연 성능 확인)</td>
+                            <td>절연 저항 기준 이상 (예: 1MΩ 이상)</td>
+                            <td>MΩ</td>
+                            <td>@(Model.CHK_3_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">절연 시험</td>
+                            <td>절연 내력 시험 (고전압 인가)</td>
+                            <td>절연 파괴 없음</td>
+                            <td>kV</td>
+                            <td>@(Model.CHK_4_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">계전기 시험</td>
+                            <td>보호 계전기 동작 시험 (과전류, 과전압 등)</td>
+                            <td>정상 동작 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">절연유 점검</td>
+                            <td>절연유 내압 및 산가 시험 (유입 변압기)</td>
+                            <td>기준치 만족 (내압 및 산가)</td>
+                            <td>kV, mgKOH/g</td>
+                            <td>@(Model.CHK_6_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">차단기 시험</td>
+                            <td>차단기 개폐 동작 및 차단 성능 확인</td>
+                            <td>정상 개폐 동작 및 차단</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_7_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">발전기 시험</td>
+                            <td>발전기 출력 및 성능 운전 시험</td>
+                            <td>정격 출력 및 기능 이상 없음</td>
+                            <td>kW</td>
+                            <td>@(Model.CHK_8_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">일상 점검</td>
+                            <td>전기설비 외관, 작동, 기능 일상 점검</td>
+                            <td>이상 없음</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_9_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">보호 장치</td>
+                            <td>누전 차단기 동작 확인</td>
+                            <td>정상 동작 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_10_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">안전 사항</td>
+                            <td>전원 차단 및 안전 수칙 준수 여부 확인</td>
+                            <td>안전 수칙 준수</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_11_1_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1">기록 관리</td>
+                            <td>점검 결과 기록 및 보관</td>
+                            <td>기록 유지 및 이력 추적 가능</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_12_1_Text)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(saCode, tblIdx) {
+            if (!confirm("SA 보통점검 정보를 삭제하시겠습니까?")) return;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("SAChkDelete", "SAChk")',
+                    data: JSON.stringify({ saCode: saCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("SA 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("SAChkTotalList", "SAChk")';
+                        } else {
+                            alert("SA 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+

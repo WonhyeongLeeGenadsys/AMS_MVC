@@ -1,0 +1,98 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var itrCode = Request.QueryString["ITR_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_MaintenanceMenu")
+}
+
+@section MainContent {
+    <h1>ITR 유지보수</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
+            <div class="btn_area top right">
+                <a href="@Url.Action("ITRMaintenanceAdd", "ITRMaintenance", new { ITR_Code = itrCode })" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+
+        <script>
+            $(document).ready(function () {
+                loadITRMaintenanceData();
+            });
+
+            function loadITRMaintenanceData() {
+                var itrCode = "@itrCode";
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetITRMRByITRCode", "ITRMaintenance")',
+                    data: JSON.stringify({ itrCode: itrCode }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success == false) {
+                            console.error("ITRMaintenance 데이터 로드 실패: " + response.message);
+                            return;
+                        }
+
+                        // 작성일(Tbl_GetDate) 기준 내림차순 정렬
+                        let data = response.data.sort((a, b) => new Date(b.Tbl_GetDate) - new Date(a.Tbl_GetDate));
+
+                        // 순번 매기기
+                        data = data.map((item, index) => {
+                            item.RowNumber = data.length - index;
+                            return item;
+                        });
+
+                        $("#gridContainer").dxDataGrid({
+                            dataSource: data,
+                            hoverStateEnabled: true,
+                            onRowPrepared: function (e) {
+                                if (e.rowType === "data") {
+                                    e.rowElement.css("cursor", "pointer");
+                                }
+                            },
+                            columnFixing: { enabled: true },
+                            columns: [
+                                { dataField: "RowNumber", caption: "순번", width: 80 },
+                                { dataField: 'MR_Bosu_Name', caption: '고장명', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Weather', caption: '날씨', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Temp', caption: '기온(°C)', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Hum', caption: '습도(%)', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Content', caption: '원인', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Status', caption: '발견동기', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Part', caption: '상태', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Worker', caption: '부품', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Manager', caption: '발견자', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Date', caption: '점검시작일', alignment: 'center', width: 'auto' },
+                                { dataField: 'MR_Writer', caption: '작성자', alignment: 'center', width: 'auto' }
+                            ],
+                            showBorders: false,
+                            searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                            filterRow: { visible: true, applyFilter: 'auto' },
+                            headerFilter: { visible: true },
+                            loadPanel: { enabled: true },
+                            scrolling: { columnRenderingMode: 'virtual' },
+                            onRowClick: function (e) {
+                                const tblIdx = e.data.Tbl_Idx;
+                                const itrCode = e.data.ITR_Code;
+
+                                var baseUrl = window.location.origin;
+                                var detailUrl = '@Url.Action("ITRMaintenanceDetail", "ITRMaintenance")';
+
+                                window.location.href = baseUrl + detailUrl + "?itrCode=" + encodeURIComponent(itrCode) + "&tblIdx=" + encodeURIComponent(tblIdx);
+                            }
+                        });
+                    },
+                        error: function (xhr, status, error) {
+                            console.error("데이터 로드 중 오류", error);
+                        }
+                });
+            }
+        </script>
+    </div>
+}

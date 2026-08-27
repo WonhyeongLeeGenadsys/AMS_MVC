@@ -1,0 +1,165 @@
+﻿@model Web.Common.WALLBUSHINGChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var wallbushingCode = Request.QueryString["wallbushingCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>WALLBUSHING 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@wallbushingCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("WALLBUSHINGChkUpdate", "WALLBUSHINGChk", new { wallbushingCode = wallbushingCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="wallbushingChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td rowspan="3">초기 점검</td>
+                            <td>부싱의 균열 및 오손 여부 확인/청소</td>
+                            <td>균열·오손 없고 청결 상태 유지</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>절연유 누유 여부 확인</td>
+                            <td>누유 흔적 없을 것</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_2_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>절연 열화 진단</td>
+                            <td>기기별 열화 기준 이내</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_3_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="3">10년 이상</td>
+                            <td>절연유 성능 시험</td>
+                            <td>절연유 기준에 적합</td>
+                            <td>kV</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>유중 가스 분석</td>
+                            <td>기기별 기준 이내</td>
+                            <td>ppm</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>수분 측정</td>
+                            <td>기기별 수분 함량 기준 이내</td>
+                            <td>%</td>
+                            <td>@(Model.CHK_2_3_Text)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(wallbushingCode, tblIdx) {
+            if (!confirm("Wall Bushing 보통점검 정보를 삭제하시겠습니까?")) return;
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("WALLBUSHINGChkDelete", "WALLBUSHINGChk")',
+                    data: JSON.stringify({ wallbushingCode: wallbushingCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("WALLBUSHING 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("WALLBUSHINGChkTotalList", "WALLBUSHINGChk")';
+                        } else {
+                            alert("WALLBUSHING 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+

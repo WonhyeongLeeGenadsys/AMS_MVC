@@ -1,0 +1,296 @@
+﻿@model Web.Common.LAChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>
+        LA 보통점검 수정 
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="updateLAChk()">적용</a>
+                </p>
+            </div>
+
+            <form id="laChkUpdateForm" method="post" enctype="multipart/form-data">
+                <input type="hidden" name="Tbl_Idx" value="@Model.Tbl_Idx" />
+                <input type="hidden" name="LA_Code" value="@Model.LA_Code" />
+
+                <div class="table_app" id="laChk">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                        </colgroup>
+                        <tr>
+                            <th>공사명</th>
+                            <td colspan="5">
+                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name" value="@Model.CHK_Gongsa_Name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="chk_weather" name="chk_weather" value="@Model.CHK_Weather">
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="chk_temp" name="chk_temp" value="@Model.CHK_Temp"> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="chk_hum" name="chk_hum" value="@Model.CHK_Hum"> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name", Model.CHK_Company), "제작사를 선택하세요.")
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                <input type="text" id="chk_worker" name="chk_worker" value="@Model.CHK_Worker">
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="chk_manager" name="chk_manager" value="@Model.CHK_Manager">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>급전번호</th>
+                            <td>
+                                <input type="text" id="chk_urgent_no" name="chk_urgent_no" value="@Model.CHK_Urgent_No">
+                            </td>
+                            <th>형식</th>
+                            <td>
+                                <input type="text" id="chk_type" name="chk_type" value="@Model.CHK_Type">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                <input type="date" id="chk_start_date" name="chk_start_date" value="@(Model.CHK_Start_Date.HasValue ? Model.CHK_Start_Date.Value.ToString("yyyy-MM-dd") : "")">
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                <input type="date" id="chk_end_date" name="chk_end_date" value="@(Model.CHK_End_Date.HasValue ? Model.CHK_End_Date.Value.ToString("yyyy-MM-dd") : "")">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--알고리즘 반영 파라미터-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="1">
+                                    외관 점검
+                                </td>
+                                <td>애자(애관)의 균열 및 오손 여부 점검/청소</td>
+                                <td>균열·오손 없고 청결 상태 유지</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_1_1">
+                                        <input type="radio" id="chk_1_1_1" name="CHK_1_1"  value="1" @(Model.CHK_1_1 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_1_2">
+                                        <input type="radio" id="chk_1_1_2" name="CHK_1_1"  value="5" @(Model.CHK_1_1 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    접속 점검
+                                </td>
+                                <td>접속부 볼트 조임 상태</td>
+                                <td>풀림 없이 견고히 체결</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_1_1">
+                                        <input type="radio" id="chk_2_1_1" name="CHK_2_1" value="1"  @(Model.CHK_2_1 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_1_2">
+                                        <input type="radio" id="chk_2_1_2" name="CHK_2_1"  value="5" @(Model.CHK_2_1 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    기초 점검
+                                </td>
+                                <td>가대 및 기초 볼트 조임 상태</td>
+                                <td>기초 볼트 풀림 및 균열 없을 것</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_3_1_1">
+                                        <input type="radio" id="chk_3_1_1" name="CHK_3_1" value="1"  @(Model.CHK_3_1 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_3_1_2">
+                                        <input type="radio" id="chk_3_1_2" name="CHK_3_1"  value="5" @(Model.CHK_3_1 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    부속장치 점검
+                                </td>
+                                <td>부속장치 동작 상태 점검 및 청소</td>
+                                <td>이상 없음 / 청결 상태 유지</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_4_1_1">
+                                        <input type="radio" id="chk_4_1_1" name="CHK_4_1"  value="1" @(Model.CHK_4_1 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_4_1_2">
+                                        <input type="radio" id="chk_4_1_2" name="CHK_4_1"  value="5" @(Model.CHK_4_1 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="4">기능 시험</td>
+                                <td>절연저항 측정</td>
+                                <td>기기별 기준 이상</td>
+                                <td>MΩ</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_1_1">
+                                        <input type="radio" id="chk_5_1_1" name="CHK_5_1" value="1"  @(Model.CHK_5_1 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_1_2">
+                                        <input type="radio" id="chk_5_1_2" name="CHK_5_1"  value="5" @(Model.CHK_5_1 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>절연열화(Doble) 측정</td>
+                                <td>기기별 기준 이내</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_2_1">
+                                        <input type="radio" id="chk_5_2_1" name="CHK_5_2" value="1" @(Model.CHK_5_2 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_2_2">
+                                        <input type="radio" id="chk_5_2_2" name="CHK_5_2" value="5" @(Model.CHK_5_2 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>동작 카운터 점검</td>
+                                <td>정상 동작 상태</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_3_1">
+                                        <input type="radio" id="chk_5_3_1" name="CHK_5_3" value="1" @(Model.CHK_5_3 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_3_2">
+                                        <input type="radio" id="chk_5_3_2" name="CHK_5_3" value="5" @(Model.CHK_5_3 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>누설전류 측정</td>
+                                <td>기기별 기준 이내</td>
+                                <td>mA</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_4_1">
+                                        <input type="radio" id="chk_5_4_1" name="CHK_5_4"  value="1" @(Model.CHK_5_4 == 1 ? "checked" : "")>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_4_2">
+                                        <input type="radio" id="chk_5_4_2" name="CHK_5_4"  value="5" @(Model.CHK_5_4 == 5 ? "checked" : "")>
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateLAChk() {
+            var form = document.getElementById("laChkUpdateForm");
+            var formData = new FormData(form);
+
+            // FormData 내용을 콘솔에 출력
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                url: '@Url.Action("LAChkUpdate", "LAChk")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log("서버 응답:", response);
+                    if (response.IsSuccess) {
+                        alert("LA 보통점검 정보가 수정되었습니다.");
+                        window.location.href = '@Url.Action("LAChkTotalList", "LAChk")';
+                    } else {
+                        alert("LA 보통점검 정보를 수정하지 못했습니다.: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("LA 보통점검 정보 수정중 오류가 발생했습니다." + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,97 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_TotalInfoMenu")
+}
+
+@section MainContent {
+    <h1>점검&amp;고장&amp;유지보수 검색</h1>
+    <div class="con_box">
+        <!--검색-->
+        <div class="search_box">
+            <h2>기간별 통신 로그 조회</h2>
+            <ul>
+                <li>
+                    <label class="ty_rdo" for="select">
+                        <input type="radio" id="select" name="select" checked />
+                        <span>설치</span>
+                    </label>
+                    <label class="ty_rdo" for="select_02">
+                        <input type="radio" name="select" id="select_02" />
+                        <span>기압</span>
+                    </label>
+                </li>
+                <li>
+                    <h3 class="search_tit">시작일</h3>
+                    <p><input type="date" placeholder="날짜를 선택해주세요." required /></p>
+
+                    <h3 class="search_tit">종료일</h3>
+                    <p><input type="date" placeholder="날짜를 선택해주세요." required /></p>
+                </li>
+                <li>
+                    <a href="#" class="btn blue">조회</a>
+                </li>
+            </ul>
+        </div>
+        <!--//검색-->
+        <!--테이블리스트-->
+        <div class="content_warp">
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+        <!--//테이블리스트-->
+        <script type="text/javascript">
+            $(function () {
+                $('#gridContainer').dxDataGrid({
+                    dataSource: customers,
+                    columnFixing: {
+                        enabled: true
+                    },
+                    keyExpr: 'ID',
+                    columns: [
+                        { dataField: 'priority', caption: '우선순위', alignment: 'center', width: 100 },
+                        { dataField: 'sort', caption: '구분', alignment: 'center', width: 100 },
+                        { dataField: 'facilities', caption: '설비명', alignment: 'center', width: 150 },
+                        { dataField: 'serial', caption: '시리얼번호', alignment: 'center', width: 120 },
+                        { dataField: 'install', caption: '설치일', alignment: 'center', width: 120 },
+                        { dataField: 'press', caption: '가압일', alignment: 'center', width: 120 },
+                        { dataField: 'period', caption: '사용기간', alignment: 'center', width: 120 },
+                        { dataField: 'place', caption: '설치장소', alignment: 'center', width: 120 },
+                        { dataField: 'cost', caption: '구입비용(원)', alignment: 'center', width: 120 },
+                        { dataField: 'Part', caption: '제작사', alignment: 'center', width: 120 },
+                        { dataField: 'inspec', caption: '점검횟수', alignment: 'center', width: 100 },
+                        { dataField: 'failures', caption: '고장횟수', alignment: 'center', width: 100 },
+                        { dataField: 'maintenance', caption: '유지보수 횟수', alignment: 'center', width: 120 }
+                    ],
+                    showBorders: false,
+                    scrolling: {
+                        columnRenderingMode: 'virtual'
+                    }
+                });
+            });
+
+            const customers = [];
+            (function () {
+                for (let i = 1; i < 20; i += 1) {
+                    customers.push({
+                        ID: i,
+                        priority: '2',
+                        sort: 'AC',
+                        facilities: 'VCB',
+                        serial: '0000001',
+                        install: '2024-07-16',
+                        press: '2024-07-16',
+                        period: '00년',
+                        place: '옥외',
+                        cost: '99,999,999',
+                        Part: '제작제나드',
+                        inspec: 'connect',
+                        failures: '2회',
+                        maintenance: '2회'
+                    });
+                }
+            })();
+        </script>
+    </div>
+}

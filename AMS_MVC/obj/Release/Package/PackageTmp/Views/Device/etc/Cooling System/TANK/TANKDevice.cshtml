@@ -1,0 +1,823 @@
+﻿﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_DeviceInfoMenu")
+}
+
+@section MainContent {
+    <h1>TANK</h1>
+    <!--전체 박스-->
+    <div class="box_wrap">
+
+        <!--전략-->
+        <div class="con_box" id="strategyContainer">
+            <h2><p>차년도 교체 대상</p></h2>
+        </div>
+
+        <script>
+    $(function(){
+      loadStrategy(
+        '@Url.Action("GetBasicInfoList","TANKDevice")',
+        '#strategyContainer',
+        'TANK'
+      );
+    });
+        </script>
+        <!--//전략-->
+        <!-- 신뢰도 차트 -->
+        <div class="con_box flex5">
+            <h2>신뢰도</h2>
+            <div id="chart_line_trust" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+        </div>
+
+        <script>
+$(function(){
+  $.ajax({
+    url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+    type: 'GET',
+    data: { equipmentType: "TANK" },
+    dataType: 'json'
+  }).done(function(resp){
+    if (!Array.isArray(resp) || resp.length === 0) {
+      console.warn("신뢰도 데이터가 없습니다.");
+      return;
+    }
+
+    var b3 = resp.B3Life !== undefined
+              ? parseFloat(resp.B3Life)
+          : parseFloat(resp[0].B3Life);
+      console.log("!!!!!!!!!!!!B3 값!!!!!!!!!:", b3);
+
+      var usagePeriods = resp[0].UsagePeriod || [];
+
+    var seriesData = resp[0].ReliabilitySeries.map(function(pt){
+      return { time: parseFloat(pt.time), value: parseFloat(pt.value) };
+    });
+    var maxX = resp[0].TimeMax;
+
+      $("#chart_line_trust").dxChart({
+      dataSource: seriesData,
+      commonSeriesSettings: {
+        type: "line",
+        point: { visible: false }
+      },
+      series: [{
+        name: "신뢰도",
+        argumentField: "time",
+        valueField: "value"
+      }],
+      tooltip: { enabled: true },
+      argumentAxis: {
+        title: "시간 (년)",
+        visualRange: { startValue: 0, endValue: maxX },
+        constantLines: [
+           {
+                value: b3,
+                color: "red",
+                width: 2.5,
+                dashStyle: "dash",
+                label: {
+                      text: "B3 = " + b3 + "년",
+                      visible: true,
+                      font: { color: "red" },
+                      position: "inside"
+                }
+                }
+            ]
+            .concat(usagePeriods.map(function (u) {
+                  return {
+                        value: u,
+                        color: "green",
+                        width: 2.5,
+                        dashStyle: "solid",
+                      label: {
+                          text: "사용기간: " + usagePeriods + "년",
+                          visible: true,
+                          font: { color: "green" },
+                          position: "inside"
+                      }
+                  };
+                    }))
+      },
+      valueAxis: {
+        title: "신뢰도 (0 ~ 1)",
+        visualRange: { startValue: 0, endValue: 1 }
+      },
+      legend: { visible: false },
+      onContentReady: function(e){
+        e.component.render();
+      }
+    });
+  }).fail(function(err){
+    console.error("신뢰도 데이터 로드 실패:", err);
+  });
+});
+        </script>
+
+
+        <!-- B3 수명 차트 -->
+        <div class="con_box flex3">
+            <h2><p>B3 수명</p></h2>
+            <div id="chart_bar" style="height: 280px;"></div>
+        </div>
+
+        <script>
+    $(document).ready(function () {
+        var equipmentType = "TANK";
+
+        $.ajax({
+            url: '@Url.Action("GetB3HistogramEquipment", "EquipmentAlgorithm")',
+            type: 'GET',
+            data: { equipmentType: equipmentType },
+            dataType: 'json',
+            success: function (res) {
+                if (res.error) {
+                    console.warn("오류:", res.error);
+                    return;
+                }
+                console.log("B3 Histogram 데이터:", res);
+
+                var b3 = res.B3;
+                var binSize = res.BinSize;
+                var timeMax = res.TimeMax;
+                var histogram = res.Histogram;
+
+                $("#chart_bar").dxChart({
+                    dataSource: histogram,
+                    commonSeriesSettings: {
+                        type: 'bar',
+                        argumentField: 'binStart',
+                        valueField: 'count'
+                    },
+                    series: [{ name: "장비 수" }],
+                    legend: { visible: false },
+                    title: "(B3 수명 = " + b3 + ")",
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: function(arg) {
+                            var start = arg.point.data.binStart;
+                            var end = start + binSize;
+                            return {
+                                text: "구간: " + start + "~" + end + "년, 장비수: " + arg.value
+                            };
+                        }
+                    },
+                    argumentAxis: {
+                        visualRange: [0, timeMax],
+                        tickInterval: binSize,
+                        title: "사용 기간 (년)",
+                        label: {
+                            customizeText: function () {
+                                return this.value + "년";
+                            }
+                        }
+                    },
+                    valueAxis: {
+                        title: "장비 대수"
+                    },
+                    annotations: [
+                        {
+                            type: "line",
+                            axis: "argumentAxis",
+                            value: b3,
+                            text: "B3 = " + b3
+                        }
+                    ]
+                });
+            },
+            error: function (xhr, status, error) {
+                console.error("B3 히스토그램 로드 실패:", error);
+            }
+        });
+    });
+        </script>
+
+        <!--설비들-->
+        <div class="con_box flexSeolbi">
+            <!-- 타이틀 -->
+            <h2>
+                <p>설비들</p>
+                <p class="schedule_value">
+                    <span class="verygoodDevice">V-Good</span>
+                    <span class="goodDevice">Good</span>
+                    <span class="fairDevice">Fair</span>
+                    <span class="badDevice">Bad</span>
+                    <span class="verybadDevice">V-Bad</span>
+                </p>
+            </h2>
+            <!-- //타이틀 -->
+            <!-- 리스트 -->
+            <ul id="deviceList" class="box_system">
+                <!-- 이곳에 AJAX로 동적 생성 -->
+            </ul>
+            <!-- //리스트 -->
+            <script>
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "GET",
+                        url: "/TANKDevice/GetBasicInfoList",
+                        dataType: "json",
+                        success: function (data) {
+                            var $deviceList = $("#deviceList");
+                            $deviceList.empty();
+
+                            data.forEach(function (item) {
+                                // HI 값 (1~5)
+                                var hi = parseInt(item.HI) || 0; // 혹시 null이면 0 처리
+
+                                // HI에 따른 CSS 클래스 + 텍스트 결정
+                                var cssClass = "";
+                                var statusText = "";
+                                switch (hi) {
+                                    case 1:
+                                        cssClass = "verygoodDevice";
+                                        statusText = "Good";
+                                        break;
+                                    case 2:
+                                        cssClass = "goodDevice";
+                                        statusText = "Good";
+                                        break;
+                                    case 3:
+                                        cssClass = "fairDevice";
+                                        statusText = "Fair";
+                                        break;
+                                    case 4:
+                                        cssClass = "badDevice";
+                                        statusText = "Bad";
+                                        break;
+                                    case 5:
+                                        cssClass = "verybadDevice";
+                                        statusText = "Bad";
+                                        break;
+                                    default:
+                                        cssClass = "unknown";
+                                        statusText = "Unknown";
+                                        break;
+                                }
+
+                                // 항상 5개 동그라미. HI 이하인 경우만 on 클래스로 색칠
+                                var totalDots = 5;
+                                var spansHtml = "";
+                                for (var i = 1; i <= totalDots; i++) {
+                                    if (i <= hi) {
+                                        spansHtml += '<span class="on"></span>';
+                                    } else {
+                                        spansHtml += '<span></span>';
+                                    }
+                                }
+
+                                // 사용기간(년) 계산 (가동일 기준)
+                                var usageYear = "0년";
+                                if (item.Operating_Date) {
+                                    var operating = new Date(item.Operating_Date);
+                                    var now = new Date();
+                                    var diffYear = now.getFullYear() - operating.getFullYear();
+                                    usageYear = diffYear + "년";
+                                }
+
+                                // li 항목 HTML 생성
+                                var liHtml = ''
+                                    + '<li>'
+                                    + '  <a href="/TANKDeviceDetail/TANKDeviceDetail?tankCode=' + encodeURIComponent(item.TANK_Code) + '" '
+                                    + '     style="display:block; text-decoration:none; color:inherit;">'
+                                    + '    <dl class="product_info">'
+                                    + '      <dt>시리얼번호</dt>'
+                                    + '      <dd>' + (item.Serial_No || "") + '</dd>'
+                                    + '      <dt>설치일</dt>'
+                                    + '      <dd>' + (item.Install_Date || "") + '</dd>'
+                                    + '      <dt>가동일</dt>'
+                                    + '      <dd>' + (item.Operating_Date || "") + '</dd>'
+                                    + '      <dt>사용기간</dt>'
+                                    + '      <dd>' + usageYear + '</dd>'
+                                    + '    </dl>'
+                                    + '    <div class="result ' + cssClass + '">'
+                                    + '      ' + spansHtml
+                                    + '      <p class="result_txt">' + statusText + '</p>'
+                                    + '    </div>'
+                                    + '  </a>'
+                                    + '</li>';
+
+                                $deviceList.append(liHtml);
+                            });
+                        },
+                        error: function (xhr, status, error) {
+                            console.error("Error fetching device list:", error);
+                        }
+                    });
+                });
+            </script>
+
+        </div>
+        <!--//설비들-->
+        <!--우선순위-->
+        <div class="con_box flexCheck">
+            <!--타이틀-->
+            <h2>우선순위</h2>
+            <!--그리드-->
+            <div id="gridContainer" class="grid_wrap" style="height: 250px;"></div>
+            <!--//그리드-->
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    // 우선순위 데이터를 서버에서 가져오는 함수
+                    function fetchPriorityInfo() {
+                        return $.ajax({
+                            type: "POST",
+                            url: "/TANKDevice/GetPriorityTANK",
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json"
+                        });
+                    }
+
+                    fetchPriorityInfo()
+                        .done(function (response) {
+                            console.log("우선순위 데이터:", response);
+                            // 이미 컨트롤러에서 날짜형식 등으로 변환되어 반환되므로 바로 사용
+                            initializePriorityGrid(response);
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("Ajax Error:", error);
+                            alert("우선순위 데이터를 가져오는 중 오류가 발생했습니다.");
+                        });
+
+                    // dxDataGrid 초기화 함수
+                    // dxDataGrid 초기화 함수
+                    function initializePriorityGrid(data) {
+                        $('#gridContainer').dxDataGrid({
+                            dataSource: data,
+                            columnFixing: { enabled: true },
+                            showBorders: true,
+                            sorting: { mode: 'multiple' },
+                            scrolling: { columnRenderingMode: 'virtual' },
+
+                            // 첫 번째 행 강조
+                            onRowPrepared: function (e) {
+                                if (e.rowType === 'data' && e.rowIndex === 0) {
+                                    e.rowElement.addClass('first-row-highlight');
+                                }
+                            },
+
+                            // HI 셀에 클래스 부여
+                            columns: [
+                                { dataField: "Priority", caption: "우선순위", alignment: "center" },
+                                { dataField: "Sort", caption: "구분", alignment: "center" },
+                                { dataField: "Name", caption: "설비명", alignment: "center" },
+                                { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
+                                { dataField: "Install_Date", caption: "설치일", alignment: "center", dataType: "date" },
+                                { dataField: "Operating_Date", caption: "가동일", alignment: "center", dataType: "date" },
+                                { dataField: "UsagePeriod", caption: "사용기간(년)", alignment: "center" },
+                                { dataField: "CoF", caption: "CoF", alignment: "center" },
+                                { dataField: "PoF", caption: "PoF", alignment: "center" },
+                                {
+                                    dataField: "HI",
+                                    caption: "HI",
+                                    alignment: "center",
+                                    dataType: "number",
+                                    cellTemplate: function (container, info) {
+                                        var clsMap = {
+                                            1: 'priorityVerygood',
+                                            2: 'priorityGood',
+                                            3: 'priorityFair',
+                                            4: 'priorityPoor',
+                                            5: 'priorityVerypoor'
+                                        };
+                                        container.addClass(clsMap[info.value] || '');
+                                        container.text(info.value);
+                                    }
+                                }
+                            ]
+                        });
+                    }
+                });
+            </script>
+        </div>
+        <!--//우선순위-->
+        <!-- 고장률 차트 (Hazard) -->
+        <!--<div class="con_box flex5">
+    <h2>고장률</h2>-->
+        <!-- 컨테이너: display:block, 명시적 크기 지정 -->
+        <!--<div id="chart_line" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
+
+            <script>
+    $(document).ready(function () {
+        $("#chart_line").css("display", "block");
+
+        setTimeout(function() {
+            $.ajax({
+                url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+                type: 'GET',
+                data: { equipmentType: "TANK" },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("알고리즘 결과 데이터 (Hazard):", data);
+                    if (Array.isArray(data) && data.length > 0) {
+                        // 첫 번째 장비의 고장률(Hazard) 시리즈 사용
+                        var hazardData = data[0].HazardSeries;
+                        // 혹시 time, value가 문자열이면 숫자로 변환
+                        hazardData = hazardData.map(function (point) {
+                            return {
+                                time: parseFloat(point.time),
+                                value: parseFloat(point.value)
+                            };
+                        });
+                        console.log("Parsed Hazard Data:", hazardData);
+
+                        $("#chart_line").dxChart({
+                            dataSource: hazardData,
+                            // 모든 시리즈에 공통 적용될 기본값
+                            commonSeriesSettings: {
+                                type: 'line',
+                                // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                                point: {
+                                    visible: false
+                                }
+                            },
+                            // 실제 시리즈 설정 (argumentField, valueField 지정)
+                            series: [{
+                                name: "고장률",
+                                argumentField: 'time',
+                                valueField: 'value'
+                            }],
+                            tooltip: { enabled: true },
+                            argumentAxis: {
+                                title: "시간 (년)",
+                                visualRange: { startValue: 0, endValue: 80 }
+                            },
+                            valueAxis: {
+                                title: "신뢰도 (0 ~ 1)",
+                                // 값이 0~1 범위이면 이렇게 지정 가능
+                                visualRange: { startValue: 0, endValue: 1 }
+                            },
+                            onContentReady: function(e) {
+                                // 혹시 컨테이너 크기가 계산 안 된 상태라면 강제 렌더링
+                                e.component.render();
+                            }
+                        });
+                    } else {
+                        console.warn("고장률 데이터가 없습니다.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("고장률 데이터 로드 실패:", error);
+                }
+            });
+        }, 100);
+    });
+            </script>-->
+        <!-- 확률 밀도 함수 차트 -->
+        <!--<div class="con_box">
+                <h2>확률 밀도 함수</h2>
+                <div id="chart_line03" style="width:100%; height:350px; border:1px solid #ccc; display:block;"></div>
+            </div>
+            <script>
+        $(document).ready(function () {
+            // 컨테이너 크기 계산을 위해 약간의 딜레이 후 실행
+            setTimeout(function () {
+    $.ajax({
+        url: '@Url.Action("GetAlgorithmData", "EquipmentAlgorithm")',
+        type: 'GET',
+        data: { equipmentType: "TANK" },
+        dataType: 'json',
+        success: function (data) {
+            if (Array.isArray(data) && data.length > 0) {
+                // 첫 번째 장비의 확률 밀도 함수 데이터 사용
+                var pdfData = data[0].PdfNormalized;
+                pdfData = pdfData.map(function (point) {
+                    return {
+                        time: parseFloat(point.time),
+                        value: parseFloat(point.value)
+                    };
+                });
+                $("#chart_line03").dxChart({
+                    dataSource: pdfData,
+                    commonSeriesSettings: {
+                        type: 'line',
+                        // 모든 시리즈에 공통으로 점을 숨기려면 여기에 point 설정 false로 변경했음
+                        point: {
+                            visible: false
+                        }
+                    },
+                    series: [{
+                        name: "확률 밀도 함수",
+                        argumentField: 'time',
+                        valueField: 'value'
+                    }],
+                    tooltip: { enabled: true },
+                    argumentAxis: {
+                        title: "시간 (년)",
+                        visualRange: { startValue: 0, endValue: Math.max.apply(null, pdfData.map(p => p.time)) }
+                    },
+                    valueAxis: {
+                        title: "정규화된 확률 밀도"
+                    }
+                });
+            } else {
+                console.warn("확률 밀도 함수 데이터가 없습니다.");
+            }
+        },
+        error: function (xhr, status, error) {
+            console.error("확률 밀도 함수 데이터 로드 실패:", error);
+        }
+    });
+            }, 100); // 100ms 딜레이
+        });
+            </script>-->
+        <!-- 점검일정 -->
+        <div class="con_box">
+            <h2>점검일정</h2>
+            <div id="gridContainerSchedule" class="grid_wrap" style="height:250px;"></div>
+        </div>
+
+        <script>
+  $(function(){
+    var today = new Date();
+    var year  = today.getFullYear();
+    var month = today.getMonth() + 1;
+
+    $.getJSON('@Url.Action("GetScheduleData","TotalInfo")', { year: year, month: month })
+      .done(function(res){
+        // 1) VCB만 필터
+        let vcbs = res.filter(r => r.Type === 'TANK');
+
+        // 2) DueDate 계산 (End + 3개월)
+        vcbs.forEach(item => {
+          if (item.End) {
+            let d = new Date(item.End);
+            d.setMonth(d.getMonth() + 3);
+            item.DueDate = d.toISOString().slice(0,10);
+          }
+        });
+
+        // 3) 같은 Serial_No별로 최신 DueDate 항목만 남기기
+        let latestBySerial = Object.values(
+          vcbs.reduce((acc, item) => {
+            let prev = acc[item.Serial_No];
+            if (!prev || new Date(item.DueDate) > new Date(prev.DueDate)) {
+              acc[item.Serial_No] = item;
+            }
+            return acc;
+          }, {})
+        );
+
+        // 4) DueDate 오름차순 정렬 후 Priority 재부여
+        latestBySerial
+          .sort((a,b) => new Date(a.DueDate) - new Date(b.DueDate))
+          .forEach((item, idx) => item.Priority = idx+1);
+
+        // 5) DevExtreme DataGrid 렌더
+        $("#gridContainerSchedule").dxDataGrid({
+          dataSource: latestBySerial,
+          showBorders: true,
+          sorting: { mode: 'multiple' },
+          scrolling: { columnRenderingMode: 'virtual' },
+
+          onCellPrepared: function(e) {
+            if (e.rowType !== 'data') return;
+
+            // 시작일 → 연두색
+            if (e.column.dataField === 'Start') {
+              e.cellElement.css({ color: 'green', 'font-weight': 'medium' });
+            }
+            // 종료일 → 검정
+            else if (e.column.dataField === 'End') {
+              e.cellElement.css({ color: 'black', 'font-weight': 'medium' });
+            }
+            // 점검일(DueDate) → 빨강
+            else if (e.column.dataField === 'DueDate') {
+              e.cellElement.css({ color: 'red', 'font-weight': 'bold' });
+            }
+            // 우선순위는 굵게
+            else if (e.column.dataField === 'Priority') {
+              e.cellElement.css({ 'font-weight': 'bold' });
+            }
+          },
+
+          columns: [
+            { dataField: "Priority", caption: "우선순위", alignment: "center" },
+            {
+                  caption: "구분",
+                  alignment: "center",
+                  calculateCellValue: function () {
+                      return "Cooling System";
+                  }
+            },
+            { dataField: "Type", caption: "설비명", alignment: "center" },
+            {
+              caption: "점검유형", alignment: "center",
+              calculateCellValue: row =>
+                row.Status === 'confirmed' ? '보통점검'
+              : row.Status === 'risk'      ? '정밀점검'
+              : row.Status
+            },
+            { dataField: "Serial_No", caption: "시리얼번호", alignment: "center" },
+              {
+                  dataField: "Start", caption: "시작일", dataType: "date", alignment: "center", format: 'yy.MM.dd'},
+              {
+                  dataField: "End", caption: "종료일", dataType: "date", alignment: "center", format: 'yy.MM.dd'},
+              {
+                  dataField: "DueDate", caption: "정기점검일", dataType: "date", alignment: "center", format: 'yy.MM.dd'}
+          ]
+        });
+      })
+      .fail(function(xhr, status, err){
+        console.error("GetScheduleData 오류:", err);
+      });
+  });
+        </script>
+
+        <!--//점검-->
+        <!--유지보수-->
+        <!--<div class="con_box flex1">-->
+        <!-- 타이틀 -->
+        <!--<h2>
+        <p>유지보수</p>
+    </h2>-->
+        <!-- 챠트 컨테이너 -->
+        <!--<div id="chart03"></div>
+        <script>
+            $(document).ready(function () {
+                // 서버에서 TANK 유지보수 데이터를 가져오는 함수
+                function fetchMaintenanceData() {
+                    return $.ajax({
+                        type: "POST",
+                        url: "/TANKDevice/GetMonthlyMaintenanceData",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    });
+                }
+
+                // Key/Value 쌍 배열 데이터를 일반 객체로 변환하는 함수
+                // 일반적인 오브젝트가 아니라 키/값 쌍의 배열 형태로 있을 때 일반적인 JSON 객체 형태로 변환하기 위해 사용!
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            obj[pair.Key] = pair.Value;
+                        });
+                        return obj;
+                    });
+                }
+
+                // 데이터를 월별로 그룹화하여 TANK 값만 누적하는 함수
+                function processChartData(rawData) {
+                    const groupedData = {};
+                    rawData.forEach(item => {
+                        const month = item.Month; // EX: "2024-05"
+                        if (!groupedData[month]) {
+                            groupedData[month] = { Month: month, TANK: 0 };
+                        }
+                        if (item.Type === "TANK") {
+                            groupedData[month].TANK += item.Count;
+                        }
+                    });
+                    // 월별 정렬 (yyyy-MM 문자열 기준)
+                    return Object.values(groupedData).sort((a, b) => a.Month.localeCompare(b.Month));
+                }
+
+                // TANK 차트를 렌더링하는 함수
+                function renderTANKChart(data) {
+                    $("#chart03").dxChart({
+                        dataSource: data,
+                        commonSeriesSettings: {
+                            argumentField: "Month",  // 각 데이터 객체에 "Month" 속성이 있어야 함
+                            type: "bar"
+                        },
+                        legend: {
+                            visible: true,
+                            position: "bottom"
+                        },
+                        tooltip: {
+                            enabled: true,
+                            customizeTooltip: function (arg) {
+                                return {
+                                    text: arg.seriesName + " - " + arg.argumentText + ": " + arg.valueText + "건"
+                                };
+                            }
+                        },
+                        series: [
+                            {
+                                name: "TANK",
+                                valueField: "TANK",  // 각 데이터 객체에 "TANK" 속성이 있어야 함
+                                color: "#0051A2"
+                            }
+                        ]
+                    });
+                }
+
+                // AJAX 호출하여 데이터 로드 및 차트 렌더링
+                fetchMaintenanceData()
+                    .done(function (response) {
+                        console.log("유지보수 raw 데이터:", response);
+                        // 변환: Key/Value 쌍 배열 -> 일반 객체 배열
+                        const transformedData = transformData(response);
+                        console.log("변환된 데이터:", transformedData);
+                        if (!Array.isArray(transformedData) || transformedData.length === 0) {
+                            return;
+                        }
+                        const chartData = processChartData(transformedData);
+                        renderTANKChart(chartData);
+                    })
+                    .fail(function (xhr, status, error) {
+                        console.error("Ajax Error:", error);
+                        alert("유지보수 데이터를 가져오는 중 문제가 발생했습니다.");
+                    });
+            });
+        </script>
+    </div>-->
+        <!--//유지보수-->
+        <!--고장-->
+        <div class="con_box">
+            <!-- 타이틀 -->
+            <h2>
+                <p>고장</p>
+                <a href="javacript:void(0);" class="btn_more">더보기</a>
+            </h2>
+            <!-- //타이틀 -->
+            <!-- 그리드 -->
+            <div id="gridContainer02" class="grid_wrap" style="height: 400px;"></div>
+            <!-- //그리드 -->
+            <script type="text/javascript">
+                function parseDotNetDate(dotNetString) {
+                    var match = /Date\((\d+)\)/.exec(dotNetString);
+                    if (match) {
+                        var timestamp = parseInt(match[1], 10);
+                        return new Date(timestamp);
+                    }
+                    return null;
+                }
+
+                // Key/Value 쌍 배열을 일반 객체로 변환하는 함수
+                function transformData(rawArray) {
+                    return rawArray.map(function (itemArray) {
+                        var obj = {};
+                        itemArray.forEach(function (pair) {
+                            if (pair.Key === 'Date' && typeof pair.Value === 'string') {
+                                obj[pair.Key] = parseDotNetDate(pair.Value);
+                            } else {
+                                obj[pair.Key] = pair.Value;
+                            }
+                        });
+                        return obj;
+                    });
+                }
+
+                $(document).ready(function () {
+                    $.ajax({
+                        type: "POST",
+                        url: "/TANKDevice/GetGojangTANKList",
+                        contentType: "application/json; charset=utf-8",
+                        dataType: "json"
+                    })
+                        .done(function (response) {
+                            var transformed = transformData(response);
+                            console.log("TANK 전용 고장 데이터:", transformed);
+
+                            $("#gridContainer02").dxDataGrid({
+                                dataSource: transformed,
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                onRowPrepared: function (e) {
+                                    if (e.rowType === 'data' && e.rowIndex === 0) {
+                                        e.rowElement.addClass('first-row-highlight');
+                                    }
+                                },
+                                columns: [
+                                    { dataField: 'Priority', caption: '우선순위', alignment: 'center' },
+                                    { dataField: 'Code', caption: '코드', alignment: 'center' },
+                                    { dataField: 'Name', caption: '설비명', alignment: 'center' },
+                                    { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center' },
+                                    { dataField: 'Weather', caption: '날씨', alignment: 'center' },
+                                    { dataField: 'Temp', caption: '온도(°C)', alignment: 'center' },
+                                    { dataField: 'Hum', caption: '습도(%)', alignment: 'center' },
+                                    { dataField: 'Reason', caption: '발견동기', alignment: 'center' },
+                                    { dataField: 'Status', caption: '상태', alignment: 'center' },
+                                    { dataField: 'Part', caption: '부품', alignment: 'center' },
+                                    { dataField: 'Period', caption: '기간', alignment: 'center' },
+                                    { dataField: 'Finder', caption: '발견자', alignment: 'center' },
+                                    {
+                                        dataField: 'Date',
+                                        caption: '고장일',
+                                        alignment: 'center',
+                                        dataType: 'date'
+                                    }
+                                ],
+                                showBorders: true,
+                                sorting: { mode: 'multiple' },
+                                scrolling: { columnRenderingMode: 'virtual' }
+                            });
+                        })
+                        .fail(function (xhr, status, error) {
+                            console.error("TANK 고장 데이터를 가져오는 중 오류:", error);
+                        });
+                });
+            </script>
+        </div>
+        <!--고장-->
+    </div>
+    <!--//전체 박스-->
+    <!--//컨텐츠가 들어옵니다-->
+}

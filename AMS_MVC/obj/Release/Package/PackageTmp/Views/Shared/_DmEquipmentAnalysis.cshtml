@@ -1,0 +1,461 @@
+﻿@model string
+
+<section class="con_box dm-device-analysis" id="dmEquipmentAnalysis" data-equipment-code="@Model">
+    <div class="dm-device-analysis-heading">
+        <div>
+            <h2>의사결정(DM) 산출 상세</h2>
+            <p>종합정보에 표시된 금액과 의사결정이 어떤 입력값과 계산식으로 산출됐는지 확인합니다.</p>
+        </div>
+        <span class="dm-device-analysis-code">설비코드 @Model</span>
+    </div>
+
+    <div class="dm-device-analysis-loading">DM 산출 정보를 불러오는 중입니다.</div>
+    <div class="dm-device-analysis-error" hidden></div>
+
+    <div class="dm-device-analysis-content" hidden>
+        <div class="dm-device-analysis-section">
+            <div class="dm-device-analysis-section-title">
+                <h3>종합정보 표기값</h3>
+                <p>PoF·CoF·Risk와 유지보수 의사결정의 최종 표시값입니다.</p>
+            </div>
+            <div class="dm-device-analysis-grid dm-device-analysis-summary" data-dm-section="summary"></div>
+        </div>
+
+        <div class="dm-device-analysis-section">
+            <div class="dm-device-analysis-section-title">
+                <h3>DM 참고 CoF 상세(원)</h3>
+                <p>4개 영향 차원을 fleet 기준으로 정규화하고 40%·30%·20%·10% 가중치를 적용한 참고값입니다.</p>
+            </div>
+            <div class="dm-device-analysis-grid" data-dm-section="cof-normalized"></div>
+            <div class="dm-device-analysis-guide">
+                종합정보의 CoF·Risk는 목포대 RISKMATRIX 등록 CoF를 원화로 환산해 사용하며,
+                아래 4D CoF는 NPV·BCR 등 DM 경제성 계산에 사용하는 참고값입니다.
+            </div>
+        </div>
+
+        <div class="dm-device-analysis-section">
+            <div class="dm-device-analysis-section-title">
+                <h3>4D CoF 원시 영향도 및 신뢰도 세부</h3>
+                <p>정규화 전 재무·신뢰도·안전·환경 영향도와 신뢰도 계산의 구성값입니다.</p>
+            </div>
+            <div class="dm-device-analysis-grid" data-dm-section="cof-raw"></div>
+        </div>
+
+        <div class="dm-device-analysis-section">
+            <div class="dm-device-analysis-section-title">
+                <h3 data-dm-economic-title>NPV·ROI 상세</h3>
+                <p>편익과 비용을 분리해 NPV, BCR, ROI가 만들어지는 과정을 표시합니다.</p>
+            </div>
+            <div class="dm-device-analysis-grid" data-dm-section="economy"></div>
+        </div>
+
+        <div class="dm-device-analysis-section dm-device-analysis-formulas">
+            <div class="dm-device-analysis-section-title">
+                <h3>계산식 확인</h3>
+                <p>현재 설비의 실제 값을 계산식에 대입한 결과입니다.</p>
+            </div>
+            <div class="dm-device-formula-list" data-dm-section="formulas"></div>
+            <div class="dm-device-analysis-basis" data-dm-section="basis"></div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .dm-device-analysis {
+        flex: 0 0 100%;
+        width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
+    }
+
+    .dm-device-analysis-heading {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 18px;
+        padding-bottom: 14px;
+        border-bottom: 2px solid #075cab;
+    }
+
+    .box_wrap .con_box .dm-device-analysis-heading h2 {
+        justify-content: flex-start;
+        margin: 0 0 6px;
+        color: #0b4f91;
+        font-size: 20px;
+        font-weight: 900;
+    }
+
+    .dm-device-analysis-heading p,
+    .dm-device-analysis-section-title p {
+        margin: 0;
+        color: #6a7b8e;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    .dm-device-analysis-code {
+        flex: 0 0 auto;
+        padding: 7px 12px;
+        border-radius: 16px;
+        background: #eaf3ff;
+        color: #075cab;
+        font-size: 12px;
+        font-weight: 800;
+    }
+
+    .dm-device-analysis-loading,
+    .dm-device-analysis-error {
+        padding: 24px;
+        border: 1px dashed #b9cce0;
+        border-radius: 8px;
+        background: #f7faff;
+        color: #66788a;
+        text-align: center;
+    }
+
+    .dm-device-analysis-error {
+        border-color: #efb8b8;
+        background: #fff4f4;
+        color: #c0392b;
+    }
+
+    .dm-device-analysis-section + .dm-device-analysis-section {
+        margin-top: 22px;
+        padding-top: 20px;
+        border-top: 1px dashed #cbd8e6;
+    }
+
+    .dm-device-analysis-section-title {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin-bottom: 11px;
+    }
+
+    .dm-device-analysis-section-title h3 {
+        margin: 0;
+        color: #173b6c;
+        font-size: 15px;
+        font-weight: 900;
+    }
+
+    .dm-device-analysis-grid {
+        display: grid;
+        grid-template-columns: repeat(5, minmax(150px, 1fr));
+        gap: 9px;
+    }
+
+    .dm-device-analysis-card {
+        min-width: 0;
+        padding: 12px 13px;
+        border: 1px solid #d7e2ed;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    .dm-device-analysis-card.is-key {
+        border-color: #9fbce0;
+        background: #eaf3ff;
+    }
+
+    .dm-device-analysis-card.is-alert {
+        border-color: #f3b2b2;
+        background: #fff0f0;
+    }
+
+    .dm-device-analysis-label {
+        display: block;
+        min-height: 28px;
+        margin-bottom: 5px;
+        color: #687b8f;
+        font-size: 11px;
+        line-height: 1.35;
+    }
+
+    .dm-device-analysis-value {
+        display: block;
+        overflow-wrap: anywhere;
+        color: #20344d;
+        font-size: 15px;
+        font-weight: 900;
+        line-height: 1.35;
+        text-align: right;
+    }
+
+    .dm-device-analysis-card.is-alert .dm-device-analysis-value {
+        color: #d32f2f;
+    }
+
+    .dm-device-analysis-guide,
+    .dm-device-analysis-basis {
+        margin-top: 10px;
+        padding: 10px 12px;
+        border-left: 3px solid #4b88c5;
+        border-radius: 0 6px 6px 0;
+        background: #f3f7fc;
+        color: #5f7287;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+
+    .dm-device-formula-list {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .dm-device-formula {
+        padding: 12px 14px;
+        border: 1px solid #d7e2ed;
+        border-radius: 8px;
+        background: #fff;
+    }
+
+    .dm-device-formula strong {
+        display: block;
+        margin-bottom: 5px;
+        color: #075cab;
+        font-size: 12px;
+    }
+
+    .dm-device-formula span {
+        color: #334b65;
+        font-size: 12px;
+        line-height: 1.55;
+    }
+
+    @@media (max-width: 1250px) {
+        .dm-device-analysis-grid {
+            grid-template-columns: repeat(3, minmax(150px, 1fr));
+        }
+    }
+
+    @@media (max-width: 800px) {
+        .dm-device-analysis-heading {
+            flex-direction: column;
+        }
+
+        .dm-device-analysis-grid,
+        .dm-device-formula-list {
+            grid-template-columns: 1fr;
+        }
+
+        .dm-device-analysis-label {
+            min-height: 0;
+        }
+    }
+</style>
+
+<script>
+    jQuery(function ($) {
+        const root = $('#dmEquipmentAnalysis');
+        if (!root.length) return;
+
+        const equipmentCode = String(root.data('equipment-code') || '').trim();
+        const loading = root.find('.dm-device-analysis-loading');
+        const error = root.find('.dm-device-analysis-error');
+        const content = root.find('.dm-device-analysis-content');
+
+        const number = function (value) {
+            const parsed = Number(value);
+            return Number.isFinite(parsed) ? parsed : 0;
+        };
+
+        const formatKrw = function (value) {
+            return Math.round(number(value)).toLocaleString('ko-KR') + '원';
+        };
+
+        const formatUsdAsKrw = function (value) {
+            return formatKrw(usdToKrw(number(value)));
+        };
+
+        const formatFixed = function (value, digits) {
+            return number(value).toLocaleString('ko-KR', {
+                minimumFractionDigits: digits,
+                maximumFractionDigits: digits
+            });
+        };
+
+        const addCard = function (target, item) {
+            const card = $('<div>')
+                .addClass('dm-device-analysis-card')
+                .toggleClass('is-key', item.key === true)
+                .toggleClass('is-alert', item.alert === true)
+                .appendTo(target);
+            $('<span>').addClass('dm-device-analysis-label').text(item.label).appendTo(card);
+            $('<strong>').addClass('dm-device-analysis-value').text(item.value).appendTo(card);
+        };
+
+        const renderCards = function (section, items) {
+            const target = root.find('[data-dm-section="' + section + '"]').empty();
+            items.forEach(function (item) { addCard(target, item); });
+        };
+
+        const addFormula = function (target, title, expression) {
+            const item = $('<div>').addClass('dm-device-formula').appendTo(target);
+            $('<strong>').text(title).appendTo(item);
+            $('<span>').text(expression).appendTo(item);
+        };
+
+        const render = function (row) {
+            const cofKrw = usdToKrw(number(row.CoF));
+            const riskKrw = usdToKrw(number(row.Risk));
+            const pofPct = number(row.PoF);
+            const decision = row.Decision || '데이터 확인 필요';
+            const isAlert = decision === '즉시 교체' || decision === '긴급 유지보수';
+
+            root.find('[data-dm-economic-title]')
+                .text((row.ProductName || row.Code || '설비') + ' NPV·ROI 상세');
+
+            renderCards('summary', [
+                { label: 'DM 우선순위', value: row.Priority == null ? '-' : String(row.Priority) + '위', key: true },
+                { label: '의사결정', value: decision, alert: isAlert, key: true },
+                { label: 'HI', value: formatFixed(row.HI, 2) },
+                { label: 'PoF', value: formatFixed(pofPct, 2) + '%' },
+                { label: 'CoF (목포대 등록값 환산)', value: formatKrw(cofKrw), key: true },
+                { label: 'Risk', value: formatKrw(riskKrw), key: true },
+                { label: '교체비', value: formatKrw(row.ReplacementCost) },
+                { label: 'NPV', value: formatKrw(row.NPV), key: true },
+                { label: 'BCR', value: formatFixed(row.BCR, 3) },
+                { label: 'ROI', value: formatFixed(row.ROI, 2) + '%' },
+                { label: 'RUL', value: row.RUL == null ? '산정불가' : formatFixed(row.RUL, 2) + '년' },
+                { label: '긴급도 / 권장시기', value: (row.Urgency || '-') + ' / ' + (row.RecommendedAction || '-') },
+                { label: '중요도 지수', value: formatFixed(row.Criticality, 2) },
+                { label: 'TOPSIS 점수', value: formatFixed(row.TopsisScore, 4) },
+                { label: 'AHP 일관성비율(CR)', value: formatFixed(row.AhpConsistencyRatio, 4) }
+            ]);
+
+            renderCards('cof-normalized', [
+                { label: '재무 기여액(정규화)', value: formatKrw(row.CofFinancial) },
+                { label: '신뢰도 기여액(정규화)', value: formatKrw(row.CofReliability) },
+                { label: '안전 기여액(정규화)', value: formatKrw(row.CofSafety) },
+                { label: '환경 기여액(정규화)', value: formatKrw(row.CofEnvironmental) },
+                { label: 'DM 참고 CoF 합계', value: formatKrw(row.DmCofKrw), key: true }
+            ]);
+
+            renderCards('cof-raw', [
+                { label: '재무 원시 영향도', value: formatKrw(row.RawCofFinancial) },
+                { label: '신뢰도 원시 영향도', value: formatKrw(row.RawCofReliability) },
+                { label: '안전 원시 영향도', value: formatKrw(row.RawCofSafety) },
+                { label: '환경 원시 영향도', value: formatKrw(row.RawCofEnvironmental) },
+                { label: 'CENS', value: formatKrw(row.CofCens) },
+                { label: 'SAIDI 패널티', value: formatKrw(row.CofSaidiPenalty) },
+                { label: 'SAIFI 패널티', value: formatKrw(row.CofSaifiPenalty) },
+                { label: '영향 고객 수', value: formatFixed(row.CustomersAffected, 0) + '명' },
+                { label: 'SAIDI 기여도', value: formatFixed(row.SaidiContribution, 6) },
+                { label: 'SAIFI 기여도', value: formatFixed(row.SaifiContribution, 6) }
+            ]);
+
+            renderCards('economy', [
+                { label: '위험 경감액', value: formatKrw(row.RiskMitigation) },
+                { label: '연간 유지보수 절감액', value: formatKrw(row.AnnualMaintenanceSaving) },
+                { label: '연간 효율 개선 편익', value: formatKrw(row.AnnualEfficiencyBenefit) },
+                { label: '연간 편익 합계', value: formatKrw(row.AnnualBenefits) },
+                { label: '연간 편익 할인 현재가치', value: formatKrw(row.DiscountedAnnualBenefits) },
+                { label: '수명 연장 가치', value: formatKrw(row.ExtendedLifetimeValue) },
+                { label: '편익 현재가치', value: formatKrw(row.NpvBenefits), key: true },
+                { label: '교체비', value: formatKrw(row.ReplacementCost) },
+                { label: '설치비', value: formatKrw(row.InstallationCost) },
+                { label: '폐기비', value: formatKrw(row.DisposalCost) },
+                { label: '비용 현재가치', value: formatKrw(row.NpvCosts || row.TotalCosts), key: true },
+                { label: 'NPV', value: formatKrw(row.NPV), key: true },
+                { label: 'BCR', value: formatFixed(row.BCR, 3), key: true },
+                { label: 'ROI', value: formatFixed(row.ROI, 2) + '%', key: true }
+            ]);
+
+            const formulaTarget = root.find('[data-dm-section="formulas"]').empty();
+            addFormula(
+                formulaTarget,
+                'Risk = PoF × CoF',
+                formatFixed(pofPct, 2) + '% × ' + formatKrw(cofKrw) + ' = ' + formatKrw(riskKrw)
+            );
+            addFormula(
+                formulaTarget,
+                '4D CoF = 재무×40% + 신뢰도×30% + 안전×20% + 환경×10%',
+                formatKrw(row.CofFinancial) + ' + ' + formatKrw(row.CofReliability) + ' + '
+                + formatKrw(row.CofSafety) + ' + ' + formatKrw(row.CofEnvironmental)
+                + ' = ' + formatKrw(row.DmCofKrw)
+            );
+            addFormula(
+                formulaTarget,
+                'NPV = 편익 현재가치 - 비용 현재가치',
+                formatKrw(row.NpvBenefits) + ' - ' + formatKrw(row.NpvCosts || row.TotalCosts)
+                + ' = ' + formatKrw(row.NPV)
+            );
+            addFormula(
+                formulaTarget,
+                'BCR = 편익 현재가치 ÷ 비용 현재가치',
+                formatKrw(row.NpvBenefits) + ' ÷ ' + formatKrw(row.NpvCosts || row.TotalCosts)
+                + ' = ' + formatFixed(row.BCR, 3)
+            );
+            addFormula(
+                formulaTarget,
+                'ROI = NPV ÷ 비용 현재가치 × 100',
+                formatKrw(row.NPV) + ' ÷ ' + formatKrw(row.NpvCosts || row.TotalCosts)
+                + ' × 100 = ' + formatFixed(row.ROI, 2) + '%'
+            );
+            addFormula(
+                formulaTarget,
+                'DM 우선순위 = AHP 가중치가 적용된 TOPSIS 순위',
+                'Risk·BCR·HI·RUL·중요도를 비교해 TOPSIS 점수 '
+                + formatFixed(row.TopsisScore, 4) + ', 최종 ' + (row.Priority == null ? '-' : row.Priority + '위')
+            );
+
+            root.find('[data-dm-section="basis"]').text(
+                '계산 기준: 평가기간 ' + number(row.EvaluationPeriodYears) + '년 · 할인율 '
+                + formatFixed(row.DiscountRate, 2) + '% · 물가상승률 '
+                + formatFixed(row.InflationRate, 2) + '% · 현재 적용 USD/KRW 환율 '
+                + formatFixed(window.usdKrwRate, 2) + '원'
+            );
+
+            loading.hide();
+            error.prop('hidden', true).hide();
+            content.prop('hidden', false).hide().fadeIn(180);
+        };
+
+        const showError = function (message) {
+            loading.hide();
+            content.prop('hidden', true).hide();
+            error.text(message).prop('hidden', false).show();
+        };
+
+        if (!equipmentCode) {
+            showError('설비코드가 없어 DM 산출 정보를 조회할 수 없습니다.');
+            return;
+        }
+
+        const loadDmDecisionInfo = function () {
+            $.getJSON('@Url.Action("GetDMDecisionInfo", "TotalInfo")', { prefix: '' })
+                .done(function (result) {
+                    try {
+                        const rows = result && Array.isArray(result.rows) ? result.rows : [];
+                        const row = rows.find(function (item) {
+                            return String(item.Code || '').trim().toUpperCase() === equipmentCode.toUpperCase();
+                        });
+
+                        if (!row) {
+                            showError('해당 설비의 DM 산출 정보가 없습니다. HI·PoF·CoF 등록 상태를 확인해 주세요.');
+                            return;
+                        }
+
+                        render(row);
+                    } catch (renderError) {
+                        console.error('DM 산출 상세 렌더링 실패', renderError);
+                        showError('DM 산출 정보를 표시하는 중 오류가 발생했습니다.');
+                    }
+                })
+                .fail(function () {
+                    showError('DM 산출 정보를 불러오지 못했습니다. 잠시 후 다시 시도해 주세요.');
+                });
+        };
+
+        if (typeof window.loadUsdKrwRate === 'function') {
+            window.loadUsdKrwRate().always(loadDmDecisionInfo);
+        } else {
+            console.warn('환율 변환 모듈을 찾지 못해 DM 원화 환산값을 표시할 수 없습니다.');
+            showError('환율 변환 모듈을 불러오지 못했습니다. 화면을 새로고침해 주세요.');
+        }
+    });
+</script>

@@ -1,0 +1,63 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SettingMenu")
+}
+
+@section MainContent {
+    <h1>계정정보</h1>
+    <div class="con_box">
+        <!--테이블리스트-->
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="index.html?page=member_app" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+        <!--//테이블리스트-->
+        <script type="text/javascript">
+            $(function () {
+                $('#gridContainer').dxDataGrid({
+                    dataSource: customers,
+                    columnFixing: {
+                        enabled: true
+                    },
+                    keyExpr: 'ID',
+                    columns: [
+                        { dataField: 'id', caption: '아이디', alignment: 'center' },
+                        { dataField: 'name', caption: '이름', alignment: 'center' },
+                        { dataField: 'depar', caption: '직책', alignment: 'center' },
+                        { dataField: 'hp', caption: '전화번호', alignment: 'center' },
+                        { dataField: 'email', caption: '이메일', alignment: 'center' },
+                        { dataField: 'delete', caption: '삭제', alignment: 'center' }
+                    ],
+                    showBorders: false,
+                    scrolling: {
+                        columnRenderingMode: 'virtual'
+                    },
+                    customizeColumns: function (columns) {
+                        columns[5].encodeHtml = false;
+                    }
+                });
+            });
+
+            const customers = [];
+            (function () {
+                for (let i = 1; i < 20; i += 1) {
+                    customers.push({
+                        ID: i,
+                        id: 'genadsys',
+                        name: '홍길동',
+                        depar: '차장',
+                        hp: '010-5225-4775',
+                        email: 'genadysys.lee@gmail.com',
+                        delete: '<a href="javascript:openPop(\'pop_VCB_02.html\',\'1100\',\'650\');" class="btn table red">삭제</a>'
+                    });
+                }
+            })();
+        </script>
+    </div>
+    <!--//컨텐츠가 들어옵니다-->
+}

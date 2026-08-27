@@ -1,0 +1,69 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_SPAREMenu")
+}
+
+@section MainContent {
+    <h1>예비품 발주관리 목록</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <a href="@Url.Action("SPAREProcurementAdd", "SPAREProcurement")" class="btn add blue">추가</a>
+            </div>
+
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+    </div>
+
+    <script>
+        $(function () {
+            loadProcurementList();
+        });
+
+        function loadProcurementList() {
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("GetProcurementListData", "SPAREProcurement")',
+                success: function (response) {
+                    if (!response.success) {
+                        alert(response.message);
+                        return;                        
+                    }
+
+                    $("#gridContainer").dxDataGrid({
+                        dataSource: response.data,
+                        showBorders: true,
+                        hoverStateEnabled: true,
+                        searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                        columns: [
+                            { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
+                            { dataField: "PART_NAME", caption: "부품명", alignment: "center" },
+                            { dataField: "ORDER_QTY", caption: "발주수량", alignment: "center", width: 100 },
+                            { dataField: "UNIT_COST", caption: "발주단가", alignment: "right", width: 120, format: "#,##0" },
+                            { dataField: "TOTAL_PROC_COST", caption: "총금액", alignment: "right", width: 120, format: "#,##0" },
+                            { dataField: "ORDER_DATE", caption: "발주일", alignment: "center", width: 120 },
+                            { dataField: "STATUS", caption: "상태", alignment: "center", width: 100 },
+                            { dataField: "SUPPLIER", caption: "공급사", alignment: "center", width: 140 },
+                            {
+                                caption: "관리",
+                                alignment: "center",
+                                width: 100,
+                                cellTemplate: function (container, options) {
+                                    $("<a>")
+                                        .addClass("btn blue")
+                                        .text("수정")
+                                        .attr("href", '@Url.Action("SPAREProcurementUpdate", "SPAREProcurement")' + '?procId=' + options.data.PROC_ID)
+                                        .appendTo(container);
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+        }
+    </script>
+}

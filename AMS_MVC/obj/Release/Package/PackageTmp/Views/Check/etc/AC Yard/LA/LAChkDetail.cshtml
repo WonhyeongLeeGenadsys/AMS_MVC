@@ -1,0 +1,188 @@
+﻿@model Web.Common.LAChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var laCode = Request.QueryString["laCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>LA 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@laCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("LAChkUpdate", "LAChk", new { laCode = laCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="laChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @*동작 확인*@
+                        <tr>
+                            <td rowspan="1">외관 점검</td>
+                            <td>애자(애관)의 균열 및 오손 여부 점검/청소</td>
+                            <td>균열·오손 없고 청결 상태 유지</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+
+                        @*접속 점검*@
+                        <tr>
+                            <td rowspan="1">접속 점검</td>
+                            <td>접속부 볼트 조임 상태</td>
+                            <td>풀림 없이 견고히 체결</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+
+                        @*기초 점검*@
+                        <tr>
+                            <td rowspan="1">기초 점검</td>
+                            <td>가대 및 기초 볼트 조임 상태</td>
+                            <td>기초 볼트 풀림 및 균열 없을 것</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_3_1_Text)</td>
+                        </tr>
+
+                        @*부속장치 점검*@
+                        <tr>
+                            <td rowspan="4">부속장치 점검</td>
+                            <td>부속장치 동작 상태 점검 및 청소</td>
+                            <td>이상 없음 / 청결 상태 유지</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_4_1_Text)</td>
+                        </tr>
+
+                        @*기능 시험*@
+                        <tr>
+                            <td rowspan="4">기능 시험</td>
+                            <td>절연저항 측정</td>
+                            <td>기기별 기준 이상</td>
+                            <td>MΩ</td>
+                            <td>@(Model.CHK_5_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>절연열화(Doble) 측정</td>
+                            <td>기기별 기준 이내</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_2_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>동작 카운터 점검</td>
+                            <td>정상 동작 상태</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_3_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>누설전류 측정</td>
+                            <td>기기별 기준 이내</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_4_Text)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(laCode, tblIdx) {
+            if (!confirm("LA 보통점검 정보를 삭제하시겠습니까?")) return;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("LAChkDelete", "LAChk")',
+                    data: JSON.stringify({ laCode: laCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("LA 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("LAChkTotalList", "LAChk")';
+                        } else {
+                            alert("LA 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+

@@ -1,0 +1,167 @@
+﻿@model Web.Common.TANKChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var tankCode = Request.QueryString["tankCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>TANK 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@tankCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("TANKChkUpdate", "TANKChk", new { tankCode = tankCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="tankChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                        <col style="width:6%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td rowspan="2">외관 점검</td>
+                            <td>탱크 표면 및 연결 부위 누유, 부식, 손상 여부 확인</td>
+                            <td>이상 없음 (누유/부식/손상 무)</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>밸브 및 계측기 상태 점검</td>
+                            <td>밸브 작동 및 계측 상태 양호</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_2_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="2">기능 점검</td>
+                            <td>압력, 온도 정상 범위 작동 여부 확인</td>
+                            <td>압력/온도 설계 범위 내 유지</td>
+                            <td>kg/cm², ℃</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td>유량 정상 작동 여부 확인</td>
+                            <td>정상 유량 유지</td>
+                            <td>m³/h</td>
+                            <td>@(Model.CHK_2_2_Text)</td>
+                        </tr>
+
+                        <tr>
+                            <td rowspan="1"> 안전 장치 점검</td>
+                            <td>안전밸브, 방폭 장치 작동 상태 확인</td>
+                            <td>정상 작동 확인 (점검 및 시험 포함)</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_3_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">주변 환경 점검</td>
+                            <td>위험 물질 및 화재 위험 요인 여부 확인</td>
+                            <td>위험 요소 없음 (청결 유지)</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_4_1_Text)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(tankCode, tblIdx) {
+            if (!confirm("Pump 보통점검 정보를 삭제하시겠습니까?")) return;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("TANKChkDelete", "TANKChk")',
+                    data: JSON.stringify({ tankCode: tankCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("TANK 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("TANKChkTotalList", "TANKChk")';
+                        } else {
+                            alert("TANK 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+
