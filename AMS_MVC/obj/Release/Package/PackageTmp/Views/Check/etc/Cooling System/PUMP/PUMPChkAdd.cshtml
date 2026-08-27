@@ -1,0 +1,316 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var pumpCode = Request.QueryString["PUMP_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>
+        PUMP 보통점검 추가: @ViewBag.SerialNo
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="createPUMPChk()">적용</a>
+                </p>
+            </div>
+            <form id="pumpChkForm" method="post" enctype="multipart/form-data">
+                @* URL에 PUMP_Code가 전달된 경우 hidden 필드로 사용, 그렇지 않으면 드롭다운 출력 *@
+                @if (!string.IsNullOrEmpty(pumpCode))
+                {
+                    <input type="hidden" name="PUMP_Code" value="@pumpCode" />
+                }
+                else
+                {
+                    <div style="margin-bottom: 15px;">
+                        @Html.DropDownList("PUMP_Code", (SelectList)ViewBag.PUMPs, "PUMP를 선택하세요.", new { @class = "form-control", @id = "PUMP_Code" })
+                    </div>
+                }
+                <div class="table_app" id="pumpChk">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                        </colgroup>
+                        <tr>
+                            <th>공사명</th>
+                            <td colspan="5">
+                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="chk_weather" name="chk_weather">
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="chk_temp" name="chk_temp"> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="chk_hum" name="chk_hum"> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                <input type="text" id="chk_worker" name="chk_worker">
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="chk_manager" name="chk_manager">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>급전번호</th>
+                            <td>
+                                <input type="text" id="chk_urgent_no" name="chk_urgent_no">
+                            </td>
+                            <th>형식</th>
+                            <td>
+                                <input type="text" id="chk_type" name="chk_type">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                <input type="date" id="chk_start_date" name="chk_start_date">
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                <input type="date" id="chk_end_date" name="chk_end_date">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+                <!--알고리즘 반영 파라미터-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">
+                                    외관 점검
+                                </td>
+                                <td>펌프 본체, 연결부, 베이스 부식/손상/누수 여부 확인</td>
+                                <td>부식, 손상 및 누수 없음</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_1_1">
+                                        <input type="radio" id="chk_1_1_1" name="CHK_1_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_1_2">
+                                        <input type="radio" id="chk_1_1_2" name="CHK_1_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>모터 표면의 부식 및 손상 확인</td>
+                                <td>표면 손상 및 부식 없음</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_2_1">
+                                        <input type="radio" id="chk_1_2_1" name="CHK_1_2" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_2_2">
+                                        <input type="radio" id="chk_1_2_2" name="CHK_1_2" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="2">
+                                    작동 점검
+                                </td>
+                                <td>정상 작동 여부 및 이상 소음, 진동 확인</td>
+                                <td>이상 소음 및 진동 없음, 정상 작동</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_1_1">
+                                        <input type="radio" id="chk_2_1_1" name="CHK_2_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_1_2">
+                                        <input type="radio" id="chk_2_1_2" name="CHK_2_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>흡입/토출 유량 및 압력, 탱크 내 액위 확인</td>
+                                <td>설계 유량 및 압력 범위 유지</td>
+                                <td>m³/h, kg/cm²</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_2_1">
+                                        <input type="radio" id="chk_2_2_1" name="CHK_2_2" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_2_2">
+                                        <input type="radio" id="chk_2_2_2" name="CHK_2_2" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    성능 시험
+                                </td>
+                                <td>제어반 수동 기동 후 전체 계통 정상 여부 확인</td>
+                                <td>기동 후 제어반 및 계통 정상 작동</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_3_1_1">
+                                        <input type="radio" id="chk_3_1_1" name="CHK_3_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_3_1_2">
+                                        <input type="radio" id="chk_3_1_2" name="CHK_3_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td rowspan="1">
+                                    부속품 점검
+                                </td>
+                                <td>밸브, 필터, 압력계 등 부속품 작동 상태 점검</td>
+                                <td>모든 부속품 정상 동작</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_4_1_1">
+                                        <input type="radio" id="chk_4_1_1" name="CHK_4_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_4_1_2">
+                                        <input type="radio" id="chk_4_1_2" name="CHK_4_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">
+                                    유량/압력 측정
+                                </td>
+                                <td>흡입/토출 유량 및 압력 측정</td>
+                                <td>설계 값과 일치 (기록 필수)</td>
+                                <td>m³/h, kg/cm²</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_5_1_1">
+                                        <input type="radio" id="chk_5_1_1" name="CHK_5_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_5_1_2">
+                                        <input type="radio" id="chk_5_1_2" name="CHK_5_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="1">
+                                    점검 기록
+                                </td>
+                                <td>점검 주기 및 결과 기록, 상태 변화 추적</td>
+                                <td>정기 점검 및 결과 기록 유지</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_6_1_1">
+                                        <input type="radio" id="chk_6_1_1" name="CHK_6_1" value="1"  checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_6_1_2">
+                                        <input type="radio" id="chk_6_1_2" name="CHK_6_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // PUMP 점검 정보 수집 함수
+        function createPUMPChk() {
+            submitPUMPChkForm();
+        }
+
+        function submitPUMPChkForm() {
+            var form = document.getElementById("pumpChkForm");
+            var formData = new FormData(form);
+
+            var pumpCodeDropdown = document.getElementById("PUMP_Code");
+            if (pumpCodeDropdown) {
+                if (!pumpCodeDropdown.value) {
+                    alert("PUMP를 선택하세요.");
+                    return;
+                }
+            }
+
+            // FormData 내용을 콘솔에 출력
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+            url: '@Url.Action("PUMPChkAdd", "PUMPChk")',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("서버 응답:", response);
+                if (response.IsSuccess) {
+                    alert("PUMP 보통점검 정보가 저장되었습니다.");
+                    window.location.href = '@Url.Action("PUMPChkTotalList", "PUMPChk")';
+                } else {
+                    alert("PUMP 보통점검 정보를 추가하지 못했습니다.: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생:", xhr.responseText || status, error);
+                alert("PUMP 보통점검 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+            }
+        });
+    }
+    </script>
+}

@@ -1,0 +1,161 @@
+﻿@model Web.Common.BYPASSVALVEChk
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var bypassvalveCode = Request.QueryString["bypassvalveCode"] ?? "";
+    var tblIdx = Request.QueryString["tblIdx"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>BYPASSVALVE 보통점검 상세 정보</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="javascript:void(0);" class="btn red del" onclick="deleteChk('@bypassvalveCode', '@tblIdx');">삭제</a>
+                    <a href="@Url.Action("BYPASSVALVEChkUpdate", "BYPASSVALVEChk", new { bypassvalveCode = bypassvalveCode, tblIdx = tblIdx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+
+            <div class="table_app" id="bypassvalveChk">
+                <table>
+                    <colgroup>
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                        <col style="width:100px;">
+                        <col style="width:calc(33.3% - 100px);">
+                    </colgroup>
+                    <tr>
+                        <th>공사명</th>
+                        <td colspan="5">@Model.CHK_Gongsa_Name</td>
+                    </tr>
+                    <tr>
+                        <th>날씨</th>
+                        <td>@Model.CHK_Weather</td>
+                        <th>기온</th>
+                        <td>@Model.CHK_Temp °C</td>
+                        <th>습도</th>
+                        <td>@Model.CHK_Hum %</td>
+                    </tr>
+                    <tr>
+                        <th>업체명</th>
+                        <td>@Model.CHK_Company</td>
+                        <th>점검자</th>
+                        <td>@Model.CHK_Worker</td>
+                        <th>감독자</th>
+                        <td>@Model.CHK_Manager</td>
+                    </tr>
+                    <tr>
+                        <th>급전번호</th>
+                        <td>@Model.CHK_Urgent_No</td>
+                        <th>형식</th>
+                        <td>@Model.CHK_Type</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <th>점검 시작일</th>
+                        <td>@Model.CHK_Start_Date</td>
+                        <th>점검 종료일</th>
+                        <td>@Model.CHK_End_Date</td>
+                        <th></th>
+                        <td></td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="table_list_app">
+                <table>
+                    <colgroup>
+                        <col style="width:15%">
+                        <col style="width:15%">
+                        <col style="width:12%">
+                        <col style="width:8%">
+                        <col>
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>Parameters</th>
+                            <th>한전기준</th>
+                            <th>단위</th>
+                            <th>판정기준 및 score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr>
+                            <td rowspan="1">외관 점검</td>
+                            <td>밸브 주변 누유, 손상, 부식 여부 확인</td>
+                            <td>누유/부식/손상 없음</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_1_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">작동 점검</td>
+                            <td>밸브 개폐 작동 상태 확인</td>
+                            <td>정상 작동 및 개폐 상태 확인</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_2_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">압력 점검</td>
+                            <td>밸브 개폐 압력 측정 및 설계 사양 부합 여부 확인</td>
+                            <td>설계 사양 내 압력 유지</td>
+                            <td>-</td>/
+                            <td>@(Model.CHK_3_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">필터 점검</td>
+                            <td>바이패스 경로 필터 막힘 여부 점검</td>
+                            <td>필터 막힘 없을 것</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_4_1_Text)</td>
+                        </tr>
+                        <tr>
+                            <td rowspan="1">정비 이력</td>
+                            <td>정비 이력 및 교체 주기 확인</td>
+                            <td>정기 정비 이력 확보 및 필요 시 정비 실시</td>
+                            <td>-</td>
+                            <td>@(Model.CHK_5_1_Text)</td>
+                        </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+@section Scripts {
+    <script type="text/javascript">
+        function deleteGojang(bypassvalveCode, tblIdx) {
+            if (!confirm("Bypass Valve 보통점검 정보를 삭제하시겠습니까?")) return;
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("BYPASSVALVEChkDelete", "BYPASSVALVEChk")',
+                    data: JSON.stringify({ bypassvalveCode: bypassvalveCode, tblIdx: tblIdx }),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (response) {
+                        if (response.success) {
+                            alert("BYPASSVALVE 기본 정보가 삭제되었습니다.");
+                            window.location.href = '@Url.Action("BYPASSVALVEChkTotalList", "BYPASSVALVEChk")';
+                        } else {
+                            alert("BYPASSVALVE 기본 정보 삭제 실패: " + response.message);
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("삭제 중 오류:", xhr.responseText || status, error);
+                        alert("삭제 중 오류가 발생했습니다: " + xhr.responseText);
+                    }
+                });
+            }
+    </script>
+    }
+

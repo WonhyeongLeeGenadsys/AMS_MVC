@@ -1,0 +1,283 @@
+﻿@model Web.Common.NGRBasicInfo
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // 모든 점검 데이터를 ViewBag으로 전달받았다고 가정하고, 최신 데이터만 선택
+    var allChkData = ViewBag.NGRChkList as List<Web.Common.NGRChk>;
+    var lastChk = allChkData != null && allChkData.Any()
+                  ? allChkData.OrderByDescending(chk => chk.CHK_Tbl_GetDate).FirstOrDefault()
+                  : null;
+
+    // Riskmatrix의 HI 값을 파싱
+    int riskHI = 0;
+    if (ViewBag.HIDict != null)
+    {
+        int.TryParse(ViewBag.HIDict.HI, out riskHI);
+    }
+}
+
+
+@section LeftMenu {
+    @Html.Partial("_DeviceInfoMenu")
+}
+
+@section MainContent {
+    <h1>NGR - @(Model?.NGR_Code ?? "N/A")</h1>
+    <!-- 전체 박스 -->
+    <div class="box_wrap">
+        <div class="con_box flex3">
+            <div class="product">
+                <p class="img">
+                    <img src='@Url.Content(Model?.Photo ?? "~/img/default_product.png")' alt="제품 이미지" />
+                </p>
+                <dl class="product_info">
+                    <dt>시리얼번호</dt>
+                    <dd>@(Model?.Serial_No ?? "N/A")</dd>
+
+                    <dt>설치일</dt>
+                    <dd>
+                        @(Model?.Install_Date != null
+                            ? ((DateTime)Model.Install_Date).ToString("yyyy-MM-dd")
+                            : "N/A")
+                    </dd>
+
+                    <dt>가동일</dt>
+                    <dd>
+                        @(Model?.Operating_Date != null
+                            ? ((DateTime)Model.Operating_Date).ToString("yyyy-MM-dd")
+                            : "N/A")
+                    </dd>
+
+                    <dt>사용기간</dt>
+                    <dd>
+                        @if (Model?.Operating_Date != null)
+                        {
+                            int years = DateTime.Now.Year - ((DateTime)Model.Operating_Date).Year;
+                            @($"{years}년")
+                        }
+                        else
+                        {
+                            @("0년")
+                        }
+                    </dd>
+
+                    <dt>구입비용</dt>
+                    <dd>
+                        @(Model != null ? String.Format("{0:N0}원", Model.Price) : "N/A")
+                    </dd>
+
+                    <dt>설치장소</dt>
+                    <dd>@(Model?.Install_Place ?? "N/A")</dd>
+
+                    <dt>정격전압</dt>
+                    <dd>@(Model != null ? Model.Rated_V.ToString() : "N/A")</dd>
+
+                    <dt>정격전류</dt>
+                    <dd>@(Model != null ? Model.Rated_A.ToString() : "N/A")</dd>
+
+                    <dt>제작사</dt>
+                    <dd>@(Model?.Make_Company ?? "N/A")</dd>
+
+                    <dt>제작번호</dt>
+                    <dd>@(Model?.Make_No ?? "N/A")</dd>
+
+                    <dt>예방진단사용</dt>
+                    <dd>@(Model != null && Model.Is_Diagnostics ? "예" : "아니오")</dd>
+
+                    <dt>건전도 사용</dt>
+                    <dd>@(Model != null && Model.Is_Health ? "예" : "아니오")</dd>
+                </dl>
+            </div>
+        </div>
+        <!-- 건전도 차트 -->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>건전도</p>
+            </h2>
+            <!--//타이틀-->
+            <!--차트-->
+            <div id="gauge" style="height:250px;"></div>
+            <!--//차트-->
+            <script type="text/javascript">
+        $(function () {
+            const gauge = $('#gauge').dxCircularGauge({
+                scale: {
+                    startValue: 1,
+                    endValue: 5,
+                    tickInterval: 1,
+                    label: {
+                        customizeText: function (arg) {
+                            return "HI: " + arg.valueText;
+                        }
+                    }
+                },
+                rangeContainer: {
+                    ranges: [
+                        { startValue: 0.5, endValue: 1.5, color: '#5B9F56' },  // HI = 1: Very Good
+                        { startValue: 1.5, endValue: 2.5, color: '#B4DEB1' },  // HI = 2: Good
+                        { startValue: 2.5, endValue: 3.5, color: '#EBCD1D' },  // HI = 3: Fair
+                        { startValue: 3.5, endValue: 4.5, color: '#F18425' },  // HI = 4: Bad
+                        { startValue: 4.5, endValue: 5.5, color: '#F05153' }   // HI = 5: Very Bad
+                    ]
+                },
+                tooltip: { enabled: true },
+                // 서버에서 파싱한 riskHI 값을 사용
+                value: @riskHI,
+            }).dxCircularGauge("instance");
+        });
+            </script>
+        </div>
+        <!-- //건전도 차트 -->
+        <!-- risk matrix 영역 (기존 코드 유지) -->
+        <div class="con_box flex3">
+            <!--타이틀-->
+            <h2>
+                <p>Risk Matrix</p>
+            </h2>
+            <!--//타이틀-->
+            <!-- 메트릭스 -->
+            <div class="matrix">
+                <!-- 메트릭스 좌측 -->
+                <div class="matrix_left">
+                    <h3 class="left tit">PoF</h3>
+                    <ul class="left txt">
+                        <li>Very Poor</li>
+                        <li>Poor</li>
+                        <li>Fair</li>
+                        <li>Good</li>
+                        <li>Very Good</li>
+                    </ul>
+                </div>
+                <!-- //메트릭스 좌측 -->
+                <!-- 그래프 -->
+                <ul class="value">
+                    <li data-position="4,0" class="good">0</li>
+                    <li data-position="4,1" class="fair">0</li>
+                    <li data-position="4,2" class="fair">0</li>
+                    <li data-position="4,3" class="poor">0</li>
+                    <li data-position="4,4" class="verypoor">0</li>
+                    <li data-position="3,0" class="good">0</li>
+                    <li data-position="3,1" class="fair">0</li>
+                    <li data-position="3,2" class="fair">0</li>
+                    <li data-position="3,3" class="poor">0</li>
+                    <li data-position="3,4" class="verypoor">0</li>
+                    <li data-position="2,0" class="good">0</li>
+                    <li data-position="2,1" class="fair">0</li>
+                    <li data-position="2,2" class="fair">0</li>
+                    <li data-position="2,3" class="poor">0</li>
+                    <li data-position="2,4" class="verypoor">0</li>
+                    <li data-position="1,0" class="verygood">0</li>
+                    <li data-position="1,1" class="good">0</li>
+                    <li data-position="1,2" class="good">0</li>
+                    <li data-position="1,3" class="fair">0</li>
+                    <li data-position="1,4" class="verypoor">0</li>
+                    <li data-position="0,0" class="verygood">0</li>
+                    <li data-position="0,1" class="good">0</li>
+                    <li data-position="0,2" class="good">0</li>
+                    <li data-position="0,3" class="fair">0</li>
+                    <li data-position="0,4" class="poor">0</li>
+                </ul>
+                <!-- //그래프 -->
+                <!-- 메트릭스 푸터 -->
+                <div class="matrix_bottom">
+                    <ul class="bottom txt">
+                        <li>Very good</li>
+                        <li>good</li>
+                        <li>Fair</li>
+                        <li>Poor</li>
+                        <li>Very Poor</li>
+                    </ul>
+                    <h3 class="bottom_t tit">CoF</h3>
+                </div>
+                <!-- //메트릭스 푸터 -->
+            </div>
+            <script>
+    $(document).ready(function () {
+        // 컨트롤러에서 넘긴 Dictionary<string,int>를 JSON으로 직렬화해서 받음
+        var matrixData = @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(ViewBag.RiskMatrixDict));
+        console.log("Matrix Data:", matrixData);
+
+        // 예: matrixData = { "4,0": 2, "4,1": 3, "3,2": 1, ... }
+
+        // 각 li를 순회하면서 data-position="pofIndex,cofIndex"를 키로 하여 값 대입
+        $('.value li').each(function () {
+            var position = $(this).data('position');  // 예: "4,0" or "1,3"
+            var value = matrixData[position] || 0;     // 딕셔너리에 없으면 0
+            $(this).text(value);
+        });
+    });
+            </script>
+
+        </div>
+        <!-- //risk matrix -->
+        <!--전략-->
+        <div class="con_box">
+            <!--타이틀-->
+            <h2>
+                <p>전략</p>
+            </h2>
+            <!--//타이틀-->
+        </div>
+
+        <!--전략-->
+        <!-- 보통점검 영역 -->
+        <div class="con_box">
+            <h2><p>보통점검</p></h2>
+            @if (lastChk != null)
+            {
+        <ul class="sub_flex">
+            <li>
+                <h4 class="tit_h4"></h4>
+                <div class="table_list_app small">
+                    <table>
+                        <colgroup>
+                            <col style="width:50%">
+                            <col style="width:50%">
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>파라미터</th>
+                                <th>판정</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>외함 온도 상승 및 이음 여부</td>
+                                <td>@lastChk.CHK_1_1</td>
+                            </tr>
+                            <tr>
+                                <td>부싱 균열 및 오손 확인/청소</td>
+                                <td>@lastChk.CHK_1_2</td>
+                            </tr>
+                            <tr>
+                                <td>절연유 누유 여부</td>
+                                <td>@lastChk.CHK_1_3</td>
+                            </tr>
+                            <tr>
+                                <td>접지선 점검</td>
+                                <td>@lastChk.CHK_2_1</td>
+                            </tr>
+                            <tr>
+                                <td>각 연결부 볼트 조임</td>
+                                <td>@lastChk.CHK_2_2</td>
+                            </tr>
+                            <tr>
+                                <td>호흡기 상태/절연저항 측정 등</td>
+                                <td>@lastChk.CHK_3_1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+
+        </ul>
+            }
+            else
+            {
+                <p>보통점검 데이터가 없습니다.</p>
+            }
+        </div>
+    </div>
+}

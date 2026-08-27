@@ -1,0 +1,154 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_TotalInfoMenu")
+}
+
+@section MainContent {
+    <h1>전역검색</h1>
+    <div class="con_box">
+        <!-- 검색 영역 -->
+        <div class="search_box">
+            <h2>기간별, 장비별 필터링</h2>
+            <ul>
+                <li>
+                    <label class="ty_rdo" for="select_install">
+                        <input type="radio" id="select_install" name="selectType" value="INSTALL" checked />
+                        <span>설치</span>
+                    </label>
+                    <label class="ty_rdo" for="select_operate">
+                        <input type="radio" id="select_operate" name="selectType" value="OPERATE" />
+                        <span>가동</span>
+                        @*<span>가압</span>*@
+                    </label>
+                </li>
+                <li>
+                    <h3 class="search_tit">시작일</h3>
+                    <p>
+                        <input type="date" id="startDate" placeholder="날짜 선택" required />
+                    </p>
+                    <h3 class="search_tit">종료일</h3>
+                    <p>
+                        <input type="date" id="endDate" placeholder="날짜 선택" required />
+                    </p>
+                </li>
+                <li>
+                    <a href="javascript:void(0);" class="btn blue" id="btnSearch">조회</a>
+                </li>
+            </ul>
+        </div>
+        <!-- //검색 영역 -->
+        <!-- 결과 그리드 영역 -->
+        <div class="content_warp">
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            $("#btnSearch").click(function() {
+                var dateType = $("input[name=selectType]:checked").val();
+                var startDate = $("#startDate").val();
+                var endDate = $("#endDate").val();
+
+                if (!startDate || !endDate) {
+                    alert("시작일과 종료일을 모두 선택해주세요.");
+                    return;
+                }
+
+                loadUsdKrwRate().always(function () {
+                $.ajax({
+                    url: '@Url.Action("SearchBetweenDates", "TotalInfo")',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        dateType: dateType,
+                        startDate: startDate,
+                        endDate: endDate
+                    },
+                    success: function(res) {
+                        if (res.success) {
+                            $("#gridContainer").dxDataGrid({
+                                dataSource: res.data,
+                                keyExpr: 'Code',
+                                columnFixing: { enabled: true },
+                                showBorders: false,
+                                scrolling: { columnRenderingMode: 'virtual' },
+
+                                // HI 컬럼 배경색 지정
+                                onCellPrepared: function (e) {
+                                    if (e.rowType !== 'data' || e.column.dataField !== 'HI') return;
+
+                                    // 기존 클래스 제거
+                                    e.cellElement.removeClass(
+                                        'priorityVerygood priorityGood priorityFair priorityPoor priorityVerypoor priorityUndefined'
+                                    );
+
+                                    const hi = Number(e.value);
+                                    let cls = 'priorityUndefined';
+                                    if (hi === 1) cls = 'priorityVerygood';
+                                    else if (hi === 2) cls = 'priorityGood';
+                                    else if (hi === 3) cls = 'priorityFair';
+                                    else if (hi === 4) cls = 'priorityPoor';
+                                    else if (hi === 5) cls = 'priorityVerypoor';
+
+                                    e.cellElement.addClass(cls);
+                                },
+
+                                columns: [
+                                    { dataField: 'Priority', caption: '우선순위', alignment: 'center', width: 80 },
+                                    { dataField: 'Category', caption: '구분', alignment: 'center', width: 80 },
+                                    { dataField: 'Sort', caption: '설비명', alignment: 'center', width: 'auto' },
+                                    { dataField: 'Serial_No', caption: '시리얼번호', alignment: 'center', width: 120 },
+                                    { dataField: 'Install_Date', caption: '설치일', dataType: 'date', alignment: 'center', width: 120 },
+                                    { dataField: 'Operating_Date', caption: '가동일', dataType: 'date', alignment: 'center', width: 120 },
+                                    //{ dataField: 'Operating_Date', caption: '가압일', dataType: 'date', alignment: 'center', width: 120 },
+                                    { dataField: 'UsageYears', caption: '사용기간', alignment: 'center', width: 100 },
+                                    { dataField: 'Install_Place', caption: '설치장소', alignment: 'center', width: 100 },
+                                    { dataField: 'Price', caption: '구입비용(원)', alignment: 'center', width: 120 },
+                                    { dataField: 'Make_Company', caption: '제작사', alignment: 'center', width: 120 },
+                                    {
+                                        dataField: 'HI', caption: 'HI', alignment: 'center', cellTemplate: function (container, options) {
+                                            $("<div>")
+                                                .text(options.value)
+                                                .css("font-weight", "bold")
+                                                .appendTo(container);
+                                        }, width: 150 },
+                                    { dataField: 'PoF', caption: 'PoF', alignment: 'center', width: 100 },
+                                    { dataField: 'CoF', caption: 'CoF(원)', alignment: 'center', width: 120, cellTemplate: (container, options) => container.text(formatKrwFromUsd(options.value)) },
+                                    {
+                                        caption: 'Risk(원)',
+                                        alignment: 'center',
+                                        dataType: 'number',
+                                        cellTemplate: function (container, options) {
+                                            $("<div>")
+                                                .text(options.value)
+                                                .css("font-weight", "bold")
+                                                .appendTo(container);
+                                        },
+                                        calculateCellValue: function (rowData) {
+                                            var riskUsd = (rowData.CoF || 0) * ((rowData.PoF || 0) / 100);
+                                            return Math.round(usdToKrw(riskUsd));
+                                        },
+                                        format: { type: "fixedPoint", precision: 2 }
+                                    }
+
+                                ],
+                                scrolling: { columnRenderingMode: 'virtual' },
+                                showBorders: false
+                            });
+                        } else {
+                            alert("검색 실패: " + res.error);
+                        }
+                    },
+                    error: function(xhr, status, err) {
+                        alert("서버 오류 발생: " + err);
+                    }
+                });
+                });
+            });
+        });
+    </script>
+}

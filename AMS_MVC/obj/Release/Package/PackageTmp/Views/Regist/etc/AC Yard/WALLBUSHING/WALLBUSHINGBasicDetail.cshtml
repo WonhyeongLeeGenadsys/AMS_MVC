@@ -1,0 +1,97 @@
+﻿@model Web.Common.WALLBUSHINGBasicInfo
+@using Web.Common
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section LeftMenu {
+    @Html.Partial("_RegistMenu")
+}
+
+@section MainContent {
+    <h1>WALLBUSHING 기본정보</h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn red del" onclick="deleteWALLBUSHINGBasicInfo(); return false;">삭제</a>
+                    <a href="@Url.Action("UpdateWALLBUSHINGBasic", "WALLBUSHINGBasic", new { tblIdx = Model.Tbl_Idx })" class="btn blue edit">수정</a>
+                </p>
+            </div>
+            <div class="table_app" id="wallbushingBasicInfo">
+                <table>
+                    <tr>
+                        <th>제품 이름</th>
+                        <td>@Model.Name</td>
+                        <th>시리얼 번호</th>
+                        <td>@Model.Serial_No</td>
+                    </tr>
+                    <tr>
+                        <th>설치일</th>
+                        <td>@DateHelper.FormatDate(Model.Install_Date)</td>
+                        <th>가동일</th>
+                        <td>@DateHelper.FormatDate(Model.Operating_Date)</td>
+                    </tr>
+                    <tr>
+                        <th>구입비용</th>
+                        <td>@(Model.Price.ToString("N0")) 원</td>
+                        <th>설치장소</th>
+                        <td>@Model.Install_Place</td>
+                        <th>정격전압</th>
+                        <td>@Model.Rated_V kV</td>
+                    </tr>
+                    <tr>
+                        <th>정격전류</th>
+                        <td>@Model.Rated_A A</td>
+                        <th>제작사</th>
+                        <td>@Model.Make_Company</td>
+                        <th>제작번호</th>
+                        <td>@Model.Make_No</td>
+                    </tr>
+                    <tr>
+                        <th>제품사진</th>
+                        <td colspan="5">
+                            <p class="img">
+                                <img src="@(!string.IsNullOrEmpty(Model.Photo) ? Model.Photo : "/images/no_image.png")" width="200" height="200" />
+                            </p>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>예방진단 사용</th>
+                        <td>@(Model.Is_Diagnostics ? "예" : "아니오")</td>
+                        <th>건전도 사용</th>
+                        <td>@(Model.Is_Health ? "예" : "아니오")</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    function deleteWALLBUSHINGBasicInfo() {
+        var tblIdx = "@Model.Tbl_Idx";
+
+        if (!confirm("Wall Bushing 기본정보를 삭제하시겠습니까?")) return;
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("DeleteWALLBUSHINGBasicInfo", "WALLBUSHINGBasic")",
+            data: JSON.stringify({ tblIdx: tblIdx }),
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: function (response) {
+                if (response.success) {
+                    alert("WALLBUSHING 기본정보가 삭제되었습니다.");
+                    window.location.href = "@Url.Action("Index", "WALLBUSHINGBasic")";
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("삭제 오류:", error);
+                alert("삭제 중 오류가 발생했습니다.");
+            }
+        });
+    }
+    </script>
+}

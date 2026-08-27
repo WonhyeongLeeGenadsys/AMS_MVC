@@ -1,0 +1,35 @@
+﻿
+<div>
+    @if (ViewBag.MenuType == "TotalInfo")
+    {
+        @Html.Partial("_TotalInfoMenu")
+    }
+    else if (ViewBag.MenuType == "DeviceInfo")
+    {
+        @Html.Partial("_DeviceInfoMenu")
+    }
+    else if (ViewBag.MenuType == "Check")
+    {
+        @Html.Partial("_CheckMenu")
+    }
+    else if (ViewBag.MenuType == "Regist")
+    {
+        @Html.Partial("_RegistMenu")
+    }
+    else if (ViewBag.MenuType == "Gojang")
+    {
+        @Html.Partial("_GojangMenu")
+    }
+    else if (ViewBag.MenuType == "Maintenance")
+    {
+        @Html.Partial("_MaintenanceMenu")
+    }
+    else if (ViewBag.MenuType == "Setting")
+    {
+        @Html.Partial("_SettingMenu")
+    }
+    else
+    {
+        <p>메뉴가 없습니다.</p>
+    }
+</div>

@@ -1,0 +1,90 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var itrCode = Request.QueryString["ITR_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>Interface TR 보통점검이력</h1>
+
+    <div class="con_box">
+        <div class="content_warp">
+            <h2>제품명: @ViewBag.Name, 시리얼번호: @ViewBag.SerialNo</h2>
+
+            <div class="btn_area top right">
+                <a href="@Url.Action("ITRChkAdd", "ITRChk", new { ITR_Code = itrCode, type = 1 })" class="btn add blue">추가</a>
+            </div>
+            <div id="gridContainer" class="grid_wrap"></div>
+        </div>
+
+        <script>
+                var itrCode = '@itrCode';
+
+            $(document).ready(function () {
+                loadITRChk1Data();
+            });
+
+            function loadITRChk1Data() {
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("GetITRChkListData", "ITRChk")',
+                    data: { itrCode: itrCode, type: 1 },
+                    dataType: "json",
+                    success: function (response) {
+
+                        let data = response
+                            .sort((a, b) => Number(b.Tbl_Idx) - Number(a.Tbl_Idx))
+                            .map((item, index, arr) => {
+                                item.RowNumber = arr.length - index;
+                                return item;
+                            });
+
+                        $("#gridContainer").dxDataGrid({
+                            dataSource: data,
+                            hoverStateEnabled: true,
+                            onRowPrepared: function (e) {
+                                if (e.rowType === "data") {
+                                    e.rowElement.css("cursor", "pointer");
+                                }
+                            },
+                            columnFixing: { enabled: true },
+                            columns: [
+                                { dataField: "RowNumber", caption: "순번", width: 80 },
+                                { dataField: 'CHK1_Gongsa_Name', caption: '공사명', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Weather', caption: '날씨', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Temp', caption: '기온(°C)', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Hum', caption: '습도(%)', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Company', caption: '업체명', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Worker', caption: '점검자', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Manager', caption: '감독자', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Urgent_No', caption: '급전번호', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Type', caption: '형식', alignment: 'center', width: 'auto' },
+                                { dataField: 'CHK1_Start_Date', caption: '점검시작일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' },
+                                { dataField: 'CHK1_End_Date', caption: '점검 종료일', alignment: 'center', width: 120, dataType: 'date', format: 'yy.MM.dd' }
+                            ],
+                            showBorders: false,
+                            searchPanel: { visible: true, width: 240, placeholder: "검색" },
+                            filterRow: { visible: true, applyFilter: 'auto' },
+                            headerFilter: { visible: true },
+                            loadPanel: { enabled: true },
+                            scrolling: { columnRenderingMode: 'virtual' },
+                            onRowClick: function (e) {
+                                // 각 행의 Tbl_Idx와 ITR_Code 값을 사용하여 ITRChk1Detail 페이지로 이동
+                                const tblIdx = e.data.Tbl_Idx;
+                                const itrCode = e.data.ITR_Code;
+                                const detailUrl = '@Url.Action("ITRChk1Detail", "ITRChk")';
+                                window.location.href = detailUrl + '?itrCode=' + encodeURIComponent(itrCode) + '&tblIdx='  + encodeURIComponent(tblIdx);
+                            }
+                        });
+                    },
+                        error: function (xhr, status, error) {
+                            console.error("데이터 로드 중 오류", error);
+                        }
+                });
+            }
+        </script>
+    </div>
+}

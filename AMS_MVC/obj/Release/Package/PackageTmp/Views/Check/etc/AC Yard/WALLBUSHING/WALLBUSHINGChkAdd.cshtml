@@ -1,0 +1,281 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var wallbushingCode = Request.QueryString["WALLBUSHING_Code"] ?? "";
+}
+
+@section LeftMenu {
+    @Html.Partial("_CheckMenu")
+}
+
+@section MainContent {
+    <h1>
+        WALLBUSHING 보통점검 추가: @ViewBag.SerialNo
+    </h1>
+    <div class="con_box">
+        <div class="content_warp">
+            <div class="btn_area top right">
+                <p>
+                    <a href="#" class="btn blue app" onclick="createWALLBUSHINGChk()">적용</a>
+                </p>
+            </div>
+            <form id="wallbushingChkForm" method="post" enctype="multipart/form-data">
+                @* URL에 WALLBUSHING_Code가 전달된 경우 hidden 필드로 사용, 그렇지 않으면 드롭다운 출력 *@
+                @if (!string.IsNullOrEmpty(wallbushingCode))
+                {
+                    <input type="hidden" name="WALLBUSHING_Code" value="@wallbushingCode" />
+                }
+                else
+                {
+                    <div style="margin-bottom: 15px;">
+                        @Html.DropDownList("WALLBUSHING_Code", (SelectList)ViewBag.WALLBUSHINGs, "WALLBUSHING를 선택하세요.", new { @class = "form-control", @id = "WALLBUSHING_Code" })
+                    </div>
+                }
+                <div class="table_app" id="wallbushingChk">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                            <col style="width:100px;">
+                            <col style="width:calc(33.3% - 100px);">
+                        </colgroup>
+                        <tr>
+                            <th>공사명</th>
+                            <td colspan="5">
+                                <input type="text" id="chk_gongsa_name" name="chk_gongsa_name">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="chk_weather" name="chk_weather">
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="chk_temp" name="chk_temp"> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="chk_hum" name="chk_hum"> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>업체명</th>
+                            <td>
+                                @Html.DropDownList("chk_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                            </td>
+                            <th>점검자</th>
+                            <td>
+                                <input type="text" id="chk_worker" name="chk_worker">
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="chk_manager" name="chk_manager">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>급전번호</th>
+                            <td>
+                                <input type="text" id="chk_urgent_no" name="chk_urgent_no">
+                            </td>
+                            <th>형식</th>
+                            <td>
+                                <input type="text" id="chk_type" name="chk_type">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>점검 시작일</th>
+                            <td>
+                                <input type="date" id="chk_start_date" name="chk_start_date">
+                            </td>
+                            <th>점검 종료일</th>
+                            <td>
+                                <input type="date" id="chk_end_date" name="chk_end_date">
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+                <!--알고리즘 반영 파라미터-->
+                <div class="table_list_app">
+                    <table>
+                        <colgroup>
+                            <col style="width:10%">
+                            <col style="width:10%">
+                            <col style="width:8%">
+                            <col style="width:6%">
+                            <col>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>Parameters</th>
+                                <th>한전기준</th>
+                                <th>단위</th>
+                                <th>판정기준 및 score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td rowspan="3">
+                                    초기 점검
+                                </td>
+                                <td>부싱의 균열 및 오손 여부 확인/청소</td>
+                                <td>균열·오손 없고 청결 상태 유지</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_1_1">
+                                        <input type="radio" id="chk_1_1_1" name="CHK_1_1"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_1_2">
+                                        <input type="radio" id="chk_1_1_2" name="CHK_1_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    절연유 누유 여부 확인
+                                </td>
+                                <td>누유 흔적 없을 것</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_2_1">
+                                        <input type="radio" id="chk_1_2_1" name="CHK_1_2"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_2_2">
+                                        <input type="radio" id="chk_1_2_2" name="CHK_1_2" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    절연 열화 진단
+                                </td>
+                                <td>기기별 열화 기준 이내</td>
+                                <td>-</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_1_3_1">
+                                        <input type="radio" id="chk_1_3_1" name="CHK_1_3"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_1_3_2">
+                                        <input type="radio" id="chk_1_3_2" name="CHK_1_3" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td rowspan="3">10년 이상</td>
+                                <td>
+                                    절연유 성능 시험
+                                </td>
+                                <td>절연유 기준에 적합</td>
+                                <td>kV</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_1_1">
+                                        <input type="radio" id="chk_2_1_1" name="CHK_2_1"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_2_1">
+                                        <input type="radio" id="chk_2_2_2" name="CHK_2_1" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>
+                                    유중 가스 분석
+                                </td>
+                                <td>기기별 기준 이내</td>
+                                <td>ppm</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_2_1">
+                                        <input type="radio" id="chk_2_2_1" name="CHK_2_2"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_2_2">
+                                        <input type="radio" id="chk_2_2_2" name="CHK_2_2" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    수분 측정
+                                </td>
+                                <td>기기별 수분 함량 기준 이내</td>
+                                <td>%</td>
+                                <td>
+                                    <label class="ty_rdo" for="chk_2_3_1">
+                                        <input type="radio" id="chk_2_3_1" name="CHK_2_3"  value="1" checked>
+                                        <span>정상(1)</span>
+                                    </label>
+                                    <label class="ty_rdo" for="chk_2_3_2">
+                                        <input type="radio" id="chk_2_3_2" name="CHK_2_3" value="5" >
+                                        <span>이상(5)</span>
+                                    </label>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+    // WALLBUSHING 점검 정보 수집 함수
+        function createWALLBUSHINGChk() {
+            submitWALLBUSHINGChkForm();
+        }
+
+        function submitWALLBUSHINGChkForm() {
+            var form = document.getElementById("wallbushingChkForm");
+            var formData = new FormData(form);
+
+            var wallbushingCodeDropdown = document.getElementById("WALLBUSHING_Code");
+            if (wallbushingCodeDropdown) {
+                if (!wallbushingCodeDropdown.value) {
+                    alert("WALLBUSHING를 선택하세요.");
+                    return;
+                }
+            }
+
+            // FormData 내용을 콘솔에 출력
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+            url: '@Url.Action("WALLBUSHINGChkAdd", "WALLBUSHINGChk")',
+            type: "POST",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+                console.log("서버 응답:", response);
+                if (response.IsSuccess) {
+                    alert("WALLBUSHING 보통점검 정보가 저장되었습니다.");
+                    window.location.href = '@Url.Action("WALLBUSHINGChkTotalList", "WALLBUSHINGChk")';
+                } else {
+                    alert("WALLBUSHING 보통점검 정보를 추가하지 못했습니다.: " + response.message);
+                }
+            },
+            error: function (xhr, status, error) {
+                console.error("오류 발생:", xhr.responseText || status, error);
+                alert("WALLBUSHING 보통점검 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+            }
+        });
+    }
+    </script>
+}

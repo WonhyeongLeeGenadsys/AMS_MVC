@@ -1,0 +1,153 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var heatexchangerCode = Request.QueryString["HEATEXCHANGER_Code"];
+}
+
+@section LeftMenu {
+    @Html.Partial("_MaintenanceMenu")
+}
+
+@section MainContent {
+    <h1>HEATEXCHANGER 유지보수 정보 추가</h1>
+    <div class="con_box">
+        <div class="content_warp">
+
+            <div class="btn_area top right">
+                <p>
+                    @*<a href="#" class="btn red del">삭제</a>*@
+                    <a href="#" class="btn blue app" onclick="createHEATEXCHANGERMaintenance()">적용</a>
+                </p>
+            </div>
+
+            <form id="heatexchangerMaintenanceForm" method="post" enctype="multipart/form-data">
+                @* URL에 HEATEXCHANGER_Code가 전달된 경우 hidden 필드로 사용, 그렇지 않으면 드롭다운 출력 *@
+                @if (!string.IsNullOrEmpty(heatexchangerCode))
+                {
+                    <input type="hidden" name="HEATEXCHANGER_Code" value="@heatexchangerCode" />
+                }
+                else
+                {
+                    <div style="margin-bottom: 15px;">
+                        @Html.DropDownList("HEATEXCHANGER_Code", (SelectList)ViewBag.HEATEXCHANGERs, "HEATEXCHANGER를 선택하세요.", new { @class = "form-control", @id = "HEATEXCHANGER_Code" })
+                    </div>
+                }
+
+                <div class="table_app" id="heatexchangerMaintenance">
+                    <table>
+                        <colgroup>
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                            <col style="width:100px;" />
+                            <col style="width:calc(33.3% - 100px);" />
+                        </colgroup>
+                        <tr>
+                            <th>보수명</th>
+                            <td colspan="5">
+                                <input type="text" id="mr_bosu_name" name="mr_bosu_name" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>날씨</th>
+                            <td>
+                                <input type="text" id="mr_weather" name="mr_weather"/>
+                            </td>
+                            <th>기온</th>
+                            <td>
+                                <input type="text" id="mr_temp" name="mr_temp" /> <span>°C</span>
+                            </td>
+                            <th>습도</th>
+                            <td>
+                                <input type="text" id="mr_hum" name="mr_hum" /> <span>%</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>내용</th>
+                            <td colspan="5">
+                                <input type="text" id="mr_content" name="mr_content" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>상태</th>
+                            <td>
+                                <input type="text" id="mr_status" name="mr_status" />
+                            </td>
+                            <th>부품</th>
+                            <td>
+                                <input type="text" id="mr_part" name="mr_part" />
+                            </td>
+                            @*<th>업체명</th>
+                            <td>
+                                @Html.DropDownList("_company", new SelectList(ViewBag.Companies, "Com_Name", "Com_Name"), "제작사를 선택하세요.")
+                            </td>*@
+                        </tr>
+                        <tr>
+                            <th>보수자</th>
+                            <td>
+                                <input type="text" id="mr_worker" name="mr_worker" />
+                            </td>
+                            <th>감독자</th>
+                            <td>
+                                <input type="text" id="mr_manager" name="mr_manager" />
+                            </td>
+                            <th>보수일</th>
+                            <td>
+                                <input type="date" id="mr_date" name="mr_date" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <!--//입력테이블-->
+                </form>
+        </div>
+    </div>
+    <!--//컨텐츠가 들어옵니다-->
+    <script type="text/javascript">
+        function createHEATEXCHANGERMaintenance() {
+            submitHEATEXCHANGERMaintenanceForm();
+        }
+
+        function submitHEATEXCHANGERMaintenanceForm() {
+            var form = document.getElementById("heatexchangerMaintenanceForm");
+            var formData = new FormData(form);
+
+            // 1) HEATEXCHANGER_Code가 hidden인 경우(이미 URL에 있었음) => 바로 진행
+            // 2) HEATEXCHANGER_Code가 드롭다운인 경우 => 선택 체크
+            var heatexchangerCodeDropdown = document.getElementById("HEATEXCHANGER_Code");
+            if (heatexchangerCodeDropdown) {
+                // 사용자가 "HEATEXCHANGER를 선택하세요."(기본값) 또는 빈 값("")을 선택한 경우 확인
+                if (!heatexchangerCodeDropdown.value) {
+                    alert("HEATEXCHANGER를 선택하세요.");
+                    return;
+                }
+            }
+
+            // FormData 내용을 콘솔에 출력 (디버깅용)
+            for (var pair of formData.entries()) {
+                console.log(pair[0] + ": " + pair[1]);
+            }
+
+            $.ajax({
+                url: '@Url.Action("HEATEXCHANGERMaintenanceAdd", "HEATEXCHANGERMaintenance")',
+                type: "POST",
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    console.log("서버 응답:", response);
+                    if (response.IsSuccess) {
+                        alert("HEATEXCHANGER 유지보수 정보가 저장되었습니다.");
+                        window.location.href = '@Url.Action("HEATEXCHANGERMaintenanceTotalList", "HEATEXCHANGERMaintenance")';
+                    } else {
+                        alert("HEATEXCHANGER 유지보수 정보를 추가하지 못했습니다.: " + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("오류 발생:", xhr.responseText || status, error);
+                    alert("HEATEXCHANGER 유지보수 정보 등록 중 오류가 발생했습니다." + xhr.responseText);
+                }
+            });
+        }
+    </script>
+}
