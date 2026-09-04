@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 namespace Web.Common
@@ -121,6 +121,53 @@ namespace Web.Common
             }
 
             return Clamp(1d - Math.Exp(-Math.Pow(ageYears / asset.WeibullScale, asset.WeibullShape)), 0d, 1d);
+        }
+
+        // ── E9: 상태보정 잔존수명 (State-Corrected RUL) ─────────────────────────
+        // 참조: KEPCO 배포용 v3.1.0 / modules/pt_state_corrected_rul.py
+        //
+        // CalculateRulYears는 나이만 보기 때문에 진단 상태(HI·PoF)가 아무리 나빠도
+        // 값이 변하지 않는다. E9는 "현재 PoF가 함의하는 유효 나이"를 역산해
+        // 물리 나이와 블렌드함으로써 상태를 반영한다.
+        //
+        //   t_target = η · (−ln(1−p*))^(1/m)      설계 목표 시각 (= 기존 RUL의 기준)
+        //   age_cond = η · (−ln(1−pof))^(1/m)     현재 상태가 함의하는 나이
+        //   age_eff  = ((1−β)·age + β·age_cond) · AF
+        //   RUL_E9   = clip(t_target − age_eff, 0, t_target)
+        //
+        // AF(가속계수)는 이상탐지·고장빈도·DGA 신호로 만드는데 AMS에는 해당 채널이
+        // 없으므로 원본 모듈의 graceful 규칙대로 1.0으로 둔다(= 보조신호 없음).
+        // β=0 이고 AF=1 이면 기존 CalculateRulYears와 정확히 같은 값이 된다.
+        public const double StateRulBeta = 0.70d;
+
+        public static double CalculateStateCorrectedRulYears(
+            string equipmentKey,
+            double ageYears,
+            double pofRatio)
+        {
+            var asset = GetAsset(equipmentKey);
+            if (asset.WeibullScale <= 0d || asset.WeibullShape <= 0d)
+            {
+                return 0d;
+            }
+
+            double targetAge = asset.WeibullScale
+                * Math.Pow(-Math.Log(1d - RulTargetPof), 1d / asset.WeibullShape);
+
+            double age = Math.Max(0d, ageYears);
+
+            // PoF가 없거나 범위를 벗어나면 조건함의나이를 물리 나이로 되돌린다(원본과 동일).
+            double pof = Clamp(pofRatio, 0d, 1d);
+            double conditionAge = age;
+            if (pof > 0d)
+            {
+                double safePof = Clamp(pof, 1e-6d, 1d - 1e-6d);
+                conditionAge = asset.WeibullScale
+                    * Math.Pow(-Math.Log(1d - safePof), 1d / asset.WeibullShape);
+            }
+
+            double effectiveAge = ((1d - StateRulBeta) * age) + (StateRulBeta * conditionAge);
+            return Clamp(targetAge - effectiveAge, 0d, targetAge);
         }
 
         public static double CalculateRulYears(string equipmentKey, double ageYears)

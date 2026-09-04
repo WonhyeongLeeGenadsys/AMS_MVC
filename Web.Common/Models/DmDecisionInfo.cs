@@ -1,4 +1,4 @@
-namespace Web.Common
+﻿namespace Web.Common
 {
     public sealed class DmDecisionInfo
     {
@@ -53,6 +53,13 @@ namespace Web.Common
         public double InflationRatePct { get; set; }
         public int EvaluationPeriodYears { get; set; }
         public double? RULYears { get; set; }
+
+        // E9 상태보정 잔존수명. RULYears(설계 기준, 나이만 반영)와 나란히 두고
+        // 진단 상태를 반영한 값을 별도로 제공한다. 기존 DM 계산에는 관여하지 않는다.
+        public double? RULStateCorrectedYears { get; set; }
+
+        // 상태보정에 사용한 진단 PoF(%). 근거 확인용.
+        public double DiagnosticPofPct { get; set; }
         public double Criticality { get; set; }
         public double TopsisScore { get; set; }
         public int TopsisRank { get; set; }

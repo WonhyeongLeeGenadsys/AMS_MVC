@@ -12,6 +12,7 @@
     <div class="con_box">
         <div class="content_warp">
             <div class="btn_area top right">
+                <a href="@Url.Action("SPAREProcurementStatus", "SPAREDashboard")" class="btn">발주 현황 분석</a>
                 <a href="@Url.Action("SPAREProcurementAdd", "SPAREProcurement")" class="btn add blue">추가</a>
             </div>
 
@@ -20,6 +21,18 @@
     </div>
 
     <script>
+
+        // MVC 기본 JsonResult는 DateTime을 "/Date(ticks)/" 형태로 직렬화한다.
+        // 그대로 두면 화면에 원문이 노출되므로 여기서 yy.MM.dd 로 바꾼다.
+        function msDate(value) {
+            if (!value) return "";
+            var m = /\/Date\((-?\d+)/.exec(value);
+            var d = m ? new Date(Number(m[1])) : new Date(value);
+            if (isNaN(d.getTime())) return "";
+            var p = function (n) { return (n < 10 ? "0" : "") + n; };
+            return String(d.getFullYear()).slice(2) + "." + p(d.getMonth() + 1) + "." + p(d.getDate());
+        }
+
         $(function () {
             loadProcurementList();
         });
@@ -42,10 +55,11 @@
                         columns: [
                             { dataField: "PART_NUMBER", caption: "부품번호", alignment: "center" },
                             { dataField: "PART_NAME", caption: "부품명", alignment: "center" },
+                            { dataField: "CRITICALITY_GRADE", caption: "중요도", alignment: "center", width: 100 },
                             { dataField: "ORDER_QTY", caption: "발주수량", alignment: "center", width: 100 },
                             { dataField: "UNIT_COST", caption: "발주단가", alignment: "right", width: 120, format: "#,##0" },
                             { dataField: "TOTAL_PROC_COST", caption: "총금액", alignment: "right", width: 120, format: "#,##0" },
-                            { dataField: "ORDER_DATE", caption: "발주일", alignment: "center", width: 120 },
+                            { dataField: "ORDER_DATE", caption: "발주일", alignment: "center", width: 110, calculateCellValue: function (row) { return msDate(row.ORDER_DATE); } },
                             { dataField: "STATUS", caption: "상태", alignment: "center", width: 100 },
                             { dataField: "SUPPLIER", caption: "공급사", alignment: "center", width: 140 },
                             {
@@ -54,7 +68,7 @@
                                 width: 100,
                                 cellTemplate: function (container, options) {
                                     $("<a>")
-                                        .addClass("btn blue")
+                                        .addClass("btn gray")
                                         .text("수정")
                                         .attr("href", '@Url.Action("SPAREProcurementUpdate", "SPAREProcurement")' + '?procId=' + options.data.PROC_ID)
                                         .appendTo(container);

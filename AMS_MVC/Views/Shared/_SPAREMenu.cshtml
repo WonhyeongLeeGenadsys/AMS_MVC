@@ -16,8 +16,8 @@
     <li><a href="@Url.Action("SPAREBasicList", "SPAREBasic")" class="@(isController("SPAREBasic") ? "on" : "")">기본정보</a></li>
 
     <li><a href="@Url.Action("SPAREInventoryStatus", "SPAREDashboard")" class="@(isController("SPAREInventory") || isDashboardAction("SPAREInventoryStatus") ? "on" : "")">재고현황</a></li>
-    <li><a href="@Url.Action("SPAREProcurementStatus", "SPAREDashboard")" class="@(isController("SPAREProcurement") || isDashboardAction("SPAREProcurementStatus") ? "on" : "")">발주관리</a></li>
-    <li><a href="@Url.Action("SPARECostPlan", "SPAREDashboard")" class="@(isController("SPARECost") || isDashboardAction("SPARECostPlan") ? "on" : "")">비용계획</a></li>
+    <li><a href="@Url.Action("SPAREProcurementList", "SPAREProcurement")" class="@(isController("SPAREProcurement") || isDashboardAction("SPAREProcurementStatus") ? "on" : "")">발주관리</a></li>
+    <li><a href="@Url.Action("SPARECostList", "SPARECost")" class="@(isController("SPARECost") || isDashboardAction("SPARECostPlan") ? "on" : "")">비용계획</a></li>
     <li><a href="@Url.Action("SPAREPolicy", "SPAREDashboard")" class="@(isDashboardAction("SPAREPolicy") ? "on" : "")">재고정책</a></li>
 </ul>
 

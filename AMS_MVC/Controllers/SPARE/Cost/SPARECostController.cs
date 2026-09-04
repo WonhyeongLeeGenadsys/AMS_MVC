@@ -35,14 +35,19 @@ namespace AMS_MVC
         [HttpGet]
         public ActionResult SPARECostAdd(int spareId = 0)
         {
-            if (spareId <= 0)
-                return RedirectToAction("SPAREBasicList", "SPAREBasic");
+            // 비용계획 목록의 '추가' 버튼은 spareId 없이 호출된다.
+            // 예전에는 그 경우 기본정보 목록으로 리다이렉트해버려서, 사용자 입장에서는
+            // 추가를 눌렀는데 엉뚱한 화면으로 튕기는 것처럼 보였다.
+            // 이제는 화면 안에서 부품을 고를 수 있게 두고, 선택은 뷰에서 처리한다.
+            if (spareId > 0)
+            {
+                var sparePart = spareBasicRepository.GetSPAREPartBySPAREIdRepo(spareId);
+                if (sparePart == null)
+                    return HttpNotFound("예비품 정보를 찾을 수 없습니다.");
 
-            var sparePart = spareBasicRepository.GetSPAREPartBySPAREIdRepo(spareId);
-            if (sparePart == null)
-                return HttpNotFound("예비품 정보를 찾을 수 없습니다.");
+                ViewBag.SparePart = sparePart;
+            }
 
-            ViewBag.SparePart = sparePart;
             return View("~/Views/SPARE/Cost/SPARECostAdd.cshtml", new CostManagementInfo { SPARE_ID = spareId });
         }
 

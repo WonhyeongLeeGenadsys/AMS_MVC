@@ -18,6 +18,9 @@
         <li class="tab_btn on" data-tab="con_box01" data-prefix="">5종 주요장비</li>
         <li class="tab_btn" data-tab="con_box02" data-prefix="AC">AC</li>
         <li class="tab_btn" data-tab="con_box03" data-prefix="DC">DC</li>
+        @* DM 상세분석은 5종 주요장비 화면과 성격이 달라 별도 1-depth 탭으로 분리했다.
+           prefix 는 전체(빈 문자열)를 그대로 쓴다. *@
+        <li class="tab_btn" data-tab="con_box04" data-prefix="">의사결정(DM)</li>
     </ul>
 
     <script>
@@ -330,6 +333,15 @@
             background: #fff;
         }
 
+        /* 의사결정(DM) 1-depth 탭에서는 대시보드가 con_box의 첫 요소다.
+           원래 위쪽 margin과 border-top은 5종 탭에서 앞 블록과의 '구분선' 역할이었는데,
+           지금은 탭 바와 본문 사이가 떠 보이는 원인이 된다. 여기서만 걷어낸다. */
+        #con_box04 .dm-v31-dashboard {
+            margin-top: 0;
+            padding-top: 16px;
+            border-top: 0;
+        }
+
         .dm-v31-heading {
             display: flex;
             align-items: center;
@@ -441,7 +453,7 @@
             display: grid;
             grid-template-columns: repeat(5, minmax(130px, 1fr));
             gap: 0;
-            margin-bottom: 14px;
+            margin-bottom: 10px;
             overflow: hidden;
             border-radius: 8px;
             background: #f2f6ff;
@@ -449,7 +461,7 @@
 
         .dm-v31-kpi {
             min-width: 0;
-            padding: 12px 14px;
+            padding: 9px 13px;
             border: 0;
             border-right: 1px solid #aabbe6;
             border-radius: 0;
@@ -484,7 +496,7 @@
             width: 100%;
             max-width: 760px;
             gap: 0;
-            margin: 0 0 18px;
+            margin: 0 0 12px;
             padding: 0;
             border: 0;
             border-radius: 20px;
@@ -564,7 +576,7 @@
 
         .dm-v31-chart-card {
             min-width: 0;
-            padding: 17px 20px;
+            padding: 13px 18px;
             border: 0;
             border-bottom: 1px solid #e2e6ec;
             border-radius: 0;
@@ -599,11 +611,11 @@
         }
 
         .dm-v31-chart-card > div {
-            height: 270px;
+            height: 230px;
         }
 
         .dm-v31-chart-card.dm-v31-wide > div {
-            height: 300px;
+            height: 270px;
         }
 
         .dm-v31-gauge-wrap {
@@ -614,7 +626,7 @@
 
         .dm-v31-gauge-wrap > div {
             min-width: 0;
-            height: 260px;
+            height: 220px;
         }
 
         .dm-v31-empty {
@@ -625,6 +637,22 @@
             background: #f2f6ff;
             color: #7b8da2;
             text-align: center;
+        }
+
+        @@media (min-width: 1600px) {
+            /* 넓은 화면에서는 KPI 10개가 한 줄에 들어간다. 두 줄일 이유가 없다. */
+            .dm-v31-kpis {
+                grid-template-columns: repeat(10, minmax(0, 1fr));
+            }
+
+            .dm-v31-kpi:nth-child(5n) {
+                border-right: 1px solid #aabbe6;
+            }
+
+            .dm-v31-kpi:nth-child(10n),
+            .dm-v31-kpi:last-child {
+                border-right: 0;
+            }
         }
 
         @@media (max-width: 1200px) {
@@ -1282,13 +1310,39 @@
                                 { dataField: 'ROI', caption: 'ROI(%)', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 2 } },
                                 {
                                     dataField: 'RUL',
-                                    caption: 'RUL(년)',
+                                    caption: 'RUL(설계)',
                                     alignment: 'center',
                                     dataType: 'number',
                                     cellTemplate: function (container, options) {
                                         $('<div>')
                                             .text(options.value == null ? '산정불가' : Number(options.value).toFixed(2))
                                             .appendTo(container);
+                                    }
+                                },
+                                {
+                                    // E9 상태보정 RUL. 설계값(나이 기준)과 나란히 두어
+                                    // 진단 상태가 잔여수명을 얼마나 끌어내리는지 바로 보이게 한다.
+                                    dataField: 'RulStateCorrected',
+                                    caption: 'RUL(상태보정)',
+                                    alignment: 'center',
+                                    dataType: 'number',
+                                    cellTemplate: function (container, options) {
+                                        const row = options.data || {};
+                                        if (options.value == null) {
+                                            $('<div>').text('산정불가').appendTo(container);
+                                            return;
+                                        }
+                                        const design = Number(row.RUL);
+                                        const value = Number(options.value);
+                                        const cell = $('<div>').text(value.toFixed(2)).appendTo(container);
+                                        if (isFinite(design) && design > 0) {
+                                            const drop = design - value;
+                                            if (drop > 0.005) {
+                                                cell.css({ color: '#c0392b', fontWeight: '700' })
+                                                    .attr('title', '설계 대비 ' + drop.toFixed(2) + '년 단축 (진단 PoF '
+                                                        + Number(row.DiagnosticPof || 0).toFixed(1) + '%)');
+                                            }
+                                        }
                                     }
                                 },
                                 {
@@ -1310,8 +1364,6 @@
                                             .appendTo(container);
                                     }
                                 },
-                                { dataField: 'Urgency', caption: '긴급도', alignment: 'center' },
-                                { dataField: 'RecommendedAction', caption: '권장시기', alignment: 'center' },
                                 { dataField: 'TopsisScore', caption: 'TOPSIS 점수', alignment: 'center', dataType: 'number', format: { type: 'fixedPoint', precision: 4 } }
                             ],
                             {
@@ -1338,7 +1390,9 @@
                 $('#' + $(this).data('tab')).addClass('on');
 
                 window.totalInfoDataHub.activate(prefix);
-                loadPriority(prefix);
+                // '의사결정(DM)' 탭에는 우선순위 그리드가 없다.
+                // 여기서 loadPriority 를 부르면 숨겨진 5종 탭 그리드만 헛되이 다시 그린다.
+                if ($(this).data('tab') !== 'con_box04') loadPriority(prefix);
                 // history, schedule 그리드는 2-depth 클릭 시 lazy-load
             });
 
@@ -1370,6 +1424,8 @@
 
             function refreshActiveTotalInfo() {
                 if (document.hidden || refreshInProgress) return;
+                // '의사결정(DM)' 탭에는 자동 새로고침 대상 차트가 없다. 불필요한 요청을 막는다.
+                if ($('.tab_onedepth .tab_btn.on').data('tab') === 'con_box04') return;
 
                 const prefix = getActivePrefix();
                 const suffix = SUFFIX[prefix];

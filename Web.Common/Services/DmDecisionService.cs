@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -89,6 +89,17 @@ namespace Web.Common
                 CustomersAffected = raw.CustomersAffected,
                 Criticality = raw.Criticality,
                 RULYears = AmsV31Config.CalculateRulYears(equipmentKey, item.UsagePeriod),
+                // E9 상태보정 RUL.
+                // 저장된 PoF는 목포대 RISKMATRIX 원본값이라 등급 경계에서 100%로 굳어 있는 경우가 있어
+                // 그대로 쓰면 상태보정 결과가 전부 0년으로 눌린다. 그래서 HI로부터 v3.1.0 진단 PoF를
+                // 산출해 상태보정에만 사용한다(기존 PoFRatio·Risk·TOPSIS 계산은 그대로 둔다).
+                DiagnosticPofPct = hasHi ? AmsV31Config.CalculateDiagnosticPof(hi, equipmentKey) * 100d : 0d,
+                RULStateCorrectedYears = hasHi
+                    ? AmsV31Config.CalculateStateCorrectedRulYears(
+                        equipmentKey,
+                        item.UsagePeriod,
+                        AmsV31Config.CalculateDiagnosticPof(hi, equipmentKey))
+                    : (double?)null,
                 DiscountRatePct = raw.DiscountRatePct,
                 InflationRatePct = raw.InflationRatePct,
                 EvaluationPeriodYears = raw.EvaluationPeriodYears,

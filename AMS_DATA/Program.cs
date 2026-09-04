@@ -160,10 +160,11 @@ namespace AMS_DATA
                 try
                 {
                     LogSection($"Influx 수집 주기 시작 | {DateTime.Now:yyyy-MM-dd HH:mm:ss}");
-                    var hits = await FetchSignalsWithCodes(client, org, bucket);
+                    var fetch = await FetchSignalsWithCodes(client, org, bucket);
+                    var hits = fetch.Hits;
                     LogInfo($"매핑·파싱 완료 신호: {hits.Count}개");
 
-                    if (hits.Count == 0)
+                    if (hits.Count == 0 && fetch.Ok)
                         LogWarn("이번 주기에 처리할 매핑 신호가 없습니다.");
 
                     // 신호 들어온 code별 처리
@@ -286,7 +287,11 @@ namespace AMS_DATA
                         );
                     }
 
-                    LogSuccess($"Influx 수집 주기 완료 | 처리 장비={hits.Select(h => h.Code).Distinct().Count()}대, 처리 신호={hits.Count}개");
+                    // 조회가 실패한 주기에 SUCCESS 를 찍으면 로그만 보고 정상으로 오해한다.
+                    if (fetch.Ok)
+                        LogSuccess($"Influx 수집 주기 완료 | 처리 장비={hits.Select(h => h.Code).Distinct().Count()}대, 처리 신호={hits.Count}개");
+                    else
+                        LogError("Influx 수집 주기 실패 | Influx 조회에 실패해 이번 주기 신호는 0개.");
                 }
                 catch (Exception ex)
                 {
@@ -299,7 +304,9 @@ namespace AMS_DATA
         }
 
         // Influx에서 신호를 읽고, 모든 수신값을 콘솔에 표시한 뒤 주소 --> (코드, 값)으로 매핑한다.
-        static async Task<List<SignalHit>> FetchSignalsWithCodes(InfluxDBClient client, string org, string bucket)
+        // Ok=false 는 '조회 자체가 실패' 라는 뜻이다. 예외를 여기서 삼키고 빈 목록만 돌려주면
+        // 호출부가 '신호 0개'와 '조회 실패'를 구분하지 못해 실패한 주기에도 SUCCESS 가 찍힌다.
+        static async Task<(List<SignalHit> Hits, bool Ok)> FetchSignalsWithCodes(InfluxDBClient client, string org, string bucket)
         {
             var flux = $@"
             from(bucket: ""{bucket}"")
@@ -308,6 +315,7 @@ namespace AMS_DATA
               |> last()";
 
             var result = new List<SignalHit>();
+            bool ok = false;
 
             try
             {
@@ -341,7 +349,7 @@ namespace AMS_DATA
                         LogData($"Influx 원본 #{total:000} | 미매핑 | 값={valueText,-10} | {addr} | 시간={timeText}");
                         continue;
                     }
-                    mapped++;
+                    mapped++; 
 
                     var valStr = rawValue?.ToString();
                     bool parsedValue = float.TryParse(
@@ -368,13 +376,14 @@ namespace AMS_DATA
                     }
                 }
                 LogInfo($"Flux 결과 요약 | 전체={total}개, 주소매핑={mapped}개, 숫자변환={parsed}개, 미매핑/제외={total - parsed}개");
+                ok = true;
             }
             catch (Exception ex)
             {
                 LogError("FetchSignalsWithCodes 예외 발생.", ex);
             }
 
-            return result;
+            return (result, ok);
         }
 
         static string GetSignalKindText(SignalKind kind)
@@ -412,7 +421,7 @@ namespace AMS_DATA
 
         // 4종 전용: 보통점검 이력 존재?
         static bool HasChk(
-            string code,
+            string code,            
             VCBChkRepository vcbRepo,
             DCCBChkRepository dccbRepo,
             DCCABLEChkRepository dccableRepo,

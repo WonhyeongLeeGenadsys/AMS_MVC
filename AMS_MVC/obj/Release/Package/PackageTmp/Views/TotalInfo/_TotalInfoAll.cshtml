@@ -53,78 +53,6 @@
             </ul>
         </div>
 
-        <section class="dm-v31-dashboard" aria-label="MVDC AMS v3.1 의사결정 대시보드">
-            <div class="dm-v31-heading">
-                <div>
-                    <h2>DM 상세분석</h2>
-                    <p>유지보수 의사결정의 근거와 노후화, 경제성, 예비품 계획을 상세하게 확인합니다.</p>
-                </div>
-            </div>
-            <div class="dm-v31-tabs" role="tablist" aria-label="의사결정 분석 탭">
-                <button type="button" class="dm-v31-tab is-active" data-target="dmV31Overview" role="tab" aria-selected="true">종합·Risk</button>
-                <button type="button" class="dm-v31-tab" data-target="dmV31Condition" role="tab" aria-selected="false">노후화·RUL</button>
-                <button type="button" class="dm-v31-tab" data-target="dmV31Economy" role="tab" aria-selected="false">경제성·예산</button>
-                <button type="button" class="dm-v31-tab" data-target="dmV31Spare" role="tab" aria-selected="false">예비품·조달</button>
-                <button type="button" class="dm-v31-tab" data-target="dmV31Explain" role="tab" aria-selected="false">XAI·검증</button>
-            </div>
-            <div class="dm-v31-tab-panels">
-                <div id="dmV31Overview" class="dm-v31-tab-panel is-active" role="tabpanel">
-                    <div id="dmV31Kpis" class="dm-v31-kpis"></div>
-                    <div class="dm-v31-chart-grid dm-v31-overview-grid">
-                        <article class="dm-v31-chart-card"><h3>의사결정 분포</h3><div id="dmDecisionChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>계통 신뢰도 지수 (IEEE 1366)</h3><div id="dmReliabilityGauges" class="dm-v31-gauge-wrap"><div id="dmSaidiGauge"></div><div id="dmSaifiGauge"></div></div></article>
-                        <article class="dm-v31-chart-card"><h3>잔존수명 분포</h3><div id="dmRulChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>TOP 10 우선순위 자산 (TOPSIS 점수)</h3><div id="dmPriorityChart"></div></article>
-                    </div>
-                </div>
-                <div id="dmV31Condition" class="dm-v31-tab-panel" role="tabpanel">
-                    <div class="dm-v31-subheading"><h2>설비 노후화·진단</h2><p>운영연수, HI, PoF, RUL과 예측 불확실성을 함께 확인합니다.</p></div>
-                    <div class="dm-v31-chart-grid">
-                        @* 전체폭 카드는 항상 grid 끝에 둔다. 중간에 끼면 nth-child 기반 열 구분선이 어긋난다. *@
-                        <article class="dm-v31-chart-card"><h3>설비 유형별 Aging Curve</h3><div id="dmAgingChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>PoF 예측 궤적</h3><div id="dmPofTrajectoryChart"></div></article>
-                        <article class="dm-v31-chart-card dm-v31-wide"><h3>PoF·RUL 90% 신뢰구간</h3><div id="dmUncertaintyGrid"></div></article>
-                    </div>
-                </div>
-                <div id="dmV31Economy" class="dm-v31-tab-panel" role="tabpanel">
-                    <div id="dmAdvancedKpis" class="dm-v31-kpis"></div>
-                    <div class="dm-v31-chart-grid">
-                        <article class="dm-v31-chart-card"><h3>NPV 편익-비용 분석</h3><div id="dmEconomicChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>예산 최적화</h3><div id="dmBudgetChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>다년 예산계획 — 연차별 조치 &amp; 긴급 백로그 (E10)</h3><div id="dmMultiYearChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>시나리오별 5개년 Fleet Risk</h3><div id="dmPredictionChart"></div></article>
-                    </div>
-                </div>
-                <div id="dmV31Spare" class="dm-v31-tab-panel" role="tabpanel">
-                    <div class="dm-v31-subheading dm-v31-subheading-action">
-                        <div><h2>예비품 계획</h2><p>DM 결과와 BOM을 연결한 예상수요, 재고정책, 3개년 조달계획입니다.</p></div>
-                        <a class="dm-v31-download" href="@Url.Action("SPAREOverview", "SpareDashboard")">예비품 상세화면</a>
-                    </div>
-                    <div id="dmSpareKpis" class="dm-v31-kpis"></div>
-                    <div class="dm-v31-chart-grid">
-                        <article class="dm-v31-chart-card"><h3>예비품 예상수요 (Top 10)</h3><div id="dmSpareDemandChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>재고 정책 분포</h3><div id="dmInventoryPolicyChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>3개년 조달 비용 (억원)</h3><div id="dmProcurementChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>핵심 예비품</h3><div id="dmSpareGrid"></div></article>
-                    </div>
-                </div>
-                <div id="dmV31Explain" class="dm-v31-tab-panel" role="tabpanel">
-                    <div class="dm-v31-subheading"><h2>의사결정 설명·검증</h2><p>주요 기여요인, 설비별 산정 근거와 입력 데이터 준비상태를 확인합니다.</p></div>
-                    <div class="dm-v31-chart-grid">
-                        @* 레퍼런스가 XAI 탭에 배치하는 항목들. 다른 탭에서 '이동'해 온 것이며 복제가 아니다.
-                           전체폭 카드는 항상 grid 끝에 둔다. *@
-                        <article class="dm-v31-chart-card"><h3>의사결정 주요 영향요인</h3><div id="dmXaiChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>전역 위험 구성 (4D CoF)</h3><div id="dmCof4dChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>상위 자산 위험 분해 (4D)</h3><div id="dmCofAssetChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>최단 RUL 자산</h3><div id="dmRulAssetChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>NPV 편익 구성</h3><div id="dmBenefitChart"></div></article>
-                        <article class="dm-v31-chart-card"><h3>파라미터 민감도 (Tornado)</h3><div id="dmSensitivityChart"></div></article>
-                        <article class="dm-v31-chart-card dm-v31-wide"><h3>우선순위 상위 자산 — 의사결정 근거</h3><div id="dmExplanationGrid"></div></article>
-                        <article class="dm-v31-chart-card dm-v31-wide"><h3>고급 모듈 입력 준비상태</h3><div id="dmReadinessGrid"></div></article>
-                    </div>
-                </div>
-            </div>
-        </section>
     </div>
 
     <script>
@@ -145,6 +73,20 @@
                     });
                 });
             }
+
+            // 1-depth '의사결정(DM)' 탭 진입 처리.
+            // 이 탭은 숨겨진 상태로 렌더되므로 Index.cshtml 의 IntersectionObserver 가
+            // 대시보드를 잡지 못한다. 탭을 열 때 활성 하위 탭을 직접 초기화하고,
+            // 0 크기로 그려졌을 수 있는 차트를 다시 그린다.
+            // setTimeout(0) 은 Index.cshtml 의 탭 핸들러가 .on 클래스를 붙인 뒤에
+            // repaint 가 돌도록 하기 위한 것이다(핸들러 등록 순서상 이 쪽이 먼저 실행된다).
+            $('.tab_onedepth').on('click', '.tab_btn[data-tab="con_box04"]', function () {
+                let panel = $('.dm-v31-tab-panel.is-active');
+                if (panel.length === 0) panel = $('#dmV31Overview').addClass('is-active');
+                const panelId = panel.attr('id') || 'dmV31Overview';
+                if (window.dmV31Lazy) window.dmV31Lazy.activatePanel(panelId);
+                window.setTimeout(function () { repaintDmPanel(panel); }, 0);
+            });
 
             $('.dm-v31-tab').on('click', function () {
                 const targetId = $(this).data('target');
@@ -707,6 +649,60 @@
                     tooltip: { enabled: true, customizeTooltip: e => ({ text: e.point.data.name + '\n운영 ' + fixed(e.argument, 0) + '년 · HI ' + fixed(e.value, 2) }) }
                 });
 
+                // 상태보정 RUL(E9) 비교 산점도.
+                // 가로축은 설계 RUL(나이만 반영), 세로축은 진단 상태를 반영한 상태보정 RUL이다.
+                // 점선(y=x)은 '진단이 수명을 깎지 않은 상태'를 뜻하므로,
+                // 대각선에서 아래로 멀어질수록 진단 결과가 잔존수명을 크게 끌어내렸다는 의미다.
+                const STATE_RUL_REF = '기준선 (y=x)';
+                const stateRulRows = rows
+                    .filter(row => row.RulStateCorrected !== null && row.RulStateCorrected !== undefined && row.RUL !== null && row.RUL !== undefined)
+                    .map(row => ({
+                        name: assetLabel(row),
+                        design: Number(row.RUL),
+                        corrected: Number(row.RulStateCorrected),
+                        pof: Number(row.DiagnosticPof || 0),
+                        decision: row.Decision
+                    }));
+                if (stateRulRows.length === 0) {
+                    // 상태보정 값이 비어 있으면(HI 미입력 등) 빈 축만 남기지 않고 안내를 띄운다.
+                    $('#dmStateRulChart').html('<div class="dm-v31-empty">상태보정 RUL을 산출할 진단 데이터가 없습니다.</div>');
+                } else {
+                    // 두 축을 같은 눈금으로 맞춰야 y=x 대각선이 45도로 그려진다.
+                    let stateRulMax = 0;
+                    stateRulRows.forEach(item => { stateRulMax = Math.max(stateRulMax, item.design, item.corrected); });
+                    stateRulMax = Math.ceil((stateRulMax * 1.05) / 5) * 5 || 5;
+                    const stateRulRef = [
+                        { name: STATE_RUL_REF, design: 0, corrected: 0, decision: STATE_RUL_REF },
+                        { name: STATE_RUL_REF, design: stateRulMax, corrected: stateRulMax, decision: STATE_RUL_REF }
+                    ];
+                    $('#dmStateRulChart').dxChart({
+                        dataSource: stateRulRows.concat(stateRulRef),
+                        commonSeriesSettings: { argumentField: 'design', valueField: 'corrected' },
+                        seriesTemplate: {
+                            nameField: 'decision',
+                            customizeSeries: name => (name === STATE_RUL_REF
+                                ? { type: 'line', color: '#95a5a6', dashStyle: 'dash', width: 2, point: { visible: false } }
+                                : { type: 'scatter', color: (decisionColors[name] || '#7f8c8d'), point: { size: 11 } })
+                        },
+                        // endOnTick:false 를 주지 않으면 축이 다음 눈금까지 늘어나 두 축 범위가 어긋난다.
+                        argumentAxis: { title: { text: '설계 RUL(년)' }, min: 0, max: stateRulMax, endOnTick: false },
+                        valueAxis: { title: { text: '상태보정 RUL(년)' }, min: 0, max: stateRulMax, endOnTick: false },
+                        legend: { verticalAlignment: 'bottom', horizontalAlignment: 'center' },
+                        tooltip: {
+                            enabled: true,
+                            customizeTooltip: e => {
+                                const item = e.point.data;
+                                if (item.decision === STATE_RUL_REF) return { text: '기준선 (설계 = 상태보정)' };
+                                return {
+                                    text: item.name
+                                        + '\n설계 ' + fixed(item.design, 2) + '년 → 상태보정 ' + fixed(item.corrected, 2) + '년'
+                                        + '\n단축 ' + fixed(item.design - item.corrected, 2) + '년 · 진단 PoF ' + fixed(item.pof, 1) + '%'
+                                };
+                            }
+                        }
+                    });
+                }
+
                 // 'HI–PoF 관계' 산점도 제거: 모델상 HI = 1 + PoF × 4 항등식이라
                 // 어떤 데이터를 넣어도 직선 하나만 나와 정보량이 없다. 레퍼런스에도 없는 차트다.
 
@@ -801,8 +797,19 @@
                 });
 
                 // '최단 RUL 자산' — 잔여수명이 짧은 자산이 앞에 오도록 오름차순 정렬한다.
-                const rulRows = rows.map(row => ({ name: assetLabel(row), value: Number(row.RUL || 0), decision: row.Decision }))
-                    .sort((a, b) => a.value - b.value);
+                // 상태보정 RUL(E9)이 있으면 그 값으로 순위를 매긴다.
+                // 설계 RUL은 나이만 보기 때문에 진단이 나쁜 설비가 뒤로 밀려 '최단'의 의미가 흐려진다.
+                const rulRows = rows.map(row => {
+                    const corrected = row.RulStateCorrected;
+                    const hasCorrected = corrected !== null && corrected !== undefined;
+                    return {
+                        name: assetLabel(row),
+                        value: Number(hasCorrected ? corrected : (row.RUL || 0)),
+                        design: Number(row.RUL || 0),
+                        corrected: hasCorrected,
+                        decision: row.Decision
+                    };
+                }).sort((a, b) => a.value - b.value);
                 const rulBins = [
                     { name: '1년 미만', min: -Infinity, max: 1 },
                     { name: '1~3년', min: 1, max: 3 },
@@ -824,7 +831,14 @@
                     argumentAxis: { label: { overlappingBehavior: 'rotate', rotationAngle: 35 } },
                     legend: { visible: false },
                     customizePoint: e => ({ color: decisionColors[e.data.decision] || '#1768ad' }),
-                    tooltip: { enabled: true, customizeTooltip: e => ({ text: e.argumentText + '\n' + fixed(e.value, 2) + '년' }) }
+                    tooltip: {
+                        enabled: true,
+                        customizeTooltip: e => ({
+                            text: e.argumentText + '\n'
+                                + (e.point.data.corrected ? '상태보정 ' : '설계 ') + fixed(e.value, 2) + '년'
+                                + (e.point.data.corrected ? '\n설계 ' + fixed(e.point.data.design, 2) + '년' : '')
+                        })
+                    }
                 });
 
                 function renderReliabilityGauge(selector, name, actual, target) {
@@ -1210,4 +1224,82 @@
             });
         });
     </script>
+</div>
+
+@* 의사결정(DM) 1-depth 탭 *@
+@* DM 상세분석은 5종 주요장비 화면과 성격이 달라 별도 탭으로 분리했다.
+   숨김 상태에서는 DevExtreme 차트가 0 크기로 그려지므로,
+   탭 진입 시 dmV31Lazy.activatePanel + repaint 를 다시 태운다(아래 스크립트). *@
+<div class="box_wrap totalInfo_content" id="con_box04">
+    <div class="con_box totalInfo">
+        <section class="dm-v31-dashboard" aria-label="MVDC AMS v3.1 의사결정 대시보드">
+            @* 'DM 상세분석' 제목 블록 제거: 1-depth 탭 라벨이 이미 '의사결정(DM)'이라
+               같은 말이 두 번 나오고, 세로 공간만 80px 가까이 잡아먹는다. *@
+            <div class="dm-v31-tabs" role="tablist" aria-label="의사결정 분석 탭">
+                <button type="button" class="dm-v31-tab is-active" data-target="dmV31Overview" role="tab" aria-selected="true">종합·Risk</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Condition" role="tab" aria-selected="false">노후화·RUL</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Economy" role="tab" aria-selected="false">경제성·예산</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Spare" role="tab" aria-selected="false">예비품·조달</button>
+                <button type="button" class="dm-v31-tab" data-target="dmV31Explain" role="tab" aria-selected="false">XAI·검증</button>
+            </div>
+            <div class="dm-v31-tab-panels">
+                <div id="dmV31Overview" class="dm-v31-tab-panel is-active" role="tabpanel">
+                    <div id="dmV31Kpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid dm-v31-overview-grid">
+                        <article class="dm-v31-chart-card"><h3>의사결정 분포</h3><div id="dmDecisionChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>계통 신뢰도 지수 (IEEE 1366)</h3><div id="dmReliabilityGauges" class="dm-v31-gauge-wrap"><div id="dmSaidiGauge"></div><div id="dmSaifiGauge"></div></div></article>
+                        <article class="dm-v31-chart-card"><h3>잔존수명 분포</h3><div id="dmRulChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>TOP 10 우선순위 자산 (TOPSIS 점수)</h3><div id="dmPriorityChart"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Condition" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading"><h2>설비 노후화·진단</h2><p>운영연수, HI, PoF, RUL과 예측 불확실성을 함께 확인합니다.</p></div>
+                    <div class="dm-v31-chart-grid">
+                        @* 전체폭 카드는 항상 grid 끝에 둔다. 중간에 끼면 nth-child 기반 열 구분선이 어긋난다. *@
+                        <article class="dm-v31-chart-card"><h3>설비 유형별 Aging Curve</h3><div id="dmAgingChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>상태보정 RUL (기본 vs 진단상태 반영, E9)</h3><div id="dmStateRulChart"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>PoF 예측 궤적</h3><div id="dmPofTrajectoryChart"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>PoF·RUL 90% 신뢰구간</h3><div id="dmUncertaintyGrid"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Economy" class="dm-v31-tab-panel" role="tabpanel">
+                    <div id="dmAdvancedKpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>NPV 편익-비용 분석</h3><div id="dmEconomicChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>예산 최적화</h3><div id="dmBudgetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>다년 예산계획 — 연차별 조치 &amp; 긴급 백로그 (E10)</h3><div id="dmMultiYearChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>시나리오별 5개년 Fleet Risk</h3><div id="dmPredictionChart"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Spare" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading dm-v31-subheading-action">
+                        <div><h2>예비품 계획</h2><p>DM 결과와 BOM을 연결한 예상수요, 재고정책, 3개년 조달계획입니다.</p></div>
+                        <a class="dm-v31-download" href="@Url.Action("SPAREOverview", "SpareDashboard")">예비품 상세화면</a>
+                    </div>
+                    <div id="dmSpareKpis" class="dm-v31-kpis"></div>
+                    <div class="dm-v31-chart-grid">
+                        <article class="dm-v31-chart-card"><h3>예비품 예상수요 (Top 10)</h3><div id="dmSpareDemandChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>재고 정책 분포</h3><div id="dmInventoryPolicyChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>3개년 조달 비용 (억원)</h3><div id="dmProcurementChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>핵심 예비품</h3><div id="dmSpareGrid"></div></article>
+                    </div>
+                </div>
+                <div id="dmV31Explain" class="dm-v31-tab-panel" role="tabpanel">
+                    <div class="dm-v31-subheading"><h2>의사결정 설명·검증</h2><p>주요 기여요인, 설비별 산정 근거와 입력 데이터 준비상태를 확인합니다.</p></div>
+                    <div class="dm-v31-chart-grid">
+                        @* 레퍼런스가 XAI 탭에 배치하는 항목들. 다른 탭에서 '이동'해 온 것이며 복제가 아니다.
+                           전체폭 카드는 항상 grid 끝에 둔다. *@
+                        <article class="dm-v31-chart-card"><h3>의사결정 주요 영향요인</h3><div id="dmXaiChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>전역 위험 구성 (4D CoF)</h3><div id="dmCof4dChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>상위 자산 위험 분해 (4D)</h3><div id="dmCofAssetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>최단 RUL 자산</h3><div id="dmRulAssetChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>NPV 편익 구성</h3><div id="dmBenefitChart"></div></article>
+                        <article class="dm-v31-chart-card"><h3>파라미터 민감도 (Tornado)</h3><div id="dmSensitivityChart"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>우선순위 상위 자산 — 의사결정 근거</h3><div id="dmExplanationGrid"></div></article>
+                        <article class="dm-v31-chart-card dm-v31-wide"><h3>고급 모듈 입력 준비상태</h3><div id="dmReadinessGrid"></div></article>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>

@@ -1,0 +1,145 @@
+|2026-08-28 09:19:13  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 09:19:13  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 09:19:15  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 09:19:15  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 14:47:06  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 14:47:06  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 14:51:02  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 14:51:02  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 14:51:10  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 14:51:10  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 14:52:10  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 14:52:10  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 14:52:26  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 14:52:26  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:00:28  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:00:28  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:00:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:00:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:00:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:00:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:01:03  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:01:03  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:01:50  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:01:50  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:02:01  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:02:01  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:03:09  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:03:09  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:04:04  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:04:04  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:04:26  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:04:26  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:04:26  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:04:26  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:05:04  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:05:04  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:05:49  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:05:49  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:06:33  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 15:06:33  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 15:06:35  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 15:06:35  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 15:06:39  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-08-28 15:06:39  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 15:06:39  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 15:06:39  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-08-28 15:06:42  |   DB(COMPANY)  |   업체 목록을 성공적으로 가져왔습니다.   |
+|2026-08-28 15:06:50  |   VCBBasicController.List  |   GetVCBListData 실행   |
+|2026-08-28 15:06:50  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 15:06:50  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 15:06:50  |   VCBBasicController.List  |   VCB 데이터 로드 성공   |
+|2026-08-28 15:06:52  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:06:52  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:08:11  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:08:11  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:08:24  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:08:24  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:08:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:08:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:10:37  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:10:37  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:15:50  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:15:50  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:16:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:16:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:16:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:16:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:18:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:18:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:18:45  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:18:45  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:18:47  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:18:47  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:20:28  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:20:28  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:21:15  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:21:15  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 15:24:16  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 15:24:16  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 16:40:51  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 16:40:51  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 16:49:54  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 16:49:54  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:30:39  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:30:39  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:30:52  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:30:52  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:32:58  |   TotalVCBGojangController.List  |   GetTotalVCBGojangListData 실행   |
+|2026-08-28 17:32:58  |   vcbBasicInfo Data  |   총 1 건 조회됨   |
+|2026-08-28 17:32:58  |   DB(VCB_BASICINFO)  |   GetAllVCBBasicInfoRepo 동작 성공   |
+|2026-08-28 17:32:58  |   VCBGojangController.List  |   조회된 데이터: 0건   |
+|2026-08-28 17:33:18  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:33:18  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:34:13  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:34:13  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:34:39  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:34:39  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:38:31  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:38:31  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:38:42  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:38:42  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:39:23  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:39:23  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:39:40  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:39:40  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:43:58  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:43:58  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:45:58  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:45:58  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:51:02  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:51:02  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:52:31  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:52:31  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:52:54  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:52:54  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:52:59  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:52:59  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:53:05  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:53:05  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:55:54  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:55:54  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:55:56  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:55:56  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:55:59  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:55:59  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:59:29  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:59:29  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:59:31  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:59:31  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:59:43  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:59:43  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 17:59:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 17:59:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 18:02:11  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 18:02:11  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 18:12:31  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 18:12:31  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 18:21:44  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 18:21:44  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 18:22:33  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 18:22:33  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-28 18:37:02  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-28 18:37:02  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
+|2026-08-31 09:01:46  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-31 09:01:46  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |

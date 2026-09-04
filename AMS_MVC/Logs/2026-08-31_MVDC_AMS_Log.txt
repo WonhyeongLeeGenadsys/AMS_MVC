@@ -1,0 +1,2 @@
+|2026-08-31 09:25:34  |   SPAREBasicController.List  |   GetSPAREListData 실행   |
+|2026-08-31 09:25:34  |   DB(TB_SPARE_PART)  |   GetAllSPAREBasicInfoRepo 성공   |
