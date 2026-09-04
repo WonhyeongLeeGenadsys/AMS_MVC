@@ -273,6 +273,11 @@ namespace AMS_MVC
                     RUL = item.RULYears.HasValue
                         ? (double?)Math.Round(item.RULYears.Value, 2)
                         : null,
+                    // E9 상태보정 RUL (진단 상태 반영). RUL과 나란히 표시한다.
+                    RulStateCorrected = item.RULStateCorrectedYears.HasValue
+                        ? (double?)Math.Round(item.RULStateCorrectedYears.Value, 2)
+                        : null,
+                    DiagnosticPof = Math.Round(item.DiagnosticPofPct, 2),
                     item.Decision,
                     item.Urgency,
                     item.RecommendedAction,

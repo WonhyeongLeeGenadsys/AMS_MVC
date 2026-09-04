@@ -77,7 +77,7 @@ namespace Web.Common
                 }
             }
 
-            double lambdaMax = lambdaSum / 5d;
+            double lambdaMax = lambdaSum / 5d;            
             double consistencyIndex = (lambdaMax - 5d) / 4d;
             return consistencyIndex / 1.12d;
         }

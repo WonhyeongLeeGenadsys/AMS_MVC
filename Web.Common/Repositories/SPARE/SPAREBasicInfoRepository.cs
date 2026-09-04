@@ -190,6 +190,43 @@ namespace Web.Common
         }
 
         // 예비품별 설비유형 및 필요수량 조회
+        // 목록 화면용: 부품별 설비유형 매핑을 한 번에 가져온다.
+        // 부품마다 GetAssetMapsBySPAREIdRepo를 호출하면 N+1 쿼리가 되므로 전체를 한 번에 읽는다.
+        public Result GetAllAssetMapsRepo(out List<SpareAssetMapInfo> assetMaps)
+        {
+            Result res = new Result(true);
+            assetMaps = new List<SpareAssetMapInfo>();
+
+            try
+            {
+                using (DBHelper dbHelper = new DBHelper())
+                {
+                    var query = @"
+                        SELECT
+                            TBL_IDX,
+                            SPARE_ASSET_MAP_ID,
+                            SPARE_ID,
+                            ASSET_TYPE_ID,
+                            ISNULL(REQUIRED_QTY, 1) AS REQUIRED_QTY,
+                            CREATED_AT,
+                            TBL_GETDATE
+                        FROM TB_SPARE_ASSET_MAP
+                        ORDER BY SPARE_ID, ASSET_TYPE_ID";
+
+                    assetMaps = dbHelper.Conn.Query<SpareAssetMapInfo>(query).AsList();
+                    res.Message = "GetAllAssetMapsRepo 성공";
+                }
+            }
+            catch (Exception ex)
+            {
+                res.IsSuccess = false;
+                res.Message = "GetAllAssetMapsRepo 실패: " + ex.Message;
+                LogHelper.WriteLog("DB(TB_SPARE_ASSET_MAP)", res.Message + " / " + ex.StackTrace);
+            }
+
+            return res;
+        }
+
         public Result GetAssetMapsBySPAREIdRepo(int spareId, out List<SpareAssetMapInfo> assetMaps)
         {
             Result res = new Result(true);
@@ -228,10 +265,10 @@ namespace Web.Common
             return res;
         }
 
-        public Result GetProcurementListRepo(out List<dynamic> rows)
+        public Result GetProcurementListRepo(out List<SpareProcurementListItemInfo> rows)
         {
             Result res = new Result(true);
-            rows = new List<dynamic>();
+            rows = new List<SpareProcurementListItemInfo>();
 
             try
             {
@@ -255,7 +292,7 @@ namespace Web.Common
                     ON P.SPARE_ID = S.SPARE_ID
                 ORDER BY P.ORDER_DATE DESC, P.PROC_ID DESC";
 
-                    rows = dbHelper.Conn.Query(query).ToList<dynamic>();
+                    rows = dbHelper.Conn.Query<SpareProcurementListItemInfo>(query).ToList();
                     res.Message = "발주 목록 조회 성공";
                 }
             }
@@ -358,10 +395,10 @@ namespace Web.Common
             return res;
         }
 
-        public Result GetCostListRepo(out List<dynamic> rows)
+        public Result GetCostListRepo(out List<SpareCostListItemInfo> rows)
         {
             Result res = new Result(true);
-            rows = new List<dynamic>();
+            rows = new List<SpareCostListItemInfo>();
 
             try
             {
@@ -383,7 +420,7 @@ namespace Web.Common
                     ON C.SPARE_ID = S.SPARE_ID
                 ORDER BY C.FISCAL_YEAR DESC, C.COST_ID DESC";
 
-                    rows = dbHelper.Conn.Query(query).ToList<dynamic>();
+                    rows = dbHelper.Conn.Query<SpareCostListItemInfo>(query).ToList();
                     res.Message = "비용계획 목록 조회 성공";
                 }
             }
@@ -745,10 +782,10 @@ namespace Web.Common
             return res;
         }
 
-        public Result GetAllSPAREBasicListRepo(out List<dynamic> rows)
+        public Result GetAllSPAREBasicListRepo(out List<SpareBasicListItemInfo> rows)
         {
             Result res = new Result(true);
-            rows = new List<dynamic>();
+            rows = new List<SpareBasicListItemInfo>();
 
             try
             {
@@ -770,7 +807,7 @@ namespace Web.Common
                     ON S.SPARE_ID = I.SPARE_ID
                 ORDER BY S.SPARE_ID DESC";
 
-                    rows = dbHelper.Conn.Query(query).ToList<dynamic>();
+                    rows = dbHelper.Conn.Query<SpareBasicListItemInfo>(query).ToList();
                     res.Message = "기본정보 목록 조회 성공";
                 }
             }

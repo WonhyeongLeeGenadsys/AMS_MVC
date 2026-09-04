@@ -18,16 +18,31 @@
             </div>
 
             <form id="costForm">
-                <input type="hidden" name="SPARE_ID" value="@Model.SPARE_ID" />
+                <input type="hidden" id="spareIdField" name="SPARE_ID" value="@Model.SPARE_ID" />
 
                 <div class="table_app">
                     <table>
-                        <tr>
-                            <th>부품번호</th>
-                            <td>@(sparePart?.PART_NUMBER ?? "")</td>
-                            <th>부품명</th>
-                            <td>@(sparePart?.PART_NAME ?? "")</td>
-                        </tr>
+                        @if (sparePart != null)
+                        {
+                            <tr>
+                                <th>부품번호</th>
+                                <td>@sparePart.PART_NUMBER</td>
+                                <th>부품명</th>
+                                <td>@sparePart.PART_NAME</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @* 목록의 '추가'로 진입하면 대상 부품이 정해져 있지 않으므로 여기서 고른다. *@
+                            <tr>
+                                <th>대상 부품</th>
+                                <td colspan="3">
+                                    <select id="sparePicker" style="min-width:320px;">
+                                        <option value="">— 부품을 선택하세요 —</option>
+                                    </select>
+                                </td>
+                            </tr>
+                        }
                         <tr>
                             <th>회계연도</th>
                             <td><input type="text" name="FISCAL_YEAR" data-type="number" /></td>
@@ -45,7 +60,39 @@
     </div>
 
     <script>
+        $(function () {
+            var picker = $('#sparePicker');
+            if (picker.length === 0) return;
+
+            // 사용 중인 예비품만 골라 담는다.
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetSPAREListData", "SPAREBasic")',
+                success: function (response) {
+                    if (!response || !response.success) return;
+
+                    (response.data || []).forEach(function (row) {
+                        if (row.IS_ACTIVE === '미사용') return;
+                        $('<option>')
+                            .val(row.SPARE_ID)
+                            .text(row.PART_NUMBER + ' — ' + row.PART_NAME)
+                            .appendTo(picker);
+                    });
+                }
+            });
+
+            picker.on('change', function () {
+                $('#spareIdField').val($(this).val() || 0);
+            });
+        });
+
         function saveCost() {
+            var spareId = Number($('#spareIdField').val() || 0);
+            if (spareId <= 0) {
+                alert('대상 부품을 먼저 선택하세요.');
+                return;
+            }
+
             var formData = new FormData(document.getElementById("costForm"));
 
             $.ajax({
@@ -61,6 +108,9 @@
                     } else {
                         alert(response.message);
                     }
+                },
+                error: function (xhr) {
+                    alert('비용계획 등록 중 오류가 발생했습니다.\n' + (xhr.responseText || ''));
                 }
             });
         }

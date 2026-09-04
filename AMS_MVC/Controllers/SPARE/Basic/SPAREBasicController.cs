@@ -16,6 +16,31 @@ namespace AMS_MVC
             spareBasicRepository = new SPAREBasicInfoRepository();
         }
 
+        // ASSET_TYPE_ID(1~5) → 화면 표기명.
+        // 대시보드 SQL의 CASE 매핑과 동일한 순서를 쓴다.
+        // ASSET_TYPE_ID → 화면 표기명.
+        // 설비유형은 13종이다. SPAREBasicDetail.cshtml의 매핑과 동일하게 유지할 것.
+        public static string AssetTypeName(int assetTypeId)
+        {
+            switch (assetTypeId)
+            {
+                case 1: return "VCB";
+                case 2: return "DCCB";
+                case 3: return "Sub Module";
+                case 4: return "DC Cable";
+                case 5: return "Interface TR";
+                case 6: return "Converter";
+                case 7: return "Circuit Breaker";
+                case 8: return "Cable";
+                case 9: return "Switchgear";
+                case 10: return "Protection Relay";
+                case 11: return "Cooling System";
+                case 12: return "Energy Storage";
+                case 13: return "SCADA";
+                default: return "미지정";
+            }
+        }
+
         private static bool TryBuildAssetMaps(
             List<int> assetTypeIds,
             List<int> requiredQtys,

@@ -134,10 +134,18 @@ namespace Web.Common
                         CASE M.ASSET_TYPE_ID
                             WHEN 1 THEN 'VCB'
                             WHEN 2 THEN 'DCCB'
-                            WHEN 3 THEN 'SUBMODULE'
-                            WHEN 4 THEN 'DCCABLE'
-                            WHEN 5 THEN 'INTERFACETR'
-                            ELSE 'UNKNOWN'
+                            WHEN 3 THEN 'Sub Module'
+                            WHEN 4 THEN 'DC Cable'
+                            WHEN 5 THEN 'Interface TR'
+                            WHEN 6 THEN 'Converter'
+                            WHEN 7 THEN 'Circuit Breaker'
+                            WHEN 8 THEN 'Cable'
+                            WHEN 9 THEN 'Switchgear'
+                            WHEN 10 THEN 'Protection Relay'
+                            WHEN 11 THEN 'Cooling System'
+                            WHEN 12 THEN 'Energy Storage'
+                            WHEN 13 THEN 'SCADA'
+                            ELSE '미지정'
                         END AS ASSET_TYPE_NAME,
                         SUM(ISNULL(S.UNIT_PRICE, 0) * ISNULL(I.CURRENT_QTY, 0)) AS TOTAL_COST
                     FROM TB_SPARE_PART S
@@ -390,10 +398,18 @@ namespace Web.Common
                 CASE M1.ASSET_TYPE_ID
                     WHEN 1 THEN 'VCB'
                     WHEN 2 THEN 'DCCB'
-                    WHEN 3 THEN 'SUBMODULE'
-                    WHEN 4 THEN 'DCCABLE'
+                    WHEN 3 THEN 'Sub Module'
+                    WHEN 4 THEN 'DC Cable'
                     WHEN 5 THEN 'Interface TR'
-                    ELSE 'UNKNOWN'
+                    WHEN 6 THEN 'Converter'
+                    WHEN 7 THEN 'Circuit Breaker'
+                    WHEN 8 THEN 'Cable'
+                    WHEN 9 THEN 'Switchgear'
+                    WHEN 10 THEN 'Protection Relay'
+                    WHEN 11 THEN 'Cooling System'
+                    WHEN 12 THEN 'Energy Storage'
+                    WHEN 13 THEN 'SCADA'
+                    ELSE '미지정'
                 END AS ASSET_TYPE_NAME,
                 S.CRITICALITY_GRADE,
                 ISNULL(I.CURRENT_QTY, 0) AS CURRENT_QTY,
@@ -597,10 +613,18 @@ namespace Web.Common
                 CASE M.ASSET_TYPE_ID
                     WHEN 1 THEN 'VCB'
                     WHEN 2 THEN 'DCCB'
-                    WHEN 3 THEN 'SubModule'
-                    WHEN 4 THEN 'DCCABLE'
+                    WHEN 3 THEN 'Sub Module'
+                    WHEN 4 THEN 'DC Cable'
                     WHEN 5 THEN 'Interface TR'
-                    ELSE 'UNKNOWN'
+                    WHEN 6 THEN 'Converter'
+                    WHEN 7 THEN 'Circuit Breaker'
+                    WHEN 8 THEN 'Cable'
+                    WHEN 9 THEN 'Switchgear'
+                    WHEN 10 THEN 'Protection Relay'
+                    WHEN 11 THEN 'Cooling System'
+                    WHEN 12 THEN 'Energy Storage'
+                    WHEN 13 THEN 'SCADA'
+                    ELSE '미지정'
                 END AS ASSET_TYPE_NAME,
                 SUM(ISNULL(S.UNIT_PRICE, 0) * ISNULL(I.CURRENT_QTY, 0)) AS TOTAL_COST
             FROM TB_SPARE_PART S
@@ -649,10 +673,18 @@ namespace Web.Common
                 CASE M1.ASSET_TYPE_ID
                     WHEN 1 THEN 'VCB'
                     WHEN 2 THEN 'DCCB'
-                    WHEN 3 THEN 'SUBMODULE'
-                    WHEN 4 THEN 'DCCABLE'
+                    WHEN 3 THEN 'Sub Module'
+                    WHEN 4 THEN 'DC Cable'
                     WHEN 5 THEN 'Interface TR'
-                    ELSE 'UNKNOWN'
+                    WHEN 6 THEN 'Converter'
+                    WHEN 7 THEN 'Circuit Breaker'
+                    WHEN 8 THEN 'Cable'
+                    WHEN 9 THEN 'Switchgear'
+                    WHEN 10 THEN 'Protection Relay'
+                    WHEN 11 THEN 'Cooling System'
+                    WHEN 12 THEN 'Energy Storage'
+                    WHEN 13 THEN 'SCADA'
+                    ELSE '미지정'
                 END AS ASSET_TYPE_NAME
             FROM TB_SPARE_PART S
             LEFT JOIN TB_INVENTORY I
